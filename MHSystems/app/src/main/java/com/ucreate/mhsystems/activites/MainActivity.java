@@ -3,6 +3,7 @@ package com.ucreate.mhsystems.activites;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.newrelic.agent.android.NewRelic;
 import com.rollbar.android.Rollbar;
 import com.ucreate.mhsystems.R;
 
@@ -19,5 +20,9 @@ public class MainActivity extends BaseActivity {
 
         //Just to test Rollbar implementation.
         Rollbar.reportMessage("A test message", "debug"); // default level is "info"
+
+        //New-Rellic initialization.
+        NewRelic.withApplicationToken("AA5ab55816c2c5c1637806be9a8ac68ee44329515e"
+        ).start(this.getApplication());
     }
 }

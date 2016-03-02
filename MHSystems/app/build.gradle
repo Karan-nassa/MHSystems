@@ -1,5 +1,23 @@
 apply plugin: 'com.android.application'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.newrelic.agent.android:agent-gradle-plugin:5.+"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'android'
+apply plugin: 'newrelic'
+
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -24,4 +42,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile files('libs/rollbar-android-0.1.2-dev.jar')
+
+    //New Relic compile dependency.
+    compile 'com.newrelic.agent.android:android-agent:5.+'
+
+    //Recycler View Adapter.
+    compile 'com.android.support:recyclerview-v7:+'
 }
