@@ -1,7 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cdlCourseDiary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- STATUS BAR -->
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:fitsSystemWindows="true"
+                android:minHeight="?android:attr/actionBarSize">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20"
+                        android:orientation="vertical">
+
+                        <!-- BACK ARROW  -->
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <!-- TITLE OF SCREEN WITH SUB-TITLE -->
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="60"
+                        android:orientation="vertical">
+
+                        <!-- COURSE NAME -->
+
+                        <TextView
+                            android:id="@+id/tvCourseTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+
+                            android:textColor="@color/colorBlack000000"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <!-- COURSE DATE WEEKEND/MONTHLY -->
+
+                        <TextView
+                            android:id="@+id/tvCourseSchedule"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="2dp"
+                            android:text="26 Feb - 3 Mar 2016"
+                            android:textColor="@color/colorBlack000000"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <!-- FOR TEXT TITLE TODAY-->
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20">
+
+                        <!-- TITLE TODAY -->
+
+                        <TextView
+                            android:id="@+id/tvTitleToday"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center|right"
+                            android:paddingRight="10dp"
+                            android:text="Today"
+                            android:textColor="@color/colorc4a167"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.Toolbar>
+
+            <!-- TOP BAR TITLE FOR CALENDER WITH PREV NEXT ARROWS-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGreyf1f1f0"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_my_calendar" />
+
+                <!-- NAME OF MONTH -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:src="@android:drawable/ic_menu_my_calendar"
+                    android:text="February"
+                    android:textColor="@android:color/black"
+                    android:textSize="22sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <!-- PREVIOUS MONTH ICON -->
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/ic_media_previous" />
+
+                    <!-- NEXT MONTH ICON -->
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:src="@android:drawable/ic_media_next" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <!-- RECYCLER VIEW TO DISPLAY COURSE DIARY CONTENT -->
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvCourseDiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:scrollbars="vertical" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

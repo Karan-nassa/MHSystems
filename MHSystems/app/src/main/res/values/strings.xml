@@ -2,4 +2,12 @@
     <string name="app_name">MHSystems</string>
 
     <string name="text_hello_mhsystems">Hello MHSystems!</string>
+
+    <!-- START OF SNACK BAR ERROR MESSAGES -->
+    <string name="error_no_internet">Please check your internet connection</string>
+    <!-- END OF SNACK BAR ERROR MESSAGES -->
+
+    <!-- START OF COURSE DIARY ACTIVITY -->
+    <string name="title_course_diary">Course Diary</string>
+    <!-- END OF COURSE DIARY ACTIVITY -->
 </resources>

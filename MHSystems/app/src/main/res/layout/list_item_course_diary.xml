@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="15"
             android:orientation="vertical">
 
             <!-- DATE OF EVENT -->
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tue"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@color/color808080"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -45,7 +45,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="80"
+            android:layout_weight="85"
             android:orientation="vertical">
 
             <!-- TIME and CATEGORY -->
@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10:15 - 11:30"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorc4a167"
                     android:textSize="14sp" />
 
                 <!-- CATEGORY  -->
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="COMPETITIONS"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorb0acd9"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -91,8 +91,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:textSize="14sp"
+                android:textColor="@color/color808080"
                 android:text="After topping our group, we now enter the GO Season 2 Playoffs. After topping our group, we now enter the GOCL Season 2 Playoffs."/>
         </LinearLayout>
 

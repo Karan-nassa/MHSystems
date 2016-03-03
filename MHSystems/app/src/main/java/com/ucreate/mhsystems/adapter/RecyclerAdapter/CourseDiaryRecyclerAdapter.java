@@ -25,7 +25,7 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
     Context context;
 
     // The default constructor to receive titles,icons and context from WelcomeActivity.
-    public CourseDiaryRecyclerAdapter(ArrayList<CourseDiaryData> CourseDiaryData, Context context) {
+    public CourseDiaryRecyclerAdapter(Context context, ArrayList<CourseDiaryData> CourseDiaryData) {
 
         this.CourseDiaryData = CourseDiaryData;
         this.context = context;
@@ -67,7 +67,7 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
 
     @Override
     public int getItemCount() {
-        return CourseDiaryData.size();
+        return /*CourseDiaryData.size()*/10;
     }
 
     /**

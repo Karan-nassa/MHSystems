@@ -15,7 +15,8 @@ public class ApplicationGlobal {
     /**
      * Declares the ROLL BAR key for TEST ENVIRONMENT.
      */
-    public static final String KEY_ROLLBAR_CLIENT_TESTING = "f4494cf9f54846c6ac690aad1e624598";
+   // public static final String KEY_ROLLBAR_CLIENT_TESTING = "f4494cf9f54846c6ac690aad1e624598";
+    public static final String KEY_ROLLBAR_CLIENT_TESTING ="aae35eeaa0e74a619c7542f98d60f8ee"; //Personal credentials
 
     /**
      * Declare a bool used to display and pass message to Rollbar or not? TRUE means YES
