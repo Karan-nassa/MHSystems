@@ -24,6 +24,7 @@
             <!-- DATE OF EVENT -->
 
             <TextView
+                android:id="@+id/tvDateOfEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="29"
@@ -33,6 +34,7 @@
             <!-- NAME OF DAY [EVENT] -->
 
             <TextView
+                android:id="@+id/tvDayOfEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tue"
@@ -58,6 +60,7 @@
                 <!-- TIME  -->
 
                 <TextView
+                    android:id="@+id/tvTimeOfEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10:15 - 11:30"
@@ -67,6 +70,7 @@
                 <!-- CATEGORY  -->
 
                 <TextView
+                    android:id="@+id/tvCategoryOfEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -78,6 +82,7 @@
             <!-- EVENT TITLE  -->
 
             <TextView
+                android:id="@+id/tvTitleOfEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -89,6 +94,7 @@
             <!-- EVENT DESCRIPTION  -->
 
             <TextView
+                android:id="@+id/tvDescOfEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"

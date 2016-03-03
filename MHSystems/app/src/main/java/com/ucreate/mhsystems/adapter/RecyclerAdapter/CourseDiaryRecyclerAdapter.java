@@ -91,17 +91,20 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         /**
-         * Frineds Row VIEW INSTANCES DECLARATION
+         * Text Row VIEW INSTANCES DECLARATION
          */
-        TextView tvFriendName, tvFriendAppName;
-
-        ImageView ivSubscribeStatus;
+        TextView tvDateOfEvent, tvDayOfEvent, tvTimeOfEvent;
+        TextView tvCategoryOfEvent, tvTitleOfEvent, tvDescOfEvent;
 
         public ViewHolder(View drawerItem, int itemType, Context context) {
             super(drawerItem);
 
-//            tvFriendName = (TextView) itemView.findViewById(R.id.tvFriendName);
-//            tvFriendAppName = (TextView) itemView.findViewById(R.id.tvFriendAppName);
+            tvDateOfEvent = (TextView) itemView.findViewById(R.id.tvDateOfEvent);
+            tvDayOfEvent = (TextView) itemView.findViewById(R.id.tvDayOfEvent);
+            tvTimeOfEvent = (TextView) itemView.findViewById(R.id.tvTimeOfEvent);
+            tvCategoryOfEvent = (TextView) itemView.findViewById(R.id.tvCategoryOfEvent);
+            tvTitleOfEvent = (TextView) itemView.findViewById(R.id.tvTitleOfEvent);
+            tvDescOfEvent = (TextView) itemView.findViewById(R.id.tvDescOfEvent);
         }
     }
 }
