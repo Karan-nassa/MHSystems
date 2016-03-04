@@ -1,5 +1,6 @@
 package com.ucreate.mhsystems.activites;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -20,6 +21,7 @@ import com.ucreate.mhsystems.constants.ApplicationGlobal;
 public class BaseActivity extends AppCompatActivity {
 
     Snackbar snackbar;
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,5 +58,28 @@ public class BaseActivity extends AppCompatActivity {
         ViewGroup group = (ViewGroup) snackbar.getView();
         group.setBackgroundColor(Color.GRAY);
         snackbar.show();
+    }
+
+    /**
+     * Show progress "Please wait" message.
+     */
+    public void showPleaseWait(String sMessage) {
+
+        if (mProgress == null) {
+            mProgress = new ProgressDialog(BaseActivity.this);
+            mProgress.setCancelable(false);
+            mProgress.setMessage(sMessage);
+            mProgress.show();
+        }
+    }
+
+    /**
+     * hide Progress dialog.
+     */
+    public void hideProgress() {
+        if (mProgress != null && mProgress.isShowing()) {
+            mProgress.dismiss();
+            mProgress = null;
+        }
     }
 }

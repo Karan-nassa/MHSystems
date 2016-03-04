@@ -67,7 +67,7 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
 
     @Override
     public int getItemCount() {
-        return /*CourseDiaryData.size()*/10;
+        return CourseDiaryData.size();
     }
 
     /**

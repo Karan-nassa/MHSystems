@@ -5,6 +5,8 @@
 
     <!-- START OF SNACK BAR ERROR MESSAGES -->
     <string name="error_no_internet">Please check your internet connection</string>
+    <string name="error_no_data">No data found.</string>
+    <string name="error_please_retry">Something went wrong. please try again later.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
     <!-- START OF COURSE DIARY ACTIVITY -->
