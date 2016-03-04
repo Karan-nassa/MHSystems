@@ -106,7 +106,7 @@ public class CourseDairyActivity extends BaseActivity {
          */
         if (isOnline(CourseDairyActivity.this)) {
             //Method to hit Squads API.
-            requestFriendsListService();
+            requestCourseDiaryService();
         } else {
             showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_no_internet));
         }
@@ -126,15 +126,32 @@ public class CourseDairyActivity extends BaseActivity {
     /**
      * Implement a method to hit News web service to get response.
      */
-    private void requestFriendsListService() {
+    private void requestCourseDiaryService() {
 
         showPleaseWait("Please wait...");
 
+        Map<String, String> params2 =new HashMap<String, String>();
+        params2.put("version", "1");
+        params2.put("datefrom", "03/04/2016");
+        params2.put("dateto","03/23/2016");
+        params2.put("pageNo","1");
+        params2.put("pageSize","15");
+        params2.put("callid","1456315336575");
+        params2.put("callid", "1456315336575");
+
+        Log.e(LOG_TAG, ""+params2.toString());
+
+        JSONObject obj=new JSONObject(params2);
+
+        Log.e(LOG_TAG, ""+obj);
+
         //Add data to params.
-//        params = new HashMap<String, String>();
-//        params.put("Team_Id", WebAPI.TAG_TEAM_DIGNITAS);
-//        params.put("User_Id", /*ApplicationGlobal.getUserId()*/"199");
-//        params.put("FriendType", strLoginType);
+        params = new HashMap<String, String>();
+        params.put("aClientId", "44118078");
+        params.put("aCommand",  "GetSlots");
+        params.put("aJsonParams", ""+obj);
+        params.put("aModuleId", "COURSEDIARY");
+        params.put("aUserClass","Members");
 
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(CourseDairyActivity.this);
