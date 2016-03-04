@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.ucreate.mhsystems.adapter.RecyclerAdapter.CourseDiaryRecyclerAdapter;
 import com.ucreate.mhsystems.api.volley.RequestJsonObject;
 import com.ucreate.mhsystems.constants.WebAPI;
@@ -41,6 +43,7 @@ public class CourseDairyActivity extends BaseActivity {
      *******************************/
     public static final String LOG_TAG = CourseDairyActivity.class.getSimpleName();
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
+    Map<String, String> params;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -55,6 +58,8 @@ public class CourseDairyActivity extends BaseActivity {
     TextView tvCourseSchedule;
     @Bind(R.id.tvCourseTitle)
     TextView tvCourseTitle;
+    @Bind(R.id.tvMonthName)
+    TextView tvMonthName;
     RecyclerView.Adapter recyclerViewAdapter;
     //Create instance of Model class CourseDiaryItems.
     CourseDiaryItems courseDiaryItems;
@@ -86,6 +91,10 @@ public class CourseDairyActivity extends BaseActivity {
          *A LayoutManager must be provided for RecyclerView to function.
          */
         rvCourseDiary.setLayoutManager(new LinearLayoutManager(CourseDairyActivity.this));
+
+        //Set Course Diary Recycler Adapter.
+        recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, arrayListCourseData);
+        rvCourseDiary.setAdapter(recyclerViewAdapter);
     }
 
     @Override
@@ -98,7 +107,6 @@ public class CourseDairyActivity extends BaseActivity {
         if (isOnline(CourseDairyActivity.this)) {
             //Method to hit Squads API.
             requestFriendsListService();
-//            LoadCourseData();
         } else {
             showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_no_internet));
         }
@@ -115,16 +123,6 @@ public class CourseDairyActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
-//    /**
-//     * Implements a method to load Course Diary
-//     * data statically.
-//     */
-//    private void LoadCourseData() {
-//        //Set Friends Detail Recycler Adapter.
-//        recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, arrayListCourseData);
-//        rvCourseDiary.setAdapter(recyclerViewAdapter);
-//    }
-
     /**
      * Implement a method to hit News web service to get response.
      */
@@ -132,7 +130,7 @@ public class CourseDairyActivity extends BaseActivity {
 
         showPleaseWait("Please wait...");
 
-//        //Add data to params.
+        //Add data to params.
 //        params = new HashMap<String, String>();
 //        params.put("Team_Id", WebAPI.TAG_TEAM_DIGNITAS);
 //        params.put("User_Id", /*ApplicationGlobal.getUserId()*/"199");
@@ -141,7 +139,7 @@ public class CourseDairyActivity extends BaseActivity {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(CourseDairyActivity.this);
             RequestJsonObject jsObjRequest = new RequestJsonObject(Request.Method.GET,
-                    WebAPI.URL_COURSE_DIARY , null,
+                    WebAPI.URL_COURSE_DIARY, null,
                     createErrorListener(),
                     createSuccessListener()
             );
@@ -186,7 +184,7 @@ public class CourseDairyActivity extends BaseActivity {
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.e(LOG_TAG, "SUCCESS RESULT : "+response.toString());
+                Log.e(LOG_TAG, "SUCCESS RESULT : " + response.toString());
 
                 Type type = new TypeToken<CourseDiaryItems>() {
                 }.getType();
@@ -207,10 +205,10 @@ public class CourseDairyActivity extends BaseActivity {
 
                             showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_no_data));
                         } else {
-                            //Set Course Diary Recycler Adapter.
-                            recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, arrayListCourseData);
-                            rvCourseDiary.setAdapter(recyclerViewAdapter);
                             recyclerViewAdapter.notifyDataSetChanged();
+
+                            //Set Name of Month selected in CALENDER or record from api of COURSE DIARY.
+                            tvMonthName.setText(arrayListCourseData.get(0).getMonthName());
                         }
                     } else {
                         //If web service not respond in any case.

@@ -2,6 +2,8 @@ package com.ucreate.mhsystems.adapter.RecyclerAdapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,10 @@ import android.widget.TextView;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryData;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -23,6 +28,7 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
 
     ArrayList<CourseDiaryData> CourseDiaryData;
     Context context;
+    String strLastDate = "";
 
     // The default constructor to receive titles,icons and context from WelcomeActivity.
     public CourseDiaryRecyclerAdapter(Context context, ArrayList<CourseDiaryData> CourseDiaryData) {
@@ -54,9 +60,55 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
     @Override
     public void onBindViewHolder(CourseDiaryRecyclerAdapter.ViewHolder holder, int position) {
 
-        // if (position == 0) {
-//        holder.tvFriendName.setText(CourseDiaryData.get(position).getFriendName());
-//        holder.tvFriendAppName.setText(CourseDiaryData.get(position).getAppNames());
+        String strDateOfEvent = formatDateOfEvent(CourseDiaryData.get(position).getCourseEventDate());
+
+        /**
+         * Check if same date or not of Course Diary event If yes then just
+         * display date and day name once otherwise skip.
+         */
+        if (!strLastDate.equalsIgnoreCase(strDateOfEvent)) {
+            strLastDate = strDateOfEvent;
+
+            //Display date if existing different one.
+            holder.tvDateOfEvent.setText(strDateOfEvent);
+            holder.tvDayOfEvent.setText(formatDayOfEvent(CourseDiaryData.get(position).getDayName()));
+        }
+
+        /**
+         *  Set Course Diary events on each view.
+         */
+        holder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
+        holder.tvCategoryOfEvent.setText(CourseDiaryData.get(position).getCategory());
+        holder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
+        holder.tvDescOfEvent.setText(CourseDiaryData.get(position).getDesc());
+
+    }
+
+    /**
+     * @param strCourseEventDate <br>
+     *                           Implements a method to return the format the day of
+     *                           event.
+     *                           <p/>
+     *                           Exapmle: 2016-03-04T00:00:00
+     * @Return : 04
+     */
+    private String formatDateOfEvent(String strCourseEventDate) {
+
+        String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
+
+        return strEventDate;
+    }
+
+    /**
+     * @param strDayName <br>
+     *                   Implements a method to return the format the day of
+     *                   event.
+     *                   <p/>
+     *                   Exapmle: NAME OF DAY : Friday
+     * @Return : Fri
+     */
+    private String formatDayOfEvent(String strDayName) {
+        return (strDayName.substring(0, 3));
     }
 
     /**
