@@ -130,33 +130,27 @@ public class CourseDairyActivity extends BaseActivity {
 
         showPleaseWait("Please wait...");
 
-        Map<String, String> params2 =new HashMap<String, String>();
+        //Some of the params pass as JSON.
+        Map<String, String> params2 = new HashMap<String, String>();
         params2.put("version", "1");
         params2.put("datefrom", "03/04/2016");
-        params2.put("dateto","03/23/2016");
-        params2.put("pageNo","1");
-        params2.put("pageSize","15");
-        params2.put("callid","1456315336575");
+        params2.put("dateto", "03/23/2016");
+//        params2.put("pageNo", "1");
+//        params2.put("pageSize", "15");
         params2.put("callid", "1456315336575");
-
-        Log.e(LOG_TAG, ""+params2.toString());
-
-        JSONObject obj=new JSONObject(params2);
-
-        Log.e(LOG_TAG, ""+obj);
 
         //Add data to params.
         params = new HashMap<String, String>();
         params.put("aClientId", "44118078");
-        params.put("aCommand",  "GetSlots");
-        params.put("aJsonParams", ""+obj);
+        params.put("aCommand", "GetSlots");
+        params.put("aJsonParams", String.valueOf(params2));
         params.put("aModuleId", "COURSEDIARY");
-        params.put("aUserClass","Members");
+        params.put("aUserClass", "Members");
 
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(CourseDairyActivity.this);
-            RequestJsonObject jsObjRequest = new RequestJsonObject(Request.Method.GET,
-                    WebAPI.URL_COURSE_DIARY, null,
+            RequestJsonObject jsObjRequest = new RequestJsonObject(Request.Method.POST,
+                    WebAPI.URL_COURSE_DIARY, params,
                     createErrorListener(),
                     createSuccessListener()
             );
@@ -219,10 +213,11 @@ public class CourseDairyActivity extends BaseActivity {
                         arrayListCourseData.addAll(courseDiaryItems.getData());
 
                         if (arrayListCourseData.size() == 0) {
-
                             showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_no_data));
                         } else {
                             recyclerViewAdapter.notifyDataSetChanged();
+
+                            Log.e(LOG_TAG,""+ arrayListCourseData.size());
 
                             //Set Name of Month selected in CALENDER or record from api of COURSE DIARY.
                             tvMonthName.setText(arrayListCourseData.get(0).getMonthName());
