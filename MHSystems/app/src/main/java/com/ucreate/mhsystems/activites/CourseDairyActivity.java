@@ -16,6 +16,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
@@ -25,6 +26,7 @@ import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.RecycleViewDividerDecoration;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryData;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryItems;
+
 
 import org.json.JSONObject;
 
@@ -130,27 +132,34 @@ public class CourseDairyActivity extends BaseActivity {
 
         showPleaseWait("Please wait...");
 
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("version", "1");
+        jsonObject.addProperty("datefrom", "03/04/2016");
+        jsonObject.addProperty("dateto", "03/23/2016");
+        jsonObject.addProperty("callid", "1456315336575");
+
         //Some of the params pass as JSON.
-        Map<String, String> params2 = new HashMap<String, String>();
-        params2.put("version", "1");
-        params2.put("datefrom", "03/04/2016");
-        params2.put("dateto", "03/23/2016");
-//        params2.put("pageNo", "1");
-//        params2.put("pageSize", "15");
-        params2.put("callid", "1456315336575");
+//        Map<String, String> params2 = new HashMap<String, String>();
+//        params2.put("version", "1");
+//        params2.put("datefrom", "03/04/2016");
+//        params2.put("dateto", "03/23/2016");
+////        params2.put("pageNo", "1");
+////        params2.put("pageSize", "15");
+//        params2.put("callid", "1456315336575");
 
         //Add data to params.
-        params = new HashMap<String, String>();
-        params.put("aClientId", "44118078");
-        params.put("aCommand", "GetSlots");
-        params.put("aJsonParams", String.valueOf(params2));
-        params.put("aModuleId", "COURSEDIARY");
-        params.put("aUserClass", "Members");
+//        params = new HashMap<String, String>();
+//        params.put("aClientId", "44118078");
+//        params.put("aCommand", "GetSlots");
+       // params.put("aJsonParams", String.valueOf(params2));
+//        params.put("aJsonParams", ""+jsonObject);
+//        params.put("aModuleId", "COURSEDIARY");
+//        params.put("aUserClass", "Members");
 
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(CourseDairyActivity.this);
-            RequestJsonObject jsObjRequest = new RequestJsonObject(Request.Method.POST,
-                    WebAPI.URL_COURSE_DIARY, params,
+            RequestJsonObject jsObjRequest = new RequestJsonObject(Request.Method.GET,
+                    WebAPI.URL_COURSE_DIARY, null,
                     createErrorListener(),
                     createSuccessListener()
             );
@@ -265,7 +274,6 @@ public class CourseDairyActivity extends BaseActivity {
                 arrayListCourseData.get(iCounter).setCourseEventDate("");
                 arrayListCourseData.get(iCounter).setDayName("");
 
-
             } else {
                 strLastDate = strDateOfEvent;
 
@@ -289,7 +297,9 @@ public class CourseDairyActivity extends BaseActivity {
      */
     private String formatDateOfEvent(String strCourseEventDate) {
 
-        String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
+       // String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
+
+        String strEventDate = strCourseEventDate.substring(strCourseEventDate.indexOf("/") + 1, strCourseEventDate.lastIndexOf("/"));
 
         return strEventDate;
     }
