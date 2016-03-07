@@ -60,19 +60,23 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
     @Override
     public void onBindViewHolder(CourseDiaryRecyclerAdapter.ViewHolder holder, int position) {
 
-        String strDateOfEvent = formatDateOfEvent(CourseDiaryData.get(position).getCourseEventDate());
+     //   String strDateOfEvent = formatDateOfEvent(CourseDiaryData.get(position).getCourseEventDate());
 
         /**
          * Check if same date or not of Course Diary event If yes then just
          * display date and day name once otherwise skip.
          */
-        if (!strLastDate.equalsIgnoreCase(strDateOfEvent)) {
-            strLastDate = strDateOfEvent;
+//        if (!strLastDate.equalsIgnoreCase(strDateOfEvent)) {
+//            strLastDate = strDateOfEvent;
+//
+//            //Display date if existing different one.
+//            holder.tvDateOfEvent.setText(strDateOfEvent);
+//            holder.tvDayOfEvent.setText(formatDayOfEvent(CourseDiaryData.get(position).getDayName()));
+//        }
 
-            //Display date if existing different one.
-            holder.tvDateOfEvent.setText(strDateOfEvent);
-            holder.tvDayOfEvent.setText(formatDayOfEvent(CourseDiaryData.get(position).getDayName()));
-        }
+        holder.tvDateOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
+//        holder.tvDayOfEvent.setText(formatDayOfEvent(CourseDiaryData.get(position).getDayName()));
+        holder.tvDayOfEvent.setText(CourseDiaryData.get(position).getDayName());
 
         /**
          *  Set Course Diary events on each view.
@@ -81,7 +85,6 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
         holder.tvCategoryOfEvent.setText(CourseDiaryData.get(position).getCategory());
         holder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
         holder.tvDescOfEvent.setText(CourseDiaryData.get(position).getDesc());
-
     }
 
     /**

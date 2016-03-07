@@ -215,9 +215,13 @@ public class CourseDairyActivity extends BaseActivity {
                         if (arrayListCourseData.size() == 0) {
                             showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_no_data));
                         } else {
-                            recyclerViewAdapter.notifyDataSetChanged();
 
-                            Log.e(LOG_TAG,""+ arrayListCourseData.size());
+                            //Set Course Diary Recycler Adapter.
+                            recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
+                            rvCourseDiary.setAdapter(recyclerViewAdapter);
+                            //recyclerViewAdapter.notifyDataSetChanged();
+
+                            Log.e(LOG_TAG, "" + arrayListCourseData.size());
 
                             //Set Name of Month selected in CALENDER or record from api of COURSE DIARY.
                             tvMonthName.setText(arrayListCourseData.get(0).getMonthName());
@@ -236,4 +240,70 @@ public class CourseDairyActivity extends BaseActivity {
             }
         };
     }
+
+    /**
+     * Implements a method to filter or set date and name of Day
+     * one time for all course events having same date and day.
+     */
+    public ArrayList<CourseDiaryData> filterCourseDates(ArrayList<CourseDiaryData> arrayListCourseData) {
+        ArrayList<CourseDiaryData> courseDiaryDataArrayList = new ArrayList<>();
+        String strLastDate = "";
+        /**
+         *  Loop filter till end of Course
+         *  Diary events.
+         */
+        for (int iCounter = 0; iCounter < arrayListCourseData.size(); iCounter++) {
+
+            String strDateOfEvent = formatDateOfEvent(arrayListCourseData.get(iCounter).getCourseEventDate());
+
+            /**
+             * Check if same date or not of Course Diary event If yes then just
+             * display date and day name once otherwise skip.
+             */
+            if (strLastDate.equalsIgnoreCase(strDateOfEvent)) {
+
+                arrayListCourseData.get(iCounter).setCourseEventDate("");
+                arrayListCourseData.get(iCounter).setDayName("");
+
+
+            } else {
+                strLastDate = strDateOfEvent;
+
+                arrayListCourseData.get(iCounter).setCourseEventDate(strDateOfEvent);
+                arrayListCourseData.get(iCounter).setDayName(formatDayOfEvent(arrayListCourseData.get(iCounter).getDayName()));
+            }
+
+            //Add final to new arrat list.
+            courseDiaryDataArrayList.add(arrayListCourseData.get(iCounter));
+        }
+        return courseDiaryDataArrayList;
+    }
+
+    /**
+     * @param strCourseEventDate <br>
+     *                           Implements a method to return the format the day of
+     *                           event.
+     *                           <p>
+     *                           Exapmle: 2016-03-04T00:00:00
+     * @Return : 04
+     */
+    private String formatDateOfEvent(String strCourseEventDate) {
+
+        String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
+
+        return strEventDate;
+    }
+
+    /**
+     * @param strDayName <br>
+     *                   Implements a method to return the format the day of
+     *                   event.
+     *                   <p>
+     *                   Exapmle: NAME OF DAY : Friday
+     * @Return : Fri
+     */
+    private String formatDayOfEvent(String strDayName) {
+        return (strDayName.substring(0, 3));
+    }
+
 }
