@@ -53,7 +53,6 @@ public class CourseDairyActivity extends BaseActivity {
      *******************************/
     public static final String LOG_TAG = CourseDairyActivity.class.getSimpleName();
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
-    Map<String, String> params;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -71,12 +70,9 @@ public class CourseDairyActivity extends BaseActivity {
     @Bind(R.id.tvMonthName)
     TextView tvMonthName;
     RecyclerView.Adapter recyclerViewAdapter;
+
     //Create instance of Model class CourseDiaryItems.
     CourseDiaryItems courseDiaryItems;
-
-    JsonObject jsonObject;
-    JsonObject jsonObjectMain;
-
     AJsonParams_ aJsonParams;
 
     //List of type books this list will store type Book which is our data model
@@ -156,27 +152,7 @@ public class CourseDairyActivity extends BaseActivity {
 
         anurags = new CourseDiaryAPI(aJsonParams, "COURSEDIARY", "44118078", "GetSlots", "Members");
 
-        Log.e("ANURAG", "" + anurags.toString());
-
-//        showPleaseWait("Please wait...");
-//
-//        jsonObject = new JsonObject();
-//        jsonObject.addProperty("version", "1");
-//        jsonObject.addProperty("datefrom", "03-04-2016");
-//        jsonObject.addProperty("dateto", "03-23-2016");
-//        jsonObject.addProperty("callid", "1456315336575");
-//
-//        jsonObjectMain = new JsonObject();
-//        jsonObjectMain.addProperty("aJsonParams", jsonObject.toString());
-//        jsonObjectMain.addProperty("aModuleId", "COURSEDIARY");
-//        jsonObjectMain.addProperty("aClientId", "44118078");
-//        jsonObjectMain.addProperty("aCommand", "GetSlots");
-//        jsonObjectMain.addProperty("aUserClass", "Members");
-//
-//        Log.e("JsonMain:", "" + jsonObjectMain);
-
-        //While the app fetched data we are displaying a progress dialog
-        final ProgressDialog loading = ProgressDialog.show(this, "Fetching Data", "Please wait...", false, false);
+        showPleaseWait("Please wait...");
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -190,11 +166,6 @@ public class CourseDairyActivity extends BaseActivity {
         api.getCourseDiaryEvents(anurags, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
-                //Dismissing the loading progressbar
-                loading.dismiss();
-
-                Log.e("Retrofit", "RESPONSE : " + response.toString());
-                Log.e("Retrofit", "JSON_OBJECT : " + jsonObject.toString());
 
                 updateSuccessResponse(jsonObject);
             }
@@ -202,61 +173,13 @@ public class CourseDairyActivity extends BaseActivity {
             @Override
             public void failure(RetrofitError error) {
                 //you can handle the errors here
-                Log.e("Error", " ERROR : " + error);
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                showSnackBarMessages(cdlCourseDiary, ""+error);
             }
         });
 
-//        try {
-//            RequestQueue requestQueue = Volley.newRequestQueue(CourseDairyActivity.this);
-//            RequestJsonObject jsObjRequest = new RequestJsonObject(Request.Method.GET,
-//                    WebAPI.URL_COURSE_DIARY, null,
-//                    createErrorListener(),
-//                    createSuccessListener()
-//            );
-//            requestQueue.add(jsObjRequest);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-    }
-
-    /**
-     * Implement Volley error listener here.
-     */
-    public Response.ErrorListener createErrorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-
-                Log.e(LOG_TAG, "VolleyError Listener : " + volleyError);
-
-                //If any Volley error occurs, then hide progress.
-                hideProgress();
-
-                /**
-                 *  Handle network or time out error.
-                 */
-                if (volleyError.networkResponse == null) {
-                    if (volleyError.getClass().equals(TimeoutError.class)) {
-                        // Show timeout error message
-                        showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_please_retry));
-                    }
-                }
-            }
-        };
-    }
-
-    /**
-     * Implement success listener on execute api url.
-     */
-    public Response.Listener<JSONObject> createSuccessListener() {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-               //updateSuccessResponse();
-            }
-        };
     }
 
     private void updateSuccessResponse(JsonObject jsonObject) {
