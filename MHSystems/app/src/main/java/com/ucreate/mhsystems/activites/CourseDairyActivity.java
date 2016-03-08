@@ -27,6 +27,8 @@ import com.ucreate.mhsystems.api.volley.RequestJsonObject;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.API.WebServiceMethods;
 import com.ucreate.mhsystems.utils.RecycleViewDividerDecoration;
+import com.ucreate.mhsystems.utils.pojo.AJsonParams_;
+import com.ucreate.mhsystems.utils.pojo.CourseDiaryAPI;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryData;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryItems;
 
@@ -74,6 +76,11 @@ public class CourseDairyActivity extends BaseActivity {
 
     JsonObject jsonObject;
     JsonObject jsonObjectMain;
+
+    AJsonParams_ aJsonParams;
+
+    //List of type books this list will store type Book which is our data model
+    private CourseDiaryAPI anurags;
 
 
     @Override
@@ -139,22 +146,34 @@ public class CourseDairyActivity extends BaseActivity {
      */
     private void requestCourseDiaryService() {
 
-        showPleaseWait("Please wait...");
+        aJsonParams = new AJsonParams_();
+        aJsonParams.setCallid("1456315336575");
+        aJsonParams.setVersion("1");
+        aJsonParams.setDateto("03-23-2016");
+        aJsonParams.setDatefrom("03-04-2016");
+        aJsonParams.setPageNo("0");
+        aJsonParams.setPageSize("10");
 
-        jsonObject = new JsonObject();
-        jsonObject.addProperty("version", "1");
-        jsonObject.addProperty("datefrom", "03-04-2016");
-        jsonObject.addProperty("dateto", "03-23-2016");
-        jsonObject.addProperty("callid", "1456315336575");
+        anurags = new CourseDiaryAPI(aJsonParams, "COURSEDIARY", "44118078", "GetSlots", "Members");
 
-        jsonObjectMain = new JsonObject();
-        jsonObjectMain.addProperty("aJsonParams", jsonObject.toString());
-        jsonObjectMain.addProperty("aModuleId", "COURSEDIARY");
-        jsonObjectMain.addProperty("aClientId", "44118078");
-        jsonObjectMain.addProperty("aCommand", "GetSlots");
-        jsonObjectMain.addProperty("aUserClass", "Members");
+        Log.e("ANURAG", "" + anurags.toString());
 
-        Log.e("JsonMain:", "" + jsonObjectMain);
+//        showPleaseWait("Please wait...");
+//
+//        jsonObject = new JsonObject();
+//        jsonObject.addProperty("version", "1");
+//        jsonObject.addProperty("datefrom", "03-04-2016");
+//        jsonObject.addProperty("dateto", "03-23-2016");
+//        jsonObject.addProperty("callid", "1456315336575");
+//
+//        jsonObjectMain = new JsonObject();
+//        jsonObjectMain.addProperty("aJsonParams", jsonObject.toString());
+//        jsonObjectMain.addProperty("aModuleId", "COURSEDIARY");
+//        jsonObjectMain.addProperty("aClientId", "44118078");
+//        jsonObjectMain.addProperty("aCommand", "GetSlots");
+//        jsonObjectMain.addProperty("aUserClass", "Members");
+//
+//        Log.e("JsonMain:", "" + jsonObjectMain);
 
         //While the app fetched data we are displaying a progress dialog
         final ProgressDialog loading = ProgressDialog.show(this, "Fetching Data", "Please wait...", false, false);
@@ -168,7 +187,7 @@ public class CourseDairyActivity extends BaseActivity {
         WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
         //Defining the method
-        api.getCourseDiaryEvents(jsonObjectMain, new Callback<JsonObject>() {
+        api.getCourseDiaryEvents(anurags, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
                 //Dismissing the loading progressbar
@@ -177,7 +196,7 @@ public class CourseDairyActivity extends BaseActivity {
                 Log.e("Retrofit", "RESPONSE : " + response.toString());
                 Log.e("Retrofit", "JSON_OBJECT : " + jsonObject.toString());
 
-                updateSuccessResponse(response);
+                updateSuccessResponse(jsonObject);
             }
 
             @Override
@@ -240,7 +259,7 @@ public class CourseDairyActivity extends BaseActivity {
         };
     }
 
-    private void updateSuccessResponse(retrofit.client.Response jsonObject) {
+    private void updateSuccessResponse(JsonObject jsonObject) {
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
         Type type = new TypeToken<CourseDiaryItems>() {

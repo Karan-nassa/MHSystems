@@ -1,6 +1,7 @@
 package com.ucreate.mhsystems.utils.API;
 
 import com.google.gson.JsonObject;
+import com.ucreate.mhsystems.utils.pojo.CourseDiaryAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -17,6 +18,6 @@ public interface WebServiceMethods {
      * web service method.
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
-    public void getCourseDiaryEvents(@Body JsonObject jsonElements,  Callback<JsonObject> response);
+    public void getCourseDiaryEvents(@Body CourseDiaryAPI jsonElements,  Callback<JsonObject> response);
 }
 
