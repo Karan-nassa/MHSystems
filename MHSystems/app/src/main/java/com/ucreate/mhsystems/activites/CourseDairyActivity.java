@@ -1,5 +1,6 @@
 package com.ucreate.mhsystems.activites;
 
+import android.app.ProgressDialog;
 import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -16,13 +19,13 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.ucreate.mhsystems.adapter.RecyclerAdapter.CourseDiaryRecyclerAdapter;
 import com.ucreate.mhsystems.api.volley.RequestJsonObject;
 import com.ucreate.mhsystems.constants.WebAPI;
+import com.ucreate.mhsystems.utils.API.WebServiceMethods;
 import com.ucreate.mhsystems.utils.RecycleViewDividerDecoration;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryData;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryItems;
@@ -37,6 +40,9 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 
 public class CourseDairyActivity extends BaseActivity {
 
@@ -65,6 +71,9 @@ public class CourseDairyActivity extends BaseActivity {
     RecyclerView.Adapter recyclerViewAdapter;
     //Create instance of Model class CourseDiaryItems.
     CourseDiaryItems courseDiaryItems;
+
+    JsonObject jsonObject;
+    JsonObject jsonObjectMain;
 
 
     @Override
@@ -95,7 +104,7 @@ public class CourseDairyActivity extends BaseActivity {
         rvCourseDiary.setLayoutManager(new LinearLayoutManager(CourseDairyActivity.this));
 
         //Set Course Diary Recycler Adapter.
-        recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, arrayListCourseData);
+        recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
         rvCourseDiary.setAdapter(recyclerViewAdapter);
     }
 
@@ -132,42 +141,64 @@ public class CourseDairyActivity extends BaseActivity {
 
         showPleaseWait("Please wait...");
 
-        JsonObject jsonObject = new JsonObject();
+        jsonObject = new JsonObject();
         jsonObject.addProperty("version", "1");
-        jsonObject.addProperty("datefrom", "03/04/2016");
-        jsonObject.addProperty("dateto", "03/23/2016");
+        jsonObject.addProperty("datefrom", "03-04-2016");
+        jsonObject.addProperty("dateto", "03-23-2016");
         jsonObject.addProperty("callid", "1456315336575");
 
-        //Some of the params pass as JSON.
-//        Map<String, String> params2 = new HashMap<String, String>();
-//        params2.put("version", "1");
-//        params2.put("datefrom", "03/04/2016");
-//        params2.put("dateto", "03/23/2016");
-////        params2.put("pageNo", "1");
-////        params2.put("pageSize", "15");
-//        params2.put("callid", "1456315336575");
+        jsonObjectMain = new JsonObject();
+        jsonObjectMain.addProperty("aJsonParams", jsonObject.toString());
+        jsonObjectMain.addProperty("aModuleId", "COURSEDIARY");
+        jsonObjectMain.addProperty("aClientId", "44118078");
+        jsonObjectMain.addProperty("aCommand", "GetSlots");
+        jsonObjectMain.addProperty("aUserClass", "Members");
 
-        //Add data to params.
-//        params = new HashMap<String, String>();
-//        params.put("aClientId", "44118078");
-//        params.put("aCommand", "GetSlots");
-       // params.put("aJsonParams", String.valueOf(params2));
-//        params.put("aJsonParams", ""+jsonObject);
-//        params.put("aModuleId", "COURSEDIARY");
-//        params.put("aUserClass", "Members");
+        Log.e("JsonMain:", "" + jsonObjectMain);
 
-        try {
-            RequestQueue requestQueue = Volley.newRequestQueue(CourseDairyActivity.this);
-            RequestJsonObject jsObjRequest = new RequestJsonObject(Request.Method.GET,
-                    WebAPI.URL_COURSE_DIARY, null,
-                    createErrorListener(),
-                    createSuccessListener()
-            );
-            requestQueue.add(jsObjRequest);
+        //While the app fetched data we are displaying a progress dialog
+        final ProgressDialog loading = ProgressDialog.show(this, "Fetching Data", "Please wait...", false, false);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.URL_COURSE_DIARY)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getCourseDiaryEvents(jsonObjectMain, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+                //Dismissing the loading progressbar
+                loading.dismiss();
+
+                Log.e("Retrofit", "RESPONSE : " + response.toString());
+                Log.e("Retrofit", "JSON_OBJECT : " + jsonObject.toString());
+
+                updateSuccessResponse(response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e("Error", " ERROR : " + error);
+            }
+        });
+
+//        try {
+//            RequestQueue requestQueue = Volley.newRequestQueue(CourseDairyActivity.this);
+//            RequestJsonObject jsObjRequest = new RequestJsonObject(Request.Method.GET,
+//                    WebAPI.URL_COURSE_DIARY, null,
+//                    createErrorListener(),
+//                    createSuccessListener()
+//            );
+//            requestQueue.add(jsObjRequest);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -204,50 +235,53 @@ public class CourseDairyActivity extends BaseActivity {
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.e(LOG_TAG, "SUCCESS RESULT : " + response.toString());
-
-                Type type = new TypeToken<CourseDiaryItems>() {
-                }.getType();
-                courseDiaryItems = new Gson().fromJson(response.toString(), type);
-
-                //Clear array list before inserting items.
-                arrayListCourseData.clear();
-
-                try {
-                    /**
-                     *  Check "Result" 1 or 0. If 1, means data received successfully.
-                     */
-                    if (courseDiaryItems.getResult().equals("1")) {
-
-                        arrayListCourseData.addAll(courseDiaryItems.getData());
-
-                        if (arrayListCourseData.size() == 0) {
-                            showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_no_data));
-                        } else {
-
-                            //Set Course Diary Recycler Adapter.
-                            recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
-                            rvCourseDiary.setAdapter(recyclerViewAdapter);
-                            //recyclerViewAdapter.notifyDataSetChanged();
-
-                            Log.e(LOG_TAG, "" + arrayListCourseData.size());
-
-                            //Set Name of Month selected in CALENDER or record from api of COURSE DIARY.
-                            tvMonthName.setText(arrayListCourseData.get(0).getMonthName());
-                        }
-                    } else {
-                        //If web service not respond in any case.
-                        showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_please_retry));
-                    }
-                } catch (Exception e) {
-                    Log.e(LOG_TAG, "" + e.getMessage());
-                    e.printStackTrace();
-                }
-
-                //Dismiss progress dialog.
-                hideProgress();
+               //updateSuccessResponse();
             }
         };
+    }
+
+    private void updateSuccessResponse(retrofit.client.Response jsonObject) {
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<CourseDiaryItems>() {
+        }.getType();
+        courseDiaryItems = new Gson().fromJson(jsonObject.toString(), type);
+
+        //Clear array list before inserting items.
+        arrayListCourseData.clear();
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (courseDiaryItems.getResult().equals("1")) {
+
+                arrayListCourseData.addAll(courseDiaryItems.getData());
+
+                if (arrayListCourseData.size() == 0) {
+                    showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_no_data));
+                } else {
+
+                    //Set Course Diary Recycler Adapter.
+                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
+                    rvCourseDiary.setAdapter(recyclerViewAdapter);
+
+                    Log.e(LOG_TAG, "" + arrayListCourseData.size());
+
+                    //Set Name of Month selected in CALENDER or record from api of COURSE DIARY.
+                    tvMonthName.setText(arrayListCourseData.get(0).getMonthName());
+                }
+            } else {
+                //If web service not respond in any case.
+                showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_please_retry));
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        //Dismiss progress dialog.
+        hideProgress();
     }
 
     /**
@@ -291,15 +325,17 @@ public class CourseDairyActivity extends BaseActivity {
      * @param strCourseEventDate <br>
      *                           Implements a method to return the format the day of
      *                           event.
-     *                           <p>
+     *                           <p/>
      *                           Exapmle: 2016-03-04T00:00:00
      * @Return : 04
      */
     private String formatDateOfEvent(String strCourseEventDate) {
 
-       // String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
+        //Used when Date format in Hyphen['-']. Example : dd-MM-yyyy
+        String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
 
-        String strEventDate = strCourseEventDate.substring(strCourseEventDate.indexOf("/") + 1, strCourseEventDate.lastIndexOf("/"));
+        //Used when Date format in slashes['/']. Example : dd/MM/yyyy
+        //String strEventDate = strCourseEventDate.substring(strCourseEventDate.indexOf("/") + 1, strCourseEventDate.lastIndexOf("/"));
 
         return strEventDate;
     }
@@ -308,7 +344,7 @@ public class CourseDairyActivity extends BaseActivity {
      * @param strDayName <br>
      *                   Implements a method to return the format the day of
      *                   event.
-     *                   <p>
+     *                   <p/>
      *                   Exapmle: NAME OF DAY : Friday
      * @Return : Fri
      */

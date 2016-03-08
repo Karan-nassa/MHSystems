@@ -55,4 +55,7 @@ dependencies {
 
     //Used for Volley for JSON response.
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+
+    //Compile dependency of Retrofit.
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
 }
