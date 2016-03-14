@@ -31,11 +31,13 @@ public class ScrollRecycleView {
             totalHeight += listItem.getMeasuredHeight();
         }
 
+        Log.e("HEIGHT", ""+myListView.getChildCount());
+
         //setting list view item in adapter
         ViewGroup.LayoutParams params = myListView.getLayoutParams();
-        params.height = totalHeight + (myListView.getNumColumns() /* *  (myListAdapter.getCount() - 1)*/);
+        params.height = totalHeight + (myListView.getChildCount() * (myListAdapter.getCount() - 1));
         myListView.setLayoutParams(params);
         // print height of adapter on log
-        Log.i("height of listItem:", String.valueOf(totalHeight));
+        Log.e("height of listItem:", String.valueOf(totalHeight));
     }
 }

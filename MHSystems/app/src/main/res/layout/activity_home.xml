@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
+
     <!-- VIEW GROUP OF ALL RESOURCES -->
 
     <LinearLayout
@@ -27,7 +28,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_settings" />
+                android:src="@mipmap/ic_tablet_settings" />
 
         </LinearLayout>
 
@@ -43,14 +44,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_home_golfclub"/>
+                android:src="@mipmap/ic_home_golfclub" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/title_golf_club_name"
                 android:textColor="@color/colorC0995B"
-                android:textSize="14sp"
-                android:text="@string/title_golf_club_name"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -80,9 +81,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:alpha="0.5"
+                android:text="@string/title_home_message_author"
                 android:textColor="@color/color333333"
-                android:textSize="14sp"
-                android:text="@string/title_home_message_author"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 

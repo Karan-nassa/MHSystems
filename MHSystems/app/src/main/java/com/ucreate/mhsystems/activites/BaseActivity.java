@@ -1,5 +1,6 @@
 package com.ucreate.mhsystems.activites;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 
 import com.rollbar.android.Rollbar;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by karan@ucreate.co.in for base
@@ -82,4 +85,5 @@ public class BaseActivity extends AppCompatActivity {
             mProgress = null;
         }
     }
+
 }

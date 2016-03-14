@@ -1,6 +1,7 @@
 package com.ucreate.mhsystems.adapter.BaseAdapter;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,24 +20,27 @@ import com.ucreate.mhsystems.activites.HomeActivity;
  */
 public class GridAdapter extends BaseAdapter {
 
-    String [] result;
+    // String [] result;
     Context context;
-    int [] imageId;
-    private static LayoutInflater inflater=null;
-    public GridAdapter(HomeActivity mainActivity, String[] prgmNameList, int[] prgmImages) {
-        // TODO Auto-generated constructor stub
-        result=prgmNameList;
-        context=mainActivity;
-        imageId=prgmImages;
-        inflater = ( LayoutInflater )context.
+    // int [] imageId;
+    private static LayoutInflater inflater = null;
+
+    TypedArray gridIcons;
+    String gridTitles[];
+
+    public GridAdapter(HomeActivity mainActivity, String gridTitles[], TypedArray gridIcons) {
+
+        context = mainActivity;
+        this.gridTitles = gridTitles;
+        this.gridIcons = gridIcons;
+        inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
-        return result.length;
+        return gridTitles.length;
     }
 
     @Override
@@ -51,32 +55,24 @@ public class GridAdapter extends BaseAdapter {
         return position;
     }
 
-    public class Holder
-    {
+    public class Holder {
         TextView tvGridTitle;
         ImageView ivGridLogo;
     }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-        Holder holder=new Holder();
+
+        Holder holder = new Holder();
         View rowView;
 
         rowView = inflater.inflate(R.layout.item_grid_row, null);
-        holder.tvGridTitle=(TextView) rowView.findViewById(R.id.tvGridTitle);
-        holder.ivGridLogo=(ImageView) rowView.findViewById(R.id.ivGridLogo);
+        holder.tvGridTitle = (TextView) rowView.findViewById(R.id.tvGridTitle);
+        holder.ivGridLogo = (ImageView) rowView.findViewById(R.id.ivGridLogo);
 
-        holder.tvGridTitle.setText(result[position]);
-        holder.ivGridLogo.setImageResource(imageId[position]);
-
-        rowView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Toast.makeText(context, "You Clicked " + result[position], Toast.LENGTH_LONG).show();
-            }
-        });
+        //Set View data according position.
+        holder.tvGridTitle.setText(gridTitles[position]);
+        holder.ivGridLogo.setImageResource(gridIcons.getResourceId(position, -1));
 
         return rowView;
     }

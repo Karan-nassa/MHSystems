@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGreyf1f1f0">
@@ -11,11 +12,22 @@
         android:layout_marginTop="10dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="74dp"
             android:gravity="center"
             android:orientation="vertical">
+
+            <!-- TEAM LOGO -->
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ivBackgroundColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="2dp"
+                android:scaleType="fitCenter"
+                app:placeholderImage="@android:color/white"
+                app:roundAsCircle="true" />
 
             <!-- LOGO OF ITEM -->
 
@@ -23,9 +35,41 @@
                 android:id="@+id/ivGridLogo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_home_diary" />
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_home_diary" />
 
-        </LinearLayout>
+            <!-- BADGER ICON -->
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="15dp"
+                android:visibility="invisible"
+                android:orientation="vertical">
+
+                <!-- TEAM LOGO -->
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/ivBadgerBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="2dp"
+                    android:scaleType="fitCenter"
+                    app:placeholderImage="@color/colorFFEF8176"
+                    app:roundAsCircle="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="9+"
+                    android:padding="4dp"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"/>
+
+            </FrameLayout>
+
+        </FrameLayout>
 
         <!-- TITLE OF ITEM-->
 

@@ -20,4 +20,31 @@
     <string name="title_event_title">Event Title</string>
     <!-- END OF COURSE DIARY ACTIVITY -->
 
+    <!-- NAVIGATION DRAWER ITEMS -->
+    <string-array name="navDrawerItems">
+
+        <item>Your Handicap</item>
+        <item>Course Diary</item>
+        <item>Competitions</item>
+        <item>Members</item>
+        <item>About The Club</item>
+        <item>My Account</item>
+
+    </string-array>
+
+    <!-- NAVIGATION DRAWER ICONS -->
+
+    <string-array name="navDrawerIcons">
+
+        <item>@mipmap/ic_handicap_red</item>
+        <item>@mipmap/ic_home_diary</item>
+        <item>@mipmap/ic_home_competitions</item>
+        <item>@mipmap/ic_home_members</item>
+        <item>@mipmap/ic_home_golfclub</item>
+        <item>@mipmap/ic_home_myaccount</item>
+
+    </string-array>
+
+    <!-- ~~ NAVIGATION DRAWER ICONS ~~ -->
+
 </resources>
