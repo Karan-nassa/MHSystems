@@ -1,12 +1,15 @@
 package com.ucreate.mhsystems.activites;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,14 +56,15 @@ public class CourseDairyActivity extends BaseActivity {
      *******************************/
     public static final String LOG_TAG = CourseDairyActivity.class.getSimpleName();
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
+    ArrayList<CourseDiaryData> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
 
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
     @Bind(R.id.cdlCourseDiary)
     CoordinatorLayout cdlCourseDiary;
-    @Bind(R.id.rvCourseDiary)
-    RecyclerView rvCourseDiary;
+    //    @Bind(R.id.rvCourseDiary)
+//    RecyclerView rvCourseDiary;
     @Bind(R.id.toolBar)
     Toolbar toolbar;
     @Bind(R.id.tvCourseSchedule)
@@ -69,14 +73,44 @@ public class CourseDairyActivity extends BaseActivity {
     TextView tvCourseTitle;
     @Bind(R.id.tvMonthName)
     TextView tvMonthName;
-    RecyclerView.Adapter recyclerViewAdapter;
+//    RecyclerView.Adapter recyclerViewAdapter;
+
+    @Bind(R.id.lvCourseDiary)
+    ListView lvCourseDiary;
+
+    CourseDiaryAdapter courseDiaryAdapter;
 
     //Create instance of Model class CourseDiaryItems.
     CourseDiaryItems courseDiaryItems;
     AJsonParams_ aJsonParams;
 
     //List of type books this list will store type Book which is our data model
-    private CourseDiaryAPI anurags;
+    private CourseDiaryAPI courseDiaryAPI;
+
+    /**
+     * Set COURSE DIARY events listener.
+     */
+    private AdapterView.OnItemClickListener mCourseEventListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            /**
+             *  Handle NULL @Exception.
+             */
+            if (arrayCourseDataBackup.get(position) != null) {
+
+                Intent intent = new Intent(CourseDairyActivity.this, CourseDiaryDetailActivity.class);
+                intent.putExtra("COURSE_TITLE", arrayCourseDataBackup.get(position).getTitle());
+                intent.putExtra("COURSE_EVENT_IMAGE", arrayCourseDataBackup.get(position).getLogo());
+                intent.putExtra("COURSE_EVENT_JOIN", arrayCourseDataBackup.get(position).isJoinStatus());
+                intent.putExtra("COURSE_EVENT_DATE", arrayCourseDataBackup.get(position).getCourseEventDate());
+                intent.putExtra("COURSE_EVENT_DAY_NAME", arrayCourseDataBackup.get(position).getDayName());
+                intent.putExtra("COURSE_EVENT_PRIZE", arrayCourseDataBackup.get(position).getPrizePerGuest());
+                intent.putExtra("COURSE_EVENT_DESCRIPTION", arrayCourseDataBackup.get(position).getDesc());
+                startActivity(intent);
+            }
+        }
+    };
 
 
     @Override
@@ -93,22 +127,25 @@ public class CourseDairyActivity extends BaseActivity {
         //Let's first set up toolbar
         setupToolbar();
 
-        RecyclerView.ItemDecoration itemDecoration =
-                new RecycleViewDividerDecoration(CourseDairyActivity.this, LinearLayoutManager.VERTICAL);
-        rvCourseDiary.addItemDecoration(itemDecoration);
-
-        /**
-         *It is must to set a Layout Manager For Recycler View
-         *As per docs ,
-         *RecyclerView allows client code to provide custom layout arrangements for child views.
-         *These arrangements are controlled by the RecyclerView.LayoutManager.
-         *A LayoutManager must be provided for RecyclerView to function.
-         */
-        rvCourseDiary.setLayoutManager(new LinearLayoutManager(CourseDairyActivity.this));
+//        RecyclerView.ItemDecoration itemDecoration =
+//                new RecycleViewDividerDecoration(CourseDairyActivity.this, LinearLayoutManager.VERTICAL);
+//        rvCourseDiary.addItemDecoration(itemDecoration);
+//
+//        /**
+//         *It is must to set a Layout Manager For Recycler View
+//         *As per docs ,
+//         *RecyclerView allows client code to provide custom layout arrangements for child views.
+//         *These arrangements are controlled by the RecyclerView.LayoutManager.
+//         *A LayoutManager must be provided for RecyclerView to function.
+//         */
+//        rvCourseDiary.setLayoutManager(new LinearLayoutManager(CourseDairyActivity.this));
 
         //Set Course Diary Recycler Adapter.
-        recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
-        rvCourseDiary.setAdapter(recyclerViewAdapter);
+//        recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
+//        rvCourseDiary.setAdapter(recyclerViewAdapter);
+
+
+        lvCourseDiary.setOnItemClickListener(mCourseEventListener);
     }
 
     @Override
@@ -150,7 +187,7 @@ public class CourseDairyActivity extends BaseActivity {
         aJsonParams.setPageNo("0");
         aJsonParams.setPageSize("10");
 
-        anurags = new CourseDiaryAPI(aJsonParams, "COURSEDIARY", "44118078", "GetSlots", "Members");
+        courseDiaryAPI = new CourseDiaryAPI(aJsonParams, "COURSEDIARY", "44118078", "GetSlots", "Members");
 
         showPleaseWait("Please wait...");
 
@@ -163,7 +200,7 @@ public class CourseDairyActivity extends BaseActivity {
         WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
         //Defining the method
-        api.getCourseDiaryEvents(anurags, new Callback<JsonObject>() {
+        api.getCourseDiaryEvents(courseDiaryAPI, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
@@ -176,7 +213,7 @@ public class CourseDairyActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showSnackBarMessages(cdlCourseDiary, ""+error);
+                showSnackBarMessages(cdlCourseDiary, "" + error);
             }
         });
 
@@ -204,11 +241,22 @@ public class CourseDairyActivity extends BaseActivity {
                     showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_no_data));
                 } else {
 
-                    //Set Course Diary Recycler Adapter.
-                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
-                    rvCourseDiary.setAdapter(recyclerViewAdapter);
+                    //Clear old one list.
+                    arrayCourseDataBackup.clear();
 
-                    Log.e(LOG_TAG, "" + arrayListCourseData.size());
+                    //Take backup of List before changing to record.
+                    arrayCourseDataBackup.addAll(courseDiaryItems.getData());
+
+                    Log.e(LOG_TAG, "arrayCourseDataBackup : " + arrayCourseDataBackup.size());
+
+                    //Set Course Diary Recycler Adapter.
+//                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
+//                    rvCourseDiary.setAdapter(recyclerViewAdapter);
+
+                    courseDiaryAdapter = new CourseDiaryAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
+                    lvCourseDiary.setAdapter(courseDiaryAdapter);
+
+                    Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.size());
 
                     //Set Name of Month selected in CALENDER or record from api of COURSE DIARY.
                     tvMonthName.setText(arrayListCourseData.get(0).getMonthName());
@@ -233,6 +281,7 @@ public class CourseDairyActivity extends BaseActivity {
     public ArrayList<CourseDiaryData> filterCourseDates(ArrayList<CourseDiaryData> arrayListCourseData) {
         ArrayList<CourseDiaryData> courseDiaryDataArrayList = new ArrayList<>();
         String strLastDate = "";
+
         /**
          *  Loop filter till end of Course
          *  Diary events.

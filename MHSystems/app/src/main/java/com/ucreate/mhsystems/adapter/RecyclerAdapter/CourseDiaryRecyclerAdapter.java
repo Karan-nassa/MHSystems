@@ -24,13 +24,13 @@ import java.util.Date;
  * Created by  karan@ucreate.co.in to create Navigation
  * drawer for FriendsDetailRecyclerAdapter on 15/2/2016.
  */
-public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiaryRecyclerAdapter.ViewHolder> {
+public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiaryRecyclerAdapter.ViewHolder>  {
 
     ArrayList<CourseDiaryData> CourseDiaryData;
     Context context;
     String strLastDate = "";
 
-    // The default constructor to receive titles,icons and context from WelcomeActivity.
+    // The default constructor to receive titles,icons and context from HomeActivity.
     public CourseDiaryRecyclerAdapter(Context context, ArrayList<CourseDiaryData> CourseDiaryData) {
 
         this.CourseDiaryData = CourseDiaryData;

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- VIEW GROUP OF ALL RESOURCES -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <!-- FOR SETTINGS ICON ON LEFT SIDE VIEW GROUP -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="vertical">
+
+            <!-- SETTINGS ICON -->
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_settings" />
+
+        </LinearLayout>
+
+        <!-- VIEW GROUP FOR GOLF CLUB NAME AND TREE ICON -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_home_golfclub"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorC0995B"
+                android:textSize="14sp"
+                android:text="@string/title_golf_club_name"/>
+
+        </LinearLayout>
+
+        <!-- VIEW GROUP FOR GOLF CLUB MESSAGE -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="25"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- HOME QUOTATIONS -->
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_home_message"
+                android:textColor="@color/color333333"
+                android:textSize="14sp" />
+
+            <!-- NAME OF QUOTATION -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:alpha="0.5"
+                android:textColor="@color/color333333"
+                android:textSize="14sp"
+                android:text="@string/title_home_message_author"/>
+
+        </LinearLayout>
+
+        <!-- VIEW GROUP FOR OPTIONS OR GRID ITEMS -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="45"
+            android:background="@color/colorGreyf1f1f0"
+            android:orientation="vertical">
+
+            <!-- GRID VIEW FOR MENU OPTIONS -->
+
+            <GridView
+                android:id="@+id/gvMenuOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:cacheColorHint="@color/colorGreyf1f1f0"
+                android:numColumns="3" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -91,19 +91,19 @@ public class CourseDiaryAdapter extends BaseAdapter {
 
         viewHolder = (View_Holder) rowView.getTag();
 
-        String strDateOfEvent = formatDateOfEvent(CourseDiaryData.get(position).getCourseEventDate());
+//        String strDateOfEvent = formatDateOfEvent(CourseDiaryData.get(position).getCourseEventDate());
 
         /**
          * Check if same date or not of Course Diary event If yes then just
          * display date and day name once otherwise skip.
          */
-        if (!strLastDate.equalsIgnoreCase(strDateOfEvent)) {
-            strLastDate = strDateOfEvent;
-
-            //Display date if existing different one.
-            viewHolder.tvDateOfEvent.setText(strDateOfEvent);
-            viewHolder.tvDayOfEvent.setText(formatDayOfEvent(CourseDiaryData.get(position).getDayName()));
-        }
+//        if (!strLastDate.equalsIgnoreCase(strDateOfEvent)) {
+//            strLastDate = strDateOfEvent;
+//
+//            //Display date if existing different one.
+//            viewHolder.tvDateOfEvent.setText(strDateOfEvent);
+//            viewHolder.tvDayOfEvent.setText(formatDayOfEvent(CourseDiaryData.get(position).getDayName()));
+//        }
 
         /**
          *  Set Course Diary events on each view.
@@ -112,6 +112,9 @@ public class CourseDiaryAdapter extends BaseAdapter {
         viewHolder.tvCategoryOfEvent.setText(CourseDiaryData.get(position).getCategory());
         viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
         viewHolder.tvDescOfEvent.setText(CourseDiaryData.get(position).getDesc());
+        //Display date if existing different one.
+        viewHolder.tvDateOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
+        viewHolder.tvDayOfEvent.setText(CourseDiaryData.get(position).getDayName());
 
         return rowView;
     }

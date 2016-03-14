@@ -13,15 +13,26 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppThemeMaterial">
-        <activity android:name=".activites.MainActivity"></activity>
-        <activity android:name=".activites.CourseDairyActivity">
+
+        <!-- HOME ACTIVITY -->
+        <activity android:name=".activites.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".adapter.BaseAdapter.CourseDiaryDetailActivity"></activity>
+
+        <!-- COURSE DIARY ACTIVITY -->
+        <activity
+            android:name=".activites.CourseDairyActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- COURSE DIARY DETAIL ACTIVITY -->
+        <activity
+            android:name=".activites.CourseDiaryDetailActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

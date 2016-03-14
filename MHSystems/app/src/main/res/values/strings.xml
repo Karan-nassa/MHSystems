@@ -9,7 +9,15 @@
     <string name="error_please_retry">Something went wrong. please try again later.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
+    <!-- START OF HOME ACTIVITY -->
+    <string name="title_golf_club_name">SUNNINGDALE GOLF CLUB</string>
+    <string name="title_home_message">“Kindness is the language which the deaf can hear and the blind can see.”</string>
+    <string name="title_home_message_author">Mark Twain</string>
+    <!-- END OF HOME ACTIVITY -->
+
     <!-- START OF COURSE DIARY ACTIVITY -->
-    <string name="title_course_diary">Course Diary</string>
+    <string name="title_course_diary">COURSE DIARY</string>
+    <string name="title_event_title">Event Title</string>
     <!-- END OF COURSE DIARY ACTIVITY -->
+
 </resources>

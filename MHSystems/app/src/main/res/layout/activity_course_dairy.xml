@@ -164,12 +164,20 @@
 
             <!-- RECYCLER VIEW TO DISPLAY COURSE DIARY CONTENT -->
 
-            <android.support.v7.widget.RecyclerView
+          <!--  <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvCourseDiary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
-                android:scrollbars="vertical" />
+                android:scrollbars="vertical" />-->
+            <ListView
+                android:id="@+id/lvCourseDiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:cacheColorHint="@android:color/white">
+
+            </ListView>
 
         </LinearLayout>
 

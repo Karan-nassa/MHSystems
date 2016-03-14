@@ -23,4 +23,6 @@ public class ApplicationGlobal {
      * Otherwise set FALSE.
      */
     public static boolean isRollMessageDisplay = true;
+
+
 }

@@ -20,6 +20,21 @@ public class CourseDiaryData {
     String prizePerGuest;
     String startTime;
     String title;
+    String logo;
+
+    /**
+     * @return The logo
+     */
+    public String getLogo() {
+        return logo;
+    }
+
+    /**
+     * @param logo The logo
+     */
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 
     /**
      * @return The category
