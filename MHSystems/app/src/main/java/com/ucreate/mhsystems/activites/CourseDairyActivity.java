@@ -33,7 +33,9 @@ import com.ucreate.mhsystems.utils.RecycleViewDividerDecoration;
 import com.ucreate.mhsystems.utils.pojo.AJsonParams_;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryAPI;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryData;
+import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryItems;
+import com.ucreate.mhsystems.utils.pojo.CourseDiaryItemsCopy;
 
 
 import org.json.JSONObject;
@@ -56,7 +58,7 @@ public class CourseDairyActivity extends BaseActivity {
      *******************************/
     public static final String LOG_TAG = CourseDairyActivity.class.getSimpleName();
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
-    ArrayList<CourseDiaryData> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
+    ArrayList<CourseDiaryDataCopy> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -69,8 +71,6 @@ public class CourseDairyActivity extends BaseActivity {
     Toolbar toolbar;
     @Bind(R.id.tvCourseSchedule)
     TextView tvCourseSchedule;
-    @Bind(R.id.tvCourseTitle)
-    TextView tvCourseTitle;
     @Bind(R.id.tvMonthName)
     TextView tvMonthName;
 //    RecyclerView.Adapter recyclerViewAdapter;
@@ -82,6 +82,7 @@ public class CourseDairyActivity extends BaseActivity {
 
     //Create instance of Model class CourseDiaryItems.
     CourseDiaryItems courseDiaryItems;
+    CourseDiaryItemsCopy courseDiaryItemsCopy;
     AJsonParams_ aJsonParams;
 
     //List of type books this list will store type Book which is our data model
@@ -97,16 +98,18 @@ public class CourseDairyActivity extends BaseActivity {
             /**
              *  Handle NULL @Exception.
              */
-            if (arrayCourseDataBackup.get(position) != null) {
+            if (arrayListCourseData.get(position) != null) {
+
+                Log.e("DAY NAME", arrayListCourseData.get(position).getDayName());
 
                 Intent intent = new Intent(CourseDairyActivity.this, CourseDiaryDetailActivity.class);
-                intent.putExtra("COURSE_TITLE", arrayCourseDataBackup.get(position).getTitle());
-                intent.putExtra("COURSE_EVENT_IMAGE", arrayCourseDataBackup.get(position).getLogo());
-                intent.putExtra("COURSE_EVENT_JOIN", arrayCourseDataBackup.get(position).isJoinStatus());
-                intent.putExtra("COURSE_EVENT_DATE", arrayCourseDataBackup.get(position).getCourseEventDate());
-                intent.putExtra("COURSE_EVENT_DAY_NAME", arrayCourseDataBackup.get(position).getDayName());
-                intent.putExtra("COURSE_EVENT_PRIZE", arrayCourseDataBackup.get(position).getPrizePerGuest());
-                intent.putExtra("COURSE_EVENT_DESCRIPTION", arrayCourseDataBackup.get(position).getDesc());
+                intent.putExtra("COURSE_TITLE", arrayListCourseData.get(position).getTitle());
+                intent.putExtra("COURSE_EVENT_IMAGE", arrayListCourseData.get(position).getLogo());
+                intent.putExtra("COURSE_EVENT_JOIN", arrayListCourseData.get(position).isJoinStatus());
+                intent.putExtra("COURSE_EVENT_DATE", arrayListCourseData.get(position).getCourseEventDate());
+                intent.putExtra("COURSE_EVENT_DAY_NAME", arrayListCourseData.get(position).getDayName());
+                intent.putExtra("COURSE_EVENT_PRIZE", arrayListCourseData.get(position).getPrizePerGuest());
+                intent.putExtra("COURSE_EVENT_DESCRIPTION", arrayListCourseData.get(position).getDesc());
                 startActivity(intent);
             }
         }
@@ -169,7 +172,6 @@ public class CourseDairyActivity extends BaseActivity {
      */
     void setupToolbar() {
         setSupportActionBar(toolbar);
-        tvCourseTitle.setText(getResources().getString(R.string.title_course_diary));
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
@@ -226,8 +228,13 @@ public class CourseDairyActivity extends BaseActivity {
         }.getType();
         courseDiaryItems = new Gson().fromJson(jsonObject.toString(), type);
 
+        Type type2 = new TypeToken<CourseDiaryItemsCopy>() {
+        }.getType();
+        courseDiaryItemsCopy = new Gson().fromJson(jsonObject.toString(), type2);
+
         //Clear array list before inserting items.
         arrayListCourseData.clear();
+        arrayCourseDataBackup.clear();
 
         try {
             /**
@@ -236,26 +243,25 @@ public class CourseDairyActivity extends BaseActivity {
             if (courseDiaryItems.getResult().equals("1")) {
 
                 arrayListCourseData.addAll(courseDiaryItems.getData());
+                //Take backup of List before changing to record.
+                arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
 
                 if (arrayListCourseData.size() == 0) {
                     showSnackBarMessages(cdlCourseDiary, getResources().getString(R.string.error_no_data));
                 } else {
 
-                    //Clear old one list.
-                    arrayCourseDataBackup.clear();
-
-                    //Take backup of List before changing to record.
-                    arrayCourseDataBackup.addAll(courseDiaryItems.getData());
-
-                    Log.e(LOG_TAG, "arrayCourseDataBackup : " + arrayCourseDataBackup.size());
+                    Log.e(LOG_TAG, "arrayCourseDataBackup : " + arrayCourseDataBackup.get(0).getDayName());
+                    Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.get(0).getDayName());
 
                     //Set Course Diary Recycler Adapter.
 //                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
 //                    rvCourseDiary.setAdapter(recyclerViewAdapter);
 
-                    courseDiaryAdapter = new CourseDiaryAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
+                    courseDiaryAdapter = new CourseDiaryAdapter(CourseDairyActivity.this, filterCourseDates(arrayCourseDataBackup));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
 
+                    Log.e(LOG_TAG, "arrayCourseDataBackup : " + arrayCourseDataBackup.get(0).getDayName());
+                    Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.get(0).getDayName());
                     Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.size());
 
                     //Set Name of Month selected in CALENDER or record from api of COURSE DIARY.
@@ -278,8 +284,9 @@ public class CourseDairyActivity extends BaseActivity {
      * Implements a method to filter or set date and name of Day
      * one time for all course events having same date and day.
      */
-    public ArrayList<CourseDiaryData> filterCourseDates(ArrayList<CourseDiaryData> arrayListCourseData) {
-        ArrayList<CourseDiaryData> courseDiaryDataArrayList = new ArrayList<>();
+    public ArrayList<CourseDiaryDataCopy> filterCourseDates(ArrayList<CourseDiaryDataCopy> arrayListCourseData) {
+        ArrayList<CourseDiaryDataCopy> courseDiaryDataArrayList = new ArrayList<>();
+        courseDiaryDataArrayList.clear();
         String strLastDate = "";
 
         /**

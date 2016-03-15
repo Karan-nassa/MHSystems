@@ -2,10 +2,15 @@ package com.ucreate.mhsystems.activites;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,9 +60,30 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
 
         //Set Content on each Event of Course Diary.
         tvTitleCourseEvent.setText(strCourseTitle);
-        btJoinEvent.setText(isJoin? "JOINED" : "JOIN");
-        tvDateCourseEvent.setText(strCourseDayName + ", "+ strCourseDate);
+        btJoinEvent.setText(isJoin ? "JOINED" : "JOIN");
+        tvDateCourseEvent.setText(strCourseDayName + ", " + formatDateOfEvent(strCourseDate));
         tvFeeCourseEvent.setText(strCoursePrize);
         tvDescCourseEvent.setText(strCourseDesc);
+    }
+
+    /**
+     * Get date and return in dd-MMMM-yyyy format.
+     * Example: 2015-12-1
+     *
+     * @return 1-DECEMBER-2015
+     */
+    public String formatDateOfEvent(String strNewDate) {
+
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
+
+        try {
+            Date date = inputFormat.parse(strNewDate);
+            strNewDate = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+
+        return strNewDate.toUpperCase();
     }
 }

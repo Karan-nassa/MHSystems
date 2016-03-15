@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryData;
+import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 
 import java.net.URLDecoder;
 import java.text.ParseException;
@@ -29,9 +30,10 @@ import java.util.LinkedHashMap;
  */
 public class CourseDiaryAdapter extends BaseAdapter {
     Activity context;
-    ArrayList<CourseDiaryData> CourseDiaryData;
+    ArrayList<CourseDiaryDataCopy> CourseDiaryData;
     LayoutInflater inflater = null;
     String strLastDate = "";
+
 
     /**
      * VIDEOS Adapter to initialize all instances.
@@ -39,7 +41,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
      * @param Activity:              To hold context.
      * @param ArrayList<VideoItems>: Used for Videos data.
      */
-    public CourseDiaryAdapter(Activity context, ArrayList<CourseDiaryData> CourseDiaryData) {
+    public CourseDiaryAdapter(Activity context, ArrayList<CourseDiaryDataCopy> CourseDiaryData) {
         this.context = context;
         this.CourseDiaryData = CourseDiaryData;
         inflater = (LayoutInflater) context.
@@ -78,25 +80,40 @@ public class CourseDiaryAdapter extends BaseAdapter {
         View rowView = convertView;
         View_Holder viewHolder = null;
 
-        rowView = inflater.inflate(R.layout.list_item_course_diary, parent, false);
+        if (CourseDiaryData.get(position).getSlotType() == 2) {
 
-        viewHolder = new View_Holder();
-        viewHolder.tvDateOfEvent = (TextView) rowView.findViewById(R.id.tvDateOfEvent);
-        viewHolder.tvDayOfEvent = (TextView) rowView.findViewById(R.id.tvDayOfEvent);
-        viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
-        viewHolder.tvCategoryOfEvent = (TextView) rowView.findViewById(R.id.tvCategoryOfEvent);
-        viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
-        viewHolder.tvDescOfEvent = (TextView) rowView.findViewById(R.id.tvDescOfEvent);
-        rowView.setTag(viewHolder);
+            rowView = inflater.inflate(R.layout.list_item_course_diary_no_events, parent, false);
 
-        viewHolder = (View_Holder) rowView.getTag();
+            viewHolder = new View_Holder();
+            viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
+            viewHolder.tvDescOfEvent = (TextView) rowView.findViewById(R.id.tvDescOfEvent);
+
+            rowView.setTag(viewHolder);
+
+            viewHolder = (View_Holder) rowView.getTag();
+
+            viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
+            viewHolder.tvDescOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
+        } else {
+
+            rowView = inflater.inflate(R.layout.list_item_course_diary, parent, false);
+
+            viewHolder = new View_Holder();
+            viewHolder.tvDateOfEvent = (TextView) rowView.findViewById(R.id.tvDateOfEvent);
+            viewHolder.tvDayOfEvent = (TextView) rowView.findViewById(R.id.tvDayOfEvent);
+            viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
+            viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
+            viewHolder.tvDescOfEvent = (TextView) rowView.findViewById(R.id.tvDescOfEvent);
+            rowView.setTag(viewHolder);
+
+            viewHolder = (View_Holder) rowView.getTag();
 
 //        String strDateOfEvent = formatDateOfEvent(CourseDiaryData.get(position).getCourseEventDate());
 
-        /**
-         * Check if same date or not of Course Diary event If yes then just
-         * display date and day name once otherwise skip.
-         */
+            /**
+             * Check if same date or not of Course Diary event If yes then just
+             * display date and day name once otherwise skip.
+             */
 //        if (!strLastDate.equalsIgnoreCase(strDateOfEvent)) {
 //            strLastDate = strDateOfEvent;
 //
@@ -105,68 +122,18 @@ public class CourseDiaryAdapter extends BaseAdapter {
 //            viewHolder.tvDayOfEvent.setText(formatDayOfEvent(CourseDiaryData.get(position).getDayName()));
 //        }
 
-        /**
-         *  Set Course Diary events on each view.
-         */
-        viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
-        viewHolder.tvCategoryOfEvent.setText(CourseDiaryData.get(position).getCategory());
-        viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
-        viewHolder.tvDescOfEvent.setText(CourseDiaryData.get(position).getDesc());
-        //Display date if existing different one.
-        viewHolder.tvDateOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
-        viewHolder.tvDayOfEvent.setText(CourseDiaryData.get(position).getDayName());
-
-        return rowView;
-    }
-
-    /**
-     * @param strCourseEventDate <br>
-     *                           Implements a method to return the format the day of
-     *                           event.
-     *                           <p/>
-     *                           Exapmle: 2016-03-04T00:00:00
-     * @Return : 04
-     */
-    private String formatDateOfEvent(String strCourseEventDate) {
-
-        String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
-
-        return strEventDate;
-    }
-
-    /**
-     * @param strDayName <br>
-     *                   Implements a method to return the format the day of
-     *                   event.
-     *                   <p/>
-     *                   Exapmle: NAME OF DAY : Friday
-     * @Return : Fri
-     */
-    private String formatDayOfEvent(String strDayName) {
-        return (strDayName.substring(0, 3));
-    }
-
-    /**
-     * Get date and return in dd-MMMM-yyyy format.
-     * Example: 2015-12-1
-     *
-     * @return 1-DECEMBER-2015
-     */
-    public String getDateFormat(String strDate) {
-
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
-
-        String strNewDate = strDate.substring(0, strDate.indexOf("T"));
-
-        try {
-            Date date = inputFormat.parse(strNewDate);
-            strNewDate = outputFormat.format(date);
-        } catch (ParseException exp) {
-            exp.printStackTrace();
+            /**
+             *  Set Course Diary events on each view.
+             */
+            viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
+            viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
+            viewHolder.tvDescOfEvent.setText(CourseDiaryData.get(position).getDesc());
+            //Display date if existing different one.
+            viewHolder.tvDateOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
+            viewHolder.tvDayOfEvent.setText(CourseDiaryData.get(position).getDayName());
         }
 
-        return strNewDate.toUpperCase();
+        return rowView;
     }
 
     /**
@@ -178,7 +145,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
          * Text Row VIEW INSTANCES DECLARATION
          */
         TextView tvDateOfEvent, tvDayOfEvent, tvTimeOfEvent;
-        TextView tvCategoryOfEvent, tvTitleOfEvent, tvDescOfEvent;
+        TextView tvTitleOfEvent, tvDescOfEvent;
 
     }
 }

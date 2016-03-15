@@ -4,7 +4,7 @@ package com.ucreate.mhsystems.utils.pojo;
  * Created by karan@ucreate.co.in to get JSOn response of
  * COURSE DIARY data on 02-03-2016.
  */
-public class CourseDiaryData {
+public class CourseDiaryDataCopy {
 
     String category;
     String courseEventDate;

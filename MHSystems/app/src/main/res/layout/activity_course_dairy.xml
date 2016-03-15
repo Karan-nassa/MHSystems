@@ -20,7 +20,7 @@
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
+                android:background="@color/colorAFD9A1"
                 android:fitsSystemWindows="true"
                 android:minHeight="?android:attr/actionBarSize">
 
@@ -39,7 +39,8 @@
                         <!-- BACK ARROW  -->
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic_home_menu"/>
 
                     </LinearLayout>
 
@@ -51,29 +52,17 @@
                         android:layout_weight="60"
                         android:orientation="vertical">
 
-                        <!-- COURSE NAME -->
-
-                        <TextView
-                            android:id="@+id/tvCourseTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-
-                            android:textColor="@color/colorBlack000000"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
                         <!-- COURSE DATE WEEKEND/MONTHLY -->
 
                         <TextView
                             android:id="@+id/tvCourseSchedule"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity=""
                             android:layout_marginTop="2dp"
-                            android:text="26 Feb - 3 Mar 2016"
+                            android:text="March 2016"
                             android:textColor="@color/colorBlack000000"
-                            android:textSize="12sp" />
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 

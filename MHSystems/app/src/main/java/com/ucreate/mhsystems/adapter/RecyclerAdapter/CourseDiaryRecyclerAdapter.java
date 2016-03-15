@@ -142,7 +142,6 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
             tvDateOfEvent = (TextView) itemView.findViewById(R.id.tvDateOfEvent);
             tvDayOfEvent = (TextView) itemView.findViewById(R.id.tvDayOfEvent);
             tvTimeOfEvent = (TextView) itemView.findViewById(R.id.tvTimeOfEvent);
-            tvCategoryOfEvent = (TextView) itemView.findViewById(R.id.tvCategoryOfEvent);
             tvTitleOfEvent = (TextView) itemView.findViewById(R.id.tvTitleOfEvent);
             tvDescOfEvent = (TextView) itemView.findViewById(R.id.tvDescOfEvent);
         }

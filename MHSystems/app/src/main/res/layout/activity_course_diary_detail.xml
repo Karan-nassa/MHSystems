@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@color/colorF7E59A"
+            android:background="@color/colorAFD9A1"
             android:orientation="vertical">
 
             <FrameLayout
@@ -44,20 +45,41 @@
                 android:gravity="center|bottom"
                 android:orientation="vertical">
 
-                <!-- ICON OF COMPETITION-->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher" />
+                    <!-- TEAM LOGO -->
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/ivBackgroundColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="2dp"
+                        android:scaleType="fitCenter"
+                        app:placeholderImage="@android:color/white"
+                        app:roundAsCircle="true" />
+
+                    <!-- LOGO OF ITEM -->
+
+                    <ImageView
+                        android:id="@+id/ivGridLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_home_competitions" />
+
+                </FrameLayout>
 
                 <!-- JOIN BUTTON -->
 
                 <Button
                     android:id="@+id/btJoinEvent"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="7dp"
                     android:background="@drawable/button_corner_shape_535796"
                     android:text="JOIN"
                     android:textColor="@android:color/white" />

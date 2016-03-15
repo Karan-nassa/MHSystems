@@ -7,11 +7,11 @@ import java.util.List;
  * Created by karan@ucreate.co.in to load
  * Course diary events items on 04-03-2016.
  */
-public class CourseDiaryItems {
+public class CourseDiaryItemsCopy {
 
     String Message;
     String Result;
-    List<CourseDiaryData> Data = new ArrayList<>();
+    List<CourseDiaryDataCopy> Data = new ArrayList<>();
 
 
     /**
@@ -45,14 +45,14 @@ public class CourseDiaryItems {
     /**
      * @return The Data
      */
-    public List<CourseDiaryData> getData() {
+    public List<CourseDiaryDataCopy> getData() {
         return Data;
     }
 
     /**
      * @param Data The Data
      */
-    public void setData(List<CourseDiaryData> data) {
+    public void setData(List<CourseDiaryDataCopy> data) {
         Data = data;
     }
 }
