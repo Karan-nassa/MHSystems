@@ -25,6 +25,27 @@ public class AJsonParams_ {
     @SerializedName("pageSize")
     @Expose
     private String pageSize;
+    @SerializedName("courseKey")
+    @Expose
+    private String courseKey;
+
+    /**
+     *
+     * @return
+     *     The courseKey
+     */
+    public String getCourseKey() {
+        return courseKey;
+    }
+
+    /**
+     *
+     * @param courseKey
+     *     The courseKey
+     */
+    public void setCourseKey(String courseKey) {
+        this.courseKey = courseKey;
+    }
 
     /**
      * 

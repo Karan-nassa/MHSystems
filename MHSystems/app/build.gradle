@@ -43,25 +43,26 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
     compile files('libs/rollbar-android-0.1.2-dev.jar')
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.android.support:support-v4:23.2.1'
 
     //New Relic compile dependency.
     compile 'com.newrelic.agent.android:android-agent:5.+'
 
     //Recycler View Adapter.
-    compile 'com.android.support:recyclerview-v7:+'
-
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    
     //Bind resources of xml using Butter Knife library.
     compile 'com.jakewharton:butterknife:7.0.1'
-
+    
     //Used for Volley for JSON response.
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
-
+    
     //Compile dependency of Retrofit.
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-
+    
     //Facebook round circle image preview.
     compile 'com.facebook.fresco:fresco:0.8.0'
 }

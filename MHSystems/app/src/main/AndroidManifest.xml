@@ -25,7 +25,7 @@
 
         <!-- COURSE DIARY ACTIVITY -->
         <activity
-            android:name=".activites.CourseDairyActivity"
+            android:name=".activites.CourseActivity"
             android:screenOrientation="portrait" />
 
         <!-- COURSE DIARY DETAIL ACTIVITY -->

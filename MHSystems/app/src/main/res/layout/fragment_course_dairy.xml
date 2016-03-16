@@ -4,6 +4,10 @@
     android:id="@+id/cdlCourseDiary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/SwipeRefreshNews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -171,5 +175,5 @@
         </LinearLayout>
 
     </RelativeLayout>
-
+</android.support.v4.widget.SwipeRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>

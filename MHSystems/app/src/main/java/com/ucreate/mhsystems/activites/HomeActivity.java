@@ -37,7 +37,7 @@ public class HomeActivity extends BaseActivity {
 
             switch (position) {
                 case 1:
-                    intent = new Intent(HomeActivity.this, CourseDairyActivity.class);
+                    intent = new Intent(HomeActivity.this, CourseActivity.class);
                     //Navigate to ACTIVITY.
                     startActivity(intent);
                     break;
