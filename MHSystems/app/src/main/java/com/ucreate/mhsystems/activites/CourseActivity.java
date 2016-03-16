@@ -1,18 +1,13 @@
 package com.ucreate.mhsystems.activites;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class CourseActivity extends BaseActivity {
@@ -30,7 +25,7 @@ public class CourseActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragment = new CourseDairyActivity();
+        fragment = new CourseDairyTabFragment();
         fragmentTransaction.replace(R.id.containerView, fragment);
         fragmentTransaction.commit();
     }

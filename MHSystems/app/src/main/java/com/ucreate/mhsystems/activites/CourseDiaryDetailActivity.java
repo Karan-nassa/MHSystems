@@ -2,8 +2,10 @@ package com.ucreate.mhsystems.activites;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
@@ -32,12 +34,28 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
     TextView tvFeeCourseEvent;
     @Bind(R.id.tvDescCourseEvent)
     TextView tvDescCourseEvent;
+    @Bind(R.id.llHomeIcon)
+    LinearLayout llHomeIcon;
+    @Bind(R.id.llPriceGroup)
+    LinearLayout llPriceGroup;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     String strCourseTitle, strCourseLogo, strCourseDate, strCourseDayName, strCoursePrize, strCourseDesc;
     boolean isJoin;
+
+    /**
+     * Implements a listener of HOME.
+     */
+    private View.OnClickListener mHomeListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            //Navigate back to Course Dairy events.
+            onBackPressed();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +80,12 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
         tvTitleCourseEvent.setText(strCourseTitle);
         btJoinEvent.setText(isJoin ? "JOINED" : "JOIN");
         tvDateCourseEvent.setText(strCourseDayName + ", " + formatDateOfEvent(strCourseDate));
-        tvFeeCourseEvent.setText(strCoursePrize);
+
+        //tvFeeCourseEvent.setText(strCoursePrize);
         tvDescCourseEvent.setText(strCourseDesc);
+
+        //Set Home icon listener.
+        llHomeIcon.setOnClickListener(mHomeListener);
     }
 
     /**

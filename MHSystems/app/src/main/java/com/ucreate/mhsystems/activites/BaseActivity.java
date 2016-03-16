@@ -53,7 +53,7 @@ public class BaseActivity extends AppCompatActivity {
      * create common snackbar for all application to display
      * toast messages.
      */
-    protected void showSnackBarMessages(CoordinatorLayout coordinatorLayout, String sMessage) {
+    public void showSnackBarMessages(CoordinatorLayout coordinatorLayout, String sMessage) {
 
         snackbar = Snackbar
                 .make(coordinatorLayout, sMessage, Snackbar.LENGTH_LONG);

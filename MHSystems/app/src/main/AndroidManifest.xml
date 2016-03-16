@@ -33,6 +33,12 @@
             android:name=".activites.CourseDiaryDetailActivity"
             android:screenOrientation="portrait" />
 
+        <!-- COURSE DIARY ALERT DIALOG -->
+        <activity
+            android:name=".activites.CourseAlertDialog"
+            android:theme="@style/App_Theme"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

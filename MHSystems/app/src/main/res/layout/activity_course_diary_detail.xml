@@ -17,14 +17,31 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="250dp"
             android:background="@color/colorAFD9A1"
             android:orientation="vertical">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_margin="11dp">
+
+                <!-- HOME ICON -->
+
+                <LinearLayout
+                    android:id="@+id/llHomeIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_home_menu" />
+
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -42,13 +59,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:gravity="center|bottom"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="74dp"
-                    android:gravity="center"
+                    android:layout_height="100dp"
                     android:orientation="vertical">
 
                     <!-- TEAM LOGO -->
@@ -71,18 +87,19 @@
                         android:layout_gravity="center"
                         android:src="@mipmap/ic_home_competitions" />
 
+                    <!-- JOIN BUTTON -->
+
+                    <Button
+                        android:id="@+id/btJoinEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/button_corner_shape_535796"
+                        android:text="JOIN"
+                        android:textColor="@android:color/white" />
+
                 </FrameLayout>
-
-                <!-- JOIN BUTTON -->
-
-                <Button
-                    android:id="@+id/btJoinEvent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_marginBottom="7dp"
-                    android:background="@drawable/button_corner_shape_535796"
-                    android:text="JOIN"
-                    android:textColor="@android:color/white" />
 
             </LinearLayout>
 
@@ -148,6 +165,7 @@
             <!-- FEE PER GUEST -->
 
             <LinearLayout
+                android:id="@+id/llPriceGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"

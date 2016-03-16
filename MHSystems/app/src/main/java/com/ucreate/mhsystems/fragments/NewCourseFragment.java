@@ -25,6 +25,7 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CourseActivity;
+import com.ucreate.mhsystems.activites.CourseAlertDialog;
 import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.ucreate.mhsystems.constants.WebAPI;
@@ -43,11 +44,11 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class NewCourseFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = NewsFragment.class.getSimpleName();
+    public static final String LOG_TAG = NewCourseFragment.class.getSimpleName();
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
     ArrayList<CourseDiaryDataCopy> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
 
@@ -62,7 +63,6 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 //    RecyclerView rvCourseDiary;
     Toolbar toolBar;
     TextView tvCourseSchedule;
-    TextView tvMonthName;
     //    RecyclerView.Adapter recyclerViewAdapter;
     ListView lvCourseDiary;
 
@@ -113,17 +113,25 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
              */
             if (arrayListCourseData.get(position) != null) {
 
-                Log.e("DAY NAME", arrayListCourseData.get(position).getDayName());
+                if (arrayListCourseData.get(position).getSlotType() == 2) {
 
-                Intent intent = new Intent(getActivity(), CourseDiaryDetailActivity.class);
-                intent.putExtra("COURSE_TITLE", arrayListCourseData.get(position).getTitle());
-                intent.putExtra("COURSE_EVENT_IMAGE", arrayListCourseData.get(position).getLogo());
-                intent.putExtra("COURSE_EVENT_JOIN", arrayListCourseData.get(position).isJoinStatus());
-                intent.putExtra("COURSE_EVENT_DATE", arrayListCourseData.get(position).getCourseEventDate());
-                intent.putExtra("COURSE_EVENT_DAY_NAME", arrayListCourseData.get(position).getDayName());
-                intent.putExtra("COURSE_EVENT_PRIZE", arrayListCourseData.get(position).getPrizePerGuest());
-                intent.putExtra("COURSE_EVENT_DESCRIPTION", arrayListCourseData.get(position).getDesc());
-                startActivity(intent);
+                    //Show alert dialog.
+                    Intent mIntent=new Intent(getActivity(),CourseAlertDialog.class);
+                    startActivity(mIntent);
+                } else {
+
+                    Log.e("DAY NAME", arrayListCourseData.get(position).getDayName());
+
+                    Intent intent = new Intent(getActivity(), CourseDiaryDetailActivity.class);
+                    intent.putExtra("COURSE_TITLE", arrayListCourseData.get(position).getTitle());
+                    intent.putExtra("COURSE_EVENT_IMAGE", arrayListCourseData.get(position).getLogo());
+                    intent.putExtra("COURSE_EVENT_JOIN", arrayListCourseData.get(position).isJoinStatus());
+                    intent.putExtra("COURSE_EVENT_DATE", arrayListCourseData.get(position).getCourseEventDate());
+                    intent.putExtra("COURSE_EVENT_DAY_NAME", arrayListCourseData.get(position).getDayName());
+                    intent.putExtra("COURSE_EVENT_PRIZE", ""+ arrayListCourseData.get(position).getPrizePerGuest());
+                    intent.putExtra("COURSE_EVENT_DESCRIPTION", arrayListCourseData.get(position).getDesc());
+                    startActivity(intent);
+                }
             }
         }
     };
@@ -138,7 +146,6 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         cdlCourseDiary = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCourseDiary);
         toolBar = (Toolbar) mRootView.findViewById(R.id.toolBar);
         tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
-        tvMonthName = (TextView) mRootView.findViewById(R.id.tvMonthName);
         lvCourseDiary = (ListView) mRootView.findViewById(R.id.lvCourseDiary);
         tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
     }
@@ -185,9 +192,12 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         aJsonParams.setDatefrom("03-04-2016");
         aJsonParams.setPageNo("0");
         aJsonParams.setPageSize("10");
-        aJsonParams.setCourseKey("1.1");
+        aJsonParams.setCourseKey("1.3");
 
         courseDiaryAPI = new CourseDiaryAPI(aJsonParams, "COURSEDIARY", "44118078", "GetSlots", "Members");
+
+        Log.e(LOG_TAG, "aJsonParams : " + aJsonParams);
+        Log.e(LOG_TAG, "courseDiaryAPI : " + courseDiaryAPI);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -247,16 +257,13 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 } else {
 
                     //Set Course Diary Recycler Adapter.
-//                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyActivity.this, filterCourseDates(arrayListCourseData));
+//                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyTabFragment.this, filterCourseDates(arrayListCourseData));
 //                    rvCourseDiary.setAdapter(recyclerViewAdapter);
 
                     courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), filterCourseDates(arrayCourseDataBackup));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
 
                     Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.size());
-
-                    //Set Name of Month selected in CALENDER or record from api of COURSE DIARY.
-                    tvMonthName.setText(arrayListCourseData.get(0).getMonthName());
                 }
             } else {
                 //If web service not respond in any case.

@@ -9,7 +9,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.ucreate.mhsystems.fragments.NewsFragment;
+import com.ucreate.mhsystems.fragments.NewCourseFragment;
+import com.ucreate.mhsystems.fragments.OldCourseFragment;
 
 
 /**
@@ -51,11 +52,11 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
         switch (iPosition) {
             case 0:
-                NewsFragment articlesContentFragment = new NewsFragment();
-                return articlesContentFragment;
+                OldCourseFragment oldCourseFragment = new OldCourseFragment();
+                return oldCourseFragment;
             case 1:
-                NewsFragment interviewsFragment = new NewsFragment();
-                return interviewsFragment;
+                NewCourseFragment newCourseFragment = new NewCourseFragment();
+                return newCourseFragment;
             default:
                 return null;
         }

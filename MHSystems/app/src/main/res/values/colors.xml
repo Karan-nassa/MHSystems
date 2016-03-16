@@ -23,4 +23,7 @@
     <color name="color808080">#808080</color>
     <color name="colorF6EA8C">#F6EA8C</color>
     <color name="colorB2E6D9">#B2E6D9</color>
+
+    <!-- TRANSPARENT COLOR-->
+    <color name="black_transparent">#99000000</color>
 </resources>
