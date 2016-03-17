@@ -17,9 +17,10 @@
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@android:color/holo_blue_light</item>
 
-        <!-- ORANGE COLOR FOCUSABLE EDIT TEXT -->
-        <item name="colorControlNormal">@color/colorF6EA8C</item>
-        <item name="colorControlActivated">@color/colorF6EA8C</item>
-        <item name="colorControlHighlight">@color/colorF6EA8C</item>
+       <!-- &lt;!&ndash; ORANGE COLOR FOCUSABLE EDIT TEXT &ndash;&gt;
+        <item name="colorControlNormal">@color/colorTheme</item>
+        <item name="colorControlActivated">@color/colorTheme</item>
+        <item name="colorControlHighlight">@color/colorTheme</item>-->
+
     </style>
 </resources>

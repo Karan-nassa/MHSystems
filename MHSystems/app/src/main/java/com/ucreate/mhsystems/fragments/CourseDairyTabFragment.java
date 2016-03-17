@@ -1,5 +1,6 @@
 package com.ucreate.mhsystems.fragments;
 
+import android.graphics.Color;
 import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,9 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
+import com.ucreate.mhsystems.activites.CourseActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 
 
@@ -52,7 +55,7 @@ public class CourseDairyTabFragment extends Fragment {
             setTabVisibleStatus(tab.getPosition());
 
             if (tab.getPosition() == 0) {
-             //   ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("OLD COURSE");
+                //   ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("OLD COURSE");
             } else if (tab.getPosition() == 1) {
 //                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("NEW COURSE");
             }
@@ -90,18 +93,20 @@ public class CourseDairyTabFragment extends Fragment {
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_course_diary_tabs, container, false);
 
+        //Initialize view resources.
         tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
+
         tabLayout.addTab(tabLayout.newTab().setText("OLD COURSE")/*.setIcon(R.drawable.tabbaricontasks)*/);
         tabLayout.addTab(tabLayout.newTab().setText("NEW COURSE")/*.setIcon(R.drawable.tabbaricontasks)*/);
 
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAFD9A1));
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorF7E59A));
 
         viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
-                (getActivity().getSupportFragmentManager() , tabLayout.getTabCount());
+                (getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -110,6 +115,8 @@ public class CourseDairyTabFragment extends Fragment {
 
         return mRootView;
     }
+
+
 
     /**
      * Implements a method to update visibility of tab.
@@ -135,6 +142,6 @@ public class CourseDairyTabFragment extends Fragment {
      */
     public void showSnackMessage(String strSnackMessage) {
         Log.e(LOG_TAG, strSnackMessage);
-        ((BaseActivity)getActivity()).showSnackBarMessages(cdlCourseDiary, strSnackMessage);
+        ((BaseActivity) getActivity()).showSnackBarMessages(cdlCourseDiary, strSnackMessage);
     }
 }

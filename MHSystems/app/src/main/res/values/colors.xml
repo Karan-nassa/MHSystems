@@ -7,6 +7,7 @@
 
     <color name="colorFFEF8176">#FFEF8176</color>
     <color name="colorBlack000000">#000000</color>
+    <color name="color809c76">#809c76</color>
     <color name="color030303">#030303</color>
     <color name="color333333">#333333</color>
     <color name="colorGrey6d6d6d">#6d6d6d</color>
@@ -26,4 +27,6 @@
 
     <!-- TRANSPARENT COLOR-->
     <color name="black_transparent">#99000000</color>
+
+    <color name="colorTheme">#f15a29</color>
 </resources>

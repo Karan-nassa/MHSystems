@@ -56,7 +56,7 @@
                 android:layout_weight="85"
                 android:alpha="0.5"
                 android:padding="10dp"
-                android:background="@color/colorD3D2D6"
+                android:background="@drawable/background_grey_border_d3d2d6"
                 android:orientation="vertical">
 
                 <!-- TIME and CATEGORY -->

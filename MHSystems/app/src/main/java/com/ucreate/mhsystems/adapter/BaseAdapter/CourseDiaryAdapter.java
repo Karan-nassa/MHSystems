@@ -85,15 +85,20 @@ public class CourseDiaryAdapter extends BaseAdapter {
             rowView = inflater.inflate(R.layout.list_item_course_diary_no_events, parent, false);
 
             viewHolder = new View_Holder();
+            viewHolder.tvDateOfEvent = (TextView) rowView.findViewById(R.id.tvDateOfEvent);
             viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
             viewHolder.tvDescOfEvent = (TextView) rowView.findViewById(R.id.tvDescOfEvent);
+            viewHolder.tvDayOfEvent = (TextView) rowView.findViewById(R.id.tvDayOfEvent);
 
             rowView.setTag(viewHolder);
 
             viewHolder = (View_Holder) rowView.getTag();
 
             viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
-            viewHolder.tvDescOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
+            viewHolder.tvDateOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
+            viewHolder.tvDescOfEvent.setText(CourseDiaryData.get(position).getDesc());
+            viewHolder.tvDayOfEvent.setText(CourseDiaryData.get(position).getDayName());
+
         } else {
 
             rowView = inflater.inflate(R.layout.list_item_course_diary, parent, false);

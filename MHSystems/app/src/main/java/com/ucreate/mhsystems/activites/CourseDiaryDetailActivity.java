@@ -1,5 +1,6 @@
 package com.ucreate.mhsystems.activites;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -39,6 +40,7 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
     @Bind(R.id.llPriceGroup)
     LinearLayout llPriceGroup;
 
+
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
@@ -54,6 +56,13 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
 
             //Navigate back to Course Dairy events.
             onBackPressed();
+        }
+    };
+    private View.OnClickListener mJoinListener=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent  mIntent=new Intent(CourseDiaryDetailActivity.this,CourseAlertDialog.class);
+            startActivity(mIntent);
         }
     };
 
@@ -86,6 +95,7 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
 
         //Set Home icon listener.
         llHomeIcon.setOnClickListener(mHomeListener);
+        btJoinEvent.setOnClickListener(mJoinListener);
     }
 
     /**

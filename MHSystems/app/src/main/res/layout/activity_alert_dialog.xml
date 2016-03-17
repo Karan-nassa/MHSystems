@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@mipmap/ic_home_diary" />
+                android:src="@mipmap/ic_calendar_popup" />
             </FrameLayout>
 
 

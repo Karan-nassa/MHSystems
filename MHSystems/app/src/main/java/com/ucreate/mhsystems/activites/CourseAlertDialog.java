@@ -33,8 +33,11 @@ public class CourseAlertDialog extends AppCompatActivity {
         ButterKnife.bind(CourseAlertDialog.this);
     }
 
-    public void onClose(View view){
-
+    /**
+     * Implements a method which invoke
+     * when user press on HOME icon.
+     */
+    public void onClose(View view) {
         onBackPressed();
     }
 }
