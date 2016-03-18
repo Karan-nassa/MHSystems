@@ -81,7 +81,7 @@ public class NewCourseFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_course_dairy, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_course_dairy_list, container, false);
 
         //Initialize app resouces of each view.
         initializeAppResources();
@@ -260,7 +260,7 @@ public class NewCourseFragment extends Fragment implements SwipeRefreshLayout.On
 //                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyTabFragment.this, filterCourseDates(arrayListCourseData));
 //                    rvCourseDiary.setAdapter(recyclerViewAdapter);
 
-                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), filterCourseDates(arrayCourseDataBackup));
+                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseActivity)getActivity()).filterCourseDates(arrayCourseDataBackup));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
 
                     Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.size());
@@ -277,77 +277,6 @@ public class NewCourseFragment extends Fragment implements SwipeRefreshLayout.On
         //Dismiss progress dialog.
         ((BaseActivity) getActivity()).hideProgress();
     }
-
-    /**
-     * Implements a method to filter or set date and name of Day
-     * one time for all course events having same date and day.
-     */
-    public ArrayList<CourseDiaryDataCopy> filterCourseDates(ArrayList<CourseDiaryDataCopy> arrayListCourseData) {
-        ArrayList<CourseDiaryDataCopy> courseDiaryDataArrayList = new ArrayList<>();
-        courseDiaryDataArrayList.clear();
-        String strLastDate = "";
-
-        /**
-         *  Loop filter till end of Course
-         *  Diary events.
-         */
-        for (int iCounter = 0; iCounter < arrayListCourseData.size(); iCounter++) {
-
-            String strDateOfEvent = formatDateOfEvent(arrayListCourseData.get(iCounter).getCourseEventDate());
-
-            /**
-             * Check if same date or not of Course Diary event If yes then just
-             * display date and day name once otherwise skip.
-             */
-            if (strLastDate.equalsIgnoreCase(strDateOfEvent)) {
-
-                arrayListCourseData.get(iCounter).setCourseEventDate("");
-                arrayListCourseData.get(iCounter).setDayName("");
-
-            } else {
-                strLastDate = strDateOfEvent;
-
-                arrayListCourseData.get(iCounter).setCourseEventDate(strDateOfEvent);
-                arrayListCourseData.get(iCounter).setDayName(formatDayOfEvent(arrayListCourseData.get(iCounter).getDayName()));
-            }
-
-            //Add final to new arrat list.
-            courseDiaryDataArrayList.add(arrayListCourseData.get(iCounter));
-        }
-        return courseDiaryDataArrayList;
-    }
-
-    /**
-     * @param strCourseEventDate <br>
-     *                           Implements a method to return the format the day of
-     *                           event.
-     *                           <p/>
-     *                           Exapmle: 2016-03-04T00:00:00
-     * @Return : 04
-     */
-    private String formatDateOfEvent(String strCourseEventDate) {
-
-        //Used when Date format in Hyphen['-']. Example : dd-MM-yyyy
-        String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
-
-        //Used when Date format in slashes['/']. Example : dd/MM/yyyy
-        //String strEventDate = strCourseEventDate.substring(strCourseEventDate.indexOf("/") + 1, strCourseEventDate.lastIndexOf("/"));
-
-        return strEventDate;
-    }
-
-    /**
-     * @param strDayName <br>
-     *                   Implements a method to return the format the day of
-     *                   event.
-     *                   <p/>
-     *                   Exapmle: NAME OF DAY : Friday
-     * @Return : Fri
-     */
-    private String formatDayOfEvent(String strDayName) {
-        return (strDayName.substring(0, 3));
-    }
-
 
     /**
      * Update Swipe refresh view.
