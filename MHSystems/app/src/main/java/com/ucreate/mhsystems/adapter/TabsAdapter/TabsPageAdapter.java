@@ -5,14 +5,12 @@ package com.ucreate.mhsystems.adapter.TabsAdapter;
  * Adapter on 20/12/2015.
  */
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
-import com.ucreate.mhsystems.fragments.NewCourseFragment;
-import com.ucreate.mhsystems.fragments.OldCourseFragment;
+import com.ucreate.mhsystems.fragments.CourseFragmentTabsData;
 
 
 /**
@@ -54,13 +52,13 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
         switch (iPosition) {
             case 0:
+                CourseDairyTabFragment.courseFragmentTabsData = new CourseFragmentTabsData();
+                return CourseDairyTabFragment.courseFragmentTabsData;
 
-                CourseDairyTabFragment.oldCourseFragment = new OldCourseFragment();
-                return CourseDairyTabFragment.oldCourseFragment;
             case 1:
+                CourseDairyTabFragment.courseFragmentTabsData = new CourseFragmentTabsData();
+                return CourseDairyTabFragment.courseFragmentTabsData;
 
-                CourseDairyTabFragment.oldCourseFragment = new OldCourseFragment();
-                return CourseDairyTabFragment.oldCourseFragment;
             default:
                 return null;
         }

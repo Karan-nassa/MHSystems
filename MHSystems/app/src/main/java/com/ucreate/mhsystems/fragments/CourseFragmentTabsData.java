@@ -44,11 +44,11 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class NewCourseFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = NewCourseFragment.class.getSimpleName();
+    public static final String LOG_TAG = CourseFragmentTabsData.class.getSimpleName();
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
     ArrayList<CourseDiaryDataCopy> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
 
@@ -116,7 +116,7 @@ public class NewCourseFragment extends Fragment implements SwipeRefreshLayout.On
                     intent.putExtra("COURSE_EVENT_JOIN", arrayListCourseData.get(position).isJoinStatus());
                     intent.putExtra("COURSE_EVENT_DATE", arrayListCourseData.get(position).getCourseEventDate());
                     intent.putExtra("COURSE_EVENT_DAY_NAME", arrayListCourseData.get(position).getDayName());
-                    intent.putExtra("COURSE_EVENT_PRIZE", ""+ arrayListCourseData.get(position).getPrizePerGuest());
+                    intent.putExtra("COURSE_EVENT_PRIZE", ""+arrayListCourseData.get(position).getPrizePerGuest());
                     intent.putExtra("COURSE_EVENT_DESCRIPTION", arrayListCourseData.get(position).getDesc());
                     startActivity(intent);
                 }
@@ -155,7 +155,7 @@ public class NewCourseFragment extends Fragment implements SwipeRefreshLayout.On
         /**
          *  Check internet connection before hitting server request.
          */
-        if (((BaseActivity)getActivity()).isOnline(getActivity())) {
+        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             //Method to hit Squads API.
             requestNewsService();
         } else {
@@ -166,7 +166,7 @@ public class NewCourseFragment extends Fragment implements SwipeRefreshLayout.On
     /**
      * Implement a method to hit News web service to get response.
      */
-    private void requestNewsService() {
+    public void requestNewsService() {
 
         if (!isSwipeVisible) {
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
@@ -175,16 +175,13 @@ public class NewCourseFragment extends Fragment implements SwipeRefreshLayout.On
         aJsonParams = new AJsonParams_();
         aJsonParams.setCallid("1456315336575");
         aJsonParams.setVersion("1");
-        aJsonParams.setDateto(CourseDairyTabFragment.strDateTo);
-        aJsonParams.setDatefrom(CourseDairyTabFragment.strDateFrom);
+        aJsonParams.setDateto(CourseDairyTabFragment.strDateTo); // MM-DD-YYYY
+        aJsonParams.setDatefrom(CourseDairyTabFragment.strDateFrom); // MM-DD-YYYY
         aJsonParams.setPageNo("0");
         aJsonParams.setPageSize("10");
-        aJsonParams.setCourseKey("1.3");
+        aJsonParams.setCourseKey(CourseDairyTabFragment.mCourseKey);
 
         courseDiaryAPI = new CourseDiaryAPI(aJsonParams, "COURSEDIARY", "44118078", "GetSlots", "Members");
-
-        Log.e(LOG_TAG, "aJsonParams : " + aJsonParams);
-        Log.e(LOG_TAG, "courseDiaryAPI : " + courseDiaryAPI);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()

@@ -9,15 +9,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
-import com.ucreate.mhsystems.fragments.NewCourseFragment;
-import com.ucreate.mhsystems.fragments.OldCourseFragment;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 
 import java.util.ArrayList;
@@ -185,7 +183,7 @@ public class CourseActivity extends BaseActivity {
 //
 //        if(fragment instanceof NewCourseFragment){
 //
-//        }else if(fragment instanceof OldCourseFragment) {
+//        }else if(fragment instanceof CourseFragmentTabsData) {
 //            fragment.requestNewsService();
 //        }
 //    }
@@ -274,9 +272,21 @@ public class CourseActivity extends BaseActivity {
      */
     void setupToolbar() {
         setSupportActionBar(toolbar);
-        toolbar.setLogo(R.mipmap.ic_home_menu);
+        //toolbar.setLogo(R.mipmap.ic_home_menu);
+        // toolbar.setTitle("March 2016");
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+    }
+
+    /**
+     * Implements a method to update
+     * name of MONTH.
+     */
+    public void setTitleBar(String strNameOfMonth) {
+
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.tvCourseSchedule);
+
+        mTitle.setText(strNameOfMonth);
     }
 
     /**
@@ -301,17 +311,14 @@ public class CourseActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.action_PrevMonth:
                 updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
-                //tr.replace(R.id.containerView, new CourseDairyTabFragment());
                 break;
 
             case R.id.action_NextMonth:
                 updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_NEXT_MONTH));
-                // tr.replace(R.id.containerView, new ScoreTabsFragment(0));
                 break;
 
             case R.id.action_Today:
                 updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_TODAY));
-                // tr.replace(R.id.containerView, new MediaTabsFragment(false));
                 break;
         }
 
@@ -329,7 +336,6 @@ public class CourseActivity extends BaseActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.containerView, mFragment);
         fragmentTransaction.commit();
-
     }
 
 
