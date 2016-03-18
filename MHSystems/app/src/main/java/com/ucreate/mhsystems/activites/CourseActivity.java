@@ -1,6 +1,7 @@
 package com.ucreate.mhsystems.activites;
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -44,6 +45,9 @@ public class CourseActivity extends BaseActivity {
 
     @Bind(R.id.toolBar)
     Toolbar toolbar;
+
+    @Bind(R.id.cdlCourse)
+    CoordinatorLayout cdlCourse;
 
 //    @Bind(R.id.ivToday)
 //    ImageView ivToday;
@@ -193,7 +197,7 @@ public class CourseActivity extends BaseActivity {
      */
     public void showSnackMessage(String strSnackMessage) {
         Log.e("Snack:", strSnackMessage);
-        //BaseActivity.showsn(cdlCourse, strSnackMessage);
+        showSnackBarMessages(cdlCourse, strSnackMessage);
     }
 
     /**
