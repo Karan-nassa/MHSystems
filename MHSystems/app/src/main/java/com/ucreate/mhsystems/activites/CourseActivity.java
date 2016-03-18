@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
+import com.ucreate.mhsystems.fragments.NewCourseFragment;
+import com.ucreate.mhsystems.fragments.OldCourseFragment;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 
 import java.util.ArrayList;
@@ -76,7 +78,7 @@ public class CourseActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            setCalenderDates(true);
+            //setCalenderDates(true);
 
             Toast.makeText(CourseActivity.this, "Today pressed", Toast.LENGTH_LONG).show();
         }
@@ -116,8 +118,8 @@ public class CourseActivity extends BaseActivity {
         //Initialize view resources.
         ButterKnife.bind(this);
 
-        //Initialize the dates of CALENDER to display data according dates.
-        setCalenderDates(false); //FALSE means no call from TODAY icon pressed.
+//        //Initialize the dates of CALENDER to display data according dates.
+//        setCalenderDates(false); //FALSE means no call from TODAY icon pressed.
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragment = new CourseDairyTabFragment();
@@ -131,41 +133,49 @@ public class CourseActivity extends BaseActivity {
         ivNextMonth.setOnClickListener(mNextMonthListener);
     }
 
-    /**
-     * Implements a method to display calender
-     * instances.
-     */
-    private void setCalenderDates(boolean isTodayCall) {
-
-        //Initialize CALENDAR instance.
-        mCalendarInstance = Calendar.getInstance();
-
-        if (isTodayCall) {
-            strDate = "" + mCalendarInstance.get(Calendar.DATE);
-        } else {
-            strDate = "01";
-        }
-
-        iMonth = mCalendarInstance.get(Calendar.MONTH);
-        iYear = mCalendarInstance.get(Calendar.YEAR);
-
-        //Increment CALENDAR because MONTH start from 0.
-        iMonth++;
-
-        //Get total number of days of selected month.
-        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        //FORMAT : MM-DD-YYYY
-        strDateFrom = strDate + "/" + iMonth + "/" + iYear;
-
-        //FORMAT : MM-DD-YYYY
-        strDateTo = "" + iNumOfDays + "/" + iMonth + "/" + iYear;
-
-        Log.e(LOG_TAG, "START DATE : " + strDateFrom);
-        Log.e(LOG_TAG, "END DATE : " + strDateTo);
-
-        Log.e("DATA ", "DATE : " + strDate + " MONTH : " + iMonth + " YEAR : " + iYear + " NUM OF DAYS : " + iNumOfDays);
-    }
+//    /**
+//     * Implements a method to display calender
+//     * instances.
+//     */
+//    private void setCalenderDates(boolean isTodayCall) {
+//
+//        //Initialize CALENDAR instance.
+//        mCalendarInstance = Calendar.getInstance();
+//
+//        if (isTodayCall) {
+//            strDate = "" + mCalendarInstance.get(Calendar.DATE);
+//            iNumOfDays =  mCalendarInstance.get(Calendar.DATE);
+//        } else {
+//            strDate = "01";
+//
+//            //Get total number of days of selected month.
+//            iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+//        }
+//
+//        iMonth = mCalendarInstance.get(Calendar.MONTH);
+//        iYear = mCalendarInstance.get(Calendar.YEAR);
+//
+//        //Increment CALENDAR because MONTH start from 0.
+//        iMonth++;
+//
+//
+//        //FORMAT : MM-DD-YYYY
+//        strDateFrom = strDate + "/" + iMonth + "/" + iYear;
+//
+//        //FORMAT : MM-DD-YYYY
+//        strDateTo = "" + iNumOfDays + "/" + iMonth + "/" + iYear;
+//
+//        Log.e(LOG_TAG, "START DATE : " + strDateFrom);
+//        Log.e(LOG_TAG, "END DATE : " + strDateTo);
+//
+//        Log.e("DATA ", "DATE : " + strDate + " MONTH : " + iMonth + " YEAR : " + iYear + " NUM OF DAYS : " + iNumOfDays);
+//
+//        if(fragment instanceof NewCourseFragment){
+//
+//        }else if(fragment instanceof OldCourseFragment) {
+//            fragment.requestNewsService();
+//        }
+//    }
 
     /**
      * Show snackBar message defined in BaseActivity.

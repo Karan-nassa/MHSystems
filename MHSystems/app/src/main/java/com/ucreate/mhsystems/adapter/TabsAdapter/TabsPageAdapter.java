@@ -5,10 +5,12 @@ package com.ucreate.mhsystems.adapter.TabsAdapter;
  * Adapter on 20/12/2015.
  */
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
 import com.ucreate.mhsystems.fragments.NewCourseFragment;
 import com.ucreate.mhsystems.fragments.OldCourseFragment;
 
@@ -22,6 +24,7 @@ import com.ucreate.mhsystems.fragments.OldCourseFragment;
  */
 public class TabsPageAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
+    private Context context;
 
     /**
      * Tab Page Adapter initialization.
@@ -30,8 +33,9 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * <br> @param  NumOfTabs : Total number of Instance
      * <br> @param  iFromWhat : Value 1 means call from Article and 2 from Media
      */
-    public TabsPageAdapter(FragmentManager fm, int NumOfTabs) {
+    public TabsPageAdapter(Context context, FragmentManager fm, int NumOfTabs) {
         super(fm);
+        this.context = context;
         this.mNumOfTabs = NumOfTabs;
     }
 
@@ -52,11 +56,11 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
         switch (iPosition) {
             case 0:
-                OldCourseFragment oldCourseFragment = new OldCourseFragment();
-                return oldCourseFragment;
+                CourseDairyTabFragment.oldCourseFragment = new OldCourseFragment();
+                return CourseDairyTabFragment.oldCourseFragment;
             case 1:
-                NewCourseFragment newCourseFragment = new NewCourseFragment();
-                return newCourseFragment;
+                CourseDairyTabFragment.newCourseFragment = new NewCourseFragment();
+                return CourseDairyTabFragment.newCourseFragment;
             default:
                 return null;
         }

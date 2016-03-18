@@ -1,5 +1,6 @@
 package com.ucreate.mhsystems.fragments;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CourseActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 
+
+import java.util.Calendar;
 
 import butterknife.Bind;
 
@@ -38,7 +41,27 @@ public class CourseDairyTabFragment extends Fragment {
     TabLayout tabLayout;
     ViewPager viewPager;
     View mRootView;
+    Context context;
     TabsPageAdapter pageAdapter;
+
+    public static OldCourseFragment oldCourseFragment;
+    public static NewCourseFragment newCourseFragment;
+
+
+    Calendar mCalendarInstance;
+
+    /*********************************
+     * INSTANCES OF LOCAL DATA TYPE
+     *******************************/
+    public String strDate;
+    public int iMonth;
+    public int iYear;
+
+    //To record total number of days.
+    int iNumOfDays;
+
+    public static String strDateFrom; //Start date.
+    public static String strDateTo; //End date.
 
     /**
      * Declare three bool instances to call api
@@ -46,7 +69,7 @@ public class CourseDairyTabFragment extends Fragment {
      */
     public static boolean isOldCourseVisible, isNewCourseVisible;
 
-    private TabLayout.OnTabSelectedListener mArticleTabListener = new TabLayout.OnTabSelectedListener() {
+    private TabLayout.OnTabSelectedListener mCourseTabListener = new TabLayout.OnTabSelectedListener() {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             viewPager.setCurrentItem(tab.getPosition());
@@ -106,17 +129,56 @@ public class CourseDairyTabFragment extends Fragment {
 
         viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
-                (getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+                (getActivity(), getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        //Initialize the dates of CALENDER to display data according dates.
+        setCalenderDates(false); //FALSE means no call from TODAY icon pressed.
+
         //Implement Tab selected listener.
-        tabLayout.setOnTabSelectedListener(mArticleTabListener);
+        tabLayout.setOnTabSelectedListener(mCourseTabListener);
 
         return mRootView;
     }
 
+    /**
+     * Implements a method to display calender
+     * instances.
+     */
+    private void setCalenderDates(boolean isTodayCall) {
 
+        //Initialize CALENDAR instance.
+        mCalendarInstance = Calendar.getInstance();
+
+        if (isTodayCall) {
+            strDate = "" + mCalendarInstance.get(Calendar.DATE);
+            iNumOfDays = mCalendarInstance.get(Calendar.DATE);
+        } else {
+            strDate = "01";
+
+            //Get total number of days of selected month.
+            iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+        }
+
+        iMonth = mCalendarInstance.get(Calendar.MONTH);
+        iYear = mCalendarInstance.get(Calendar.YEAR);
+
+        //Increment CALENDAR because MONTH start from 0.
+        iMonth++;
+
+
+        //FORMAT : MM-DD-YYYY
+        strDateFrom =  iMonth + "/" + strDate + "/" + iYear;
+
+        //FORMAT : MM-DD-YYYY
+        strDateTo = "" + iMonth + "/" + iNumOfDays + "/" + iYear;
+
+        Log.e(LOG_TAG, "START DATE : " + strDateFrom);
+        Log.e(LOG_TAG, "END DATE : " + strDateTo);
+
+        Log.e("DATA ", "DATE : " + strDate + " MONTH : " + iMonth + " YEAR : " + iYear + " NUM OF DAYS : " + iNumOfDays);
+    }
 
     /**
      * Implements a method to update visibility of tab.

@@ -76,24 +76,12 @@ public class OldCourseFragment extends Fragment implements SwipeRefreshLayout.On
     //List of type books this list will store type Book which is our data model
     private CourseDiaryAPI courseDiaryAPI;
 
-    //Swipe Refresh Instance.
-    private SwipeRefreshLayout SwipeRefreshNews;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_course_dairy_list, container, false);
 
         //Initialize app resouces of each view.
         initializeAppResources();
-        SwipeRefreshNews = (SwipeRefreshLayout) mRootView.findViewById(R.id.SwipeRefreshNews);
-        // Configure the refreshing colors
-        SwipeRefreshNews.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-
-        //Set Swipe Refresh listener.
-        SwipeRefreshNews.setOnRefreshListener(this);
 
         //Course Diary events click listener.
         lvCourseDiary.setOnItemClickListener(mCourseEventListener);
@@ -172,14 +160,13 @@ public class OldCourseFragment extends Fragment implements SwipeRefreshLayout.On
             requestNewsService();
         } else {
             ((CourseActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_internet));
-            updateSwipeRefresh();
         }
     }
 
     /**
      * Implement a method to hit News web service to get response.
      */
-    private void requestNewsService() {
+    public void requestNewsService() {
 
         if (!isSwipeVisible) {
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
@@ -188,8 +175,8 @@ public class OldCourseFragment extends Fragment implements SwipeRefreshLayout.On
         aJsonParams = new AJsonParams_();
         aJsonParams.setCallid("1456315336575");
         aJsonParams.setVersion("1");
-        aJsonParams.setDateto("03-23-2016"); // MM-DD-YYYY
-        aJsonParams.setDatefrom("03-04-2016"); // MM-DD-YYYY
+        aJsonParams.setDateto(CourseDairyTabFragment.strDateTo); // MM-DD-YYYY
+        aJsonParams.setDatefrom(CourseDairyTabFragment.strDateFrom); // MM-DD-YYYY
         aJsonParams.setPageNo("0");
         aJsonParams.setPageSize("10");
         aJsonParams.setCourseKey("1.1");
@@ -275,21 +262,6 @@ public class OldCourseFragment extends Fragment implements SwipeRefreshLayout.On
         ((BaseActivity) getActivity()).hideProgress();
     }
 
-    /**
-     * Update Swipe refresh view.
-     */
-    private void updateSwipeRefresh() {
-        if (isSwipeVisible) {
-
-            if (courseDiaryAdapter != null) {
-                courseDiaryAdapter.notifyDataSetChanged();
-            }
-
-            isSwipeVisible = false;//For next time.
-            // stopping swipe refresh
-            SwipeRefreshNews.setRefreshing(false);
-        }
-    }
 
     @Override
     public void onRefresh() {
