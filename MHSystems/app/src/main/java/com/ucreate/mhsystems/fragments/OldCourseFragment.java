@@ -28,6 +28,7 @@ import com.ucreate.mhsystems.activites.CourseActivity;
 import com.ucreate.mhsystems.activites.CourseAlertDialog;
 import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
+import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.API.WebServiceMethods;
 import com.ucreate.mhsystems.utils.pojo.AJsonParams_;
@@ -179,7 +180,7 @@ public class OldCourseFragment extends Fragment implements SwipeRefreshLayout.On
         aJsonParams.setDatefrom(CourseDairyTabFragment.strDateFrom); // MM-DD-YYYY
         aJsonParams.setPageNo("0");
         aJsonParams.setPageSize("10");
-        aJsonParams.setCourseKey("1.1");
+        aJsonParams.setCourseKey(CourseDairyTabFragment.mCourseKey);
 
         courseDiaryAPI = new CourseDiaryAPI(aJsonParams, "COURSEDIARY", "44118078", "GetSlots", "Members");
 

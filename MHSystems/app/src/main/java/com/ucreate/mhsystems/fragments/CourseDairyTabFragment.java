@@ -13,11 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CourseActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
 
 import java.util.Calendar;
@@ -53,9 +55,9 @@ public class CourseDairyTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public String strDate;
-    public int iMonth;
-    public int iYear;
+    public static String strDate;
+    public static int iMonth;
+    public static int iYear;
 
     //To record total number of days.
     int iNumOfDays;
@@ -69,6 +71,15 @@ public class CourseDairyTabFragment extends Fragment {
      */
     public static boolean isOldCourseVisible, isNewCourseVisible;
 
+    /**
+     * This instance used to identify which tab is
+     * selected and describe CourseKey.
+     * <p>
+     * <br> 1.1 for OLD COURSE
+     * <br> 1.3 for NEW COURSE
+     */
+    public static String mCourseKey = "1.1";
+
     private TabLayout.OnTabSelectedListener mCourseTabListener = new TabLayout.OnTabSelectedListener() {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
@@ -78,37 +89,67 @@ public class CourseDairyTabFragment extends Fragment {
             setTabVisibleStatus(tab.getPosition());
 
             if (tab.getPosition() == 0) {
-                //   ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("OLD COURSE");
+                mCourseKey = "1.1";
             } else if (tab.getPosition() == 1) {
-//                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("NEW COURSE");
+                mCourseKey = "1.3";
             }
         }
 
         @Override
         public void onTabUnselected(TabLayout.Tab tab) {
-            /**
-             *  Replace Tab bar icons.
-             */
-            if (tab.getPosition() == 1) {
-                // tab.setIcon(R.drawable.tabbaricontasks);
-            } else if (tab.getPosition() == 0) {
-                //tab.setIcon(R.drawable.tabbaricontasks);
-            }
         }
 
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
-               /* if(tab.getPosition()==1){
-                    tab.setIcon(R.drawable.tabbaricontasks);
-                }
-                else if(tab.getPosition()==0){
-                    tab.setIcon(R.drawable.tabbaricontasks);
-                }
-                else if(tab.getPosition()==2){
-                    tab.setIcon(R.drawable.tabbaricontasks);
-                }*/
         }
     };
+
+    /**
+     * Constructor to set dates.
+     */
+    public CourseDairyTabFragment() {
+
+        //Initialize the dates of CALENDER to display data according dates.
+        //  setCalenderDates(false); //FALSE means no call from TODAY icon pressed.
+    }
+
+    /**
+     * Constructor to set action and change
+     * CALENDAR accordingly.
+     */
+    public CourseDairyTabFragment(int action) {
+
+        setCalenderDates(action);
+    }
+
+    /**
+     * Implements a method to navigate to
+     * PREVIOUS month.
+     */
+    private void previousMonthSelected() {
+
+        if (iMonth == 1) {
+
+        } else {
+            iMonth--;
+        }
+        // Toast.makeText(getActivity(), "Previous Month listener pressed", Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Implements a method to navigate to
+     * NEXT month.
+     */
+    private void nextMonthSelected() {
+
+        if (iMonth == 12) {
+
+        } else {
+            iMonth++;
+        }
+
+        // Toast.makeText(getActivity(), "Next Month listener pressed", Toast.LENGTH_LONG).show();
+    }
 
 
     @Override
@@ -119,8 +160,8 @@ public class CourseDairyTabFragment extends Fragment {
         //Initialize view resources.
         tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
 
-        tabLayout.addTab(tabLayout.newTab().setText("OLD COURSE")/*.setIcon(R.drawable.tabbaricontasks)*/);
-        tabLayout.addTab(tabLayout.newTab().setText("NEW COURSE")/*.setIcon(R.drawable.tabbaricontasks)*/);
+        tabLayout.addTab(tabLayout.newTab().setText("OLD COURSE"));
+        tabLayout.addTab(tabLayout.newTab().setText("NEW COURSE"));
 
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -129,12 +170,9 @@ public class CourseDairyTabFragment extends Fragment {
 
         viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
-                (getActivity(), getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+                (getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        //Initialize the dates of CALENDER to display data according dates.
-        setCalenderDates(false); //FALSE means no call from TODAY icon pressed.
 
         //Implement Tab selected listener.
         tabLayout.setOnTabSelectedListener(mCourseTabListener);
@@ -146,30 +184,57 @@ public class CourseDairyTabFragment extends Fragment {
      * Implements a method to display calender
      * instances.
      */
-    private void setCalenderDates(boolean isTodayCall) {
+    private void setCalenderDates(int iAction) {
 
         //Initialize CALENDAR instance.
         mCalendarInstance = Calendar.getInstance();
 
-        if (isTodayCall) {
-            strDate = "" + mCalendarInstance.get(Calendar.DATE);
-            iNumOfDays = mCalendarInstance.get(Calendar.DATE);
-        } else {
-            strDate = "01";
+        //Do nothing. Just load data according current date.
+        strDate = "01";
 
-            //Get total number of days of selected month.
-            iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-        }
+        //Get total number of days of selected month.
+        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        iMonth = mCalendarInstance.get(Calendar.MONTH);
         iYear = mCalendarInstance.get(Calendar.YEAR);
 
-        //Increment CALENDAR because MONTH start from 0.
-        iMonth++;
+        switch (iAction) {
 
+            case ApplicationGlobal.ACTION_NOTHING:
+                //Get MONTH and YEAR.
+                iMonth = mCalendarInstance.get(Calendar.MONTH);
+                //Increment CALENDAR because MONTH start from 0.
+
+                iMonth++;
+
+                break;
+
+            case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
+
+                if (iMonth == 1) {
+
+                } else {
+                    iMonth--;
+                }
+                break;
+
+            case ApplicationGlobal.ACTION_NEXT_MONTH:
+
+                if (iMonth == 12) {
+
+                } else {
+                    iMonth++;
+                }
+                break;
+
+            case ApplicationGlobal.ACTION_TODAY:
+                //Initialize the dates of CALENDER to display data according dates.
+                strDate = "" +  mCalendarInstance.get(Calendar.DATE);
+                iNumOfDays =  mCalendarInstance.get(Calendar.DATE);
+                break;
+        }
 
         //FORMAT : MM-DD-YYYY
-        strDateFrom =  iMonth + "/" + strDate + "/" + iYear;
+        strDateFrom = iMonth + "/" + strDate + "/" + iYear;
 
         //FORMAT : MM-DD-YYYY
         strDateTo = "" + iMonth + "/" + iNumOfDays + "/" + iYear;

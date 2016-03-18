@@ -38,6 +38,14 @@ public class ApplicationGlobal {
     public static final int POSITION_OLD_COURSE = 1;
     public static final int POSITION_NEW_COURSE = 2;
 
+    /**
+     * Used during tap on icons or update
+     * dates.
+     */
+    public static final int ACTION_NOTHING  = 0;
+    public static final int ACTION_PREVIOUS_MONTH = 1;
+    public static final int ACTION_NEXT_MONTH = 2;
+    public static final int ACTION_TODAY = 3;
 
 
 }

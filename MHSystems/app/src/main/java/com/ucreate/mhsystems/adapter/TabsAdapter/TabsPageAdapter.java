@@ -17,25 +17,23 @@ import com.ucreate.mhsystems.fragments.OldCourseFragment;
 
 /**
  * Tab Page Adapter initialization.
- * <p/>
+ * <p>
  * <br> @param  Fm        : Instance of Fragment Manager
  * <br> @param  NumOfTabs : Total number of Instance
  * <br> @param  iFromWhat : Value 1 means call from Article and 2 from Media
  */
 public class TabsPageAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
-    private Context context;
 
     /**
      * Tab Page Adapter initialization.
-     * <p/>
+     * <p>
      * <br> @param  Fm        : Instance of Fragment Manager
      * <br> @param  NumOfTabs : Total number of Instance
      * <br> @param  iFromWhat : Value 1 means call from Article and 2 from Media
      */
-    public TabsPageAdapter(Context context, FragmentManager fm, int NumOfTabs) {
+    public TabsPageAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
-        this.context = context;
         this.mNumOfTabs = NumOfTabs;
     }
 
@@ -49,18 +47,20 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Load Article Tabs i.e NEWS, INTERVIEWS and GUIDES.
-     * <p/>
+     * <p>
      * <br> @return Fragment
      */
     private Fragment loadArticleTabs(int iPosition) {
 
         switch (iPosition) {
             case 0:
+
                 CourseDairyTabFragment.oldCourseFragment = new OldCourseFragment();
                 return CourseDairyTabFragment.oldCourseFragment;
             case 1:
-                CourseDairyTabFragment.newCourseFragment = new NewCourseFragment();
-                return CourseDairyTabFragment.newCourseFragment;
+
+                CourseDairyTabFragment.oldCourseFragment = new OldCourseFragment();
+                return CourseDairyTabFragment.oldCourseFragment;
             default:
                 return null;
         }

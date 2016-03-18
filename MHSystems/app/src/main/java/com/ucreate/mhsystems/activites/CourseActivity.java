@@ -2,14 +2,19 @@ package com.ucreate.mhsystems.activites;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
 import com.ucreate.mhsystems.fragments.NewCourseFragment;
 import com.ucreate.mhsystems.fragments.OldCourseFragment;
@@ -23,6 +28,10 @@ import butterknife.ButterKnife;
 
 public class CourseActivity extends BaseActivity {
 
+    /*********************************
+     * DECLARATION OF CONSTANTS
+     *******************************/
+
     public static final String LOG_TAG = CourseActivity.class.getSimpleName();
 
     /*********************************
@@ -35,14 +44,17 @@ public class CourseActivity extends BaseActivity {
     @Bind(R.id.llHomeIcon)
     LinearLayout llHomeIcon;
 
-    @Bind(R.id.ivToday)
-    ImageView ivToday;
+    @Bind(R.id.toolBar)
+    Toolbar toolbar;
 
-    @Bind(R.id.ivPreviousMonth)
-    ImageView ivPreviousMonth;
-
-    @Bind(R.id.ivNextMonth)
-    ImageView ivNextMonth;
+//    @Bind(R.id.ivToday)
+//    ImageView ivToday;
+//
+//    @Bind(R.id.ivPreviousMonth)
+//    ImageView ivPreviousMonth;
+//
+//    @Bind(R.id.ivNextMonth)
+//    ImageView ivNextMonth;
 
     Calendar mCalendarInstance;
 
@@ -118,19 +130,20 @@ public class CourseActivity extends BaseActivity {
         //Initialize view resources.
         ButterKnife.bind(this);
 
+        //Let's first set up toolbar
+        setupToolbar();
+
 //        //Initialize the dates of CALENDER to display data according dates.
 //        setCalenderDates(false); //FALSE means no call from TODAY icon pressed.
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragment = new CourseDairyTabFragment();
-        fragmentTransaction.replace(R.id.containerView, fragment);
-        fragmentTransaction.commit();
+        //Load Default fragment of COURSE DIARY.
+        updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_NOTHING));
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
-        ivToday.setOnClickListener(mTodayListener);
-        ivPreviousMonth.setOnClickListener(mPreviousMonthListener);
-        ivNextMonth.setOnClickListener(mNextMonthListener);
+//        ivToday.setOnClickListener(mTodayListener);
+//        ivPreviousMonth.setOnClickListener(mPreviousMonthListener);
+//        ivNextMonth.setOnClickListener(mNextMonthListener);
     }
 
 //    /**
@@ -253,6 +266,70 @@ public class CourseActivity extends BaseActivity {
      */
     private String formatDayOfEvent(String strDayName) {
         return (strDayName.substring(0, 3));
+    }
+
+    /**
+     * Initialize tool bar to display menu bar options, app-icon and
+     * navigation drawer icon.
+     */
+    void setupToolbar() {
+        setSupportActionBar(toolbar);
+        toolbar.setLogo(R.mipmap.ic_home_menu);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    /**
+     * Create Menu Options
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    /**
+     * Handle click event on Menu bar icons
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //Here we change the fragment
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction tr = fm.beginTransaction();
+
+        switch (item.getItemId()) {
+            case R.id.action_PrevMonth:
+                updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
+                //tr.replace(R.id.containerView, new CourseDairyTabFragment());
+                break;
+
+            case R.id.action_NextMonth:
+                updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_NEXT_MONTH));
+                // tr.replace(R.id.containerView, new ScoreTabsFragment(0));
+                break;
+
+            case R.id.action_Today:
+                updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_TODAY));
+                // tr.replace(R.id.containerView, new MediaTabsFragment(false));
+                break;
+        }
+
+        //Commit and navigate to new fragment.
+        tr.commit();
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Implements a common method to update
+     * Fragment.
+     */
+    public void updateFragment(Fragment mFragment) {
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.containerView, mFragment);
+        fragmentTransaction.commit();
+
     }
 
 
