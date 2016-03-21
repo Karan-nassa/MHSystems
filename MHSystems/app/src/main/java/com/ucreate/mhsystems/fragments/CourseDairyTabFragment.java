@@ -115,7 +115,6 @@ public class CourseDairyTabFragment extends Fragment {
      * CALENDAR accordingly.
      */
     public CourseDairyTabFragment(int action) {
-
         setCalenderDates(action);
     }
 
@@ -198,6 +197,11 @@ public class CourseDairyTabFragment extends Fragment {
                 //Initialize the dates of CALENDER to display data according dates.
                 strDate = "" + mCalendarInstance.get(Calendar.DATE);
                 iNumOfDays = mCalendarInstance.get(Calendar.DATE);
+
+                //Get MONTH and YEAR.
+                iMonth = mCalendarInstance.get(Calendar.MONTH);
+                //Increment CALENDAR because MONTH start from 0.
+                iMonth++;
                 break;
         }
 

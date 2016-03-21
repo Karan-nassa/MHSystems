@@ -230,7 +230,7 @@ public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayo
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
-            if (courseDiaryItems.getResult().equals("1")) {
+            if (courseDiaryItems.getMessage().equalsIgnoreCase("Success")) {
 
                 arrayListCourseData.addAll(courseDiaryItems.getData());
                 //Take backup of List before changing to record.
@@ -251,7 +251,7 @@ public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayo
                 }
             } else {
                 //If web service not respond in any case.
-                ((CourseActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_please_retry));
+                ((CourseActivity) getActivity()).showSnackMessage(courseDiaryItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
