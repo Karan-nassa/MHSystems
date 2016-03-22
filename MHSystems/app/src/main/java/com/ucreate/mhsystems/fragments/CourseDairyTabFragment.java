@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.activites.CourseActivity;
+import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
@@ -140,7 +140,7 @@ public class CourseDairyTabFragment extends Fragment {
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        ((CourseActivity) getActivity()).setTitleBar(strNameOfMonth);
+        ((CourseDiaryActivity) getActivity()).setTitleBar(strNameOfMonth);
 
         //Implement Tab selected listener.
         tabLayout.setOnTabSelectedListener(mCourseTabListener);

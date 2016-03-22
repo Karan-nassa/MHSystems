@@ -24,7 +24,7 @@ import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.activites.CourseActivity;
+import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.activites.CourseAlertDialog;
 import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
@@ -159,7 +159,7 @@ public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayo
             //Method to hit Squads API.
             requestNewsService();
         } else {
-            ((CourseActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_internet));
+            ((CourseDiaryActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_internet));
         }
     }
 
@@ -205,7 +205,7 @@ public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayo
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
 
-                ((CourseActivity) getActivity()).showSnackMessage("" + error);
+                ((CourseDiaryActivity) getActivity()).showSnackMessage("" + error);
             }
         });
 
@@ -237,21 +237,21 @@ public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayo
                 arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
 
                 if (arrayListCourseData.size() == 0) {
-                    ((CourseActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_data));
+                    ((CourseDiaryActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
                     //Set Course Diary Recycler Adapter.
 //                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyTabFragment.this, filterCourseDates(arrayListCourseData));
 //                    rvCourseDiary.setAdapter(recyclerViewAdapter);
 
-                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseActivity)getActivity()).filterCourseDates(arrayCourseDataBackup));
+                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
 
                     Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.size());
                 }
             } else {
                 //If web service not respond in any case.
-                ((CourseActivity) getActivity()).showSnackMessage(courseDiaryItems.getMessage());
+                ((CourseDiaryActivity) getActivity()).showSnackMessage(courseDiaryItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());

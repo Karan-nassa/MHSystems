@@ -25,21 +25,17 @@ import java.util.Calendar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class CourseActivity extends BaseActivity {
+public class CourseDiaryActivity extends BaseActivity {
 
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
 
-    public static final String LOG_TAG = CourseActivity.class.getSimpleName();
+    public static final String LOG_TAG = CourseDiaryActivity.class.getSimpleName();
 
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-
-    //Create instance to load current fragment selected from drawer.
-    Fragment fragment;
-
     @Bind(R.id.llHomeIcon)
     LinearLayout llHomeIcon;
 
@@ -48,17 +44,6 @@ public class CourseActivity extends BaseActivity {
 
     @Bind(R.id.cdlCourse)
     CoordinatorLayout cdlCourse;
-
-//    @Bind(R.id.ivToday)
-//    ImageView ivToday;
-//
-//    @Bind(R.id.ivPreviousMonth)
-//    ImageView ivPreviousMonth;
-//
-//    @Bind(R.id.ivNextMonth)
-//    ImageView ivNextMonth;
-
-    Calendar mCalendarInstance;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -84,45 +69,6 @@ public class CourseActivity extends BaseActivity {
         }
     };
 
-    /**
-     * Today icon press handle here. When user tap on Today icon of COURSE
-     * DIARY, then display content of CURRENT DATE only.
-     */
-    private View.OnClickListener mTodayListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            //setCalenderDates(true);
-
-            Toast.makeText(CourseActivity.this, "Today pressed", Toast.LENGTH_LONG).show();
-        }
-    };
-
-    /**
-     * PREVIOUS icon press handle here. When user tap on PREV icon of COURSE
-     * DIARY, then display content of PREVIOUS MONTH from 1st date to last
-     * day of Selected month.
-     */
-    private View.OnClickListener mPreviousMonthListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            Toast.makeText(CourseActivity.this, "Previous Month listener pressed", Toast.LENGTH_LONG).show();
-        }
-    };
-
-    /**
-     * NEXT icon press handle here. When user tap on NEXT icon of COURSE
-     * DIARY, then display content of NEXT MONTH from 1st date to last
-     * day of Selected month.
-     */
-    private View.OnClickListener mNextMonthListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            Toast.makeText(CourseActivity.this, "Next Month listener pressed", Toast.LENGTH_LONG).show();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,62 +81,12 @@ public class CourseActivity extends BaseActivity {
         //Let's first set up toolbar
         setupToolbar();
 
-//        //Initialize the dates of CALENDER to display data according dates.
-//        setCalenderDates(false); //FALSE means no call from TODAY icon pressed.
-
         //Load Default fragment of COURSE DIARY.
         updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_NOTHING));
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
-//        ivToday.setOnClickListener(mTodayListener);
-//        ivPreviousMonth.setOnClickListener(mPreviousMonthListener);
-//        ivNextMonth.setOnClickListener(mNextMonthListener);
     }
-
-//    /**
-//     * Implements a method to display calender
-//     * instances.
-//     */
-//    private void setCalenderDates(boolean isTodayCall) {
-//
-//        //Initialize CALENDAR instance.
-//        mCalendarInstance = Calendar.getInstance();
-//
-//        if (isTodayCall) {
-//            strDate = "" + mCalendarInstance.get(Calendar.DATE);
-//            iNumOfDays =  mCalendarInstance.get(Calendar.DATE);
-//        } else {
-//            strDate = "01";
-//
-//            //Get total number of days of selected month.
-//            iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-//        }
-//
-//        iMonth = mCalendarInstance.get(Calendar.MONTH);
-//        iYear = mCalendarInstance.get(Calendar.YEAR);
-//
-//        //Increment CALENDAR because MONTH start from 0.
-//        iMonth++;
-//
-//
-//        //FORMAT : MM-DD-YYYY
-//        strDateFrom = strDate + "/" + iMonth + "/" + iYear;
-//
-//        //FORMAT : MM-DD-YYYY
-//        strDateTo = "" + iNumOfDays + "/" + iMonth + "/" + iYear;
-//
-//        Log.e(LOG_TAG, "START DATE : " + strDateFrom);
-//        Log.e(LOG_TAG, "END DATE : " + strDateTo);
-//
-//        Log.e("DATA ", "DATE : " + strDate + " MONTH : " + iMonth + " YEAR : " + iYear + " NUM OF DAYS : " + iNumOfDays);
-//
-//        if(fragment instanceof NewCourseFragment){
-//
-//        }else if(fragment instanceof CourseFragmentTabsData) {
-//            fragment.requestNewsService();
-//        }
-//    }
 
     /**
      * Show snackBar message defined in BaseActivity.
@@ -341,6 +237,4 @@ public class CourseActivity extends BaseActivity {
         fragmentTransaction.replace(R.id.containerView, mFragment);
         fragmentTransaction.commit();
     }
-
-
 }

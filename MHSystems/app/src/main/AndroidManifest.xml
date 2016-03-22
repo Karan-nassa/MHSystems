@@ -15,7 +15,9 @@
         android:theme="@style/AppThemeMaterial">
 
         <!-- HOME ACTIVITY -->
-        <activity android:name=".activites.HomeActivity">
+        <activity
+            android:name=".activites.HomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +27,7 @@
 
         <!-- COURSE DIARY ACTIVITY -->
         <activity
-            android:name=".activites.CourseActivity"
+            android:name=".activites.CourseDiaryActivity"
             android:screenOrientation="portrait" />
 
         <!-- COURSE DIARY DETAIL ACTIVITY -->
@@ -36,9 +38,9 @@
         <!-- COURSE DIARY ALERT DIALOG -->
         <activity
             android:name=".activites.CourseAlertDialog"
-            android:theme="@style/App_Theme"
-            android:screenOrientation="portrait" />
-
+            android:screenOrientation="portrait"
+            android:theme="@style/App_Theme" />
+        <activity android:name=".activites.CompetitionsActivity"></activity>
     </application>
 
 </manifest>

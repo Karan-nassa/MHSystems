@@ -21,7 +21,7 @@ public class HomeActivity extends BaseActivity {
 
     //Instance of Grid Adapter.
     GridAdapter mGridAdapter;
-    Intent intent;
+    Intent intent = null;
 
     TypedArray gridIcons;
     String gridTitles[];
@@ -37,10 +37,17 @@ public class HomeActivity extends BaseActivity {
 
             switch (position) {
                 case 1:
-                    intent = new Intent(HomeActivity.this, CourseActivity.class);
-                    //Navigate to ACTIVITY.
-                    startActivity(intent);
+                    intent = new Intent(HomeActivity.this, CourseDiaryActivity.class);
                     break;
+                case 2:
+                    intent = new Intent(HomeActivity.this, CompetitionsActivity.class);
+                    break;
+            }
+
+            //Check if intent not NULL then navigate to that selected screen.
+            if (intent != null) {
+                startActivity(intent);
+                intent = null;
             }
         }
     };
