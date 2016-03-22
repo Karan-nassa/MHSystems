@@ -1,8 +1,8 @@
 package com.ucreate.mhsystems.fragments;
 
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,22 +14,23 @@ import android.view.ViewGroup;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
+import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
-
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
 import butterknife.Bind;
 
-public class CourseDairyTabFragment extends Fragment {
+public class CompetitionsTabFragment extends Fragment {
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = CourseDairyTabFragment.class.getSimpleName();
+    public static final String LOG_TAG = CompetitionsTabFragment.class.getSimpleName();
+
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -45,7 +46,7 @@ public class CourseDairyTabFragment extends Fragment {
     TabsPageAdapter pageAdapter;
 
     //Create instance of Fragment.
-    public static CourseFragmentTabsData courseFragmentTabsData;
+    public static CompetitonsFragmentTabsData competitonsFragmentTabsData;
 
 
     Calendar mCalendarInstance;
@@ -87,10 +88,22 @@ public class CourseDairyTabFragment extends Fragment {
 
             setTabVisibleStatus(tab.getPosition());
 
-            if (tab.getPosition() == 0) {
-                mCourseKey = "1.1";
-            } else if (tab.getPosition() == 1) {
-                mCourseKey = "1.3";
+            switch (tab.getPosition()){
+                case 0:
+                    mCourseKey = "1.1";
+                    break;
+
+                case 1:
+                    mCourseKey = "1.3";
+                    break;
+
+                case 2:
+                    mCourseKey = "1.3";
+                    break;
+
+                case 3:
+                    mCourseKey = "1.3";
+                    break;
             }
         }
 
@@ -106,7 +119,7 @@ public class CourseDairyTabFragment extends Fragment {
     /**
      * Constructor to set dates.
      */
-    public CourseDairyTabFragment() {
+    public CompetitionsTabFragment() {
 
     }
 
@@ -114,33 +127,35 @@ public class CourseDairyTabFragment extends Fragment {
      * Constructor to set action and change
      * CALENDAR accordingly.
      */
-    public CourseDairyTabFragment(int action) {
+    public CompetitionsTabFragment(int action) {
         setCalenderDates(action);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_course_diary_tabs, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_competitions_tabs, container, false);
 
         //Initialize view resources.
         tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
 
-        tabLayout.addTab(tabLayout.newTab().setText("OLD COURSE"));
-        tabLayout.addTab(tabLayout.newTab().setText("NEW COURSE"));
+        tabLayout.addTab(tabLayout.newTab().setText("My Events"));
+        tabLayout.addTab(tabLayout.newTab().setText("Completed"));
+        tabLayout.addTab(tabLayout.newTab().setText("Current"));
+        tabLayout.addTab(tabLayout.newTab().setText("Future"));
 
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorF7E59A));
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.color4942AA));
 
         viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
-                (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_COURSE_DIARY);
+                (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_COMPETITIONS);
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        ((CourseDiaryActivity) getActivity()).setTitleBar(strNameOfMonth);
+        ((CompetitionsActivity) getActivity()).setTitleBar(strNameOfMonth);
 
         //Implement Tab selected listener.
         tabLayout.setOnTabSelectedListener(mCourseTabListener);

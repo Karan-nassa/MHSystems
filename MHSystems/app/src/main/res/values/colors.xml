@@ -12,7 +12,10 @@
     <color name="color809c76">#809c76</color>
     <color name="color030303">#030303</color>
     <color name="color333333">#333333</color>
+    <color name="color4A4A4A">#4A4A4A</color>
     <color name="colorGrey6d6d6d">#6d6d6d</color>
+    <color name="colorAAAAAA">#AAAAAA</color>
+    <color name="colorEFEFF4">#EFEFF4</color>
     <color name="colorGreyf1f1f0">#f1f1f0</color>
     <color name="colorb0acd9">#b0acd9</color>
     <color name="colorc4a167">#c4a167</color>
@@ -22,6 +25,7 @@
     <color name="colorD3D2D6">#D3D2D6</color>
     <color name="colorFFEFEFF4">#FFEFEFF4</color>
     <color name="color808080">#808080</color>
+    <color name="color4942AA">#4942AA</color>
 
     <!-- START OF COLORS THAT ARE USING AT HOME MENU GRID VIEW -->
 
