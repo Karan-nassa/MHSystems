@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +28,14 @@ public class GridAdapter extends BaseAdapter {
 
     TypedArray gridIcons;
     String gridTitles[];
+    TypedArray gridBackground;
 
-    public GridAdapter(HomeActivity mainActivity, String gridTitles[], TypedArray gridIcons) {
+    public GridAdapter(HomeActivity mainActivity, String gridTitles[], TypedArray gridIcons, TypedArray gridBackground) {
 
         context = mainActivity;
         this.gridTitles = gridTitles;
         this.gridIcons = gridIcons;
+        this.gridBackground = gridBackground;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -45,19 +48,22 @@ public class GridAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
+    /**
+     * Declares a view holder class to
+     * contain all resources.
+     */
     public class Holder {
         TextView tvGridTitle;
         ImageView ivGridLogo;
+        RelativeLayout rlGridMenuItem;
     }
 
     @Override
@@ -69,10 +75,14 @@ public class GridAdapter extends BaseAdapter {
         rowView = inflater.inflate(R.layout.item_grid_row, null);
         holder.tvGridTitle = (TextView) rowView.findViewById(R.id.tvGridTitle);
         holder.ivGridLogo = (ImageView) rowView.findViewById(R.id.ivGridLogo);
+        holder.rlGridMenuItem = (RelativeLayout) rowView.findViewById(R.id.rlGridMenuItem);
 
         //Set View data according position.
         holder.tvGridTitle.setText(gridTitles[position]);
         holder.ivGridLogo.setImageResource(gridIcons.getResourceId(position, -1));
+
+        //Set Background colors.
+        holder.rlGridMenuItem.setBackgroundResource(gridBackground.getResourceId(position, -1));
 
         return rowView;
     }

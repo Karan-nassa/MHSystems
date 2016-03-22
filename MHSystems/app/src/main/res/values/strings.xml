@@ -45,9 +45,18 @@
 
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_course">CourseActivity</string>
+    <!-- GRID VIEW BACKGROUND COLORS -->
+
+    <string-array name="gridBackgroundColors">
+
+        <item>@drawable/background_pressed_f6b98c</item>
+        <item>@drawable/background_pressed_afd9a1</item>
+        <item>@drawable/background_pressed_f6ea8c</item>
+        <item>@drawable/background_pressed_b2cee6</item>
+        <item>@drawable/background_pressed_c0995b</item>
+        <item>@drawable/background_pressed_b2e6d9</item>
+
+    </string-array>
 
     <!-- ~~ NAVIGATION DRAWER ICONS ~~ -->
 
