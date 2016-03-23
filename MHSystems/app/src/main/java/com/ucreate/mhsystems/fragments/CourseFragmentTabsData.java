@@ -185,7 +185,7 @@ public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayo
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(WebAPI.URL_COURSE_DIARY)
+                .setEndpoint(WebAPI.API_BASE_URL)
                 .build();
 
         //Creating an object of our api interface

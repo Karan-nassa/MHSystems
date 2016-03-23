@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorF6EA8C"
             android:elevation="6dp"
+            app:tabMode="scrollable"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:tabSelectedTextColor="@color/colorBlack000000"

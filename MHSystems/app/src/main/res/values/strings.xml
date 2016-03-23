@@ -20,6 +20,10 @@
     <string name="title_event_title">Event Title</string>
     <!-- END OF COURSE DIARY ACTIVITY -->
 
+    <!-- START OF COMPETITIONS EVENT ACTIVITY -->
+    <string name="title_competitions_prize">fee per guest</string>
+    <!-- END OF COMPETITIONS EVENT ACTIVITY -->
+
     <!-- NAVIGATION DRAWER ITEMS -->
     <string-array name="navDrawerItems">
 

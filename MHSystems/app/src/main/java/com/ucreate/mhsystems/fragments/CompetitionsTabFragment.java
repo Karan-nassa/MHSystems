@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CompetitionsActivity;
-import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
@@ -46,7 +45,7 @@ public class CompetitionsTabFragment extends Fragment {
     TabsPageAdapter pageAdapter;
 
     //Create instance of Fragment.
-    public static CompetitonsFragmentTabsData competitonsFragmentTabsData;
+    public static MyEventsTabFragment myEventsTabFragment;
 
 
     Calendar mCalendarInstance;
@@ -71,44 +70,16 @@ public class CompetitionsTabFragment extends Fragment {
      */
     public static boolean isOldCourseVisible, isNewCourseVisible;
 
-    /**
-     * This instance used to identify which tab is
-     * selected and describe CourseKey.
-     * <p>
-     * <br> 1.1 for OLD COURSE
-     * <br> 1.3 for NEW COURSE
-     */
-    public static String mCourseKey = "1.1";
-
     private TabLayout.OnTabSelectedListener mCourseTabListener = new TabLayout.OnTabSelectedListener() {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             viewPager.setCurrentItem(tab.getPosition());
-            Log.e("pos: ", "" + tab.getPosition());
-
             setTabVisibleStatus(tab.getPosition());
-
-            switch (tab.getPosition()){
-                case 0:
-                    mCourseKey = "1.1";
-                    break;
-
-                case 1:
-                    mCourseKey = "1.3";
-                    break;
-
-                case 2:
-                    mCourseKey = "1.3";
-                    break;
-
-                case 3:
-                    mCourseKey = "1.3";
-                    break;
-            }
         }
 
         @Override
         public void onTabUnselected(TabLayout.Tab tab) {
+
         }
 
         @Override
@@ -122,6 +93,7 @@ public class CompetitionsTabFragment extends Fragment {
     public CompetitionsTabFragment() {
 
     }
+
 
     /**
      * Constructor to set action and change
@@ -143,7 +115,6 @@ public class CompetitionsTabFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("Completed"));
         tabLayout.addTab(tabLayout.newTab().setText("Current"));
         tabLayout.addTab(tabLayout.newTab().setText("Future"));
-
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

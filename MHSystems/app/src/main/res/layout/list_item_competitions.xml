@@ -8,87 +8,100 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- CONTENT OF COMPETITIONS -->
-
-        <!-- TITILE OF COMPETITIONS EVENT -->
-
-        <TextView
-            android:id="@+id/tvCompTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Competition Name"
-            android:textColor="@color/colorBlack000000"
-            android:textSize="20sp" />
-
-        <!-- DESCRIPTION -->
-
-        <TextView
-            android:id="@+id/tvCompDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Description"
-            android:textColor="@color/color4A4A4A"
-            android:textSize="14sp" />
-
-        <!-- DATE AND TIME OF COMPETITIONS EVENT -->
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!-- CALENDER ICON -->
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_my_calendar" />
+            <!-- CONTENT OF COMPETITIONS -->
 
-            <!-- DATE OF COURSE EVENT -->
+            <!-- TITILE OF COMPETITIONS EVENT -->
 
             <TextView
-                android:id="@+id/tvDateCompEvent"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvCompTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="12dp"
-                android:text="Monday, 29th February 2016, 10:30 - 12:30"
-                android:textColor="@color/color030303" />
+                android:text="Competition Name"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="20sp" />
 
-
-        </LinearLayout>
-
-        <!-- FEE PER GUEST -->
-
-        <LinearLayout
-            android:id="@+id/llPriceGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <!-- CALENDER ICON -->
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_my_calendar" />
-
-            <!-- PRIZE OF COURSE EVENT -->
+            <!-- DESCRIPTION -->
 
             <TextView
-                android:id="@+id/tvFeeCompEvent"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvCompDesc"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="8dp"
-                android:text="£5 fee per guest"
-                android:textColor="@color/color030303" />
+                android:layout_marginTop="10dp"
+                android:text="Description"
+                android:textColor="@color/color4A4A4A"
+                android:textSize="14sp" />
+
+            <!-- DATE AND TIME OF COMPETITIONS EVENT -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.3"
+                    android:paddingLeft="4dp"
+                    android:src="@mipmap/ic_today" />
+
+                <!-- DATE OF COURSE EVENT -->
+
+                <TextView
+                    android:id="@+id/tvDateCompEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:text="Monday, 29th February 2016, 10:30 - 12:30"
+                    android:textColor="@color/color030303"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <!-- FEE PER GUEST -->
+
+            <LinearLayout
+                android:id="@+id/llPriceGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.3"
+                    android:src="@mipmap/ic_fee" />
+
+                <!-- PRIZE OF COURSE EVENT -->
+
+                <TextView
+                    android:id="@+id/tvFeeCompEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:text="£5 fee per guest"
+                    android:textColor="@color/color030303"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -105,7 +118,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
 
             <TextView

@@ -168,6 +168,8 @@ public class CourseDairyTabFragment extends Fragment {
         switch (iAction) {
 
             case ApplicationGlobal.ACTION_NOTHING:
+                //Initialize the dates of CALENDER to display data according dates.
+                strDate = "" + mCalendarInstance.get(Calendar.DATE);
                 //Get MONTH and YEAR.
                 iMonth = mCalendarInstance.get(Calendar.MONTH);
 

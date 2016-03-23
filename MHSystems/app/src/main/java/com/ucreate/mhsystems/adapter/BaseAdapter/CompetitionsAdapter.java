@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.utils.pojo.CompetitionsData;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  */
 public class CompetitionsAdapter extends BaseAdapter {
     Activity context;
-    ArrayList<String> CourseDiaryData;
+    ArrayList<CompetitionsData> compititionsDatas;
     LayoutInflater inflater = null;
     String strLastDate = "";
 
@@ -30,9 +31,9 @@ public class CompetitionsAdapter extends BaseAdapter {
      * @param Activity:              To hold context.
      * @param ArrayList<VideoItems>: Used for Videos data.
      */
-    public CompetitionsAdapter(Activity context, ArrayList<String> CourseDiaryData) {
+    public CompetitionsAdapter(Activity context, ArrayList<CompetitionsData> CourseDiaryData) {
         this.context = context;
-        this.CourseDiaryData = CourseDiaryData;
+        this.compititionsDatas = CourseDiaryData;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -42,7 +43,7 @@ public class CompetitionsAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return /*CourseDiaryData.size();*/10;
+        return compititionsDatas.size();
     }
 
     /**
@@ -73,23 +74,22 @@ public class CompetitionsAdapter extends BaseAdapter {
 
             viewHolder = new View_Holder();
             viewHolder.tvFeeCompEvent = (TextView) rowView.findViewById(R.id.tvFeeCompEvent);
-            viewHolder.tvFeeCompEvent = (TextView) rowView.findViewById(R.id.tvFeeCompEvent);
+            viewHolder.tvDateCompEvent = (TextView) rowView.findViewById(R.id.tvDateCompEvent);
             viewHolder.tvCompDesc = (TextView) rowView.findViewById(R.id.tvCompDesc);
             viewHolder.tvCompTitle = (TextView) rowView.findViewById(R.id.tvCompTitle);
 
             rowView.setTag(viewHolder);
-//
+
             viewHolder = (View_Holder) rowView.getTag();
-//
-//            /**
-//             *  Set Course Diary events on each view.
-//             */
-//            viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
-//            viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
-//            viewHolder.tvDescOfEvent.setText(CourseDiaryData.get(position).getDesc());
-//            //Display date if existing different one.
-//            viewHolder.tvDateOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
-//            viewHolder.tvDayOfEvent.setText(CourseDiaryData.get(position).getDayName());
+
+            /**
+             *  Set Course Diary events on each view.
+             */
+            viewHolder.tvCompTitle.setText(compititionsDatas.get(position).getTitle());
+            viewHolder.tvDateCompEvent.setText(compititionsDatas.get(position).getEventDateStr() + ", " + compititionsDatas.get(position).getEventTime());
+            viewHolder.tvCompDesc.setText(compititionsDatas.get(position).getDesc());
+
+            viewHolder.tvFeeCompEvent.setText(compititionsDatas.get(position).getDayName() + context.getResources().getString(R.string.title_competitions_prize));
 
         return rowView;
     }
