@@ -11,10 +11,6 @@ import android.widget.TextView;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -59,9 +55,10 @@ public class CompetitionsDetailActivity extends AppCompatActivity {
     private View.OnClickListener mJoinListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent mIntent = new Intent(CompetitionsDetailActivity.this, CourseAlertDialog.class);
+            Intent mIntent = new Intent(CompetitionsDetailActivity.this, CustomAlertDialogActivity.class);
             //Pass theme green color.
             mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#F6EA8C");
+            mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COMPETITIONS);
             startActivity(mIntent);
         }
     };

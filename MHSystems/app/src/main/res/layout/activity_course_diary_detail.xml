@@ -38,7 +38,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_home_menu" />
+                        android:src="@drawable/home_icon_pressed" />
 
 
                 </LinearLayout>

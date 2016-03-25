@@ -54,7 +54,7 @@ public class CompetitionsTabFragment extends Fragment {
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     public static String strDate;
-    public static int iMonth;
+    public static int iMonth, iCurrentMonth;
     public static int iYear;
 
     //To record total number of days.
@@ -143,9 +143,6 @@ public class CompetitionsTabFragment extends Fragment {
         //Initialize CALENDAR instance.
         mCalendarInstance = Calendar.getInstance();
 
-        //Do nothing. Just load data according current date.
-        strDate = "01";
-
         //Get total number of days of selected month.
         iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
@@ -158,15 +155,34 @@ public class CompetitionsTabFragment extends Fragment {
                 iMonth = mCalendarInstance.get(Calendar.MONTH);
 
                 //Increment CALENDAR because MONTH start from 0.
+                //Do nothing. Just load data according current date.
+                strDate = ""+mCalendarInstance.get(Calendar.DATE);
+                iCurrentMonth = mCalendarInstance.get(Calendar.MONTH) + 1;
+
                 iMonth++;
                 break;
 
             case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
 
-                if (iMonth == 1) {
-
-                } else {
+//                if (iMonth == 1) {
+//
+//                } else {
+//                    strDate = "01";
+//                    iMonth--;
+//                }
+                /**
+                 *  User cannot navigate back to current
+                 *  month.
+                 */
+                if (/*iMonth == 1 ||*/ iMonth > iCurrentMonth) {
                     iMonth--;
+
+                    if (iMonth == iCurrentMonth) {
+                        //Initialize the dates of CALENDER to display data according dates.
+                        strDate = "" + mCalendarInstance.get(Calendar.DATE);
+                    } else {
+                        strDate = "01";
+                    }
                 }
                 break;
 

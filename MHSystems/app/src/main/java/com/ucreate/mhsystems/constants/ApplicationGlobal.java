@@ -47,5 +47,10 @@ public class ApplicationGlobal {
     public static final int ACTION_NEXT_MONTH = 2;
     public static final int ACTION_TODAY = 3;
 
+    /**
+     * Declaration of constant used throught out the app to pass
+     * intent from one Activity to another.
+     */
     public static final String TAG_POPUP_THEME = "colorTheme";
+    public static final String TAG_CALL_FROM = "callFrom";
 }

@@ -1,7 +1,6 @@
 package com.ucreate.mhsystems.activites;
 
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,7 +19,7 @@ import butterknife.ButterKnife;
  * alert dialog of COURSE DIARY and COMPETITIONS
  * on tap of JOIN on 16-03-2016.
  */
-public class CourseAlertDialog extends AppCompatActivity {
+public class CustomAlertDialogActivity extends AppCompatActivity {
 
     @Bind(R.id.tvCloseDialog)
     TextView tvCloseDialog;
@@ -29,24 +27,28 @@ public class CourseAlertDialog extends AppCompatActivity {
     @Bind(R.id.flPopupTheme)
     FrameLayout flPopupTheme;
 
+    @Bind(R.id.tvAlertMessage)
+    TextView tvAlertMessage;
+
+    @Bind(R.id.tvAlertTitle)
+    TextView tvAlertTitle;
+
+    /* + LOCAL INSTANCES DECLARATION  + */
     String strColorTheme;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    int iCallFrom;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(CourseAlertDialog.this); //Initialize facebook Fresco for round profile pic.
-        setContentView(R.layout.activity_alert_dialog);
+        Fresco.initialize(CustomAlertDialogActivity.this); //Initialize facebook Fresco for round profile pic.
+        setContentView(R.layout.activity_custom_alert_dialog);
 
         /**
          * Annotate fields with @Bind and a view ID for Butter Knife to find and
          * automatically cast the corresponding view in your layout.
          */
-        ButterKnife.bind(CourseAlertDialog.this);
+        ButterKnife.bind(CustomAlertDialogActivity.this);
 
         /**
          * Get Intent to get theme according screen.
@@ -54,6 +56,15 @@ public class CourseAlertDialog extends AppCompatActivity {
          * and from COMPETITIONS then Theme would be #F6EA8C
          */
         strColorTheme = getIntent().getExtras().getString("colorTheme");
+
+        /**
+         *  callFrom describe the calling class name.
+         *  IF 2, Course Diary.
+         *     3, Competitions.
+         */
+        iCallFrom = getIntent().getExtras().getInt("callFrom");
+
+        setConentofAlert(iCallFrom);
 
         //Set Theme of Alert Dialog.
         flPopupTheme.setBackgroundColor(Color.parseColor(strColorTheme));
@@ -65,5 +76,25 @@ public class CourseAlertDialog extends AppCompatActivity {
      */
     public void onClose(View view) {
         onBackPressed();
+    }
+
+    /**
+     * Change content of App according calling screen.
+     */
+    public void setConentofAlert(int conentofAlert) {
+
+        switch (conentofAlert) {
+
+            case 2: //Course Diary Events.
+                tvAlertMessage.setText(getResources().getString(R.string.text_alert_course_message));
+                tvAlertTitle.setText(getResources().getString(R.string.text_alert_book_course));
+                break;
+
+            case 3: //Competitions
+                tvAlertMessage.setText(getResources().getString(R.string.text_alert_competions_message));
+                tvAlertTitle.setText(getResources().getString(R.string.text_alert_book_competitons));
+                break;
+        }
+
     }
 }

@@ -37,7 +37,7 @@
 
         <!-- COURSE DIARY ALERT DIALOG -->
         <activity
-            android:name=".activites.CourseAlertDialog"
+            android:name=".activites.CustomAlertDialogActivity"
             android:screenOrientation="portrait"
             android:theme="@style/App_Theme" />
 

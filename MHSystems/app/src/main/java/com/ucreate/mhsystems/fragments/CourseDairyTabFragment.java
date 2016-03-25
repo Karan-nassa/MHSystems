@@ -47,14 +47,13 @@ public class CourseDairyTabFragment extends Fragment {
     //Create instance of Fragment.
     public static CourseFragmentData courseFragmentData;
 
-
     Calendar mCalendarInstance;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     public static String strDate;
-    public static int iMonth;
+    public static int iMonth, iCurrentMonth;
     public static int iYear;
 
     //To record total number of days.
@@ -73,7 +72,7 @@ public class CourseDairyTabFragment extends Fragment {
     /**
      * This instance used to identify which tab is
      * selected and describe CourseKey.
-     * <p>
+     * <p/>
      * <br> 1.1 for OLD COURSE
      * <br> 1.3 for NEW COURSE
      */
@@ -157,9 +156,6 @@ public class CourseDairyTabFragment extends Fragment {
         //Initialize CALENDAR instance.
         mCalendarInstance = Calendar.getInstance();
 
-        //Do nothing. Just load data according current date.
-        strDate = "01";
-
         //Get total number of days of selected month.
         iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
@@ -172,6 +168,7 @@ public class CourseDairyTabFragment extends Fragment {
                 strDate = "" + mCalendarInstance.get(Calendar.DATE);
                 //Get MONTH and YEAR.
                 iMonth = mCalendarInstance.get(Calendar.MONTH);
+                iCurrentMonth = mCalendarInstance.get(Calendar.MONTH) + 1;
 
                 //Increment CALENDAR because MONTH start from 0.
                 iMonth++;
@@ -179,11 +176,21 @@ public class CourseDairyTabFragment extends Fragment {
 
             case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
 
-                if (iMonth == 1) {
-
-                } else {
+                /**
+                 *  User cannot navigate back to current
+                 *  month.
+                 */
+                if (/*iMonth == 1 ||*/ iMonth > iCurrentMonth) {
                     iMonth--;
+
+                    if (iMonth == iCurrentMonth) {
+                        //Initialize the dates of CALENDER to display data according dates.
+                        strDate = "" + mCalendarInstance.get(Calendar.DATE);
+                    } else {
+                        strDate = "01";
+                    }
                 }
+
                 break;
 
             case ApplicationGlobal.ACTION_NEXT_MONTH:
@@ -191,6 +198,8 @@ public class CourseDairyTabFragment extends Fragment {
                 if (iMonth == 12) {
 
                 } else {
+                    //Do nothing. Just load data according current date.
+                    strDate = "01";
                     iMonth++;
                 }
                 break;

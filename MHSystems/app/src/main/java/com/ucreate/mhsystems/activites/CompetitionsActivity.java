@@ -147,9 +147,6 @@ public class CompetitionsActivity extends BaseActivity {
         //Used when Date format in Hyphen['-']. Example : dd-MM-yyyy
         String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
 
-        //Used when Date format in slashes['/']. Example : dd/MM/yyyy
-        //String strEventDate = strCourseEventDate.substring(strCourseEventDate.indexOf("/") + 1, strCourseEventDate.lastIndexOf("/"));
-
         return strEventDate;
     }
 

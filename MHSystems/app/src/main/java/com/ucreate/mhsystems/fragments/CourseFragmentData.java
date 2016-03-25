@@ -25,7 +25,7 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryActivity;
-import com.ucreate.mhsystems.activites.CourseAlertDialog;
+import com.ucreate.mhsystems.activites.CustomAlertDialogActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
@@ -105,9 +105,10 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
                 if (arrayListCourseData.get(position).getSlotType() == 2) {
 
                     //Show alert dialog.
-                    Intent mIntent = new Intent(getActivity(), CourseAlertDialog.class);
+                    Intent mIntent = new Intent(getActivity(), CustomAlertDialogActivity.class);
                     //Pass theme green color.
                     mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
+                    mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
                     startActivity(mIntent);
                 } else {
 

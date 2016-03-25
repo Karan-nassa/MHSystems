@@ -60,15 +60,17 @@
 
 
             <TextView
+                android:id="@+id/tvAlertTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:layout_marginTop="15dp"
-                android:text="Book a tee time"
+                android:text="@string/text_alert_book_course"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/tvAlertMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -76,7 +78,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="35dp"
                 android:gravity="center"
-                android:text="In order to book a tee time or create event call us or email:"
+                android:text="@string/text_alert_course_message"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 

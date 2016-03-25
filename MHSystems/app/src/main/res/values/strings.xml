@@ -14,6 +14,13 @@
     <string name="text_joined">Joined</string>
     <!-- END OF COMMON MESSAGES THROUGH OUT THE APP  -->
 
+    <!-- START OF ALERT DIALOG OF APP -->
+    <string name="text_alert_book_course">Book a tee time</string>
+    <string name="text_alert_book_competitons">Book this competition</string>
+    <string name="text_alert_competions_message">In order to book this competition or create event call us or email:</string>
+    <string name="text_alert_course_message">In order to book a tee time or create event call us or email:</string>
+    <!-- END OF ALERT DIALOG OF APP  -->
+
     <!-- START OF HOME ACTIVITY -->
     <string name="title_golf_club_name">SUNNINGDALE GOLF CLUB</string>
     <string name="title_home_message">“Kindness is the language which the deaf can hear and the blind can see.”</string>
