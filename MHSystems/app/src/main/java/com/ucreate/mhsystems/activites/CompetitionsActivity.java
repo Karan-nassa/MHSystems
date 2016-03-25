@@ -203,26 +203,26 @@ public class CompetitionsActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-//        //Here we change the fragment
-//        FragmentManager fm = getSupportFragmentManager();
-//        FragmentTransaction tr = fm.beginTransaction();
-//
-//        switch (item.getItemId()) {
-//            case R.id.action_PrevMonth:
-//                updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
-//                break;
-//
-//            case R.id.action_NextMonth:
-//                updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_NEXT_MONTH));
-//                break;
-//
-//            case R.id.action_Today:
-//                updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_TODAY));
-//                break;
-//        }
-//
-//        //Commit and navigate to new fragment.
-//        tr.commit();
+        //Here we change the fragment
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction tr = fm.beginTransaction();
+
+        switch (item.getItemId()) {
+            case R.id.action_PrevMonth:
+                updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
+                break;
+
+            case R.id.action_NextMonth:
+                updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_NEXT_MONTH));
+                break;
+
+            case R.id.action_Today:
+                updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_TODAY));
+                break;
+        }
+
+        //Commit and navigate to new fragment.
+        tr.commit();
         return super.onOptionsItemSelected(item);
     }
 

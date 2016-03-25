@@ -47,7 +47,6 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
      *******************************/
     public static final String LOG_TAG = MyEventsTabFragment.class.getSimpleName();
     ArrayList<CompetitionsData> competitionsDatas = new ArrayList<>();
-    //ArrayList<CourseDiaryDataCopy> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
 
     private boolean isSwipeVisible = false;
 
@@ -56,18 +55,14 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
      *******************************/
     View mRootView;
     CoordinatorLayout cdlCompetitions;
-    //    @Bind(R.id.rvCourseDiary)
-//    RecyclerView rvCourseDiary;
     Toolbar toolBar;
     TextView tvCourseSchedule;
-    //    RecyclerView.Adapter recyclerViewAdapter;
     ListView lvCompetitions;
 
     CompetitionsAdapter competitionsAdapter;
 
     //Create instance of Model class CourseDiaryItems.
     CompetitionsResultItems competitionsResultItems;
-    //CourseDiaryItemsCopy courseDiaryItemsCopy;
     CompetitionsJsonParams competitionsJsonParams;
 
     //List of type books this list will store type Book which is our data model
@@ -80,9 +75,6 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
 
         cdlCompetitions = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCompetitions);
         lvCompetitions = (ListView) mRootView.findViewById(R.id.lvCompetitions);
-
-        //Course Diary events click listener.
-        //  lvCompetitions.setOnItemClickListener(mCourseEventListener);
 
         return mRootView;
     }
@@ -107,7 +99,7 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
 
 
         if (isVisibleToUser) {
-            callNewsWebService();
+            callMyEventsWebService();
         }
     }
 
@@ -115,7 +107,7 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
      * Implements a method to call News web service either call
      * initially or call from onSwipeRefresh.
      */
-    private void callNewsWebService() {
+    private void callMyEventsWebService() {
         /**
          *  Check internet connection before hitting server request.
          */
@@ -145,10 +137,12 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
         competitionsJsonParams.setIncludeCompletedEvents(true);
         competitionsJsonParams.setIncludeCurrentEvents(true);
         competitionsJsonParams.setIncludeFutureEvents(true);
+        competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY
+        competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY
+        competitionsJsonParams.setPageNo("0");
+        competitionsJsonParams.setPageSize("10");
 
         competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
-
-        // Log.e(LOG_TAG, "competitionsAPI " + competitionsAPI.toString());
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -190,10 +184,6 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
         }.getType();
         competitionsResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
-//        Type type2 = new TypeToken<CourseDiaryItemsCopy>() {
-//        }.getType();
-//        courseDiaryItemsCopy = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type2);
-
         //Clear array list before inserting items.
         competitionsDatas.clear();
         //arrayCourseDataBackup.clear();
@@ -205,8 +195,6 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
             if (competitionsResultItems.getMessage().equalsIgnoreCase("Success")) {
 
                 competitionsDatas.addAll(competitionsResultItems.getData());
-                //Take backup of List before changing to record.
-                // arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
 
                 if (competitionsDatas.size() == 0) {
                     ((CompetitionsActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_data));
@@ -234,6 +222,6 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
     @Override
     public void onRefresh() {
         isSwipeVisible = true;
-        callNewsWebService();
+        callMyEventsWebService();
     }
 }

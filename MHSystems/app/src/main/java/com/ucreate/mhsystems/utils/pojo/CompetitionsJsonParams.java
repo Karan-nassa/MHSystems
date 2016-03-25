@@ -32,11 +32,129 @@ public class CompetitionsJsonParams {
     @SerializedName("MyEventsOnly")
     @Expose
     private boolean MyEventsOnly;
+    @SerializedName("datefrom")
+    @Expose
+    private String datefrom;
+    @SerializedName("dateto")
+    @Expose
+    private String dateto;
+    @SerializedName("pageNo")
+    @Expose
+    private String pageNo;
+    @SerializedName("pageSize")
+    @Expose
+    private String pageSize;
 
     /**
-     * 
+     *
+     * @return
+     *     The IncludeFutureEvents
+     */
+    public boolean isIncludeFutureEvents() {
+        return IncludeFutureEvents;
+    }
+
+    /**
+     *
+     * @return
+     *     The IncludeCurrentEvents
+     */
+    public boolean isIncludeCurrentEvents() {
+        return IncludeCurrentEvents;
+    }
+
+    /**
+     *
+     * @return
+     *     The IncludeCompletedEvents
+     */
+    public boolean isIncludeCompletedEvents() {
+        return IncludeCompletedEvents;
+    }
+
+    /**
+     *
+     * @return
+     *     The MyEventsOnly
+     */
+    public boolean isMyEventsOnly() {
+        return MyEventsOnly;
+    }
+
+    /**
+     *
+     * @return
+     *     The datefrom
+     */
+    public String getDatefrom() {
+        return datefrom;
+    }
+
+    /**
+     *
+     * @param datefrom
+     *     The datefrom
+     */
+    public void setDatefrom(String datefrom) {
+        this.datefrom = datefrom;
+    }
+
+    /**
+     *
+     * @return
+     *     The dateto
+     */
+    public String getDateto() {
+        return dateto;
+    }
+
+    /**
+     *
+     * @param dateto
+     *     The dateto
+     */
+    public void setDateto(String dateto) {
+        this.dateto = dateto;
+    }
+
+    /**
+     *
+     * @return
+     *     The pageNo
+     */
+    public String getPageNo() {
+        return pageNo;
+    }
+
+    /**
+     *
+     * @param pageNo
+     *     The pageNo
+     */
+    public void setPageNo(String pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    /**
+     *
      * @return
      *     The version
+     */
+    public String getPageSize() {
+        return pageSize;
+    }
+
+    /**
+     *
+     * @param pageSize
+     *     The pageSize
+     */
+    public void setPageSize(String pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    /**
+     * @return The version
      */
     public Integer getVersion() {
         return version;

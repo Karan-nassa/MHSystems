@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/title_course_diary"
+                    android:text="@string/title_competitions"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -128,6 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:layout_marginLeft="3dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -146,6 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="12dp"
+                    android:textSize="16sp"
                     android:text="Monday, 29th February 2016"
                     android:textColor="@color/color030303" />
 
@@ -176,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="8dp"
                     android:text="£5 fee per guest"
                     android:textColor="@color/color030303" />
 

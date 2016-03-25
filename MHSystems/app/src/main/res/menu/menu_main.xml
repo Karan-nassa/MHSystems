@@ -6,7 +6,7 @@
     <!-- MENU BAR ICON PREVIOUS MONTH ARROW -->
     <item
         android:id="@+id/action_PrevMonth"
-        android:icon="@android:drawable/ic_media_previous"
+        android:icon="@mipmap/ic_arrow_left"
         android:orderInCategory="100"
         android:title=""
         app:showAsAction="always" />
@@ -15,7 +15,7 @@
 
     <item
         android:id="@+id/action_NextMonth"
-        android:icon="@android:drawable/ic_media_next"
+        android:icon="@mipmap/ic_arrow_right"
         android:orderInCategory="100"
         android:title=""
         app:showAsAction="always" />

@@ -22,7 +22,7 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:tabSelectedTextColor="@color/colorBlack000000"
-            app:tabTextColor="@color/color809c76" />
+            app:tabTextColor="@color/colorb5ad67" />
 
 
         <!-- VIEW PAGER TO LOAD SELECTED TAB PAGES -->
