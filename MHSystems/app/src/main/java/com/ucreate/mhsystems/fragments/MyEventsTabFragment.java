@@ -6,6 +6,7 @@ package com.ucreate.mhsystems.fragments;
  * <br>tabs content on 12/23/2015.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CompetitionsActivity;
+import com.ucreate.mhsystems.activites.CompetitionsDetailActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.API.WebServiceMethods;
@@ -84,41 +86,6 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
 
         return mRootView;
     }
-
-    /**
-     * Set COURSE DIARY events listener.
-     */
-    private AdapterView.OnItemClickListener mCourseEventListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            /**
-             *  Handle NULL @Exception.
-             */
-            if (competitionsDatas.get(position) != null) {
-
-//                if (arrayListCourseData.get(position).getSlotType() == 2) {
-//
-//                    //Show alert dialog.
-//                    Intent mIntent = new Intent(getActivity(), CourseAlertDialog.class);
-//                    startActivity(mIntent);
-//                } else {
-//
-//                    Log.e("DAY NAME", arrayListCourseData.get(position).getDayName());
-//
-//                    Intent intent = new Intent(getActivity(), CourseDiaryDetailActivity.class);
-//                    intent.putExtra("COURSE_TITLE", arrayListCourseData.get(position).getTitle());
-//                    intent.putExtra("COURSE_EVENT_IMAGE", arrayListCourseData.get(position).getLogo());
-//                  //  intent.putExtra("COURSE_EVENT_JOIN", arrayListCourseData.get(position).isJoinStatus());
-//                   // intent.putExtra("COURSE_EVENT_DATE", arrayListCourseData.get(position).getCourseEventDate());
-//                    intent.putExtra("COURSE_EVENT_DAY_NAME", arrayListCourseData.get(position).getDayName());
-//                  //  intent.putExtra("COURSE_EVENT_PRIZE", "" + arrayListCourseData.get(position).getPrizePerGuest());
-//                    intent.putExtra("COURSE_EVENT_DESCRIPTION", arrayListCourseData.get(position).getDesc());
-//                    startActivity(intent);
-//                }
-            }
-        }
-    };
 
 
     /**
@@ -181,7 +148,7 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
 
         competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
 
-       // Log.e(LOG_TAG, "competitionsAPI " + competitionsAPI.toString());
+        // Log.e(LOG_TAG, "competitionsAPI " + competitionsAPI.toString());
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()

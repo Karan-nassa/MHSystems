@@ -163,31 +163,31 @@ public class CompetitionsTabFragment extends Fragment {
 
             case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
 
-                if (iMonth == 1) {
-
-                } else {
-                    iMonth--;
-                }
+//                if (iMonth == 1) {
+//
+//                } else {
+//                    iMonth--;
+//                }
                 break;
 
             case ApplicationGlobal.ACTION_NEXT_MONTH:
 
-                if (iMonth == 12) {
-
-                } else {
-                    iMonth++;
-                }
+//                if (iMonth == 12) {
+//
+//                } else {
+//                    iMonth++;
+//                }
                 break;
 
             case ApplicationGlobal.ACTION_TODAY:
-                //Initialize the dates of CALENDER to display data according dates.
-                strDate = "" + mCalendarInstance.get(Calendar.DATE);
-                iNumOfDays = mCalendarInstance.get(Calendar.DATE);
-
-                //Get MONTH and YEAR.
-                iMonth = mCalendarInstance.get(Calendar.MONTH);
-                //Increment CALENDAR because MONTH start from 0.
-                iMonth++;
+//                //Initialize the dates of CALENDER to display data according dates.
+//                strDate = "" + mCalendarInstance.get(Calendar.DATE);
+//                iNumOfDays = mCalendarInstance.get(Calendar.DATE);
+//
+//                //Get MONTH and YEAR.
+//                iMonth = mCalendarInstance.get(Calendar.MONTH);
+//                //Increment CALENDAR because MONTH start from 0.
+//                iMonth++;
                 break;
         }
 

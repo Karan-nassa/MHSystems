@@ -138,7 +138,6 @@ public class FutureTabFragment extends Fragment implements SwipeRefreshLayout.On
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-
         if (isVisibleToUser) {
             callNewsWebService();
         }

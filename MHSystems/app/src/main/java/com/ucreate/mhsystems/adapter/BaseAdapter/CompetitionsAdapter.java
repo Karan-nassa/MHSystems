@@ -2,13 +2,16 @@ package com.ucreate.mhsystems.adapter.BaseAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.activites.CompetitionsDetailActivity;
 import com.ucreate.mhsystems.utils.pojo.CompetitionsData;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 
@@ -70,26 +73,49 @@ public class CompetitionsAdapter extends BaseAdapter {
         View rowView = convertView;
         View_Holder viewHolder = null;
 
-            rowView = inflater.inflate(R.layout.list_item_competitions, parent, false);
+        rowView = inflater.inflate(R.layout.list_item_competitions, parent, false);
 
-            viewHolder = new View_Holder();
-            viewHolder.tvFeeCompEvent = (TextView) rowView.findViewById(R.id.tvFeeCompEvent);
-            viewHolder.tvDateCompEvent = (TextView) rowView.findViewById(R.id.tvDateCompEvent);
-            viewHolder.tvCompDesc = (TextView) rowView.findViewById(R.id.tvCompDesc);
-            viewHolder.tvCompTitle = (TextView) rowView.findViewById(R.id.tvCompTitle);
+        viewHolder = new View_Holder();
+        viewHolder.tvFeeCompEvent = (TextView) rowView.findViewById(R.id.tvFeeCompEvent);
+        viewHolder.tvDateCompEvent = (TextView) rowView.findViewById(R.id.tvDateCompEvent);
+        viewHolder.tvCompDesc = (TextView) rowView.findViewById(R.id.tvCompDesc);
+        viewHolder.tvCompTitle = (TextView) rowView.findViewById(R.id.tvCompTitle);
+        viewHolder.tvEventStatusStr = (TextView) rowView.findViewById(R.id.tvEventStatusStr);
 
-            rowView.setTag(viewHolder);
+        viewHolder.llShowDetails = (LinearLayout) rowView.findViewById(R.id.llShowDetails);
 
-            viewHolder = (View_Holder) rowView.getTag();
+        rowView.setTag(viewHolder);
 
-            /**
-             *  Set Course Diary events on each view.
-             */
-            viewHolder.tvCompTitle.setText(compititionsDatas.get(position).getTitle());
-            viewHolder.tvDateCompEvent.setText(compititionsDatas.get(position).getEventDateStr() + ", " + compititionsDatas.get(position).getEventTime());
-            viewHolder.tvCompDesc.setText(compititionsDatas.get(position).getDesc());
+        viewHolder = (View_Holder) rowView.getTag();
 
-            viewHolder.tvFeeCompEvent.setText(compititionsDatas.get(position).getDayName() + context.getResources().getString(R.string.title_competitions_prize));
+        /**
+         *  Set Course Diary events on each view.
+         */
+        viewHolder.tvCompTitle.setText(compititionsDatas.get(position).getTitle());
+        viewHolder.tvDateCompEvent.setText(compititionsDatas.get(position).getEventDateStr() + ", " + compititionsDatas.get(position).getEventTime());
+        viewHolder.tvCompDesc.setText(compititionsDatas.get(position).getDesc());
+        viewHolder.tvEventStatusStr.setText(compititionsDatas.get(position).getEventStatusStr());
+        viewHolder.tvFeeCompEvent.setText("£" + compititionsDatas.get(position).getPricePerGuest() + " " + context.getResources().getString(R.string.title_competitions_prize));
+
+        /**
+         *  Show detail page on tap of 'Show Details & Join'.
+         */
+        viewHolder.llShowDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, CompetitionsDetailActivity.class);
+                intent.putExtra("COMPETITIONS_TITLE", compititionsDatas.get(position).getTitle());
+                intent.putExtra("COMPETITIONS_EVENT_IMAGE", compititionsDatas.get(position).getLogo());
+                intent.putExtra("COMPETITIONS_EVENT_JOIN", compititionsDatas.get(position).getJoinStatus());
+                intent.putExtra("COMPETITIONS_EVENT_DATE", compititionsDatas.get(position).getEventDateStr());
+                intent.putExtra("COMPETITIONS_EVENT_TIME", compititionsDatas.get(position).getEventTime());
+                intent.putExtra("COMPETITIONS_EVENT_PRIZE", "" + compititionsDatas.get(position).getPricePerGuest());
+                intent.putExtra("COMPETITIONS_EVENT_DESCRIPTION", compititionsDatas.get(position).getDesc());
+                context.startActivity(intent);
+            }
+
+        });
 
         return rowView;
     }
@@ -102,6 +128,8 @@ public class CompetitionsAdapter extends BaseAdapter {
         /**
          * Text Row VIEW INSTANCES DECLARATION
          */
-        TextView tvFeeCompEvent, tvDateCompEvent, tvCompDesc, tvCompTitle;
+        TextView tvFeeCompEvent, tvDateCompEvent, tvCompDesc, tvCompTitle, tvEventStatusStr;
+        //Linear Layout instances declaration.
+        LinearLayout llShowDetails;
     }
 }

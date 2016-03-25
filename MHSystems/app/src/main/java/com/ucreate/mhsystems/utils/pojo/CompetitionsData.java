@@ -41,200 +41,204 @@ public class CompetitionsData {
     @SerializedName("dayName")
     @Expose
     private String dayName;
+    @SerializedName("eventId")
+    @Expose
+    private String eventId;
+    @SerializedName("eventStatusStr")
+    @Expose
+    private String eventStatusStr;
 
     /**
-     * 
-     * @return
-     *     The IsEntryOpen
+     * @return The eventStatusStr
+     */
+    public String getEventStatusStr() {
+        return eventStatusStr;
+    }
+
+    /**
+     * @param eventStatusStr The eventStatusStr
+     */
+    public void setEventStatusStr(String eventStatusStr) {
+        this.eventStatusStr = eventStatusStr;
+    }
+
+    /**
+     * @return The IsEntryOpen
+     */
+    public Boolean getEntryOpen() {
+        return IsEntryOpen;
+    }
+
+    /**
+     * @param entryOpen The IsEntryOpen
+     */
+    public void setEntryOpen(Boolean entryOpen) {
+        IsEntryOpen = entryOpen;
+    }
+
+    /**
+     * @return The eventId
+     */
+    public String getEventId() {
+        return eventId;
+    }
+
+    /**
+     * @param eventId The eventId
+     */
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    /**
+     * @return The IsEntryOpen
      */
     public Boolean getIsEntryOpen() {
         return IsEntryOpen;
     }
 
     /**
-     * 
-     * @param IsEntryOpen
-     *     The IsEntryOpen
+     * @param IsEntryOpen The IsEntryOpen
      */
     public void setIsEntryOpen(Boolean IsEntryOpen) {
         this.IsEntryOpen = IsEntryOpen;
     }
 
     /**
-     * 
-     * @return
-     *     The title
+     * @return The title
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * 
-     * @param title
-     *     The title
+     * @param title The title
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     * 
-     * @return
-     *     The desc
+     * @return The desc
      */
     public String getDesc() {
         return desc;
     }
 
     /**
-     * 
-     * @param desc
-     *     The desc
+     * @param desc The desc
      */
     public void setDesc(String desc) {
         this.desc = desc;
     }
 
     /**
-     * 
-     * @return
-     *     The logo
+     * @return The logo
      */
     public String getLogo() {
         return logo;
     }
 
     /**
-     * 
-     * @param logo
-     *     The logo
+     * @param logo The logo
      */
     public void setLogo(String logo) {
         this.logo = logo;
     }
 
     /**
-     * 
-     * @return
-     *     The pricePerGuest
+     * @return The pricePerGuest
      */
     public String getPricePerGuest() {
         return pricePerGuest;
     }
 
     /**
-     * 
-     * @param pricePerGuest
-     *     The pricePerGuest
+     * @param pricePerGuest The pricePerGuest
      */
     public void setPricePerGuest(String pricePerGuest) {
         this.pricePerGuest = pricePerGuest;
     }
 
     /**
-     * 
-     * @return
-     *     The joinStatus
+     * @return The joinStatus
      */
     public Boolean getJoinStatus() {
         return joinStatus;
     }
 
     /**
-     * 
-     * @param joinStatus
-     *     The joinStatus
+     * @param joinStatus The joinStatus
      */
     public void setJoinStatus(Boolean joinStatus) {
         this.joinStatus = joinStatus;
     }
 
     /**
-     * 
-     * @return
-     *     The eventDate
+     * @return The eventDate
      */
     public String getEventDate() {
         return eventDate;
     }
 
     /**
-     * 
-     * @param eventDate
-     *     The eventDate
+     * @param eventDate The eventDate
      */
     public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
 
     /**
-     * 
-     * @return
-     *     The eventTime
+     * @return The eventTime
      */
     public String getEventTime() {
         return eventTime;
     }
 
     /**
-     * 
-     * @param eventTime
-     *     The eventTime
+     * @param eventTime The eventTime
      */
     public void setEventTime(String eventTime) {
         this.eventTime = eventTime;
     }
 
     /**
-     * 
-     * @return
-     *     The eventDateStr
+     * @return The eventDateStr
      */
     public String getEventDateStr() {
         return eventDateStr;
     }
 
     /**
-     * 
-     * @param eventDateStr
-     *     The eventDateStr
+     * @param eventDateStr The eventDateStr
      */
     public void setEventDateStr(String eventDateStr) {
         this.eventDateStr = eventDateStr;
     }
 
     /**
-     * 
-     * @return
-     *     The monthName
+     * @return The monthName
      */
     public String getMonthName() {
         return monthName;
     }
 
     /**
-     * 
-     * @param monthName
-     *     The monthName
+     * @param monthName The monthName
      */
     public void setMonthName(String monthName) {
         this.monthName = monthName;
     }
 
     /**
-     * 
-     * @return
-     *     The dayName
+     * @return The dayName
      */
     public String getDayName() {
         return dayName;
     }
 
     /**
-     * 
-     * @param dayName
-     *     The dayName
+     * @param dayName The dayName
      */
     public void setDayName(String dayName) {
         this.dayName = dayName;

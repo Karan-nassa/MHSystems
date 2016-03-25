@@ -45,6 +45,12 @@
         <activity
             android:name=".activites.CompetitionsActivity"
             android:screenOrientation="portrait" />
+
+        <!-- COMPETITIONS DIARY ACTIVITY -->
+        <activity
+            android:name=".activites.CompetitionsDetailActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

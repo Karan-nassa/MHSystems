@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- DETAIL VIEW OF COURSE DIARY -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- COMPETITIONS TITLE WITH BACK ARROW AND JOIN BUTTON -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/colorF6EA8C"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="11dp">
+
+                <!-- HOME ICON -->
+
+                <LinearLayout
+                    android:id="@+id/llHomeIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_home_menu" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/title_course_diary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
+
+            <!-- CUP LOGO WITH JOIN BUTTON -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="vertical">
+
+                    <!-- TEAM LOGO -->
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/ivBackgroundColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="2dp"
+                        android:scaleType="fitCenter"
+                        app:placeholderImage="@android:color/white"
+                        app:roundAsCircle="true" />
+
+                    <!-- LOGO OF ITEM -->
+
+                    <ImageView
+                        android:id="@+id/ivGridLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_home_competitions" />
+
+                    <!-- JOIN BUTTON -->
+
+                    <Button
+                        android:id="@+id/btJoinEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/button_corner_shape_535796"
+                        android:text="JOIN"
+                        android:textColor="@android:color/white" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- BOTTOM DESCRIPTION OF COURSE EVENT DETAIL -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical">
+
+            <!-- EVENT TITLE -->
+
+            <TextView
+                android:id="@+id/tvTitleCourseEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_event_title"
+                android:textColor="@color/color030303"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.3"
+                    android:src="@mipmap/ic_today" />
+
+                <!-- DATE OF COURSE EVENT -->
+
+                <TextView
+                    android:id="@+id/tvDateCourseEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:text="Monday, 29th February 2016"
+                    android:textColor="@color/color030303" />
+
+            </LinearLayout>
+
+
+            <!-- FEE PER GUEST -->
+
+            <LinearLayout
+                android:id="@+id/llPriceGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.3"
+                    android:src="@mipmap/ic_fee" />
+
+                <!-- PRIZE OF COURSE EVENT -->
+
+                <TextView
+                    android:id="@+id/tvFeeCourseEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:text="£5 fee per guest"
+                    android:textColor="@color/color030303" />
+
+            </LinearLayout>
+
+            <!-- DESCRIPTION OF COURSY EVENTS -->
+
+            <TextView
+                android:id="@+id/tvDescCourseEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metus, scelerisque nec pharetra id, tempor a tortor."
+                android:textColor="@color/color030303" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

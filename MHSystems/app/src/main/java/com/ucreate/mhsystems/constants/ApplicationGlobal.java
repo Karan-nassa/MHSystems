@@ -46,4 +46,6 @@ public class ApplicationGlobal {
     public static final int ACTION_PREVIOUS_MONTH = 1;
     public static final int ACTION_NEXT_MONTH = 2;
     public static final int ACTION_TODAY = 3;
+
+    public static final String TAG_POPUP_THEME = "colorTheme";
 }

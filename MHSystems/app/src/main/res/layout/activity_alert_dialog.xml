@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -23,38 +23,39 @@
             android:background="#F1F1F0">
 
             <FrameLayout
+                android:id="@+id/flPopupTheme"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="#AFD9A1">
+                android:background="@color/colorAFD9A1">
 
             </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="74dp"
-           android:layout_marginTop="70dp"
-            android:orientation="vertical">
-
-            <!-- TEAM LOGO -->
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/ivBackgroundColor"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="2dp"
-                android:layout_gravity="bottom"
-                android:scaleType="fitCenter"
-                app:placeholderImage="@android:color/white"
-                app:roundAsCircle="true" />
+                android:layout_height="74dp"
+                android:layout_marginTop="60dp"
+                android:orientation="vertical">
 
-            <!-- LOGO OF ITEM -->
+                <!-- TEAM LOGO -->
 
-            <ImageView
-                android:id="@+id/ivGridLogo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@mipmap/ic_calendar_popup" />
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/ivBackgroundColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:padding="2dp"
+                    android:scaleType="fitCenter"
+                    app:placeholderImage="@android:color/white"
+                    app:roundAsCircle="true" />
+
+                <!-- LOGO OF ITEM -->
+
+                <ImageView
+                    android:id="@+id/ivGridLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_calendar_popup" />
             </FrameLayout>
 
 
@@ -78,6 +79,7 @@
                 android:text="In order to book atee time or create event call us or email:"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,13 +91,14 @@
                 android:text="+44 1234 60947"
                 android:textColor="#74B4FF"
                 android:textSize="16sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="contact@golfclub.co.uk"
                 android:textColor="#74B4FF"
@@ -106,12 +109,12 @@
             android:id="@+id/tvCloseDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Close"
-            android:onClick="onClose"
-            android:textColor="@android:color/white"
             android:layout_gravity="center"
-            android:textSize="20sp"
-            android:layout_marginTop="60dp"/>
+            android:layout_marginTop="60dp"
+            android:onClick="onClose"
+            android:text="Close"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 
 

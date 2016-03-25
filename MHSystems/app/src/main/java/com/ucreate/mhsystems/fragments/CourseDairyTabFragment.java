@@ -45,7 +45,7 @@ public class CourseDairyTabFragment extends Fragment {
     TabsPageAdapter pageAdapter;
 
     //Create instance of Fragment.
-    public static CourseFragmentTabsData courseFragmentTabsData;
+    public static CourseFragmentData courseFragmentData;
 
 
     Calendar mCalendarInstance;

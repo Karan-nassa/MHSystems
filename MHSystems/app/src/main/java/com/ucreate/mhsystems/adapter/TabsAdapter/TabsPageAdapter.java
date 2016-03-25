@@ -8,16 +8,14 @@ package com.ucreate.mhsystems.adapter.TabsAdapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
-import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
 import com.ucreate.mhsystems.fragments.CompletedTabFragment;
 import com.ucreate.mhsystems.fragments.CurrentTabFragment;
 import com.ucreate.mhsystems.fragments.FutureTabFragment;
 import com.ucreate.mhsystems.fragments.MyEventsTabFragment;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
-import com.ucreate.mhsystems.fragments.CourseFragmentTabsData;
+import com.ucreate.mhsystems.fragments.CourseFragmentData;
 
 
 /**
@@ -75,12 +73,12 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
         switch (iPosition) {
             case 0:
-                CourseDairyTabFragment.courseFragmentTabsData = new CourseFragmentTabsData();
-                return CourseDairyTabFragment.courseFragmentTabsData;
+                CourseDairyTabFragment.courseFragmentData = new CourseFragmentData();
+                return CourseDairyTabFragment.courseFragmentData;
 
             case 1:
-                CourseDairyTabFragment.courseFragmentTabsData = new CourseFragmentTabsData();
-                return CourseDairyTabFragment.courseFragmentTabsData;
+                CourseDairyTabFragment.courseFragmentData = new CourseFragmentData();
+                return CourseDairyTabFragment.courseFragmentData;
 
             default:
                 return null;

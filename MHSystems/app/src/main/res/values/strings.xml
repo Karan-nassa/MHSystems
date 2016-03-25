@@ -9,6 +9,11 @@
     <string name="error_please_retry">Something went wrong. please try again later.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
+    <!-- START OF COMMON MESSAGES THROUGH OUT THE APP -->
+    <string name="text_join">Join</string>
+    <string name="text_joined">Joined</string>
+    <!-- END OF COMMON MESSAGES THROUGH OUT THE APP  -->
+
     <!-- START OF HOME ACTIVITY -->
     <string name="title_golf_club_name">SUNNINGDALE GOLF CLUB</string>
     <string name="title_home_message">“Kindness is the language which the deaf can hear and the blind can see.”</string>

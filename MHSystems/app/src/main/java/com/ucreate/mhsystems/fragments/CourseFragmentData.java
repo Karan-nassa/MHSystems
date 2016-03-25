@@ -28,6 +28,7 @@ import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.activites.CourseAlertDialog;
 import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.API.WebServiceMethods;
 import com.ucreate.mhsystems.utils.pojo.AJsonParams_;
@@ -44,11 +45,11 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = CourseFragmentTabsData.class.getSimpleName();
+    public static final String LOG_TAG = CourseFragmentData.class.getSimpleName();
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
     ArrayList<CourseDiaryDataCopy> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
 
@@ -104,11 +105,11 @@ public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayo
                 if (arrayListCourseData.get(position).getSlotType() == 2) {
 
                     //Show alert dialog.
-                    Intent mIntent=new Intent(getActivity(),CourseAlertDialog.class);
+                    Intent mIntent = new Intent(getActivity(), CourseAlertDialog.class);
+                    //Pass theme green color.
+                    mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
                     startActivity(mIntent);
                 } else {
-
-                    Log.e("DAY NAME", arrayListCourseData.get(position).getDayName());
 
                     Intent intent = new Intent(getActivity(), CourseDiaryDetailActivity.class);
                     intent.putExtra("COURSE_TITLE", arrayListCourseData.get(position).getTitle());
@@ -116,7 +117,7 @@ public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayo
                     intent.putExtra("COURSE_EVENT_JOIN", arrayListCourseData.get(position).isJoinStatus());
                     intent.putExtra("COURSE_EVENT_DATE", arrayListCourseData.get(position).getCourseEventDate());
                     intent.putExtra("COURSE_EVENT_DAY_NAME", arrayListCourseData.get(position).getDayName());
-                    intent.putExtra("COURSE_EVENT_PRIZE", ""+arrayListCourseData.get(position).getPrizePerGuest());
+                    intent.putExtra("COURSE_EVENT_PRIZE", "" + arrayListCourseData.get(position).getPrizePerGuest());
                     intent.putExtra("COURSE_EVENT_DESCRIPTION", arrayListCourseData.get(position).getDesc());
                     startActivity(intent);
                 }
@@ -244,7 +245,7 @@ public class CourseFragmentTabsData extends Fragment implements SwipeRefreshLayo
 //                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyTabFragment.this, filterCourseDates(arrayListCourseData));
 //                    rvCourseDiary.setAdapter(recyclerViewAdapter);
 
-                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup));
+                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(arrayCourseDataBackup));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
 
                     Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.size());
