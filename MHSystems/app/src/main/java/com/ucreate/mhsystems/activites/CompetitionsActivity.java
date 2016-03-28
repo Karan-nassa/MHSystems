@@ -2,19 +2,26 @@ package com.ucreate.mhsystems.activites;
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
+import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
+import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
+import com.ucreate.mhsystems.fragments.CalendarPickerFragment;
 import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
@@ -43,6 +50,12 @@ public class CompetitionsActivity extends BaseActivity {
 
     @Bind(R.id.cdlCompetitions)
     CoordinatorLayout cdlCompetitions;
+
+    @Bind(R.id.llMonthTitleComp)
+    LinearLayout llMonthTitleComp;
+
+    @Bind(R.id.tvMonthNameComp)
+    TextView tvMonthNameComp;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -85,7 +98,42 @@ public class CompetitionsActivity extends BaseActivity {
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
+
+        //When user want to Select date from CALENDAR.
+        llMonthTitleComp.setOnClickListener(mCalendarListener);
     }
+
+    /**
+     * Display CALENDAR view on tap of Month Title.
+     */
+    private View.OnClickListener mCalendarListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+//            CalendarPickerFragment pickerFrag = new CalendarPickerFragment();
+//            pickerFrag.setCallback(mFragmentCallback);
+//
+//            // Options
+//            Pair<Boolean, SublimeOptions> optionsPair = getOptions();
+//
+//            if (!optionsPair.first) { // If options are not valid
+//                Toast.makeText(CompetitionsActivity.this, "No pickers activated",
+//                        Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            // Valid options
+//            Bundle bundle = new Bundle();
+//            bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
+//            pickerFrag.setArguments(bundle);
+//
+//            pickerFrag.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+//            pickerFrag.show(getSupportFragmentManager(), "SUBLIME_PICKER");
+              /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+        }
+    };
+
 
     /**
      * Show snackBar message defined in BaseActivity.
@@ -180,9 +228,7 @@ public class CompetitionsActivity extends BaseActivity {
      */
     public void setTitleBar(String strNameOfMonth) {
 
-        TextView mTitle = (TextView) toolBarComp.findViewById(R.id.tvCompSchedule);
-
-        mTitle.setText(strNameOfMonth);
+        tvMonthNameComp.setText(strNameOfMonth);
     }
 
     /**
@@ -232,5 +278,74 @@ public class CompetitionsActivity extends BaseActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.containerView, mFragment);
         fragmentTransaction.commit();
+    }
+
+    /**
+     * CALENDAR call listener implements
+     * here.
+     */
+    CalendarPickerFragment.Callback mFragmentCallback = new CalendarPickerFragment.Callback() {
+        @Override
+        public void onCancelled() {
+            Toast.makeText(CompetitionsActivity.this, "No date selected.", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onDateTimeRecurrenceSet(SelectedDate selectedDate,
+                                            int hourOfDay, int minute,
+                                            SublimeRecurrencePicker.RecurrenceOption recurrenceOption,
+                                            String recurrenceRule) {
+
+            Log.e("selectedDate:", "" + selectedDate.toString());
+            Log.e("mHour:", "" + hourOfDay);
+            Log.e("mMinute:", "" + minute);
+
+            Toast.makeText(CompetitionsActivity.this, "Selected Date : " + selectedDate, Toast.LENGTH_LONG).show();
+        }
+    };
+
+    Pair<Boolean, SublimeOptions> getOptions() {
+        SublimeOptions options = new SublimeOptions();
+        int displayOptions = 0;
+
+        // if (cbDatePicker.isChecked()) {
+
+        // }
+
+        // if (cbTimePicker.isChecked()) {
+        //   displayOptions |= SublimeOptions.ACTIVATE_TIME_PICKER;
+        //}
+        displayOptions |= SublimeOptions.ACTIVATE_DATE_PICKER;
+
+
+        // if (rbDatePicker.getVisibility() == View.VISIBLE && rbDatePicker.isChecked()) {
+
+        // } else if (rbTimePicker.getVisibility() == View.VISIBLE && rbTimePicker.isChecked()) {
+        //  options.setPickerToShow(SublimeOptions.Picker.TIME_PICKER);
+        // }
+        options.setPickerToShow(SublimeOptions.Picker.DATE_PICKER);
+
+   /* else if (rbRecurrencePicker.getVisibility() == View.VISIBLE && rbRecurrencePicker.isChecked()) {
+            options.setPickerToShow(SublimeOptions.Picker.REPEAT_OPTION_PICKER);
+        }*/
+
+        options.setDisplayOptions(displayOptions);
+
+
+        // Example for setting date range:
+        // Note that you can pass a date range as the initial date params
+        // even if you have date-range selection disabled. In this case,
+        // the user WILL be able to change date-range using the header
+        // TextViews, but not using long-press.
+
+       /* Calendar startCal = Calendar.getInstance();
+        startCal.set(2016, 3, 28);
+        Calendar endCal = Calendar.getInstance();
+        endCal.set(2016, 12, 31);
+
+        options.setDateParams(startCal, endCal);*/
+
+        // If 'displayOptions' is zero, the chosen options are not valid
+        return new Pair<>(displayOptions != 0 ? Boolean.TRUE : Boolean.FALSE, options);
     }
 }

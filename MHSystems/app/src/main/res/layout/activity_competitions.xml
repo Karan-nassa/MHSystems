@@ -46,17 +46,35 @@
 
                     </LinearLayout>
 
-                    <!-- COURSE DATE WEEKEND/MONTHLY -->
+                    <LinearLayout
+                        android:id="@+id/llMonthTitleComp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvCompSchedule"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center|left"
-                        android:text="FEBURARY  2016"
-                        android:textColor="@color/colorBlack000000"
-                        android:textSize="16sp" />
+                        <!-- COURSE DATE WEEKEND/MONTHLY -->
+
+                        <TextView
+                            android:id="@+id/tvMonthNameComp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center|left"
+                            android:text="FEBURARY  2016"
+                            android:textColor="@color/colorBlack000000"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/ic_arrow_down"/>
+
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
 

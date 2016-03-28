@@ -63,7 +63,6 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
     //    @Bind(R.id.rvCourseDiary)
 //    RecyclerView rvCourseDiary;
     Toolbar toolBar;
-    TextView tvCourseSchedule;
     //    RecyclerView.Adapter recyclerViewAdapter;
     ListView lvCourseDiary;
 
@@ -135,9 +134,7 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
 
         cdlCourseDiary = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCourseDiary);
         toolBar = (Toolbar) mRootView.findViewById(R.id.toolBar);
-        tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
         lvCourseDiary = (ListView) mRootView.findViewById(R.id.lvCourseDiary);
-        tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
     }
 
     @Override
