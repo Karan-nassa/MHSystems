@@ -174,6 +174,10 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
         aJsonParams = new AJsonParams_();
         aJsonParams.setCallid("1456315336575");
         aJsonParams.setVersion("1");
+
+        Log.e(LOG_TAG, "strDateTo : "+CourseDairyTabFragment.strDateTo);
+        Log.e(LOG_TAG, "strDateFrom : "+CourseDairyTabFragment.strDateFrom);
+
         aJsonParams.setDateto(CourseDairyTabFragment.strDateTo); // MM-DD-YYYY
         aJsonParams.setDatefrom(CourseDairyTabFragment.strDateFrom); // MM-DD-YYYY
         aJsonParams.setPageNo("0");

@@ -1,5 +1,6 @@
 package com.ucreate.mhsystems.activites;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.DialogFragment;
@@ -12,6 +13,7 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,15 +60,17 @@ public class CompetitionsActivity extends BaseActivity {
     @Bind(R.id.tvMonthNameComp)
     TextView tvMonthNameComp;
 
+    //Create instance of  {@link Calendar} class.
+    public static Calendar mCalendarInstance;
+
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public String strDate;
-    public int iMonth;
-    public int iYear;
+    public static String strDate, strCurrentDate;
+    public static int iMonth, iCurrentMonth;
+    public static int iYear, iCurrentYear;
 
-    //To record total number of days.
-    int iNumOfDays;
+    public static int iNumOfDays;
 
     public String strDateFrom; //Start date.
     public String strDateTo; //End date.
@@ -93,6 +98,21 @@ public class CompetitionsActivity extends BaseActivity {
         //Let's first set up toolbar
         setupToolbar();
 
+        //Initialize CALENDAR instance.
+        mCalendarInstance = Calendar.getInstance();
+
+        iYear = mCalendarInstance.get(Calendar.YEAR);
+        iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
+        strDate = "" + mCalendarInstance.get(Calendar.DAY_OF_MONTH);
+
+        //Store to check use cannot navigate to previous dates of CALENDAR.
+        strCurrentDate = strDate;
+        iCurrentYear = iYear;
+        iCurrentMonth = iMonth;
+
+        //Get total number of days of selected month.
+        iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
         //Load Default fragment of COURSE DIARY.
         updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_NOTHING));
 
@@ -110,27 +130,59 @@ public class CompetitionsActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            CalendarPickerFragment pickerFrag = new CalendarPickerFragment();
-            pickerFrag.setCallback(mFragmentCallback);
+            // Launch Date Picker Dialog
+            DatePickerDialog dpd = new DatePickerDialog(CompetitionsActivity.this,
+                    new DatePickerDialog.OnDateSetListener() {
 
-            // Options
-            Pair<Boolean, SublimeOptions> optionsPair = getOptions();
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
 
-            if (!optionsPair.first) { // If options are not valid
-                Toast.makeText(CompetitionsActivity.this, "No pickers activated",
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
+                            int tMonthofYear = ++monthOfYear;
 
-            // Valid options
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
-            pickerFrag.setArguments(bundle);
+//                            if (year == iCurrentYear) {
+//
+//                                if (tMonthofYear > iCurrentMonth) {
+//
+//                                    //  String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
+//
+//                                    iYear = year;
+//                                    iMonth = tMonthofYear;
+//                                    strDate = "" + dayOfMonth;
+//
+//                                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+//
+//                                    updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+//
+//                                } else if(tMonthofYear == iCurrentMonth) {
+//
+//                                    if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
+//
+//                                        //    String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
+//
+//                                        iYear = year;
+//                                        iMonth = tMonthofYear;
+//                                        strDate = "" + dayOfMonth;
+//
+//                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+//
+//                                        updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+//
+//                                    }else{
+//                                        showSnackBarMessages(cdlCompetitions, "Please select next DATE to current DATE.");
+//                                    }
+//                                } else {
+//                                    showSnackBarMessages(cdlCompetitions, "Please select next MONTH to current DATE.");
+//                                }
+//                            } else {
+//                                showSnackBarMessages(cdlCompetitions, "Please select next YEAR to current YEAR.");
+//                            }
+                        }
+                    }, iYear, --iMonth, Integer.parseInt(strDate));
+            dpd.show();
 
-            pickerFrag.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-            pickerFrag.show(getSupportFragmentManager(), "SUBLIME_PICKER");
-              /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+            //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
+            //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         }
     };
 
@@ -277,60 +329,5 @@ public class CompetitionsActivity extends BaseActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.containerView, mFragment);
         fragmentTransaction.commit();
-    }
-
-    /**
-     * CALENDAR call listener implements
-     * here.
-     */
-    CalendarPickerFragment.Callback mFragmentCallback = new CalendarPickerFragment.Callback() {
-        @Override
-        public void onCancelled() {
-            showSnackBarMessages(cdlCompetitions, getResources().getString(R.string.message_no_date_selected));
-        }
-
-        @Override
-        public void onDateTimeRecurrenceSet(SelectedDate selectedDate,
-                                            int hourOfDay, int minute,
-                                            SublimeRecurrencePicker.RecurrenceOption recurrenceOption,
-                                            String recurrenceRule) {
-
-            Log.e("selectedDate:", "" + selectedDate.toString());
-            Log.e("mHour:", "" + hourOfDay);
-            Log.e("mMinute:", "" + minute);
-
-            Toast.makeText(CompetitionsActivity.this, "Selected Date : " + selectedDate, Toast.LENGTH_LONG).show();
-        }
-    };
-
-    /**
-     * Implements a method to get what options to show on
-     * CALENDAR dialog like CALENDAR, TIME etc.
-     */
-    Pair<Boolean, SublimeOptions> getOptions() {
-        SublimeOptions options = new SublimeOptions();
-        int displayOptions = 0;
-
-        displayOptions |= SublimeOptions.ACTIVATE_DATE_PICKER;
-        options.setPickerToShow(SublimeOptions.Picker.DATE_PICKER);
-
-        options.setDisplayOptions(displayOptions);
-
-
-        // Example for setting date range:
-        // Note that you can pass a date range as the initial date params
-        // even if you have date-range selection disabled. In this case,
-        // the user WILL be able to change date-range using the header
-        // TextViews, but not using long-press.
-
-       /* Calendar startCal = Calendar.getInstance();
-        startCal.set(2016, 3, 28);
-        Calendar endCal = Calendar.getInstance();
-        endCal.set(2016, 12, 31);
-
-        options.setDateParams(startCal, endCal);*/
-
-        // If 'displayOptions' is zero, the chosen options are not valid
-        return new Pair<>(displayOptions != 0 ? Boolean.TRUE : Boolean.FALSE, options);
     }
 }
