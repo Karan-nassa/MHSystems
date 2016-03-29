@@ -149,7 +149,13 @@ public class SublimeDatePicker extends FrameLayout {
         mMinDate = Calendar.getInstance(mCurrentLocale);
         mMaxDate = Calendar.getInstance(mCurrentLocale);
 
-        mMinDate.set(DEFAULT_START_YEAR, Calendar.JANUARY, 1);
+
+        /*
+        //TODO : Hide previous dates.
+        */
+        mMinDate.set(2016, Calendar.MARCH, 29);
+
+       // mMinDate.set(DEFAULT_START_YEAR, Calendar.JANUARY, 1);
         mMaxDate.set(DEFAULT_END_YEAR, Calendar.DECEMBER, 31);
 
         final Resources res = getResources();

@@ -1,5 +1,6 @@
 package com.ucreate.mhsystems.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
@@ -113,6 +114,7 @@ public class CourseDairyTabFragment extends Fragment {
      * Constructor to set action and change
      * CALENDAR accordingly.
      */
+    @SuppressLint("ValidFragment")
     public CourseDairyTabFragment(int action) {
         setCalenderDates(action);
     }
@@ -213,6 +215,10 @@ public class CourseDairyTabFragment extends Fragment {
                 iMonth = mCalendarInstance.get(Calendar.MONTH);
                 //Increment CALENDAR because MONTH start from 0.
                 iMonth++;
+                break;
+
+            case ApplicationGlobal.ACTION_CALENDAR:
+
                 break;
         }
 

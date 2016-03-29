@@ -110,30 +110,29 @@ public class CompetitionsActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-//            CalendarPickerFragment pickerFrag = new CalendarPickerFragment();
-//            pickerFrag.setCallback(mFragmentCallback);
-//
-//            // Options
-//            Pair<Boolean, SublimeOptions> optionsPair = getOptions();
-//
-//            if (!optionsPair.first) { // If options are not valid
-//                Toast.makeText(CompetitionsActivity.this, "No pickers activated",
-//                        Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//            // Valid options
-//            Bundle bundle = new Bundle();
-//            bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
-//            pickerFrag.setArguments(bundle);
-//
-//            pickerFrag.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-//            pickerFrag.show(getSupportFragmentManager(), "SUBLIME_PICKER");
+            CalendarPickerFragment pickerFrag = new CalendarPickerFragment();
+            pickerFrag.setCallback(mFragmentCallback);
+
+            // Options
+            Pair<Boolean, SublimeOptions> optionsPair = getOptions();
+
+            if (!optionsPair.first) { // If options are not valid
+                Toast.makeText(CompetitionsActivity.this, "No pickers activated",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Valid options
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
+            pickerFrag.setArguments(bundle);
+
+            pickerFrag.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+            pickerFrag.show(getSupportFragmentManager(), "SUBLIME_PICKER");
               /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
         }
     };
-
 
     /**
      * Show snackBar message defined in BaseActivity.
@@ -287,7 +286,7 @@ public class CompetitionsActivity extends BaseActivity {
     CalendarPickerFragment.Callback mFragmentCallback = new CalendarPickerFragment.Callback() {
         @Override
         public void onCancelled() {
-            Toast.makeText(CompetitionsActivity.this, "No date selected.", Toast.LENGTH_LONG).show();
+            showSnackBarMessages(cdlCompetitions, getResources().getString(R.string.message_no_date_selected));
         }
 
         @Override
@@ -304,30 +303,16 @@ public class CompetitionsActivity extends BaseActivity {
         }
     };
 
+    /**
+     * Implements a method to get what options to show on
+     * CALENDAR dialog like CALENDAR, TIME etc.
+     */
     Pair<Boolean, SublimeOptions> getOptions() {
         SublimeOptions options = new SublimeOptions();
         int displayOptions = 0;
 
-        // if (cbDatePicker.isChecked()) {
-
-        // }
-
-        // if (cbTimePicker.isChecked()) {
-        //   displayOptions |= SublimeOptions.ACTIVATE_TIME_PICKER;
-        //}
         displayOptions |= SublimeOptions.ACTIVATE_DATE_PICKER;
-
-
-        // if (rbDatePicker.getVisibility() == View.VISIBLE && rbDatePicker.isChecked()) {
-
-        // } else if (rbTimePicker.getVisibility() == View.VISIBLE && rbTimePicker.isChecked()) {
-        //  options.setPickerToShow(SublimeOptions.Picker.TIME_PICKER);
-        // }
         options.setPickerToShow(SublimeOptions.Picker.DATE_PICKER);
-
-   /* else if (rbRecurrencePicker.getVisibility() == View.VISIBLE && rbRecurrencePicker.isChecked()) {
-            options.setPickerToShow(SublimeOptions.Picker.REPEAT_OPTION_PICKER);
-        }*/
 
         options.setDisplayOptions(displayOptions);
 

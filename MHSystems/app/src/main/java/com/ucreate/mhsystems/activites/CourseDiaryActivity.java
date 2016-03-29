@@ -106,8 +106,6 @@ public class CourseDiaryActivity extends BaseActivity {
 
             pickerFrag.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
             pickerFrag.show(getSupportFragmentManager(), "SUBLIME_PICKER");
-              /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
         }
     };
 
@@ -184,7 +182,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * @param strCourseEventDate <br>
      *                           Implements a method to return the format the day of
      *                           event.
-     *                           <p/>
+     *                           <p>
      *                           Exapmle: 2016-03-04T00:00:00
      * @Return : 04
      */
@@ -203,7 +201,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * @param strDayName <br>
      *                   Implements a method to return the format the day of
      *                   event.
-     *                   <p/>
+     *                   <p>
      *                   Exapmle: NAME OF DAY : Friday
      * @Return : Fri
      */
@@ -288,7 +286,7 @@ public class CourseDiaryActivity extends BaseActivity {
     CalendarPickerFragment.Callback mFragmentCallback = new CalendarPickerFragment.Callback() {
         @Override
         public void onCancelled() {
-            Toast.makeText(CourseDiaryActivity.this, "No date selected.", Toast.LENGTH_LONG).show();
+            showSnackBarMessages(cdlCourse, getResources().getString(R.string.message_no_date_selected));
         }
 
         @Override
@@ -301,37 +299,23 @@ public class CourseDiaryActivity extends BaseActivity {
             Log.e("mHour:", "" + hourOfDay);
             Log.e("mMinute:", "" + minute);
 
-            Toast.makeText(CourseDiaryActivity.this, "Selected Date : " + selectedDate, Toast.LENGTH_LONG).show();
+            showSnackBarMessages(cdlCourse, "Selected Date : " + selectedDate);
+
+            updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
         }
     };
 
+    /**
+     * Implements a method to get what options to show on
+     * CALENDAR dialog like CALENDAR, TIME etc.
+     */
     Pair<Boolean, SublimeOptions> getOptions() {
         SublimeOptions options = new SublimeOptions();
         int displayOptions = 0;
 
-        // if (cbDatePicker.isChecked()) {
-
-        // }
-
-        // if (cbTimePicker.isChecked()) {
-        //   displayOptions |= SublimeOptions.ACTIVATE_TIME_PICKER;
-        //}
         displayOptions |= SublimeOptions.ACTIVATE_DATE_PICKER;
-
-
-        // if (rbDatePicker.getVisibility() == View.VISIBLE && rbDatePicker.isChecked()) {
-
-        // } else if (rbTimePicker.getVisibility() == View.VISIBLE && rbTimePicker.isChecked()) {
-        //  options.setPickerToShow(SublimeOptions.Picker.TIME_PICKER);
-        // }
         options.setPickerToShow(SublimeOptions.Picker.DATE_PICKER);
-
-   /* else if (rbRecurrencePicker.getVisibility() == View.VISIBLE && rbRecurrencePicker.isChecked()) {
-            options.setPickerToShow(SublimeOptions.Picker.REPEAT_OPTION_PICKER);
-        }*/
-
         options.setDisplayOptions(displayOptions);
-
 
         // Example for setting date range:
         // Note that you can pass a date range as the initial date params

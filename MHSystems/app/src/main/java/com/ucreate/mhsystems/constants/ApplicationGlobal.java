@@ -46,6 +46,7 @@ public class ApplicationGlobal {
     public static final int ACTION_PREVIOUS_MONTH = 1;
     public static final int ACTION_NEXT_MONTH = 2;
     public static final int ACTION_TODAY = 3;
+    public static final int ACTION_CALENDAR = 4;
 
     /**
      * Declaration of constant used throught out the app to pass

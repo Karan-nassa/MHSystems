@@ -74,13 +74,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="35dp"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:text="@string/text_alert_course_message"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -88,11 +93,21 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="90dp"
-                android:gravity="center"
+                android:layout_marginTop="80dp"
                 android:text="+44 1234 60947"
                 android:textColor="#74B4FF"
                 android:textSize="16sp" />
+
+
+            <!-- DIVIDER LINE -->
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="110dp"
+                android:layout_gravity="center"
+                android:alpha="0.5"
+                android:background="@color/colorAAAAAA"/>
 
             <TextView
                 android:layout_width="wrap_content"

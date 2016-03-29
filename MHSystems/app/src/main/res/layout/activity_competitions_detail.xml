@@ -110,7 +110,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="25dp"
             android:orientation="vertical">
 
@@ -184,13 +185,23 @@
 
             </LinearLayout>
 
+            <!-- DIVIDER LINE -->
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:alpha="0.5"
+                android:background="@color/colorAAAAAA"/>
+
             <!-- DESCRIPTION OF COURSY EVENTS -->
 
             <TextView
                 android:id="@+id/tvDescCourseEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="25dp"
                 android:text="Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metus, scelerisque nec pharetra id, tempor a tortor."
                 android:textColor="@color/color030303" />
 
