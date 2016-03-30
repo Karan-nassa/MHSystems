@@ -186,6 +186,8 @@ public class CourseDairyTabFragment extends Fragment {
 
                         //Initialize the dates of CALENDER to display data according dates.
                         CourseDiaryActivity.strDate = "" + CourseDiaryActivity.mCalendarInstance.get(Calendar.DATE);
+                        //Get total number of days of selected month.
+                        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
                     } else {
                         CourseDiaryActivity.strDate = "01";
                     }
@@ -203,7 +205,7 @@ public class CourseDairyTabFragment extends Fragment {
                     CourseDiaryActivity.iMonth++;
 
                     //Get total number of days of selected month.
-                    //  CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                      CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
                 }
                 break;
 

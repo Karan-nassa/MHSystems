@@ -140,43 +140,43 @@ public class CompetitionsActivity extends BaseActivity {
 
                             int tMonthofYear = ++monthOfYear;
 
-//                            if (year == iCurrentYear) {
-//
-//                                if (tMonthofYear > iCurrentMonth) {
-//
-//                                    //  String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
-//
-//                                    iYear = year;
-//                                    iMonth = tMonthofYear;
-//                                    strDate = "" + dayOfMonth;
-//
-//                                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-//
-//                                    updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
-//
-//                                } else if(tMonthofYear == iCurrentMonth) {
-//
-//                                    if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
-//
-//                                        //    String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
-//
-//                                        iYear = year;
-//                                        iMonth = tMonthofYear;
-//                                        strDate = "" + dayOfMonth;
-//
-//                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-//
-//                                        updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
-//
-//                                    }else{
-//                                        showSnackBarMessages(cdlCompetitions, "Please select next DATE to current DATE.");
-//                                    }
-//                                } else {
-//                                    showSnackBarMessages(cdlCompetitions, "Please select next MONTH to current DATE.");
-//                                }
-//                            } else {
-//                                showSnackBarMessages(cdlCompetitions, "Please select next YEAR to current YEAR.");
-//                            }
+                            if (year == iCurrentYear) {
+
+                                if (tMonthofYear > iCurrentMonth) {
+
+                                    //  String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
+
+                                    iYear = year;
+                                    iMonth = tMonthofYear;
+                                    strDate = "" + dayOfMonth;
+
+                                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                                    updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+
+                                } else if(tMonthofYear == iCurrentMonth) {
+
+                                    if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
+
+                                        //    String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
+
+                                        iYear = year;
+                                        iMonth = tMonthofYear;
+                                        strDate = "" + dayOfMonth;
+
+                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                                        updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+
+                                    }else{
+                                        showSnackBarMessages(cdlCompetitions, "Please select next DATE to current DATE.");
+                                    }
+                                } else {
+                                    showSnackBarMessages(cdlCompetitions, "Please select next MONTH to current DATE.");
+                                }
+                            } else {
+                                showSnackBarMessages(cdlCompetitions, "Please select next YEAR to current YEAR.");
+                            }
                         }
                     }, iYear, --iMonth, Integer.parseInt(strDate));
             dpd.show();

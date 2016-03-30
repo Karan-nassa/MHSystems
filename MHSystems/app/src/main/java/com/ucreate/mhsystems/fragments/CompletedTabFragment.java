@@ -78,19 +78,6 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
         return mRootView;
     }
 
-    /**
-     * Implements a method to initialize all view resources
-     * of VIEW or VIEW GROUP.
-     */
-    private void initializeAppResources() {
-
-        cdlCompetitions = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCompetitions);
-        // toolBar = (Toolbar) mRootView.findViewById(R.id.toolBar);
-        // tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
-        lvCompetitions = (ListView) mRootView.findViewById(R.id.lvCompetitions);
-        // tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
-    }
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -126,19 +113,27 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
         }
 
+        /**
+         *  Change date because COMPLETED tab should display record of
+         *  complete MONTH.
+         */
+        CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/1/" + CompetitionsActivity.iYear;
+        CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.iNumOfDays  + "/" + CompetitionsActivity.iYear;
+
+        Log.e(LOG_TAG, "END DATE : " + CompetitionsTabFragment.strDateTo);
+        Log.e(LOG_TAG, "START DATE : " + CompetitionsTabFragment.strDateFrom);
+
         competitionsJsonParams = new CompetitionsJsonParams();
         competitionsJsonParams.setCallid("1456315336575");
         competitionsJsonParams.setVersion(1);
         competitionsJsonParams.setMemberId(18060);
         competitionsJsonParams.setIncludeCompletedEvents(true);
-        competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY
-        competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY
+        competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY [END DATE]
+        competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY [START DATE]
         competitionsJsonParams.setPageNo("0");
         competitionsJsonParams.setPageSize("10");
 
         competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
-
-       // Log.e(LOG_TAG, "competitionsAPI " + competitionsAPI.toString());
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
