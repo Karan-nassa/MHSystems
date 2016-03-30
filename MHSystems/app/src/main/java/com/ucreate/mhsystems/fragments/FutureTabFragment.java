@@ -128,7 +128,7 @@ public class FutureTabFragment extends Fragment implements SwipeRefreshLayout.On
         competitionsJsonParams = new CompetitionsJsonParams();
         competitionsJsonParams.setCallid("1456315336575");
         competitionsJsonParams.setVersion(1);
-        competitionsJsonParams.setMemberId(18060);
+        competitionsJsonParams.setMemberId(10784);
         competitionsJsonParams.setIncludeFutureEvents(true);
         competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY
         competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY

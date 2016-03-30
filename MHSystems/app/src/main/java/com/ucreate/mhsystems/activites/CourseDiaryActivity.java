@@ -73,9 +73,6 @@ public class CourseDiaryActivity extends BaseActivity {
 
     public static int iNumOfDays;
 
-    public String strDateFrom; //Start date.
-    public String strDateTo; //End date.
-
     /**
      * Implements HOME icons press
      * listener.
@@ -108,7 +105,7 @@ public class CourseDiaryActivity extends BaseActivity {
 
                                 if (tMonthofYear > iCurrentMonth) {
 
-                                  //  String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
+                                    //  String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
 
                                     iYear = year;
                                     iMonth = tMonthofYear;
@@ -118,28 +115,29 @@ public class CourseDiaryActivity extends BaseActivity {
 
                                     updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
-                                } else if(tMonthofYear == iCurrentMonth) {
+                                } else if (tMonthofYear == iCurrentMonth) {
 
                                     if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
 
-                                    //    String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
+                                        //    String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
 
                                         iYear = year;
                                         iMonth = tMonthofYear;
                                         strDate = "" + dayOfMonth;
 
+                                      //  getNumberofDays();
                                         iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
                                         updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
-                                    }else{
-                                        showSnackBarMessages(cdlCourse, "Please select next DATE to current DATE.");
+                                    } else {
+                                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                     }
                                 } else {
-                                    showSnackBarMessages(cdlCourse, "Please select next MONTH to current DATE.");
+                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                 }
                             } else {
-                                showSnackBarMessages(cdlCourse, "Please select next YEAR to current YEAR.");
+                                showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                             }
                         }
                     }, iYear, --iMonth, Integer.parseInt(strDate));
@@ -149,6 +147,17 @@ public class CourseDiaryActivity extends BaseActivity {
             //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         }
     };
+
+    /**
+     * Implements a method to get TOTAL number of
+     * DAYS in selected MONTH.
+     */
+//    public static void getNumberofDays() {
+//        CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iYear);
+//        CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, CourseDiaryActivity.iMonth);
+//
+//        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.get(Calendar.DAY_OF_MONTH);
+//    }
 
 
     @Override

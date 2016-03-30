@@ -1,18 +1,28 @@
 package com.ucreate.mhsystems.activites;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.rollbar.android.Rollbar;
+import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
 import butterknife.ButterKnife;
@@ -84,6 +94,25 @@ public class BaseActivity extends AppCompatActivity {
             mProgress.dismiss();
             mProgress = null;
         }
+    }
+
+    /**
+     * Implement a method Custom showEnterCompetitionDialog
+     * Alert Dialog for input user First & Last name,
+     * email address and Mobile number.
+     */
+    public void showAlertMessage(String strAlertMessage) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(strAlertMessage)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 }

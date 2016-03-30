@@ -97,7 +97,8 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             //Method to hit Squads API.
-            requestCompetitionsEvents();
+            // requestCompetitionsEvents();
+            ((CompetitionsActivity) getActivity()).showSnackMessage("Under process.");
         } else {
             ((CompetitionsActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_internet));
         }
@@ -118,7 +119,7 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
          *  complete MONTH.
          */
         CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/1/" + CompetitionsActivity.iYear;
-        CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.iNumOfDays  + "/" + CompetitionsActivity.iYear;
+        CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.iNumOfDays + "/" + CompetitionsActivity.iYear;
 
         Log.e(LOG_TAG, "END DATE : " + CompetitionsTabFragment.strDateTo);
         Log.e(LOG_TAG, "START DATE : " + CompetitionsTabFragment.strDateFrom);
@@ -126,7 +127,7 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
         competitionsJsonParams = new CompetitionsJsonParams();
         competitionsJsonParams.setCallid("1456315336575");
         competitionsJsonParams.setVersion(1);
-        competitionsJsonParams.setMemberId(18060);
+        competitionsJsonParams.setMemberId(10784);
         competitionsJsonParams.setIncludeCompletedEvents(true);
         competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY [END DATE]
         competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY [START DATE]

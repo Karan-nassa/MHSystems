@@ -70,6 +70,11 @@ public class CourseDairyTabFragment extends Fragment {
     public static boolean isOldCourseVisible, isNewCourseVisible;
 
     /**
+     * To record the last position of selected tab.
+     */
+    public static int iLastTabPosition;
+
+    /**
      * This instance used to identify which tab is
      * selected and describe CourseKey.
      * <p>
@@ -82,9 +87,9 @@ public class CourseDairyTabFragment extends Fragment {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             viewPager.setCurrentItem(tab.getPosition());
-            Log.e("pos: ", "" + tab.getPosition());
-
             setTabVisibleStatus(tab.getPosition());
+
+            iLastTabPosition = tab.getPosition();
 
             if (tab.getPosition() == 0) {
                 mCourseKey = "1.1";
@@ -140,6 +145,8 @@ public class CourseDairyTabFragment extends Fragment {
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        viewPager.setCurrentItem(iLastTabPosition);
+
         ((CourseDiaryActivity) getActivity()).setTitleBar(strNameOfMonth);
 
         //Implement Tab selected listener.
@@ -182,12 +189,16 @@ public class CourseDairyTabFragment extends Fragment {
                 if (/*iMonth == 1 ||*/ CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
                     CourseDiaryActivity.iMonth--;
 
+                   // ((CourseDiaryActivity)getActivity()).getNumberofDays();
+
+                    //Get total number of days of selected month.
+                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+
                     if (CourseDiaryActivity.iMonth == CourseDiaryActivity.iCurrentMonth) {
 
                         //Initialize the dates of CALENDER to display data according dates.
                         CourseDiaryActivity.strDate = "" + CourseDiaryActivity.mCalendarInstance.get(Calendar.DATE);
-                        //Get total number of days of selected month.
-                        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
                     } else {
                         CourseDiaryActivity.strDate = "01";
                     }
@@ -204,8 +215,10 @@ public class CourseDairyTabFragment extends Fragment {
                     CourseDiaryActivity.strDate = "01";
                     CourseDiaryActivity.iMonth++;
 
+                   // ((CourseDiaryActivity)getActivity()).getNumberofDays();
+
                     //Get total number of days of selected month.
-                      CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
                 }
                 break;
 
@@ -240,6 +253,7 @@ public class CourseDairyTabFragment extends Fragment {
         Log.e(LOG_TAG, strNameOfMonth);
         Log.e("DATA ", "DATE : " + CourseDiaryActivity.strDate + " MONTH : " + CourseDiaryActivity.iMonth + " YEAR : " + CourseDiaryActivity.iYear + " NUM OF DAYS : " + CourseDiaryActivity.iNumOfDays);
     }
+
 
     /**
      * Declares a method to get NAME of MONTH by passing

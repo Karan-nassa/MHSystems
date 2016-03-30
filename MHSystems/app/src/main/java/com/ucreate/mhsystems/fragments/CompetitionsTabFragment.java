@@ -1,6 +1,7 @@
 package com.ucreate.mhsystems.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.TabActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -66,6 +67,8 @@ public class CompetitionsTabFragment extends Fragment {
     public static String strDateTo; //End date.
     String strNameOfMonth = "MARCH 2016";
 
+    public static int iLastTabPosition;
+
     /**
      * Declare three bool instances to call api
      * on visible to user.
@@ -77,6 +80,8 @@ public class CompetitionsTabFragment extends Fragment {
         public void onTabSelected(TabLayout.Tab tab) {
             viewPager.setCurrentItem(tab.getPosition());
             setTabVisibleStatus(tab.getPosition());
+
+            iLastTabPosition = tab.getPosition();
         }
 
         @Override
@@ -129,6 +134,8 @@ public class CompetitionsTabFragment extends Fragment {
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        viewPager.setCurrentItem(iLastTabPosition);
+
         ((CompetitionsActivity) getActivity()).setTitleBar(strNameOfMonth);
 
         //Implement Tab selected listener.
@@ -136,94 +143,6 @@ public class CompetitionsTabFragment extends Fragment {
 
         return mRootView;
     }
-
-    /**
-     * Implements a method to display calender
-     * instances.
-     */
-//    private void setCalenderDates(int iAction) {
-//
-//        //Initialize CALENDAR instance.
-//        mCalendarInstance = Calendar.getInstance();
-//
-//        //Get total number of days of selected month.
-//        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-//
-//        iYear = mCalendarInstance.get(Calendar.YEAR);
-//
-//        switch (iAction) {
-//
-//            case ApplicationGlobal.ACTION_NOTHING:
-//                //Get MONTH and YEAR.
-//                iMonth = mCalendarInstance.get(Calendar.MONTH);
-//
-//                //Increment CALENDAR because MONTH start from 0.
-//                //Do nothing. Just load data according current date.
-//                strDate = ""+mCalendarInstance.get(Calendar.DATE);
-//                iCurrentMonth = mCalendarInstance.get(Calendar.MONTH) + 1;
-//
-//                iMonth++;
-//                break;
-//
-//            case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
-//
-////                if (iMonth == 1) {
-////
-////                } else {
-////                    strDate = "01";
-////                    iMonth--;
-////                }
-//                /**
-//                 *  User cannot navigate back to current
-//                 *  month.
-//                 */
-//                if (/*iMonth == 1 ||*/ iMonth > iCurrentMonth) {
-//                    iMonth--;
-//
-//                    if (iMonth == iCurrentMonth) {
-//                        //Initialize the dates of CALENDER to display data according dates.
-//                        strDate = "" + mCalendarInstance.get(Calendar.DATE);
-//                    } else {
-//                        strDate = "01";
-//                    }
-//                }
-//                break;
-//
-//            case ApplicationGlobal.ACTION_NEXT_MONTH:
-//
-//                if (iMonth == 12) {
-//
-//                } else {
-//                    iMonth++;
-//                }
-//                break;
-//
-//            case ApplicationGlobal.ACTION_TODAY:
-//                //Initialize the dates of CALENDER to display data according dates.
-//                strDate = "" + mCalendarInstance.get(Calendar.DATE);
-//                iNumOfDays = mCalendarInstance.get(Calendar.DATE);
-//
-//                //Get MONTH and YEAR.
-//                iMonth = mCalendarInstance.get(Calendar.MONTH);
-//                //Increment CALENDAR because MONTH start from 0.
-//                iMonth++;
-//                break;
-//        }
-//
-//        //FORMAT : MM-DD-YYYY
-//        strDateFrom = iMonth + "/" + strDate + "/" + iYear;
-//
-//        //FORMAT : MM-DD-YYYY
-//        strDateTo = "" + iMonth + "/" + iNumOfDays + "/" + iYear;
-//
-//        Log.e(LOG_TAG, "START DATE : " + strDateFrom);
-//        Log.e(LOG_TAG, "END DATE : " + strDateTo);
-//
-//        strNameOfMonth = getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear;
-//
-//        Log.e(LOG_TAG, strNameOfMonth);
-//        Log.e("DATA ", "DATE : " + strDate + " MONTH : " + iMonth + " YEAR : " + iYear + " NUM OF DAYS : " + iNumOfDays);
-//    }
 
     /**
      * Implements a method to display calender

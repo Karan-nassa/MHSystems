@@ -132,7 +132,7 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
         competitionsJsonParams = new CompetitionsJsonParams();
         competitionsJsonParams.setCallid("1456315336575");
         competitionsJsonParams.setVersion(1);
-        competitionsJsonParams.setMemberId(18060);
+        competitionsJsonParams.setMemberId(10784);
         competitionsJsonParams.setMyEventsOnly(true);
         competitionsJsonParams.setIncludeCompletedEvents(true);
         competitionsJsonParams.setIncludeCurrentEvents(true);

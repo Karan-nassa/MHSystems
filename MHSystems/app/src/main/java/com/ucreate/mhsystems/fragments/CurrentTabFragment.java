@@ -133,7 +133,7 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
         competitionsJsonParams = new CompetitionsJsonParams();
         competitionsJsonParams.setCallid("1456315336575");
         competitionsJsonParams.setVersion(1);
-        competitionsJsonParams.setMemberId(18060);
+        competitionsJsonParams.setMemberId(10784);
         competitionsJsonParams.setIncludeCurrentEvents(true);
         competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY
         competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY

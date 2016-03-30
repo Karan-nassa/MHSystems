@@ -8,8 +8,11 @@ package com.ucreate.mhsystems.adapter.TabsAdapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
+import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
+import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
 import com.ucreate.mhsystems.fragments.CompletedTabFragment;
 import com.ucreate.mhsystems.fragments.CurrentTabFragment;
 import com.ucreate.mhsystems.fragments.FutureTabFragment;
@@ -20,7 +23,7 @@ import com.ucreate.mhsystems.fragments.CourseFragmentData;
 
 /**
  * Tab Page Adapter initialization.
- * <p/>
+ * <p>
  * <br> @param  Fm        : Instance of Fragment Manager
  * <br> @param  NumOfTabs : Total number of Instance
  * <br> @param  iFromWhat : Value 1 means call from Article and 2 from Media
@@ -38,7 +41,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Tab Page Adapter initialization.
-     * <p/>
+     * <p>
      * <br> @param  Fm        : Instance of Fragment Manager
      * <br> @param  NumOfTabs : Total number of Instance
      * <br> @param  iFromWhat : Value 1 means call from Article and 2 from Media
@@ -66,7 +69,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Load Article Tabs i.e NEWS, INTERVIEWS and GUIDES.
-     * <p/>
+     * <p>
      * <br> @return Fragment
      */
     private Fragment loadArticleTabs(int iPosition) {
@@ -87,10 +90,11 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Load Article Tabs i.e NEWS, INTERVIEWS and GUIDES.
-     * <p/>
+     * <p>
      * <br> @return Fragment
      */
     private Fragment loadCompetitionsEvent(int iPosition) {
+
         switch (iPosition) {
             case 0:
                 MyEventsTabFragment competitionsTabFragment = new MyEventsTabFragment();

@@ -164,18 +164,19 @@ public class CompetitionsActivity extends BaseActivity {
                                         iMonth = tMonthofYear;
                                         strDate = "" + dayOfMonth;
 
+//                                        getNumberofDays();
                                         iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
                                         updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
                                     }else{
-                                        showSnackBarMessages(cdlCompetitions, "Please select next DATE to current DATE.");
+                                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                     }
                                 } else {
-                                    showSnackBarMessages(cdlCompetitions, "Please select next MONTH to current DATE.");
+                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                 }
                             } else {
-                                showSnackBarMessages(cdlCompetitions, "Please select next YEAR to current YEAR.");
+                                showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                             }
                         }
                     }, iYear, --iMonth, Integer.parseInt(strDate));
@@ -185,6 +186,17 @@ public class CompetitionsActivity extends BaseActivity {
             //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         }
     };
+
+    /**
+     * Implements a method to get TOTAL number of
+     * DAYS in selected MONTH.
+     */
+//    public static void getNumberofDays() {
+//        CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iYear);
+//        CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, CourseDiaryActivity.iMonth);
+//
+//        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.get(Calendar.DAY_OF_MONTH);
+//    }
 
     /**
      * Show snackBar message defined in BaseActivity.
