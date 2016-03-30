@@ -125,8 +125,8 @@ public class CourseDiaryActivity extends BaseActivity {
                                         iMonth = tMonthofYear;
                                         strDate = "" + dayOfMonth;
 
-                                      //  getNumberofDays();
-                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                        getNumberofDays();
+//                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
                                         updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
@@ -152,12 +152,12 @@ public class CourseDiaryActivity extends BaseActivity {
      * Implements a method to get TOTAL number of
      * DAYS in selected MONTH.
      */
-//    public static void getNumberofDays() {
-//        CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iYear);
-//        CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, CourseDiaryActivity.iMonth);
-//
-//        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.get(Calendar.DAY_OF_MONTH);
-//    }
+    public static void getNumberofDays() {
+        CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iYear);
+        CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, CourseDiaryActivity.iMonth);
+
+        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.get(Calendar.DAY_OF_MONTH);
+    }
 
 
     @Override

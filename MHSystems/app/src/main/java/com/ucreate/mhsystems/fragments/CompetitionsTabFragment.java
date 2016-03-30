@@ -180,7 +180,8 @@ public class CompetitionsTabFragment extends Fragment {
 
                     if (CompetitionsActivity.iMonth == CompetitionsActivity.iCurrentMonth) {
 
-                        CompetitionsActivity.iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                        ((CompetitionsActivity)getActivity()).getNumberofDays();
+                        //CompetitionsActivity.iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
                         //Initialize the dates of CALENDER to display data according dates.
                         CompetitionsActivity.strDate = "" + CompetitionsActivity.mCalendarInstance.get(Calendar.DATE);
@@ -200,12 +201,18 @@ public class CompetitionsTabFragment extends Fragment {
                     CompetitionsActivity.strDate = "01";
                     CompetitionsActivity.iMonth++;
 
+                    ((CompetitionsActivity)getActivity()).getNumberofDays();
+
                     //Get total number of days of selected month.
-                    CompetitionsActivity.iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                 //   CompetitionsActivity.iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
                 }
                 break;
 
             case ApplicationGlobal.ACTION_TODAY:
+                CompetitionsActivity.mCalendarInstance.set(Calendar.YEAR, CompetitionsActivity.iCurrentYear);
+                CompetitionsActivity.mCalendarInstance.set(Calendar.MONTH, (CompetitionsActivity.iCurrentMonth-1));
+                CompetitionsActivity.mCalendarInstance.set(Calendar.DATE, Integer.parseInt(CompetitionsActivity.strCurrentDate));
+
                 //Initialize the dates of CALENDER to display data according dates.
                 CompetitionsActivity.strDate = "" + CompetitionsActivity.mCalendarInstance.get(Calendar.DATE);
                 CompetitionsActivity.iNumOfDays = CompetitionsActivity.mCalendarInstance.get(Calendar.DATE);

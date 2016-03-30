@@ -189,10 +189,10 @@ public class CourseDairyTabFragment extends Fragment {
                 if (/*iMonth == 1 ||*/ CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
                     CourseDiaryActivity.iMonth--;
 
-                   // ((CourseDiaryActivity)getActivity()).getNumberofDays();
+                    ((CourseDiaryActivity)getActivity()).getNumberofDays();
 
                     //Get total number of days of selected month.
-                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+//                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
 
                     if (CourseDiaryActivity.iMonth == CourseDiaryActivity.iCurrentMonth) {
@@ -215,14 +215,19 @@ public class CourseDairyTabFragment extends Fragment {
                     CourseDiaryActivity.strDate = "01";
                     CourseDiaryActivity.iMonth++;
 
-                   // ((CourseDiaryActivity)getActivity()).getNumberofDays();
+                    ((CourseDiaryActivity)getActivity()).getNumberofDays();
 
                     //Get total number of days of selected month.
-                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+//                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
                 }
                 break;
 
             case ApplicationGlobal.ACTION_TODAY:
+
+                CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iCurrentYear);
+                CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, (CourseDiaryActivity.iCurrentMonth-1));
+                CourseDiaryActivity.mCalendarInstance.set(Calendar.DATE, Integer.parseInt(CourseDiaryActivity.strCurrentDate));
+
                 //Initialize the dates of CALENDER to display data according dates.
                 CourseDiaryActivity.strDate = "" + CourseDiaryActivity.mCalendarInstance.get(Calendar.DATE);
                 CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.get(Calendar.DATE);
