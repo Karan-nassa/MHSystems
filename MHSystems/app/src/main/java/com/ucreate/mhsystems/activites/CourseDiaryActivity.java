@@ -125,8 +125,8 @@ public class CourseDiaryActivity extends BaseActivity {
                                         iMonth = tMonthofYear;
                                         strDate = "" + dayOfMonth;
 
-                                        getNumberofDays();
-//                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+//                                        getNumberofDays();
+                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
                                         updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
@@ -148,16 +148,16 @@ public class CourseDiaryActivity extends BaseActivity {
         }
     };
 
-    /**
-     * Implements a method to get TOTAL number of
-     * DAYS in selected MONTH.
-     */
-    public static void getNumberofDays() {
-        CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iYear);
-        CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, CourseDiaryActivity.iMonth);
-
-        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.get(Calendar.DAY_OF_MONTH);
-    }
+//    /**
+//     * Implements a method to get TOTAL number of
+//     * DAYS in selected MONTH.
+//     */
+//    public static void getNumberofDays() {
+//        CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iYear);
+//        CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, (CourseDiaryActivity.iMonth-1));
+//
+//        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.get(Calendar.DAY_OF_MONTH);
+//    }
 
 
     @Override
@@ -247,7 +247,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * @param strCourseEventDate <br>
      *                           Implements a method to return the format the day of
      *                           event.
-     *                           <p>
+     *                           <p/>
      *                           Exapmle: 2016-03-04T00:00:00
      * @Return : 04
      */
@@ -266,7 +266,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * @param strDayName <br>
      *                   Implements a method to return the format the day of
      *                   event.
-     *                   <p>
+     *                   <p/>
      *                   Exapmle: NAME OF DAY : Friday
      * @Return : Fri
      */
@@ -342,5 +342,17 @@ public class CourseDiaryActivity extends BaseActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.containerView, mFragment);
         fragmentTransaction.commit();
+    }
+
+    /**
+     * Implements a method to disable or enable status of
+     * MENU bar icons.
+     */
+    public void setMenuIcon(int iMenuPosition, boolean isEnable) {
+
+        switch (iMenuPosition) {
+
+        }
+
     }
 }
