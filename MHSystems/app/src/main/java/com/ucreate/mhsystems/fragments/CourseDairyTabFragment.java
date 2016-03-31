@@ -189,10 +189,10 @@ public class CourseDairyTabFragment extends Fragment {
                 if (/*iMonth == 1 ||*/ CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
                     CourseDiaryActivity.iMonth--;
 
-                    ((CourseDiaryActivity)getActivity()).getNumberofDays();
+//                    ((CourseDiaryActivity)getActivity()).getNumberofDays();
 
                     //Get total number of days of selected month.
-//                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
 
                     if (CourseDiaryActivity.iMonth == CourseDiaryActivity.iCurrentMonth) {
@@ -215,10 +215,10 @@ public class CourseDairyTabFragment extends Fragment {
                     CourseDiaryActivity.strDate = "01";
                     CourseDiaryActivity.iMonth++;
 
-                    ((CourseDiaryActivity)getActivity()).getNumberofDays();
+//                    ((CourseDiaryActivity)getActivity()).getNumberofDays();
 
                     //Get total number of days of selected month.
-//                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
                 }
                 break;
 
