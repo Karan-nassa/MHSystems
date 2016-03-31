@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
+import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
@@ -169,15 +170,15 @@ public class CourseDairyTabFragment extends Fragment {
                 if (/*iMonth == 1 ||*/ CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
                     CourseDiaryActivity.iMonth--;
 
-                    ((CourseDiaryActivity) getActivity()).getNumberofDays();
-
                     if (CourseDiaryActivity.iMonth == CourseDiaryActivity.iCurrentMonth) {
-
-                        //Initialize the dates of CALENDER to display data according dates.
-                        CourseDiaryActivity.strDate = "" + CourseDiaryActivity.mCalendarInstance.get(Calendar.DATE);
-                    } else {
+                        //Do nothing. Just load data according current date.
+                        CourseDiaryActivity.strDate = CourseDiaryActivity.strCurrentDate;
+                    }else {
+                        //Do nothing. Just load data according current date.
                         CourseDiaryActivity.strDate = "01";
                     }
+
+                    ((CourseDiaryActivity) getActivity()).getNumberofDays();
                 }
 
                 break;
@@ -187,12 +188,17 @@ public class CourseDairyTabFragment extends Fragment {
                 if (CourseDiaryActivity.iMonth == 12) {
 
                 } else {
-
-                    //Do nothing. Just load data according current date.
-                    CourseDiaryActivity.strDate = "01";
                     CourseDiaryActivity.iMonth++;
 
-                    ((CourseDiaryActivity)getActivity()).getNumberofDays();
+                    if (CourseDiaryActivity.iMonth == CourseDiaryActivity.iCurrentMonth) {
+                        //Do nothing. Just load data according current date.
+                        CourseDiaryActivity.strDate = CourseDiaryActivity.strCurrentDate;
+                    } else {
+                        //Do nothing. Just load data according current date.
+                        CourseDiaryActivity.strDate = "01";
+                    }
+
+                    ((CourseDiaryActivity) getActivity()).getNumberofDays();
                 }
                 break;
 
@@ -226,8 +232,8 @@ public class CourseDairyTabFragment extends Fragment {
 
         Log.e(LOG_TAG, "START DATE : " + strDateFrom);
         Log.e(LOG_TAG, "END DATE : " + strDateTo);
-        Log.e(LOG_TAG, "NAME OF MONTH : "+strNameOfMonth);
-       // Log.e("DATA ", "DATE : " + CourseDiaryActivity.strDate + " MONTH : " + CourseDiaryActivity.iMonth + " YEAR : " + CourseDiaryActivity.iYear + " NUM OF DAYS : " + CourseDiaryActivity.iNumOfDays);
+        Log.e(LOG_TAG, "NAME OF MONTH : " + strNameOfMonth);
+        // Log.e("DATA ", "DATE : " + CourseDiaryActivity.strDate + " MONTH : " + CourseDiaryActivity.iMonth + " YEAR : " + CourseDiaryActivity.iYear + " NUM OF DAYS : " + CourseDiaryActivity.iNumOfDays);
     }
 
 

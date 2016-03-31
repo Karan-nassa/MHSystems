@@ -127,12 +127,15 @@ public class CourseDiaryActivity extends BaseActivity {
                                         updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
                                     } else {
+                                        resetCalendar();
                                         showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                     }
                                 } else {
+                                    resetCalendar();
                                     showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                 }
                             } else {
+                                resetCalendar();
                                 showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                             }
                         }
@@ -145,13 +148,24 @@ public class CourseDiaryActivity extends BaseActivity {
     };
 
     /**
+     * Implements a method to RESET CALENDAR state
+     * or set as initial state.
+     */
+    private void resetCalendar() {
+
+        strDate = strCurrentDate;
+        iMonth = iCurrentMonth;
+        iYear = iCurrentYear;
+    }
+
+    /**
      * Implements a method to get TOTAL number of
      * DAYS in selected MONTH.
      */
     public static void getNumberofDays() {
 
         // Create a calendar object and set year and month
-        mCalendarInstance = new GregorianCalendar(iYear, (iMonth-1), Integer.parseInt(strDate));
+        mCalendarInstance = new GregorianCalendar(iYear, (iMonth - 1), Integer.parseInt(strDate));
 
         // Get the number of days in that month
         iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
