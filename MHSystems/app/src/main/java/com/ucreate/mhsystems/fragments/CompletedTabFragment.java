@@ -25,6 +25,7 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.API.WebServiceMethods;
 import com.ucreate.mhsystems.utils.pojo.CompetitionsAPI;
@@ -114,17 +115,7 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
         }
 
         //Set Dates to display COMPLETED functionality.
-        setDatesForCompleted();
-
-        /**
-         *  Change date because COMPLETED tab should display record of
-         *  complete MONTH.
-         */
-        CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/1/" + CompetitionsActivity.iYear;
-        CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.iNumOfDays + "/" + CompetitionsActivity.iYear;
-
-        Log.e(LOG_TAG, "END DATE : " + CompetitionsTabFragment.strDateTo);
-        Log.e(LOG_TAG, "START DATE : " + CompetitionsTabFragment.strDateFrom);
+        setDatesForCompleted(CompetitionsTabFragment.iActionCalendarStates);
 
         competitionsJsonParams = new CompetitionsJsonParams();
         competitionsJsonParams.setCallid("1456315336575");
@@ -168,10 +159,46 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
     /**
      * Implements a method to set DATE for
      * COMPLETED tab functionality.
+     *
+     * @param iActionCalendarStates
      */
-    private void setDatesForCompleted() {
+    private void setDatesForCompleted(int iActionCalendarStates) {
 
+        switch (iActionCalendarStates) {
 
+            case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
+            case ApplicationGlobal.ACTION_NEXT_MONTH:
+            case ApplicationGlobal.ACTION_NOTHING:
+
+                /**
+                 *  Change date because COMPLETED tab should display record of
+                 *  complete MONTH.
+                 */
+                CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/1/" + CompetitionsActivity.iYear;
+                CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.iNumOfDays + "/" + CompetitionsActivity.iYear;
+                break;
+
+            case ApplicationGlobal.ACTION_TODAY:
+                /**
+                 *  Change date because COMPLETED tab should display record of
+                 *  complete MONTH.
+                 */
+                CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
+                CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
+                break;
+
+            case ApplicationGlobal.ACTION_CALENDAR:
+                /**
+                 *  Change date because COMPLETED tab should display record of
+                 *  complete MONTH.
+                 */
+                CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
+                CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
+                break;
+        }
+
+//        Log.e("setDatesForCompleted", "START DATE : " + CompetitionsTabFragment.strDateFrom);
+//        Log.e("setDatesForCompleted", "END DATE : " + CompetitionsTabFragment.strDateTo);
     }
 
     /**

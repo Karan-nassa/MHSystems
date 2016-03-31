@@ -62,7 +62,7 @@ public class CompetitionsTabFragment extends Fragment {
     public static int iLastTabPosition;
 
     //Used to display DATA according date of COMPLETED tab.
-    public int iActionCalendarStates;
+    public static int iActionCalendarStates;
 
     /**
      * Declare three bool instances to call api

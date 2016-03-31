@@ -147,6 +147,10 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
 
         competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
 
+
+//        Log.e(LOG_TAG, "requestCompetitionsEvents()" +  "START DATE : " + CompetitionsTabFragment.strDateFrom);
+//        Log.e(LOG_TAG, "requestCompetitionsEvents()" + "END DATE : " + CompetitionsTabFragment.strDateTo);
+
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(WebAPI.API_BASE_URL)

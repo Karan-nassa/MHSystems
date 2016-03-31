@@ -141,35 +141,46 @@ public class CompetitionsActivity extends BaseActivity {
 
                             if (year == iCurrentYear) {
 
-                                if (tMonthofYear > iCurrentMonth) {
+                                if(CompetitionsTabFragment.iLastTabPosition ==1){
 
                                     iYear = year;
                                     iMonth = tMonthofYear;
-                                    strDate = "" + dayOfMonth;
-
-                                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                    strDate = ""+ dayOfMonth;
 
                                     updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
-                                } else if (tMonthofYear == iCurrentMonth) {
+                                }else {
 
-                                    if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
+                                    if (tMonthofYear > iCurrentMonth) {
 
                                         iYear = year;
                                         iMonth = tMonthofYear;
                                         strDate = "" + dayOfMonth;
 
-                                        getNumberofDays();
+                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
                                         updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
+                                    } else if (tMonthofYear == iCurrentMonth) {
+
+                                        if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
+
+                                            iYear = year;
+                                            iMonth = tMonthofYear;
+                                            strDate = "" + dayOfMonth;
+
+                                            getNumberofDays();
+
+                                            updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+
+                                        } else {
+                                            resetCalendar();
+                                            showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                                        }
                                     } else {
                                         resetCalendar();
                                         showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                     }
-                                } else {
-                                    resetCalendar();
-                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                 }
                             } else {
                                 resetCalendar();
@@ -368,7 +379,7 @@ public class CompetitionsActivity extends BaseActivity {
      */
     public void resetCalendarEvents() {
 
-        if (iMonth < iCurrentMonth) {
+        if (iMonth <= iCurrentMonth) {
 
             //Reset to current MONTH.
             resetCalendar();
@@ -388,8 +399,8 @@ public class CompetitionsActivity extends BaseActivity {
             //Set MONTH title.
             setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
 
-            Log.e(LOG_TAG, "START DATE : " + CompetitionsTabFragment.strDateFrom);
-            Log.e(LOG_TAG, "END DATE : " + CompetitionsTabFragment.strDateTo);
+//            Log.e(LOG_TAG, "START DATE : " + CompetitionsTabFragment.strDateFrom);
+//            Log.e(LOG_TAG, "END DATE : " + CompetitionsTabFragment.strDateTo);
         }
     }
 }
