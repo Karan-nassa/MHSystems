@@ -56,13 +56,6 @@ public class CompetitionsTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-//    public static String strDate;
-//    public static int iMonth, iCurrentMonth;
-//    public static int iYear;
-//
-//    //To record total number of days.
-//    int iNumOfDays;
-
     public static String strDateFrom; //Start date.
     public static String strDateTo; //End date.
     String strNameOfMonth = "MARCH 2016";
@@ -168,7 +161,7 @@ public class CompetitionsTabFragment extends Fragment {
                     if (CompetitionsActivity.iMonth == CompetitionsActivity.iCurrentMonth) {
                         //Do nothing. Just load data according current date.
                         CompetitionsActivity.strDate = CompetitionsActivity.strCurrentDate;
-                    }else {
+                    } else {
                         //Do nothing. Just load data according current date.
                         CompetitionsActivity.strDate = "01";
                     }
@@ -185,13 +178,8 @@ public class CompetitionsTabFragment extends Fragment {
                 } else {
                     CompetitionsActivity.iMonth++;
 
-                    if (CompetitionsActivity.iMonth == CompetitionsActivity.iCurrentMonth) {
-                        //Do nothing. Just load data according current date.
-                        CompetitionsActivity.strDate = CompetitionsActivity.strCurrentDate;
-                    } else {
-                        //Do nothing. Just load data according current date.
-                        CompetitionsActivity.strDate = "01";
-                    }
+                    //Do nothing. Just load data according current date.
+                    CompetitionsActivity.strDate = "01";
 
                     ((CompetitionsActivity) getActivity()).getNumberofDays();
                 }

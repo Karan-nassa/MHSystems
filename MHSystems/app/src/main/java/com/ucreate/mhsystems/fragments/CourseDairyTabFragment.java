@@ -190,13 +190,9 @@ public class CourseDairyTabFragment extends Fragment {
                 } else {
                     CourseDiaryActivity.iMonth++;
 
-                    if (CourseDiaryActivity.iMonth == CourseDiaryActivity.iCurrentMonth) {
-                        //Do nothing. Just load data according current date.
-                        CourseDiaryActivity.strDate = CourseDiaryActivity.strCurrentDate;
-                    } else {
-                        //Do nothing. Just load data according current date.
-                        CourseDiaryActivity.strDate = "01";
-                    }
+                    //Do nothing. Just load data according current date.
+                    CourseDiaryActivity.strDate = "01";
+
 
                     ((CourseDiaryActivity) getActivity()).getNumberofDays();
                 }

@@ -97,8 +97,7 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             //Method to hit Squads API.
-            // requestCompetitionsEvents();
-            ((CompetitionsActivity) getActivity()).showSnackMessage("Under process.");
+             requestCompetitionsEvents();
         } else {
             ((CompetitionsActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_internet));
         }
