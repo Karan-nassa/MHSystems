@@ -142,7 +142,7 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser) {
-            callNewsWebService();
+            callCourseWebService();
         }
     }
 
@@ -150,7 +150,7 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
      * Implements a method to call News web service either call
      * initially or call from onSwipeRefresh.
      */
-    private void callNewsWebService() {
+    private void callCourseWebService() {
         /**
          *  Check internet connection before hitting server request.
          */
@@ -158,7 +158,7 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
             //Method to hit Squads API.
             requestNewsService();
         } else {
-            ((CourseDiaryActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_internet));
+            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
     }
 
@@ -204,7 +204,7 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
 
-                ((CourseDiaryActivity) getActivity()).showSnackMessage("" + error);
+                ((BaseActivity) getActivity()).showAlertMessage("" + error);
             }
         });
 
@@ -236,7 +236,7 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
                 arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
 
                 if (arrayListCourseData.size() == 0) {
-                    ((CourseDiaryActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_data));
+                    ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
                     //Set Course Diary Recycler Adapter.
@@ -250,7 +250,7 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
                 }
             } else {
                 //If web service not respond in any case.
-                ((CourseDiaryActivity) getActivity()).showSnackMessage(courseDiaryItems.getMessage());
+                ((BaseActivity) getActivity()).showAlertMessage(courseDiaryItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
@@ -265,6 +265,6 @@ public class CourseFragmentData extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onRefresh() {
         isSwipeVisible = true;
-        callNewsWebService();
+        callCourseWebService();
     }
 }

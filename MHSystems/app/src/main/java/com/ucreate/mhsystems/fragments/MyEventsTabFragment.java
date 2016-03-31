@@ -99,6 +99,9 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
 
 
         if (isVisibleToUser) {
+            //Reset CALENDAR.
+            ((CompetitionsActivity) getActivity()).resetCalendarEvents();
+
             callMyEventsWebService();
         }
     }
@@ -115,7 +118,7 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
             //Method to hit Squads API.
             requestCompetitionsEvents();
         } else {
-            ((CompetitionsActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_internet));
+            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
     }
 
@@ -166,7 +169,7 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
 
-                ((CompetitionsActivity) getActivity()).showSnackMessage("" + error);
+                ((BaseActivity) getActivity()).showAlertMessage("" + error);
             }
         });
 
@@ -197,7 +200,7 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
                 competitionsDatas.addAll(competitionsResultItems.getData());
 
                 if (competitionsDatas.size() == 0) {
-                    ((CompetitionsActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_data));
+                    ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
                     competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas/*((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup)*/);
@@ -207,7 +210,7 @@ public class MyEventsTabFragment extends Fragment implements SwipeRefreshLayout.
                 }
             } else {
                 //If web service not respond in any case.
-                ((CompetitionsActivity) getActivity()).showSnackMessage(competitionsResultItems.getMessage());
+                ((BaseActivity) getActivity()).showAlertMessage(competitionsResultItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());

@@ -34,6 +34,8 @@ import com.ucreate.mhsystems.utils.pojo.CompetitionsResultItems;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -100,6 +102,10 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
 
 
         if (isVisibleToUser) {
+
+            //Reset CALENDAR.
+            ((CompetitionsActivity) getActivity()).resetCalendarEvents();
+
             callCurrentEventWebService();
         }
     }
@@ -116,7 +122,7 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
             //Method to hit Squads API.
             requestCompetitionsEvents();
         } else {
-            ((CompetitionsActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_internet));
+            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
     }
 
@@ -211,7 +217,7 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
                 }
             } else {
                 //If web service not respond in any case.
-                ((CompetitionsActivity) getActivity()).showSnackMessage(competitionsResultItems.getMessage());
+                ((BaseActivity) getActivity()).showAlertMessage(competitionsResultItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());

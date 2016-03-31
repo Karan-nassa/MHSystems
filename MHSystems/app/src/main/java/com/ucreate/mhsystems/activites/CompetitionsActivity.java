@@ -28,6 +28,7 @@ import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -150,7 +151,7 @@ public class CompetitionsActivity extends BaseActivity {
 
                                     updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
-                                } else if(tMonthofYear == iCurrentMonth) {
+                                } else if (tMonthofYear == iCurrentMonth) {
 
                                     if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
 
@@ -162,7 +163,7 @@ public class CompetitionsActivity extends BaseActivity {
 
                                         updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
-                                    }else{
+                                    } else {
                                         resetCalendar();
                                         showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                     }
@@ -187,7 +188,7 @@ public class CompetitionsActivity extends BaseActivity {
      * Implements a method to RESET CALENDAR state
      * or set as initial state.
      */
-    private void resetCalendar() {
+    public static void resetCalendar() {
 
         strDate = strCurrentDate;
         iMonth = iCurrentMonth;
@@ -200,10 +201,19 @@ public class CompetitionsActivity extends BaseActivity {
      */
     public static void getNumberofDays() {
         // Create a calendar object and set year and month
-        mCalendarInstance = new GregorianCalendar(iYear, (iMonth-1), Integer.parseInt(strDate));
+        mCalendarInstance = new GregorianCalendar(iYear, (iMonth - 1), Integer.parseInt(strDate));
 
         // Get the number of days in that month
         iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * Declares a method to get NAME of MONTH by passing
+     * month value.
+     */
+    public static String getMonth(int month) {
+
+        return new DateFormatSymbols().getMonths()[month - 1];
     }
 
     /**
@@ -257,7 +267,7 @@ public class CompetitionsActivity extends BaseActivity {
      * @param strCourseEventDate <br>
      *                           Implements a method to return the format the day of
      *                           event.
-     *                           <p>
+     *                           <p/>
      *                           Exapmle: 2016-03-04T00:00:00
      * @Return : 04
      */
@@ -273,7 +283,7 @@ public class CompetitionsActivity extends BaseActivity {
      * @param strDayName <br>
      *                   Implements a method to return the format the day of
      *                   event.
-     *                   <p>
+     *                   <p/>
      *                   Exapmle: NAME OF DAY : Friday
      * @Return : Fri
      */
@@ -349,5 +359,37 @@ public class CompetitionsActivity extends BaseActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.containerView, mFragment);
         fragmentTransaction.commit();
+    }
+
+
+    /**
+     * User can navigate back to 1st JAN of current YEAR for COMPLETED tab so reset or navigate
+     * to current MONTH if past MONTH/DATE selected via PREVIOUS MONTH icon.
+     */
+    public void resetCalendarEvents() {
+
+        if (iMonth < iCurrentMonth) {
+
+            //Reset to current MONTH.
+            resetCalendar();
+
+            // Create a calendar object and set year and month
+            mCalendarInstance = new GregorianCalendar(iYear, (iMonth - 1), Integer.parseInt(strDate));
+
+            // Get the number of days in that month
+            iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+            //FORMAT : MM-DD-YYYY
+            CompetitionsTabFragment.strDateFrom = "" + iMonth + "/" + strDate + "/" + iYear;
+
+            //FORMAT : MM-DD-YYYY
+            CompetitionsTabFragment.strDateTo = "" + iMonth + "/" + iNumOfDays + "/" + iYear;
+
+            //Set MONTH title.
+            setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
+
+            Log.e(LOG_TAG, "START DATE : " + CompetitionsTabFragment.strDateFrom);
+            Log.e(LOG_TAG, "END DATE : " + CompetitionsTabFragment.strDateTo);
+        }
     }
 }

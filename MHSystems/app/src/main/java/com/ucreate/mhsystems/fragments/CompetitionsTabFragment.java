@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
@@ -37,8 +38,6 @@ public class CompetitionsTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    @Bind(R.id.cdlCourseDiary)
-    CoordinatorLayout cdlCourseDiary;
     @Bind(R.id.toolBar)
     Toolbar toolbar;
     TabLayout tabLayout;
@@ -61,6 +60,9 @@ public class CompetitionsTabFragment extends Fragment {
     String strNameOfMonth = "MARCH 2016";
 
     public static int iLastTabPosition;
+
+    //Used to display DATA according date of COMPLETED tab.
+    public int iActionCalendarStates;
 
     /**
      * Declare three bool instances to call api
@@ -101,6 +103,7 @@ public class CompetitionsTabFragment extends Fragment {
      */
     @SuppressLint("ValidFragment")
     public CompetitionsTabFragment(int action) {
+        iActionCalendarStates = action;
         setCalenderDates(action);
     }
 
@@ -121,6 +124,7 @@ public class CompetitionsTabFragment extends Fragment {
 
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.color4942AA));
 
+
         viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_COMPETITIONS);
@@ -129,6 +133,7 @@ public class CompetitionsTabFragment extends Fragment {
 
         viewPager.setCurrentItem(iLastTabPosition);
 
+        //Set MONTH title.
         ((CompetitionsActivity) getActivity()).setTitleBar(strNameOfMonth);
 
         //Implement Tab selected listener.
@@ -151,24 +156,44 @@ public class CompetitionsTabFragment extends Fragment {
 
             case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
 
-                /**
-                 *  User cannot navigate back to current
-                 *  month.
-                 */
-                if (/*iMonth == 1 ||*/ CompetitionsActivity.iMonth > CompetitionsActivity.iCurrentMonth) {
-                    CompetitionsActivity.iMonth--;
+                //IF COMPLETED TAB SELECTED THEN DISPLAY DATA FROM 1st JAN of current year.
+                if (iLastTabPosition == 1) {
 
-                    if (CompetitionsActivity.iMonth == CompetitionsActivity.iCurrentMonth) {
-                        //Do nothing. Just load data according current date.
-                        CompetitionsActivity.strDate = CompetitionsActivity.strCurrentDate;
-                    } else {
+                    /**
+                     *  User cannot navigate back to current
+                     *  month.
+                     */
+                    if (CompetitionsActivity.iMonth > 0) {
+
+                        CompetitionsActivity.iMonth--;
+
                         //Do nothing. Just load data according current date.
                         CompetitionsActivity.strDate = "01";
+
+                        ((CompetitionsActivity) getActivity()).getNumberofDays();
                     }
 
-                    ((CompetitionsActivity) getActivity()).getNumberofDays();
-                }
+                } else {
 
+                    /**
+                     *  User cannot navigate back to current
+                     *  month.
+                     */
+                    if (/*iMonth == 1 ||*/ CompetitionsActivity.iMonth > CompetitionsActivity.iCurrentMonth) {
+                        CompetitionsActivity.iMonth--;
+
+                        if (CompetitionsActivity.iMonth == CompetitionsActivity.iCurrentMonth) {
+                            //Do nothing. Just load data according current date.
+                            CompetitionsActivity.strDate = CompetitionsActivity.strCurrentDate;
+                        } else {
+                            //Do nothing. Just load data according current date.
+                            CompetitionsActivity.strDate = "01";
+                        }
+
+                        ((CompetitionsActivity) getActivity()).getNumberofDays();
+                    }
+
+                }
                 break;
 
             case ApplicationGlobal.ACTION_NEXT_MONTH:
@@ -224,6 +249,7 @@ public class CompetitionsTabFragment extends Fragment {
      * month value.
      */
     public String getMonth(int month) {
+
         return new DateFormatSymbols().getMonths()[month - 1];
     }
 
@@ -244,13 +270,5 @@ public class CompetitionsTabFragment extends Fragment {
                 isNewCourseVisible = true;
                 break;
         }
-    }
-
-    /**
-     * Show snackBar message defined in BaseActivity.
-     */
-    public void showSnackMessage(String strSnackMessage) {
-        Log.e(LOG_TAG, strSnackMessage);
-        ((BaseActivity) getActivity()).showSnackBarMessages(cdlCourseDiary, strSnackMessage);
     }
 }
