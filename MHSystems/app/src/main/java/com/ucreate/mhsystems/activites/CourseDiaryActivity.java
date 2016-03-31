@@ -31,6 +31,7 @@ import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -105,8 +106,6 @@ public class CourseDiaryActivity extends BaseActivity {
 
                                 if (tMonthofYear > iCurrentMonth) {
 
-                                    //  String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
-
                                     iYear = year;
                                     iMonth = tMonthofYear;
                                     strDate = "" + dayOfMonth;
@@ -119,14 +118,11 @@ public class CourseDiaryActivity extends BaseActivity {
 
                                     if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
 
-                                        //    String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
-
                                         iYear = year;
                                         iMonth = tMonthofYear;
                                         strDate = "" + dayOfMonth;
 
-//                                        getNumberofDays();
-                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                        getNumberofDays();
 
                                         updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
@@ -148,16 +144,18 @@ public class CourseDiaryActivity extends BaseActivity {
         }
     };
 
-//    /**
-//     * Implements a method to get TOTAL number of
-//     * DAYS in selected MONTH.
-//     */
-//    public static void getNumberofDays() {
-//        CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iYear);
-//        CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, (CourseDiaryActivity.iMonth-1));
-//
-//        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.get(Calendar.DAY_OF_MONTH);
-//    }
+    /**
+     * Implements a method to get TOTAL number of
+     * DAYS in selected MONTH.
+     */
+    public static void getNumberofDays() {
+
+        // Create a calendar object and set year and month
+        mCalendarInstance = new GregorianCalendar(iYear, (iMonth-1), Integer.parseInt(strDate));
+
+        // Get the number of days in that month
+        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
 
 
     @Override
@@ -351,7 +349,9 @@ public class CourseDiaryActivity extends BaseActivity {
     public void setMenuIcon(int iMenuPosition, boolean isEnable) {
 
         switch (iMenuPosition) {
-
+            case 0:
+                //menu.getItem(0).setIcon(getResources().getDrawable(R.mipmap.ic_arrow_left_blur));
+                break;
         }
 
     }

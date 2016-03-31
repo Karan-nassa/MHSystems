@@ -52,13 +52,6 @@ public class CourseDairyTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-//    public static String strDate;
-//    public static int iMonth, iCurrentMonth;
-//    public static int iYear;
-
-    //To record total number of days.
-//    int iNumOfDays;
-
     public static String strDateFrom; //Start date.
     public static String strDateTo; //End date.
     String strNameOfMonth = "MARCH 2016";
@@ -77,7 +70,7 @@ public class CourseDairyTabFragment extends Fragment {
     /**
      * This instance used to identify which tab is
      * selected and describe CourseKey.
-     * <p>
+     * <p/>
      * <br> 1.1 for OLD COURSE
      * <br> 1.3 for NEW COURSE
      */
@@ -161,23 +154,10 @@ public class CourseDairyTabFragment extends Fragment {
      */
     private void setCalenderDates(int iAction) {
 
-
-        //Get total number of days of selected month.
-        // CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-//
-//        CourseDiaryActivity.iYear = CourseDiaryActivity.mCalendarInstance.get(Calendar.YEAR);
-
         switch (iAction) {
 
             case ApplicationGlobal.ACTION_NOTHING:
-//                //Initialize the dates of CALENDER to display data according dates.
-//                CourseDiaryActivity.strDate = "" + CourseDiaryActivity.mCalendarInstance.get(Calendar.DATE);
-//                //Get MONTH and YEAR.
-//                CourseDiaryActivity.iMonth = CourseDiaryActivity.mCalendarInstance.get(Calendar.MONTH);
-//                CourseDiaryActivity.iCurrentMonth = CourseDiaryActivity.mCalendarInstance.get(Calendar.MONTH) + 1;
 
-                //Increment CALENDAR because MONTH start from 0.
-                //CourseDiaryActivity.iMonth++;
                 break;
 
             case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
@@ -189,11 +169,7 @@ public class CourseDairyTabFragment extends Fragment {
                 if (/*iMonth == 1 ||*/ CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
                     CourseDiaryActivity.iMonth--;
 
-//                    ((CourseDiaryActivity)getActivity()).getNumberofDays();
-
-                    //Get total number of days of selected month.
-                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-
+                    ((CourseDiaryActivity) getActivity()).getNumberofDays();
 
                     if (CourseDiaryActivity.iMonth == CourseDiaryActivity.iCurrentMonth) {
 
@@ -211,21 +187,19 @@ public class CourseDairyTabFragment extends Fragment {
                 if (CourseDiaryActivity.iMonth == 12) {
 
                 } else {
+
                     //Do nothing. Just load data according current date.
                     CourseDiaryActivity.strDate = "01";
                     CourseDiaryActivity.iMonth++;
 
-//                    ((CourseDiaryActivity)getActivity()).getNumberofDays();
-
-                    //Get total number of days of selected month.
-                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                    ((CourseDiaryActivity)getActivity()).getNumberofDays();
                 }
                 break;
 
             case ApplicationGlobal.ACTION_TODAY:
 
                 CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iCurrentYear);
-                CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, (CourseDiaryActivity.iCurrentMonth-1));
+                CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, (CourseDiaryActivity.iCurrentMonth - 1));
                 CourseDiaryActivity.mCalendarInstance.set(Calendar.DATE, Integer.parseInt(CourseDiaryActivity.strCurrentDate));
 
                 //Initialize the dates of CALENDER to display data according dates.
@@ -234,8 +208,6 @@ public class CourseDairyTabFragment extends Fragment {
 
                 //Get MONTH and YEAR.
                 CourseDiaryActivity.iMonth = (CourseDiaryActivity.mCalendarInstance.get(Calendar.MONTH) + 1);
-                //Increment CALENDAR because MONTH start from 0.
-                //  CourseDiaryActivity.iMonth++;
                 break;
 
             case ApplicationGlobal.ACTION_CALENDAR:
@@ -250,13 +222,12 @@ public class CourseDairyTabFragment extends Fragment {
         //FORMAT : MM-DD-YYYY
         strDateTo = "" + CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.iNumOfDays + "/" + CourseDiaryActivity.iYear;
 
-        Log.e(LOG_TAG, "START DATE : " + strDateFrom);
-        Log.e(LOG_TAG, "END DATE : " + strDateTo);
-
         strNameOfMonth = getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear;
 
-        Log.e(LOG_TAG, strNameOfMonth);
-        Log.e("DATA ", "DATE : " + CourseDiaryActivity.strDate + " MONTH : " + CourseDiaryActivity.iMonth + " YEAR : " + CourseDiaryActivity.iYear + " NUM OF DAYS : " + CourseDiaryActivity.iNumOfDays);
+        Log.e(LOG_TAG, "START DATE : " + strDateFrom);
+        Log.e(LOG_TAG, "END DATE : " + strDateTo);
+        Log.e(LOG_TAG, "NAME OF MONTH : "+strNameOfMonth);
+       // Log.e("DATA ", "DATE : " + CourseDiaryActivity.strDate + " MONTH : " + CourseDiaryActivity.iMonth + " YEAR : " + CourseDiaryActivity.iYear + " NUM OF DAYS : " + CourseDiaryActivity.iNumOfDays);
     }
 
 
