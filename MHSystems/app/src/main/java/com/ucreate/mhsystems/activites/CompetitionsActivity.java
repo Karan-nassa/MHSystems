@@ -30,6 +30,7 @@ import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,9 +72,6 @@ public class CompetitionsActivity extends BaseActivity {
     public static int iYear, iCurrentYear;
 
     public static int iNumOfDays;
-
-    public String strDateFrom; //Start date.
-    public String strDateTo; //End date.
 
     /**
      * Implements HOME icons press
@@ -144,8 +142,6 @@ public class CompetitionsActivity extends BaseActivity {
 
                                 if (tMonthofYear > iCurrentMonth) {
 
-                                    //  String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
-
                                     iYear = year;
                                     iMonth = tMonthofYear;
                                     strDate = "" + dayOfMonth;
@@ -158,24 +154,24 @@ public class CompetitionsActivity extends BaseActivity {
 
                                     if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
 
-                                        //    String monthname = new DateFormatSymbols().getMonths()[monthOfYear];
-
                                         iYear = year;
                                         iMonth = tMonthofYear;
                                         strDate = "" + dayOfMonth;
 
                                         getNumberofDays();
-//                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
                                         updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
                                     }else{
+                                        resetCalendar();
                                         showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                     }
                                 } else {
+                                    resetCalendar();
                                     showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                 }
                             } else {
+                                resetCalendar();
                                 showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                             }
                         }
@@ -188,14 +184,26 @@ public class CompetitionsActivity extends BaseActivity {
     };
 
     /**
+     * Implements a method to RESET CALENDAR state
+     * or set as initial state.
+     */
+    private void resetCalendar() {
+
+        strDate = strCurrentDate;
+        iMonth = iCurrentMonth;
+        iYear = iCurrentYear;
+    }
+
+    /**
      * Implements a method to get TOTAL number of
      * DAYS in selected MONTH.
      */
     public static void getNumberofDays() {
-        CompetitionsActivity.mCalendarInstance.set(Calendar.YEAR, CompetitionsActivity.iYear);
-        CompetitionsActivity.mCalendarInstance.set(Calendar.MONTH, CompetitionsActivity.iMonth);
+        // Create a calendar object and set year and month
+        mCalendarInstance = new GregorianCalendar(iYear, (iMonth-1), Integer.parseInt(strDate));
 
-        CompetitionsActivity.iNumOfDays = CompetitionsActivity.mCalendarInstance.get(Calendar.DAY_OF_MONTH);
+        // Get the number of days in that month
+        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
     /**

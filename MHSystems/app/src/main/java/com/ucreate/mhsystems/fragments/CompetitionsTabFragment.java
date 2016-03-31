@@ -150,23 +150,10 @@ public class CompetitionsTabFragment extends Fragment {
      */
     private void setCalenderDates(int iAction) {
 
-
-        //Get total number of days of selected month.
-        // CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-//
-//        CourseDiaryActivity.iYear = CourseDiaryActivity.mCalendarInstance.get(Calendar.YEAR);
-
         switch (iAction) {
 
             case ApplicationGlobal.ACTION_NOTHING:
-//                //Initialize the dates of CALENDER to display data according dates.
-//                CourseDiaryActivity.strDate = "" + CourseDiaryActivity.mCalendarInstance.get(Calendar.DATE);
-//                //Get MONTH and YEAR.
-//                CourseDiaryActivity.iMonth = CourseDiaryActivity.mCalendarInstance.get(Calendar.MONTH);
-//                CourseDiaryActivity.iCurrentMonth = CourseDiaryActivity.mCalendarInstance.get(Calendar.MONTH) + 1;
 
-                //Increment CALENDAR because MONTH start from 0.
-                //CourseDiaryActivity.iMonth++;
                 break;
 
             case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
@@ -179,15 +166,14 @@ public class CompetitionsTabFragment extends Fragment {
                     CompetitionsActivity.iMonth--;
 
                     if (CompetitionsActivity.iMonth == CompetitionsActivity.iCurrentMonth) {
-
-                        ((CompetitionsActivity)getActivity()).getNumberofDays();
-                        //CompetitionsActivity.iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-                        //Initialize the dates of CALENDER to display data according dates.
-                        CompetitionsActivity.strDate = "" + CompetitionsActivity.mCalendarInstance.get(Calendar.DATE);
-                    } else {
+                        //Do nothing. Just load data according current date.
+                        CompetitionsActivity.strDate = CompetitionsActivity.strCurrentDate;
+                    }else {
+                        //Do nothing. Just load data according current date.
                         CompetitionsActivity.strDate = "01";
                     }
+
+                    ((CompetitionsActivity) getActivity()).getNumberofDays();
                 }
 
                 break;
@@ -197,20 +183,23 @@ public class CompetitionsTabFragment extends Fragment {
                 if (CompetitionsActivity.iMonth == 12) {
 
                 } else {
-                    //Do nothing. Just load data according current date.
-                    CompetitionsActivity.strDate = "01";
                     CompetitionsActivity.iMonth++;
 
-                    ((CompetitionsActivity)getActivity()).getNumberofDays();
+                    if (CompetitionsActivity.iMonth == CompetitionsActivity.iCurrentMonth) {
+                        //Do nothing. Just load data according current date.
+                        CompetitionsActivity.strDate = CompetitionsActivity.strCurrentDate;
+                    } else {
+                        //Do nothing. Just load data according current date.
+                        CompetitionsActivity.strDate = "01";
+                    }
 
-                    //Get total number of days of selected month.
-                 //   CompetitionsActivity.iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                    ((CompetitionsActivity) getActivity()).getNumberofDays();
                 }
                 break;
 
             case ApplicationGlobal.ACTION_TODAY:
                 CompetitionsActivity.mCalendarInstance.set(Calendar.YEAR, CompetitionsActivity.iCurrentYear);
-                CompetitionsActivity.mCalendarInstance.set(Calendar.MONTH, (CompetitionsActivity.iCurrentMonth-1));
+                CompetitionsActivity.mCalendarInstance.set(Calendar.MONTH, (CompetitionsActivity.iCurrentMonth - 1));
                 CompetitionsActivity.mCalendarInstance.set(Calendar.DATE, Integer.parseInt(CompetitionsActivity.strCurrentDate));
 
                 //Initialize the dates of CALENDER to display data according dates.
@@ -219,8 +208,6 @@ public class CompetitionsTabFragment extends Fragment {
 
                 //Get MONTH and YEAR.
                 CompetitionsActivity.iMonth = (CompetitionsActivity.mCalendarInstance.get(Calendar.MONTH) + 1);
-                //Increment CALENDAR because MONTH start from 0.
-                //  CourseDiaryActivity.iMonth++;
                 break;
 
             case ApplicationGlobal.ACTION_CALENDAR:
