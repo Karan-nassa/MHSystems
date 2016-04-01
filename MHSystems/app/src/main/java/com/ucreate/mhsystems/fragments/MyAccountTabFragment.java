@@ -76,7 +76,7 @@ public class MyAccountTabFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_friends)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_finances)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorB2E6D9));
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorF7E59A));
 
 
         viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
@@ -89,8 +89,6 @@ public class MyAccountTabFragment extends Fragment {
         viewPager.setCurrentItem(2);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-       // viewPager.setCurrentItem(2);
 
         //Implement Tab selected listener.
         tabLayout.setOnTabSelectedListener(mCourseTabListener);

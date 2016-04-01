@@ -7,22 +7,18 @@ package com.ucreate.mhsystems.fragments;
  */
 
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.API.WebServiceMethods;
@@ -79,7 +75,16 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         if (isVisibleToUser) {
 
-            callMyEventsWebService();
+            //callMyEventsWebService();
+
+//            FinanceSectionAdapter mAdapter = new FinanceSectionAdapter(getActivity());
+//            for (int i = 1; i < 30; i++) {
+//                mAdapter.addItem("Row Item #" + i);
+//                if (i % 4 == 0) {
+//                    mAdapter.addSectionHeaderItem("Section #" + i);
+//                }
+//            }
+//            lvFinance.setAdapter(mAdapter);
         }
     }
 
