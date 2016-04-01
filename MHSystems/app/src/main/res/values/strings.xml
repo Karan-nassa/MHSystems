@@ -41,6 +41,12 @@
     <string name="title_competitions_prize">fee per guest</string>
     <!-- END OF COMPETITIONS EVENT ACTIVITY -->
 
+    <!-- START OF MY ACCOUNT ACTIVITY -->
+    <string name="title_my_account">My Account</string>
+    <string name="tab_title_friends">Friends</string>
+    <string name="tab_title_finances">Finances</string>
+    <!-- END OF MY ACCOUNT ACTIVITY -->
+
     <!-- NAVIGATION DRAWER ITEMS -->
     <string-array name="navDrawerItems">
 

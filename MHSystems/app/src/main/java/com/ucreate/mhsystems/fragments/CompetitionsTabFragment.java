@@ -120,7 +120,6 @@ public class CompetitionsTabFragment extends Fragment {
 
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.color4942AA));
 
-
         viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_COMPETITIONS);

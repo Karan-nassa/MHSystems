@@ -34,7 +34,6 @@ public class CompetitionsActivity extends BaseActivity {
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
-
     public static final String LOG_TAG = CompetitionsActivity.class.getSimpleName();
 
     /*********************************

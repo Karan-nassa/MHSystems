@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +24,7 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.API.WebServiceMethods;
 import com.ucreate.mhsystems.utils.pojo.CompetitionsAPI;
@@ -39,11 +39,11 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class FutureTabFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class CompletedFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = FutureTabFragment.class.getSimpleName();
+    public static final String LOG_TAG = CompletedFragment.class.getSimpleName();
     ArrayList<CompetitionsData> competitionsDatas = new ArrayList<>();
 
     private boolean isSwipeVisible = false;
@@ -53,6 +53,7 @@ public class FutureTabFragment extends Fragment implements SwipeRefreshLayout.On
      *******************************/
     View mRootView;
     CoordinatorLayout cdlCompetitions;
+
     Toolbar toolBar;
     TextView tvCourseSchedule;
     ListView lvCompetitions;
@@ -77,28 +78,12 @@ public class FutureTabFragment extends Fragment implements SwipeRefreshLayout.On
         return mRootView;
     }
 
-    /**
-     * Implements a method to initialize all view resources
-     * of VIEW or VIEW GROUP.
-     */
-    private void initializeAppResources() {
-
-        cdlCompetitions = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCompetitions);
-        // toolBar = (Toolbar) mRootView.findViewById(R.id.toolBar);
-        // tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
-        lvCompetitions = (ListView) mRootView.findViewById(R.id.lvCompetitions);
-        // tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
-    }
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser) {
-            //Reset CALENDAR.
-            ((CompetitionsActivity) getActivity()).resetCalendarEvents();
-
-            callFutureEventsWebService();
+            callCompletedEventsWebService();
         }
     }
 
@@ -106,7 +91,7 @@ public class FutureTabFragment extends Fragment implements SwipeRefreshLayout.On
      * Implements a method to call News web service either call
      * initially or call from onSwipeRefresh.
      */
-    private void callFutureEventsWebService() {
+    private void callCompletedEventsWebService() {
         /**
          *  Check internet connection before hitting server request.
          */
@@ -128,21 +113,20 @@ public class FutureTabFragment extends Fragment implements SwipeRefreshLayout.On
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
         }
 
+        //Set Dates to display COMPLETED functionality.
+        setDatesForCompleted(CompetitionsTabFragment.iActionCalendarStates);
+
         competitionsJsonParams = new CompetitionsJsonParams();
         competitionsJsonParams.setCallid("1456315336575");
         competitionsJsonParams.setVersion(1);
         competitionsJsonParams.setMemberId(10784);
-        competitionsJsonParams.setIncludeFutureEvents(true);
-        competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY
-        competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY
+        competitionsJsonParams.setIncludeCompletedEvents(true);
+        competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY [END DATE]
+        competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY [START DATE]
         competitionsJsonParams.setPageNo("0");
         competitionsJsonParams.setPageSize("10");
 
         competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
-
-
-        Log.e(LOG_TAG, "requestCompetitionsEvents()" +  "START DATE : " + CompetitionsTabFragment.strDateFrom);
-        Log.e(LOG_TAG, "requestCompetitionsEvents()" + "END DATE : " + CompetitionsTabFragment.strDateTo);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -162,14 +146,58 @@ public class FutureTabFragment extends Fragment implements SwipeRefreshLayout.On
 
             @Override
             public void failure(RetrofitError error) {
-                //you can handle the errors here
-                Log.e(LOG_TAG, "RetrofitError : " + error);
-                ((BaseActivity) getActivity()).hideProgress();
 
+                //you can handle the errors here
+                ((BaseActivity) getActivity()).hideProgress();
                 ((BaseActivity) getActivity()).showAlertMessage("" + error);
             }
         });
 
+    }
+
+    /**
+     * Implements a method to set DATE for
+     * COMPLETED tab functionality.
+     *
+     * @param iActionCalendarStates
+     */
+    private void setDatesForCompleted(int iActionCalendarStates) {
+
+        switch (iActionCalendarStates) {
+
+            case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
+            case ApplicationGlobal.ACTION_NEXT_MONTH:
+            case ApplicationGlobal.ACTION_NOTHING:
+
+                /**
+                 *  Change date because COMPLETED tab should display record of
+                 *  complete MONTH.
+                 */
+                CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/1/" + CompetitionsActivity.iYear;
+                CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.iNumOfDays + "/" + CompetitionsActivity.iYear;
+                break;
+
+            case ApplicationGlobal.ACTION_TODAY:
+                /**
+                 *  Change date because COMPLETED tab should display record of
+                 *  complete MONTH.
+                 */
+                CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
+                CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
+                break;
+
+            case ApplicationGlobal.ACTION_CALENDAR:
+                /**
+                 *  Change date because COMPLETED tab should display record of
+                 *  complete MONTH.
+                 */
+                CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
+                CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
+                break;
+        }
+
+//        Log.e("setDatesForCompleted", "START DATE : " + CompetitionsTabFragment.strDateFrom);
+//        Log.e("setDatesForCompleted", "END DATE : " + CompetitionsTabFragment.strDateTo);
     }
 
     /**
@@ -186,7 +214,6 @@ public class FutureTabFragment extends Fragment implements SwipeRefreshLayout.On
 
         //Clear array list before inserting items.
         competitionsDatas.clear();
-        //arrayCourseDataBackup.clear();
 
         try {
             /**
@@ -222,6 +249,6 @@ public class FutureTabFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onRefresh() {
         isSwipeVisible = true;
-        callFutureEventsWebService();
+        callCompletedEventsWebService();
     }
 }

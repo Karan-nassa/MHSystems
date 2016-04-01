@@ -28,8 +28,8 @@ public class HomeActivity extends BaseActivity {
     TypedArray gridBackground;
 
     /**
-     * Set click event listener of
-     * Grid Menu Options.
+     * Set click event listener of Grid Menu Options to
+     * use functionality.
      */
     private AdapterView.OnItemClickListener mGridItemListener = new AdapterView.OnItemClickListener() {
         @Override
@@ -41,6 +41,9 @@ public class HomeActivity extends BaseActivity {
                     break;
                 case 2:
                     intent = new Intent(HomeActivity.this, CompetitionsActivity.class);
+                    break;
+                case 5:
+                    intent = new Intent(HomeActivity.this, MyAccountActivity.class);
                     break;
             }
 

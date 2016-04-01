@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
@@ -47,7 +46,7 @@ public class CourseDairyTabFragment extends Fragment {
     TabsPageAdapter pageAdapter;
 
     //Create instance of Fragment.
-    public static CourseFragmentData courseFragmentData;
+    public static CourseFragment courseFragment;
 
 
     /*********************************

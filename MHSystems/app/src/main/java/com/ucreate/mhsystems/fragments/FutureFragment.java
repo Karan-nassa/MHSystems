@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,18 +33,16 @@ import com.ucreate.mhsystems.utils.pojo.CompetitionsResultItems;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class FutureFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = CurrentTabFragment.class.getSimpleName();
+    public static final String LOG_TAG = FutureFragment.class.getSimpleName();
     ArrayList<CompetitionsData> competitionsDatas = new ArrayList<>();
 
     private boolean isSwipeVisible = false;
@@ -55,18 +52,14 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
      *******************************/
     View mRootView;
     CoordinatorLayout cdlCompetitions;
-    //    @Bind(R.id.rvCourseDiary)
-//    RecyclerView rvCourseDiary;
     Toolbar toolBar;
     TextView tvCourseSchedule;
-    //    RecyclerView.Adapter recyclerViewAdapter;
     ListView lvCompetitions;
 
     CompetitionsAdapter competitionsAdapter;
 
     //Create instance of Model class CourseDiaryItems.
     CompetitionsResultItems competitionsResultItems;
-    //CourseDiaryItemsCopy courseDiaryItemsCopy;
     CompetitionsJsonParams competitionsJsonParams;
 
     //List of type books this list will store type Book which is our data model
@@ -100,13 +93,11 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-
         if (isVisibleToUser) {
-
             //Reset CALENDAR.
             ((CompetitionsActivity) getActivity()).resetCalendarEvents();
 
-            callCurrentEventWebService();
+            callFutureEventsWebService();
         }
     }
 
@@ -114,7 +105,7 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
      * Implements a method to call News web service either call
      * initially or call from onSwipeRefresh.
      */
-    private void callCurrentEventWebService() {
+    private void callFutureEventsWebService() {
         /**
          *  Check internet connection before hitting server request.
          */
@@ -140,7 +131,7 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
         competitionsJsonParams.setCallid("1456315336575");
         competitionsJsonParams.setVersion(1);
         competitionsJsonParams.setMemberId(10784);
-        competitionsJsonParams.setIncludeCurrentEvents(true);
+        competitionsJsonParams.setIncludeFutureEvents(true);
         competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY
         competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY
         competitionsJsonParams.setPageNo("0");
@@ -148,8 +139,9 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
 
         competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
 
-//        Log.e(LOG_TAG, "requestCompetitionsEvents()" +  "START DATE : " + CompetitionsTabFragment.strDateFrom);
-//        Log.e(LOG_TAG, "requestCompetitionsEvents()" + "END DATE : " + CompetitionsTabFragment.strDateTo);
+
+        Log.e(LOG_TAG, "requestCompetitionsEvents()" +  "START DATE : " + CompetitionsTabFragment.strDateFrom);
+        Log.e(LOG_TAG, "requestCompetitionsEvents()" + "END DATE : " + CompetitionsTabFragment.strDateTo);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -173,7 +165,7 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
 
-                ((CompetitionsActivity) getActivity()).showAlertMessage("" + error);
+                ((BaseActivity) getActivity()).showAlertMessage("" + error);
             }
         });
 
@@ -191,10 +183,6 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
         }.getType();
         competitionsResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
-//        Type type2 = new TypeToken<CourseDiaryItemsCopy>() {
-//        }.getType();
-//        courseDiaryItemsCopy = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type2);
-
         //Clear array list before inserting items.
         competitionsDatas.clear();
         //arrayCourseDataBackup.clear();
@@ -206,11 +194,9 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
             if (competitionsResultItems.getMessage().equalsIgnoreCase("Success")) {
 
                 competitionsDatas.addAll(competitionsResultItems.getData());
-                //Take backup of List before changing to record.
-                // arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
 
                 if (competitionsDatas.size() == 0) {
-                    ((CompetitionsActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
                     competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas/*((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup)*/);
@@ -235,6 +221,6 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onRefresh() {
         isSwipeVisible = true;
-        callCurrentEventWebService();
+        callFutureEventsWebService();
     }
 }

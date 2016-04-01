@@ -7,25 +7,19 @@ package com.ucreate.mhsystems.fragments;
  */
 
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
-import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.API.WebServiceMethods;
 import com.ucreate.mhsystems.utils.pojo.CompetitionsAPI;
@@ -40,11 +34,11 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = CompletedTabFragment.class.getSimpleName();
+    public static final String LOG_TAG = FriendsFragment.class.getSimpleName();
     ArrayList<CompetitionsData> competitionsDatas = new ArrayList<>();
 
     private boolean isSwipeVisible = false;
@@ -53,11 +47,7 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
      * INSTANCES OF CLASSES
      *******************************/
     View mRootView;
-    CoordinatorLayout cdlCompetitions;
-
-    Toolbar toolBar;
-    TextView tvCourseSchedule;
-    ListView lvCompetitions;
+    ListView lvFriends;
 
     CompetitionsAdapter competitionsAdapter;
 
@@ -71,10 +61,9 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_competitions_list, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        cdlCompetitions = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCompetitions);
-        lvCompetitions = (ListView) mRootView.findViewById(R.id.lvCompetitions);
+        lvFriends = (ListView) mRootView.findViewById(R.id.lvFriends);
 
         return mRootView;
     }
@@ -83,8 +72,10 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
+
         if (isVisibleToUser) {
-            callCompletedEventsWebService();
+
+            callMyEventsWebService();
         }
     }
 
@@ -92,16 +83,16 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
      * Implements a method to call News web service either call
      * initially or call from onSwipeRefresh.
      */
-    private void callCompletedEventsWebService() {
+    private void callMyEventsWebService() {
         /**
          *  Check internet connection before hitting server request.
          */
-        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            //Method to hit Squads API.
-            requestCompetitionsEvents();
-        } else {
-            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
-        }
+//        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+//            //Method to hit Squads API.
+//            requestCompetitionsEvents();
+//        } else {
+//            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+//        }
     }
 
     /**
@@ -114,20 +105,24 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
         }
 
-        //Set Dates to display COMPLETED functionality.
-        setDatesForCompleted(CompetitionsTabFragment.iActionCalendarStates);
-
         competitionsJsonParams = new CompetitionsJsonParams();
         competitionsJsonParams.setCallid("1456315336575");
         competitionsJsonParams.setVersion(1);
         competitionsJsonParams.setMemberId(10784);
+        competitionsJsonParams.setMyEventsOnly(true);
         competitionsJsonParams.setIncludeCompletedEvents(true);
-        competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY [END DATE]
-        competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY [START DATE]
+        competitionsJsonParams.setIncludeCurrentEvents(true);
+        competitionsJsonParams.setIncludeFutureEvents(true);
+        competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY
+        competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY
         competitionsJsonParams.setPageNo("0");
         competitionsJsonParams.setPageSize("10");
 
         competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
+
+
+//        Log.e(LOG_TAG, "requestCompetitionsEvents()" +  "START DATE : " + CompetitionsTabFragment.strDateFrom);
+//        Log.e(LOG_TAG, "requestCompetitionsEvents()" + "END DATE : " + CompetitionsTabFragment.strDateTo);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -147,58 +142,14 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
 
             @Override
             public void failure(RetrofitError error) {
-
                 //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
+
                 ((BaseActivity) getActivity()).showAlertMessage("" + error);
             }
         });
 
-    }
-
-    /**
-     * Implements a method to set DATE for
-     * COMPLETED tab functionality.
-     *
-     * @param iActionCalendarStates
-     */
-    private void setDatesForCompleted(int iActionCalendarStates) {
-
-        switch (iActionCalendarStates) {
-
-            case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
-            case ApplicationGlobal.ACTION_NEXT_MONTH:
-            case ApplicationGlobal.ACTION_NOTHING:
-
-                /**
-                 *  Change date because COMPLETED tab should display record of
-                 *  complete MONTH.
-                 */
-                CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/1/" + CompetitionsActivity.iYear;
-                CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.iNumOfDays + "/" + CompetitionsActivity.iYear;
-                break;
-
-            case ApplicationGlobal.ACTION_TODAY:
-                /**
-                 *  Change date because COMPLETED tab should display record of
-                 *  complete MONTH.
-                 */
-                CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
-                CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
-                break;
-
-            case ApplicationGlobal.ACTION_CALENDAR:
-                /**
-                 *  Change date because COMPLETED tab should display record of
-                 *  complete MONTH.
-                 */
-                CompetitionsTabFragment.strDateFrom = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
-                CompetitionsTabFragment.strDateTo = "" + CompetitionsActivity.iMonth + "/" + CompetitionsActivity.strDate + "/" + CompetitionsActivity.iYear;
-                break;
-        }
-
-//        Log.e("setDatesForCompleted", "START DATE : " + CompetitionsTabFragment.strDateFrom);
-//        Log.e("setDatesForCompleted", "END DATE : " + CompetitionsTabFragment.strDateTo);
     }
 
     /**
@@ -215,6 +166,7 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
 
         //Clear array list before inserting items.
         competitionsDatas.clear();
+        //arrayCourseDataBackup.clear();
 
         try {
             /**
@@ -229,7 +181,7 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
                 } else {
 
                     competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas/*((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup)*/);
-                    lvCompetitions.setAdapter(competitionsAdapter);
+                    lvFriends.setAdapter(competitionsAdapter);
 
                     Log.e(LOG_TAG, "arrayListCourseData : " + competitionsDatas.size());
                 }
@@ -250,6 +202,6 @@ public class CompletedTabFragment extends Fragment implements SwipeRefreshLayout
     @Override
     public void onRefresh() {
         isSwipeVisible = true;
-        callCompletedEventsWebService();
+        callMyEventsWebService();
     }
 }

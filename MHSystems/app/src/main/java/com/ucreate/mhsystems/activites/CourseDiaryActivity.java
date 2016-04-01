@@ -33,7 +33,6 @@ public class CourseDiaryActivity extends BaseActivity {
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
-
     public static final String LOG_TAG = CourseDiaryActivity.class.getSimpleName();
 
     /*********************************

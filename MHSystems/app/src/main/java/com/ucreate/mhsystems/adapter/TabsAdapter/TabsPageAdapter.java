@@ -10,15 +10,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
-import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
-import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
-import com.ucreate.mhsystems.fragments.CompletedTabFragment;
-import com.ucreate.mhsystems.fragments.CurrentTabFragment;
-import com.ucreate.mhsystems.fragments.FutureTabFragment;
-import com.ucreate.mhsystems.fragments.MyEventsTabFragment;
+import com.ucreate.mhsystems.fragments.CompletedFragment;
+import com.ucreate.mhsystems.fragments.CurrentFragment;
+import com.ucreate.mhsystems.fragments.FinanceFragment;
+import com.ucreate.mhsystems.fragments.FriendsFragment;
+import com.ucreate.mhsystems.fragments.FutureFragment;
+import com.ucreate.mhsystems.fragments.MyEventsFragment;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
-import com.ucreate.mhsystems.fragments.CourseFragmentData;
+import com.ucreate.mhsystems.fragments.CourseFragment;
 
 
 /**
@@ -37,7 +37,6 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * # 2. Competitions Tabs Fragment
      */
     private int iFromWhat;
-
 
     /**
      * Tab Page Adapter initialization.
@@ -58,30 +57,38 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+        switch (iFromWhat) {
+            case ApplicationGlobal.POSITION_COURSE_DIARY:
+                return loadCourseDiaryTabs(position);
 
-        if (iFromWhat == ApplicationGlobal.POSITION_COURSE_DIARY) {
-            return loadArticleTabs(position);
-        } else if (iFromWhat == ApplicationGlobal.POSITION_COMPETITIONS) {
-            return loadCompetitionsEvent(position);
+            case ApplicationGlobal.POSITION_COMPETITIONS:
+                return loadCompetitionsEvent(position);
+
+            case ApplicationGlobal.POSITION_MY_ACCOUNT:
+                Log.e("HERE","HERE");
+                return loadMyAccountTabs(position);
+
         }
         return null;
     }
 
     /**
-     * Load Article Tabs i.e NEWS, INTERVIEWS and GUIDES.
+     * Load Article Tabs i.e
+     * <br> 1. Old
+     * <br> 2. New Courses
      * <p>
      * <br> @return Fragment
      */
-    private Fragment loadArticleTabs(int iPosition) {
+    private Fragment loadCourseDiaryTabs(int iPosition) {
 
         switch (iPosition) {
             case 0:
-                CourseDairyTabFragment.courseFragmentData = new CourseFragmentData();
-                return CourseDairyTabFragment.courseFragmentData;
+                CourseDairyTabFragment.courseFragment = new CourseFragment();
+                return CourseDairyTabFragment.courseFragment;
 
             case 1:
-                CourseDairyTabFragment.courseFragmentData = new CourseFragmentData();
-                return CourseDairyTabFragment.courseFragmentData;
+                CourseDairyTabFragment.courseFragment = new CourseFragment();
+                return CourseDairyTabFragment.courseFragment;
 
             default:
                 return null;
@@ -89,7 +96,39 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     }
 
     /**
-     * Load Article Tabs i.e NEWS, INTERVIEWS and GUIDES.
+     * Load My Account tabs i.e
+     * <br> 1. Friends
+     * <br> 2. Friends
+     * <br> 3. Finances
+     * <p>
+     * <br> @return Fragment
+     */
+    private Fragment loadMyAccountTabs(int iPosition) {
+
+        switch (iPosition) {
+            case 0:
+               FriendsFragment financeFragment1 = new FriendsFragment();
+                return financeFragment1;
+
+            case 1:
+                FriendsFragment financeFragment2 = new FriendsFragment();
+                return financeFragment2;
+
+            case 2:
+                FinanceFragment financeFragment = new FinanceFragment();
+                return financeFragment;
+
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Load Competitions tabs i.e.
+     * <br> 1. My Events.
+     * <br> 2. Completed.
+     * <br> 3. Current.
+     * <br> 4. Future.
      * <p>
      * <br> @return Fragment
      */
@@ -97,20 +136,20 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
         switch (iPosition) {
             case 0:
-                MyEventsTabFragment competitionsTabFragment = new MyEventsTabFragment();
+                MyEventsFragment competitionsTabFragment = new MyEventsFragment();
                 return competitionsTabFragment;
 
             case 1:
-                CompletedTabFragment compleTabFragment = new CompletedTabFragment();
+                CompletedFragment compleTabFragment = new CompletedFragment();
                 return compleTabFragment;
 
             case 2:
-                CurrentTabFragment currentTabFragment = new CurrentTabFragment();
-                return currentTabFragment;
+                CurrentFragment currentFragment = new CurrentFragment();
+                return currentFragment;
 
             case 3:
-                FutureTabFragment futureTabFragment = new FutureTabFragment();
-                return futureTabFragment;
+                FutureFragment futureFragment = new FutureFragment();
+                return futureFragment;
             default:
                 return null;
         }
