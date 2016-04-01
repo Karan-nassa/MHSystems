@@ -1,12 +1,14 @@
 package com.ucreate.mhsystems.activites;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
@@ -65,6 +67,11 @@ public class CompetitionsActivity extends BaseActivity {
     //Create instance of  {@link Calendar} class.
     public static Calendar mCalendarInstance;
 
+    //Create instance of Menu to change PREV, NEXT and TODAY icon.
+    private static Menu menuInstance;
+
+    private static Context mActivityContext;
+
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
@@ -93,6 +100,9 @@ public class CompetitionsActivity extends BaseActivity {
 
         //Initialize view resources.
         ButterKnife.bind(this);
+
+        //Get Context
+        mActivityContext = CompetitionsActivity.this;
 
         //Let's first set up toolbar
         setupToolbar();
@@ -141,15 +151,15 @@ public class CompetitionsActivity extends BaseActivity {
 
                             if (year == iCurrentYear) {
 
-                                if(CompetitionsTabFragment.iLastTabPosition ==1){
+                                if (CompetitionsTabFragment.iLastTabPosition == 1) {
 
                                     iYear = year;
                                     iMonth = tMonthofYear;
-                                    strDate = ""+ dayOfMonth;
+                                    strDate = "" + dayOfMonth;
 
                                     updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
-                                }else {
+                                } else {
 
                                     if (tMonthofYear > iCurrentMonth) {
 
@@ -188,6 +198,8 @@ public class CompetitionsActivity extends BaseActivity {
                             }
                         }
                     }, iYear, --iMonth, Integer.parseInt(strDate));
+            //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+            resetMonthsNavigationIcons();
             dpd.show();
 
             //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
@@ -329,6 +341,12 @@ public class CompetitionsActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        menuInstance = menu;
+
+        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+        resetMonthsNavigationIcons();
+
         return true;
     }
 
@@ -344,7 +362,24 @@ public class CompetitionsActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case R.id.action_PrevMonth:
-                updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
+                /**
+                 *  User can navigate back till current MONTH but can back to JANUARY MONTH for
+                 *  COMPLETED tab.
+                 */
+                if (CompetitionsTabFragment.iLastTabPosition == 1) {
+
+                    if (iMonth > 1) {
+                        updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
+//                        menuInstance.getItem(0).setIcon(ContextCompat.getDrawable(CompetitionsActivity.this, R.mipmap.ic_arrow_left_blur));
+//                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                    } else {
+                        setPreviousButton(false);
+                    }
+                } else {
+                    if (iMonth > iCurrentMonth) {
+                        updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
+                    }
+                }
                 break;
 
             case R.id.action_NextMonth:
@@ -356,9 +391,38 @@ public class CompetitionsActivity extends BaseActivity {
                 break;
         }
 
+        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+        resetMonthsNavigationIcons();
+
         //Commit and navigate to new fragment.
         tr.commit();
-        return super.onOptionsItemSelected(item);
+        return super.
+
+                onOptionsItemSelected(item);
+
+    }
+
+    /**
+     *  Implements this method to reset CALENDAR PREV, NEXT and TODAY icon.
+    */
+    public static void resetMonthsNavigationIcons() {
+        /**
+         *  To disable or display blur previous icon.
+         */
+        if (CompetitionsTabFragment.iLastTabPosition == 1) {
+
+            if (iMonth <= 1) {
+                setPreviousButton(false);
+            } else {
+                setPreviousButton(true);
+            }
+        } else {
+            if (iMonth <= iCurrentMonth) {
+                setPreviousButton(false);
+            } else {
+                setPreviousButton(true);
+            }
+        }
     }
 
     /**
@@ -401,6 +465,32 @@ public class CompetitionsActivity extends BaseActivity {
 
 //            Log.e(LOG_TAG, "START DATE : " + CompetitionsTabFragment.strDateFrom);
 //            Log.e(LOG_TAG, "END DATE : " + CompetitionsTabFragment.strDateTo);
+        }
+    }
+
+    /**
+     * Implements a method to ENABLE/DISABLE previous
+     * MONTH arrow.
+     */
+    public static void setPreviousButton(boolean isEnable) {
+
+        if (isEnable) {
+            menuInstance.getItem(0).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_left));
+        } else {
+            menuInstance.getItem(0).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_left_blur));
+        }
+    }
+
+    /**
+     * Implements a method to ENABLE/DISABLE NEXT
+     * MONTH arrow.
+     */
+    public static void setNextButton(boolean isEnable) {
+
+        if (isEnable) {
+            menuInstance.getItem(1).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_right));
+        } else {
+            menuInstance.getItem(1).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_right_blur));
         }
     }
 }

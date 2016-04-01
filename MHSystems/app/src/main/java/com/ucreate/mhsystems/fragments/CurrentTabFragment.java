@@ -173,7 +173,7 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
 
-                ((CompetitionsActivity) getActivity()).showSnackMessage("" + error);
+                ((CompetitionsActivity) getActivity()).showAlertMessage("" + error);
             }
         });
 
@@ -210,7 +210,7 @@ public class CurrentTabFragment extends Fragment implements SwipeRefreshLayout.O
                 // arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
 
                 if (competitionsDatas.size() == 0) {
-                    ((CompetitionsActivity) getActivity()).showSnackMessage(getResources().getString(R.string.error_no_data));
+                    ((CompetitionsActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
                     competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas/*((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup)*/);

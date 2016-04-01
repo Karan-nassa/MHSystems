@@ -46,12 +46,6 @@ public class CompetitionsTabFragment extends Fragment {
     Context context;
     TabsPageAdapter pageAdapter;
 
-    //Create instance of Fragment.
-    public static MyEventsTabFragment myEventsTabFragment;
-
-
-    Calendar mCalendarInstance;
-
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
@@ -77,6 +71,8 @@ public class CompetitionsTabFragment extends Fragment {
             setTabVisibleStatus(tab.getPosition());
 
             iLastTabPosition = tab.getPosition();
+
+            CompetitionsActivity.resetMonthsNavigationIcons();
         }
 
         @Override
@@ -159,11 +155,10 @@ public class CompetitionsTabFragment extends Fragment {
                 //IF COMPLETED TAB SELECTED THEN DISPLAY DATA FROM 1st JAN of current year.
                 if (iLastTabPosition == 1) {
 
-                    /**
-                     *  User cannot navigate back to current
-                     *  month.
-                     */
-                    if (CompetitionsActivity.iMonth > 0) {
+                    if (CompetitionsActivity.iMonth == Calendar.JANUARY) {
+
+                        CompetitionsActivity.setPreviousButton(false);
+                    } else {
 
                         CompetitionsActivity.iMonth--;
 
@@ -172,7 +167,6 @@ public class CompetitionsTabFragment extends Fragment {
 
                         ((CompetitionsActivity) getActivity()).getNumberofDays();
                     }
-
                 } else {
 
                     /**
@@ -191,8 +185,9 @@ public class CompetitionsTabFragment extends Fragment {
                         }
 
                         ((CompetitionsActivity) getActivity()).getNumberofDays();
+                    }else{
+                        CompetitionsActivity.setPreviousButton(false);
                     }
-
                 }
                 break;
 
@@ -202,6 +197,10 @@ public class CompetitionsTabFragment extends Fragment {
 
                 } else {
                     CompetitionsActivity.iMonth++;
+
+                    if(CompetitionsActivity.iMonth > CompetitionsActivity.iCurrentMonth){
+                        CompetitionsActivity.setPreviousButton(true);
+                    }
 
                     //Do nothing. Just load data according current date.
                     CompetitionsActivity.strDate = "01";
