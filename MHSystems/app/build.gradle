@@ -14,7 +14,6 @@ repositories {
     mavenCentral()
 }
 
-apply plugin: 'android'
 apply plugin: 'newrelic'
 
 
@@ -43,9 +42,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-
-    //Display CALENDAR library path.
-    compile project(':sublimepickerlibrary')
 
     compile files('libs/rollbar-android-0.1.2-dev.jar')
     compile 'com.android.support:appcompat-v7:23.2.1'
