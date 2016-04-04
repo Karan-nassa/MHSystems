@@ -6,6 +6,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -130,7 +131,7 @@ public class CourseDairyTabFragment extends Fragment {
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorF7E59A));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.colorF7E59A));
 
         viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter

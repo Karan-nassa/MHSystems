@@ -1,6 +1,7 @@
 package com.ucreate.mhsystems.adapter.BaseAdapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,34 +9,37 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.utils.pojo.CurrentBill;
+import com.ucreate.mhsystems.utils.pojo.MyAccountData;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
 
 /**
- * Created by admin on 01-04-2016.
+ * Created by karan@ucreate.co.in on 04-04-2016.
  */
 public class FinanceSectionAdapter extends BaseAdapter {
 
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_SEPARATOR = 1;
 
-    private ArrayList<String> mData = new ArrayList<String>();
+    private ArrayList<MyAccountData> mData = new ArrayList<MyAccountData>();
     private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
 
     private LayoutInflater mInflater;
 
-    public FinanceSectionAdapter(Context context) {
+    public FinanceSectionAdapter(Context context, ArrayList<MyAccountData> myAccountDatas) {
+        this.mData = myAccountDatas;
         mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void addItem(final String item) {
+    public void addItem(final MyAccountData item) {
         mData.add(item);
         notifyDataSetChanged();
     }
 
-    public void addSectionHeaderItem(final String item) {
+    public void addSectionHeaderItem(final MyAccountData item) {
         mData.add(item);
         sectionHeader.add(mData.size() - 1);
         notifyDataSetChanged();
@@ -57,7 +61,7 @@ public class FinanceSectionAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public MyAccountData getItem(int position) {
         return mData.get(position);
     }
 
@@ -86,7 +90,29 @@ public class FinanceSectionAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.textView.setText(mData.get(position));
+        switch (rowType){
+            case TYPE_ITEM:
+
+                switch (position){
+                    case 0:
+                        Log.e("pos ", ":"+position);
+                        Log.e("DATA ", ":"+mData.get(0).getCurrentBills().get(position).getInvoiceDate());
+                        holder.textView.setText(""+mData.get(0).getCurrentBills().get(position).getInvoiceDate());
+                        break;
+
+                    case 1:
+                        Log.e("pos ", ":"+position);
+                        Log.e("DATA ", ":"+mData.get(1).getMemBalance().get(position).getValueStr());
+                        holder.textView.setText(""+mData.get(1).getMemBalance().get(position).getValueStr());
+                        break;
+                }
+
+                break;
+
+            case TYPE_SEPARATOR:
+                holder.textView.setText("CURRENT BALANCE");
+                break;
+        }
 
         return convertView;
     }

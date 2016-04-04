@@ -1,13 +1,14 @@
 
 package com.ucreate.mhsystems.utils.pojo;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
 
-public class CompetitionsResultItems {
+
+public class MyAccountItems {
 
     @SerializedName("Message")
     @Expose
@@ -15,9 +16,9 @@ public class CompetitionsResultItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("MyAccountData")
+    @SerializedName("Data")
     @Expose
-    private List<CompetitionsData> Data = new ArrayList<CompetitionsData>();
+    private List<MyAccountData> Data;
 
     /**
      * 
@@ -60,7 +61,7 @@ public class CompetitionsResultItems {
      * @return
      *     The MyAccountData
      */
-    public List<CompetitionsData> getData() {
+    public List<MyAccountData> getMyAccountData() {
         return Data;
     }
 
@@ -69,7 +70,7 @@ public class CompetitionsResultItems {
      * @param Data
      *     The MyAccountData
      */
-    public void setData(List<CompetitionsData> Data) {
+    public void setMyAccountData(List<MyAccountData> Data) {
         this.Data = Data;
     }
 

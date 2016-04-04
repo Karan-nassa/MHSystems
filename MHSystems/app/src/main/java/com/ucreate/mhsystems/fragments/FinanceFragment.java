@@ -14,21 +14,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
+import com.ucreate.mhsystems.adapter.BaseAdapter.FinanceSectionAdapter;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.API.WebServiceMethods;
-import com.ucreate.mhsystems.utils.pojo.CompetitionsAPI;
-import com.ucreate.mhsystems.utils.pojo.CompetitionsData;
-import com.ucreate.mhsystems.utils.pojo.CompetitionsJsonParams;
-import com.ucreate.mhsystems.utils.pojo.CompetitionsResultItems;
+import com.ucreate.mhsystems.utils.pojo.MyAccountAPI;
+import com.ucreate.mhsystems.utils.pojo.MyAccountData;
+import com.ucreate.mhsystems.utils.pojo.MyAccountItems;
+import com.ucreate.mhsystems.utils.pojo.MyAccountJsonParams;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -39,7 +42,7 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     public static final String LOG_TAG = FinanceFragment.class.getSimpleName();
-    ArrayList<CompetitionsData> competitionsDatas = new ArrayList<>();
+    ArrayList<MyAccountData> myAccountDatas = new ArrayList<>();
 
     private boolean isSwipeVisible = false;
 
@@ -47,23 +50,27 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
      * INSTANCES OF CLASSES
      *******************************/
     View mRootView;
-    ListView lvFinance;
+    //    ListView lvFinance;
+    TextView tvCreditBalance, tvCurrentInvoice;
 
-    CompetitionsAdapter competitionsAdapter;
+    FinanceSectionAdapter mFinanceAdapter;
 
     //Create instance of Model class CourseDiaryItems.
-    CompetitionsResultItems competitionsResultItems;
-    CompetitionsJsonParams competitionsJsonParams;
+    MyAccountItems myAccountItems;
+    MyAccountJsonParams myAccountJsonParams;
 
     //List of type books this list will store type Book which is our data model
-    private CompetitionsAPI competitionsAPI;
+    private MyAccountAPI myAccountAPI;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_finance, container, false);
 
-        lvFinance = (ListView) mRootView.findViewById(R.id.lvFinance);
+//        lvFinance = (ListView) mRootView.findViewById(R.id.lvFinance);
+
+        tvCreditBalance = (TextView) mRootView.findViewById(R.id.tvCreditBalance);
+        tvCurrentInvoice = (TextView) mRootView.findViewById(R.id.tvCurrentInvoice);
 
         return mRootView;
     }
@@ -72,19 +79,8 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-
         if (isVisibleToUser) {
-
-            //callMyEventsWebService();
-
-//            FinanceSectionAdapter mAdapter = new FinanceSectionAdapter(getActivity());
-//            for (int i = 1; i < 30; i++) {
-//                mAdapter.addItem("Row Item #" + i);
-//                if (i % 4 == 0) {
-//                    mAdapter.addSectionHeaderItem("Section #" + i);
-//                }
-//            }
-//            lvFinance.setAdapter(mAdapter);
+            callFinanceWebService();
         }
     }
 
@@ -92,46 +88,34 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
      * Implements a method to call News web service either call
      * initially or call from onSwipeRefresh.
      */
-    private void callMyEventsWebService() {
+    private void callFinanceWebService() {
         /**
          *  Check internet connection before hitting server request.
          */
-//        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-//            //Method to hit Squads API.
-//            requestCompetitionsEvents();
-//        } else {
-//            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
-//        }
+        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            //Method to hit Squads API.
+            requestFinanceService();
+        } else {
+            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+        }
     }
 
     /**
-     * Implement a method to hit Competitions
-     * web service to get response.
+     * Implement a method to hit MY ACCOUNT
+     * web service to get balance.
      */
-    public void requestCompetitionsEvents() {
+    public void requestFinanceService() {
 
         if (!isSwipeVisible) {
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
         }
 
-        competitionsJsonParams = new CompetitionsJsonParams();
-        competitionsJsonParams.setCallid("1456315336575");
-        competitionsJsonParams.setVersion(1);
-        competitionsJsonParams.setMemberId(10784);
-        competitionsJsonParams.setMyEventsOnly(true);
-        competitionsJsonParams.setIncludeCompletedEvents(true);
-        competitionsJsonParams.setIncludeCurrentEvents(true);
-        competitionsJsonParams.setIncludeFutureEvents(true);
-        competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY
-        competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY
-        competitionsJsonParams.setPageNo("0");
-        competitionsJsonParams.setPageSize("10");
+        myAccountJsonParams = new MyAccountJsonParams();
+        myAccountJsonParams.setCallid("1457589857009");
+        myAccountJsonParams.setVersion(1);
+        myAccountJsonParams.setMemberId(10782);
 
-        competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
-
-
-//        Log.e(LOG_TAG, "requestCompetitionsEvents()" +  "START DATE : " + CompetitionsTabFragment.strDateFrom);
-//        Log.e(LOG_TAG, "requestCompetitionsEvents()" + "END DATE : " + CompetitionsTabFragment.strDateTo);
+        myAccountAPI = new MyAccountAPI(44118078, "AccountDetails", myAccountJsonParams, "ACCOUNT", "Members");
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -142,7 +126,7 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
         WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
         //Defining the method
-        api.getCompetitionsEvents(competitionsAPI, new Callback<JsonObject>() {
+        api.getMyAccount(myAccountAPI, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
@@ -169,34 +153,41 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
-        Type type = new TypeToken<CompetitionsResultItems>() {
+        Type type = new TypeToken<MyAccountItems>() {
         }.getType();
-        competitionsResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        myAccountItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         //Clear array list before inserting items.
-        competitionsDatas.clear();
-        //arrayCourseDataBackup.clear();
+        myAccountDatas.clear();
 
         try {
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
-            if (competitionsResultItems.getMessage().equalsIgnoreCase("Success")) {
+            if (myAccountItems.getMessage().equalsIgnoreCase("Success")) {
 
-                competitionsDatas.addAll(competitionsResultItems.getData());
+                myAccountDatas.addAll(myAccountItems.getMyAccountData());
 
-                if (competitionsDatas.size() == 0) {
+                if (myAccountDatas.size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
+                    Log.e("SIZE getMemBalance:", "" + myAccountItems.getMyAccountData().get(0).getMemBalance().size());
+                    Log.e("SIZE getCurrentBills:", "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().size());
 
-                    competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas/*((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup)*/);
-                    lvFinance.setAdapter(competitionsAdapter);
+                    tvCreditBalance.setText(myAccountItems.getMyAccountData().get(0).getMemBalance().get(0).getCrnSymbolStr()
+                            + " " + myAccountItems.getMyAccountData().get(0).getMemBalance().get(0).getValueStr());
 
-                    Log.e(LOG_TAG, "arrayListCourseData : " + competitionsDatas.size());
+                    tvCurrentInvoice.setText("\u00a3"+"60 - INV/"+formatDate(myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceDate())
+                            + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo());
+
+                    //mFinanceAdapter = new FinanceSectionAdapter(getActivity(), myAccountDatas);
+                    // lvFinance.setAdapter(mFinanceAdapter);
+
+                    Log.e(LOG_TAG, "arrayListCourseData : " + myAccountDatas.size());
                 }
             } else {
                 //If web service not respond in any case.
-                ((BaseActivity) getActivity()).showAlertMessage(competitionsResultItems.getMessage());
+                ((BaseActivity) getActivity()).showAlertMessage(myAccountItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
@@ -207,10 +198,21 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
         ((BaseActivity) getActivity()).hideProgress();
     }
 
+    private String formatDate(String invoiceDate) {
+
+        String strDate =(invoiceDate.substring(0, invoiceDate.lastIndexOf("T")));
+
+        strDate = strDate.replaceAll("-","/");
+
+        Log.e("DATE",strDate);
+
+        return strDate;
+    }
+
 
     @Override
     public void onRefresh() {
         isSwipeVisible = true;
-        callMyEventsWebService();
+        callFinanceWebService();
     }
 }

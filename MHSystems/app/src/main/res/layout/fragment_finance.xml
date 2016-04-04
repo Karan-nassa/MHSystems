@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorGreyf1f1f0">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,35 +11,137 @@
         android:background="@color/colorFFEFEFF4"
         android:orientation="vertical">
 
+        <!--   <ListView
+               android:id="@+id/lvFinance"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@android:color/white"
+               android:cacheColorHint="@android:color/white"
+               android:divider="@color/colorFFEFEFF4"
+               android:dividerHeight="2dp"/>-->
 
-        <!-- RECYCLER VIEW TO DISPLAY COURSE DIARY CONTENT -->
+        <!-- YOUR BALANCE -->
 
-        <!--  <android.support.v7.widget.RecyclerView
-              android:id="@+id/rvCourseDiary"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@android:color/white"
-              android:scrollbars="vertical" />-->
-        <ListView
-            android:id="@+id/lvFinance"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:cacheColorHint="@android:color/white"
-            android:divider="@color/colorFFEFEFF4"
-            android:dividerHeight="2dp">
+            android:orientation="vertical">
 
-        </ListView>
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGreyf1f1f0"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp">
+
+                <TextView
+                    android:id="@+id/textSeparator"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:padding="7dp"
+                    android:text="YOUR BALANCE"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- AMOUNT IN CARD -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhiteffffff"
+            android:orientation="vertical">
+
+            <!-- TOTAL CREDIT BALANCE -->
+
+            <TextView
+                android:id="@+id/tvCreditBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:padding="5dp"
+                android:text="-$6"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <!-- YOUR BALANCE -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGreyf1f1f0"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:padding="7dp"
+                    android:text="CURRENT INVOICE"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:alpha=".6"
+                    android:paddingRight="10dp"
+                    android:text="SHOW ALL"
+                    android:textColor="@color/color0000ff"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- AMOUNT IN CARD -->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhiteffffff"
+            android:orientation="horizontal">
+
+            <!-- TOTAL CREDIT BALANCE -->
+
+            <TextView
+                android:id="@+id/tvCurrentInvoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginLeft="12dp"
+                android:text="-$50 - INV/2016/03/12345"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="right|center"
+                android:src="@mipmap/ic_arrow_right"/>
+
+        </FrameLayout>
+
 
     </LinearLayout>
-
-    <!-- DUMMY TITLE FOR NOW -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Finance"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="35sp" />
 
 </RelativeLayout>

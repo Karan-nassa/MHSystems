@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -74,10 +75,10 @@ public class MyAccountTabFragment extends Fragment {
         tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_friends)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_friends)));
+
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_finances)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorF7E59A));
-
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.colorBlack000000));
 
         viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
 

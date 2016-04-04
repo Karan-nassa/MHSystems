@@ -43,14 +43,14 @@ public class CourseDiaryItemsCopy {
     }
 
     /**
-     * @return The Data
+     * @return The MyAccountData
      */
     public List<CourseDiaryDataCopy> getData() {
         return Data;
     }
 
     /**
-     * @param Data The Data
+     * @param Data The MyAccountData
      */
     public void setData(List<CourseDiaryDataCopy> data) {
         Data = data;

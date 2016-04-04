@@ -80,18 +80,6 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
         return mRootView;
     }
 
-    /**
-     * Implements a method to initialize all view resources
-     * of VIEW or VIEW GROUP.
-     */
-    private void initializeAppResources() {
-
-        cdlCompetitions = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCompetitions);
-        // toolBar = (Toolbar) mRootView.findViewById(R.id.toolBar);
-        // tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
-        lvCompetitions = (ListView) mRootView.findViewById(R.id.lvCompetitions);
-        // tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
-    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -204,7 +192,7 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
                 competitionsDatas.addAll(competitionsResultItems.getData());
                 //Take backup of List before changing to record.
-                // arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
+                // arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getMyAccountData());
 
                 if (competitionsDatas.size() == 0) {
                     ((CompetitionsActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
