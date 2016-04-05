@@ -6,6 +6,7 @@ package com.ucreate.mhsystems.fragments;
  * <br>tabs content on 12/23/2015.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,15 +14,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
+import com.ucreate.mhsystems.activites.DetailInvoiceActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.FinanceSectionAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.utils.API.WebServiceMethods;
 import com.ucreate.mhsystems.utils.pojo.MyAccountAPI;
@@ -31,7 +33,6 @@ import com.ucreate.mhsystems.utils.pojo.MyAccountJsonParams;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -46,12 +47,16 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     private boolean isSwipeVisible = false;
 
+    String strInvoiceNo;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
     View mRootView;
     //    ListView lvFinance;
     TextView tvCreditBalance, tvCurrentInvoice;
+    FrameLayout flCurrentInvoice;
+    Intent mIntent;
 
     FinanceSectionAdapter mFinanceAdapter;
 
@@ -62,6 +67,28 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
     //List of type books this list will store type Book which is our data model
     private MyAccountAPI myAccountAPI;
 
+    /**
+     * Declares the constant fields to display
+     * INVOICE detail screen.
+     */
+    private View.OnClickListener mInvoiceDetailListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            /**
+             *  Navigate to Detail Invoice Screen.
+             */
+            mIntent = new Intent(getActivity(), DetailInvoiceActivity.class);
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_NUMBER, strInvoiceNo);
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_DATE, "");
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_DESCRIPTION, "");
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_BILL_FROM, "");
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_BILL_TO, "");
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TOTAL_TAX, "");
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_STATUS_STR, "");
+            startActivity(mIntent);
+        }
+    };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +98,9 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         tvCreditBalance = (TextView) mRootView.findViewById(R.id.tvCreditBalance);
         tvCurrentInvoice = (TextView) mRootView.findViewById(R.id.tvCurrentInvoice);
+        flCurrentInvoice = (FrameLayout) mRootView.findViewById(R.id.flCurrentInvoice);
+
+        flCurrentInvoice.setOnClickListener(mInvoiceDetailListener);
 
         return mRootView;
     }
@@ -171,14 +201,17 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 if (myAccountDatas.size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-                    Log.e("SIZE getMemBalance:", "" + myAccountItems.getMyAccountData().get(0).getMemBalance().size());
-                    Log.e("SIZE getCurrentBills:", "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().size());
+//                    Log.e("SIZE getMemBalance:", "" + myAccountItems.getMyAccountData().get(0).getMemBalance().size());
+//                    Log.e("SIZE getCurrentBills:", "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().size());
 
                     tvCreditBalance.setText(myAccountItems.getMyAccountData().get(0).getMemBalance().get(0).getCrnSymbolStr()
                             + " " + myAccountItems.getMyAccountData().get(0).getMemBalance().get(0).getValueStr());
 
-                    tvCurrentInvoice.setText("\u00a3"+"60 - INV/"+formatDate(myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceDate())
-                            + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo());
+                    //Get INVOICE number.
+                    strInvoiceNo =  "INV/" + formatDate(myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceDate())
+                            + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo();
+
+                    tvCurrentInvoice.setText("\u00a3" +myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable() + " - "+ strInvoiceNo);
 
                     //mFinanceAdapter = new FinanceSectionAdapter(getActivity(), myAccountDatas);
                     // lvFinance.setAdapter(mFinanceAdapter);
@@ -200,11 +233,11 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     private String formatDate(String invoiceDate) {
 
-        String strDate =(invoiceDate.substring(0, invoiceDate.lastIndexOf("T")));
+        String strDate = (invoiceDate.substring(0, invoiceDate.lastIndexOf("T")));
 
-        strDate = strDate.replaceAll("-","/");
+        strDate = strDate.replaceAll("-", "/");
 
-        Log.e("DATE",strDate);
+        Log.e("DATE", strDate);
 
         return strDate;
     }

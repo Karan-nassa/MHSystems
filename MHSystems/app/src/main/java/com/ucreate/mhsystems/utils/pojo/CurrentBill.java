@@ -15,6 +15,28 @@ public class CurrentBill {
     @Expose
     private String InvoiceNo;
 
+    @SerializedName("TotalPayable")
+    @Expose
+    private int TotalPayable;
+
+    /**
+     *
+     * @return
+     *     The TotalPayable
+     */
+    public int getTotalPayable() {
+        return TotalPayable;
+    }
+
+    /**
+     *
+     * @param totalPayable
+     *     The TotalPayable
+     */
+    public void setTotalPayable(int totalPayable) {
+        TotalPayable = totalPayable;
+    }
+
     /**
      *
      * @return
