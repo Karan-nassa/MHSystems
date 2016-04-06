@@ -45,9 +45,11 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public static final String LOG_TAG = FinanceFragment.class.getSimpleName();
     ArrayList<MyAccountData> myAccountDatas = new ArrayList<>();
 
+    String strInvoiceTitle, strInvoiceNo, strInvoiceValue, strInvoiceTax, strInvoiceDate, strInvoiceDesc, strInvoiceBillFrom,
+            strInvoiceBillTo, strInvoiceTotalPayable, strInvoiceStatus;
+
     private boolean isSwipeVisible = false;
 
-    String strInvoiceNo;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -74,20 +76,44 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private View.OnClickListener mInvoiceDetailListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            getCurrentInvoiceData();
+
             /**
              *  Navigate to Detail Invoice Screen.
              */
             mIntent = new Intent(getActivity(), DetailInvoiceActivity.class);
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TITLE, strInvoiceTitle);
             mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_NUMBER, strInvoiceNo);
-            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_DATE, "");
-            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_DESCRIPTION, "");
-            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_BILL_FROM, "");
-            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_BILL_TO, "");
-            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TOTAL_TAX, "");
-            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_STATUS_STR, "");
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_VALUE, strInvoiceValue);
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TAX, strInvoiceTax);
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TOTAL_PAYABLE, strInvoiceTotalPayable);
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_DATE, strInvoiceDate);
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_DESCRIPTION, strInvoiceDesc);
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_BILL_FROM, formatDate(strInvoiceBillFrom).replaceAll("/", "-"));
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_BILL_TO, formatDate(strInvoiceBillTo).replaceAll("/", "-"));
+            mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_STATUS_STR, strInvoiceStatus);
             startActivity(mIntent);
         }
     };
+
+    /**
+     * Implements a method to get all CURRENT INVOICE data
+     * to pass for DetailInvoiceActivity.
+     */
+    private void getCurrentInvoiceData() {
+
+        strInvoiceNo = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo();
+        strInvoiceDate = formatDate(myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceDate()).replaceAll("/", "-");
+        strInvoiceStatus = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceStatusStr();
+        strInvoiceTotalPayable = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable();
+
+        strInvoiceBillFrom = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getBilledFrom();
+        strInvoiceBillTo = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getBilledTo();
+        strInvoiceDesc = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getDescription();
+        strInvoiceValue = ""+myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getValueX();
+        strInvoiceTax = ""+myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getTax();
+    }
 
 
     @Override
@@ -208,10 +234,10 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
                             + " " + myAccountItems.getMyAccountData().get(0).getMemBalance().get(0).getValueStr());
 
                     //Get INVOICE number.
-                    strInvoiceNo =  "INV/" + formatDate(myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceDate())
+                    strInvoiceTitle = "INV/" + formatDate(myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceDate())
                             + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo();
 
-                    tvCurrentInvoice.setText("\u00a3" +myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable() + " - "+ strInvoiceNo);
+                    tvCurrentInvoice.setText("\u00a3" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable() + " - " + strInvoiceTitle);
 
                     //mFinanceAdapter = new FinanceSectionAdapter(getActivity(), myAccountDatas);
                     // lvFinance.setAdapter(mFinanceAdapter);

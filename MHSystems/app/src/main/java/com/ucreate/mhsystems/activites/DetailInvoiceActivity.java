@@ -17,13 +17,14 @@ public class DetailInvoiceActivity extends AppCompatActivity {
      *******************************/
     public static final String LOG_TAG = DetailInvoiceActivity.class.getSimpleName();
 
-    String strInvoiceNo, strInvocieDate, strInvoiceDesc, strInvoiceBillFrom,
-            strInvoiceBillTo, strInvoiceTotalTax, strInvoiceStatus;
+    String strInvoiceTitle, strInvoiceNo, strInvoiceValue, strInvoiceTax, strInvoiceDate, strInvoiceDesc, strInvoiceBillFrom,
+            strInvoiceBillTo, strInvoiceTotalPayable, strInvoiceStatus;
 
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
     TextView tvInvoiceTitle;
+    TextView tvInvoiceNo, tvInvoiceDate, tvInvoiceStatus, tvInvoiceDesc, tvInvoiceFrom, tvInvoiceTo, tvInvoiceValue, tvInvoiceTax, tvInvoiceTotal;
     LinearLayout llHomeIcon;
 
     /**
@@ -47,10 +48,31 @@ public class DetailInvoiceActivity extends AppCompatActivity {
 
         initializeIntentData();
 
-        tvInvoiceTitle.setText(strInvoiceNo);
+        //Set data on each view.
+        setInvoiceData();
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
+    }
+
+    /**
+     * Implements a method to display all INVOICE data pass from last
+     * screen.
+     */
+    private void setInvoiceData() {
+
+        tvInvoiceTitle.setText(strInvoiceTitle);
+        tvInvoiceNo.setText(strInvoiceNo);
+        tvInvoiceDate.setText(strInvoiceDate);
+        tvInvoiceStatus.setText(strInvoiceStatus);
+        tvInvoiceDesc.setText(strInvoiceDesc);
+        tvInvoiceFrom.setText(strInvoiceBillFrom);
+        tvInvoiceTo.setText(strInvoiceBillTo);
+        tvInvoiceValue.setText(strInvoiceValue);
+        tvInvoiceTax.setText(strInvoiceTax);
+        tvInvoiceTotal.setText(strInvoiceTotalPayable);
+
+
     }
 
     /**
@@ -60,6 +82,16 @@ public class DetailInvoiceActivity extends AppCompatActivity {
     private void initializeResources() {
         tvInvoiceTitle = (TextView) findViewById(R.id.tvInvoiceTitle);
 
+        tvInvoiceNo = (TextView) findViewById(R.id.tvInvoiceNo);
+        tvInvoiceDate = (TextView) findViewById(R.id.tvInvoiceDate);
+        tvInvoiceStatus = (TextView) findViewById(R.id.tvInvoiceStatus);
+        tvInvoiceDesc = (TextView) findViewById(R.id.tvInvoiceDesc);
+        tvInvoiceFrom = (TextView) findViewById(R.id.tvInvoiceFrom);
+        tvInvoiceTo = (TextView) findViewById(R.id.tvInvoiceTo);
+        tvInvoiceValue = (TextView) findViewById(R.id.tvInvoiceValue);
+        tvInvoiceTax = (TextView) findViewById(R.id.tvInvoiceTax);
+        tvInvoiceTotal = (TextView) findViewById(R.id.tvInvoiceTotal);
+
         llHomeIcon = (LinearLayout) findViewById(R.id.llHomeIcon);
     }
 
@@ -68,12 +100,15 @@ public class DetailInvoiceActivity extends AppCompatActivity {
      * instances from INTENT.
      */
     private void initializeIntentData() {
-        strInvoiceNo = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_NUMBER);
-        strInvocieDate = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_DATE);
+        strInvoiceTitle = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_TITLE);
+        strInvoiceNo  = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_NUMBER);
+        strInvoiceTax  = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_TAX);
+        strInvoiceTotalPayable  = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_TOTAL_PAYABLE);
+        strInvoiceDate = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_DATE);
         strInvoiceDesc = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_DESCRIPTION);
         strInvoiceBillFrom = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_BILL_FROM);
         strInvoiceBillTo = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_BILL_TO);
-        strInvoiceTotalTax = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_TOTAL_TAX);
         strInvoiceStatus = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_STATUS_STR);
+        strInvoiceValue = getIntent().getExtras().getString(ApplicationGlobal.KEY_INVOICE_VALUE);
     }
 }

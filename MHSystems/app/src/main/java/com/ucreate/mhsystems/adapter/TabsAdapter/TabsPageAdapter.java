@@ -14,7 +14,8 @@ import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CompletedFragment;
 import com.ucreate.mhsystems.fragments.CurrentFragment;
 import com.ucreate.mhsystems.fragments.FinanceFragment;
-import com.ucreate.mhsystems.fragments.FriendsFragment;
+import com.ucreate.mhsystems.fragments.HandicapFragment;
+import com.ucreate.mhsystems.fragments.MyDetailsFragment;
 import com.ucreate.mhsystems.fragments.FutureFragment;
 import com.ucreate.mhsystems.fragments.MyEventsFragment;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
@@ -97,8 +98,8 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
     /**
      * Load My Account tabs i.e
-     * <br> 1. Friends
-     * <br> 2. Friends
+     * <br> 1. My Details
+     * <br> 2. Handicap
      * <br> 3. Finances
      * <p>
      * <br> @return Fragment
@@ -107,12 +108,12 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
         switch (iPosition) {
             case 0:
-               FriendsFragment financeFragment1 = new FriendsFragment();
+               MyDetailsFragment financeFragment1 = new MyDetailsFragment();
                 return financeFragment1;
 
             case 1:
-                FriendsFragment financeFragment2 = new FriendsFragment();
-                return financeFragment2;
+                HandicapFragment handicapFragment = new HandicapFragment();
+                return handicapFragment;
 
             case 2:
                 FinanceFragment financeFragment = new FinanceFragment();

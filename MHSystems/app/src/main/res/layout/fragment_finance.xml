@@ -69,7 +69,7 @@
                 android:padding="5dp"
                 android:text=""
                 android:textColor="@color/colorBlack000000"
-                android:textSize="18sp" />
+                android:textSize="17sp" />
 
         </LinearLayout>
 
@@ -84,7 +84,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorGreyf1f1f0"
-                android:padding="10dp">
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp">
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -105,7 +107,7 @@
                     android:alpha=".6"
                     android:paddingRight="10dp"
                     android:text="SHOW ALL"
-                    android:textColor="@color/color0000ff"
+                    android:textColor="@color/color107EFD"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -131,7 +133,7 @@
                 android:layout_marginLeft="12dp"
                 android:text=""
                 android:textColor="@color/colorBlack000000"
-                android:textSize="18sp" />
+                android:textSize="17sp" />
 
             <ImageView
                 android:layout_width="wrap_content"

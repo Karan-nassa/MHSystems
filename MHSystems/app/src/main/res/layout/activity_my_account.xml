@@ -26,7 +26,7 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -50,14 +50,15 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:gravity="center"
-                        android:textStyle="bold"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center|left"
+                        android:text="@string/title_my_account"
                         android:textColor="@color/colorBlack000000"
-                        android:text="@string/title_my_account"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                </FrameLayout>
+                </LinearLayout>
 
             </android.support.v7.widget.Toolbar>
 

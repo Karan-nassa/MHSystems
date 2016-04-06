@@ -43,9 +43,23 @@
 
     <!-- START OF MY ACCOUNT ACTIVITY -->
     <string name="title_my_account">My Account</string>
-    <string name="tab_title_friends">Friends</string>
+    <string name="tab_title_my_details">My Details</string>
+    <string name="tab_title_handicap">Handicap</string>
     <string name="tab_title_finances">Finances</string>
     <!-- END OF MY ACCOUNT ACTIVITY -->
+
+    <!-- START OF DETAIL INVOICE ACTIVITY -->
+    <string name="title_text_invoice">INVOICE NUMBER</string>
+    <string name="title_text_date">DATE</string>
+    <string name="title_text_status">STATUS</string>
+    <string name="title_text_description">DESCRIPTION</string>
+    <string name="title_text_from">FROM</string>
+    <string name="title_text_to">TO</string>
+    <string name="title_text_value">VALUE</string>
+    <string name="title_text_tax">TAX</string>
+    <string name="title_text_total">TOTAL</string>
+    <string name="title_text_remarks">REMARKS</string>
+    <!-- END OF DETAIL INVOICE ACTIVITY -->
 
     <!-- NAVIGATION DRAWER ITEMS -->
     <string-array name="navDrawerItems">

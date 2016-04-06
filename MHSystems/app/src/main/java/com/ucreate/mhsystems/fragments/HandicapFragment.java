@@ -34,11 +34,11 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class HandicapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = FriendsFragment.class.getSimpleName();
+    public static final String LOG_TAG = HandicapFragment.class.getSimpleName();
     ArrayList<CompetitionsData> competitionsDatas = new ArrayList<>();
 
     private boolean isSwipeVisible = false;
@@ -61,7 +61,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_friends, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_handicap, container, false);
 
         lvFriends = (ListView) mRootView.findViewById(R.id.lvFriends);
 
