@@ -3,6 +3,7 @@ package com.ucreate.mhsystems.adapter.BaseAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,18 +28,22 @@ public class CompetitionsAdapter extends BaseAdapter {
     LayoutInflater inflater = null;
     String strLastDate = "";
 
+    Typeface typeface, typefaceMedium;
 
     /**
      * VIDEOS Adapter to initialize all instances.
      *
-     * @param Activity:              To hold context.
-     * @param ArrayList<VideoItems>: Used for Videos data.
+     * @param context:              To hold context.
+     * @param CourseDiaryData    : Used for Videos data.
      */
     public CompetitionsAdapter(Activity context, ArrayList<CompetitionsData> CourseDiaryData) {
         this.context = context;
         this.compititionsDatas = CourseDiaryData;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
+        typefaceMedium = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
     }
 
     /**
@@ -84,6 +89,8 @@ public class CompetitionsAdapter extends BaseAdapter {
 
         viewHolder.llShowDetails = (LinearLayout) rowView.findViewById(R.id.llShowDetails);
 
+        //Set Font Style Typeface
+        setTypeFace(viewHolder);
         rowView.setTag(viewHolder);
 
         viewHolder = (View_Holder) rowView.getTag();
@@ -118,6 +125,21 @@ public class CompetitionsAdapter extends BaseAdapter {
         });
 
         return rowView;
+    }
+
+
+    /**
+     * Implements a method to set ROBOTO normal
+     * font for NO EVENTS row.
+     */
+    public void setTypeFace(View_Holder viewHolder) {
+
+        viewHolder.tvFeeCompEvent.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvDateCompEvent.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvCompDesc.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvEventStatusStr.setTypeface(typeface, Typeface.NORMAL);
+
+        viewHolder.tvCompTitle.setTypeface(typefaceMedium, Typeface.NORMAL);
     }
 
     /**

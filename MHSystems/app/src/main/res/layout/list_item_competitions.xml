@@ -134,6 +134,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="ENTRY OPEN"
+                    android:alpha="0.5"
                     android:padding="8dp"
                     android:textColor="@color/color939393"
                     android:textSize="14sp" />

@@ -47,7 +47,7 @@
                     </LinearLayout>
 
                     <!-- TITLE OF SCREEN -->
-                    <TextView
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -56,7 +56,7 @@
                         android:text="@string/title_my_account"
                         android:textColor="@color/colorBlack000000"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        />
 
                 </LinearLayout>
 

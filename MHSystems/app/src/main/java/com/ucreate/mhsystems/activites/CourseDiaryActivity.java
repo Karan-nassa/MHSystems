@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
-import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 
@@ -177,7 +176,7 @@ public class CourseDiaryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_course);
+        setContentView(R.layout.activity_course_diary);
 
         //Initialize view resources.
         ButterKnife.bind(this);

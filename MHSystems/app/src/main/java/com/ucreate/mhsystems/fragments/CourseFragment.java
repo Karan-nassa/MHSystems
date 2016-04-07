@@ -45,15 +45,13 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class CourseFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     public static final String LOG_TAG = CourseFragment.class.getSimpleName();
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
     ArrayList<CourseDiaryDataCopy> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
-
-    private boolean isSwipeVisible = false;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -160,7 +158,7 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             //Method to hit Squads API.
-            requestNewsService();
+            requestCourseService();
         } else {
             ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
@@ -169,11 +167,9 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
     /**
      * Implement a method to hit News web service to get response.
      */
-    public void requestNewsService() {
+    public void requestCourseService() {
 
-        if (!isSwipeVisible) {
-            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
-        }
+        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParams = new AJsonParams_();
         aJsonParams.setCallid("1456315336575");
@@ -263,12 +259,5 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
         //Dismiss progress dialog.
         ((BaseActivity) getActivity()).hideProgress();
-    }
-
-
-    @Override
-    public void onRefresh() {
-        isSwipeVisible = true;
-        callCourseWebService();
     }
 }

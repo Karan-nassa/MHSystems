@@ -3,6 +3,7 @@ package com.ucreate.mhsystems.adapter.BaseAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,18 +35,22 @@ public class CourseDiaryAdapter extends BaseAdapter {
     LayoutInflater inflater = null;
     String strLastDate = "";
 
+    Typeface typeface;
+
 
     /**
      * VIDEOS Adapter to initialize all instances.
      *
-     * @param Activity:              To hold context.
-     * @param ArrayList<VideoItems>: Used for Videos data.
+     * @param context:        : To hold context.
+     * @param CourseDiaryData : Used for Videos data.
      */
     public CourseDiaryAdapter(Activity context, ArrayList<CourseDiaryDataCopy> CourseDiaryData) {
         this.context = context;
         this.CourseDiaryData = CourseDiaryData;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
     }
 
     /**
@@ -90,8 +95,10 @@ public class CourseDiaryAdapter extends BaseAdapter {
             viewHolder.tvDescOfEvent = (TextView) rowView.findViewById(R.id.tvDescOfEvent);
             viewHolder.tvDayOfEvent = (TextView) rowView.findViewById(R.id.tvDayOfEvent);
 
-            rowView.setTag(viewHolder);
+            //Set Font Style Typeface
+            setEventTypeFace(viewHolder);
 
+            rowView.setTag(viewHolder);
             viewHolder = (View_Holder) rowView.getTag();
 
             viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
@@ -109,6 +116,9 @@ public class CourseDiaryAdapter extends BaseAdapter {
             viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
             viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
             viewHolder.tvDescOfEvent = (TextView) rowView.findViewById(R.id.tvDescOfEvent);
+
+            //Set Font Style Typeface
+            setNoEventTypeFace(viewHolder);
             rowView.setTag(viewHolder);
 
             viewHolder = (View_Holder) rowView.getTag();
@@ -139,6 +149,30 @@ public class CourseDiaryAdapter extends BaseAdapter {
         }
 
         return rowView;
+    }
+
+    /**
+     * Implements a method to set ROBOTO normal
+     * font for EVENTS row.
+     */
+    public void setEventTypeFace(View_Holder viewHolder) {
+
+        viewHolder.tvDateOfEvent.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvDayOfEvent.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvTimeOfEvent.setTypeface(typeface, Typeface.NORMAL);
+    }
+
+    /**
+     * Implements a method to set ROBOTO normal
+     * font for NO EVENTS row.
+     */
+    public void setNoEventTypeFace(View_Holder viewHolder) {
+
+        viewHolder.tvDateOfEvent.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvDayOfEvent.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvTimeOfEvent.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvTitleOfEvent.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvDescOfEvent.setTypeface(typeface, Typeface.NORMAL);
     }
 
     /**
