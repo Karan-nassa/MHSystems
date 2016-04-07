@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
+import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
@@ -84,6 +85,8 @@ public class CourseDairyTabFragment extends Fragment {
             setTabVisibleStatus(tab.getPosition());
 
             iLastTabPosition = tab.getPosition();
+
+            CourseDiaryActivity.resetMonthsNavigationIcons();
 
             if (tab.getPosition() == 0) {
                 mCourseKey = "1.1";
@@ -190,9 +193,12 @@ public class CourseDairyTabFragment extends Fragment {
                 } else {
                     CourseDiaryActivity.iMonth++;
 
+                    if(CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth){
+                        CourseDiaryActivity.setPreviousButton(true);
+                    }
+
                     //Do nothing. Just load data according current date.
                     CourseDiaryActivity.strDate = "01";
-
 
                     ((CourseDiaryActivity) getActivity()).getNumberofDays();
                 }

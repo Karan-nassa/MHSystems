@@ -120,11 +120,13 @@
                 </FrameLayout>
 
                 <!-- DIVIDER LINE-->
-                <View
+
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="1.5dp"
-                    android:alpha="0.1"
-                    android:background="@color/colorBlack000000"/>
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.5"
+                    android:background="@color/colorAAAAAA"/>
 
                 <!-- INVOICE NUMBER, DATE CONTENT AND STATUS -->
 
@@ -152,7 +154,7 @@
                             android:text="747"
                             android:textColor="@color/colorBlack000000"
                             android:textSize="17sp"
-                            android:textStyle="bold" />
+                            />
 
                         <!-- DATE -->
 
@@ -165,7 +167,7 @@
                             android:text="2015-12-31"
                             android:textColor="@color/colorBlack000000"
                             android:textSize="17sp"
-                            android:textStyle="bold" />
+                            />
 
                     </FrameLayout>
 
@@ -197,18 +199,20 @@
                             android:text="OVERDUE"
                             android:textColor="@color/colorBlack000000"
                             android:textSize="17sp"
-                            android:textStyle="bold" />
+                            />
 
                     </FrameLayout>
 
                 </LinearLayout>
 
                 <!-- DIVIDER LINE-->
-                <View
+
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="1.5dp"
-                    android:alpha="0.1"
-                    android:background="@color/colorBlack000000"/>
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.5"
+                    android:background="@color/colorAAAAAA"/>
 
                 <!-- DESCRIPTION TITLE -->
 
@@ -223,11 +227,13 @@
                     android:textSize="14sp" />
 
                 <!-- DIVIDER LINE-->
-                <View
+
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="1.5dp"
-                    android:alpha="0.1"
-                    android:background="@color/colorBlack000000"/>
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.5"
+                    android:background="@color/colorAAAAAA"/>
 
                 <!-- INVOICE NUMBER, DATE CONTENT AND STATUS -->
 
@@ -248,17 +254,19 @@
                         android:text="ANNUAL SUBSCRIPTION SENIOR - LADY"
                         android:textColor="@color/colorBlack000000"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        />
 
 
                 </LinearLayout>
 
                 <!-- DIVIDER LINE-->
-                <View
+
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="1.5dp"
-                    android:alpha="0.1"
-                    android:background="@color/colorBlack000000"/>
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.5"
+                    android:background="@color/colorAAAAAA"/>
 
                 <!-- FROM, TO, VALUE, TAX, TOTAL -->
 
@@ -306,7 +314,7 @@
                                 android:text="2015-12-31"
                                 android:textColor="@color/colorBlack000000"
                                 android:textSize="17sp"
-                                android:textStyle="bold" />
+                                />
 
                         </FrameLayout>
 
@@ -348,7 +356,7 @@
                                 android:text="2015-12-30"
                                 android:textColor="@color/colorBlack000000"
                                 android:textSize="17sp"
-                                android:textStyle="bold" />
+                                />
 
                         </FrameLayout>
 
@@ -381,7 +389,7 @@
                                 android:text="1930"
                                 android:textColor="@color/colorBlack000000"
                                 android:textSize="17sp"
-                                android:textStyle="bold" />
+                                />
 
                         </FrameLayout>
 
@@ -414,7 +422,7 @@
                                 android:text="0"
                                 android:textColor="@color/colorBlack000000"
                                 android:textSize="17sp"
-                                android:textStyle="bold" />
+                                />
 
                         </FrameLayout>
 
@@ -447,7 +455,7 @@
                                 android:text="1930"
                                 android:textColor="@color/colorBlack000000"
                                 android:textSize="17sp"
-                                android:textStyle="bold" />
+                                />
 
                         </FrameLayout>
 
@@ -456,11 +464,13 @@
                 </LinearLayout>
 
                 <!-- DIVIDER LINE-->
-                <View
+
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="1.5dp"
-                    android:alpha="0.1"
-                    android:background="@color/colorBlack000000"/>
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.5"
+                    android:background="@color/colorAAAAAA"/>
 
                 <!-- TOTAL VALUE -->
 

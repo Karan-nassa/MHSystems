@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
+import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.activites.CustomAlertDialogActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
@@ -141,6 +142,10 @@ public class CourseFragment extends Fragment implements SwipeRefreshLayout.OnRef
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser) {
+
+            //Reset CALENDAR.
+            ((CourseDiaryActivity) getActivity()).resetCalendarEvents();
+
             callCourseWebService();
         }
     }

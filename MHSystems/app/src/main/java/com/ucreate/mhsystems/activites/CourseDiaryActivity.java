@@ -1,11 +1,13 @@
 package com.ucreate.mhsystems.activites;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,9 +20,11 @@ import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
+import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
 import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -55,6 +59,11 @@ public class CourseDiaryActivity extends BaseActivity {
 
     //Create instance of  {@link Calendar} class.
     public static Calendar mCalendarInstance;
+
+    //Create instance of Menu to change PREV, NEXT and TODAY icon.
+    private static Menu menuInstance;
+
+    private static Context mActivityContext;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -131,6 +140,8 @@ public class CourseDiaryActivity extends BaseActivity {
                             }
                         }
                     }, iYear, --iMonth, Integer.parseInt(strDate));
+            //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+            resetMonthsNavigationIcons();
             dpd.show();
 
             //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
@@ -171,6 +182,9 @@ public class CourseDiaryActivity extends BaseActivity {
         //Initialize view resources.
         ButterKnife.bind(this);
 
+        //Get Context
+        mActivityContext = CourseDiaryActivity.this;
+
         //Let's first set up toolbar
         setupToolbar();
 
@@ -197,6 +211,15 @@ public class CourseDiaryActivity extends BaseActivity {
 
         //When user want to Select date from CALENDAR.
         llMonthTitle.setOnClickListener(mCalendarListener);
+    }
+
+    /**
+     * Declares a method to get NAME of MONTH by passing
+     * month value.
+     */
+    public static String getMonth(int month) {
+
+        return new DateFormatSymbols().getMonths()[month - 1];
     }
 
     /**
@@ -250,7 +273,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * @param strCourseEventDate <br>
      *                           Implements a method to return the format the day of
      *                           event.
-     *                           <p/>
+     *                           <p>
      *                           Exapmle: 2016-03-04T00:00:00
      * @Return : 04
      */
@@ -269,7 +292,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * @param strDayName <br>
      *                   Implements a method to return the format the day of
      *                   event.
-     *                   <p/>
+     *                   <p>
      *                   Exapmle: NAME OF DAY : Friday
      * @Return : Fri
      */
@@ -299,11 +322,28 @@ public class CourseDiaryActivity extends BaseActivity {
     }
 
     /**
+     * Implements a common method to update
+     * Fragment.
+     */
+    public void updateFragment(Fragment mFragment) {
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.containerView, mFragment);
+        fragmentTransaction.commit();
+    }
+
+    /**
      * Create Menu Options
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        menuInstance = menu;
+
+        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+        resetMonthsNavigationIcons();
+
         return true;
     }
 
@@ -319,7 +359,9 @@ public class CourseDiaryActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case R.id.action_PrevMonth:
-                updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
+                if (iMonth > iCurrentMonth) {
+                    updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
+                }
                 break;
 
             case R.id.action_NextMonth:
@@ -331,33 +373,82 @@ public class CourseDiaryActivity extends BaseActivity {
                 break;
         }
 
+        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+        resetMonthsNavigationIcons();
+
         //Commit and navigate to new fragment.
         tr.commit();
         return super.onOptionsItemSelected(item);
     }
 
     /**
-     * Implements a common method to update
-     * Fragment.
+     * Implements this method to reset CALENDAR PREV, NEXT and TODAY icon.
      */
-    public void updateFragment(Fragment mFragment) {
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.containerView, mFragment);
-        fragmentTransaction.commit();
+    public static void resetMonthsNavigationIcons() {
+        /**
+         *  To disable or display blur previous icon.
+         */
+        if (iMonth <= iCurrentMonth) {
+            setPreviousButton(false);
+        } else {
+            setPreviousButton(true);
+        }
     }
 
     /**
-     * Implements a method to disable or enable status of
-     * MENU bar icons.
+     * User can navigate back to 1st JAN of current YEAR for COMPLETED tab so reset or navigate
+     * to current MONTH if past MONTH/DATE selected via PREVIOUS MONTH icon.
      */
-    public void setMenuIcon(int iMenuPosition, boolean isEnable) {
+    public void resetCalendarEvents() {
 
-        switch (iMenuPosition) {
-            case 0:
-                //menu.getItem(0).setIcon(getResources().getDrawable(R.mipmap.ic_arrow_left_blur));
-                break;
+        if (iMonth <= iCurrentMonth) {
+
+            //Reset to current MONTH.
+            resetCalendar();
+
+            // Create a calendar object and set year and month
+            mCalendarInstance = new GregorianCalendar(iYear, (iMonth - 1), Integer.parseInt(strDate));
+
+            // Get the number of days in that month
+            iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+            //FORMAT : MM-DD-YYYY
+            CourseDairyTabFragment.strDateFrom = "" + iMonth + "/" + strDate + "/" + iYear;
+
+            //FORMAT : MM-DD-YYYY
+            CourseDairyTabFragment.strDateTo = "" + iMonth + "/" + iNumOfDays + "/" + iYear;
+
+            //Set MONTH title.
+            setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
+
+            Log.e(LOG_TAG, "START DATE : " + CourseDairyTabFragment.strDateFrom);
+            Log.e(LOG_TAG, "END DATE : " + CourseDairyTabFragment.strDateTo);
         }
+    }
 
+    /**
+     * Implements a method to ENABLE/DISABLE previous
+     * MONTH arrow.
+     */
+    public static void setPreviousButton(boolean isEnable) {
+
+        if (isEnable) {
+            menuInstance.getItem(0).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_left));
+        } else {
+            menuInstance.getItem(0).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_left_blur));
+        }
+    }
+
+    /**
+     * Implements a method to ENABLE/DISABLE NEXT
+     * MONTH arrow.
+     */
+    public static void setNextButton(boolean isEnable) {
+
+        if (isEnable) {
+            menuInstance.getItem(1).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_right));
+        } else {
+            menuInstance.getItem(1).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_right_blur));
+        }
     }
 }

@@ -326,6 +326,17 @@ public class CompetitionsActivity extends BaseActivity {
     }
 
     /**
+     * Implements a common method to update
+     * Fragment.
+     */
+    public void updateFragment(Fragment mFragment) {
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.containerView, mFragment);
+        fragmentTransaction.commit();
+    }
+
+    /**
      * Create Menu Options
      */
     @Override
@@ -394,7 +405,7 @@ public class CompetitionsActivity extends BaseActivity {
 
     /**
      *  Implements this method to reset CALENDAR PREV, NEXT and TODAY icon.
-    */
+     */
     public static void resetMonthsNavigationIcons() {
         /**
          *  To disable or display blur previous icon.
@@ -413,17 +424,6 @@ public class CompetitionsActivity extends BaseActivity {
                 setPreviousButton(true);
             }
         }
-    }
-
-    /**
-     * Implements a common method to update
-     * Fragment.
-     */
-    public void updateFragment(Fragment mFragment) {
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.containerView, mFragment);
-        fragmentTransaction.commit();
     }
 
 
