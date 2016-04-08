@@ -231,13 +231,13 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
 //                    Log.e("SIZE getCurrentBills:", "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().size());
 
                     tvCreditBalance.setText(myAccountItems.getMyAccountData().get(0).getMemBalance().get(0).getCrnSymbolStr()
-                            + " " + myAccountItems.getMyAccountData().get(0).getMemBalance().get(0).getValueStr());
+                            + myAccountItems.getMyAccountData().get(0).getMemBalance().get(0).getValueStr());
 
                     //Get INVOICE number.
                     strInvoiceTitle = "INV/" + formatDate(myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceDate())
                             + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo();
 
-                    tvCurrentInvoice.setText("\u00a3" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable() + " - " + strInvoiceTitle);
+                    tvCurrentInvoice.setText("$" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable() + " - " + strInvoiceTitle);
 
                     //mFinanceAdapter = new FinanceSectionAdapter(getActivity(), myAccountDatas);
                     // lvFinance.setAdapter(mFinanceAdapter);

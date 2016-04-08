@@ -112,10 +112,10 @@ public class CompetitionsTabFragment extends Fragment {
         //Initialize view resources.
         tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
 
-        tabLayout.addTab(tabLayout.newTab().setText("My Events"));
-        tabLayout.addTab(tabLayout.newTab().setText("Completed"));
-        tabLayout.addTab(tabLayout.newTab().setText("Current"));
-        tabLayout.addTab(tabLayout.newTab().setText("Future"));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_events)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_current)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_completed)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_upcoming)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -153,7 +153,7 @@ public class CompetitionsTabFragment extends Fragment {
             case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
 
                 //IF COMPLETED TAB SELECTED THEN DISPLAY DATA FROM 1st JAN of current year.
-                if (iLastTabPosition == 1) {
+                if (iLastTabPosition == 2) {
 
                     if (CompetitionsActivity.iMonth == Calendar.JANUARY) {
 

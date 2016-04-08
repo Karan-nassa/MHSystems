@@ -16,10 +16,10 @@ import com.ucreate.mhsystems.fragments.CurrentFragment;
 import com.ucreate.mhsystems.fragments.FinanceFragment;
 import com.ucreate.mhsystems.fragments.HandicapFragment;
 import com.ucreate.mhsystems.fragments.MyDetailsFragment;
-import com.ucreate.mhsystems.fragments.FutureFragment;
-import com.ucreate.mhsystems.fragments.MyEventsFragment;
-import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
-import com.ucreate.mhsystems.fragments.CourseFragment;
+import com.ucreate.mhsystems.fragments.UpcomingFragment;
+import com.ucreate.mhsystems.fragments.EventsFragment;
+import com.ucreate.mhsystems.fragments.NewCourseFragment;
+import com.ucreate.mhsystems.fragments.OldCourseFragment;
 
 
 /**
@@ -84,12 +84,12 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
         switch (iPosition) {
             case 0:
-                CourseDairyTabFragment.courseFragment = new CourseFragment();
-                return CourseDairyTabFragment.courseFragment;
+                OldCourseFragment oldCourseFragment = new OldCourseFragment();
+                return oldCourseFragment;
 
             case 1:
-                CourseDairyTabFragment.courseFragment = new CourseFragment();
-                return CourseDairyTabFragment.courseFragment;
+                NewCourseFragment newCourseFragment = new NewCourseFragment();
+                return newCourseFragment;
 
             default:
                 return null;
@@ -127,8 +127,8 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     /**
      * Load Competitions tabs i.e.
      * <br> 1. My Events.
-     * <br> 2. Completed.
-     * <br> 3. Current.
+     * <br> 2. Current.
+     * <br> 3. Completed.
      * <br> 4. Future.
      * <p>
      * <br> @return Fragment
@@ -137,20 +137,20 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
         switch (iPosition) {
             case 0:
-                MyEventsFragment competitionsTabFragment = new MyEventsFragment();
+                EventsFragment competitionsTabFragment = new EventsFragment();
                 return competitionsTabFragment;
 
             case 1:
-                CompletedFragment compleTabFragment = new CompletedFragment();
-                return compleTabFragment;
-
-            case 2:
                 CurrentFragment currentFragment = new CurrentFragment();
                 return currentFragment;
 
+            case 2:
+                CompletedFragment compleTabFragment = new CompletedFragment();
+                return compleTabFragment;
+
             case 3:
-                FutureFragment futureFragment = new FutureFragment();
-                return futureFragment;
+                UpcomingFragment upcomingFragment = new UpcomingFragment();
+                return upcomingFragment;
             default:
                 return null;
         }

@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
@@ -47,10 +46,6 @@ public class CourseDairyTabFragment extends Fragment {
     Context context;
     TabsPageAdapter pageAdapter;
 
-    //Create instance of Fragment.
-    public static CourseFragment courseFragment;
-
-
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
@@ -69,14 +64,6 @@ public class CourseDairyTabFragment extends Fragment {
      */
     public static int iLastTabPosition;
 
-    /**
-     * This instance used to identify which tab is
-     * selected and describe CourseKey.
-     * <p/>
-     * <br> 1.1 for OLD COURSE
-     * <br> 1.3 for NEW COURSE
-     */
-    public static String mCourseKey = "1.1";
 
     private TabLayout.OnTabSelectedListener mCourseTabListener = new TabLayout.OnTabSelectedListener() {
         @Override
@@ -87,12 +74,6 @@ public class CourseDairyTabFragment extends Fragment {
             iLastTabPosition = tab.getPosition();
 
             CourseDiaryActivity.resetMonthsNavigationIcons();
-
-            if (tab.getPosition() == 0) {
-                mCourseKey = "1.1";
-            } else if (tab.getPosition() == 1) {
-                mCourseKey = "1.3";
-            }
         }
 
         @Override

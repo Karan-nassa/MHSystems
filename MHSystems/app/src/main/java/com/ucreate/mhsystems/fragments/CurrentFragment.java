@@ -130,6 +130,7 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
         competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY
         competitionsJsonParams.setPageNo("0");
         competitionsJsonParams.setPageSize("10");
+        competitionsJsonParams.setAscendingDateOrder(true);
 
         competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
 

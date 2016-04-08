@@ -125,6 +125,7 @@ public class CompletedFragment extends Fragment implements SwipeRefreshLayout.On
         competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY [START DATE]
         competitionsJsonParams.setPageNo("0");
         competitionsJsonParams.setPageSize("10");
+        competitionsJsonParams.setAscendingDateOrder(true);
 
         competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
 

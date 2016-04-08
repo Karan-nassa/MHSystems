@@ -11,15 +11,6 @@
         android:background="@color/colorFFEFEFF4"
         android:orientation="vertical">
 
-        <!--   <ListView
-               android:id="@+id/lvFinance"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="@android:color/white"
-               android:cacheColorHint="@android:color/white"
-               android:divider="@color/colorFFEFEFF4"
-               android:dividerHeight="2dp"/>-->
-
         <!-- YOUR BALANCE -->
 
         <LinearLayout
@@ -73,7 +64,69 @@
 
         </LinearLayout>
 
-        <!-- YOUR BALANCE -->
+        <!-- RECENT TRANSACTIONS -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGreyf1f1f0"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:padding="7dp"
+                    android:text="@string/title_recent_transaction"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:alpha=".6"
+                    android:paddingRight="10dp"
+                    android:text="SHOW ALL"
+                    android:textColor="@color/color107EFD"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- RECENT TRANSACTION LIST -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhiteffffff"
+            android:orientation="vertical">
+
+            <!-- TOTAL CREDIT BALANCE -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/colorBlack000000"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <!-- CURRENT TRANSACTION -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -114,7 +167,7 @@
             </FrameLayout>
         </LinearLayout>
 
-        <!-- AMOUNT IN CARD -->
+        <!-- CURRENT INVOICE TOP RECORD -->
 
         <FrameLayout
             android:id="@+id/flCurrentInvoice"

@@ -38,11 +38,11 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class MyEventsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = MyEventsFragment.class.getSimpleName();
+    public static final String LOG_TAG = EventsFragment.class.getSimpleName();
     ArrayList<CompetitionsData> competitionsDatas = new ArrayList<>();
 
     private boolean isSwipeVisible = false;
@@ -141,6 +141,7 @@ public class MyEventsFragment extends Fragment implements SwipeRefreshLayout.OnR
         competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY
         competitionsJsonParams.setPageNo("0");
         competitionsJsonParams.setPageSize("10");
+        competitionsJsonParams.setAscendingDateOrder(true);
 
         competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
 

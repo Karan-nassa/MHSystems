@@ -41,6 +41,17 @@
     <string name="title_competitions_prize">fee per guest</string>
     <!-- END OF COMPETITIONS EVENT ACTIVITY -->
 
+    <!-- START OF COMPETITIONS FRAGMENT -->
+    <string name="tab_title_events">EVENTS</string>
+    <string name="tab_title_current">CURRENT</string>
+    <string name="tab_title_completed">COMPLETED</string>
+    <string name="tab_title_upcoming">UPCOMING</string>
+    <!-- END OF COMPETITIONS FRAGMENT -->
+
+    <!-- START OF FINANCE FRAGMENT -->
+    <string name="title_recent_transaction">RECENT TRANSACTIONS</string>
+    <!-- END OF FINANCE FRAGMENT -->
+
     <!-- START OF MY ACCOUNT ACTIVITY -->
     <string name="title_my_account">My Account</string>
     <string name="tab_title_my_details">My Details</string>

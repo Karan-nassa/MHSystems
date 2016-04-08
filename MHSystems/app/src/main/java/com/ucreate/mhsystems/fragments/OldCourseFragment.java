@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +22,6 @@ import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.activites.CustomAlertDialogActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
@@ -45,11 +43,11 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class CourseFragment extends Fragment {
+public class OldCourseFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = CourseFragment.class.getSimpleName();
+    public static final String LOG_TAG = OldCourseFragment.class.getSimpleName();
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
     ArrayList<CourseDiaryDataCopy> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
 
@@ -141,8 +139,12 @@ public class CourseFragment extends Fragment {
 
         if (isVisibleToUser) {
 
+            /**
+             * TODO : Hide RESET CALENDAR functionality because its showing whole month data on select single date or TODAY.
+             *
+             */
             //Reset CALENDAR.
-            ((CourseDiaryActivity) getActivity()).resetCalendarEvents();
+            //   ((CourseDiaryActivity) getActivity()).resetCalendarEvents();
 
             callCourseWebService();
         }
@@ -178,7 +180,7 @@ public class CourseFragment extends Fragment {
         aJsonParams.setDatefrom(CourseDairyTabFragment.strDateFrom); // MM-DD-YYYY
         aJsonParams.setPageNo("0");
         aJsonParams.setPageSize("10");
-        aJsonParams.setCourseKey(CourseDairyTabFragment.mCourseKey);
+        aJsonParams.setCourseKey("1.1");
 
         courseDiaryAPI = new CourseDiaryAPI(aJsonParams, "COURSEDIARY", "44118078", "GetSlots", "Members");
 

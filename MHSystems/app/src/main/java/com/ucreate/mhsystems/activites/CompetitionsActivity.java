@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
@@ -82,46 +83,6 @@ public class CompetitionsActivity extends BaseActivity {
         }
     };
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_competitions);
-
-        //Initialize view resources.
-        ButterKnife.bind(this);
-
-        //Get Context
-        mActivityContext = CompetitionsActivity.this;
-
-        //Let's first set up toolbar
-        setupToolbar();
-
-        //Initialize CALENDAR instance.
-        mCalendarInstance = Calendar.getInstance();
-
-        iYear = mCalendarInstance.get(Calendar.YEAR);
-        iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
-        strDate = "" + mCalendarInstance.get(Calendar.DAY_OF_MONTH);
-
-        //Store to check use cannot navigate to previous dates of CALENDAR.
-        strCurrentDate = strDate;
-        iCurrentYear = iYear;
-        iCurrentMonth = iMonth;
-
-        //Get total number of days of selected month.
-        iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        //Load Default fragment of COURSE DIARY.
-        updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_NOTHING));
-
-        //Set click listener events declaration.
-        llHomeIcon.setOnClickListener(mHomePressListener);
-
-        //When user want to Select date from CALENDAR.
-        llMonthTitleComp.setOnClickListener(mCalendarListener);
-    }
-
     /**
      * Display CALENDAR view on tap of Month Title.
      */
@@ -141,7 +102,7 @@ public class CompetitionsActivity extends BaseActivity {
 
                             if (year == iCurrentYear) {
 
-                                if (CompetitionsTabFragment.iLastTabPosition == 1) {
+                                if (CompetitionsTabFragment.iLastTabPosition == 2) {
 
                                     iYear = year;
                                     iMonth = tMonthofYear;
@@ -196,6 +157,45 @@ public class CompetitionsActivity extends BaseActivity {
             //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         }
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_competitions);
+
+        //Initialize view resources.
+        ButterKnife.bind(this);
+
+        //Get Context
+        mActivityContext = CompetitionsActivity.this;
+
+        //Let's first set up toolbar
+        setupToolbar();
+
+        //Initialize CALENDAR instance.
+        mCalendarInstance = Calendar.getInstance();
+
+        iYear = mCalendarInstance.get(Calendar.YEAR);
+        iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
+        strDate = "" + mCalendarInstance.get(Calendar.DAY_OF_MONTH);
+
+        //Store to check use cannot navigate to previous dates of CALENDAR.
+        strCurrentDate = strDate;
+        iCurrentYear = iYear;
+        iCurrentMonth = iMonth;
+
+        //Get total number of days of selected month.
+        iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        //Load Default fragment of COURSE DIARY.
+        updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_NOTHING));
+
+        //Set click listener events declaration.
+        llHomeIcon.setOnClickListener(mHomePressListener);
+
+        //When user want to Select date from CALENDAR.
+        llMonthTitleComp.setOnClickListener(mCalendarListener);
+    }
 
     /**
      * Implements a method to RESET CALENDAR state
@@ -367,7 +367,7 @@ public class CompetitionsActivity extends BaseActivity {
                  *  User can navigate back till current MONTH but can back to JANUARY MONTH for
                  *  COMPLETED tab.
                  */
-                if (CompetitionsTabFragment.iLastTabPosition == 1) {
+                if (CompetitionsTabFragment.iLastTabPosition == 2) {
 
                     if (iMonth > 1) {
                         updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
@@ -404,13 +404,13 @@ public class CompetitionsActivity extends BaseActivity {
     }
 
     /**
-     *  Implements this method to reset CALENDAR PREV, NEXT and TODAY icon.
+     * Implements this method to reset CALENDAR PREV, NEXT and TODAY icon.
      */
     public static void resetMonthsNavigationIcons() {
         /**
          *  To disable or display blur previous icon.
          */
-        if (CompetitionsTabFragment.iLastTabPosition == 1) {
+        if (CompetitionsTabFragment.iLastTabPosition == 2) {
 
             if (iMonth <= 1) {
                 setPreviousButton(false);
@@ -433,7 +433,7 @@ public class CompetitionsActivity extends BaseActivity {
      */
     public void resetCalendarEvents() {
 
-        if (iMonth <= iCurrentMonth) {
+        if (iMonth < iCurrentMonth) {
 
             //Reset to current MONTH.
             resetCalendar();

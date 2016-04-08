@@ -28,7 +28,7 @@ public class CompetitionsJsonParams {
     private boolean IncludeCompletedEvents;
     @SerializedName("AscendingDateOrder")
     @Expose
-    private String AscendingDateOrder;
+    private boolean AscendingDateOrder;
     @SerializedName("MyEventsOnly")
     @Expose
     private boolean MyEventsOnly;
@@ -264,7 +264,7 @@ public class CompetitionsJsonParams {
      * @return
      *     The AscendingDateOrder
      */
-    public String getAscendingDateOrder() {
+    public boolean getAscendingDateOrder() {
         return AscendingDateOrder;
     }
 
@@ -273,7 +273,7 @@ public class CompetitionsJsonParams {
      * @param AscendingDateOrder
      *     The AscendingDateOrder
      */
-    public void setAscendingDateOrder(String AscendingDateOrder) {
+    public void setAscendingDateOrder(boolean AscendingDateOrder) {
         this.AscendingDateOrder = AscendingDateOrder;
     }
 

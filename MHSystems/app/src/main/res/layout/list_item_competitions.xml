@@ -148,14 +148,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
+                android:gravity="right"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SHOW DETAIL &amp; JOIN"
-                    android:gravity="right"
-                    android:padding="8dp"
+                    android:text="SHOW DETAIL"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:textColor="@color/color4942AA"
                     android:textSize="14sp" />
 

@@ -148,31 +148,6 @@ public class CourseDiaryActivity extends BaseActivity {
         }
     };
 
-    /**
-     * Implements a method to RESET CALENDAR state
-     * or set as initial state.
-     */
-    private void resetCalendar() {
-
-        strDate = strCurrentDate;
-        iMonth = iCurrentMonth;
-        iYear = iCurrentYear;
-    }
-
-    /**
-     * Implements a method to get TOTAL number of
-     * DAYS in selected MONTH.
-     */
-    public static void getNumberofDays() {
-
-        // Create a calendar object and set year and month
-        mCalendarInstance = new GregorianCalendar(iYear, (iMonth - 1), Integer.parseInt(strDate));
-
-        // Get the number of days in that month
-        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -210,6 +185,30 @@ public class CourseDiaryActivity extends BaseActivity {
 
         //When user want to Select date from CALENDAR.
         llMonthTitle.setOnClickListener(mCalendarListener);
+    }
+
+    /**
+     * Implements a method to RESET CALENDAR state
+     * or set as initial state.
+     */
+    private void resetCalendar() {
+
+        strDate = strCurrentDate;
+        iMonth = iCurrentMonth;
+        iYear = iCurrentYear;
+    }
+
+    /**
+     * Implements a method to get TOTAL number of
+     * DAYS in selected MONTH.
+     */
+    public static void getNumberofDays() {
+
+        // Create a calendar object and set year and month
+        mCalendarInstance = new GregorianCalendar(iYear, (iMonth - 1), Integer.parseInt(strDate));
+
+        // Get the number of days in that month
+        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
     /**
