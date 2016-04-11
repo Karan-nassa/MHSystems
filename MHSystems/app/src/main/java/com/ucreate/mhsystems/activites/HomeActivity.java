@@ -34,7 +34,6 @@ public class HomeActivity extends BaseActivity {
     private AdapterView.OnItemClickListener mGridItemListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
             switch (position) {
                 case 1:
                     intent = new Intent(HomeActivity.this, CourseDiaryActivity.class);
