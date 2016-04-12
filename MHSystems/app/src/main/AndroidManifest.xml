@@ -60,6 +60,10 @@
         <activity
             android:name=".activites.DetailInvoiceActivity"
             android:screenOrientation="portrait" />
+
+        <!-- MEMBERS ACTIVITY -->
+        <activity android:name=".activites.MembersActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

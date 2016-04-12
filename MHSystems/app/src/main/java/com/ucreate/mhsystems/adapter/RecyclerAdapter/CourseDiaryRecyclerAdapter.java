@@ -54,7 +54,7 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
     /**
      * This method is called by RecyclerView.Adapter to display the data at the specified position. 
      * This method should update the contents of the itemView to reflect the item at the given position.
-     * So here , if position!=0 it implies its a row_item and we set the title and icon of the view.
+     * So here , if position!=0 it implies its a list_item_alphabet_row and we set the title and icon of the view.
      */
 
     @Override
@@ -113,7 +113,7 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
     /**
      * This methods returns 0 if the position of the item is '0'.
      * If the position is zero its a header view and if its anything else
-     * its a row_item with a title and icon.
+     * its a list_item_alphabet_row with a title and icon.
      */
 
     @Override
@@ -124,7 +124,7 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
     /**
      * Its a inner class to NavDrawerRecyclerAdapter Class.
      * This ViewHolder class implements View.OnClickListener to handle click events.
-     * If the itemType==1 ; it implies that the view is a single row_item with TextView and ImageView.
+     * If the itemType==1 ; it implies that the view is a single list_item_alphabet_row with TextView and ImageView.
      * This ViewHolder describes an item view with respect to its place within the RecyclerView.
      * For every item there is a ViewHolder associated with it .
      */

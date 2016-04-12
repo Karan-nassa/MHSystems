@@ -41,6 +41,9 @@ public class HomeActivity extends BaseActivity {
                 case 2:
                     intent = new Intent(HomeActivity.this, CompetitionsActivity.class);
                     break;
+                case 3:
+                    intent = new Intent(HomeActivity.this, MembersActivity.class);
+                    break;
                 case 5:
                     intent = new Intent(HomeActivity.this, MyAccountActivity.class);
                     break;
@@ -80,8 +83,8 @@ public class HomeActivity extends BaseActivity {
     private void setGridMenuOptions() {
 
         //Setup Titles and Icons of Navigation Drawer
-        gridTitles = getResources().getStringArray(R.array.navDrawerItems);
-        gridIcons = getResources().obtainTypedArray(R.array.navDrawerIcons);
+        gridTitles = getResources().getStringArray(R.array.homeGridItems);
+        gridIcons = getResources().obtainTypedArray(R.array.HomeGridIcons);
         gridBackground = getResources().obtainTypedArray(R.array.gridBackgroundColors);
 
         //Set Grid options adapter.

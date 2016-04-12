@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhiteffffff"
+    android:orientation="horizontal">
+
+    <!-- VIEW TO DISPLAY SECTION TITLE WHEN USER TAP ON ANY
+         ALPHABET ON RIGHT SIDE TO SCROLL FAST FOR ACCESS
+         ANY PARTICULAR MEMBER -->
+
+    <com.ucreate.mhsystems.customfonts.RobotoTextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:padding="10dp"
+        android:text="Section Row"
+        android:textColor="@color/colorD3D2D6"
+        android:textSize="22sp" />
+
+</LinearLayout>
