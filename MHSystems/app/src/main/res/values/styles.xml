@@ -27,5 +27,17 @@
 
     </style>
 
+    <!-- +++++++++++++++ SPINNER THEME START +++++++++++++++ -->
+
+    <style name="ToolbarSpinnerTheme" parent="Theme.AppCompat">
+        <item name="android:spinnerItemStyle">@style/TextAppearanceSpinnerItem</item>
+    </style>
+
+    <style name="TextAppearanceSpinnerItem">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <!-- +++++++++++++++ SPINNER THEME END +++++++++++++++ -->
+
 </resources>
 

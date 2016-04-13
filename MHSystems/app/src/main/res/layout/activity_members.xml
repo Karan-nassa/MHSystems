@@ -17,10 +17,10 @@
             <!-- STATUS BAR -->
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolBar"
+                android:id="@+id/toolBarMembers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color71B6EE"
+                android:background="@color/colorA1B7E0"
                 android:fitsSystemWindows="true"
                 android:minHeight="?android:attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -36,9 +36,11 @@
                         android:id="@+id/llHomeMyAccount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:orientation="vertical">
 
                         <!-- BACK ARROW  -->
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -46,16 +48,12 @@
 
                     </LinearLayout>
 
-                    <!-- TITLE OF SCREEN -->
-                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                        android:layout_width="match_parent"
+                    <Spinner
+                        android:id="@+id/spinner_nav"
+                        style="@style/ToolbarSpinnerTheme"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center|left"
-                        android:text="@string/text_title_members"
-                        android:textColor="@color/colorBlack000000"
-                        android:textSize="16sp" />
+                        android:layout_marginLeft="15dp" />
 
                 </LinearLayout>
 
