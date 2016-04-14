@@ -73,22 +73,15 @@ public class MyAccountActivity extends BaseActivity {
         //Load Default fragment of COURSE DIARY.
         updateFragment(new MyAccountTabFragment());
 
-
         //Set click listener events declaration.
         llHomeMyAccount.setOnClickListener(mHomePressListener);
     }
 
     /**
-     * Declares a method to get NAME of MONTH by passing
-     * month value.
-     */
-    public static String getMonth(int month) {
-        return new DateFormatSymbols().getMonths()[month - 1];
-    }
-
-    /**
      * Implements a common method to update
      * Fragment.
+     *
+     * @param mFragment
      */
     public void updateFragment(Fragment mFragment) {
 

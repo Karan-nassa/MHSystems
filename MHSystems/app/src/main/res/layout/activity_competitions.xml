@@ -68,26 +68,25 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
                             android:layout_gravity="center"
-                            android:src="@mipmap/ic_arrow_down"/>
+                            android:layout_marginLeft="10dp"
+                            android:src="@mipmap/ic_arrow_down" />
 
                     </LinearLayout>
-
 
 
                 </LinearLayout>
 
             </android.support.v7.widget.Toolbar>
 
-            <!-- VIEW TO LOAD NAVIGATION DRAWER CONTENT -->
+            <!-- USE COMMON VIEW TO DISPLAY TAB DATA -->
 
-            <FrameLayout
-                android:id="@+id/containerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </FrameLayout>
+            <include
+                android:id="@+id/container"
+                layout="@layout/include_container_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" />
 
         </LinearLayout>
 

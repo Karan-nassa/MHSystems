@@ -14,7 +14,9 @@ import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CompletedFragment;
 import com.ucreate.mhsystems.fragments.CurrentFragment;
 import com.ucreate.mhsystems.fragments.FinanceFragment;
+import com.ucreate.mhsystems.fragments.FriendsFragment;
 import com.ucreate.mhsystems.fragments.HandicapFragment;
+import com.ucreate.mhsystems.fragments.MembersFragment;
 import com.ucreate.mhsystems.fragments.MyDetailsFragment;
 import com.ucreate.mhsystems.fragments.UpcomingFragment;
 import com.ucreate.mhsystems.fragments.EventsFragment;
@@ -42,9 +44,10 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     /**
      * Tab Page Adapter initialization.
      * <p>
-     * <br> @param  Fm        : Instance of Fragment Manager
-     * <br> @param  NumOfTabs : Total number of Instance
-     * <br> @param  iFromWhat : Value 1 means call from Article and 2 from Media
+     *
+     * @param fm
+     * @param NumOfTabs
+     * @param iFromWhat
      */
     public TabsPageAdapter(FragmentManager fm, int NumOfTabs, int iFromWhat) {
         super(fm);
@@ -53,6 +56,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     }
 
     /**
+     * @param position
      * @return Selected tab.
      */
     @Override
@@ -66,19 +70,22 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 return loadCompetitionsEvent(position);
 
             case ApplicationGlobal.POSITION_MY_ACCOUNT:
-                Log.e("HERE","HERE");
                 return loadMyAccountTabs(position);
 
+            case ApplicationGlobal.POSITION_MEMBERS:
+                return loadMembersTab(position);
         }
         return null;
     }
 
     /**
-     * Load Article Tabs i.e
-     * <br> 1. Old
+     * Load Course Diary Tabs i.e
+     * <br> 1. Old Courses
      * <br> 2. New Courses
      * <p>
-     * <br> @return Fragment
+     *
+     * @param iPosition
+     * @return Fragment
      */
     private Fragment loadCourseDiaryTabs(int iPosition) {
 
@@ -97,18 +104,45 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     }
 
     /**
+     * Load MEMBERS Tabs i.e
+     * <br> 1. Members
+     * <br> 2. Friends
+     * <p>
+     *
+     * @param iPosition
+     * @return Fragment
+     */
+    private Fragment loadMembersTab(int iPosition) {
+
+        switch (iPosition) {
+            case 0:
+                MembersFragment membersFragment = new MembersFragment();
+                return membersFragment;
+
+            case 1:
+                FriendsFragment friendsFragment = new FriendsFragment();
+                return friendsFragment;
+
+            default:
+                return null;
+        }
+    }
+
+    /**
      * Load My Account tabs i.e
      * <br> 1. My Details
      * <br> 2. Handicap
      * <br> 3. Finances
      * <p>
-     * <br> @return Fragment
+     *
+     * @param iPosition
+     * @return Fragment
      */
     private Fragment loadMyAccountTabs(int iPosition) {
 
         switch (iPosition) {
             case 0:
-               MyDetailsFragment financeFragment1 = new MyDetailsFragment();
+                MyDetailsFragment financeFragment1 = new MyDetailsFragment();
                 return financeFragment1;
 
             case 1:
@@ -131,7 +165,9 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * <br> 3. Completed.
      * <br> 4. Future.
      * <p>
-     * <br> @return Fragment
+     *
+     * @param iPosition
+     * @return Fragment
      */
     private Fragment loadCompetitionsEvent(int iPosition) {
 

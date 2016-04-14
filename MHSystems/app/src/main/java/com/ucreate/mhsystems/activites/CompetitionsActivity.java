@@ -326,17 +326,6 @@ public class CompetitionsActivity extends BaseActivity {
     }
 
     /**
-     * Implements a common method to update
-     * Fragment.
-     */
-    public void updateFragment(Fragment mFragment) {
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.containerView, mFragment);
-        fragmentTransaction.commit();
-    }
-
-    /**
      * Create Menu Options
      */
     @Override

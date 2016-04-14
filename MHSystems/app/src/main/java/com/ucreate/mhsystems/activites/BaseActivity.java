@@ -11,6 +11,8 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -113,6 +115,19 @@ public class BaseActivity extends AppCompatActivity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    /**
+     * Implements a common method to update
+     * Fragment.
+     *
+     * @param mFragment
+     */
+    public void updateFragment(Fragment mFragment) {
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.containerView, mFragment);
+        fragmentTransaction.commit();
     }
 
 }

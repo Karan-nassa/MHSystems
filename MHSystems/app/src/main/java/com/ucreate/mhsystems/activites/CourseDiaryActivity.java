@@ -320,18 +320,9 @@ public class CourseDiaryActivity extends BaseActivity {
     }
 
     /**
-     * Implements a common method to update
-     * Fragment.
-     */
-    public void updateFragment(Fragment mFragment) {
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.containerView, mFragment);
-        fragmentTransaction.commit();
-    }
-
-    /**
-     * Create Menu Options
+     * Create Menu Options with previous, next, Today icons.
+     *
+     * @param menu
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

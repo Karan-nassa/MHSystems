@@ -50,6 +50,8 @@
 
     <!-- START OF MEMBERS ACTIVITY -->
     <string name="text_title_members">Members</string>
+    <string name="tab_title_memebers">MEMBERS</string>
+    <string name="tab_title_friends">FRIENDS</string>
     <!-- END OF MEMBERS ACTIVITY -->
 
     <!-- START OF FINANCE FRAGMENT -->

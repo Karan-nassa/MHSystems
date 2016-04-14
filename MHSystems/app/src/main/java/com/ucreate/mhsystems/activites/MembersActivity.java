@@ -1,34 +1,25 @@
 package com.ucreate.mhsystems.activites;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.adapter.BaseAdapter.AlphabetListAdapter;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CustomSpinnerAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
+import com.ucreate.mhsystems.fragments.MembersTabFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.regex.Pattern;
 
-public class MembersActivity extends AppCompatActivity {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class MembersActivity extends BaseActivity {
 
     /*********************************
      * DECLARATION OF CONSTANTS
@@ -41,15 +32,46 @@ public class MembersActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Spinner spinner_nav;
 
+    @Bind(R.id.llHomeMembers)
+    LinearLayout llHomeMembers;
+
+    /**
+     * Implements HOME icons press
+     * listener.
+     */
+    private View.OnClickListener mHomePressListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onBackPressed();
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_members);
 
+        //Initialize view resources.
+        ButterKnife.bind(this);
 
+        /**
+         *  Setup Tool bar of Members screen with DROP-DOWN [SPINNER]
+         *  and SEARCH bar icon.
+         */
         setupToolBar();
+
+        //Load Default fragment of Members Activity.
+        updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
+
+        //Set click listener events declaration.
+        llHomeMembers.setOnClickListener(mHomePressListener);
     }
 
+    /**
+     * Implements a method to define SPINNER and
+     * SEARCH bar icon.
+     */
     private void setupToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolBarMembers);
         spinner_nav = (Spinner) findViewById(R.id.spinner_nav);
@@ -62,7 +84,10 @@ public class MembersActivity extends AppCompatActivity {
         addItemsToSpinner();
     }
 
-    // add items into spinner dynamically
+    /**
+     * Implements a method to setup default Spinner items
+     * with All, Ladies and Gentlemen's options.
+     */
     public void addItemsToSpinner() {
 
         ArrayList<String> list = new ArrayList<String>();
@@ -76,18 +101,15 @@ public class MembersActivity extends AppCompatActivity {
                 getApplicationContext(), list);
 
 
-
         // Default ArrayAdapter with default spinner item layout, getting some
         // view rendering problem in lollypop device, need to test in other
         // devices
 
-  /*
-   * ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(this,
-   * android.R.layout.simple_spinner_item, list);
-   * spinAdapter.setDropDownViewResource
-   * (android.R.layout.simple_spinner_dropdown_item);
-   */
-
+      /* ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(this,
+      android.R.layout.simple_spinner_item, list);
+      spinAdapter.setDropDownViewResource
+      (android.R.layout.simple_spinner_dropdown_item);
+        */
         spinner_nav.setAdapter(spinAdapter);
 
         spinner_nav.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -97,15 +119,23 @@ public class MembersActivity extends AppCompatActivity {
                                        int position, long id) {
                 // On selecting a spinner item
                 String item = adapter.getItemAtPosition(position).toString();
+                switch (position){
+                    case ApplicationGlobal.ACTION_MEMBERS_ALL:
+                        updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
+                        break;
 
-                // Showing selected spinner item
-//                Toast.makeText(getApplicationContext(), "Selected  : " + item,
-//                        Toast.LENGTH_LONG).show();
+                    case ApplicationGlobal.ACTION_MEMBERS_LADIES:
+                        updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
+                        break;
+
+                    case ApplicationGlobal.ACTION_MEMBERS_GENTLEMENS:
+                        updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_GENTLEMENS));
+                        break;
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-
             }
         });
 
@@ -120,27 +150,6 @@ public class MembersActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//        if (id == R.id.action_today) {
-//            Toast.makeText(getApplicationContext(), "Settings Clicked",
-//                    Toast.LENGTH_SHORT).show();
-//            return true;
-//        } else if (id == R.id.action_search) {
-//            Toast.makeText(getApplicationContext(), "Search Clicked",
-//                    Toast.LENGTH_SHORT).show();
-//            return true;
-//        } else if (id == R.id.action_add) {
-//            Toast.makeText(getApplicationContext(), "Add Clicked",
-//                    Toast.LENGTH_SHORT).show();
-//            return true;
-//        } else if (id == R.id.action_delete) {
-//            Toast.makeText(getApplicationContext(), "Delete Clicked",
-//                    Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
         return super.onOptionsItemSelected(item);
     }
 }

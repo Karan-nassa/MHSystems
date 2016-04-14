@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:padding="7dp"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <com.ucreate.mhsystems.customfonts.RobotoTextView
         android:id="@+id/tvCategory"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:text="Mens"
-        android:background="@android:color/transparent"
+
         android:textColor="@color/colorBlack000000"
         android:textSize="18sp" />
 

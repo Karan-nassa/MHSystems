@@ -39,8 +39,8 @@ public class ApplicationGlobal {
     public static final int POSITION_NEW_COURSE = 2;
 
     /**
-     * Used during tap on icons or update
-     * dates.
+     * Used during tap on icons or update dates for COMPETITIONS and COURSE DIARY
+     * previous, next month arrow navigation.
      */
     public static final int ACTION_NOTHING = 0;
     public static final int ACTION_PREVIOUS_MONTH = 1;
@@ -49,7 +49,7 @@ public class ApplicationGlobal {
     public static final int ACTION_CALENDAR = 4;
 
     /**
-     * Declaration of constant used throught out the app to pass
+     * Declaration of constant used through out the app to pass
      * intent from one Activity to another.
      */
     public static final String TAG_POPUP_THEME = "colorTheme";
@@ -59,7 +59,6 @@ public class ApplicationGlobal {
      * Declares the KEY used to pass some of the
      * data on DETAIL screen of MY ACCOUNT INVOICE.
      */
-   // public static final String KEY_INVOICE_NUMBER = "INVOICE_NUMBER";
     public static final String KEY_INVOICE_TITLE = "INVOICE_TAX_TITLE";
     public static final String KEY_INVOICE_NUMBER = "INVOICE_NUMBER";
     public static final String KEY_INVOICE_VALUE = "INVOICE_VALUE";
@@ -70,4 +69,13 @@ public class ApplicationGlobal {
     public static final String KEY_INVOICE_BILL_FROM = "INVOICE_BILL_FROM";
     public static final String KEY_INVOICE_BILL_TO = "INVOICE_BILL_TO";
     public static final String KEY_INVOICE_STATUS_STR = "INVOICE_STATUS_STR";
+
+
+    /**
+     * Used during tap on SPINNER/DROPDOWN selectable items to sent on
+     * MembersTabFragment for update MEMBERS list accordingly.
+     */
+    public static final int ACTION_MEMBERS_ALL = 0;
+    public static final int ACTION_MEMBERS_LADIES = 1;
+    public static final int ACTION_MEMBERS_GENTLEMENS = 2;
 }
