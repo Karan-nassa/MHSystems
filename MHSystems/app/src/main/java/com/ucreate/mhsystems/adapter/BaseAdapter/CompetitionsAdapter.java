@@ -13,8 +13,7 @@ import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.CompetitionsDetailActivity;
-import com.ucreate.mhsystems.utils.pojo.CompetitionsData;
-import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
+import com.ucreate.mhsystems.util.pojo.CompetitionsData;
 
 import java.util.ArrayList;
 

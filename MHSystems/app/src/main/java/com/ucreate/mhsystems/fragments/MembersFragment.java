@@ -6,35 +6,48 @@ package com.ucreate.mhsystems.fragments;
  * <br>tabs content on 12/23/2015.
  */
 
+
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.activites.MembersActivity;
-import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
 import com.ucreate.mhsystems.adapter.BaseAdapter.MembersAdapter;
 import com.ucreate.mhsystems.constants.WebAPI;
-import com.ucreate.mhsystems.utils.API.WebServiceMethods;
-import com.ucreate.mhsystems.utils.pojo.AJsonParamsMembers;
-import com.ucreate.mhsystems.utils.pojo.CompetitionsAPI;
-import com.ucreate.mhsystems.utils.pojo.CompetitionsJsonParams;
-import com.ucreate.mhsystems.utils.pojo.CompetitionsResultItems;
-import com.ucreate.mhsystems.utils.pojo.MembersAPI;
-import com.ucreate.mhsystems.utils.pojo.MembersData;
-import com.ucreate.mhsystems.utils.pojo.MembersItems;
+import com.ucreate.mhsystems.util.API.WebServiceMethods;
+import com.ucreate.mhsystems.util.pojo.AJsonParamsMembers;
+import com.ucreate.mhsystems.util.pojo.MembersAPI;
+import com.ucreate.mhsystems.util.pojo.MembersData;
+import com.ucreate.mhsystems.util.pojo.MembersItems;
+import com.ucreate.mhsystems.util.pojo.MembersList;
+import com.ucreate.mhsystems.utils.CircularContactView;
+import com.ucreate.mhsystems.utils.async_task_thread_pool.AsyncTaskEx;
+import com.ucreate.mhsystems.utils.async_task_thread_pool.AsyncTaskThreadPool;
+
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 
+import lb.library.PinnedHeaderListView;
+import lb.library.SearchablePinnedHeaderListViewAdapter;
+import lb.library.StringArrayAlphabetIndexer;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -52,7 +65,7 @@ public class MembersFragment extends Fragment {
      * INSTANCES OF CLASSES
      *******************************/
     View mRootView;
-    ListView lvMembers;
+    //  ListView lvMembers;
 
     MembersAdapter membersAdapter;
 
@@ -64,12 +77,49 @@ public class MembersFragment extends Fragment {
     private MembersAPI membersAPI;
 
 
+    //Members list demo.
+    private PinnedHeaderListView mListView;
+    AlphabaticalListAdapter mAdapter = null;
+    public LayoutInflater mInflater;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mInflater = LayoutInflater.from(getActivity());
+
         mRootView = inflater.inflate(R.layout.fragment_members, container, false);
 
-        lvMembers = (ListView) mRootView.findViewById(R.id.lvMembers);
+        //lvMembers = (ListView) mRootView.findViewById(R.id.lvMembers);
+        mListView = (PinnedHeaderListView) mRootView.findViewById(R.id.lvMembersList);
 
+
+       /* //Members list demo.
+        final ArrayList<Contact> contacts = getContacts();
+        Collections.sort(contacts, new Comparator<Contact>() {
+            @Override
+            public int compare(Contact lhs, Contact rhs) {
+                char lhsFirstLetter = TextUtils.isEmpty(lhs.getDisplayName()) ? ' ' : lhs.getDisplayName().charAt(0);
+                char rhsFirstLetter = TextUtils.isEmpty(rhs.getDisplayName()) ? ' ' : rhs.getDisplayName().charAt(0);
+                int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
+                if (firstLetterComparison == 0)
+                    return lhs.getDisplayName().compareTo(rhs.getDisplayName());
+                return firstLetterComparison;
+            }
+        });
+
+        mAdapter = new ContactsAdapter(contacts);
+
+        int pinnedHeaderBackgroundColor = getResources().getColor(getResIdFromAttribute(getActivity(), android.R.attr.colorBackground));
+        mAdapter.setPinnedHeaderBackgroundColor(pinnedHeaderBackgroundColor);
+        mAdapter.setPinnedHeaderTextColor(getResources().getColor(R.color.pinned_header_text));
+        //  mListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mListView, false));
+        mListView.setAdapter(mAdapter);
+        mListView.setOnScrollListener(mAdapter);
+        mListView.setEnableHeaderTransparencyChanges(false);
+        //    mAdapter.getFilter().filter(mQueryText,new FilterListener() ...
+        //You can also perform operations on selected item by using :
+        //    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() ...
+*/
         return mRootView;
     }
 
@@ -84,7 +134,7 @@ public class MembersFragment extends Fragment {
              *  Check internet connection before hitting server request.
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                //Method to hit Squads API.
+                //Method to hit Members list API.
                 requestMemberService();
             } else {
                 ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
@@ -151,7 +201,6 @@ public class MembersFragment extends Fragment {
 
         //Clear array list before inserting items.
         membersDatas.clear();
-        //arrayCourseDataBackup.clear();
 
         try {
             /**
@@ -165,8 +214,10 @@ public class MembersFragment extends Fragment {
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
-                    membersAdapter = new MembersAdapter(getActivity(), membersDatas.get(0).getMembersList());
-                    lvMembers.setAdapter(membersAdapter);
+//                    membersAdapter = new MembersAdapter(getActivity(), membersDatas.get(0).getMembersList());
+//                    lvMembers.setAdapter(membersAdapter);
+
+                    setMembersListAdapter(membersDatas.get(0).getMembersList());
 
                     Log.e(LOG_TAG, "getMembersList : " + membersDatas.get(0).getMembersList().size());
                     Log.e(LOG_TAG, "getMember().getDisplayName : " + membersDatas.get(0).getMember().getDisplayName());
@@ -180,7 +231,265 @@ public class MembersFragment extends Fragment {
             e.printStackTrace();
         }
 
-        //Dismiss progress dialog.
-        ((BaseActivity) getActivity()).hideProgress();
+        new Handler().postDelayed(new Runnable() {
+
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+
+            @Override
+            public void run() {
+//                Dismiss progress dialog.
+                ((BaseActivity) getActivity()).hideProgress();
+            }
+        }, 500);
+
+    }
+
+
+    /**
+     * Implements a method to set Members list in Adapter.
+     * @param membersList
+     */
+    private void setMembersListAdapter(ArrayList<MembersList> membersList) {
+        //Members list demo.
+        Collections.sort(membersList, new Comparator<MembersList>() {
+            @Override
+            public int compare(MembersList lhs, MembersList rhs) {
+                char lhsFirstLetter = TextUtils.isEmpty(lhs.getDisplayName()) ? ' ' : lhs.getDisplayName().charAt(0);
+                char rhsFirstLetter = TextUtils.isEmpty(rhs.getDisplayName()) ? ' ' : rhs.getDisplayName().charAt(0);
+                int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
+                if (firstLetterComparison == 0)
+                    return lhs.getDisplayName().compareTo(rhs.getDisplayName());
+                return firstLetterComparison;
+            }
+        });
+
+        mAdapter = new AlphabaticalListAdapter(membersList);
+
+        int pinnedHeaderBackgroundColor = getResources().getColor(getResIdFromAttribute(getActivity(), android.R.attr.colorBackground));
+        mAdapter.setPinnedHeaderBackgroundColor(pinnedHeaderBackgroundColor);
+        mAdapter.setPinnedHeaderTextColor(getResources().getColor(R.color.pinned_header_text));
+        mListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mListView, false));
+        mListView.setAdapter(mAdapter);
+        mListView.setOnScrollListener(mAdapter);
+        mListView.setEnableHeaderTransparencyChanges(false);
+        //    mAdapter.getFilter().filter(mQueryText,new FilterListener() ...
+        //You can also perform operations on selected item by using :
+        //    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() ...
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Implements a method to get Background theme color
+     * to set same on Listview.
+     */
+    public static int getResIdFromAttribute(final Activity activity, final int attr) {
+        if (attr == 0)
+            return 0;
+        final TypedValue typedValue = new TypedValue();
+        activity.getTheme().resolveAttribute(attr, typedValue, true);
+        return typedValue.resourceId;
+    }
+
+    /**
+     * Implements a method to GET CONTACTS and fill arraylist
+     * to display as CONTACT list.
+     */
+//    private ArrayList<Contact> getContacts() {
+//        if (checkContactsReadPermission()) {
+//            Uri uri = ContactsQuery.CONTENT_URI;
+//            final Cursor cursor = getActivity().managedQuery(uri, ContactsQuery.PROJECTION, ContactsQuery.SELECTION, null, ContactsQuery.SORT_ORDER);
+//            if (cursor == null)
+//                return null;
+//            ArrayList<Contact> result = new ArrayList<>();
+//            while (cursor.moveToNext()) {
+//                Contact contact = new Contact();
+//                contact.setContactUri(ContactsContract.Contacts.getLookupUri(
+//                        cursor.getLong(ContactsQuery.ID),
+//                        cursor.getString(ContactsQuery.LOOKUP_KEY)));
+//                contact.setDisplayName(cursor.getString(ContactsQuery.DISPLAY_NAME));
+//                contact.setPhotoId(cursor.getString(ContactsQuery.PHOTO_THUMBNAIL_DATA));
+//                result.add(contact);
+//            }
+//
+//            return result;
+//        }
+//        ArrayList<Contact> result = new ArrayList<>();
+//        Random r = new Random();
+//        StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i < 1000; ++i) {
+//            Contact contact = new Contact();
+//            sb.delete(0, sb.length());
+//            int strLength = r.nextInt(10) + 1;
+//            for (int j = 0; j < strLength; ++j)
+//                switch (r.nextInt(3)) {
+//                    case 0:
+//                        sb.append((char) ('a' + r.nextInt('z' - 'a')));
+//                        break;
+//                    case 1:
+//                        sb.append((char) ('A' + r.nextInt('Z' - 'A')));
+//                        break;
+//                    case 2:
+//                        sb.append((char) ('0' + r.nextInt('9' - '0')));
+//                        break;
+//                }
+//
+//            contact.setDisplayName(sb.toString());
+//            result.add(contact);
+//        }
+//        return result;
+//    }
+
+    /**
+     * Implements a method to check permissions of
+     * CONTACT at run time.
+     */
+    private boolean checkContactsReadPermission() {
+        String permission = "android.permission.READ_CONTACTS";
+        int res = getActivity().checkCallingOrSelfPermission(permission);
+        return (res == PackageManager.PERMISSION_GRANTED);
+    }
+
+
+    // ////////////////////////////////////////////////////////////
+// ContactsAdapter //
+// //////////////////
+    class AlphabaticalListAdapter extends SearchablePinnedHeaderListViewAdapter<MembersList> {
+        private ArrayList<MembersList> mContacts;
+        private final int CONTACT_PHOTO_IMAGE_SIZE;
+        private final int[] PHOTO_TEXT_BACKGROUND_COLORS;
+        private final AsyncTaskThreadPool mAsyncTaskThreadPool = new AsyncTaskThreadPool(1, 2, 10);
+
+
+        @Override
+        public CharSequence getSectionTitle(int sectionIndex) {
+            return ((StringArrayAlphabetIndexer.AlphaBetSection) getSections()[sectionIndex]).getName();
+        }
+
+        public AlphabaticalListAdapter(final ArrayList<MembersList> contacts) {
+            setData(contacts);
+
+            PHOTO_TEXT_BACKGROUND_COLORS = getResources().getIntArray(R.array.contacts_text_background_colors);
+            CONTACT_PHOTO_IMAGE_SIZE = getResources().getDimensionPixelSize(
+                    R.dimen.list_item__contact_imageview_size);
+        }
+
+        public void setData(final ArrayList<MembersList> contacts) {
+            this.mContacts = contacts;
+            final String[] generatedContactNames = generateContactNames(contacts);
+            setSectionIndexer(new StringArrayAlphabetIndexer(generatedContactNames, true));
+        }
+
+        private String[] generateContactNames(final List<MembersList> contacts) {
+            final ArrayList<String> contactNames = new ArrayList<String>();
+            if (contacts != null)
+                for (final MembersList contactEntity : contacts)
+                    contactNames.add(contactEntity.getDisplayName());
+            return contactNames.toArray(new String[contactNames.size()]);
+        }
+
+        @Override
+        public View getView(final int position, final View convertView, final ViewGroup parent) {
+            final ViewHolder holder;
+            final View rootView;
+            if (convertView == null) {
+                holder = new ViewHolder();
+
+                rootView = mInflater.inflate(R.layout.list_item_alphabets_member, parent, false);
+
+                holder.friendProfileCircularContactView = (CircularContactView) rootView
+                        .findViewById(R.id.listview_item__friendPhotoImageView);
+
+                holder.friendProfileCircularContactView.getTextView().setTextColor(0xFFffffff);
+
+                holder.friendName = (TextView) rootView
+                        .findViewById(R.id.listview_item__friendNameTextView);
+                holder.tvPlayHCapStr = (TextView) rootView
+                        .findViewById(R.id.tvPlayHCapStr);
+
+                holder.headerView = (TextView) rootView.findViewById(R.id.header_text);
+
+                rootView.setTag(holder);
+            } else {
+                rootView = convertView;
+                holder = (ViewHolder) rootView.getTag();
+            }
+            final MembersList contact = getItem(position);
+            final String displayName = contact.getDisplayName();
+            holder.friendName.setText(displayName);
+            holder.tvPlayHCapStr.setText(contact.getPlayHCapStr());
+
+//            boolean hasPhoto = !TextUtils.isEmpty(contact.getPlayHCapStr());
+//            if (holder.updateTask != null && !holder.updateTask.isCancelled())
+//                holder.updateTask.cancel(true);
+//            final Bitmap cachedBitmap = hasPhoto ? ImageCache.INSTANCE.getBitmapFromMemCache(contact.getPlayHCapStr()) : null;
+//            if (cachedBitmap != null)
+//                holder.friendProfileCircularContactView.setImageBitmap(cachedBitmap);
+//            else {
+//                final int backgroundColorToUse = PHOTO_TEXT_BACKGROUND_COLORS[position
+//                        % PHOTO_TEXT_BACKGROUND_COLORS.length];
+//                if (TextUtils.isEmpty(displayName))
+//                    holder.friendProfileCircularContactView.setImageResource(R.drawable.background_pressed_c0995b,
+//                            backgroundColorToUse);
+//                else {
+//                    final String characterToShow = TextUtils.isEmpty(displayName) ? "" : displayName.substring(0, 1).toUpperCase(Locale.getDefault());
+//                    holder.friendProfileCircularContactView.setTextAndBackgroundColor(contact.getPlayHCapStr(), backgroundColorToUse);
+//                }
+//                if (hasPhoto) {
+//                    holder.updateTask = new AsyncTaskEx<Void, Void, Bitmap>() {
+//
+//                        @Override
+//                        public Bitmap doInBackground(final Void... params) {
+//                            if (isCancelled())
+//                                return null;
+//                            final Bitmap b = ContactImageUtil.loadContactPhotoThumbnail(getActivity(), contact.getDisplayName(), CONTACT_PHOTO_IMAGE_SIZE);
+//                            if (b != null)
+//                                return ThumbnailUtils.extractThumbnail(b, CONTACT_PHOTO_IMAGE_SIZE,
+//                                        CONTACT_PHOTO_IMAGE_SIZE);
+//                            return null;
+//                        }
+//
+//                        @Override
+//                        public void onPostExecute(final Bitmap result) {
+//                            super.onPostExecute(result);
+//                            if (result == null)
+//                                return;
+//                            ImageCache.INSTANCE.addBitmapToCache(contact.getPlayHCapStr(), result);
+//                            holder.friendProfileCircularContactView.setImageBitmap(result);
+//                        }
+//                    };
+//                    mAsyncTaskThreadPool.executeAsyncTask(holder.updateTask);
+//                }
+//            }
+            bindSectionHeader(holder.headerView, null, position);
+            return rootView;
+        }
+
+        @Override
+        public boolean doFilter(final MembersList item, final CharSequence constraint) {
+            if (TextUtils.isEmpty(constraint))
+                return true;
+            final String displayName = item.getDisplayName();
+            return !TextUtils.isEmpty(displayName) && displayName.toLowerCase(Locale.getDefault())
+                    .contains(constraint.toString().toLowerCase(Locale.getDefault()));
+        }
+
+        @Override
+        public ArrayList<MembersList> getOriginalList() {
+            return mContacts;
+        }
+
+        // /////////////////////////////////////////////////////////////////////////////////////
+// ViewHolder //
+// /////////////
+        class ViewHolder {
+            public CircularContactView friendProfileCircularContactView;
+            TextView friendName, headerView, tvPlayHCapStr;
+            public AsyncTaskEx<Void, Void, Bitmap> updateTask;
+        }
     }
 }

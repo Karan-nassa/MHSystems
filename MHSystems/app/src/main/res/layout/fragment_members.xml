@@ -10,16 +10,29 @@
         android:background="@color/colorFFEFEFF4"
         android:orientation="vertical">
 
-        <ListView
+        <!--<ListView
             android:id="@+id/lvMembers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:cacheColorHint="@android:color/white"
             android:divider="@color/colorWhiteffffff"
-            android:dividerHeight="0dp">
+            android:dividerHeight="0dp"/>-->
 
-        </ListView>
+        <!-- ALPHABETICAL LIST -->
+
+        <lb.library.PinnedHeaderListView
+            android:id="@+id/lvMembersList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:dividerHeight="0px"
+            android:fadeScrollbars="false"
+            android:fastScrollEnabled="true"
+            android:listSelector="@drawable/list_item_alphabet_selector"
+            android:scrollingCache="false"
+            tools:listitem="@layout/list_item_alphabets_member" />
 
     </LinearLayout>
 

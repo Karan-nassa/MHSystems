@@ -5,14 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.activites.MembersActivity;
-import com.ucreate.mhsystems.utils.pojo.MembersData;
-import com.ucreate.mhsystems.utils.pojo.MembersList;
+import com.ucreate.mhsystems.util.pojo.MembersList;
 
 import java.util.ArrayList;
 import java.util.List;

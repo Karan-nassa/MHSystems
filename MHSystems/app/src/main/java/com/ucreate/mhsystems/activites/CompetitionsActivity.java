@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -20,7 +19,7 @@ import android.widget.TextView;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
-import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
+import com.ucreate.mhsystems.util.pojo.CourseDiaryDataCopy;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;

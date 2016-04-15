@@ -66,4 +66,7 @@ dependencies {
     //Facebook round circle image preview.
     compile 'com.facebook.fresco:fresco:0.8.0'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+
+    //Members list Alphabetical in new style like contacts dependency.
+    compile project(':library')
 }

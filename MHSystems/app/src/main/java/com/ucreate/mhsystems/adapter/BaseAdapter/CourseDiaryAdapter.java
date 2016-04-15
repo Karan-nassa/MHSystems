@@ -2,28 +2,17 @@ package com.ucreate.mhsystems.adapter.BaseAdapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.utils.pojo.CourseDiaryData;
-import com.ucreate.mhsystems.utils.pojo.CourseDiaryDataCopy;
+import com.ucreate.mhsystems.util.pojo.CourseDiaryDataCopy;
 
-import java.net.URLDecoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
 
 /**
  * Created by  karan@ucreate.co.in to Create adapter

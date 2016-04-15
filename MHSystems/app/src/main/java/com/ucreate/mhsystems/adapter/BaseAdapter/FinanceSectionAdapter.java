@@ -9,8 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.utils.pojo.CurrentBill;
-import com.ucreate.mhsystems.utils.pojo.MyAccountData;
+import com.ucreate.mhsystems.util.pojo.MyAccountData;
 
 import java.util.ArrayList;
 import java.util.TreeSet;

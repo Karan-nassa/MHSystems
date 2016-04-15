@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppThemeMaterial" parent="MyMaterialTheme.Base">
@@ -39,6 +39,22 @@
     </style>
 
     <!-- +++++++++++++++ SPINNER THEME END +++++++++++++++ -->
+
+    <!-- +++++++++++++++ START OF MEMBER LIST ALPHABETICAL THEME +++++++++++++++ -->
+
+    <style name="PinnedHeader">
+        <item name="android:background">?android:colorBackground</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textAllCaps" tools:targetApi="ice_cream_sandwich">true</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textColor">@color/colorGreyf1f1f0</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- +++++++++++++++ END OF MEMBER LIST ALPHABETICAL THEME +++++++++++++++ -->
 
 </resources>
 
