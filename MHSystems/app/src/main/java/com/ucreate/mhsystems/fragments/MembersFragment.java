@@ -8,7 +8,7 @@ package com.ucreate.mhsystems.fragments;
 
 
 import android.app.Activity;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,13 +19,16 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
+import com.ucreate.mhsystems.activites.MemberDetailActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.MembersAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.util.pojo.AJsonParamsMembers;
@@ -82,6 +85,21 @@ public class MembersFragment extends Fragment {
     AlphabaticalListAdapter mAdapter = null;
     public LayoutInflater mInflater;
 
+    /**
+     * Implements a field to define Members List click event
+     * to display detail of Member.
+     */
+    private AdapterView.OnItemClickListener mListMemberListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Log.e(LOG_TAG,""+membersDatas.get(0).getMembersList());
+            Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
+            //intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).);
+            intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(0).getMemberID());
+            startActivity(intent);
+        }
+    };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,34 +110,9 @@ public class MembersFragment extends Fragment {
         //lvMembers = (ListView) mRootView.findViewById(R.id.lvMembers);
         mListView = (PinnedHeaderListView) mRootView.findViewById(R.id.lvMembersList);
 
+        //Set Members list click listener.
+        mListView.setOnItemClickListener(mListMemberListener);
 
-       /* //Members list demo.
-        final ArrayList<Contact> contacts = getContacts();
-        Collections.sort(contacts, new Comparator<Contact>() {
-            @Override
-            public int compare(Contact lhs, Contact rhs) {
-                char lhsFirstLetter = TextUtils.isEmpty(lhs.getDisplayName()) ? ' ' : lhs.getDisplayName().charAt(0);
-                char rhsFirstLetter = TextUtils.isEmpty(rhs.getDisplayName()) ? ' ' : rhs.getDisplayName().charAt(0);
-                int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
-                if (firstLetterComparison == 0)
-                    return lhs.getDisplayName().compareTo(rhs.getDisplayName());
-                return firstLetterComparison;
-            }
-        });
-
-        mAdapter = new ContactsAdapter(contacts);
-
-        int pinnedHeaderBackgroundColor = getResources().getColor(getResIdFromAttribute(getActivity(), android.R.attr.colorBackground));
-        mAdapter.setPinnedHeaderBackgroundColor(pinnedHeaderBackgroundColor);
-        mAdapter.setPinnedHeaderTextColor(getResources().getColor(R.color.pinned_header_text));
-        //  mListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mListView, false));
-        mListView.setAdapter(mAdapter);
-        mListView.setOnScrollListener(mAdapter);
-        mListView.setEnableHeaderTransparencyChanges(false);
-        //    mAdapter.getFilter().filter(mQueryText,new FilterListener() ...
-        //You can also perform operations on selected item by using :
-        //    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() ...
-*/
         return mRootView;
     }
 
@@ -250,11 +243,12 @@ public class MembersFragment extends Fragment {
 
     /**
      * Implements a method to set Members list in Adapter.
+     *
      * @param membersList
      */
     private void setMembersListAdapter(ArrayList<MembersList> membersList) {
         //Members list demo.
-        Collections.sort(membersList, new Comparator<MembersList>() {
+       Collections.sort(membersList, new Comparator<MembersList>() {
             @Override
             public int compare(MembersList lhs, MembersList rhs) {
                 char lhsFirstLetter = TextUtils.isEmpty(lhs.getDisplayName()) ? ' ' : lhs.getDisplayName().charAt(0);
@@ -275,9 +269,8 @@ public class MembersFragment extends Fragment {
         mListView.setAdapter(mAdapter);
         mListView.setOnScrollListener(mAdapter);
         mListView.setEnableHeaderTransparencyChanges(false);
-        //    mAdapter.getFilter().filter(mQueryText,new FilterListener() ...
-        //You can also perform operations on selected item by using :
-        //    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() ...
+//            mAdapter.getFilter().filter(mQueryText,new FilterListener() ...
+//        You can also perform operations on selected item by using :
     }
 
 
@@ -294,66 +287,6 @@ public class MembersFragment extends Fragment {
         activity.getTheme().resolveAttribute(attr, typedValue, true);
         return typedValue.resourceId;
     }
-
-    /**
-     * Implements a method to GET CONTACTS and fill arraylist
-     * to display as CONTACT list.
-     */
-//    private ArrayList<Contact> getContacts() {
-//        if (checkContactsReadPermission()) {
-//            Uri uri = ContactsQuery.CONTENT_URI;
-//            final Cursor cursor = getActivity().managedQuery(uri, ContactsQuery.PROJECTION, ContactsQuery.SELECTION, null, ContactsQuery.SORT_ORDER);
-//            if (cursor == null)
-//                return null;
-//            ArrayList<Contact> result = new ArrayList<>();
-//            while (cursor.moveToNext()) {
-//                Contact contact = new Contact();
-//                contact.setContactUri(ContactsContract.Contacts.getLookupUri(
-//                        cursor.getLong(ContactsQuery.ID),
-//                        cursor.getString(ContactsQuery.LOOKUP_KEY)));
-//                contact.setDisplayName(cursor.getString(ContactsQuery.DISPLAY_NAME));
-//                contact.setPhotoId(cursor.getString(ContactsQuery.PHOTO_THUMBNAIL_DATA));
-//                result.add(contact);
-//            }
-//
-//            return result;
-//        }
-//        ArrayList<Contact> result = new ArrayList<>();
-//        Random r = new Random();
-//        StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < 1000; ++i) {
-//            Contact contact = new Contact();
-//            sb.delete(0, sb.length());
-//            int strLength = r.nextInt(10) + 1;
-//            for (int j = 0; j < strLength; ++j)
-//                switch (r.nextInt(3)) {
-//                    case 0:
-//                        sb.append((char) ('a' + r.nextInt('z' - 'a')));
-//                        break;
-//                    case 1:
-//                        sb.append((char) ('A' + r.nextInt('Z' - 'A')));
-//                        break;
-//                    case 2:
-//                        sb.append((char) ('0' + r.nextInt('9' - '0')));
-//                        break;
-//                }
-//
-//            contact.setDisplayName(sb.toString());
-//            result.add(contact);
-//        }
-//        return result;
-//    }
-
-    /**
-     * Implements a method to check permissions of
-     * CONTACT at run time.
-     */
-    private boolean checkContactsReadPermission() {
-        String permission = "android.permission.READ_CONTACTS";
-        int res = getActivity().checkCallingOrSelfPermission(permission);
-        return (res == PackageManager.PERMISSION_GRANTED);
-    }
-
 
     // ////////////////////////////////////////////////////////////
 // ContactsAdapter //

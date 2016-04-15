@@ -116,6 +116,7 @@
         <item>@drawable/background_pressed_b2e6d9</item>
 
     </string-array>
+    <string name="title_activity_member_detail">MemberDetailActivity</string>
 
     <!-- ~~ NAVIGATION DRAWER ICONS ~~ -->
 

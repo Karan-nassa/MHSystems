@@ -62,8 +62,13 @@
             android:screenOrientation="portrait" />
 
         <!-- MEMBERS ACTIVITY -->
-        <activity android:name=".activites.MembersActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activites.MembersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activites.MemberDetailActivity"
+            android:label="@string/title_activity_member_detail"
+            android:theme="@style/AppThemeMaterial"></activity>
     </application>
 
 </manifest>

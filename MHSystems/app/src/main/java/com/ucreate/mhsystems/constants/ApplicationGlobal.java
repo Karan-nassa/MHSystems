@@ -78,4 +78,10 @@ public class ApplicationGlobal {
     public static final int ACTION_MEMBERS_ALL = 0;
     public static final int ACTION_MEMBERS_LADIES = 1;
     public static final int ACTION_MEMBERS_GENTLEMENS = 2;
+
+    /**
+     * Declares the KEY used to pass Member ID from
+     * MEMBERS list to MEMBER DETAIL SCREEN.
+     */
+    public static final String KEY_MEMBER_ID = "MEMBER_ID";
 }

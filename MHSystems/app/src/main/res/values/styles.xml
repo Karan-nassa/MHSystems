@@ -54,6 +54,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="AppThemeMaterial.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppThemeMaterial.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <!-- +++++++++++++++ END OF MEMBER LIST ALPHABETICAL THEME +++++++++++++++ -->
 
 </resources>
