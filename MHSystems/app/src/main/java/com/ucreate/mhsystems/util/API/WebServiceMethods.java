@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.ucreate.mhsystems.util.pojo.CompetitionsAPI;
 import com.ucreate.mhsystems.util.pojo.CourseDiaryAPI;
 import com.ucreate.mhsystems.util.pojo.MembersAPI;
+import com.ucreate.mhsystems.util.pojo.MembersDetailAPI;
 import com.ucreate.mhsystems.util.pojo.MyAccountAPI;
 
 import retrofit.Callback;
@@ -64,5 +65,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getMembers(@Body MembersAPI membersAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Members Detail screen web service method.
+     * <p>
+     * TYPE : POST
+     *
+     * @param membersDetailAPI
+     * @param response
+     *
+     */
+    @POST("/webapi/api/ClubsApp/RpcRequest")
+    public void getMembersDetail(@Body MembersDetailAPI membersDetailAPI, Callback<JsonObject> response);
 }
 

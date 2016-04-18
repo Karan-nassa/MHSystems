@@ -14,7 +14,7 @@ public class MembersItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("MembersDetailsData")
     @Expose
     private MembersData Data;
 
@@ -57,7 +57,7 @@ public class MembersItems {
     /**
      * 
      * @return
-     *     The Data
+     *     The MembersDetailsData
      */
     public MembersData getData() {
         return Data;
@@ -66,7 +66,7 @@ public class MembersItems {
     /**
      * 
      * @param Data
-     *     The Data
+     *     The MembersDetailsData
      */
     public void setData(MembersData Data) {
         this.Data = Data;

@@ -74,11 +74,10 @@ public class MembersFragment extends Fragment {
 
     //Create instance of Model class MembersItems.
     MembersItems membersItems;
-    AJsonParamsMembers aJsonParamsMembers;
 
     //List of type books this list will store type Book which is our data model
     private MembersAPI membersAPI;
-
+    AJsonParamsMembers aJsonParamsMembers;
 
     //Members list demo.
     private PinnedHeaderListView mListView;

@@ -5,10 +5,8 @@ package com.ucreate.mhsystems.util.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 
-
-public class MyAccountItems {
+public class MembersDetailsItems {
 
     @SerializedName("Message")
     @Expose
@@ -16,9 +14,9 @@ public class MyAccountItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("MembersDetailsData")
+    @SerializedName("Data")
     @Expose
-    private List<MyAccountData> Data;
+    private MembersDetailsData Data;
 
     /**
      * 
@@ -56,21 +54,22 @@ public class MyAccountItems {
         this.Result = Result;
     }
 
+
     /**
-     * 
+     *
      * @return
-     *     The MyAccountData
+     * The Data
      */
-    public List<MyAccountData> getMyAccountData() {
+    public MembersDetailsData getData() {
         return Data;
     }
 
     /**
-     * 
+     *
      * @param Data
-     *     The MyAccountData
+     * The Data
      */
-    public void setMyAccountData(List<MyAccountData> Data) {
+    public void setData(MembersDetailsData Data) {
         this.Data = Data;
     }
 
