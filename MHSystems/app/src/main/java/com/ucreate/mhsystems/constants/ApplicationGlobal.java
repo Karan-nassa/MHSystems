@@ -75,9 +75,9 @@ public class ApplicationGlobal {
      * Used during tap on SPINNER/DROPDOWN selectable items to sent on
      * MembersTabFragment for update MEMBERS list accordingly.
      */
-    public static final int ACTION_MEMBERS_ALL = 0;
+    public static final int ACTION_MEMBERS_ALL = 2;
     public static final int ACTION_MEMBERS_LADIES = 1;
-    public static final int ACTION_MEMBERS_GENTLEMENS = 2;
+    public static final int ACTION_MEMBERS_GENTLEMENS = 0;
 
     /**
      * Declares the KEY used to pass Member ID from

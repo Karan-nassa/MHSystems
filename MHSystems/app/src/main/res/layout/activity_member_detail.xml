@@ -59,6 +59,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
                 <!-- TOP BAR CONTENT -->
 
                 <FrameLayout
@@ -81,19 +82,21 @@
                             <!-- MEMBER NAME -->
 
                             <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                                android:id="@+id/tvMemberNameDD"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Mr. Greg Hadala"
+                                android:text=""
                                 android:textColor="@color/colorWhiteffffff"
                                 android:textSize="25sp" />
 
                             <!-- MEMBER JOIN DATE -->
 
                             <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                                android:id="@+id/tvMemberJoinDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:text="Member since 4/25/2007"
+                                android:text=""
                                 android:textColor="@color/color535796a"
                                 android:textSize="14sp" />
 
@@ -101,6 +104,8 @@
 
 
                     </FrameLayout>
+
+
 
                     <!-- ADD MEMBER -->
 
@@ -110,10 +115,13 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:layout_marginRight="20dp"
-                        android:src="@mipmap/ic_add_user" />
+                        android:src="@mipmap/ic_members_add_friend"
+                        app:backgroundTint="@color/color535796a"
+                        app:borderWidth="0dp"
+                        app:elevation="6dp"
+                        app:fabSize="normal" />
 
                 </FrameLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,14 +130,20 @@
                     android:layout_marginRight="20dp"
                     android:orientation="vertical">
 
-                    <!-- BLANK SPACE -->
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"/>
+                    <!-- PERSONAL DETAILS -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorEF8176"
+                        android:textSize="14sp"
+                        android:text="Personal Details"
+                        />
 
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:orientation="vertical">
 
 
@@ -141,10 +155,11 @@
                             <!-- MEMBER NAME -->
 
                             <com.ucreate.mhsystems.customfonts.RobotoTextView
+                                android:id="@+id/tvMemberContact"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="left|bottom"
-                                android:text="+44 0756 1048 644"
+                                android:text=""
                                 android:textColor="@color/colorBlack000000"
                                 android:textSize="16sp" />
 
@@ -163,11 +178,12 @@
                         <!-- MEMBER CALL ICON -->
 
                         <ImageView
+                            android:id="@+id/ivActionCall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right|center"
                             android:layout_marginRight="10dp"
-                            android:src="@android:drawable/ic_menu_call" />
+                            android:src="@mipmap/ic_action_call" />
 
 
                     </FrameLayout>
@@ -177,7 +193,7 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="20dp"
                         android:orientation="vertical">
 
 
@@ -186,18 +202,19 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <!-- MEMBER NAME -->
+                            <!-- MEMBER EMAIL -->
 
                             <com.ucreate.mhsystems.customfonts.RobotoTextView
+                                android:id="@+id/tvMemberEmail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="left"
-                                android:text="greg@gmail.com"
+                                android:text=""
                                 android:textColor="@color/colorBlack000000"
                                 android:textSize="16sp" />
 
 
-                            <!-- TEXT PHONE NUMBER -->
+                            <!-- TEXT TITLE EMAIL -->
 
                             <com.ucreate.mhsystems.customfonts.RobotoTextView
                                 android:layout_width="wrap_content"
@@ -212,11 +229,12 @@
                         <!-- MEMBER CALL ICON -->
 
                         <ImageView
+                            android:id="@+id/ivActionEmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right|center"
                             android:layout_marginRight="10dp"
-                            android:src="@android:drawable/ic_dialog_email" />
+                            android:src="@mipmap/ic_action_mail" />
 
 
                     </FrameLayout>
@@ -226,7 +244,7 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="20dp"
                         android:orientation="vertical">
 
 
@@ -238,10 +256,11 @@
                             <!-- MEMBER ADDRESS WITH DETAIL -->
 
                             <com.ucreate.mhsystems.customfonts.RobotoTextView
-                                android:layout_width="180dp"
+                                android:id="@+id/tvMemberAddress"
+                                android:layout_width="150dp"
                                 android:layout_height="wrap_content"
                                 android:maxLines="2"
-                                android:text="32 Goldman Close E2 6EF London"
+                                android:text=""
                                 android:textColor="@color/colorBlack000000"
                                 android:textSize="16sp" />
 
@@ -261,11 +280,12 @@
                         <!-- MEMBER ADDRESS ICON -->
 
                         <ImageView
+                            android:id="@+id/ivActionMap"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right|center"
                             android:layout_marginRight="10dp"
-                            android:src="@android:drawable/ic_dialog_map" />
+                            android:src="@mipmap/ic_action_map" />
 
 
                     </FrameLayout>
@@ -276,6 +296,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="60dp"/>
+
 
             </LinearLayout>
         </ScrollView>

@@ -55,9 +55,30 @@ public class MembersDetailsData {
     @SerializedName("HCapClub")
     @Expose
     private String HCapClub;
+    @SerializedName("LastJoiningDate")
+    @Expose
+    private String LastJoiningDate;
     @SerializedName("HCapList")
     @Expose
     private List<Object> HCapList = new ArrayList<Object>();
+
+    /**
+     *
+     * @return
+     *     The LastJoiningDate
+     */
+    public String getLastJoiningDate() {
+        return LastJoiningDate;
+    }
+
+    /**
+     *
+     * @param lastJoiningDate
+     *     The LastJoiningDate
+     */
+    public void setLastJoiningDate(String lastJoiningDate) {
+        LastJoiningDate = lastJoiningDate;
+    }
 
     /**
      * 

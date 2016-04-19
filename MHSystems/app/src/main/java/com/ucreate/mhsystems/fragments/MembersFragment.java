@@ -91,10 +91,12 @@ public class MembersFragment extends Fragment {
     private AdapterView.OnItemClickListener mListMemberListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Log.e(LOG_TAG,""+membersDatas.get(0).getMembersList());
+
+            Log.e(LOG_TAG, "Member ID "+ membersDatas.get(0).getMembersList().get(position).getMemberID());
+
             Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
             //intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).);
-            intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(0).getMemberID());
+            intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).getMemberID());
             startActivity(intent);
         }
     };

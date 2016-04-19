@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- FOR NETWORK STATE -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- PERMISSION FOR PHONE CALL_PHONE -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -65,10 +67,14 @@
         <activity
             android:name=".activites.MembersActivity"
             android:screenOrientation="portrait" />
+
+        <!-- MEMBERS DETAIL ACTIVITY -->
         <activity
             android:name=".activites.MemberDetailActivity"
             android:label="@string/title_activity_member_detail"
-            android:theme="@style/AppThemeMaterial"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMaterial" />
+
     </application>
 
 </manifest>

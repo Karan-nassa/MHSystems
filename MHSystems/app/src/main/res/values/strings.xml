@@ -54,6 +54,12 @@
     <string name="tab_title_friends">FRIENDS</string>
     <!-- END OF MEMBERS ACTIVITY -->
 
+    <!-- START OF MEMBERS DETAIL ACTIVITY -->
+    <string name="text_member_since">Member since </string>
+    <string name="text_member_no_email">Email not found.</string>
+    <string name="text_member_no_address">Address not found.</string>
+    <!-- START OF MEMBERS DETAIL ACTIVITY -->
+
     <!-- START OF FINANCE FRAGMENT -->
     <string name="title_recent_transaction">RECENT TRANSACTIONS</string>
     <!-- END OF FINANCE FRAGMENT -->
