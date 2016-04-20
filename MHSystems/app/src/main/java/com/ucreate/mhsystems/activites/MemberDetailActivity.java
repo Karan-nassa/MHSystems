@@ -42,14 +42,14 @@ public class MemberDetailActivity extends BaseActivity {
      *******************************/
     public static final String LOG_TAG = MemberDetailActivity.class.getSimpleName();
 
-    String strAddressLine, strMemberEmail, strTelNoHome, strTelNoWork, strTelNoMob;
+    String strAddressLine, strMemberEmail, strTelNoHome, strTelNoWork, strTelNoMob, strHandCapPlay;
     int iMemberID;
 
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
     LinearLayout llMembersDetailBack;
-    TextView tvMemberNameDD, tvMemberContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate;
+    TextView tvMemberNameDD, tvMemberContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
     ImageView ivActionMap, ivActionEmail, ivActionCall;
 
     //List of type books this list will store type Book which is our data model
@@ -150,6 +150,8 @@ public class MemberDetailActivity extends BaseActivity {
         tvMemberContact = (TextView) findViewById(R.id.tvMemberContact);
         tvMemberEmail = (TextView) findViewById(R.id.tvMemberEmail);
         tvMemberAddress = (TextView) findViewById(R.id.tvMemberAddress);
+        tvHandicapPlayStr = (TextView) findViewById(R.id.tvHandicapPlayStr);
+        tvHandicapTypeStr = (TextView) findViewById(R.id.tvHandicapTypeStr);
 
         ivActionMap = (ImageView) findViewById(R.id.ivActionMap);
         ivActionEmail = (ImageView) findViewById(R.id.ivActionEmail);
@@ -230,6 +232,7 @@ public class MemberDetailActivity extends BaseActivity {
                     strTelNoHome = membersDetailItems.getData().getContactDetails().getTelNoHome();
                     strTelNoMob = membersDetailItems.getData().getContactDetails().getTelNoMob();
                     strTelNoWork = membersDetailItems.getData().getContactDetails().getTelNoWork();
+                    strHandCapPlay = membersDetailItems.getData().getHCapPlayStr();
 
                     displayMembersData();
 
@@ -255,6 +258,17 @@ public class MemberDetailActivity extends BaseActivity {
      * after getting SUCCESS from web service.
      */
     private void displayMembersData() {
+
+        /**
+         *  Implements check for empty STRING of HANDICAP.
+         */
+        if (strHandCapPlay.equals("")) {
+            tvHandicapPlayStr.setText("N/A");
+        } else {
+            tvHandicapPlayStr.setText(strHandCapPlay);
+        }
+
+        tvHandicapTypeStr.setText(membersDetailItems.getData().getHCapTypeStr());
         tvMemberNameDD.setText(membersDetailItems.getData().getNameRecord().getFormalName());
         tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getLastJoiningDate()));
 
@@ -318,13 +332,13 @@ public class MemberDetailActivity extends BaseActivity {
 
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, strMemberEmail);
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{strMemberEmail});
         // emailIntent.putExtra(Intent.EXTRA_CC, CC);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Type EMAIL message here");
 
         try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            startActivity(Intent.createChooser(emailIntent, "Send Email..."));
             finish();
             //  Log.i("Finished sending...", "");
         } catch (android.content.ActivityNotFoundException ex) {

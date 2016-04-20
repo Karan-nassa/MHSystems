@@ -102,9 +102,44 @@
 
                         </LinearLayout>
 
-
                     </FrameLayout>
 
+                    <!-- HANDICAP PERSON -->
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:orientation="vertical">
+
+                        <!-- HANDICAP PLAY STR -->
+
+                        <com.ucreate.mhsystems.customfonts.RobotoTextView
+                            android:id="@+id/tvHandicapPlayStr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color4942AA"
+                            android:padding="15dp"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhiteffffff"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <!-- HANDICAP TYPE STR -->
+
+                        <com.ucreate.mhsystems.customfonts.RobotoTextView
+                            android:id="@+id/tvHandicapTypeStr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:text="CONGU(L)"
+                            android:textColor="@color/colorBlack000000"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
 
 
                     <!-- ADD MEMBER -->
@@ -135,10 +170,9 @@
                     <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorEF8176"
-                        android:textSize="14sp"
                         android:text="Personal Details"
-                        />
+                        android:textColor="@color/colorEF8176"
+                        android:textSize="14sp" />
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -270,8 +304,8 @@
                             <com.ucreate.mhsystems.customfonts.RobotoTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Address"
                                 android:layout_marginTop="4dp"
+                                android:text="Address"
                                 android:textColor="@color/colorb2b7bf"
                                 android:textSize="14sp" />
 
@@ -295,7 +329,7 @@
                 <!-- SPACE VIEW -->
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"/>
+                    android:layout_height="60dp" />
 
 
             </LinearLayout>
