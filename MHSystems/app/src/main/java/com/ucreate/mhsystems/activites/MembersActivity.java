@@ -1,7 +1,13 @@
 package com.ucreate.mhsystems.activites;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +18,7 @@ import android.widget.Spinner;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CustomSpinnerAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
+import com.ucreate.mhsystems.fragments.MembersFragment;
 import com.ucreate.mhsystems.fragments.MembersTabFragment;
 
 import java.util.ArrayList;
@@ -119,7 +126,7 @@ public class MembersActivity extends BaseActivity {
                                        int position, long id) {
                 // On selecting a spinner item
                 String item = adapter.getItemAtPosition(position).toString();
-                switch (position){
+                switch (position) {
                     case ApplicationGlobal.ACTION_MEMBERS_ALL:
                         updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
                         break;
@@ -142,14 +149,67 @@ public class MembersActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_members, menu);
-        return true;
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (MembersFragment.mAdapter != null) {
+            MembersFragment.mAdapter.mAsyncTaskThreadPool.cancelAllTasks(true);
+        }
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_members, menu);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(final String query) {
+                Log.e("onQueryTextSubmit", query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(final String newText) {
+                Log.e("onQueryTextChange", newText);
+                performSearch(newText);
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /**
+     * Implements a method to Quick search bar
+     * in tool bar.
+     */
+    public void performSearch(final String queryText) {
+        MembersFragment.mAdapter.getFilter().filter(queryText);
+        MembersFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
+        MembersFragment.mAdapter.notifyDataSetChanged();
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        String url = null;
+//        switch (item.getItemId()) {
+//            case R.id.menuItem_all_my_apps:
+//                url = "https://play.google.com/store/apps/developer?id=AndroidDeveloperLB";
+//                break;
+//            case R.id.menuItem_all_my_repositories:
+//                url = "https://github.com/AndroidDeveloperLB";
+//                break;
+//            case R.id.menuItem_current_repository_website:
+//                url = "https://github.com/AndroidDeveloperLB/ListViewVariants";
+//                break;
+//        }
+        if (url == null)
+            return true;
+        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+        return true;
     }
 }

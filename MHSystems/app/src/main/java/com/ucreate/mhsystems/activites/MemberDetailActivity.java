@@ -1,13 +1,18 @@
 package com.ucreate.mhsystems.activites;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -44,10 +49,13 @@ public class MemberDetailActivity extends BaseActivity {
 
     String strAddressLine, strMemberEmail, strTelNoHome, strTelNoWork, strTelNoMob, strHandCapPlay;
     int iMemberID;
+    //Only send Invite if 'isFriendInvite' false.
+    boolean isFriendInvite;
 
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
+    FloatingActionButton fabFriendInvitation;
     LinearLayout llMembersDetailBack;
     TextView tvMemberNameDD, tvMemberContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
     ImageView ivActionMap, ivActionEmail, ivActionCall;
@@ -95,6 +103,30 @@ public class MemberDetailActivity extends BaseActivity {
     };
 
     /**
+     * Define Floating action button tap Alert Dialog
+     * events handle here.
+     */
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    fabFriendInvitation.setImageResource(R.mipmap.ic_friend_pending);
+                    fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
+
+                    //Set TRUE so don't display YES/NO alert dialog.
+                    isFriendInvite = true;
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //Cancel button clicked
+                    break;
+            }
+        }
+    };
+
+    /**
      * Implements a CONSTANT field to call
      * functionality.
      */
@@ -124,12 +156,17 @@ public class MemberDetailActivity extends BaseActivity {
             showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabFriendInvitation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Functionality not implemented yet.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                if (!isFriendInvite) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MemberDetailActivity.this);
+                    builder.setTitle(getResources().getString(R.string.alert_title_friend_invitation))
+                            .setMessage(getResources().getString(R.string.alert_title_friend_invite_message))
+                            .setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("Cancel", dialogClickListener).show();
+                }
             }
         });
 
@@ -156,6 +193,8 @@ public class MemberDetailActivity extends BaseActivity {
         ivActionMap = (ImageView) findViewById(R.id.ivActionMap);
         ivActionEmail = (ImageView) findViewById(R.id.ivActionEmail);
         ivActionCall = (ImageView) findViewById(R.id.ivActionCall);
+
+        fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
     }
 
     /**
@@ -228,7 +267,7 @@ public class MemberDetailActivity extends BaseActivity {
 
 
                     strMemberEmail = membersDetailItems.getData().getContactDetails().getEMail();
-                    strAddressLine = membersDetailItems.getData().getContactDetails().getPrivateAddress().getAsLine();
+                    strAddressLine = membersDetailItems.getData().getContactDetails().getAddress().getAsLine();
                     strTelNoHome = membersDetailItems.getData().getContactDetails().getTelNoHome();
                     strTelNoMob = membersDetailItems.getData().getContactDetails().getTelNoMob();
                     strTelNoWork = membersDetailItems.getData().getContactDetails().getTelNoWork();

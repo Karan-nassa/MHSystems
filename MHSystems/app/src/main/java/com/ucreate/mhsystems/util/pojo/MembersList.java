@@ -34,6 +34,20 @@ public class MembersList {
     @SerializedName("GenderStr")
     @Expose
     private String GenderStr;
+
+    public MembersList(Integer clubID, Integer memberID, String userLoginID, Boolean isReadOnly, Boolean isRegistered, String displayName, String playHCapStr, Integer gender, String genderStr, String HCapTypeStr) {
+        this.ClubID = clubID;
+        this.MemberID = memberID;
+        this.UserLoginID = userLoginID;
+        this.IsReadOnly = isReadOnly;
+        this.IsRegistered = isRegistered;
+        this.DisplayName = displayName;
+        this.PlayHCapStr = playHCapStr;
+        this.Gender = gender;
+        this.GenderStr = genderStr;
+        this.HCapTypeStr = HCapTypeStr;
+    }
+
     @SerializedName("HCapTypeStr")
     @Expose
     private String HCapTypeStr;

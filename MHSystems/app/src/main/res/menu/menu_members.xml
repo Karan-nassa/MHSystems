@@ -7,10 +7,11 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@mipmap/ic_menu_search"
         android:orderInCategory="100"
         android:title=""
-        app:showAsAction="always" />
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
 
     <!-- MENU BAR ICON MORE -->.
 
@@ -19,6 +20,6 @@
         android:icon="@mipmap/ic_menu_more"
         android:orderInCategory="100"
         android:title=""
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 </menu>

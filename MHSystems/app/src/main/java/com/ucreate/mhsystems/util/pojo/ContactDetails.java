@@ -23,9 +23,9 @@ public class ContactDetails {
     @SerializedName("Address")
     @Expose
     private Address Address;
-    @SerializedName("PrivateAddress")
-    @Expose
-    private PrivateAddress PrivateAddress;
+//    @SerializedName("PrivateAddress")
+//    @Expose
+//    private PrivateAddress PrivateAddress;
 
     /**
      * 
@@ -121,18 +121,18 @@ public class ContactDetails {
      * 
      * @return
      *     The PrivateAddress
-     */
+     *//*
     public PrivateAddress getPrivateAddress() {
         return PrivateAddress;
     }
 
-    /**
+    *//**
      * 
      * @param PrivateAddress
      *     The PrivateAddress
-     */
+     *//*
     public void setPrivateAddress(PrivateAddress PrivateAddress) {
         this.PrivateAddress = PrivateAddress;
-    }
+    }*/
 
 }

@@ -81,7 +81,7 @@ public class MembersFragment extends Fragment {
 
     //Members list demo.
     private PinnedHeaderListView mListView;
-    AlphabaticalListAdapter mAdapter = null;
+    public static AlphabaticalListAdapter mAdapter = null;
     public LayoutInflater mInflater;
 
     /**
@@ -93,6 +93,8 @@ public class MembersFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             Log.e(LOG_TAG, "Member ID "+ membersDatas.get(0).getMembersList().get(position).getMemberID());
+//            Log.e(LOG_TAG, "Member FORMAL NAME "+ membersDatas.get(0).getMembersList().get(position).);
+//            Log.e(LOG_TAG, "Member ID "+ membersDatas.get(0).getMembersList().get(position).getMemberID());
 
             Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
             //intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).);
@@ -112,7 +114,7 @@ public class MembersFragment extends Fragment {
         mListView = (PinnedHeaderListView) mRootView.findViewById(R.id.lvMembersList);
 
         //Set Members list click listener.
-        mListView.setOnItemClickListener(mListMemberListener);
+      //  mListView.setOnItemClickListener(mListMemberListener);
 
         return mRootView;
     }
@@ -292,11 +294,11 @@ public class MembersFragment extends Fragment {
     // ////////////////////////////////////////////////////////////
 // ContactsAdapter //
 // //////////////////
-    class AlphabaticalListAdapter extends SearchablePinnedHeaderListViewAdapter<MembersList> {
+    public class AlphabaticalListAdapter extends SearchablePinnedHeaderListViewAdapter<MembersList> {
         private ArrayList<MembersList> mContacts;
         private final int CONTACT_PHOTO_IMAGE_SIZE;
         private final int[] PHOTO_TEXT_BACKGROUND_COLORS;
-        private final AsyncTaskThreadPool mAsyncTaskThreadPool = new AsyncTaskThreadPool(1, 2, 10);
+        public final AsyncTaskThreadPool mAsyncTaskThreadPool = new AsyncTaskThreadPool(1, 2, 10);
 
 
         @Override
@@ -330,6 +332,7 @@ public class MembersFragment extends Fragment {
         public View getView(final int position, final View convertView, final ViewGroup parent) {
             final ViewHolder holder;
             final View rootView;
+            final MembersList contact;
             if (convertView == null) {
                 holder = new ViewHolder();
 
@@ -352,7 +355,7 @@ public class MembersFragment extends Fragment {
                 rootView = convertView;
                 holder = (ViewHolder) rootView.getTag();
             }
-            final MembersList contact = getItem(position);
+            contact = getItem(position);
             final String displayName = contact.getDisplayName();
             holder.friendName.setText(displayName);
             holder.tvPlayHCapStr.setText(contact.getPlayHCapStr());
@@ -400,6 +403,17 @@ public class MembersFragment extends Fragment {
 //                }
 //            }
             bindSectionHeader(holder.headerView, null, position);
+
+            rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
+                    //intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).);
+                    intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
+                    startActivity(intent);
+                }
+            });
             return rootView;
         }
 

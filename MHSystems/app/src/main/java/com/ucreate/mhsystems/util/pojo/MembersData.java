@@ -17,6 +17,11 @@ public class MembersData {
     @Expose
     private Member Member;
 
+    public MembersData(ArrayList<com.ucreate.mhsystems.util.pojo.MembersList> membersList, com.ucreate.mhsystems.util.pojo.Member member) {
+        this.MembersList = membersList;
+        this.Member = member;
+    }
+
     /**
      * 
      * @return
