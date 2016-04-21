@@ -70,6 +70,15 @@ public class CourseDiaryActivity extends BaseActivity {
     public static int iMonth, iCurrentMonth;
     public static int iYear, iCurrentYear;
 
+    /**
+     * +++++ START OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++
+     **/
+    public static int iLessDays;
+    /**
+     * +++++ END OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++
+     **/
+
+
     public static int iNumOfDays;
 
     /**
@@ -190,7 +199,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * Implements a method to RESET CALENDAR state
      * or set as initial state.
      */
-    private void resetCalendar() {
+    public void resetCalendar() {
 
         strDate = strCurrentDate;
         iMonth = iCurrentMonth;
@@ -270,7 +279,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * @param strCourseEventDate <br>
      *                           Implements a method to return the format the day of
      *                           event.
-     *                           <p>
+     *                           <p/>
      *                           Exapmle: 2016-03-04T00:00:00
      * @Return : 04
      */
@@ -289,7 +298,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * @param strDayName <br>
      *                   Implements a method to return the format the day of
      *                   event.
-     *                   <p>
+     *                   <p/>
      *                   Exapmle: NAME OF DAY : Friday
      * @Return : Fri
      */
@@ -417,6 +426,8 @@ public class CourseDiaryActivity extends BaseActivity {
     /**
      * Implements a method to ENABLE/DISABLE previous
      * MONTH arrow.
+     *
+     * @param isEnable : TRUE means VISIBLE otherwise FALSE.
      */
     public static void setPreviousButton(boolean isEnable) {
 

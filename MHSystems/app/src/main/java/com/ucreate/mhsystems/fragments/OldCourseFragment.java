@@ -92,7 +92,9 @@ public class OldCourseFragment extends Fragment {
                 if (lvCourseDiary.getLastVisiblePosition() >= count
                         - threshold) {
 
-                    ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading More...");
+                    getMoreCourseEvents();
+
+                    //((CourseDiaryActivity) getActivity()).showPleaseWait("Loading More...");
                 }
             }
         }
@@ -102,6 +104,70 @@ public class OldCourseFragment extends Fragment {
 
         }
     };
+
+    /**
+     * Implements a functionality to which will be called when
+     * user scroll down and LOAD more alert displaying and user
+     * get more specific [ApplicationGlobal.LOAD_MORE_VALUES]
+     * having value.
+     */
+    private void getMoreCourseEvents() {
+        if (CourseDiaryActivity.iMonth == 12)
+        {
+            ((CourseDiaryActivity)getActivity()).setPreviousButton(false);
+        }
+        else
+        {
+            ((CourseDiaryActivity)getActivity()).setPreviousButton(true);
+
+            ((CourseDiaryActivity)getActivity()).showAlertMessage("Under process...");
+
+//            let dateComponents = NSDateComponents()
+//            dateComponents.year = self.components.year
+//            dateComponents.month = CounterMonth
+//
+//            let calendar = NSCalendar.currentCalendar()
+//            let date = calendar.dateFromComponents(dateComponents)!
+//
+//                let range = calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: date)
+//
+//            let numDays = range.length
+//
+//            let lessDays = numDays - scrollingDaysforFooter
+//
+//
+//
+//            print("monthSymbol  : \(scrollingDaysforFooter)")
+//            if scrollingDaysforFooter >= numDays {
+//            //if lessDays are greater than month lessDays
+//            scrollingDaysforFooter = 1
+//        }
+//
+//
+//            if lessDays < 12 {
+//
+//            DateFrom    =  "\(CounterMonth)/\(scrollingDaysforFooter+1)/\(components.year)"
+//            CounterMonth += 1
+//
+//            dateTo   =  "\(CounterMonth)/\((scrollingDaysforFooter+scrollingDaysfortoday) - numDays)/\(components.year)"
+//
+//            //scrollingDaysforFooter = scrollingDaysforFooter+12-scrollingDaysfortoday+1
+//
+//            scrollingDaysforFooter =  (scrollingDaysforFooter+scrollingDaysfortoday) - numDays // 12-scrollingDaysfortoday+1
+//        }
+//            else
+//            {
+//
+//
+//                DateFrom = "\(CounterMonth)/\(scrollingDaysforFooter+1)/\(components.year)"
+//                dateTo = "\(CounterMonth)/\(scrollingDaysforFooter+scrollingDaysfortoday)/\(components.year)"
+//
+//                scrollingDaysforFooter = scrollingDaysforFooter+scrollingDaysfortoday
+//                print("monthSymbol  : \(scrollingDaysforFooter)")
+//
+//            }
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

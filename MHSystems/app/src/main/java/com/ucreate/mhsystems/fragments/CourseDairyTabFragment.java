@@ -23,6 +23,7 @@ import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import butterknife.Bind;
 
@@ -143,6 +144,7 @@ public class CourseDairyTabFragment extends Fragment {
 
             case ApplicationGlobal.ACTION_NOTHING:
 
+                createDateForData();
                 break;
 
             case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
@@ -157,13 +159,15 @@ public class CourseDairyTabFragment extends Fragment {
                     if (CourseDiaryActivity.iMonth == CourseDiaryActivity.iCurrentMonth) {
                         //Do nothing. Just load data according current date.
                         CourseDiaryActivity.strDate = CourseDiaryActivity.strCurrentDate;
-                    }else {
+                    } else {
                         //Do nothing. Just load data according current date.
                         CourseDiaryActivity.strDate = "01";
                     }
 
                     ((CourseDiaryActivity) getActivity()).getNumberofDays();
                 }
+
+                createDateForData();
 
                 break;
 
@@ -174,7 +178,7 @@ public class CourseDairyTabFragment extends Fragment {
                 } else {
                     CourseDiaryActivity.iMonth++;
 
-                    if(CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth){
+                    if (CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
                         CourseDiaryActivity.setPreviousButton(true);
                     }
 
@@ -183,28 +187,71 @@ public class CourseDairyTabFragment extends Fragment {
 
                     ((CourseDiaryActivity) getActivity()).getNumberofDays();
                 }
+                createDateForData();
                 break;
 
             case ApplicationGlobal.ACTION_TODAY:
+                /** +++++ START OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++ **/
+                callTodayScrollEvents();
+                /** +++++ END OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++ **/
 
-                CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iCurrentYear);
-                CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, (CourseDiaryActivity.iCurrentMonth - 1));
-                CourseDiaryActivity.mCalendarInstance.set(Calendar.DATE, Integer.parseInt(CourseDiaryActivity.strCurrentDate));
-
-                //Initialize the dates of CALENDER to display data according dates.
-                CourseDiaryActivity.strDate = "" + CourseDiaryActivity.mCalendarInstance.get(Calendar.DATE);
-                CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.get(Calendar.DATE);
-
-                //Get MONTH and YEAR.
-                CourseDiaryActivity.iMonth = (CourseDiaryActivity.mCalendarInstance.get(Calendar.MONTH) + 1);
                 break;
 
             case ApplicationGlobal.ACTION_CALENDAR:
 
                 CourseDiaryActivity.iNumOfDays = Integer.parseInt(CourseDiaryActivity.strDate);
+                createDateForData();
                 break;
         }
+    }
 
+    /**
+     * Implements Today functionality to display CURRENT date to
+     * next specific dates.
+     */
+    private void callTodayScrollEvents() {
+        //Reset To current date.
+        CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iCurrentYear);
+        CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, (CourseDiaryActivity.iCurrentMonth - 1));
+        CourseDiaryActivity.mCalendarInstance.set(Calendar.DATE, Integer.parseInt(CourseDiaryActivity.strCurrentDate));
+
+        // Create a calendar object and set year and month
+        CourseDiaryActivity.mCalendarInstance = new GregorianCalendar(CourseDiaryActivity.iYear, (CourseDiaryActivity.iMonth - 1), Integer.parseInt(CourseDiaryActivity.strDate));
+
+        // Get the number of days in that month
+        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        /** +++++ START OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++ **/
+        CourseDiaryActivity.iLessDays = CourseDiaryActivity.iNumOfDays - Integer.parseInt(CourseDiaryActivity.strDate);
+        int iDate;
+        if (CourseDiaryActivity.iLessDays < ApplicationGlobal.LOAD_MORE_VALUES) {
+
+            strDateFrom = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
+            /**
+             *  Suppose Current date is near to end of Month then increment to
+             *  Next Month.
+             */
+            CourseDiaryActivity.iMonth += 1;
+            CourseDiaryActivity.strDate = "" + (ApplicationGlobal.LOAD_MORE_VALUES - CourseDiaryActivity.iLessDays);
+            strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+        } else {
+            strDateFrom = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
+
+            iDate = Integer.parseInt(CourseDiaryActivity.strDate);
+            CourseDiaryActivity.strDate = "" + (iDate + ApplicationGlobal.LOAD_MORE_VALUES);
+
+            strDateTo = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
+        }
+
+        Log.e(LOG_TAG, "strDate " + strDateFrom);
+        Log.e(LOG_TAG, "strDateTo " + strDateTo);
+    }
+
+    /**
+     * Finally, create DATE to get data and for CALENDAR, PREVIOUS/NEXT MONTH
+     * functionality.
+     */
+    public void createDateForData() {
         //FORMAT : MM-DD-YYYY
         strDateFrom = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
 
@@ -216,7 +263,6 @@ public class CourseDairyTabFragment extends Fragment {
         Log.e(LOG_TAG, "START DATE : " + strDateFrom);
         Log.e(LOG_TAG, "END DATE : " + strDateTo);
         Log.e(LOG_TAG, "NAME OF MONTH : " + strNameOfMonth);
-        // Log.e("DATA ", "DATE : " + CourseDiaryActivity.strDate + " MONTH : " + CourseDiaryActivity.iMonth + " YEAR : " + CourseDiaryActivity.iYear + " NUM OF DAYS : " + CourseDiaryActivity.iNumOfDays);
     }
 
 

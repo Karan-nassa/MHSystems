@@ -84,4 +84,10 @@ public class ApplicationGlobal {
      * MEMBERS list to MEMBER DETAIL SCREEN.
      */
     public static final String KEY_MEMBER_ID = "MEMBER_ID";
+
+    /**
+     * Declares the instance of LOAD MORE VALUES specified for
+     * scroll down to load next specific content.
+     */
+    public static final int LOAD_MORE_VALUES = 12;
 }
