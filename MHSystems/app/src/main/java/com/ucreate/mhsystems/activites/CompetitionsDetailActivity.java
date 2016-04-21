@@ -40,6 +40,7 @@ public class CompetitionsDetailActivity extends AppCompatActivity {
      *******************************/
     String strEventTitle, strEventLogo, strEventDate, strEventTime, strEventPrize, strEventDesc;
     boolean isEventJoin;
+    private boolean isDialogVisible;
 
     /**
      * Implements a listener of HOME.
@@ -55,11 +56,18 @@ public class CompetitionsDetailActivity extends AppCompatActivity {
     private View.OnClickListener mJoinListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent mIntent = new Intent(CompetitionsDetailActivity.this, CustomAlertDialogActivity.class);
-            //Pass theme green color.
-            mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#F6EA8C");
-            mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COMPETITIONS);
-            startActivity(mIntent);
+
+            if (!isDialogVisible) {
+                Intent mIntent = new Intent(CompetitionsDetailActivity.this, CustomAlertDialogActivity.class);
+                //Pass theme green color.
+                mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#F6EA8C");
+                mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COMPETITIONS);
+                startActivity(mIntent);
+                isDialogVisible = true;
+            } else {
+                //Don't display again if already display Alert dialog.
+                isDialogVisible = false;
+            }
         }
     };
 

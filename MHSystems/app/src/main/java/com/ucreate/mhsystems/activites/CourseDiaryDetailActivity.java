@@ -40,6 +40,7 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
     @Bind(R.id.llPriceGroup)
     LinearLayout llPriceGroup;
 
+    private boolean isDialogVisible;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -58,14 +59,21 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
             onBackPressed();
         }
     };
+
     private View.OnClickListener mJoinListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent mIntent = new Intent(CourseDiaryDetailActivity.this, CustomAlertDialogActivity.class);
-            //Pass theme green color.
-            mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
-            mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
-            startActivity(mIntent);
+            if (!isDialogVisible) {
+                Intent mIntent = new Intent(CourseDiaryDetailActivity.this, CustomAlertDialogActivity.class);
+                //Pass theme green color.
+                mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
+                mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
+                startActivity(mIntent);
+                isDialogVisible = true;
+            } else {
+                //Don't display again if already display Alert dialog.
+                isDialogVisible = false;
+            }
         }
     };
 

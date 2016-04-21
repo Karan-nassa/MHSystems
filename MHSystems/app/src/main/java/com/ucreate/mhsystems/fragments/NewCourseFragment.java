@@ -51,6 +51,7 @@ public class NewCourseFragment extends Fragment {
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
     ArrayList<CourseDiaryDataCopy> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
 
+    private boolean isDialogVisible;
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -85,6 +86,7 @@ public class NewCourseFragment extends Fragment {
         return mRootView;
     }
 
+
     /**
      * Set COURSE DIARY events listener.
      */
@@ -99,12 +101,18 @@ public class NewCourseFragment extends Fragment {
 
                 if (arrayListCourseData.get(position).getSlotType() == 2) {
 
-                    //Show alert dialog.
-                    Intent mIntent = new Intent(getActivity(), CustomAlertDialogActivity.class);
-                    //Pass theme green color.
-                    mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
-                    mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
-                    startActivity(mIntent);
+                    if (!isDialogVisible) {
+                        //Show alert dialog.
+                        Intent mIntent = new Intent(getActivity(), CustomAlertDialogActivity.class);
+                        //Pass theme green color.
+                        mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
+                        mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
+                        startActivity(mIntent);
+                        isDialogVisible = true;
+                    } else {
+                        //Don't display again if already display Alert dialog.
+                        isDialogVisible = false;
+                    }
                 } else {
 
                     Intent intent = new Intent(getActivity(), CourseDiaryDetailActivity.class);

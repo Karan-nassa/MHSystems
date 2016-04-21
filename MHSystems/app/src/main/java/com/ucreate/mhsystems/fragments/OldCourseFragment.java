@@ -6,6 +6,7 @@ package com.ucreate.mhsystems.fragments;
  * <br>tabs content on 12/23/2015.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -51,6 +53,8 @@ public class OldCourseFragment extends Fragment {
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
     ArrayList<CourseDiaryDataCopy> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
 
+    boolean isDialogVisible = false;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -72,6 +76,33 @@ public class OldCourseFragment extends Fragment {
     //List of type books this list will store type Book which is our data model
     private CourseDiaryAPI courseDiaryAPI;
 
+    /**
+     * Implements a FIELD to scroll down to load more data to update
+     * list.
+     */
+    private AbsListView.OnScrollListener mLoadMoreScrollListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            int threshold = 1;
+            int count = lvCourseDiary.getCount();
+
+            Log.e(LOG_TAG, "List Count on Scroll down :" + count);
+
+            if (scrollState == SCROLL_STATE_IDLE) {
+                if (lvCourseDiary.getLastVisiblePosition() >= count
+                        - threshold) {
+
+                    ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading More...");
+                }
+            }
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_course_dairy_list, container, false);
@@ -81,6 +112,9 @@ public class OldCourseFragment extends Fragment {
 
         //Course Diary events click listener.
         lvCourseDiary.setOnItemClickListener(mCourseEventListener);
+
+        //Load more COURSE listener call here.
+        lvCourseDiary.setOnScrollListener(mLoadMoreScrollListener);
 
         return mRootView;
     }
@@ -99,12 +133,19 @@ public class OldCourseFragment extends Fragment {
 
                 if (arrayListCourseData.get(position).getSlotType() == 2) {
 
-                    //Show alert dialog.
-                    Intent mIntent = new Intent(getActivity(), CustomAlertDialogActivity.class);
-                    //Pass theme green color.
-                    mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
-                    mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
-                    startActivity(mIntent);
+                    if (!isDialogVisible) {
+                        //Show alert dialog.
+                        Intent mIntent = new Intent(getActivity(), CustomAlertDialogActivity.class);
+                        //Pass theme green color.
+                        mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
+                        mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
+                        startActivity(mIntent);
+
+                        isDialogVisible = true;
+                    } else {
+                        //Don't display again if already display Alert dialog.
+                        isDialogVisible = false;
+                    }
                 } else {
 
                     Intent intent = new Intent(getActivity(), CourseDiaryDetailActivity.class);
