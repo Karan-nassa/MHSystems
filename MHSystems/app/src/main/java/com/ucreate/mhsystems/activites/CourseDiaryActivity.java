@@ -240,9 +240,9 @@ public class CourseDiaryActivity extends BaseActivity {
      * Implements a method to filter or set date and name of Day
      * one time for all course events having same date and day.
      */
-    public ArrayList<CourseDiaryDataCopy> filterCourseDates(ArrayList<CourseDiaryDataCopy> arrayListCourseData) {
+    public ArrayList<CourseDiaryDataCopy> filterCourseDates(int iCount, ArrayList<CourseDiaryDataCopy> arrayListCourseData) {
         ArrayList<CourseDiaryDataCopy> courseDiaryDataArrayList = new ArrayList<>();
-        courseDiaryDataArrayList.clear();
+       courseDiaryDataArrayList.clear();
         String strLastDate = "";
 
         /**
@@ -251,27 +251,34 @@ public class CourseDiaryActivity extends BaseActivity {
          */
         for (int iCounter = 0; iCounter < arrayListCourseData.size(); iCounter++) {
 
-            String strDateOfEvent = formatDateOfEvent(arrayListCourseData.get(iCounter).getCourseEventDate());
+            if(iCounter<iCount){
+                courseDiaryDataArrayList.add(arrayListCourseData.get(iCounter));
+            }else{
+                String strDateOfEvent = formatDateOfEvent(arrayListCourseData.get(iCounter).getCourseEventDate());
 
-            /**
-             * Check if same date or not of Course Diary event If yes then just
-             * display date and day name once otherwise skip.
-             */
-            if (strLastDate.equalsIgnoreCase(strDateOfEvent)) {
+                /**
+                 * Check if same date or not of Course Diary event If yes then just
+                 * display date and day name once otherwise skip.
+                 */
+                if (strLastDate.equalsIgnoreCase(strDateOfEvent)) {
 
-                arrayListCourseData.get(iCounter).setCourseEventDate("");
-                arrayListCourseData.get(iCounter).setDayName("");
+                    arrayListCourseData.get(iCounter).setCourseEventDate("");
+                    arrayListCourseData.get(iCounter).setDayName("");
 
-            } else {
-                strLastDate = strDateOfEvent;
+                } else {
+                    strLastDate = strDateOfEvent;
 
-                arrayListCourseData.get(iCounter).setCourseEventDate(strDateOfEvent);
-                arrayListCourseData.get(iCounter).setDayName(formatDayOfEvent(arrayListCourseData.get(iCounter).getDayName()));
+                    arrayListCourseData.get(iCounter).setCourseEventDate(strDateOfEvent);
+                    arrayListCourseData.get(iCounter).setDayName(formatDayOfEvent(arrayListCourseData.get(iCounter).getDayName()));
+                }
+
+                //Add final to new arrat list.
+                courseDiaryDataArrayList.add(arrayListCourseData.get(iCounter));
             }
 
-            //Add final to new arrat list.
-            courseDiaryDataArrayList.add(arrayListCourseData.get(iCounter));
+
         }
+        Log.e("filterCourseDates:",""+courseDiaryDataArrayList.size());
         return courseDiaryDataArrayList;
     }
 

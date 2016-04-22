@@ -3,6 +3,7 @@ package com.ucreate.mhsystems.adapter.BaseAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
      * @param CourseDiaryData : Used for Videos data.
      */
     public CourseDiaryAdapter(Activity context, ArrayList<CourseDiaryDataCopy> CourseDiaryData) {
+
         this.context = context;
         this.CourseDiaryData = CourseDiaryData;
         inflater = (LayoutInflater) context.

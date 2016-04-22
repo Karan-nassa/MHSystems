@@ -72,6 +72,7 @@ public class NewCourseFragment extends Fragment {
 
     //List of type books this list will store type Book which is our data model
     private CourseDiaryAPI courseDiaryAPI;
+    private static int iScrollCount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -253,7 +254,7 @@ public class NewCourseFragment extends Fragment {
 //                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyTabFragment.this, filterCourseDates(arrayListCourseData));
 //                    rvCourseDiary.setAdapter(recyclerViewAdapter);
 
-                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(arrayCourseDataBackup));
+                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(iScrollCount, arrayCourseDataBackup));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
 
                     Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.size());

@@ -78,6 +78,8 @@ public class OldCourseFragment extends Fragment {
     //List of type books this list will store type Book which is our data model
     private CourseDiaryAPI courseDiaryAPI;
 
+    int iScrollCount;
+
     /**
      * Implements a FIELD to scroll down to load more data to update
      * list.
@@ -91,6 +93,8 @@ public class OldCourseFragment extends Fragment {
             if (scrollState == SCROLL_STATE_IDLE) {
                 if (lvCourseDiary.getLastVisiblePosition() >= count
                         - threshold) {
+
+                    iScrollCount = count;
 
                     getMoreCourseEvents();
                 }
@@ -158,51 +162,6 @@ public class OldCourseFragment extends Fragment {
                 Log.e(LOG_TAG, "strDateTo " + CourseDairyTabFragment.strDateTo);
 
                 requestCourseService();
-
-
-//            let dateComponents = NSDateComponents()
-//            dateComponents.year = self.components.year
-//            dateComponents.month = CounterMonth
-//
-//            let calendar = NSCalendar.currentCalendar()
-//            let date = calendar.dateFromComponents(dateComponents)!
-//
-//                let range = calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: date)
-//
-//            let numDays = range.length
-
-//            let lessDays = numDays - scrollingDaysforFooter
-//
-//
-//            print("monthSymbol  : \(scrollingDaysforFooter)")
-//            if scrollingDaysforFooter >= numDays {
-//                //if lessDays are greater than month lessDays
-//                scrollingDaysforFooter = 1
-//            }
-//
-//
-//            if lessDays< 12 {
-//
-//                DateFrom = "\(CounterMonth)/\(scrollingDaysforFooter+1)/\(components.year)"
-//                CounterMonth += 1
-//
-//                dateTo = "\(CounterMonth)/\((scrollingDaysforFooter+scrollingDaysfortoday) - numDays)/\(components.year)"
-//
-//                //scrollingDaysforFooter = scrollingDaysforFooter+12-scrollingDaysfortoday+1
-//
-//                scrollingDaysforFooter = (scrollingDaysforFooter + scrollingDaysfortoday) - numDays // 12-scrollingDaysfortoday+1
-//            }
-//            else
-//            {
-//
-//
-//                DateFrom = "\(CounterMonth)/\(scrollingDaysforFooter+1)/\(components.year)"
-//                dateTo = "\(CounterMonth)/\(scrollingDaysforFooter+scrollingDaysfortoday)/\(components.year)"
-//
-//                scrollingDaysforFooter = scrollingDaysforFooter + scrollingDaysfortoday
-//                print("monthSymbol  : \(scrollingDaysforFooter)")
-//
-//            }
         }
     }
 
@@ -372,31 +331,29 @@ public class OldCourseFragment extends Fragment {
         }.getType();
         courseDiaryItemsCopy = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type2);
 
-        arrayListCourseData.clear();
-        arrayCourseDataBackup.clear();
-
+//        arrayListCourseData.clear();
+//        arrayCourseDataBackup.clear();
+        Log.e(LOG_TAG, "clear   : " + arrayCourseDataBackup.size());
         try {
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
             if (courseDiaryItems.getMessage().equalsIgnoreCase("Success")) {
 
+              //  arrayListCourseData.addAll(courseDiaryItems.getData());
                 arrayListCourseData.addAll(courseDiaryItems.getData());
                 //Take backup of List before changing to record.
                 arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
+
 
                 if (arrayListCourseData.size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
-                    //Set Course Diary Recycler Adapter.
-//                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyTabFragment.this, filterCourseDates(arrayListCourseData));
-//                    rvCourseDiary.setAdapter(recyclerViewAdapter);
-
-                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(arrayCourseDataBackup));
+                    //Initialize Course Events Adapter.
+                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(iScrollCount,arrayCourseDataBackup));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
 
-                    Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.size());
                 }
             } else {
                 //If web service not respond in any case.
@@ -409,5 +366,7 @@ public class OldCourseFragment extends Fragment {
 
         //Dismiss progress dialog.
         ((BaseActivity) getActivity()).hideProgress();
+        Log.e(LOG_TAG, "Scroll Count : "+iScrollCount);
+        lvCourseDiary.setSelection(iScrollCount);
     }
 }
