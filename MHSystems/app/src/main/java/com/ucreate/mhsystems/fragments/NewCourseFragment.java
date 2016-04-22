@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -38,6 +39,8 @@ import com.ucreate.mhsystems.util.pojo.CourseDiaryItemsCopy;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -72,7 +75,101 @@ public class NewCourseFragment extends Fragment {
 
     //List of type books this list will store type Book which is our data model
     private CourseDiaryAPI courseDiaryAPI;
-    private static int iScrollCount;
+
+    int iScrollCount;
+
+    /**
+     * Implements a FIELD to scroll down to load more data to update
+     * list.
+     */
+    private AbsListView.OnScrollListener mLoadMoreScrollListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            int threshold = 1;
+            int count = lvCourseDiary.getCount();
+
+            if (scrollState == SCROLL_STATE_IDLE) {
+                if (lvCourseDiary.getLastVisiblePosition() >= count
+                        - threshold) {
+
+                    iScrollCount = count;
+
+                    getMoreCourseEvents();
+                }
+            }
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+        }
+    };
+
+    /**
+     * Implements a functionality to which will be called when user scroll down and LOAD more alert displaying and user
+     * get more specific [ApplicationGlobal.LOAD_MORE_VALUES] having value.
+     */
+    private void getMoreCourseEvents() {
+
+        //Scroll down functionality should only work for TODAY and CALENDAR date picker.
+        switch (CourseDairyTabFragment.iLastCalendarAction) {
+            case ApplicationGlobal.ACTION_CALENDAR:
+            case ApplicationGlobal.ACTION_TODAY:
+
+                if (CourseDiaryActivity.iMonth == 12) {
+                    ((CourseDiaryActivity) getActivity()).setNextButton(false);
+                } else {
+                    ((CourseDiaryActivity) getActivity()).setNextButton(true);
+
+                    ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading more...");
+
+                    // Create a calendar object and set year and month
+                    CourseDiaryActivity.mCalendarInstance = new GregorianCalendar(CourseDiaryActivity.iYear, (CourseDiaryActivity.iMonth - 1), Integer.parseInt(CourseDiaryActivity.strDate));
+
+                    // Get the number of days in that month
+                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                    CourseDiaryActivity.iLessDays = CourseDiaryActivity.iNumOfDays - Integer.parseInt(CourseDiaryActivity.strDate);
+
+                    int iDate = Integer.parseInt(CourseDiaryActivity.strDate);
+
+                    if (iDate >= CourseDiaryActivity.iNumOfDays) {
+                        //if lessDays are greater than month lessDays
+                        CourseDiaryActivity.strDate = "01";
+                    }
+
+
+                    if (CourseDiaryActivity.iLessDays < ApplicationGlobal.LOAD_MORE_VALUES) {
+
+                        CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
+                        /**
+                         *  Suppose Current date is near to end of Month then increment to
+                         *  Next Month.
+                         */
+                        CourseDiaryActivity.iMonth += 1;
+                        CourseDiaryActivity.strDate = "" + ((iDate + ApplicationGlobal.LOAD_MORE_VALUES) - CourseDiaryActivity.iNumOfDays);
+                        CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+                    } else {
+
+                        CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
+
+                        CourseDiaryActivity.strDate = "" + (iDate + ApplicationGlobal.LOAD_MORE_VALUES);
+
+                        CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
+                    }
+
+                    ((CourseDiaryActivity) getActivity()).setTitleBar(CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear);
+
+                    Log.e(LOG_TAG, "strDateFrom " + CourseDairyTabFragment.strDateFrom);
+                    Log.e(LOG_TAG, "strDateTo " + CourseDairyTabFragment.strDateTo);
+
+                    //Reload data with new date created from user.
+                    callCourseWebService();
+                    break;
+                }
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,6 +180,9 @@ public class NewCourseFragment extends Fragment {
 
         //Course Diary events click listener.
         lvCourseDiary.setOnItemClickListener(mCourseEventListener);
+
+        //Load more COURSE listener call here.
+        lvCourseDiary.setOnScrollListener(mLoadMoreScrollListener);
 
         return mRootView;
     }
@@ -155,6 +255,14 @@ public class NewCourseFragment extends Fragment {
             //Reset CALENDAR.
 //            ((CourseDiaryActivity) getActivity()).resetCalendarEvents();
 
+            //Clear array list before inserting items.
+            arrayListCourseData.clear();
+            arrayCourseDataBackup.clear();
+
+            iScrollCount = 0;
+
+            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+
             callCourseWebService();
         }
     }
@@ -168,6 +276,7 @@ public class NewCourseFragment extends Fragment {
          *  Check internet connection before hitting server request.
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+
             //Method to hit Squads API.
             requestCourseService();
         } else {
@@ -179,8 +288,6 @@ public class NewCourseFragment extends Fragment {
      * Implement a method to hit News web service to get response.
      */
     public void requestCourseService() {
-
-        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParams = new AJsonParams_();
         aJsonParams.setCallid("1456315336575");
@@ -233,8 +340,8 @@ public class NewCourseFragment extends Fragment {
         courseDiaryItemsCopy = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type2);
 
         //Clear array list before inserting items.
-        arrayListCourseData.clear();
-        arrayCourseDataBackup.clear();
+//        arrayListCourseData.clear();
+//        arrayCourseDataBackup.clear();
 
         try {
             /**
@@ -270,5 +377,7 @@ public class NewCourseFragment extends Fragment {
 
         //Dismiss progress dialog.
         ((BaseActivity) getActivity()).hideProgress();
+        Log.e(LOG_TAG, "Scroll Count : " + iScrollCount);
+        lvCourseDiary.setSelection(iScrollCount);
     }
 }

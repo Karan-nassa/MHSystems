@@ -108,10 +108,8 @@ public class OldCourseFragment extends Fragment {
     };
 
     /**
-     * Implements a functionality to which will be called when
-     * user scroll down and LOAD more alert displaying and user
-     * get more specific [ApplicationGlobal.LOAD_MORE_VALUES]
-     * having value.
+     * Implements a functionality to which will be called when user scroll down and LOAD more alert displaying and user
+     * get more specific [ApplicationGlobal.LOAD_MORE_VALUES] having value.
      */
     private void getMoreCourseEvents() {
 
@@ -126,8 +124,6 @@ public class OldCourseFragment extends Fragment {
                     ((CourseDiaryActivity) getActivity()).setNextButton(true);
 
                     ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading more...");
-
-                    Log.e(LOG_TAG, "strDate " + CourseDairyTabFragment.strDateFrom);
 
                     // Create a calendar object and set year and month
                     CourseDiaryActivity.mCalendarInstance = new GregorianCalendar(CourseDiaryActivity.iYear, (CourseDiaryActivity.iMonth - 1), Integer.parseInt(CourseDiaryActivity.strDate));
@@ -169,7 +165,8 @@ public class OldCourseFragment extends Fragment {
                     Log.e(LOG_TAG, "strDateFrom " + CourseDairyTabFragment.strDateFrom);
                     Log.e(LOG_TAG, "strDateTo " + CourseDairyTabFragment.strDateTo);
 
-                    requestCourseService();
+                    //Reload data with new date created from user.
+                    callCourseWebService();
                     break;
                 }
         }
@@ -263,6 +260,10 @@ public class OldCourseFragment extends Fragment {
             arrayListCourseData.clear();
             arrayCourseDataBackup.clear();
 
+            iScrollCount = 0;
+
+            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+
             callCourseWebService();
         }
     }
@@ -276,8 +277,6 @@ public class OldCourseFragment extends Fragment {
          *  Check internet connection before hitting server request.
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-
-            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
             //Method to hit Squads API.
             requestCourseService();
