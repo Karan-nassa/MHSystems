@@ -114,54 +114,64 @@ public class OldCourseFragment extends Fragment {
      * having value.
      */
     private void getMoreCourseEvents() {
-        if (CourseDiaryActivity.iMonth == 12) {
-            ((CourseDiaryActivity) getActivity()).setPreviousButton(false);
-        } else {
-         //   ((CourseDiaryActivity) getActivity()).setPreviousButton(true);
 
-            ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading more...");
+        //Scroll down functionality should only work for TODAY and CALENDAR date picker.
+        switch (CourseDairyTabFragment.iLastCalendarAction) {
+            case ApplicationGlobal.ACTION_CALENDAR:
+            case ApplicationGlobal.ACTION_TODAY:
 
-                Log.e(LOG_TAG, "strDate " + CourseDairyTabFragment.strDateFrom);
-
-                // Create a calendar object and set year and month
-                CourseDiaryActivity.mCalendarInstance = new GregorianCalendar(CourseDiaryActivity.iYear, (CourseDiaryActivity.iMonth - 1), Integer.parseInt(CourseDiaryActivity.strDate));
-
-                // Get the number of days in that month
-                CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-                CourseDiaryActivity.iLessDays = CourseDiaryActivity.iNumOfDays - Integer.parseInt(CourseDiaryActivity.strDate);
-
-                int iDate = Integer.parseInt(CourseDiaryActivity.strDate);
-
-                if (iDate >= CourseDiaryActivity.iNumOfDays) {
-                    //if lessDays are greater than month lessDays
-                    CourseDiaryActivity.strDate = "01";
-                }
-
-
-                if (CourseDiaryActivity.iLessDays < ApplicationGlobal.LOAD_MORE_VALUES) {
-
-                    CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
-                    /**
-                     *  Suppose Current date is near to end of Month then increment to
-                     *  Next Month.
-                     */
-                    CourseDiaryActivity.iMonth += 1;
-                    CourseDiaryActivity.strDate = "" + ((iDate + ApplicationGlobal.LOAD_MORE_VALUES) - CourseDiaryActivity.iNumOfDays);
-                    CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+                if (CourseDiaryActivity.iMonth == 12) {
+                    ((CourseDiaryActivity) getActivity()).setNextButton(false);
                 } else {
+                    ((CourseDiaryActivity) getActivity()).setNextButton(true);
 
-                    CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
+                    ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading more...");
 
-                    CourseDiaryActivity.strDate = "" + (iDate + ApplicationGlobal.LOAD_MORE_VALUES);
+                    Log.e(LOG_TAG, "strDate " + CourseDairyTabFragment.strDateFrom);
 
-                    CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
+                    // Create a calendar object and set year and month
+                    CourseDiaryActivity.mCalendarInstance = new GregorianCalendar(CourseDiaryActivity.iYear, (CourseDiaryActivity.iMonth - 1), Integer.parseInt(CourseDiaryActivity.strDate));
+
+                    // Get the number of days in that month
+                    CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                    CourseDiaryActivity.iLessDays = CourseDiaryActivity.iNumOfDays - Integer.parseInt(CourseDiaryActivity.strDate);
+
+                    int iDate = Integer.parseInt(CourseDiaryActivity.strDate);
+
+                    if (iDate >= CourseDiaryActivity.iNumOfDays) {
+                        //if lessDays are greater than month lessDays
+                        CourseDiaryActivity.strDate = "01";
+                    }
+
+
+                    if (CourseDiaryActivity.iLessDays < ApplicationGlobal.LOAD_MORE_VALUES) {
+
+                        CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
+                        /**
+                         *  Suppose Current date is near to end of Month then increment to
+                         *  Next Month.
+                         */
+                        CourseDiaryActivity.iMonth += 1;
+                        CourseDiaryActivity.strDate = "" + ((iDate + ApplicationGlobal.LOAD_MORE_VALUES) - CourseDiaryActivity.iNumOfDays);
+                        CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+                    } else {
+
+                        CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
+
+                        CourseDiaryActivity.strDate = "" + (iDate + ApplicationGlobal.LOAD_MORE_VALUES);
+
+                        CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
+                    }
+
+                    ((CourseDiaryActivity) getActivity()).setTitleBar(CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear);
+
+                    Log.e(LOG_TAG, "strDateFrom " + CourseDairyTabFragment.strDateFrom);
+                    Log.e(LOG_TAG, "strDateTo " + CourseDairyTabFragment.strDateTo);
+
+                    requestCourseService();
+                    break;
                 }
-
-                Log.e(LOG_TAG, "strDate " + CourseDairyTabFragment.strDateFrom);
-                Log.e(LOG_TAG, "strDateTo " + CourseDairyTabFragment.strDateTo);
-
-                requestCourseService();
         }
     }
 
@@ -340,7 +350,7 @@ public class OldCourseFragment extends Fragment {
              */
             if (courseDiaryItems.getMessage().equalsIgnoreCase("Success")) {
 
-              //  arrayListCourseData.addAll(courseDiaryItems.getData());
+                //  arrayListCourseData.addAll(courseDiaryItems.getData());
                 arrayListCourseData.addAll(courseDiaryItems.getData());
                 //Take backup of List before changing to record.
                 arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
@@ -351,7 +361,7 @@ public class OldCourseFragment extends Fragment {
                 } else {
 
                     //Initialize Course Events Adapter.
-                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(iScrollCount,arrayCourseDataBackup));
+                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(iScrollCount, arrayCourseDataBackup));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
 
                 }
@@ -366,7 +376,7 @@ public class OldCourseFragment extends Fragment {
 
         //Dismiss progress dialog.
         ((BaseActivity) getActivity()).hideProgress();
-        Log.e(LOG_TAG, "Scroll Count : "+iScrollCount);
+        Log.e(LOG_TAG, "Scroll Count : " + iScrollCount);
         lvCourseDiary.setSelection(iScrollCount);
     }
 }

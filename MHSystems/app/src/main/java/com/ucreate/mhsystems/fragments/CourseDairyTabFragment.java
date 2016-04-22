@@ -52,7 +52,7 @@ public class CourseDairyTabFragment extends Fragment {
      *******************************/
     public static String strDateFrom; //Start date.
     public static String strDateTo; //End date.
-    String strNameOfMonth = "MARCH 2016";
+    public static String strNameOfMonth = "MARCH 2016";
 
     /**
      * Declare three bool instances to call api
@@ -63,7 +63,7 @@ public class CourseDairyTabFragment extends Fragment {
     /**
      * To record the last position of selected tab.
      */
-    public static int iLastTabPosition;
+    public static int iLastTabPosition, iLastCalendarAction;
 
 
     private TabLayout.OnTabSelectedListener mCourseTabListener = new TabLayout.OnTabSelectedListener() {
@@ -99,6 +99,11 @@ public class CourseDairyTabFragment extends Fragment {
      */
     @SuppressLint("ValidFragment")
     public CourseDairyTabFragment(int action) {
+        /**
+         *  'iLastCalendarAction' will represned Today, CALENDAR, previous or next actions in
+         *  Tabs for Scroll down functionality.
+         */
+        iLastCalendarAction = action;
         setCalenderDates(action);
     }
 
