@@ -137,20 +137,37 @@ public class OldCourseFragment extends Fragment {
 
                     if (iDate >= CourseDiaryActivity.iNumOfDays) {
                         //if lessDays are greater than month lessDays
-                        CourseDiaryActivity.strDate = "01";
+                        //CourseDiaryActivity.strDate = "01";
+                        iDate = 0;
+                        CourseDiaryActivity.iMonth += 1;
+
+                        // Create a calendar object and set year and month
+                        CourseDiaryActivity.mCalendarInstance = new GregorianCalendar(CourseDiaryActivity.iYear, (CourseDiaryActivity.iMonth - 1), Integer.parseInt(CourseDiaryActivity.strDate));
+
+                        // Get the number of days in that month
+                        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                        CourseDiaryActivity.iLessDays = CourseDiaryActivity.iNumOfDays - Integer.parseInt(CourseDiaryActivity.strDate);
                     }
 
 
                     if (CourseDiaryActivity.iLessDays < ApplicationGlobal.LOAD_MORE_VALUES) {
 
                         CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
-                        /**
-                         *  Suppose Current date is near to end of Month then increment to
-                         *  Next Month.
-                         */
-                        CourseDiaryActivity.iMonth += 1;
-                        CourseDiaryActivity.strDate = "" + ((iDate + ApplicationGlobal.LOAD_MORE_VALUES) - CourseDiaryActivity.iNumOfDays);
-                        CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+
+                        if (iDate == 0) {
+                            CourseDiaryActivity.strDate = "" + ((iDate + ApplicationGlobal.LOAD_MORE_VALUES));
+                            CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+                        } else {
+                            /**
+                             *  Suppose Current date is near to end of Month then increment to
+                             *  Next Month.
+                             */
+                            CourseDiaryActivity.iMonth += 1;
+                            CourseDiaryActivity.strDate = "" + ((iDate + ApplicationGlobal.LOAD_MORE_VALUES) - CourseDiaryActivity.iNumOfDays);
+                            CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+                        }
+
                     } else {
 
                         CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
@@ -160,7 +177,7 @@ public class OldCourseFragment extends Fragment {
                         CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
                     }
 
-                    ((CourseDiaryActivity) getActivity()).setTitleBar(CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear);
+                   // ((CourseDiaryActivity) getActivity()).setTitleBar(CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear);
 
                     Log.e(LOG_TAG, "strDateFrom " + CourseDairyTabFragment.strDateFrom);
                     Log.e(LOG_TAG, "strDateTo " + CourseDairyTabFragment.strDateTo);
@@ -260,6 +277,7 @@ public class OldCourseFragment extends Fragment {
             arrayListCourseData.clear();
             arrayCourseDataBackup.clear();
 
+            //Initially clear the scroll count instance so filter date from BASE i.e. 0.
             iScrollCount = 0;
 
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
@@ -314,6 +332,7 @@ public class OldCourseFragment extends Fragment {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
+
                 updateSuccessResponse(jsonObject);
             }
 
@@ -342,7 +361,6 @@ public class OldCourseFragment extends Fragment {
 
 //        arrayListCourseData.clear();
 //        arrayCourseDataBackup.clear();
-        Log.e(LOG_TAG, "clear   : " + arrayCourseDataBackup.size());
         try {
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
@@ -375,7 +393,6 @@ public class OldCourseFragment extends Fragment {
 
         //Dismiss progress dialog.
         ((BaseActivity) getActivity()).hideProgress();
-        Log.e(LOG_TAG, "Scroll Count : " + iScrollCount);
         lvCourseDiary.setSelection(iScrollCount);
     }
 }

@@ -131,7 +131,7 @@ public class CourseDairyTabFragment extends Fragment {
 
         viewPager.setCurrentItem(iLastTabPosition);
 
-        ((CourseDiaryActivity) getActivity()).setTitleBar(strNameOfMonth);
+        ((CourseDiaryActivity) getActivity()).setTitleBar(/*strNameOfMonth*/getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear);
 
         //Implement Tab selected listener.
         tabLayout.setOnTabSelectedListener(mCourseTabListener);
@@ -196,6 +196,13 @@ public class CourseDairyTabFragment extends Fragment {
                 break;
 
             case ApplicationGlobal.ACTION_TODAY:
+                //Reset To current date.
+//                CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iCurrentYear);
+//                CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, (CourseDiaryActivity.iCurrentMonth - 1));
+//                CourseDiaryActivity.mCalendarInstance.set(Calendar.DATE, Integer.parseInt(CourseDiaryActivity.strCurrentDate));
+
+                CourseDiaryActivity.resetCalendar();
+
                 /** +++++ START OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++ **/
                 callTodayScrollEvents();
                 /** +++++ END OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++ **/
@@ -204,8 +211,9 @@ public class CourseDairyTabFragment extends Fragment {
 
             case ApplicationGlobal.ACTION_CALENDAR:
 
-                CourseDiaryActivity.iNumOfDays = Integer.parseInt(CourseDiaryActivity.strDate);
-                createDateForData();
+
+                //CourseDiaryActivity.iNumOfDays = Integer.parseInt(CourseDiaryActivity.strDate);
+                callTodayScrollEvents();
                 break;
         }
     }
@@ -215,10 +223,6 @@ public class CourseDairyTabFragment extends Fragment {
      * next specific dates.
      */
     private void callTodayScrollEvents() {
-        //Reset To current date.
-        CourseDiaryActivity.mCalendarInstance.set(Calendar.YEAR, CourseDiaryActivity.iCurrentYear);
-        CourseDiaryActivity.mCalendarInstance.set(Calendar.MONTH, (CourseDiaryActivity.iCurrentMonth - 1));
-        CourseDiaryActivity.mCalendarInstance.set(Calendar.DATE, Integer.parseInt(CourseDiaryActivity.strCurrentDate));
 
         // Create a calendar object and set year and month
         CourseDiaryActivity.mCalendarInstance = new GregorianCalendar(CourseDiaryActivity.iYear, (CourseDiaryActivity.iMonth - 1), Integer.parseInt(CourseDiaryActivity.strDate));

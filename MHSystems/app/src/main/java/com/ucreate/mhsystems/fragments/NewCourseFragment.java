@@ -135,20 +135,37 @@ public class NewCourseFragment extends Fragment {
 
                     if (iDate >= CourseDiaryActivity.iNumOfDays) {
                         //if lessDays are greater than month lessDays
-                        CourseDiaryActivity.strDate = "01";
+                        //CourseDiaryActivity.strDate = "01";
+                        iDate = 0;
+                        CourseDiaryActivity.iMonth += 1;
+
+                        // Create a calendar object and set year and month
+                        CourseDiaryActivity.mCalendarInstance = new GregorianCalendar(CourseDiaryActivity.iYear, (CourseDiaryActivity.iMonth - 1), Integer.parseInt(CourseDiaryActivity.strDate));
+
+                        // Get the number of days in that month
+                        CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                        CourseDiaryActivity.iLessDays = CourseDiaryActivity.iNumOfDays - Integer.parseInt(CourseDiaryActivity.strDate);
                     }
 
 
                     if (CourseDiaryActivity.iLessDays < ApplicationGlobal.LOAD_MORE_VALUES) {
 
                         CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
-                        /**
-                         *  Suppose Current date is near to end of Month then increment to
-                         *  Next Month.
-                         */
-                        CourseDiaryActivity.iMonth += 1;
-                        CourseDiaryActivity.strDate = "" + ((iDate + ApplicationGlobal.LOAD_MORE_VALUES) - CourseDiaryActivity.iNumOfDays);
-                        CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+
+                        if (iDate == 0) {
+                            CourseDiaryActivity.strDate = "" + ((iDate + ApplicationGlobal.LOAD_MORE_VALUES));
+                            CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+                        } else {
+                            /**
+                             *  Suppose Current date is near to end of Month then increment to
+                             *  Next Month.
+                             */
+                            CourseDiaryActivity.iMonth += 1;
+                            CourseDiaryActivity.strDate = "" + ((iDate + ApplicationGlobal.LOAD_MORE_VALUES) - CourseDiaryActivity.iNumOfDays);
+                            CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+                        }
+
                     } else {
 
                         CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
@@ -377,7 +394,6 @@ public class NewCourseFragment extends Fragment {
 
         //Dismiss progress dialog.
         ((BaseActivity) getActivity()).hideProgress();
-        Log.e(LOG_TAG, "Scroll Count : " + iScrollCount);
         lvCourseDiary.setSelection(iScrollCount);
     }
 }

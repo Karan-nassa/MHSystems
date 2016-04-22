@@ -119,6 +119,8 @@ public class CourseDiaryActivity extends BaseActivity {
 
                                     iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
+                                    //setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
+
                                     updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
                                 } else if (tMonthofYear == iCurrentMonth) {
@@ -130,6 +132,8 @@ public class CourseDiaryActivity extends BaseActivity {
                                         strDate = "" + dayOfMonth;
 
                                         getNumberofDays();
+
+                                      //  setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
 
                                         updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
@@ -199,7 +203,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * Implements a method to RESET CALENDAR state
      * or set as initial state.
      */
-    public void resetCalendar() {
+    public static void resetCalendar() {
 
         strDate = strCurrentDate;
         iMonth = iCurrentMonth;

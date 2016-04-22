@@ -57,6 +57,7 @@ public class MemberDetailActivity extends BaseActivity {
      *******************************/
     FloatingActionButton fabFriendInvitation;
     LinearLayout llMembersDetailBack;
+    LinearLayout llContactGroup, llEmailGroup, llAddressGroup;
     TextView tvMemberNameDD, tvMemberContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
     ImageView ivActionMap, ivActionEmail, ivActionCall;
 
@@ -317,7 +318,8 @@ public class MemberDetailActivity extends BaseActivity {
         if (strMemberEmail.length() > 0) {
             tvMemberEmail.setText(strMemberEmail);
         } else {
-            tvMemberEmail.setText(getResources().getString(R.string.text_member_no_email));
+           // tvMemberEmail.setText(getResources().getString(R.string.text_member_no_email));
+            llEmailGroup.setVisibility(View.GONE);
         }
 
         /**
@@ -327,8 +329,10 @@ public class MemberDetailActivity extends BaseActivity {
             tvMemberContact.setText(strTelNoHome);
         } else if (!strTelNoWork.equalsIgnoreCase("")) {
             tvMemberContact.setText(strTelNoWork);
-        } else {
+        } else if (!strTelNoMob.equalsIgnoreCase("")){
             tvMemberContact.setText(strTelNoMob);
+        }else{
+            llContactGroup.setVisibility(View.GONE);
         }
 
         /**
@@ -337,7 +341,8 @@ public class MemberDetailActivity extends BaseActivity {
         if (strAddressLine.length() > 0) {
             tvMemberAddress.setText(strAddressLine);
         } else {
-            tvMemberAddress.setText(getResources().getString(R.string.text_member_no_address));
+            //tvMemberAddress.setText(getResources().getString(R.string.text_member_no_address));
+            llAddressGroup.setVisibility(View.GONE);
         }
     }
 

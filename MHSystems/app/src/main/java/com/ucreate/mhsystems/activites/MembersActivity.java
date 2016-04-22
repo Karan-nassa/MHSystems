@@ -164,13 +164,13 @@ public class MembersActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
-                Log.e("onQueryTextSubmit", query);
+              //  Log.e("onQueryTextSubmit", query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(final String newText) {
-                Log.e("onQueryTextChange", newText);
+               // Log.e("onQueryTextChange", newText);
                 performSearch(newText);
                 return true;
             }
