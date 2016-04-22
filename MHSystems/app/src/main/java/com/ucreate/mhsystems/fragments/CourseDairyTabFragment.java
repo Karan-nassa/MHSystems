@@ -221,7 +221,6 @@ public class CourseDairyTabFragment extends Fragment {
         // Get the number of days in that month
         CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        /** +++++ START OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++ **/
         CourseDiaryActivity.iLessDays = CourseDiaryActivity.iNumOfDays - Integer.parseInt(CourseDiaryActivity.strDate);
         int iDate;
         if (CourseDiaryActivity.iLessDays < ApplicationGlobal.LOAD_MORE_VALUES) {

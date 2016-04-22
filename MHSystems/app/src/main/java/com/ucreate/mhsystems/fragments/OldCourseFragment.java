@@ -40,6 +40,8 @@ import com.ucreate.mhsystems.util.pojo.CourseDiaryItemsCopy;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -86,15 +88,11 @@ public class OldCourseFragment extends Fragment {
             int threshold = 1;
             int count = lvCourseDiary.getCount();
 
-            Log.e(LOG_TAG, "List Count on Scroll down :" + count);
-
             if (scrollState == SCROLL_STATE_IDLE) {
                 if (lvCourseDiary.getLastVisiblePosition() >= count
                         - threshold) {
 
                     getMoreCourseEvents();
-
-                    //((CourseDiaryActivity) getActivity()).showPleaseWait("Loading More...");
                 }
             }
         }
@@ -112,15 +110,55 @@ public class OldCourseFragment extends Fragment {
      * having value.
      */
     private void getMoreCourseEvents() {
-        if (CourseDiaryActivity.iMonth == 12)
-        {
-            ((CourseDiaryActivity)getActivity()).setPreviousButton(false);
-        }
-        else
-        {
-            ((CourseDiaryActivity)getActivity()).setPreviousButton(true);
+        if (CourseDiaryActivity.iMonth == 12) {
+            ((CourseDiaryActivity) getActivity()).setPreviousButton(false);
+        } else {
+         //   ((CourseDiaryActivity) getActivity()).setPreviousButton(true);
 
-            ((CourseDiaryActivity)getActivity()).showAlertMessage("Under process...");
+            ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading more...");
+
+                Log.e(LOG_TAG, "strDate " + CourseDairyTabFragment.strDateFrom);
+
+                // Create a calendar object and set year and month
+                CourseDiaryActivity.mCalendarInstance = new GregorianCalendar(CourseDiaryActivity.iYear, (CourseDiaryActivity.iMonth - 1), Integer.parseInt(CourseDiaryActivity.strDate));
+
+                // Get the number of days in that month
+                CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                CourseDiaryActivity.iLessDays = CourseDiaryActivity.iNumOfDays - Integer.parseInt(CourseDiaryActivity.strDate);
+
+                int iDate = Integer.parseInt(CourseDiaryActivity.strDate);
+
+                if (iDate >= CourseDiaryActivity.iNumOfDays) {
+                    //if lessDays are greater than month lessDays
+                    CourseDiaryActivity.strDate = "01";
+                }
+
+
+                if (CourseDiaryActivity.iLessDays < ApplicationGlobal.LOAD_MORE_VALUES) {
+
+                    CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
+                    /**
+                     *  Suppose Current date is near to end of Month then increment to
+                     *  Next Month.
+                     */
+                    CourseDiaryActivity.iMonth += 1;
+                    CourseDiaryActivity.strDate = "" + ((iDate + ApplicationGlobal.LOAD_MORE_VALUES) - CourseDiaryActivity.iNumOfDays);
+                    CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + (CourseDiaryActivity.strDate) + "/" + CourseDiaryActivity.iYear;
+                } else {
+
+                    CourseDairyTabFragment.strDateFrom = CourseDiaryActivity.iMonth + "/" + (iDate + 1)/*CourseDiaryActivity.strDate*/ + "/" + CourseDiaryActivity.iYear;
+
+                    CourseDiaryActivity.strDate = "" + (iDate + ApplicationGlobal.LOAD_MORE_VALUES);
+
+                    CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
+                }
+
+                Log.e(LOG_TAG, "strDate " + CourseDairyTabFragment.strDateFrom);
+                Log.e(LOG_TAG, "strDateTo " + CourseDairyTabFragment.strDateTo);
+
+                requestCourseService();
+
 
 //            let dateComponents = NSDateComponents()
 //            dateComponents.year = self.components.year
@@ -132,29 +170,28 @@ public class OldCourseFragment extends Fragment {
 //                let range = calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: date)
 //
 //            let numDays = range.length
-//
+
 //            let lessDays = numDays - scrollingDaysforFooter
-//
 //
 //
 //            print("monthSymbol  : \(scrollingDaysforFooter)")
 //            if scrollingDaysforFooter >= numDays {
-//            //if lessDays are greater than month lessDays
-//            scrollingDaysforFooter = 1
-//        }
+//                //if lessDays are greater than month lessDays
+//                scrollingDaysforFooter = 1
+//            }
 //
 //
-//            if lessDays < 12 {
+//            if lessDays< 12 {
 //
-//            DateFrom    =  "\(CounterMonth)/\(scrollingDaysforFooter+1)/\(components.year)"
-//            CounterMonth += 1
+//                DateFrom = "\(CounterMonth)/\(scrollingDaysforFooter+1)/\(components.year)"
+//                CounterMonth += 1
 //
-//            dateTo   =  "\(CounterMonth)/\((scrollingDaysforFooter+scrollingDaysfortoday) - numDays)/\(components.year)"
+//                dateTo = "\(CounterMonth)/\((scrollingDaysforFooter+scrollingDaysfortoday) - numDays)/\(components.year)"
 //
-//            //scrollingDaysforFooter = scrollingDaysforFooter+12-scrollingDaysfortoday+1
+//                //scrollingDaysforFooter = scrollingDaysforFooter+12-scrollingDaysfortoday+1
 //
-//            scrollingDaysforFooter =  (scrollingDaysforFooter+scrollingDaysfortoday) - numDays // 12-scrollingDaysfortoday+1
-//        }
+//                scrollingDaysforFooter = (scrollingDaysforFooter + scrollingDaysfortoday) - numDays // 12-scrollingDaysfortoday+1
+//            }
 //            else
 //            {
 //
@@ -162,7 +199,7 @@ public class OldCourseFragment extends Fragment {
 //                DateFrom = "\(CounterMonth)/\(scrollingDaysforFooter+1)/\(components.year)"
 //                dateTo = "\(CounterMonth)/\(scrollingDaysforFooter+scrollingDaysfortoday)/\(components.year)"
 //
-//                scrollingDaysforFooter = scrollingDaysforFooter+scrollingDaysfortoday
+//                scrollingDaysforFooter = scrollingDaysforFooter + scrollingDaysfortoday
 //                print("monthSymbol  : \(scrollingDaysforFooter)")
 //
 //            }
@@ -253,6 +290,10 @@ public class OldCourseFragment extends Fragment {
             //Reset CALENDAR.
             //   ((CourseDiaryActivity) getActivity()).resetCalendarEvents();
 
+            //Clear array list before inserting items.
+            arrayListCourseData.clear();
+            arrayCourseDataBackup.clear();
+
             callCourseWebService();
         }
     }
@@ -266,6 +307,9 @@ public class OldCourseFragment extends Fragment {
          *  Check internet connection before hitting server request.
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+
+            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+
             //Method to hit Squads API.
             requestCourseService();
         } else {
@@ -277,8 +321,6 @@ public class OldCourseFragment extends Fragment {
      * Implement a method to hit News web service to get response.
      */
     public void requestCourseService() {
-
-        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParams = new AJsonParams_();
         aJsonParams.setCallid("1456315336575");
@@ -330,7 +372,6 @@ public class OldCourseFragment extends Fragment {
         }.getType();
         courseDiaryItemsCopy = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type2);
 
-        //Clear array list before inserting items.
         arrayListCourseData.clear();
         arrayCourseDataBackup.clear();
 
