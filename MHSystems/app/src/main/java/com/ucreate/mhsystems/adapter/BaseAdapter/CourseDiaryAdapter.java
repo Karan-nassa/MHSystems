@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.util.pojo.CourseDiaryDataCopy;
 
 import java.util.ArrayList;
@@ -138,6 +139,9 @@ public class CourseDiaryAdapter extends BaseAdapter {
             viewHolder.tvDateOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
             viewHolder.tvDayOfEvent.setText(CourseDiaryData.get(position).getDayName());
         }
+
+
+      //  ((CourseDiaryActivity) context).setTitleBar(CourseDiaryData.get(position).getMonthName()/*CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear*/);
 
         return rowView;
     }

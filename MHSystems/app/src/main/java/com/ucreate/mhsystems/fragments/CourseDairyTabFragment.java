@@ -131,7 +131,7 @@ public class CourseDairyTabFragment extends Fragment {
 
         viewPager.setCurrentItem(iLastTabPosition);
 
-        ((CourseDiaryActivity) getActivity()).setTitleBar(/*strNameOfMonth*/getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear);
+        ((CourseDiaryActivity) getActivity()).setTitleBar(strNameOfMonth);
 
         //Implement Tab selected listener.
         tabLayout.setOnTabSelectedListener(mCourseTabListener);
@@ -231,6 +231,10 @@ public class CourseDairyTabFragment extends Fragment {
         CourseDiaryActivity.iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         CourseDiaryActivity.iLessDays = CourseDiaryActivity.iNumOfDays - Integer.parseInt(CourseDiaryActivity.strDate);
+
+        strNameOfMonth = getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear;
+
+        Log.e(LOG_TAG, "callTodayScrollEvents : " + strNameOfMonth);
         int iDate;
         if (CourseDiaryActivity.iLessDays < ApplicationGlobal.LOAD_MORE_VALUES) {
 
@@ -250,6 +254,7 @@ public class CourseDairyTabFragment extends Fragment {
 
             strDateTo = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
         }
+
 
         Log.e(LOG_TAG, "strDate " + strDateFrom);
         Log.e(LOG_TAG, "strDateTo " + strDateTo);

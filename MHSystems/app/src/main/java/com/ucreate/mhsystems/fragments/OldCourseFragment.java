@@ -103,6 +103,9 @@ public class OldCourseFragment extends Fragment {
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            if (arrayCourseDataBackup.size() > 0) {
+                ((CourseDiaryActivity) getActivity()).setTitleBar(arrayCourseDataBackup.get(firstVisibleItem).getMonthName());
+            }
 
         }
     };
@@ -177,7 +180,7 @@ public class OldCourseFragment extends Fragment {
                         CourseDairyTabFragment.strDateTo = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
                     }
 
-                   // ((CourseDiaryActivity) getActivity()).setTitleBar(CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear);
+                    ((CourseDiaryActivity) getActivity()).setTitleBar(CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear);
 
                     Log.e(LOG_TAG, "strDateFrom " + CourseDairyTabFragment.strDateFrom);
                     Log.e(LOG_TAG, "strDateTo " + CourseDairyTabFragment.strDateTo);
@@ -300,6 +303,7 @@ public class OldCourseFragment extends Fragment {
             requestCourseService();
         } else {
             ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+            ((BaseActivity)getActivity()).hideProgress();
         }
     }
 
@@ -378,7 +382,7 @@ public class OldCourseFragment extends Fragment {
                 } else {
 
                     //Initialize Course Events Adapter.
-                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(iScrollCount, arrayCourseDataBackup));
+                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(iScrollCount, arrayCourseDataBackup, arrayListCourseData));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
 
                 }

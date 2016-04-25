@@ -101,7 +101,9 @@ public class NewCourseFragment extends Fragment {
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+            if (arrayCourseDataBackup.size() > 0) {
+                ((CourseDiaryActivity) getActivity()).setTitleBar(arrayCourseDataBackup.get(firstVisibleItem).getMonthName());
+            }
         }
     };
 
@@ -298,6 +300,7 @@ public class NewCourseFragment extends Fragment {
             requestCourseService();
         } else {
             ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+            ((BaseActivity)getActivity()).hideProgress();
         }
     }
 
@@ -378,7 +381,7 @@ public class NewCourseFragment extends Fragment {
 //                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyTabFragment.this, filterCourseDates(arrayListCourseData));
 //                    rvCourseDiary.setAdapter(recyclerViewAdapter);
 
-                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(iScrollCount, arrayCourseDataBackup));
+                    courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(iScrollCount, arrayCourseDataBackup, arrayListCourseData));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
 
                     Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.size());

@@ -22,6 +22,21 @@ public class CourseDiaryDataCopy {
     String title;
     String logo;
     int slotType;
+//    String strNameOfMonth;
+//
+//    /**
+//     * @return The strNameOfMonth
+//     */
+//    public String getStrNameOfMonth() {
+//        return strNameOfMonth;
+//    }
+//
+//    /**
+//     * @param strNameOfMonth The strNameOfMonth
+//     */
+//    public void setStrNameOfMonth(String strNameOfMonth) {
+//        this.strNameOfMonth = strNameOfMonth;
+//    }
 
     /**
      * @return The slotType

@@ -20,11 +20,15 @@ import android.widget.TextView;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
+import com.ucreate.mhsystems.util.pojo.CourseDiaryData;
 import com.ucreate.mhsystems.util.pojo.CourseDiaryDataCopy;
 
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import butterknife.Bind;
@@ -133,7 +137,7 @@ public class CourseDiaryActivity extends BaseActivity {
 
                                         getNumberofDays();
 
-                                      //  setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
+                                        //  setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
 
                                         updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
@@ -244,21 +248,26 @@ public class CourseDiaryActivity extends BaseActivity {
      * Implements a method to filter or set date and name of Day
      * one time for all course events having same date and day.
      */
-    public ArrayList<CourseDiaryDataCopy> filterCourseDates(int iCount, ArrayList<CourseDiaryDataCopy> arrayListCourseData) {
+    public ArrayList<CourseDiaryDataCopy> filterCourseDates(int iCount, ArrayList<CourseDiaryDataCopy> arrayListCourseDataCopies, ArrayList<CourseDiaryData> arrayListCourseData) {
         ArrayList<CourseDiaryDataCopy> courseDiaryDataArrayList = new ArrayList<>();
-       courseDiaryDataArrayList.clear();
+        courseDiaryDataArrayList.clear();
         String strLastDate = "";
 
         /**
          *  Loop filter till end of Course
          *  Diary events.
          */
-        for (int iCounter = 0; iCounter < arrayListCourseData.size(); iCounter++) {
+        for (int iCounter = 0; iCounter < arrayListCourseDataCopies.size(); iCounter++) {
 
-            if(iCounter<iCount){
-                courseDiaryDataArrayList.add(arrayListCourseData.get(iCounter));
-            }else{
-                String strDateOfEvent = formatDateOfEvent(arrayListCourseData.get(iCounter).getCourseEventDate());
+            /**
+             *Place NAME of Month for all events to set as Title bar when scroll down or up.
+             */
+           arrayListCourseDataCopies.get(iCounter).setMonthName(getFormateMonth(arrayListCourseData.get(iCounter).getCourseEventDate()));
+
+            if (iCounter < iCount) {
+                courseDiaryDataArrayList.add(arrayListCourseDataCopies.get(iCounter));
+            } else {
+                String strDateOfEvent = formatDateOfEvent(arrayListCourseDataCopies.get(iCounter).getCourseEventDate());
 
                 /**
                  * Check if same date or not of Course Diary event If yes then just
@@ -266,31 +275,50 @@ public class CourseDiaryActivity extends BaseActivity {
                  */
                 if (strLastDate.equalsIgnoreCase(strDateOfEvent)) {
 
-                    arrayListCourseData.get(iCounter).setCourseEventDate("");
-                    arrayListCourseData.get(iCounter).setDayName("");
+                    arrayListCourseDataCopies.get(iCounter).setCourseEventDate("");
+                    arrayListCourseDataCopies.get(iCounter).setDayName("");
 
                 } else {
                     strLastDate = strDateOfEvent;
 
-                    arrayListCourseData.get(iCounter).setCourseEventDate(strDateOfEvent);
-                    arrayListCourseData.get(iCounter).setDayName(formatDayOfEvent(arrayListCourseData.get(iCounter).getDayName()));
+                    arrayListCourseDataCopies.get(iCounter).setCourseEventDate(strDateOfEvent);
+                    arrayListCourseDataCopies.get(iCounter).setDayName(formatDayOfEvent(arrayListCourseDataCopies.get(iCounter).getDayName()));
                 }
 
                 //Add final to new arrat list.
-                courseDiaryDataArrayList.add(arrayListCourseData.get(iCounter));
+                courseDiaryDataArrayList.add(arrayListCourseDataCopies.get(iCounter));
             }
 
 
         }
-        Log.e("filterCourseDates:",""+courseDiaryDataArrayList.size());
+        Log.e("filterCourseDates:", "" + courseDiaryDataArrayList.size());
         return courseDiaryDataArrayList;
+    }
+
+    /**
+     * Implements a method to substring the name of MONTH.
+     *
+     * @param nameofMonth : Example => "2009-11-30T18:30:00Z"
+     * @return nameofMonth  : NOVEMBER 2009
+     */
+    private String getFormateMonth(String nameofMonth) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM yyyy");
+
+        try {
+            Date date = inputFormat.parse(nameofMonth);
+            nameofMonth = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+        return nameofMonth;
     }
 
     /**
      * @param strCourseEventDate <br>
      *                           Implements a method to return the format the day of
      *                           event.
-     *                           <p/>
+     *                           <p>
      *                           Exapmle: 2016-03-04T00:00:00
      * @Return : 04
      */
@@ -309,7 +337,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * @param strDayName <br>
      *                   Implements a method to return the format the day of
      *                   event.
-     *                   <p/>
+     *                   <p>
      *                   Exapmle: NAME OF DAY : Friday
      * @Return : Fri
      */
