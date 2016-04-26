@@ -52,7 +52,7 @@ public class CompetitionsTabFragment extends Fragment {
      *******************************/
     public static String strDateFrom; //Start date.
     public static String strDateTo; //End date.
-    String strNameOfMonth = "MARCH 2016";
+    public static String strNameOfMonth = "MARCH 2016";
 
     public static int iLastTabPosition;
 

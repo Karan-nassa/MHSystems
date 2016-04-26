@@ -44,7 +44,7 @@ public class CourseDairyTabFragment extends Fragment {
     TabLayout tabLayout;
     ViewPager viewPager;
     View mRootView;
-    Context context;
+    static Context context;
     TabsPageAdapter pageAdapter;
 
     /*********************************
@@ -90,7 +90,7 @@ public class CourseDairyTabFragment extends Fragment {
      * Constructor to set dates.
      */
     public CourseDairyTabFragment() {
-
+        context = getActivity();
     }
 
     /**
@@ -154,45 +154,14 @@ public class CourseDairyTabFragment extends Fragment {
 
             case ApplicationGlobal.ACTION_PREVIOUS_MONTH:
 
-                /**
-                 *  User cannot navigate back to current
-                 *  month.
-                 */
-                if (/*iMonth == 1 ||*/ CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
-                    CourseDiaryActivity.iMonth--;
-
-                    if (CourseDiaryActivity.iMonth == CourseDiaryActivity.iCurrentMonth) {
-                        //Do nothing. Just load data according current date.
-                        CourseDiaryActivity.strDate = CourseDiaryActivity.strCurrentDate;
-                    } else {
-                        //Do nothing. Just load data according current date.
-                        CourseDiaryActivity.strDate = "01";
-                    }
-
-                    ((CourseDiaryActivity) getActivity()).getNumberofDays();
-                }
-
-                createDateForData();
+                callPrevMonthAction();
 
                 break;
 
             case ApplicationGlobal.ACTION_NEXT_MONTH:
 
-                if (CourseDiaryActivity.iMonth == 12) {
+                callNextMonthAction();
 
-                } else {
-                    CourseDiaryActivity.iMonth++;
-
-                    if (CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
-                        CourseDiaryActivity.setPreviousButton(true);
-                    }
-
-                    //Do nothing. Just load data according current date.
-                    CourseDiaryActivity.strDate = "01";
-
-                    ((CourseDiaryActivity) getActivity()).getNumberofDays();
-                }
-                createDateForData();
                 break;
 
             case ApplicationGlobal.ACTION_TODAY:
@@ -219,10 +188,61 @@ public class CourseDairyTabFragment extends Fragment {
     }
 
     /**
+     * Implements a method call for NEXT MONTH action called on
+     * NEXT icon navigation and on SCROLL down to load
+     * more COURSE EVENTS.
+     */
+    public static void callNextMonthAction() {
+        if (CourseDiaryActivity.iMonth == 12) {
+
+        } else {
+            CourseDiaryActivity.iMonth++;
+
+            if (CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
+                CourseDiaryActivity.setPreviousButton(true);
+            }
+
+            //Do nothing. Just load data according current date.
+            CourseDiaryActivity.strDate = "01";
+
+            ((CourseDiaryActivity) context).getNumberofDays();
+        }
+
+        createDateForData();
+    }
+
+    /**
+     * Implements a method call for NEXT MONTH action called on
+     * NEXT icon navigation and on SCROLL down to load
+     * more COURSE EVENTS.
+     */
+    public static void callPrevMonthAction() {
+        /**
+         *  User cannot navigate back to current
+         *  month.
+         */
+        if (/*iMonth == 1 ||*/ CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
+            CourseDiaryActivity.iMonth--;
+
+            if (CourseDiaryActivity.iMonth == CourseDiaryActivity.iCurrentMonth) {
+                //Do nothing. Just load data according current date.
+                CourseDiaryActivity.strDate = CourseDiaryActivity.strCurrentDate;
+            } else {
+                //Do nothing. Just load data according current date.
+                CourseDiaryActivity.strDate = "01";
+            }
+
+            ((CourseDiaryActivity) context).getNumberofDays();
+        }
+
+        createDateForData();
+    }
+
+    /**
      * Implements Today functionality to display CURRENT date to
      * next specific dates.
      */
-    private void callTodayScrollEvents() {
+    private static void callTodayScrollEvents() {
 
         // Create a calendar object and set year and month
         CourseDiaryActivity.mCalendarInstance = new GregorianCalendar(CourseDiaryActivity.iYear, (CourseDiaryActivity.iMonth - 1), Integer.parseInt(CourseDiaryActivity.strDate));
@@ -264,7 +284,7 @@ public class CourseDairyTabFragment extends Fragment {
      * Finally, create DATE to get data and for CALENDAR, PREVIOUS/NEXT MONTH
      * functionality.
      */
-    public void createDateForData() {
+    public static void createDateForData() {
         //FORMAT : MM-DD-YYYY
         strDateFrom = CourseDiaryActivity.iMonth + "/" + CourseDiaryActivity.strDate + "/" + CourseDiaryActivity.iYear;
 
@@ -283,7 +303,7 @@ public class CourseDairyTabFragment extends Fragment {
      * Declares a method to get NAME of MONTH by passing
      * month value.
      */
-    public String getMonth(int month) {
+    public static String getMonth(int month) {
         return new DateFormatSymbols().getMonths()[month - 1];
     }
 

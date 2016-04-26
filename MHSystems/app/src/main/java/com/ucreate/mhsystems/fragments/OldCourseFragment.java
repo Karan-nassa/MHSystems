@@ -57,6 +57,9 @@ public class OldCourseFragment extends Fragment {
 
     boolean isDialogVisible = false;
 
+    //Stop user to scroll or change MONTH once no data found.
+    boolean isMoreToScroll;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -87,16 +90,22 @@ public class OldCourseFragment extends Fragment {
     private AbsListView.OnScrollListener mLoadMoreScrollListener = new AbsListView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
-            int threshold = 1;
-            int count = lvCourseDiary.getCount();
 
-            if (scrollState == SCROLL_STATE_IDLE) {
-                if (lvCourseDiary.getLastVisiblePosition() >= count
-                        - threshold) {
+            /**
+             *  Scroll will work after success response.
+             */
+            if (isMoreToScroll) {
+                int threshold = 1;
+                int count = lvCourseDiary.getCount();
 
-                    iScrollCount = count;
+                if (scrollState == SCROLL_STATE_IDLE) {
+                    if (lvCourseDiary.getLastVisiblePosition() >= count
+                            - threshold) {
 
-                    getMoreCourseEvents();
+                        iScrollCount = count;
+
+                        getMoreCourseEvents();
+                    }
                 }
             }
         }
@@ -104,7 +113,7 @@ public class OldCourseFragment extends Fragment {
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             if (arrayCourseDataBackup.size() > 0) {
-                ((CourseDiaryActivity) getActivity()).setTitleBar(arrayCourseDataBackup.get(firstVisibleItem).getMonthName());
+                ((CourseDiaryActivity) getActivity()).setTitleBar(arrayCourseDataBackup.get(++firstVisibleItem).getMonthName());
             }
 
         }
@@ -119,7 +128,7 @@ public class OldCourseFragment extends Fragment {
         //Scroll down functionality should only work for TODAY and CALENDAR date picker.
         switch (CourseDairyTabFragment.iLastCalendarAction) {
             case ApplicationGlobal.ACTION_CALENDAR:
-            case ApplicationGlobal.ACTION_TODAY:
+            case ApplicationGlobal.ACTION_TODAY: {
 
                 if (CourseDiaryActivity.iMonth == 12) {
                     ((CourseDiaryActivity) getActivity()).setNextButton(false);
@@ -189,6 +198,24 @@ public class OldCourseFragment extends Fragment {
                     callCourseWebService();
                     break;
                 }
+            }
+
+            case ApplicationGlobal.ACTION_PREVIOUS_MONTH: {
+                CourseDairyTabFragment.iLastCalendarAction = ApplicationGlobal.ACTION_NEXT_MONTH;
+                ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading more...");
+                CourseDairyTabFragment.callPrevMonthAction();
+                //Reload data with new date created from user.
+                callCourseWebService();
+            }
+            break;
+
+            case ApplicationGlobal.ACTION_NEXT_MONTH:
+            case ApplicationGlobal.ACTION_NOTHING:{
+                ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading more...");
+                CourseDairyTabFragment.callNextMonthAction();
+                //Reload data with new date created from user.
+                callCourseWebService();
+            }
         }
     }
 
@@ -276,9 +303,7 @@ public class OldCourseFragment extends Fragment {
             //Reset CALENDAR.
             //   ((CourseDiaryActivity) getActivity()).resetCalendarEvents();
 
-            //Clear array list before inserting items.
-            arrayListCourseData.clear();
-            arrayCourseDataBackup.clear();
+            resetArrayData();
 
             //Initially clear the scroll count instance so filter date from BASE i.e. 0.
             iScrollCount = 0;
@@ -287,6 +312,18 @@ public class OldCourseFragment extends Fragment {
 
             callCourseWebService();
         }
+    }
+
+    /**
+     * Clear array 'NO DATA FOUND'.
+     */
+    private void resetArrayData() {
+
+        //Clear array list before inserting items.
+        arrayListCourseData.clear();
+        arrayCourseDataBackup.clear();
+        iScrollCount = 0;
+        //((CourseDiaryActivity) getActivity()).setTitleBar(CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear);
     }
 
     /**
@@ -303,7 +340,7 @@ public class OldCourseFragment extends Fragment {
             requestCourseService();
         } else {
             ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
-            ((BaseActivity)getActivity()).hideProgress();
+            ((BaseActivity) getActivity()).hideProgress();
         }
     }
 
@@ -335,7 +372,6 @@ public class OldCourseFragment extends Fragment {
         api.getCourseDiaryEvents(courseDiaryAPI, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
-
 
                 updateSuccessResponse(jsonObject);
             }
@@ -378,15 +414,19 @@ public class OldCourseFragment extends Fragment {
 
 
                 if (arrayListCourseData.size() == 0) {
+                    isMoreToScroll = false;
+                    resetArrayData();
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
+
+                    isMoreToScroll = true;
 
                     //Initialize Course Events Adapter.
                     courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(iScrollCount, arrayCourseDataBackup, arrayListCourseData));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
-
                 }
             } else {
+                isMoreToScroll = false;
                 //If web service not respond in any case.
                 ((BaseActivity) getActivity()).showAlertMessage(courseDiaryItems.getMessage());
             }
