@@ -252,6 +252,7 @@ public class CourseDiaryActivity extends BaseActivity {
         ArrayList<CourseDiaryDataCopy> courseDiaryDataArrayList = new ArrayList<>();
         courseDiaryDataArrayList.clear();
         String strLastDate = "";
+        String strNameOfMonth;
 
         /**
          *  Loop filter till end of Course
@@ -262,7 +263,10 @@ public class CourseDiaryActivity extends BaseActivity {
             /**
              *Place NAME of Month for all events to set as Title bar when scroll down or up.
              */
-           arrayListCourseDataCopies.get(iCounter).setMonthName(getFormateMonth(arrayListCourseData.get(iCounter).getCourseEventDate()));
+            strNameOfMonth = arrayListCourseData.get(iCounter).getCourseEventDate();
+            strNameOfMonth = strNameOfMonth.substring(0, strNameOfMonth.indexOf("-"));
+
+            arrayListCourseDataCopies.get(iCounter).setMonthName(arrayListCourseData.get(iCounter).getMonthName() + " " +strNameOfMonth);
 
             if (iCounter < iCount) {
                 courseDiaryDataArrayList.add(arrayListCourseDataCopies.get(iCounter));
@@ -288,37 +292,16 @@ public class CourseDiaryActivity extends BaseActivity {
                 //Add final to new arrat list.
                 courseDiaryDataArrayList.add(arrayListCourseDataCopies.get(iCounter));
             }
-
-
         }
         Log.e("filterCourseDates:", "" + courseDiaryDataArrayList.size());
         return courseDiaryDataArrayList;
     }
 
     /**
-     * Implements a method to substring the name of MONTH.
-     *
-     * @param nameofMonth : Example => "2009-11-30T18:30:00Z"
-     * @return nameofMonth  : NOVEMBER 2009
-     */
-    private String getFormateMonth(String nameofMonth) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM yyyy");
-
-        try {
-            Date date = inputFormat.parse(nameofMonth);
-            nameofMonth = outputFormat.format(date);
-        } catch (ParseException exp) {
-            exp.printStackTrace();
-        }
-        return nameofMonth;
-    }
-
-    /**
      * @param strCourseEventDate <br>
      *                           Implements a method to return the format the day of
      *                           event.
-     *                           <p>
+     *                           <p/>
      *                           Exapmle: 2016-03-04T00:00:00
      * @Return : 04
      */
@@ -337,7 +320,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * @param strDayName <br>
      *                   Implements a method to return the format the day of
      *                   event.
-     *                   <p>
+     *                   <p/>
      *                   Exapmle: NAME OF DAY : Friday
      * @Return : Fri
      */
