@@ -200,23 +200,14 @@ public class OldCourseFragment extends Fragment {
                 }
             }
 
-            case ApplicationGlobal.ACTION_PREVIOUS_MONTH: {
-                CourseDairyTabFragment.iLastCalendarAction = ApplicationGlobal.ACTION_NEXT_MONTH;
-                ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading more...");
-                CourseDairyTabFragment.callPrevMonthAction();
-                //Reload data with new date created from user.
-                callCourseWebService();
-            }
-            break;
-
-            case ApplicationGlobal.ACTION_NEXT_MONTH:
-            case ApplicationGlobal.ACTION_NOTHING:{
+            default:{
                 ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading more...");
                 CourseDairyTabFragment.callNextMonthAction();
                 //Reload data with new date created from user.
                 callCourseWebService();
             }
         }
+        CourseDiaryActivity.resetMonthsNavigationIcons();
     }
 
     @Override

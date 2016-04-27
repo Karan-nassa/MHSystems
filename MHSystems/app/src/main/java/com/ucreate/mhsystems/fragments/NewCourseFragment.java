@@ -6,6 +6,7 @@ package com.ucreate.mhsystems.fragments;
  * <br>tabs content on 12/23/2015.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -24,8 +25,8 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryActivity;
-import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
 import com.ucreate.mhsystems.activites.CustomAlertDialogActivity;
+import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
@@ -54,7 +55,11 @@ public class NewCourseFragment extends Fragment {
     ArrayList<CourseDiaryData> arrayListCourseData = new ArrayList<>();
     ArrayList<CourseDiaryDataCopy> arrayCourseDataBackup = new ArrayList<>();//Used for record of complete date and day name.
 
-    private boolean isDialogVisible;
+    boolean isDialogVisible = false;
+
+    //Stop user to scroll or change MONTH once no data found.
+    boolean isMoreToScroll;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -85,16 +90,22 @@ public class NewCourseFragment extends Fragment {
     private AbsListView.OnScrollListener mLoadMoreScrollListener = new AbsListView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
-            int threshold = 1;
-            int count = lvCourseDiary.getCount();
 
-            if (scrollState == SCROLL_STATE_IDLE) {
-                if (lvCourseDiary.getLastVisiblePosition() >= count
-                        - threshold) {
+            /**
+             *  Scroll will work after success response.
+             */
+            if (isMoreToScroll) {
+                int threshold = 1;
+                int count = lvCourseDiary.getCount();
 
-                    iScrollCount = count;
+                if (scrollState == SCROLL_STATE_IDLE) {
+                    if (lvCourseDiary.getLastVisiblePosition() >= count
+                            - threshold) {
 
-                    getMoreCourseEvents();
+                        iScrollCount = count;
+
+                        getMoreCourseEvents();
+                    }
                 }
             }
         }
@@ -102,8 +113,9 @@ public class NewCourseFragment extends Fragment {
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             if (arrayCourseDataBackup.size() > 0) {
-                ((CourseDiaryActivity) getActivity()).setTitleBar(arrayCourseDataBackup.get(firstVisibleItem).getMonthName());
+                ((CourseDiaryActivity) getActivity()).setTitleBar(arrayCourseDataBackup.get(++firstVisibleItem).getMonthName());
             }
+
         }
     };
 
@@ -116,7 +128,7 @@ public class NewCourseFragment extends Fragment {
         //Scroll down functionality should only work for TODAY and CALENDAR date picker.
         switch (CourseDairyTabFragment.iLastCalendarAction) {
             case ApplicationGlobal.ACTION_CALENDAR:
-            case ApplicationGlobal.ACTION_TODAY:
+            case ApplicationGlobal.ACTION_TODAY: {
 
                 if (CourseDiaryActivity.iMonth == 12) {
                     ((CourseDiaryActivity) getActivity()).setNextButton(false);
@@ -186,9 +198,18 @@ public class NewCourseFragment extends Fragment {
                     callCourseWebService();
                     break;
                 }
-        }
-    }
+            }
 
+            default:{
+                ((CourseDiaryActivity) getActivity()).showPleaseWait("Loading more...");
+                CourseDairyTabFragment.callNextMonthAction();
+                //Reload data with new date created from user.
+                callCourseWebService();
+            }
+        }
+
+        CourseDiaryActivity.resetMonthsNavigationIcons();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -205,7 +226,6 @@ public class NewCourseFragment extends Fragment {
 
         return mRootView;
     }
-
 
     /**
      * Set COURSE DIARY events listener.
@@ -228,6 +248,7 @@ public class NewCourseFragment extends Fragment {
                         mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
                         mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
                         startActivity(mIntent);
+
                         isDialogVisible = true;
                     } else {
                         //Don't display again if already display Alert dialog.
@@ -272,18 +293,29 @@ public class NewCourseFragment extends Fragment {
              *
              */
             //Reset CALENDAR.
-//            ((CourseDiaryActivity) getActivity()).resetCalendarEvents();
+            //   ((CourseDiaryActivity) getActivity()).resetCalendarEvents();
 
-            //Clear array list before inserting items.
-            arrayListCourseData.clear();
-            arrayCourseDataBackup.clear();
+            resetArrayData();
 
+            //Initially clear the scroll count instance so filter date from BASE i.e. 0.
             iScrollCount = 0;
 
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
             callCourseWebService();
         }
+    }
+
+    /**
+     * Clear array 'NO DATA FOUND'.
+     */
+    private void resetArrayData() {
+
+        //Clear array list before inserting items.
+        arrayListCourseData.clear();
+        arrayCourseDataBackup.clear();
+        iScrollCount = 0;
+        //((CourseDiaryActivity) getActivity()).setTitleBar(CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear);
     }
 
     /**
@@ -300,7 +332,7 @@ public class NewCourseFragment extends Fragment {
             requestCourseService();
         } else {
             ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
-            ((BaseActivity)getActivity()).hideProgress();
+            ((BaseActivity) getActivity()).hideProgress();
         }
     }
 
@@ -359,34 +391,34 @@ public class NewCourseFragment extends Fragment {
         }.getType();
         courseDiaryItemsCopy = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type2);
 
-        //Clear array list before inserting items.
 //        arrayListCourseData.clear();
 //        arrayCourseDataBackup.clear();
-
         try {
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
             if (courseDiaryItems.getMessage().equalsIgnoreCase("Success")) {
 
+                //  arrayListCourseData.addAll(courseDiaryItems.getData());
                 arrayListCourseData.addAll(courseDiaryItems.getData());
                 //Take backup of List before changing to record.
                 arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
 
+
                 if (arrayListCourseData.size() == 0) {
+                    isMoreToScroll = false;
+                    resetArrayData();
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
-                    //Set Course Diary Recycler Adapter.
-//                    recyclerViewAdapter = new CourseDiaryRecyclerAdapter(CourseDairyTabFragment.this, filterCourseDates(arrayListCourseData));
-//                    rvCourseDiary.setAdapter(recyclerViewAdapter);
+                    isMoreToScroll = true;
 
+                    //Initialize Course Events Adapter.
                     courseDiaryAdapter = new CourseDiaryAdapter(getActivity(), ((CourseDiaryActivity) getActivity()).filterCourseDates(iScrollCount, arrayCourseDataBackup, arrayListCourseData));
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
-
-                    Log.e(LOG_TAG, "arrayListCourseData : " + arrayListCourseData.size());
                 }
             } else {
+                isMoreToScroll = false;
                 //If web service not respond in any case.
                 ((BaseActivity) getActivity()).showAlertMessage(courseDiaryItems.getMessage());
             }

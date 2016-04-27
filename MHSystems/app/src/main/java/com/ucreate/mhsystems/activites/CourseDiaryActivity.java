@@ -2,6 +2,7 @@ package com.ucreate.mhsystems.activites;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
@@ -85,6 +86,9 @@ public class CourseDiaryActivity extends BaseActivity {
 
     public static int iNumOfDays;
 
+
+    static int iMonthTemp, iYearTemp;
+    static String strDateTemp;
     /**
      * Implements HOME icons press
      * listener.
@@ -102,6 +106,10 @@ public class CourseDiaryActivity extends BaseActivity {
     private View.OnClickListener mCalendarListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            iMonthTemp = iMonth;
+            iYearTemp = iYear;
+            strDateTemp = strDate;
 
             // Launch Date Picker Dialog
             DatePickerDialog dpd = new DatePickerDialog(CourseDiaryActivity.this,
@@ -123,6 +131,9 @@ public class CourseDiaryActivity extends BaseActivity {
 
                                     iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
+                                    //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+                                    resetMonthsNavigationIcons();
+
                                     //setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
 
                                     updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
@@ -137,26 +148,37 @@ public class CourseDiaryActivity extends BaseActivity {
 
                                         getNumberofDays();
 
+                                        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+                                        resetMonthsNavigationIcons();
+
                                         //  setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
 
                                         updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
                                     } else {
-                                        resetCalendar();
+                                        resetCalendarPicker();
                                         showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                     }
                                 } else {
-                                    resetCalendar();
+                                    resetCalendarPicker();
                                     showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                 }
                             } else {
-                                resetCalendar();
+                                resetCalendarPicker();
                                 showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                             }
                         }
                     }, iYear, --iMonth, Integer.parseInt(strDate));
-            //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-            resetMonthsNavigationIcons();
+
+            dpd.setButton(
+                    DialogInterface.BUTTON_NEGATIVE, "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (which == DialogInterface.BUTTON_NEGATIVE) {
+                                resetCalendarPicker();
+                            }
+                        }
+                    });
             dpd.show();
 
             //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
@@ -215,6 +237,17 @@ public class CourseDiaryActivity extends BaseActivity {
     }
 
     /**
+     * Implements a method to RESET CALENDAR state
+     * or set as initial state.
+     */
+    public static void resetCalendarPicker() {
+
+        strDate = strDateTemp;
+        iMonth = iMonthTemp;
+        iYear = iYearTemp;
+    }
+
+    /**
      * Implements a method to get TOTAL number of
      * DAYS in selected MONTH.
      */
@@ -266,7 +299,7 @@ public class CourseDiaryActivity extends BaseActivity {
             strNameOfMonth = arrayListCourseData.get(iCounter).getCourseEventDate();
             strNameOfMonth = strNameOfMonth.substring(0, strNameOfMonth.indexOf("-"));
 
-            arrayListCourseDataCopies.get(iCounter).setMonthName(arrayListCourseData.get(iCounter).getMonthName() + " " +strNameOfMonth);
+            arrayListCourseDataCopies.get(iCounter).setMonthName(arrayListCourseData.get(iCounter).getMonthName() + " " + strNameOfMonth);
 
             if (iCounter < iCount) {
                 courseDiaryDataArrayList.add(arrayListCourseDataCopies.get(iCounter));
@@ -293,7 +326,7 @@ public class CourseDiaryActivity extends BaseActivity {
                 courseDiaryDataArrayList.add(arrayListCourseDataCopies.get(iCounter));
             }
         }
-        Log.e("filterCourseDates:", "" + courseDiaryDataArrayList.size());
+       // Log.e("filterCourseDates:", "" + courseDiaryDataArrayList.size());
         return courseDiaryDataArrayList;
     }
 
@@ -401,7 +434,7 @@ public class CourseDiaryActivity extends BaseActivity {
     }
 
     /**
-     * Implements this method to reset CALENDAR PREV, NEXT and TODAY icon.
+     * Implements this method to reset CALENDAR PREV, NEXT icon.
      */
     public static void resetMonthsNavigationIcons() {
         /**
