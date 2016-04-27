@@ -114,6 +114,9 @@ public class NewCourseFragment extends Fragment {
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             if (arrayCourseDataBackup.size() > 0) {
                 ((CourseDiaryActivity) getActivity()).setTitleBar(arrayCourseDataBackup.get(++firstVisibleItem).getMonthName());
+
+                CourseDiaryActivity.iMonth = arrayCourseDataBackup.get(firstVisibleItem).getiMonthNum();
+                CourseDiaryActivity.resetMonthsNavigationIcons();
             }
 
         }

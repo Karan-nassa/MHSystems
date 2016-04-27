@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
+import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
 import com.ucreate.mhsystems.util.pojo.CourseDiaryDataCopy;
 
 import java.text.DateFormatSymbols;
@@ -167,6 +168,12 @@ public class CompetitionsActivity extends BaseActivity {
 
         //Get Context
         mActivityContext = CompetitionsActivity.this;
+
+        /**
+         *  If user back press on any other tab then app should
+         *  open first tab by default when opening 'COMPETITIONS'.
+         */
+        CourseDairyTabFragment.iLastTabPosition = 0;
 
         //Let's first set up toolbar
         setupToolbar();

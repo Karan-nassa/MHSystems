@@ -197,6 +197,12 @@ public class CourseDiaryActivity extends BaseActivity {
         //Get Context
         mActivityContext = CourseDiaryActivity.this;
 
+        /**
+         *  If user back press on 'New Course' tab then app should
+         *  open 'Old Course' by default when opening 'COURSE DIARY'.
+         */
+        CourseDairyTabFragment.iLastTabPosition = 0;
+
         //Let's first set up toolbar
         setupToolbar();
 
@@ -281,11 +287,12 @@ public class CourseDiaryActivity extends BaseActivity {
      * Implements a method to filter or set date and name of Day
      * one time for all course events having same date and day.
      */
-    public ArrayList<CourseDiaryDataCopy> filterCourseDates(int iCount, ArrayList<CourseDiaryDataCopy> arrayListCourseDataCopies, ArrayList<CourseDiaryData> arrayListCourseData) {
+    public ArrayList<CourseDiaryDataCopy> filterCourseDates(int iStart, ArrayList<CourseDiaryDataCopy> arrayListCourseDataCopies, ArrayList<CourseDiaryData> arrayListCourseData) {
         ArrayList<CourseDiaryDataCopy> courseDiaryDataArrayList = new ArrayList<>();
         courseDiaryDataArrayList.clear();
         String strLastDate = "";
         String strNameOfMonth;
+        int iMonthNum; //For update navigation icon to enable, disable.
 
         /**
          *  Loop filter till end of Course
@@ -297,11 +304,15 @@ public class CourseDiaryActivity extends BaseActivity {
              *Place NAME of Month for all events to set as Title bar when scroll down or up.
              */
             strNameOfMonth = arrayListCourseData.get(iCounter).getCourseEventDate();
+            iMonthNum = Integer.parseInt(strNameOfMonth.substring((strNameOfMonth.indexOf("-")+1), strNameOfMonth.lastIndexOf("-")));
+
             strNameOfMonth = strNameOfMonth.substring(0, strNameOfMonth.indexOf("-"));
 
             arrayListCourseDataCopies.get(iCounter).setMonthName(arrayListCourseData.get(iCounter).getMonthName() + " " + strNameOfMonth);
 
-            if (iCounter < iCount) {
+            arrayListCourseDataCopies.get(iCounter).setiMonthNum(iMonthNum);
+
+            if (iCounter < iStart) {
                 courseDiaryDataArrayList.add(arrayListCourseDataCopies.get(iCounter));
             } else {
                 String strDateOfEvent = formatDateOfEvent(arrayListCourseDataCopies.get(iCounter).getCourseEventDate());
@@ -326,7 +337,7 @@ public class CourseDiaryActivity extends BaseActivity {
                 courseDiaryDataArrayList.add(arrayListCourseDataCopies.get(iCounter));
             }
         }
-       // Log.e("filterCourseDates:", "" + courseDiaryDataArrayList.size());
+        // Log.e("filterCourseDates:", "" + courseDiaryDataArrayList.size());
         return courseDiaryDataArrayList;
     }
 
