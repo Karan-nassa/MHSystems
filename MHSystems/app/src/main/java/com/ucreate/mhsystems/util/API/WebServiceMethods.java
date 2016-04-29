@@ -3,6 +3,7 @@ package com.ucreate.mhsystems.util.API;
 import com.google.gson.JsonObject;
 import com.ucreate.mhsystems.util.pojo.CompetitionsAPI;
 import com.ucreate.mhsystems.util.pojo.CourseDiaryAPI;
+import com.ucreate.mhsystems.util.pojo.HandicapAPI;
 import com.ucreate.mhsystems.util.pojo.MembersAPI;
 import com.ucreate.mhsystems.util.pojo.MembersDetailAPI;
 import com.ucreate.mhsystems.util.pojo.MyAccountAPI;
@@ -46,6 +47,18 @@ public interface WebServiceMethods {
     public void getCompetitionsEvents(@Body CompetitionsAPI jsonElements, Callback<JsonObject> response);
 
     /**
+     * Declaration of Members Detail screen web service method.
+     * <p>
+     * TYPE : POST
+     *
+     * @param handicapAPI
+     * @param response
+     *
+     */
+    @POST("/webapi/api/ClubsApp/RpcRequest")
+    public void getHandicap(@Body HandicapAPI handicapAPI, Callback<JsonObject> response);
+
+    /**
      * Declaration of My Account
      * web service method.
      * <p>
@@ -77,5 +90,6 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getMembersDetail(@Body MembersDetailAPI membersDetailAPI, Callback<JsonObject> response);
+
 }
 

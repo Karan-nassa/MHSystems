@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlGridMenuItem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:background="@color/colorGreyf1f1f0">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- TEAM LOGO -->
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ivBackgroundColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="2dp"
+                android:scaleType="fitCenter"
+                app:placeholderImage="@android:color/white"
+                app:roundAsCircle="true" />
+
+            <!-- LOGO OF ITEM -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <com.ucreate.mhsystems.customfonts.SFUI_TextFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:paddingTop="7dp"
+                    android:textColor="@color/colorBlack000000"
+                    android:text="108C" />
+
+                <ImageView
+                    android:id="@+id/ivGridLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:src="@mipmap/ic_handicap_red" />
+            </LinearLayout>
+            <!-- BADGER ICON -->
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="15dp"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+                <!-- TEAM LOGO -->
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/ivBadgerBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="2dp"
+                    android:scaleType="fitCenter"
+                    app:placeholderImage="@color/colorFFEF8176"
+                    app:roundAsCircle="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="9+"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <!-- TITLE OF ITEM-->
+
+        <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:id="@+id/tvGridTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:alpha="0.4"
+            android:text="@string/app_name"
+            android:textColor="@color/colorBlack000000"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

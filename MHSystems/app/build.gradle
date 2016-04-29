@@ -30,6 +30,11 @@ android {
         // Enabling multidex support.
         multiDexEnabled true
     }
+    //Used for Draw Graph Library
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -53,20 +58,23 @@ dependencies {
 
     //Recycler View Adapter.
     compile 'com.android.support:recyclerview-v7:23.2.1'
-    
+
     //Bind resources of xml using Butter Knife library.
     compile 'com.jakewharton:butterknife:7.0.1'
-    
+
     //Used for Volley for JSON response.
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
-    
+
     //Compile dependency of Retrofit.
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-    
+
     //Facebook round circle image preview.
     compile 'com.facebook.fresco:fresco:0.8.0'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 
     //Members list Alphabetical in new style like contacts dependency.
     compile project(':library')
+
+    // Used for Draw graph
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }

@@ -10,6 +10,7 @@ import android.widget.GridView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.GridAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,6 +36,9 @@ public class HomeActivity extends BaseActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             switch (position) {
+                case 0:
+                    intent = new Intent(HomeActivity.this, MyAccountActivity.class);
+                    break;
                 case 1:
                     intent = new Intent(HomeActivity.this, CourseDiaryActivity.class);
                     break;
@@ -51,6 +55,11 @@ public class HomeActivity extends BaseActivity {
 
             //Check if intent not NULL then navigate to that selected screen.
             if (intent != null) {
+                /**
+                 * Use for display Handicap on select HANDICAP
+                 * from dashboard.
+                 */
+                ApplicationGlobal.TAB_DETAIL = (position + 1);
                 startActivity(intent);
                 intent = null;
             }

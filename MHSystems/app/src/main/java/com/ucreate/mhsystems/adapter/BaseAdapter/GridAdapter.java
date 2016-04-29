@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.ucreate.mhsystems.R;
@@ -70,9 +69,12 @@ public class GridAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         Holder holder = new Holder();
-        View rowView;
-
-        rowView = inflater.inflate(R.layout.item_grid_row, null);
+        View rowView = null;
+        if (position == 0) {
+            rowView = inflater.inflate(R.layout.item_grid_row_text, null);
+        } else {
+            rowView = inflater.inflate(R.layout.item_grid_row_icon, null);
+        }
         holder.tvGridTitle = (TextView) rowView.findViewById(R.id.tvGridTitle);
         holder.ivGridLogo = (ImageView) rowView.findViewById(R.id.ivGridLogo);
         holder.rlGridMenuItem = (RelativeLayout) rowView.findViewById(R.id.rlGridMenuItem);

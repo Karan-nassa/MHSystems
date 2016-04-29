@@ -88,7 +88,8 @@ public class MyAccountTabFragment extends Fragment {
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MY_ACCOUNT);
         viewPager.setAdapter(pageAdapter);
 
-        viewPager.setCurrentItem(2);
+        //viewPager.setCurrentItem(2);
+        viewPager.setCurrentItem(ApplicationGlobal.TAB_DETAIL);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

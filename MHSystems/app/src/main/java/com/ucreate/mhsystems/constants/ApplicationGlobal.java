@@ -90,4 +90,10 @@ public class ApplicationGlobal {
      * scroll down to load next specific content.
      */
     public static final int LOAD_MORE_VALUES = 12;
+
+    /**
+     * Declares the instance of TAB DETAIL specified for
+     * View Pager Item Position
+     */
+    public static int TAB_DETAIL = 0;
 }

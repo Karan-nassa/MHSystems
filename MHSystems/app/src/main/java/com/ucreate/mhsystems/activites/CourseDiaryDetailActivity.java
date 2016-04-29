@@ -45,7 +45,7 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    String strCourseTitle, strCourseLogo, strCourseDate, strCourseDayName, strCoursePrize, strCourseDesc;
+    String strCourseTitle, strCourseLogo, strCourseDate, strCourseDayName, strCoursePrize, strCourseDesc, strCourseTime;
     boolean isJoin;
 
     /**
@@ -95,12 +95,14 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
         strCourseDayName = getIntent().getExtras().getString("COURSE_EVENT_DAY_NAME");
         strCoursePrize = getIntent().getExtras().getString("COURSE_EVENT_PRIZE");
         strCourseDesc = getIntent().getExtras().getString("COURSE_EVENT_DESCRIPTION");
+        strCourseTime = getIntent().getExtras().getString("COURSE_EVENT_TIME");
 
         //Set Content on each Event of Course Diary.
         tvTitleCourseEvent.setText(strCourseTitle);
         btJoinEvent.setText(isJoin ? getResources().getString(R.string.text_joined) :
                 getResources().getString(R.string.text_join));
         tvDateCourseEvent.setText(strCourseDayName + ", " + formatDateOfEvent(strCourseDate));
+        tvTimeCourseEvent.setText(strCourseTime);
 
         //tvFeeCourseEvent.setText(strCoursePrize);
         tvDescCourseEvent.setText(strCourseDesc);

@@ -266,6 +266,7 @@ public class OldCourseFragment extends Fragment {
                     intent.putExtra("COURSE_EVENT_DAY_NAME", arrayListCourseData.get(position).getDayName());
                     intent.putExtra("COURSE_EVENT_PRIZE", "" + arrayListCourseData.get(position).getPrizePerGuest());
                     intent.putExtra("COURSE_EVENT_DESCRIPTION", arrayListCourseData.get(position).getDesc());
+                    intent.putExtra("COURSE_EVENT_TIME", arrayListCourseData.get(position).getStartTime() + " - " + arrayListCourseData.get(position).getEndTime());
                     startActivity(intent);
                 }
             }

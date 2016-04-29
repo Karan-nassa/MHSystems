@@ -1,44 +1,215 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorFFEFEFF4"
         android:orientation="vertical">
 
 
-        <!-- RECYCLER VIEW TO DISPLAY COURSE DIARY CONTENT -->
-
-        <!--  <android.support.v7.widget.RecyclerView
-              android:id="@+id/rvCourseDiary"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@android:color/white"
-              android:scrollbars="vertical" />-->
-        <ListView
-            android:id="@+id/lvFriends"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:cacheColorHint="@android:color/white"
-            android:divider="@color/colorFFEFEFF4"
-            android:dividerHeight="2dp">
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:weightSum="99">
 
-        </ListView>
+            <!-- EXACT VIEW OF HANDICAP -->
 
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="33">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- EXACT LABEL OF HANDICAP -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Exact"
+                        android:textColor="@color/color8F8E94"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- EXACT LABEL VALUE OF HANDICAP -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvHandicapExact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/color535796"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- DIVIDER LINE  -->
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:background="@color/color8F8E94" />
+
+            </FrameLayout>
+
+            <!-- PLAYING VIEW OF HANDICAP -->
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="33"
+                android:paddingLeft="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- PLAYING LABEL OF HANDICAP -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Playing"
+                        android:textColor="@color/color8F8E94"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- PLAYING LABEL VALUE OF HANDICAP -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvHandicapPlaying"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/color535796"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <!-- DIVIDER LINE  -->
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:background="@color/color8F8E94" />
+
+            </FrameLayout>
+
+            <!-- TYPE VIEW OF HANDICAP -->
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="33"
+                android:paddingLeft="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- TYPE LABEL -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type"
+                        android:textColor="@color/color8F8E94"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- TYPE LABEL VALUE OF HANDICAP -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvHandicapType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/color535796"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <!-- VERTICAL LINE -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color8F8E94" />
+
+        <!-- STATISTICS LINEAR LAYOUT START-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:text="Statistics"
+                android:textColor="@color/colorEF8176"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/linechart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:background="#ffffff" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="#B5B4B8" />
+        <!-- STATISTICS LINEAR LAYOUT STOP-->
+
+        <!-- CERTIFICATE LINEAR LAYOUT START-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F1F1F0"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="30dp"
+                android:text="Certificate"
+                android:textColor="@color/colorEF8176"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_margin="15dp"
+                android:background="@color/colorWhiteffffff" />
+        </LinearLayout>
+        <!-- CERTIFICATE LINEAR LAYOUT STOP-->
     </LinearLayout>
-
-    <!-- DUMMY TITLE FOR NOW -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Handicap"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="35sp" />
-
-</RelativeLayout>
+</ScrollView>
