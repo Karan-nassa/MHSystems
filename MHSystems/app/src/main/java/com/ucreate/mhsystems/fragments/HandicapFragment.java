@@ -6,8 +6,10 @@ package com.ucreate.mhsystems.fragments;
  */
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,6 +34,7 @@ import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
+import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
 import com.ucreate.mhsystems.util.MyMarkerView;
 import com.ucreate.mhsystems.constants.WebAPI;
@@ -65,6 +68,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      *******************************/
     View mRootView;
     TextView tvHandicapExact, tvHandicapPlaying, tvHandicapType;
+    static TextView tvDateOfPlayedStr, tvTitleOfPlayStr, tvTypeOfPlayStr;
 
     // CompetitionsAdapter competitionsAdapter;
 
@@ -76,6 +80,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     HandicapResultItems handicapResultItems;
 
     private LineChart mChart;
+    LineDataSet set1;
+    public static MyMarkerView mv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +93,9 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         tvHandicapExact = (TextView) mRootView.findViewById(R.id.tvHandicapExact);
         tvHandicapPlaying = (TextView) mRootView.findViewById(R.id.tvHandicapPlaying);
         tvHandicapType = (TextView) mRootView.findViewById(R.id.tvHandicapType);
+        tvDateOfPlayedStr = (TextView) mRootView.findViewById(R.id.tvDateOfPlayedStr);
+        tvTitleOfPlayStr = (TextView) mRootView.findViewById(R.id.tvTitleOfPlayStr);
+        tvTypeOfPlayStr = (TextView) mRootView.findViewById(R.id.tvTypeOfPlayStr);
 
         setHasOptionsMenu(true);
 
@@ -111,32 +120,39 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         mChart.setTouchEnabled(true);
         // enable scaling and dragging
         mChart.setDragEnabled(false);
-        mChart.setScaleEnabled(false);
+        mChart.setScaleEnabled(false); //Zoom functioanlity
         // if disabled, scaling can be done on x- and y-axis separately
         mChart.setPinchZoom(false);
+
         // set an alternative background color
         // mChart.setBackgroundColor(Color.GRAY);
 
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
-        MyMarkerView mv = new MyMarkerView(getActivity(), R.layout.graph_marker_view, handicapData.get(0).getHCapRecords());
+        mv = new MyMarkerView(getActivity(), R.layout.graph_marker_view, handicapData.get(0).getHCapRecords());
 
         // set the marker to the chart
         mChart.setMarkerView(mv);
 
+        //Disable shows data set labels and colors of Graph.
+        mChart.getLegend().setEnabled(false);
+
         XAxis xl = mChart.getXAxis();
         xl.setAvoidFirstLastClipping(true);
-        xl.setEnabled(false);
+        xl.setDrawGridLines(false);
+        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setInverted(false);
         leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
-        leftAxis.setEnabled(false);
+        leftAxis.setEnabled(true);
+        leftAxis.setDrawGridLines(false);
+
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setEnabled(false);
 
         // add data
-        setData(handicapData.get(0).getHCapRecords().size(), handicapData.get(0).getHCapRecords());
+        set_Data(handicapData.get(0).getHCapRecords().size(), handicapData.get(0).getHCapRecords());
 
         // // restrain the maximum scale-out factor
         // mChart.setScaleMinima(3f, 3f);
@@ -148,12 +164,10 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         Legend l = mChart.getLegend();
 
         // modify the legend ...
-        // l.setPosition(LegendPosition.LEFT_OF_CHART);
-        //  l.setForm(LegendForm.LINE);
+//         l.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+//          l.setForm(Legend.LegendForm.LINE);
 
         // dont forget to refresh the drawing
-
-
         mChart.invalidate();
     }
 
@@ -280,7 +294,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //inflater.inflate(R.menu.line, menu);
+        inflater.inflate(R.menu.line, menu);
     }
 
     @Override
@@ -320,6 +334,11 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                         set.setDrawFilled(false);
                     else
                         set.setDrawFilled(true);
+                    set.setFillColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
+                    set.setCircleColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
+                    Drawable drawable = ContextCompat.getDrawable(getActivity(), R.color.colorEF8176);
+                    drawable.setAlpha(200);
+                    //    set.setFillDrawable(drawable);
                 }
                 mChart.invalidate();
                 break;
@@ -387,6 +406,13 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         Log.i("VAL SELECTED",
                 "Value: " + e.getVal() + ", xIndex: " + e.getXIndex()
                         + ", DataSet index: " + dataSetIndex);
+
+        tvDateOfPlayedStr.setText(handicapData.get(0).getHCapRecords().get(e.getXIndex()).getDatePlayedStr());
+        //  tvTitleOfPlayStr.setText("");
+        tvTypeOfPlayStr.setText("" + e.getVal());
+
+
+        mChart.highlightValue(null);
     }
 
     @Override
@@ -400,32 +426,39 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * Implements a method to initialize X-axis and Y-axis
      * to display on GRAPH.
      */
-    private void setData(int count, List<HCapRecord> range) {
+    private void set_Data(int count, List<HCapRecord> range) {
 
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < count; i++) {
-           // xVals.add((i % 30) + "/" + (i % 12) + "/14");
-            xVals.add(range.get(i).getDatePlayedStr());
+            // xVals.add((i % 30) + "/" + (i % 12) + "/14");
+            xVals.add(((MyAccountActivity) getActivity()).getFormateMonth(range.get(i).getDatePlayedStr()));
         }
 
         ArrayList<Entry> yVals = new ArrayList<Entry>();
 
         for (int i = 0; i < count; i++) {
             float mult = Float.parseFloat((range.get(i).getNewExactHCapOnlyStr() + 1));
-           // float val = (float) (Math.random() * mult) + 3;// + (float)
-            // ((mult *
-            // 0.1) / 10);
             yVals.add(new Entry(mult, i));
         }
 
 //         create a dataset and give it a type
-        LineDataSet set1 = new LineDataSet(yVals, "");
+        set1 = new LineDataSet(yVals, "");
 
-        set1.setLineWidth(4f);
-        set1.setCircleRadius(8f);
-        set1.setColor(Color.parseColor("#F1958C"));
+        set1.setLineWidth(2f);
+        set1.setCircleRadius(5f);
+
+        //For dot on graph.
+//        set1.setCircleColorHole(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
+        set1.setColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
         set1.setValueTextColor(Color.TRANSPARENT);
-        set1.setCircleColor(Color.parseColor("#F1958C"));
+        set1.setCircleColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
+
+        set1.setDrawFilled(true);
+       // set1.setFillColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
+       // set1.setCircleColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
+        Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_graph_shade);
+        set1.setFillDrawable(drawable);
+
 
         // create a data object with the datasets
         LineData data = new LineData(xVals, set1);

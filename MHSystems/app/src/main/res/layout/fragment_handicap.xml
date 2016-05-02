@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="20dp"
             android:weightSum="99">
 
             <!-- EXACT VIEW OF HANDICAP -->
@@ -27,6 +26,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="20dp"
                     android:orientation="vertical">
 
                     <!-- EXACT LABEL OF HANDICAP -->
@@ -56,7 +56,7 @@
 
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:background="@color/color8F8E94" />
 
@@ -68,11 +68,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="33"
-                android:paddingLeft="15dp">
+               >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="20dp"
                     android:orientation="vertical">
 
                     <!-- PLAYING LABEL OF HANDICAP -->
@@ -103,7 +104,7 @@
 
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:background="@color/color8F8E94" />
 
@@ -114,12 +115,12 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="33"
-                android:paddingLeft="15dp">
+                android:layout_weight="33">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="20dp"
                     android:orientation="vertical">
 
                     <!-- TYPE LABEL -->
@@ -156,59 +157,119 @@
             android:layout_height="1dp"
             android:background="@color/color8F8E94" />
 
-        <!-- STATISTICS LINEAR LAYOUT START-->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:layout_margin="25dp"
+            android:weightSum="100">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="20dp"
-                android:text="Statistics"
-                android:textColor="@color/colorEF8176"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_weight="30">
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/linechart"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="10dp"
-                android:background="#ffffff" />
+                <!-- STATISTICS TEXT LABEL -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:paddingTop="10dp"
+                    android:text="Statistics"
+                    android:textColor="@color/color8F8E94"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:gravity="right"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorEF8176"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <!-- SELECTED HANDICAP GRAPH DATE  -->
+
+                        <com.ucreate.mhsystems.customfonts.RobotoTextView
+                            android:id="@+id/tvDateOfPlayedStr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhiteffffff"
+                            android:textSize="12sp" />
+
+                        <!-- SELECTED HANDICAP GRAPH DESCRIPTION  -->
+
+                        <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                            android:id="@+id/tvTitleOfPlayStr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Competition Name with some more"
+                            android:textColor="@color/colorWhiteffffff"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvTypeOfPlayStr"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorDB766C"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhiteffffff"
+                        />
+
+            </LinearLayout>
+
         </LinearLayout>
+
+
+        <!-- GRAPH VIEW TO DISPLAY HANDICAP DATA IN GRAPHICAL FORM -->
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/linechart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:background="#ffffff" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:background="#B5B4B8" />
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/color8F8E94"  />
         <!-- STATISTICS LINEAR LAYOUT STOP-->
 
         <!-- CERTIFICATE LINEAR LAYOUT START-->
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#F1F1F0"
+            android:layout_height="100dp"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="30dp"
-                android:text="Certificate"
-                android:textColor="@color/colorEF8176"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+            <Button
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/background_blue_border_535796"
+                android:text="@string/text_title_show_certificate"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhiteffffff"
+                android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_margin="15dp"
-                android:background="@color/colorWhiteffffff" />
         </LinearLayout>
         <!-- CERTIFICATE LINEAR LAYOUT STOP-->
     </LinearLayout>

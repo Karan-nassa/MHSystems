@@ -54,6 +54,10 @@
     <string name="tab_title_friends">FRIENDS</string>
     <!-- END OF MEMBERS ACTIVITY -->
 
+    <!-- START OF HANDICAP GRAPH FRAGMENT -->
+    <string name="text_title_show_certificate">Show Certificate</string>
+    <!-- END OF HANDICAP GRAPH FRAGMENT -->
+
     <!-- START OF MEMBERS DETAIL ACTIVITY -->
     <string name="text_member_since">Member since </string>
     <string name="text_member_no_email">Email not found.</string>

@@ -27,6 +27,10 @@ import com.rollbar.android.Rollbar;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.ButterKnife;
 
 /**
@@ -128,6 +132,26 @@ public class BaseActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.containerView, mFragment);
         fragmentTransaction.commit();
+    }
+
+    /**
+     * Implements a method to RETURN the name of MONTH from
+     * specific date format.
+     *
+     * @param strDate : Example => "2009-11-30T18:30:00Z"
+     * @return strDate  : MMM [NOV]
+     */
+    public static String getFormateMonth(String strDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM");
+
+        try {
+            Date date = inputFormat.parse(strDate);
+            strDate = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+        return strDate;
     }
 
 }
