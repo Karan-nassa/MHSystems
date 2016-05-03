@@ -43,7 +43,7 @@ public class MyMarkerView extends MarkerView {
     public void refreshContent(Entry e, Highlight highlight) {
 
 
-        HandicapFragment.mv.refreshContent(e, highlight);
+       // HandicapFragment.mv.refreshContent(e, highlight);
        // HandicapFragment.showHandicapInfo(hCapRecords.get(e.getXIndex()).getDatePlayedStr(), hCapRecords.get(e.getXIndex()).getNewExactHCapOnlyStr());
 //          tvHandicapDate.setText(hCapRecords.get(e.getXIndex()).getDatePlayedStr());
 

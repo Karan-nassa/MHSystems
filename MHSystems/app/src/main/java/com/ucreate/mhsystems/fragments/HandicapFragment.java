@@ -50,6 +50,7 @@ import com.ucreate.mhsystems.util.pojo.HandicapResultItems;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit.Callback;
@@ -79,7 +80,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     //Create instance of Model class CourseDiaryItems.
     HandicapResultItems handicapResultItems;
 
-    private LineChart mChart;
+    private static LineChart mChart;
     LineDataSet set1;
     public static MyMarkerView mv;
 
@@ -147,6 +148,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
         leftAxis.setEnabled(true);
         leftAxis.setDrawGridLines(false);
+        // leftAxis.setAxisMaxValue(30);
 
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setEnabled(false);
@@ -169,6 +171,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
         // dont forget to refresh the drawing
         mChart.invalidate();
+
+        mChart.setOnChartValueSelectedListener(this);
     }
 
     @Override
@@ -273,6 +277,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 //                    setData(10, handicapData.get(0).getHCapRecords());
                     InitializeGraph();
 
+                    loadDetailGraphInfo(handicapData.get(0).getHCapRecords().size() - 1);
+
 //                    competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas/*((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup)*/);
 //                    lvFriends.setAdapter(competitionsAdapter);
 
@@ -294,7 +300,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.line, menu);
+        // inflater.inflate(R.menu.line, menu);
     }
 
     @Override
@@ -407,12 +413,10 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 "Value: " + e.getVal() + ", xIndex: " + e.getXIndex()
                         + ", DataSet index: " + dataSetIndex);
 
-        tvDateOfPlayedStr.setText(handicapData.get(0).getHCapRecords().get(e.getXIndex()).getDatePlayedStr());
-        //  tvTitleOfPlayStr.setText("");
-        tvTypeOfPlayStr.setText("" + e.getVal());
+        loadDetailGraphInfo(e.getXIndex());
 
-
-        mChart.highlightValue(null);
+//        mv.refreshContent(e, h);
+        //mChart.highlightValue(null, true);
     }
 
     @Override
@@ -421,12 +425,28 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
     }
 
+    /**
+     * Define globally method to display detail information
+     * of Handicap on graph.
+     */
+    public void loadDetailGraphInfo(int iIndex) {
+
+        tvDateOfPlayedStr.setText(handicapData.get(0).getHCapRecords().get(iIndex).getDatePlayedStr());
+        tvTitleOfPlayStr.setText(handicapData.get(0).getHCapRecords().get(iIndex).getCompetitionOrReason());
+        tvTypeOfPlayStr.setText(handicapData.get(0).getHCapRecords().get(iIndex).getNewExactHCapOnlyStr());
+    }
 
     /**
      * Implements a method to initialize X-axis and Y-axis
      * to display on GRAPH.
      */
     private void set_Data(int count, List<HCapRecord> range) {
+
+        /**
+         * Reverse the Handicap graph records for annually
+         * ascending order.
+         */
+        Collections.reverse(range);
 
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < count; i++) {
@@ -448,17 +468,17 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         set1.setCircleRadius(5f);
 
         //For dot on graph.
-//        set1.setCircleColorHole(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
+        // set1.setCircleColorHole(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
+
         set1.setColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
         set1.setValueTextColor(Color.TRANSPARENT);
         set1.setCircleColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
 
         set1.setDrawFilled(true);
-       // set1.setFillColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
-       // set1.setCircleColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
+//         set1.setFillColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
+//         set1.setCircleColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
         Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_graph_shade);
         set1.setFillDrawable(drawable);
-
 
         // create a data object with the datasets
         LineData data = new LineData(xVals, set1);
@@ -468,4 +488,5 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         mChart.animateX(3000);
         mChart.invalidate();
     }
+
 }

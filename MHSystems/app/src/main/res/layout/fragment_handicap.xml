@@ -194,7 +194,7 @@
 
                     <LinearLayout
                         android:layout_width="120dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="70dp"
                         android:background="@color/colorEF8176"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -215,7 +215,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="Competition Name with some more"
                             android:textColor="@color/colorWhiteffffff"
                             android:textSize="12sp" />
 
