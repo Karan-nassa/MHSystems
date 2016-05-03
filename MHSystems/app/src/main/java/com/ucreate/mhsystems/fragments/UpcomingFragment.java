@@ -26,10 +26,10 @@ import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
-import com.ucreate.mhsystems.util.pojo.CompetitionsAPI;
-import com.ucreate.mhsystems.util.pojo.CompetitionsData;
-import com.ucreate.mhsystems.util.pojo.CompetitionsJsonParams;
-import com.ucreate.mhsystems.util.pojo.CompetitionsResultItems;
+import com.ucreate.mhsystems.models.CompetitionsAPI;
+import com.ucreate.mhsystems.models.CompetitionsData;
+import com.ucreate.mhsystems.models.CompetitionsJsonParams;
+import com.ucreate.mhsystems.models.CompetitionsResultItems;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

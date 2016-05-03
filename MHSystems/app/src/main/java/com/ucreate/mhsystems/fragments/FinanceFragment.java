@@ -26,10 +26,10 @@ import com.ucreate.mhsystems.adapter.BaseAdapter.FinanceSectionAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
-import com.ucreate.mhsystems.util.pojo.MyAccountAPI;
-import com.ucreate.mhsystems.util.pojo.MyAccountData;
-import com.ucreate.mhsystems.util.pojo.MyAccountItems;
-import com.ucreate.mhsystems.util.pojo.MyAccountJsonParams;
+import com.ucreate.mhsystems.models.MyAccountAPI;
+import com.ucreate.mhsystems.models.MyAccountData;
+import com.ucreate.mhsystems.models.MyAccountItems;
+import com.ucreate.mhsystems.models.MyAccountJsonParams;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

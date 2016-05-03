@@ -2,21 +2,14 @@
 package com.ucreate.mhsystems.util;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;
-import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.utils.Utils;
-import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.fragments.HandicapFragment;
-import com.ucreate.mhsystems.util.pojo.HCapRecord;
+import com.ucreate.mhsystems.models.HCapRecord;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListResourceBundle;
 
 /**
  * Custom implementation of the MarkerView.

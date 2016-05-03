@@ -6,7 +6,6 @@ package com.ucreate.mhsystems.fragments;
  * <br>tabs content on 12/23/2015.
  */
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -31,12 +30,12 @@ import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
-import com.ucreate.mhsystems.util.pojo.AJsonParams_;
-import com.ucreate.mhsystems.util.pojo.CourseDiaryAPI;
-import com.ucreate.mhsystems.util.pojo.CourseDiaryData;
-import com.ucreate.mhsystems.util.pojo.CourseDiaryDataCopy;
-import com.ucreate.mhsystems.util.pojo.CourseDiaryItems;
-import com.ucreate.mhsystems.util.pojo.CourseDiaryItemsCopy;
+import com.ucreate.mhsystems.models.AJsonParams_;
+import com.ucreate.mhsystems.models.CourseDiaryAPI;
+import com.ucreate.mhsystems.models.CourseDiaryData;
+import com.ucreate.mhsystems.models.CourseDiaryDataCopy;
+import com.ucreate.mhsystems.models.CourseDiaryItems;
+import com.ucreate.mhsystems.models.CourseDiaryItemsCopy;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

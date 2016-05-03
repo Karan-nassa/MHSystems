@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.util.pojo.Contact;
+import com.ucreate.mhsystems.models.Contact;
 import com.ucreate.mhsystems.utils.CircularContactView;
 import com.ucreate.mhsystems.utils.ContactImageUtil;
 import com.ucreate.mhsystems.utils.ImageCache;

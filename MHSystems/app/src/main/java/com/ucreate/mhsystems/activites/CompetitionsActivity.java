@@ -20,7 +20,7 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CompetitionsTabFragment;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
-import com.ucreate.mhsystems.util.pojo.CourseDiaryDataCopy;
+import com.ucreate.mhsystems.models.CourseDiaryDataCopy;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;

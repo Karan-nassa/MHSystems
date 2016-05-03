@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.util.pojo.MembersList;
+import com.ucreate.mhsystems.models.MembersList;
 
 import java.util.ArrayList;
 import java.util.List;

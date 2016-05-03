@@ -21,15 +21,12 @@ import android.widget.TextView;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
-import com.ucreate.mhsystems.util.pojo.CourseDiaryData;
-import com.ucreate.mhsystems.util.pojo.CourseDiaryDataCopy;
+import com.ucreate.mhsystems.models.CourseDiaryData;
+import com.ucreate.mhsystems.models.CourseDiaryDataCopy;
 
 import java.text.DateFormatSymbols;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import butterknife.Bind;

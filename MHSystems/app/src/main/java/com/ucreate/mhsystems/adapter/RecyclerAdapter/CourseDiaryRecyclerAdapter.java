@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.util.pojo.CourseDiaryData;
+import com.ucreate.mhsystems.models.CourseDiaryData;
 
 import java.util.ArrayList;
 

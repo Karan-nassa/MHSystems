@@ -1,12 +1,12 @@
 package com.ucreate.mhsystems.util.API;
 
 import com.google.gson.JsonObject;
-import com.ucreate.mhsystems.util.pojo.CompetitionsAPI;
-import com.ucreate.mhsystems.util.pojo.CourseDiaryAPI;
-import com.ucreate.mhsystems.util.pojo.HandicapAPI;
-import com.ucreate.mhsystems.util.pojo.MembersAPI;
-import com.ucreate.mhsystems.util.pojo.MembersDetailAPI;
-import com.ucreate.mhsystems.util.pojo.MyAccountAPI;
+import com.ucreate.mhsystems.models.CompetitionsAPI;
+import com.ucreate.mhsystems.models.CourseDiaryAPI;
+import com.ucreate.mhsystems.models.HandicapAPI;
+import com.ucreate.mhsystems.models.MembersAPI;
+import com.ucreate.mhsystems.models.MembersDetailAPI;
+import com.ucreate.mhsystems.models.MyAccountAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
