@@ -36,7 +36,7 @@ public class MyAccountTabFragment extends Fragment {
      *******************************/
     TabLayout tabLayout;
     ViewPager viewPager;
-    View mRootView;
+    View viewRootFragment;
     TabsPageAdapter pageAdapter;
 
     /*********************************
@@ -69,10 +69,10 @@ public class MyAccountTabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_my_account_tabs, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_my_account_tabs, container, false);
 
         //Initialize view resources.
-        tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
+        tabLayout = (TabLayout) viewRootFragment.findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_my_details)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_handicap)));
@@ -81,7 +81,7 @@ public class MyAccountTabFragment extends Fragment {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.colorBlack000000));
 
-        viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
+        viewPager = (ViewPager) viewRootFragment.findViewById(R.id.pager);
 
         Log.e("COUNT:",""+tabLayout.getTabCount());
         pageAdapter = new TabsPageAdapter
@@ -96,7 +96,7 @@ public class MyAccountTabFragment extends Fragment {
         //Implement Tab selected listener.
         tabLayout.setOnTabSelectedListener(mCourseTabListener);
 
-        return mRootView;
+        return viewRootFragment;
     }
 
     /**

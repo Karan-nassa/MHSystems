@@ -54,7 +54,7 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    View mRootView;
+    View viewRootFragment;
     //    ListView lvFinance;
     TextView tvCreditBalance, tvCurrentInvoice;
     FrameLayout flCurrentInvoice;
@@ -118,17 +118,17 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_finance, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
 
-//        lvFinance = (ListView) mRootView.findViewById(R.id.lvFinance);
+//        lvFinance = (ListView) viewRootFragment.findViewById(R.id.lvFinance);
 
-        tvCreditBalance = (TextView) mRootView.findViewById(R.id.tvCreditBalance);
-        tvCurrentInvoice = (TextView) mRootView.findViewById(R.id.tvCurrentInvoice);
-        flCurrentInvoice = (FrameLayout) mRootView.findViewById(R.id.flCurrentInvoice);
+        tvCreditBalance = (TextView) viewRootFragment.findViewById(R.id.tvCreditBalance);
+        tvCurrentInvoice = (TextView) viewRootFragment.findViewById(R.id.tvCurrentInvoice);
+        flCurrentInvoice = (FrameLayout) viewRootFragment.findViewById(R.id.flCurrentInvoice);
 
         flCurrentInvoice.setOnClickListener(mInvoiceDetailListener);
 
-        return mRootView;
+        return viewRootFragment;
     }
 
     @Override

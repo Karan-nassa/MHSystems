@@ -46,7 +46,7 @@ public class MyDetailsFragment extends Fragment implements SwipeRefreshLayout.On
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    View mRootView;
+    View viewRootFragment;
     ListView lvFriends;
 
     CompetitionsAdapter competitionsAdapter;
@@ -61,11 +61,11 @@ public class MyDetailsFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_my_details, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_my_details, container, false);
 
-        lvFriends = (ListView) mRootView.findViewById(R.id.lvFriends);
+        lvFriends = (ListView) viewRootFragment.findViewById(R.id.lvFriends);
 
-        return mRootView;
+        return viewRootFragment;
     }
 
     @Override

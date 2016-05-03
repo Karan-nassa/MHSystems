@@ -63,7 +63,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    View mRootView;
+    View viewRootFragment;
     TextView tvHandicapExact, tvHandicapPlaying, tvHandicapType;
     static TextView tvDateOfPlayedStr, tvTitleOfPlayStr, tvTypeOfPlayStr;
 
@@ -82,24 +82,24 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_handicap, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_handicap, container, false);
 
         /**
          *  Initialize all resources used for Handicap graph.
          */
-        tvHandicapExact = (TextView) mRootView.findViewById(R.id.tvHandicapExact);
-        tvHandicapPlaying = (TextView) mRootView.findViewById(R.id.tvHandicapPlaying);
-        tvHandicapType = (TextView) mRootView.findViewById(R.id.tvHandicapType);
-        tvDateOfPlayedStr = (TextView) mRootView.findViewById(R.id.tvDateOfPlayedStr);
-        tvTitleOfPlayStr = (TextView) mRootView.findViewById(R.id.tvTitleOfPlayStr);
-        tvTypeOfPlayStr = (TextView) mRootView.findViewById(R.id.tvTypeOfPlayStr);
+        tvHandicapExact = (TextView) viewRootFragment.findViewById(R.id.tvHandicapExact);
+        tvHandicapPlaying = (TextView) viewRootFragment.findViewById(R.id.tvHandicapPlaying);
+        tvHandicapType = (TextView) viewRootFragment.findViewById(R.id.tvHandicapType);
+        tvDateOfPlayedStr = (TextView) viewRootFragment.findViewById(R.id.tvDateOfPlayedStr);
+        tvTitleOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTitleOfPlayStr);
+        tvTypeOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPlayStr);
 
         setHasOptionsMenu(true);
 
         //Initialize Line Chart
         // InitializeGraph();
 
-        return mRootView;
+        return viewRootFragment;
     }
 
     /**
@@ -107,7 +107,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * or chart with HANDICAP values.
      */
     private void InitializeGraph() {
-        mChart = (LineChart) mRootView.findViewById(R.id.linechart);
+        mChart = (LineChart) viewRootFragment.findViewById(R.id.linechart);
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
         // no description text

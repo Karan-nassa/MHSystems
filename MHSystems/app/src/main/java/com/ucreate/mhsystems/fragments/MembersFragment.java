@@ -67,7 +67,7 @@ public class MembersFragment extends Fragment {
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    View mRootView;
+    View viewRootFragment;
     //  ListView lvMembers;
 
     MembersAdapter membersAdapter;
@@ -108,15 +108,15 @@ public class MembersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mInflater = LayoutInflater.from(getActivity());
 
-        mRootView = inflater.inflate(R.layout.fragment_members, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_members, container, false);
 
-        //lvMembers = (ListView) mRootView.findViewById(R.id.lvMembers);
-        mListView = (PinnedHeaderListView) mRootView.findViewById(R.id.lvMembersList);
+        //lvMembers = (ListView) viewRootFragment.findViewById(R.id.lvMembers);
+        mListView = (PinnedHeaderListView) viewRootFragment.findViewById(R.id.lvMembersList);
 
         //Set Members list click listener.
       //  mListView.setOnItemClickListener(mListMemberListener);
 
-        return mRootView;
+        return viewRootFragment;
     }
 
     @Override

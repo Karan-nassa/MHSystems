@@ -50,7 +50,7 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    View mRootView;
+    View viewRootFragment;
     CoordinatorLayout cdlCompetitions;
     //    @Bind(R.id.rvCourseDiary)
 //    RecyclerView rvCourseDiary;
@@ -72,12 +72,12 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_competitions_list, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_competitions_list, container, false);
 
-        cdlCompetitions = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCompetitions);
-        lvCompetitions = (ListView) mRootView.findViewById(R.id.lvCompetitions);
+        cdlCompetitions = (CoordinatorLayout) viewRootFragment.findViewById(R.id.cdlCompetitions);
+        lvCompetitions = (ListView) viewRootFragment.findViewById(R.id.lvCompetitions);
 
-        return mRootView;
+        return viewRootFragment;
     }
 
 

@@ -43,7 +43,7 @@ public class CourseDairyTabFragment extends Fragment {
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
-    View mRootView;
+    View viewRootFragment;
     static Context context;
     TabsPageAdapter pageAdapter;
 
@@ -110,10 +110,10 @@ public class CourseDairyTabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_course_diary_tabs, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_course_diary_tabs, container, false);
 
         //Initialize view resources.
-        tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
+        tabLayout = (TabLayout) viewRootFragment.findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setText("OLD COURSE"));
         tabLayout.addTab(tabLayout.newTab().setText("NEW COURSE"));
@@ -123,7 +123,7 @@ public class CourseDairyTabFragment extends Fragment {
 
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.colorF7E59A));
 
-        viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
+        viewPager = (ViewPager) viewRootFragment.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_COURSE_DIARY);
         viewPager.setAdapter(pageAdapter);
@@ -136,7 +136,7 @@ public class CourseDairyTabFragment extends Fragment {
         //Implement Tab selected listener.
         tabLayout.setOnTabSelectedListener(mCourseTabListener);
 
-        return mRootView;
+        return viewRootFragment;
     }
 
     /**

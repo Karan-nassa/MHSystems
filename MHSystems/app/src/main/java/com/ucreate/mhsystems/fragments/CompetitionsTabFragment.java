@@ -43,7 +43,7 @@ public class CompetitionsTabFragment extends Fragment {
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
-    View mRootView;
+    View viewRootFragment;
     Context context;
     TabsPageAdapter pageAdapter;
 
@@ -107,10 +107,10 @@ public class CompetitionsTabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_competitions_tabs, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_competitions_tabs, container, false);
 
         //Initialize view resources.
-        tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
+        tabLayout = (TabLayout) viewRootFragment.findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_events)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_current)));
@@ -121,7 +121,7 @@ public class CompetitionsTabFragment extends Fragment {
 
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.color4942AA));
 
-        viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
+        viewPager = (ViewPager) viewRootFragment.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_COMPETITIONS);
         viewPager.setAdapter(pageAdapter);
@@ -135,7 +135,7 @@ public class CompetitionsTabFragment extends Fragment {
         //Implement Tab selected listener.
         tabLayout.setOnTabSelectedListener(mCourseTabListener);
 
-        return mRootView;
+        return viewRootFragment;
     }
 
     /**

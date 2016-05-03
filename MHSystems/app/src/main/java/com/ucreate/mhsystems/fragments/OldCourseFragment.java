@@ -62,7 +62,7 @@ public class OldCourseFragment extends Fragment {
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    View mRootView;
+    View viewRootFragment;
     CoordinatorLayout cdlCourseDiary;
     //    @Bind(R.id.rvCourseDiary)
 //    RecyclerView rvCourseDiary;
@@ -214,7 +214,7 @@ public class OldCourseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_course_dairy_list, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_course_dairy_list, container, false);
 
         //Initialize app resouces of each view.
         initializeAppResources();
@@ -225,7 +225,7 @@ public class OldCourseFragment extends Fragment {
         //Load more COURSE listener call here.
         lvCourseDiary.setOnScrollListener(mLoadMoreScrollListener);
 
-        return mRootView;
+        return viewRootFragment;
     }
 
     /**
@@ -279,9 +279,9 @@ public class OldCourseFragment extends Fragment {
      */
     private void initializeAppResources() {
 
-        cdlCourseDiary = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCourseDiary);
-        toolBar = (Toolbar) mRootView.findViewById(R.id.toolBar);
-        lvCourseDiary = (ListView) mRootView.findViewById(R.id.lvCourseDiary);
+        cdlCourseDiary = (CoordinatorLayout) viewRootFragment.findViewById(R.id.cdlCourseDiary);
+        toolBar = (Toolbar) viewRootFragment.findViewById(R.id.toolBar);
+        lvCourseDiary = (ListView) viewRootFragment.findViewById(R.id.lvCourseDiary);
     }
 
     @Override

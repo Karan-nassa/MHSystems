@@ -50,7 +50,7 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    View mRootView;
+    View viewRootFragment;
     CoordinatorLayout cdlCompetitions;
     Toolbar toolBar;
     TextView tvCourseSchedule;
@@ -68,12 +68,12 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_competitions_list, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_competitions_list, container, false);
 
-        cdlCompetitions = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCompetitions);
-        lvCompetitions = (ListView) mRootView.findViewById(R.id.lvCompetitions);
+        cdlCompetitions = (CoordinatorLayout) viewRootFragment.findViewById(R.id.cdlCompetitions);
+        lvCompetitions = (ListView) viewRootFragment.findViewById(R.id.lvCompetitions);
 
-        return mRootView;
+        return viewRootFragment;
     }
 
 
@@ -83,11 +83,11 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
      */
     private void initializeAppResources() {
 
-        cdlCompetitions = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCompetitions);
-        // toolBar = (Toolbar) mRootView.findViewById(R.id.toolBar);
-        // tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
-        lvCompetitions = (ListView) mRootView.findViewById(R.id.lvCompetitions);
-        // tvCourseSchedule = (TextView) mRootView.findViewById(R.id.tvCourseSchedule);
+        cdlCompetitions = (CoordinatorLayout) viewRootFragment.findViewById(R.id.cdlCompetitions);
+        // toolBar = (Toolbar) viewRootFragment.findViewById(R.id.toolBar);
+        // tvCourseSchedule = (TextView) viewRootFragment.findViewById(R.id.tvCourseSchedule);
+        lvCompetitions = (ListView) viewRootFragment.findViewById(R.id.lvCompetitions);
+        // tvCourseSchedule = (TextView) viewRootFragment.findViewById(R.id.tvCourseSchedule);
     }
 
     @Override

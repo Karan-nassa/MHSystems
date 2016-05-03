@@ -51,7 +51,7 @@ public class CompletedFragment extends Fragment implements SwipeRefreshLayout.On
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    View mRootView;
+    View viewRootFragment;
     CoordinatorLayout cdlCompetitions;
 
     Toolbar toolBar;
@@ -70,12 +70,12 @@ public class CompletedFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_competitions_list, container, false);
+        viewRootFragment = inflater.inflate(R.layout.fragment_competitions_list, container, false);
 
-        cdlCompetitions = (CoordinatorLayout) mRootView.findViewById(R.id.cdlCompetitions);
-        lvCompetitions = (ListView) mRootView.findViewById(R.id.lvCompetitions);
+        cdlCompetitions = (CoordinatorLayout) viewRootFragment.findViewById(R.id.cdlCompetitions);
+        lvCompetitions = (ListView) viewRootFragment.findViewById(R.id.lvCompetitions);
 
-        return mRootView;
+        return viewRootFragment;
     }
 
     @Override
