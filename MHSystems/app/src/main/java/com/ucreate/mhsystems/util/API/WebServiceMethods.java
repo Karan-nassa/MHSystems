@@ -3,6 +3,7 @@ package com.ucreate.mhsystems.util.API;
 import com.google.gson.JsonObject;
 import com.ucreate.mhsystems.models.CompetitionsAPI;
 import com.ucreate.mhsystems.models.CourseDiaryAPI;
+import com.ucreate.mhsystems.models.DashboardAPI;
 import com.ucreate.mhsystems.models.HandicapAPI;
 import com.ucreate.mhsystems.models.MembersAPI;
 import com.ucreate.mhsystems.models.MembersDetailAPI;
@@ -19,11 +20,21 @@ import retrofit.http.POST;
 public interface WebServiceMethods {
 
     /**
+     * Declaration of DASHBOARD API.
+     * <p/>
+     * TYPE : POST
+     * <p/>
+     * USAGE :-
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getDashboardData(@Body DashboardAPI jsonElements, Callback<JsonObject> response);
+
+    /**
      * Declaration of COURSE DIARY events
      * web service method.
-     * <p>
+     * <p/>
      * TYPE : POST
-     * <p>
+     * <p/>
      * USAGE :-
      * # OLD COURSE
      * # NEW COURSE
@@ -34,9 +45,9 @@ public interface WebServiceMethods {
     /**
      * Declaration of COMPETITIONS events
      * web service method.
-     * <p>
+     * <p/>
      * TYPE : POST
-     * <p>
+     * <p/>
      * USAGE :-
      * # MY EVENTS
      * # COMPLETED
@@ -48,12 +59,11 @@ public interface WebServiceMethods {
 
     /**
      * Declaration of Members Detail screen web service method.
-     * <p>
+     * <p/>
      * TYPE : POST
      *
      * @param handicapAPI
      * @param response
-     *
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getHandicap(@Body HandicapAPI handicapAPI, Callback<JsonObject> response);
@@ -61,7 +71,7 @@ public interface WebServiceMethods {
     /**
      * Declaration of My Account
      * web service method.
-     * <p>
+     * <p/>
      * TYPE : POST
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
@@ -69,24 +79,22 @@ public interface WebServiceMethods {
 
     /**
      * Declaration of Members web service method.
-     * <p>
+     * <p/>
      * TYPE : POST
      *
      * @param membersAPI
      * @param response
-     *
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getMembers(@Body MembersAPI membersAPI, Callback<JsonObject> response);
 
     /**
      * Declaration of Members Detail screen web service method.
-     * <p>
+     * <p/>
      * TYPE : POST
      *
      * @param membersDetailAPI
      * @param response
-     *
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getMembersDetail(@Body MembersDetailAPI membersDetailAPI, Callback<JsonObject> response);

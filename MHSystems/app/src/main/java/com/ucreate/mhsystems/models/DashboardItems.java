@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class HandicapResultItems {
+public class DashboardItems {
 
     @SerializedName("Message")
     @Expose
@@ -14,9 +14,9 @@ public class HandicapResultItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("DashboardData")
+    @SerializedName("Data")
     @Expose
-    private HandicapData Data;
+    private DashboardData Data;
 
     /**
      * 
@@ -57,18 +57,18 @@ public class HandicapResultItems {
     /**
      * 
      * @return
-     *     The DashboardData
+     *     The Data
      */
-    public HandicapData getData() {
+    public DashboardData getData() {
         return Data;
     }
 
     /**
      * 
      * @param Data
-     *     The DashboardData
+     *     The Data
      */
-    public void setData(HandicapData Data) {
+    public void setData(DashboardData Data) {
         this.Data = Data;
     }
 

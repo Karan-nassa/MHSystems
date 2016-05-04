@@ -1,109 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:fitsSystemWindows="true">
 
-    <!-- DETAIL VIEW OF COURSE DIARY -->
+    <!-- COMPETITIONS TITLE WITH BACK ARROW AND JOIN BUTTON -->
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="@dimen/detail_backdrop_height"
+        android:background="@color/colorF6EA8C"
+        android:fitsSystemWindows="true"
+        android:theme="@style/CompetitionsTheme">
 
-        <!-- COMPETITIONS TITLE WITH BACK ARROW AND JOIN BUTTON -->
-
-        <LinearLayout
+        <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@color/colorF6EA8C"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="11dp">
-
-                <!-- HOME ICON -->
-
-                <LinearLayout
-                    android:id="@+id/llHomeIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/home_icon_pressed" />
-
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/title_competitions"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </FrameLayout>
-
-            <!-- CUP LOGO WITH JOIN BUTTON -->
+            android:layout_height="match_parent"
+            app:expandedTitleTextAppearance="@style/CompetitionsToolExpand"
+            app:collapsedTitleTextAppearance="@style/CompetitionsToolCollapse"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- TEAM LOGO -->
+                    <FrameLayout
+                        android:layout_width="74dp"
+                        android:layout_height="74dp"
+                        android:layout_margin="40dp"
+                        android:orientation="vertical">
 
-                    <com.facebook.drawee.view.SimpleDraweeView
-                        android:id="@+id/ivBackgroundColor"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="2dp"
-                        android:scaleType="fitCenter"
-                        app:placeholderImage="@android:color/white"
-                        app:roundAsCircle="true" />
+                        <!-- TEAM LOGO -->
 
-                    <!-- LOGO OF ITEM -->
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/ivBackgroundColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="2dp"
+                            android:scaleType="fitCenter"
+                            app:placeholderImage="@android:color/white"
+                            app:roundAsCircle="true" />
 
-                    <ImageView
-                        android:id="@+id/ivGridLogo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/ic_home_competitions" />
+                        <!-- LOGO OF ITEM -->
 
-                    <!-- JOIN BUTTON -->
+                        <ImageView
+                            android:id="@+id/ivGridLogo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/ic_home_competitions" />
 
-                    <Button
-                        android:id="@+id/btJoinEvent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_gravity="bottom|center"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/button_corner_shape_535796"
-                        android:text="JOIN"
-                        android:textColor="@android:color/white" />
+                    </FrameLayout>
 
-                </FrameLayout>
+                </LinearLayout>
+
 
             </LinearLayout>
 
-        </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarComp"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/App_Theme" />
+
+        </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
         <!-- BOTTOM DESCRIPTION OF COURSE EVENT DETAIL -->
 
@@ -115,21 +96,12 @@
             android:layout_marginTop="25dp"
             android:orientation="vertical">
 
-            <!-- EVENT TITLE -->
-
-            <TextView
-                android:id="@+id/tvTitleCourseEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_event_title"
-                android:textColor="@color/color030303"
-                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="3dp"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -148,9 +120,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="12dp"
-                    android:textSize="16sp"
                     android:text="Monday, 29th February 2016"
-                    android:textColor="@color/color030303" />
+                    android:textColor="@color/color030303"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -185,28 +157,47 @@
 
             </LinearLayout>
 
-            <!-- DIVIDER LINE -->
+            <!-- FEE PER GUEST -->
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center"
-                android:alpha="0.5"
-                android:background="@color/colorAAAAAA"/>
-
-            <!-- DESCRIPTION OF COURSY EVENTS -->
-
-            <TextView
-                android:id="@+id/tvDescCourseEvent"
+            <LinearLayout
+                android:id="@+id/llDescGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:text="Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metus, scelerisque nec pharetra id, tempor a tortor."
-                android:textColor="@color/color030303" />
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.3"
+                    android:src="@mipmap/ic_description" />
+
+                <!-- DESCRIPTION OF COURSY EVENTS -->
+
+                <TextView
+                    android:id="@+id/tvDescCourseEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis. In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis."
+                    android:textColor="@color/color030303" />
+
+            </LinearLayout>
 
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabJoinCompetition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        app:backgroundTint="@color/color535796a"
+        android:src="@mipmap/ic_members_add_friend"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right|end" />
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

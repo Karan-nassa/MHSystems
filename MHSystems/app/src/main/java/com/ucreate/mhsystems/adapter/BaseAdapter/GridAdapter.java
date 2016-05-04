@@ -27,12 +27,14 @@ public class GridAdapter extends BaseAdapter {
 
     TypedArray gridIcons;
     String gridTitles[];
+    String hCapExactStr;
     TypedArray gridBackground;
 
-    public GridAdapter(HomeActivity mainActivity, String gridTitles[], TypedArray gridIcons, TypedArray gridBackground) {
+    public GridAdapter(HomeActivity mainActivity, String gridTitles[], TypedArray gridIcons, TypedArray gridBackground, String hCapExactStr) {
 
         context = mainActivity;
         this.gridTitles = gridTitles;
+        this.hCapExactStr = hCapExactStr;
         this.gridIcons = gridIcons;
         this.gridBackground = gridBackground;
         inflater = (LayoutInflater) context.
@@ -60,6 +62,7 @@ public class GridAdapter extends BaseAdapter {
      * contain all resources.
      */
     public class Holder {
+        TextView tvHCapExactStr;
         TextView tvGridTitle;
         ImageView ivGridLogo;
         RelativeLayout rlGridMenuItem;
@@ -72,6 +75,9 @@ public class GridAdapter extends BaseAdapter {
         View rowView = null;
         if (position == 0) {
             rowView = inflater.inflate(R.layout.item_grid_row_text, null);
+
+            holder.tvHCapExactStr = (TextView) rowView.findViewById(R.id.tvHCapExactStr);
+            holder.tvHCapExactStr.setText(hCapExactStr);
         } else {
             rowView = inflater.inflate(R.layout.item_grid_row_icon, null);
         }

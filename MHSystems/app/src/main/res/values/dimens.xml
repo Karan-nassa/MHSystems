@@ -4,6 +4,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="card_margin">7dp</dimen>
+    <dimen name="detail_backdrop_height">256dp</dimen>
+
     <!-- MEMBER INDEXING ALPHABET FILTER -->
     <dimen name="list_item__contact_imageview_size">45dp</dimen>
 </resources>

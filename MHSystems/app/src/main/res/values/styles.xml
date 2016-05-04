@@ -60,5 +60,36 @@
 
     <!-- +++++++++++++++ END OF MEMBER LIST ALPHABETICAL THEME +++++++++++++++ -->
 
+    <!-- EXPAND TEXT STYLE OF TOOL BAR -->
+
+    <style name="CompetitionsToolExpand" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorBlack000000</item>
+        <item name="android:text">women stableford competition</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <!-- COLLAPSE TEXT STYLE OF TOOL BAR -->
+
+    <style name="CompetitionsToolCollapse" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorBlack000000</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+
+    <!-- YELLOW THEME ON COLLAPSE AND SCROLL -->
+
+    <style name="CompetitionsTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <!-- Customize your theme here. -->
+        <!-- <item name="colorPrimary">@color/colorBlack191919</item>-->
+        <item name="colorPrimary">@color/colorF6EA8C</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@android:color/holo_blue_light</item>
+    </style>
+
 </resources>
 

@@ -10,6 +10,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_margin">
+
 
         <!-- HORIZONTAL VIEW GROUP FOR DATE AND DESCRIPTION -->
         <LinearLayout
@@ -91,6 +96,9 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
     </LinearLayout>
 
 </RelativeLayout>
