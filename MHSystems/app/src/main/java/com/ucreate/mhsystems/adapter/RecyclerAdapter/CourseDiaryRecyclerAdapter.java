@@ -24,7 +24,7 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
     Context context;
     String strLastDate = "";
 
-    // The default constructor to receive titles,icons and context from HomeActivity.
+    // The default constructor to receive titles,icons and context from DashboardActivity.
     public CourseDiaryRecyclerAdapter(Context context, ArrayList<CourseDiaryData> CourseDiaryData) {
 
         this.CourseDiaryData = CourseDiaryData;

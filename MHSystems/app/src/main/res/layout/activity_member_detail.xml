@@ -10,43 +10,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- STATUS BAR -->
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolBarMembersDetail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorA1B7E0"
-            android:fitsSystemWindows="true"
-            android:minHeight="?android:attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            <!-- SUPPORT TOOL BAR FOR TITLE AND BACK ARROW -->
 
-
-            <LinearLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tbMemberDetail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorA1B7E0"
+                app:layout_collapseMode="pin"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-                <LinearLayout
-                    android:id="@+id/llMembersDetailBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <!-- BACK ARROW  -->
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:src="@mipmap/ic_back_arrow_white" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </android.support.v7.widget.Toolbar>
 
         <!-- CONTENT OF MEMBER DETAIL -->
 
@@ -175,6 +149,7 @@
                         android:textSize="14sp" />
 
                     <FrameLayout
+                        android:id="@+id/flContactGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -182,7 +157,6 @@
 
 
                         <LinearLayout
-                            android:id="@+id/llContactGroup"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
@@ -226,6 +200,7 @@
                     <!--  EMAIL  -->
 
                     <FrameLayout
+                        android:id="@+id/flEmailGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -233,7 +208,6 @@
 
 
                         <LinearLayout
-                            android:id="@+id/llEmailGroup"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
@@ -278,6 +252,7 @@
                     <!--  ADDRESS OF MEMBER  -->
 
                     <FrameLayout
+                        android:id="@+id/flAddressGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -285,7 +260,6 @@
 
 
                         <LinearLayout
-                            android:id="@+id/llAddressGroup"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">

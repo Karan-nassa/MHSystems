@@ -96,4 +96,10 @@ public class ApplicationGlobal {
      * View Pager Item Position
      */
     public static int TAB_DETAIL = 0;
+
+    /**
+     * Declares the CLIENT ID key globally which will retrieve after
+     * LOG-IN of particular member used to get data in all API.
+     */
+    public static String TAG_MEMBER_CLIENT_ID = "44118078";
 }

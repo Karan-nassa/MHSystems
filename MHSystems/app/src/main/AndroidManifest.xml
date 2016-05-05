@@ -18,7 +18,7 @@
 
         <!-- HOME ACTIVITY -->
         <activity
-            android:name=".activites.HomeActivity"
+            android:name=".activites.DashboardActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,10 +71,13 @@
         <!-- MEMBERS DETAIL ACTIVITY -->
         <activity
             android:name=".activites.MemberDetailActivity"
-            android:label="@string/title_activity_member_detail"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeMaterial" />
 
+        <!-- SHOW CERTIFICATE ACTIVITY -->
+        <activity
+            android:name=".activites.ShowCertificateWebview"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

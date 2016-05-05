@@ -35,6 +35,8 @@ public class CompetitionsDetailActivity extends AppCompatActivity {
 //    TextView tvTitleCourseEvent;
     @Bind(R.id.tvDateCourseEvent)
     TextView tvDateCourseEvent;
+    @Bind(R.id.tvTimeCourseEvent)
+    TextView tvTimeCourseEvent;
     @Bind(R.id.tvFeeCourseEvent)
     TextView tvFeeCourseEvent;
     @Bind(R.id.tvDescCourseEvent)
@@ -95,7 +97,6 @@ public class CompetitionsDetailActivity extends AppCompatActivity {
          */
         ButterKnife.bind(this);
 
-
         strEventTitle = getIntent().getExtras().getString("COMPETITIONS_TITLE");
         strEventLogo = getIntent().getExtras().getString("COMPETITIONS_EVENT_IMAGE");
         isEventJoin = getIntent().getExtras().getBoolean("COMPETITIONS_EVENT_JOIN");
@@ -117,7 +118,8 @@ public class CompetitionsDetailActivity extends AppCompatActivity {
         /*btJoinEvent.setText(isEventJoin ? getResources().getString(R.string.text_joined) :
                getResources().getString(R.string.text_join));
        */
-        tvDateCourseEvent.setText(strEventDate + ", " + strEventTime);
+        tvDateCourseEvent.setText(strEventDate);
+        tvTimeCourseEvent.setText(strEventTime);
 
         tvFeeCourseEvent.setText("£" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
         // tvDescCourseEvent.setText(strEventDesc);
@@ -133,7 +135,7 @@ public class CompetitionsDetailActivity extends AppCompatActivity {
                 if (!isDialogVisible) {
                     //Yes button clicked
                     fabJoinCompetition.setImageResource(R.mipmap.ic_friend_pending);
-                    fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
+                    fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#95D32B")));
 
                     Intent mIntent = new Intent(CompetitionsDetailActivity.this, CustomAlertDialogActivity.class);
                     //Pass theme green color.

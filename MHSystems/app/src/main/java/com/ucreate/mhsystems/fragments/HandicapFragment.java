@@ -5,6 +5,7 @@ package com.ucreate.mhsystems.fragments;
  * Certificate of Handicap.
  */
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.MyAccountActivity;
+import com.ucreate.mhsystems.activites.ShowCertificateWebview;
 import com.ucreate.mhsystems.util.MyMarkerView;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
@@ -65,9 +69,10 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      *******************************/
     View viewRootFragment;
     TextView tvHandicapExact, tvHandicapPlaying, tvHandicapType;
-    static TextView tvDateOfPlayedStr, tvTitleOfPlayStr, tvTypeOfPlayStr;
-
-    // CompetitionsAdapter competitionsAdapter;
+    Button btShowCertificate;
+    TextView tvDateOfPlayedStr, tvTitleOfPlayStr, tvTypeOfPlayStr;
+    TextView tvSelectGraphYear;
+    LinearLayout llPreviousYearGraph, llNextYearGraph;
 
     //List of type books this list will store type Book which is our data model
     private HandicapAPI handicapAPI;
@@ -80,26 +85,58 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     LineDataSet set1;
     public static MyMarkerView mv;
 
+    /**
+     * Declares the Graph YEAR navigation listener to redraw
+     * graph.
+     */
+    private View.OnClickListener mGraphNavListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_handicap, container, false);
 
-        /**
-         *  Initialize all resources used for Handicap graph.
-         */
+        //Initialize the resources.
+        initializeResources();
+
+        setHasOptionsMenu(true);
+
+        btShowCertificate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShowCertificateWebview.class);
+                startActivity(intent);
+            }
+        });
+
+        llPreviousYearGraph.setOnClickListener(mGraphNavListener);
+        llNextYearGraph.setOnClickListener(mGraphNavListener);
+
+        return viewRootFragment;
+    }
+
+    /**
+     * Implements a method to initialize all resources
+     * used for Handicap graph.
+     */
+    private void initializeResources() {
         tvHandicapExact = (TextView) viewRootFragment.findViewById(R.id.tvHandicapExact);
         tvHandicapPlaying = (TextView) viewRootFragment.findViewById(R.id.tvHandicapPlaying);
         tvHandicapType = (TextView) viewRootFragment.findViewById(R.id.tvHandicapType);
         tvDateOfPlayedStr = (TextView) viewRootFragment.findViewById(R.id.tvDateOfPlayedStr);
         tvTitleOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTitleOfPlayStr);
         tvTypeOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPlayStr);
+        tvSelectGraphYear = (TextView) viewRootFragment.findViewById(R.id.tvSelectGraphYear);
 
-        setHasOptionsMenu(true);
+        btShowCertificate = (Button) viewRootFragment.findViewById(R.id.btShowCertificate);
 
-        //Initialize Line Chart
-        // InitializeGraph();
-
-        return viewRootFragment;
+        llPreviousYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llPreviousYearGraph);
+        llNextYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llNextYearGraph);
     }
 
     /**

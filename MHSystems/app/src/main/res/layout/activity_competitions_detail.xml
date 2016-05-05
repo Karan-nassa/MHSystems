@@ -112,17 +112,35 @@
                     android:alpha="0.3"
                     android:src="@mipmap/ic_today" />
 
-                <!-- DATE OF COURSE EVENT -->
-
-                <TextView
-                    android:id="@+id/tvDateCourseEvent"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_marginLeft="12dp"
-                    android:text="Monday, 29th February 2016"
-                    android:textColor="@color/color030303"
-                    android:textSize="16sp" />
+                    android:orientation="vertical">
+
+                    <!-- DATE OF COURSE EVENT -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvDateCourseEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monday, 29th February 2016"
+                        android:textColor="@color/color030303"
+                        android:textSize="16sp" />
+
+
+                    <!-- DATE OF COURSE EVENT -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvTimeCourseEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10:00 - 14:00"
+                        android:textColor="@color/color030303"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
@@ -146,7 +164,7 @@
 
                 <!-- PRIZE OF COURSE EVENT -->
 
-                <TextView
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                     android:id="@+id/tvFeeCourseEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -172,15 +190,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.3"
+                    android:paddingLeft="4dp"
                     android:src="@mipmap/ic_description" />
 
                 <!-- DESCRIPTION OF COURSY EVENTS -->
 
-                <TextView
+                <com.ucreate.mhsystems.customfonts.RobotoTextView
                     android:id="@+id/tvDescCourseEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="14sp"
                     android:text="In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis. In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis."
                     android:textColor="@color/color030303" />
 

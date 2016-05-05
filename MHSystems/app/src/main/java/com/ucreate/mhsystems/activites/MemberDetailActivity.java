@@ -11,8 +11,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,26 +56,15 @@ public class MemberDetailActivity extends BaseActivity {
      * INSTANCES OF CLASSES
      *******************************/
     FloatingActionButton fabFriendInvitation;
-    LinearLayout llMembersDetailBack;
-    LinearLayout llContactGroup, llEmailGroup, llAddressGroup;
+    FrameLayout flEmailGroup, flContactGroup, flAddressGroup;
     TextView tvMemberNameDD, tvMemberContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
     ImageView ivActionMap, ivActionEmail, ivActionCall;
+    Toolbar tbMemberDetail;
 
     //List of type books this list will store type Book which is our data model
     private MembersDetailAPI membersDetailAPI;
     AJsonParamsMembersDatail aJsonParamsMembersDatail;
     MembersDetailsItems membersDetailItems;
-
-    /**
-     * Implements Back icons press
-     * listener.
-     */
-    private View.OnClickListener mHomePressListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onBackPressed();
-        }
-    };
 
     /**
      * Implements a CONSTANT field to call
@@ -144,6 +136,11 @@ public class MemberDetailActivity extends BaseActivity {
 
         iMemberID = getIntent().getExtras().getInt(ApplicationGlobal.KEY_MEMBER_ID);
 
+        tbMemberDetail = (Toolbar) findViewById(R.id.tbMemberDetail);
+        setSupportActionBar(tbMemberDetail);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         /**
          *  Check internet connection before hitting server request.
          */
@@ -168,10 +165,25 @@ public class MemberDetailActivity extends BaseActivity {
             }
         });
 
-        //Set click listener events declaration.
-        llMembersDetailBack.setOnClickListener(mHomePressListener);
         ivActionCall.setOnClickListener(mCallMemberListener);
         ivActionEmail.setOnClickListener(mEmailMemberListener);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            /**
+             *  Tool bar back arrow handler.
+             */
+            case android.R.id.home:
+                finish();
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -179,7 +191,7 @@ public class MemberDetailActivity extends BaseActivity {
      * data on Members Detail screen.
      */
     private void initializeAppResources() {
-        llMembersDetailBack = (LinearLayout) findViewById(R.id.llMembersDetailBack);
+
         tvMemberNameDD = (TextView) findViewById(R.id.tvMemberNameDD);
         tvMemberJoinDate = (TextView) findViewById(R.id.tvMemberJoinDate);
         tvMemberContact = (TextView) findViewById(R.id.tvMemberContact);
@@ -191,6 +203,10 @@ public class MemberDetailActivity extends BaseActivity {
         ivActionMap = (ImageView) findViewById(R.id.ivActionMap);
         ivActionEmail = (ImageView) findViewById(R.id.ivActionEmail);
         ivActionCall = (ImageView) findViewById(R.id.ivActionCall);
+
+        flEmailGroup = (FrameLayout) findViewById(R.id.flEmailGroup);
+        flContactGroup = (FrameLayout) findViewById(R.id.flContactGroup);
+        flAddressGroup = (FrameLayout) findViewById(R.id.flAddressGroup);
 
         fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
     }
@@ -263,7 +279,6 @@ public class MemberDetailActivity extends BaseActivity {
 
                 if (membersDetailItems.getData() != null) {
 
-
                     strMemberEmail = membersDetailItems.getData().getContactDetails().getEMail();
                     strAddressLine = membersDetailItems.getData().getContactDetails().getAddress().getAsLine();
                     strTelNoHome = membersDetailItems.getData().getContactDetails().getTelNoHome();
@@ -284,6 +299,7 @@ public class MemberDetailActivity extends BaseActivity {
             }
             hideProgress();
         } catch (Exception e) {
+            hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
@@ -316,7 +332,7 @@ public class MemberDetailActivity extends BaseActivity {
             tvMemberEmail.setText(strMemberEmail);
         } else {
            // tvMemberEmail.setText(getResources().getString(R.string.text_member_no_email));
-            llEmailGroup.setVisibility(View.GONE);
+            flEmailGroup.setVisibility(View.GONE);
         }
 
         /**
@@ -329,7 +345,7 @@ public class MemberDetailActivity extends BaseActivity {
         } else if (!strTelNoMob.equalsIgnoreCase("")){
             tvMemberContact.setText(strTelNoMob);
         }else{
-            llContactGroup.setVisibility(View.GONE);
+            flContactGroup.setVisibility(View.GONE);
         }
 
         /**
@@ -339,7 +355,7 @@ public class MemberDetailActivity extends BaseActivity {
             tvMemberAddress.setText(strAddressLine);
         } else {
             //tvMemberAddress.setText(getResources().getString(R.string.text_member_no_address));
-            llAddressGroup.setVisibility(View.GONE);
+            flAddressGroup.setVisibility(View.GONE);
         }
     }
 

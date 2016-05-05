@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.activites.HomeActivity;
+import com.ucreate.mhsystems.activites.DashboardActivity;
 
 /**
  * Created by karan@ucreate.co.in
@@ -30,7 +30,7 @@ public class GridAdapter extends BaseAdapter {
     String hCapExactStr;
     TypedArray gridBackground;
 
-    public GridAdapter(HomeActivity mainActivity, String gridTitles[], TypedArray gridIcons, TypedArray gridBackground, String hCapExactStr) {
+    public GridAdapter(DashboardActivity mainActivity, String gridTitles[], TypedArray gridIcons, TypedArray gridBackground, String hCapExactStr) {
 
         context = mainActivity;
         this.gridTitles = gridTitles;
