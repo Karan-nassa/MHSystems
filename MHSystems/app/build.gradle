@@ -54,7 +54,7 @@ dependencies {
 
     //New Relic compile dependency.
     //  compile 'com.newrelic.agent.android:android-agent:5.6'
-    compile 'com.newrelic.agent.android:android-agent:5.5.0'
+    compile 'com.newrelic.agent.android:android-agent:5.6.0'
 
     //Recycler View Adapter.
     compile 'com.android.support:recyclerview-v7:23.3.0'

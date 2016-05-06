@@ -79,17 +79,17 @@ public class HandicapData {
         this.HCapTypeStr = HCapTypeStr;
     }
 
-    /**
-     * 
-     * @return
-     *     The HCapRecords
-     */
+       /**
+          *
+          * @return
+          *     The HCapRecords
+          */
     public List<HCapRecord> getHCapRecords() {
         return HCapRecords;
     }
 
     /**
-     * 
+     *
      * @param HCapRecords
      *     The HCapRecords
      */

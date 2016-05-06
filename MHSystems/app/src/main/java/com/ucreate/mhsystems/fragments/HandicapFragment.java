@@ -5,9 +5,11 @@ package com.ucreate.mhsystems.fragments;
  * Certificate of Handicap.
  */
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -33,7 +35,10 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
@@ -52,6 +57,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -63,6 +69,22 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      *******************************/
     public static final String LOG_TAG = HandicapFragment.class.getSimpleName();
     ArrayList<HandicapData> handicapData = new ArrayList<>();
+
+    private ArrayList<HCapRecord> hCapRecordsList = new ArrayList<>();
+    private ArrayList<String> arrNameOfYear = new ArrayList<>();
+    private ArrayList<ArrayList<HCapRecord>> jsonObjectArrayList = new ArrayList<>();
+
+    /**
+     * Used for YEAR index navigation of Graph if HANDICAP has
+     * previous record.
+     */
+    private int mYearIndex = 3;
+
+    private String TAG_DATA = "Data";
+    private String TAG_HCAP_RECORDS = "HCapRecords";
+    private String TAG_DATE_PLAYED_STR = "DatePlayedStr";
+    private String TAG_COMPETITION_OR_REASON = "CompetitionOrReason";
+    private String TAG_NEW_EXACT_HCAP_ONLY_STR = "NewExactHCapOnlyStr";
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -163,7 +185,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
-        mv = new MyMarkerView(getActivity(), R.layout.graph_marker_view, handicapData.get(0).getHCapRecords());
+        mv = new MyMarkerView(getActivity(), R.layout.graph_marker_view, jsonObjectArrayList.get(mYearIndex));
 
         // set the marker to the chart
         mChart.setMarkerView(mv);
@@ -187,7 +209,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         rightAxis.setEnabled(false);
 
         // add data
-        set_Data(handicapData.get(0).getHCapRecords().size(), handicapData.get(0).getHCapRecords());
+        set_Data(jsonObjectArrayList.get(mYearIndex).size(), jsonObjectArrayList.get(mYearIndex));
 
         // // restrain the maximum scale-out factor
         // mChart.setScaleMinima(3f, 3f);
@@ -282,14 +304,14 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      */
     private void updateSuccessResponse(JsonObject jsonObject) {
 
-        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+        //Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
         Type type = new TypeToken<HandicapResultItems>() {
         }.getType();
         handicapResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         //Clear array list before inserting items.
-        handicapData.clear();
+        //handicapData.clear();
 
         try {
             /**
@@ -307,15 +329,56 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                     tvHandicapPlaying.setText(handicapData.get(0).getHCapPlayStr());
                     tvHandicapType.setText(handicapData.get(0).getHCapTypeStr());
 
-//                    setData(10, handicapData.get(0).getHCapRecords());
+
+                    JsonParser parser = new JsonParser();
+                    //JsonObject responseObj = parser.parse(String.valueOf(jsonObject)).getAsJsonObject();
+                    JsonObject jHCapData = jsonObject.getAsJsonObject(TAG_DATA);
+                    JsonArray jHCapRecordsArr = jHCapData.getAsJsonArray(TAG_HCAP_RECORDS);
+
+
+                    for (int iCounter = 0; iCounter < jHCapRecordsArr.size(); iCounter++) {
+
+                        JsonObject jHCapRecordOfYear = jHCapRecordsArr.get(iCounter).getAsJsonObject();
+
+                        hCapRecordsList = new ArrayList<>();
+
+                        for (Map.Entry<String, JsonElement> entry : jHCapRecordOfYear.entrySet()) {
+
+                            JsonArray jsonArray = jHCapRecordOfYear.getAsJsonArray(entry.getKey());
+
+                            /**
+                             *  Create list of YEARS.
+                             */
+                            arrNameOfYear.add(entry.getKey());
+
+                            for (int jCounter = 0; jCounter < jsonArray.size(); jCounter++) {
+
+                                JsonObject jsonHCapRecord = jsonArray.get(jCounter).getAsJsonObject();
+
+                                HCapRecord hCapRecord = new HCapRecord();
+
+                                hCapRecord.setDatePlayedStr("" + jsonHCapRecord.get(TAG_DATE_PLAYED_STR));
+                                hCapRecord.setCompetitionOrReason("" + jsonHCapRecord.get(TAG_COMPETITION_OR_REASON));
+                                hCapRecord.setNewExactHCapOnlyStr("" + jsonHCapRecord.get(TAG_NEW_EXACT_HCAP_ONLY_STR));
+
+                                hCapRecordsList.add(hCapRecord);
+                            }
+                        }
+                        jsonObjectArrayList.add(hCapRecordsList);
+                    }
+
+                    /**
+                     *
+                     */
+                    Collections.reverse(jsonObjectArrayList);
+                    Collections.reverse(arrNameOfYear);
+
+                    //setData(10, handicapData.get(0).getHCapRecords());
                     InitializeGraph();
 
-                    loadDetailGraphInfo(handicapData.get(0).getHCapRecords().size() - 1);
+                    loadDetailGraphInfo(jsonObjectArrayList.get(mYearIndex), jsonObjectArrayList.get(mYearIndex).size() - 1);
 
-//                    competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas/*((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup)*/);
-//                    lvFriends.setAdapter(competitionsAdapter);
-
-                    Log.e(LOG_TAG, "arrayListCourseData : " + handicapData.size());
+                    //Log.e(LOG_TAG, "arrayListCourseData : " + hCapRecordsList.size());
                 }
             } else {
                 //If web service not respond in any case.
@@ -446,7 +509,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 "Value: " + e.getVal() + ", xIndex: " + e.getXIndex()
                         + ", DataSet index: " + dataSetIndex);
 
-        loadDetailGraphInfo(e.getXIndex());
+        loadDetailGraphInfo(jsonObjectArrayList.get(mYearIndex), e.getXIndex());
 
 //        mv.refreshContent(e, h);
         //mChart.highlightValue(null, true);
@@ -455,18 +518,20 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     @Override
     public void onNothingSelected() {
         // TODO Auto-generated method stub
-
     }
 
     /**
      * Define globally method to display detail information
      * of Handicap on graph.
+     *
+     * @param hCapRecords
+     * @param size
      */
-    public void loadDetailGraphInfo(int iIndex) {
+    public void loadDetailGraphInfo(ArrayList<HCapRecord> hCapRecords, int size) {
 
-        tvDateOfPlayedStr.setText(handicapData.get(0).getHCapRecords().get(iIndex).getDatePlayedStr());
-        tvTitleOfPlayStr.setText(handicapData.get(0).getHCapRecords().get(iIndex).getCompetitionOrReason());
-        tvTypeOfPlayStr.setText(handicapData.get(0).getHCapRecords().get(iIndex).getNewExactHCapOnlyStr());
+        tvDateOfPlayedStr.setText(hCapRecords.get(size).getDatePlayedStr().replace("\"", ""));
+        tvTitleOfPlayStr.setText(hCapRecords.get(size).getCompetitionOrReason().replace("\"", ""));
+        tvTypeOfPlayStr.setText(hCapRecords.get(size).getNewExactHCapOnlyStr().replace("\"", ""));
     }
 
     /**
@@ -481,16 +546,18 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
          */
         Collections.reverse(range);
 
+        tvSelectGraphYear.setText(arrNameOfYear.get(mYearIndex));
+
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < count; i++) {
             // xVals.add((i % 30) + "/" + (i % 12) + "/14");
-            xVals.add(((MyAccountActivity) getActivity()).getFormateMonth(range.get(i).getDatePlayedStr()));
+            xVals.add(((MyAccountActivity) getActivity()).getFormateMonth(range.get(i).getDatePlayedStr().toString().replace("\"", "")));
         }
 
         ArrayList<Entry> yVals = new ArrayList<Entry>();
 
         for (int i = 0; i < count; i++) {
-            float mult = Float.parseFloat((range.get(i).getNewExactHCapOnlyStr() + 1));
+            float mult = Float.parseFloat((range.get(i).getNewExactHCapOnlyStr().replace("\"", "") + 1));
             yVals.add(new Entry(mult, i));
         }
 
@@ -518,7 +585,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
         // set data
         mChart.setData(data);
-        mChart.animateX(3000);
+        mChart.animateX(1500);
         mChart.invalidate();
     }
 

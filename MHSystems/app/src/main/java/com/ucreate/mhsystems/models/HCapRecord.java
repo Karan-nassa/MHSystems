@@ -3,6 +3,8 @@ package com.ucreate.mhsystems.models;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.JsonElement;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -124,685 +126,534 @@ public class HCapRecord {
     @Expose
     private Boolean IsEvenRow;
 
+
     /**
-     * 
-     * @return
-     *     The ClubID
+     * @return The ClubID
      */
     public Integer getClubID() {
         return ClubID;
     }
 
     /**
-     * 
-     * @param ClubID
-     *     The ClubID
+     * @param ClubID The ClubID
      */
     public void setClubID(Integer ClubID) {
         this.ClubID = ClubID;
     }
 
     /**
-     * 
-     * @return
-     *     The MemberID
+     * @return The MemberID
      */
     public Integer getMemberID() {
         return MemberID;
     }
 
     /**
-     * 
-     * @param MemberID
-     *     The MemberID
+     * @param MemberID The MemberID
      */
     public void setMemberID(Integer MemberID) {
         this.MemberID = MemberID;
     }
 
     /**
-     * 
-     * @return
-     *     The ShowScoreStats
+     * @return The ShowScoreStats
      */
     public Boolean getShowScoreStats() {
         return ShowScoreStats;
     }
 
     /**
-     * 
-     * @param ShowScoreStats
-     *     The ShowScoreStats
+     * @param ShowScoreStats The ShowScoreStats
      */
     public void setShowScoreStats(Boolean ShowScoreStats) {
         this.ShowScoreStats = ShowScoreStats;
     }
 
     /**
-     * 
-     * @return
-     *     The IsHomeComp
+     * @return The IsHomeComp
      */
     public Boolean getIsHomeComp() {
         return IsHomeComp;
     }
 
     /**
-     * 
-     * @param IsHomeComp
-     *     The IsHomeComp
+     * @param IsHomeComp The IsHomeComp
      */
     public void setIsHomeComp(Boolean IsHomeComp) {
         this.IsHomeComp = IsHomeComp;
     }
 
     /**
-     * 
-     * @return
-     *     The IsAwayComp
+     * @return The IsAwayComp
      */
     public Boolean getIsAwayComp() {
         return IsAwayComp;
     }
 
     /**
-     * 
-     * @param IsAwayComp
-     *     The IsAwayComp
+     * @param IsAwayComp The IsAwayComp
      */
     public void setIsAwayComp(Boolean IsAwayComp) {
         this.IsAwayComp = IsAwayComp;
     }
 
     /**
-     * 
-     * @return
-     *     The DateRecordedStr
+     * @return The DateRecordedStr
      */
     public String getDateRecordedStr() {
         return DateRecordedStr;
     }
 
     /**
-     * 
-     * @param DateRecordedStr
-     *     The DateRecordedStr
+     * @param DateRecordedStr The DateRecordedStr
      */
     public void setDateRecordedStr(String DateRecordedStr) {
         this.DateRecordedStr = DateRecordedStr;
     }
 
     /**
-     * 
-     * @return
-     *     The DatePlayedStr
+     * @return The DatePlayedStr
      */
     public String getDatePlayedStr() {
         return DatePlayedStr;
     }
 
     /**
-     * 
-     * @param DatePlayedStr
-     *     The DatePlayedStr
+     * @param DatePlayedStr The DatePlayedStr
      */
     public void setDatePlayedStr(String DatePlayedStr) {
         this.DatePlayedStr = DatePlayedStr;
     }
 
     /**
-     * 
-     * @return
-     *     The RoundNoStr
+     * @return The RoundNoStr
      */
     public String getRoundNoStr() {
         return RoundNoStr;
     }
 
     /**
-     * 
-     * @param RoundNoStr
-     *     The RoundNoStr
+     * @param RoundNoStr The RoundNoStr
      */
     public void setRoundNoStr(String RoundNoStr) {
         this.RoundNoStr = RoundNoStr;
     }
 
     /**
-     * 
-     * @return
-     *     The CompetitionOrReason
+     * @return The CompetitionOrReason
      */
     public String getCompetitionOrReason() {
         return CompetitionOrReason;
     }
 
     /**
-     * 
-     * @param CompetitionOrReason
-     *     The CompetitionOrReason
+     * @param CompetitionOrReason The CompetitionOrReason
      */
     public void setCompetitionOrReason(String CompetitionOrReason) {
         this.CompetitionOrReason = CompetitionOrReason;
     }
 
     /**
-     * 
-     * @return
-     *     The VenueOrAuthoriser
+     * @return The VenueOrAuthoriser
      */
     public String getVenueOrAuthoriser() {
         return VenueOrAuthoriser;
     }
 
     /**
-     * 
-     * @param VenueOrAuthoriser
-     *     The VenueOrAuthoriser
+     * @param VenueOrAuthoriser The VenueOrAuthoriser
      */
     public void setVenueOrAuthoriser(String VenueOrAuthoriser) {
         this.VenueOrAuthoriser = VenueOrAuthoriser;
     }
 
     /**
-     * 
-     * @return
-     *     The RoundSSSStr
+     * @return The RoundSSSStr
      */
     public String getRoundSSSStr() {
         return RoundSSSStr;
     }
 
     /**
-     * 
-     * @param RoundSSSStr
-     *     The RoundSSSStr
+     * @param RoundSSSStr The RoundSSSStr
      */
     public void setRoundSSSStr(String RoundSSSStr) {
         this.RoundSSSStr = RoundSSSStr;
     }
 
     /**
-     * 
-     * @return
-     *     The RoundCSSStr
+     * @return The RoundCSSStr
      */
     public String getRoundCSSStr() {
         return RoundCSSStr;
     }
 
     /**
-     * 
-     * @param RoundCSSStr
-     *     The RoundCSSStr
+     * @param RoundCSSStr The RoundCSSStr
      */
     public void setRoundCSSStr(String RoundCSSStr) {
         this.RoundCSSStr = RoundCSSStr;
     }
 
     /**
-     * 
-     * @return
-     *     The ConguCode
+     * @return The ConguCode
      */
     public String getConguCode() {
         return ConguCode;
     }
 
     /**
-     * 
-     * @param ConguCode
-     *     The ConguCode
+     * @param ConguCode The ConguCode
      */
     public void setConguCode(String ConguCode) {
         this.ConguCode = ConguCode;
     }
 
     /**
-     * 
-     * @return
-     *     The GrossStr
+     * @return The GrossStr
      */
     public String getGrossStr() {
         return GrossStr;
     }
 
     /**
-     * 
-     * @param GrossStr
-     *     The GrossStr
+     * @param GrossStr The GrossStr
      */
     public void setGrossStr(String GrossStr) {
         this.GrossStr = GrossStr;
     }
 
     /**
-     * 
-     * @return
-     *     The RoundPlayHCapStr
+     * @return The RoundPlayHCapStr
      */
     public String getRoundPlayHCapStr() {
         return RoundPlayHCapStr;
     }
 
     /**
-     * 
-     * @param RoundPlayHCapStr
-     *     The RoundPlayHCapStr
+     * @param RoundPlayHCapStr The RoundPlayHCapStr
      */
     public void setRoundPlayHCapStr(String RoundPlayHCapStr) {
         this.RoundPlayHCapStr = RoundPlayHCapStr;
     }
 
     /**
-     * 
-     * @return
-     *     The NettScoreStr
+     * @return The NettScoreStr
      */
     public String getNettScoreStr() {
         return NettScoreStr;
     }
 
     /**
-     * 
-     * @param NettScoreStr
-     *     The NettScoreStr
+     * @param NettScoreStr The NettScoreStr
      */
     public void setNettScoreStr(String NettScoreStr) {
         this.NettScoreStr = NettScoreStr;
     }
 
     /**
-     * 
-     * @return
-     *     The NdbAdjStr
+     * @return The NdbAdjStr
      */
     public String getNdbAdjStr() {
         return NdbAdjStr;
     }
 
     /**
-     * 
-     * @param NdbAdjStr
-     *     The NdbAdjStr
+     * @param NdbAdjStr The NdbAdjStr
      */
     public void setNdbAdjStr(String NdbAdjStr) {
         this.NdbAdjStr = NdbAdjStr;
     }
 
     /**
-     * 
-     * @return
-     *     The AdjGrossScoreStr
+     * @return The AdjGrossScoreStr
      */
     public String getAdjGrossScoreStr() {
         return AdjGrossScoreStr;
     }
 
     /**
-     * 
-     * @param AdjGrossScoreStr
-     *     The AdjGrossScoreStr
+     * @param AdjGrossScoreStr The AdjGrossScoreStr
      */
     public void setAdjGrossScoreStr(String AdjGrossScoreStr) {
         this.AdjGrossScoreStr = AdjGrossScoreStr;
     }
 
     /**
-     * 
-     * @return
-     *     The PointsStr
+     * @return The PointsStr
      */
     public String getPointsStr() {
         return PointsStr;
     }
 
     /**
-     * 
-     * @param PointsStr
-     *     The PointsStr
+     * @param PointsStr The PointsStr
      */
     public void setPointsStr(String PointsStr) {
         this.PointsStr = PointsStr;
     }
 
     /**
-     * 
-     * @return
-     *     The RoundParStr
+     * @return The RoundParStr
      */
     public String getRoundParStr() {
         return RoundParStr;
     }
 
     /**
-     * 
-     * @param RoundParStr
-     *     The RoundParStr
+     * @param RoundParStr The RoundParStr
      */
     public void setRoundParStr(String RoundParStr) {
         this.RoundParStr = RoundParStr;
     }
 
     /**
-     * 
-     * @return
-     *     The GrossDiffStr
+     * @return The GrossDiffStr
      */
     public String getGrossDiffStr() {
         return GrossDiffStr;
     }
 
     /**
-     * 
-     * @param GrossDiffStr
-     *     The GrossDiffStr
+     * @param GrossDiffStr The GrossDiffStr
      */
     public void setGrossDiffStr(String GrossDiffStr) {
         this.GrossDiffStr = GrossDiffStr;
     }
 
     /**
-     * 
-     * @return
-     *     The NettDiffStr
+     * @return The NettDiffStr
      */
     public String getNettDiffStr() {
         return NettDiffStr;
     }
 
     /**
-     * 
-     * @param NettDiffStr
-     *     The NettDiffStr
+     * @param NettDiffStr The NettDiffStr
      */
     public void setNettDiffStr(String NettDiffStr) {
         this.NettDiffStr = NettDiffStr;
     }
 
     /**
-     * 
-     * @return
-     *     The HCapAdjStr
+     * @return The HCapAdjStr
      */
     public String getHCapAdjStr() {
         return HCapAdjStr;
     }
 
     /**
-     * 
-     * @param HCapAdjStr
-     *     The HCapAdjStr
+     * @param HCapAdjStr The HCapAdjStr
      */
     public void setHCapAdjStr(String HCapAdjStr) {
         this.HCapAdjStr = HCapAdjStr;
     }
 
     /**
-     * 
-     * @return
-     *     The NewExactHCapOnlyStr
+     * @return The NewExactHCapOnlyStr
      */
     public String getNewExactHCapOnlyStr() {
         return NewExactHCapOnlyStr;
     }
 
     /**
-     * 
-     * @param NewExactHCapOnlyStr
-     *     The NewExactHCapOnlyStr
+     * @param NewExactHCapOnlyStr The NewExactHCapOnlyStr
      */
     public void setNewExactHCapOnlyStr(String NewExactHCapOnlyStr) {
         this.NewExactHCapOnlyStr = NewExactHCapOnlyStr;
     }
 
     /**
-     * 
-     * @return
-     *     The NewPlayHCapOnlyStr
+     * @return The NewPlayHCapOnlyStr
      */
     public String getNewPlayHCapOnlyStr() {
         return NewPlayHCapOnlyStr;
     }
 
     /**
-     * 
-     * @param NewPlayHCapOnlyStr
-     *     The NewPlayHCapOnlyStr
+     * @param NewPlayHCapOnlyStr The NewPlayHCapOnlyStr
      */
     public void setNewPlayHCapOnlyStr(String NewPlayHCapOnlyStr) {
         this.NewPlayHCapOnlyStr = NewPlayHCapOnlyStr;
     }
 
     /**
-     * 
-     * @return
-     *     The HCapStatusStr
+     * @return The HCapStatusStr
      */
     public String getHCapStatusStr() {
         return HCapStatusStr;
     }
 
     /**
-     * 
-     * @param HCapStatusStr
-     *     The HCapStatusStr
+     * @param HCapStatusStr The HCapStatusStr
      */
     public void setHCapStatusStr(String HCapStatusStr) {
         this.HCapStatusStr = HCapStatusStr;
     }
 
     /**
-     * 
-     * @return
-     *     The CompFormatStr
+     * @return The CompFormatStr
      */
     public String getCompFormatStr() {
         return CompFormatStr;
     }
 
     /**
-     * 
-     * @param CompFormatStr
-     *     The CompFormatStr
+     * @param CompFormatStr The CompFormatStr
      */
     public void setCompFormatStr(String CompFormatStr) {
         this.CompFormatStr = CompFormatStr;
     }
 
     /**
-     * 
-     * @return
-     *     The InternalEntryType
+     * @return The InternalEntryType
      */
     public Integer getInternalEntryType() {
         return InternalEntryType;
     }
 
     /**
-     * 
-     * @param InternalEntryType
-     *     The InternalEntryType
+     * @param InternalEntryType The InternalEntryType
      */
     public void setInternalEntryType(Integer InternalEntryType) {
         this.InternalEntryType = InternalEntryType;
     }
 
     /**
-     * 
-     * @return
-     *     The HCapRecRowHandle
+     * @return The HCapRecRowHandle
      */
     public Integer getHCapRecRowHandle() {
         return HCapRecRowHandle;
     }
 
     /**
-     * 
-     * @param HCapRecRowHandle
-     *     The HCapRecRowHandle
+     * @param HCapRecRowHandle The HCapRecRowHandle
      */
     public void setHCapRecRowHandle(Integer HCapRecRowHandle) {
         this.HCapRecRowHandle = HCapRecRowHandle;
     }
 
     /**
-     * 
-     * @return
-     *     The ColumnCells
+     * @return The ColumnCells
      */
     public List<Object> getColumnCells() {
         return ColumnCells;
     }
 
     /**
-     * 
-     * @param ColumnCells
-     *     The ColumnCells
+     * @param ColumnCells The ColumnCells
      */
     public void setColumnCells(List<Object> ColumnCells) {
         this.ColumnCells = ColumnCells;
     }
 
     /**
-     * 
-     * @return
-     *     The Style
+     * @return The Style
      */
     public Integer getStyle() {
         return Style;
     }
 
     /**
-     * 
-     * @param Style
-     *     The Style
+     * @param Style The Style
      */
     public void setStyle(Integer Style) {
         this.Style = Style;
     }
 
     /**
-     * 
-     * @return
-     *     The StyleFlags
+     * @return The StyleFlags
      */
     public Integer getStyleFlags() {
         return StyleFlags;
     }
 
     /**
-     * 
-     * @param StyleFlags
-     *     The StyleFlags
+     * @param StyleFlags The StyleFlags
      */
     public void setStyleFlags(Integer StyleFlags) {
         this.StyleFlags = StyleFlags;
     }
 
     /**
-     * 
-     * @return
-     *     The IsSubHeader
+     * @return The IsSubHeader
      */
     public Boolean getIsSubHeader() {
         return IsSubHeader;
     }
 
     /**
-     * 
-     * @param IsSubHeader
-     *     The IsSubHeader
+     * @param IsSubHeader The IsSubHeader
      */
     public void setIsSubHeader(Boolean IsSubHeader) {
         this.IsSubHeader = IsSubHeader;
     }
 
     /**
-     * 
-     * @return
-     *     The SubHeaderText
+     * @return The SubHeaderText
      */
     public Object getSubHeaderText() {
         return SubHeaderText;
     }
 
     /**
-     * 
-     * @param SubHeaderText
-     *     The SubHeaderText
+     * @param SubHeaderText The SubHeaderText
      */
     public void setSubHeaderText(Object SubHeaderText) {
         this.SubHeaderText = SubHeaderText;
     }
 
     /**
-     * 
-     * @return
-     *     The SubHeaderAlign
+     * @return The SubHeaderAlign
      */
     public Integer getSubHeaderAlign() {
         return SubHeaderAlign;
     }
 
     /**
-     * 
-     * @param SubHeaderAlign
-     *     The SubHeaderAlign
+     * @param SubHeaderAlign The SubHeaderAlign
      */
     public void setSubHeaderAlign(Integer SubHeaderAlign) {
         this.SubHeaderAlign = SubHeaderAlign;
     }
 
     /**
-     * 
-     * @return
-     *     The SubHeaderStyle
+     * @return The SubHeaderStyle
      */
     public Integer getSubHeaderStyle() {
         return SubHeaderStyle;
     }
 
     /**
-     * 
-     * @param SubHeaderStyle
-     *     The SubHeaderStyle
+     * @param SubHeaderStyle The SubHeaderStyle
      */
     public void setSubHeaderStyle(Integer SubHeaderStyle) {
         this.SubHeaderStyle = SubHeaderStyle;
     }
 
     /**
-     * 
-     * @return
-     *     The IsOddRow
+     * @return The IsOddRow
      */
     public Boolean getIsOddRow() {
         return IsOddRow;
     }
 
     /**
-     * 
-     * @param IsOddRow
-     *     The IsOddRow
+     * @param IsOddRow The IsOddRow
      */
     public void setIsOddRow(Boolean IsOddRow) {
         this.IsOddRow = IsOddRow;
     }
 
     /**
-     * 
-     * @return
-     *     The IsEvenRow
+     * @return The IsEvenRow
      */
     public Boolean getIsEvenRow() {
         return IsEvenRow;
     }
 
     /**
-     * 
-     * @param IsEvenRow
-     *     The IsEvenRow
+     * @param IsEvenRow The IsEvenRow
      */
     public void setIsEvenRow(Boolean IsEvenRow) {
         this.IsEvenRow = IsEvenRow;

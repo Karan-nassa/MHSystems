@@ -130,6 +130,7 @@ public class DashboardActivity extends BaseActivity {
         //Set Grid options adapter.
         mGridAdapter = new GridAdapter(this, gridTitles, gridIcons, gridBackground, hCapExactStr);
         gvMenuOptions.setAdapter(mGridAdapter);
+
         // ScrollRecycleView.getListViewSize(gvMenuOptions);
     }
 

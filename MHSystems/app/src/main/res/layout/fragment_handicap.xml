@@ -156,80 +156,7 @@
             android:layout_height="1dp"
             android:background="@color/color8F8E94" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/colorEF8176"
-            android:orientation="horizontal">
 
-            <!-- PREVIOUS YEAR GRAPH NAVIGATION ICON  -->
-
-            <LinearLayout
-                android:id="@+id/llPreviousYearGraph"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:background="@color/colorDB766C">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/ic_arrow_left" />
-
-            </LinearLayout>
-
-            <!-- HORIZONTAL DIVIDER LINE -->
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:alpha="0.3"
-                android:background="@color/colorBlack000000" />
-
-
-            <!-- CURRENT SELECTED HANDICAP GRAPH YEAR  -->
-
-            <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                android:id="@+id/tvSelectGraphYear"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="7dp"
-                android:text="2016"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="14sp" />
-
-            <!-- HORIZONTAL DIVIDER LINE -->
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:alpha="0.3"
-                android:background="@color/colorBlack000000" />
-
-            <!-- NEXT YEAR GRAPH NAVIGATION ICON  -->
-
-            <LinearLayout
-                android:id="@+id/llNextYearGraph"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:background="@color/colorDB766C">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/ic_arrow_right" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
 
         <LinearLayout
@@ -319,6 +246,62 @@
             android:layout_marginRight="10dp"
             android:background="#ffffff"
             android:padding="10dp" />
+
+        <!-- HANDICAP RECORD DETAIL  -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <!-- PREVIOUS YEAR GRAPH NAVIGATION ICON  -->
+
+            <LinearLayout
+                android:id="@+id/llPreviousYearGraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_arrow_left" />
+
+            </LinearLayout>
+
+            <!-- CURRENT SELECTED HANDICAP GRAPH YEAR  -->
+
+            <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                android:id="@+id/tvSelectGraphYear"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="7dp"
+                android:text="2016"
+                android:textColor="@color/color535796"
+                android:textSize="25sp" />
+
+            <!-- NEXT YEAR GRAPH NAVIGATION ICON  -->
+
+            <LinearLayout
+                android:id="@+id/llNextYearGraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_arrow_right" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
