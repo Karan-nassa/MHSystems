@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,7 +69,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     public static final String LOG_TAG = HandicapFragment.class.getSimpleName();
-    ArrayList<HandicapData> handicapData = new ArrayList<>();
+    ArrayList<HandicapData> alHandicapData = new ArrayList<>();
 
     private ArrayList<HCapRecord> hCapRecordsList = new ArrayList<>();
     private ArrayList<String> arrNameOfYear = new ArrayList<>();
@@ -78,7 +79,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * Used for YEAR index navigation of Graph if HANDICAP has
      * previous record.
      */
-    private int mYearIndex = 3;
+    private int mYearIndex;
 
     private String TAG_DATA = "Data";
     private String TAG_HCAP_RECORDS = "HCapRecords";
@@ -92,6 +93,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     View viewRootFragment;
     TextView tvHandicapExact, tvHandicapPlaying, tvHandicapType;
     Button btShowCertificate;
+    ImageView ivNextYearGraph, ivPreviousYearGraph;
     TextView tvDateOfPlayedStr, tvTitleOfPlayStr, tvTypeOfPlayStr;
     TextView tvSelectGraphYear;
     LinearLayout llPreviousYearGraph, llNextYearGraph;
@@ -115,9 +117,40 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         @Override
         public void onClick(View v) {
 
+            switch (v.getId()) {
+                case R.id.llPreviousYearGraph:
+                    if (mYearIndex != 0) {
+                        mYearIndex--;
+                        refreshGraph();
+                    }
+                    break;
 
+                case R.id.llNextYearGraph:
+                    if (mYearIndex != (arrNameOfYear.size() - 1)) {
+                        mYearIndex++;
+                        refreshGraph();
+                    }
+                    break;
+            }
+            setNavigationIcons();
         }
     };
+
+    /**
+     * Implements a method to update navigation icons
+     * for GRAPH.
+     */
+    private void setNavigationIcons() {
+
+        if (mYearIndex == 0) {
+            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left_blur);
+        } else if (mYearIndex == (arrNameOfYear.size() - 1)) {
+            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right_blur);
+        } else {
+            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right);
+            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -159,13 +192,17 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
         llPreviousYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llPreviousYearGraph);
         llNextYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llNextYearGraph);
+
+        ivPreviousYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivPreviousYearGraph);
+        ivNextYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivNextYearGraph);
     }
 
     /**
      * Implements a method to Initialize the Graph
      * or chart with HANDICAP values.
      */
-    private void InitializeGraph() {
+    private void refreshGraph() {
+
         mChart = (LineChart) viewRootFragment.findViewById(R.id.linechart);
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
@@ -319,22 +356,20 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
              */
             if (handicapResultItems.getMessage().equalsIgnoreCase("Success")) {
 
-                handicapData.add(handicapResultItems.getData());
+                alHandicapData.add(handicapResultItems.getData());
 
-                if (handicapData.size() == 0) {
+                if (alHandicapData.size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
-                    tvHandicapExact.setText(handicapData.get(0).getHCapExactStr());
-                    tvHandicapPlaying.setText(handicapData.get(0).getHCapPlayStr());
-                    tvHandicapType.setText(handicapData.get(0).getHCapTypeStr());
+                    tvHandicapExact.setText(alHandicapData.get(0).getHCapExactStr());
+                    tvHandicapPlaying.setText(alHandicapData.get(0).getHCapPlayStr());
+                    tvHandicapType.setText(alHandicapData.get(0).getHCapTypeStr());
 
-
-                    JsonParser parser = new JsonParser();
+                    //JsonParser parser = new JsonParser();
                     //JsonObject responseObj = parser.parse(String.valueOf(jsonObject)).getAsJsonObject();
                     JsonObject jHCapData = jsonObject.getAsJsonObject(TAG_DATA);
                     JsonArray jHCapRecordsArr = jHCapData.getAsJsonArray(TAG_HCAP_RECORDS);
-
 
                     for (int iCounter = 0; iCounter < jHCapRecordsArr.size(); iCounter++) {
 
@@ -373,10 +408,10 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                     Collections.reverse(jsonObjectArrayList);
                     Collections.reverse(arrNameOfYear);
 
-                    //setData(10, handicapData.get(0).getHCapRecords());
-                    InitializeGraph();
+                    mYearIndex = (arrNameOfYear.size() - 1);
 
-                    loadDetailGraphInfo(jsonObjectArrayList.get(mYearIndex), jsonObjectArrayList.get(mYearIndex).size() - 1);
+                    //setData(10, handicapData.get(0).getHCapRecords());
+                    refreshGraph();
 
                     //Log.e(LOG_TAG, "arrayListCourseData : " + hCapRecordsList.size());
                 }
@@ -545,6 +580,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
          * ascending order.
          */
         Collections.reverse(range);
+
+        loadDetailGraphInfo(jsonObjectArrayList.get(mYearIndex), jsonObjectArrayList.get(mYearIndex).size() - 1);
 
         tvSelectGraphYear.setText(arrNameOfYear.get(mYearIndex));
 
