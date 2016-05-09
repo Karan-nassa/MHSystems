@@ -122,7 +122,7 @@ public class CompetitionsDetailActivity extends AppCompatActivity {
         tvTimeCourseEvent.setText(strEventTime);
 
         tvFeeCourseEvent.setText("£" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
-        // tvDescCourseEvent.setText(strEventDesc);
+        tvDescCourseEvent.setText(strEventDesc);
 
         //Set Home icon listener.
         //llHomeIcon.setOnClickListener(mHomeListener);
@@ -131,6 +131,7 @@ public class CompetitionsDetailActivity extends AppCompatActivity {
         fabJoinCompetition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 if (!isDialogVisible) {
                     //Yes button clicked

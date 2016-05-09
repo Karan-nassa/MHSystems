@@ -26,6 +26,11 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
+import com.ucreate.mhsystems.models.AJsonParamsAddMember;
+import com.ucreate.mhsystems.models.AJsonParamsMembers;
+import com.ucreate.mhsystems.models.AddMemberAPI;
+import com.ucreate.mhsystems.models.AddMemberItems;
+import com.ucreate.mhsystems.models.MembersDetailsData;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.models.AJsonParamsMembersDatail;
 import com.ucreate.mhsystems.models.MembersDetailAPI;
@@ -66,6 +71,10 @@ public class MemberDetailActivity extends BaseActivity {
     AJsonParamsMembersDatail aJsonParamsMembersDatail;
     MembersDetailsItems membersDetailItems;
 
+    private AddMemberAPI addMemberAPI;
+    AJsonParamsAddMember aJsonParamsAddMember;
+    AddMemberItems addMemberItems;
+
     /**
      * Implements a CONSTANT field to call
      * functionality.
@@ -101,12 +110,9 @@ public class MemberDetailActivity extends BaseActivity {
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    //Yes button clicked
-                    fabFriendInvitation.setImageResource(R.mipmap.ic_friend_pending);
-                    fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
 
-                    //Set TRUE so don't display YES/NO alert dialog.
-                    isFriendInvite = true;
+                    //Yes button clicked...
+                    requestAddMemberService();
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -212,6 +218,48 @@ public class MemberDetailActivity extends BaseActivity {
     }
 
     /**
+     * Implement a method to ADD MEMBER REQUEST
+     * web service.
+     */
+    private void requestAddMemberService() {
+        showPleaseWait("Loading...");
+
+        aJsonParamsAddMember = new AJsonParamsAddMember();
+        aJsonParamsAddMember.setCallid("1456315336575");
+        aJsonParamsAddMember.setVersion(1);
+        aJsonParamsAddMember.setMemberid(iMemberID);
+        aJsonParamsAddMember.setFriendid(806);
+
+        addMemberAPI = new AddMemberAPI("44118078", "ADDLINKTOMEMBER", aJsonParamsAddMember, "WEBSERVICES", "Members");
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getAddMember(addMemberAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                AddMemberSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                showAlertMessage("" + error);
+            }
+        });
+    }
+
+    /**
      * Implement a method to hit Members Detail
      * web service to get response.
      */
@@ -251,13 +299,45 @@ public class MemberDetailActivity extends BaseActivity {
                 showAlertMessage("" + error);
             }
         });
+    }
 
+    /**
+     * Implements a method to update SUCCESS
+     * response of ADD MEMBER web service.
+     */
+    private void AddMemberSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<AddMemberItems>() {
+        }.getType();
+        addMemberItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
+                fabFriendInvitation.setImageResource(R.mipmap.ic_friend_pending);
+                fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
+
+                //Set TRUE so don't display YES/NO alert dialog.
+                isFriendInvite = true;
+            }
+
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
      * Implements a method to update SUCCESS
      * response of web service.
      */
+
     private void updateSuccessResponse(JsonObject jsonObject) {
 
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
@@ -331,7 +411,7 @@ public class MemberDetailActivity extends BaseActivity {
         if (strMemberEmail.length() > 0) {
             tvMemberEmail.setText(strMemberEmail);
         } else {
-           // tvMemberEmail.setText(getResources().getString(R.string.text_member_no_email));
+            // tvMemberEmail.setText(getResources().getString(R.string.text_member_no_email));
             flEmailGroup.setVisibility(View.GONE);
         }
 
@@ -342,9 +422,9 @@ public class MemberDetailActivity extends BaseActivity {
             tvMemberContact.setText(strTelNoHome);
         } else if (!strTelNoWork.equalsIgnoreCase("")) {
             tvMemberContact.setText(strTelNoWork);
-        } else if (!strTelNoMob.equalsIgnoreCase("")){
+        } else if (!strTelNoMob.equalsIgnoreCase("")) {
             tvMemberContact.setText(strTelNoMob);
-        }else{
+        } else {
             flContactGroup.setVisibility(View.GONE);
         }
 

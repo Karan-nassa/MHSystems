@@ -1,6 +1,7 @@
 package com.ucreate.mhsystems.util.API;
 
 import com.google.gson.JsonObject;
+import com.ucreate.mhsystems.models.AddMemberAPI;
 import com.ucreate.mhsystems.models.CompetitionsAPI;
 import com.ucreate.mhsystems.models.CourseDiaryAPI;
 import com.ucreate.mhsystems.models.DashboardAPI;
@@ -100,6 +101,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getMembersDetail(@Body MembersDetailAPI membersDetailAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of ADD MEMBER functionality web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param addMemberAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp/RpcRequest")
+    public void getAddMember(@Body AddMemberAPI addMemberAPI, Callback<JsonObject> response);
 
 }
 

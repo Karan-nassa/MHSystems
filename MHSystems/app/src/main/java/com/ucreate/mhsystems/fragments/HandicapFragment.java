@@ -563,7 +563,6 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * @param size
      */
     public void loadDetailGraphInfo(ArrayList<HCapRecord> hCapRecords, int size) {
-
         tvDateOfPlayedStr.setText(hCapRecords.get(size).getDatePlayedStr().replace("\"", ""));
         tvTitleOfPlayStr.setText(hCapRecords.get(size).getCompetitionOrReason().replace("\"", ""));
         tvTypeOfPlayStr.setText(hCapRecords.get(size).getNewExactHCapOnlyStr().replace("\"", ""));
