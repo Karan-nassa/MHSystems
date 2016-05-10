@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.CompetitionsActivity;
+import com.ucreate.mhsystems.activites.MembersActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
@@ -23,17 +24,19 @@ import java.util.Calendar;
 
 import butterknife.Bind;
 
+/**
+ * {@Link MembersTabFragment} provides {@link MembersFragment} and {@link FriendsFragment}
+ * <br> {@link android.support.design.widget.TabLayout.Tab} to display tabs.
+ * <p/>
+ * <p>Population of the tabs to display is
+ * done through {@link Fragment} instances.
+ */
 public class MembersTabFragment extends Fragment {
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     public static final String LOG_TAG = MembersTabFragment.class.getSimpleName();
-
-    //To Record of which SPINNER item selected "All", "Ladies" or "Gentlemen's".
-    public static int iMemberType;
-
-    public static int iLastTabPosition;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -46,11 +49,10 @@ public class MembersTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    // public static String strDateFrom; //Start date.
-    // public static String strDateTo; //End date.
-    // String strNameOfMonth = "MARCH 2016";
+    //To Record of which SPINNER item selected "All", "Ladies" or "Gentlemen's".
+    public static int iMemberType;
 
-    //public static int iLastTabPosition;
+    public static int iLastTabPosition;
 
     /**
      * Declare three bool instances to call api
@@ -65,6 +67,9 @@ public class MembersTabFragment extends Fragment {
             setTabVisibleStatus(tab.getPosition());
 
             iLastTabPosition = tab.getPosition();
+
+            //Refresh Spinner in Tool bar according selected tab.
+            ((MembersActivity) getActivity()).refreshSpinnerItems();
         }
 
         @Override
@@ -86,7 +91,7 @@ public class MembersTabFragment extends Fragment {
     /**
      * Implements a CONSTRUCTOR to display MEMBERS list according three
      * type selected from SPINNER would be:
-     * <p>
+     * <p/>
      * <br> 1.) ALL         : 0
      * <br> 2.) LADIES      : 1
      * <br> 3.) GENTLEMENS  : 2

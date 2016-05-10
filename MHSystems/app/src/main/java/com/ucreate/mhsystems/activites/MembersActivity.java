@@ -35,7 +35,6 @@ public class MembersActivity extends BaseActivity {
      * DECLARATION OF CONSTANTS
      *******************************/
 
-
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -44,6 +43,8 @@ public class MembersActivity extends BaseActivity {
 
     @Bind(R.id.llHomeMembers)
     LinearLayout llHomeMembers;
+
+    ArrayList<String> spinnerArraylist = new ArrayList<>();
 
     /**
      * Implements HOME icons press
@@ -89,26 +90,38 @@ public class MembersActivity extends BaseActivity {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         }
-        addItemsToSpinner();
+        refreshSpinnerItems();
     }
 
     /**
      * Implements a method to setup default Spinner items
-     * with All, Ladies and Gentlemen's options.
+     * which will contain following options:
+     * <br> 1.) ALL,
+     * <br> 2.) LADIES,
+     * <br> and 3.) GENTLEMEN's
      */
-    public void addItemsToSpinner() {
+    public void refreshSpinnerItems() {
 
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("All");
-        list.add("Ladies");
-        list.add("Gentlemens");
+        spinnerArraylist.clear();
+
+        switch (MembersTabFragment.iLastTabPosition){
+            case 0:
+                spinnerArraylist.add("All");
+                spinnerArraylist.add("Ladies");
+                spinnerArraylist.add("Gentlemens");
+                break;
+
+            case 1:
+                spinnerArraylist.add("Your Friends");
+                spinnerArraylist.add("Added Me");
+                break;
+        }
 
         // Custom ArrayAdapter with spinner item layout to set popup background
 
         CustomSpinnerAdapter spinAdapter = new CustomSpinnerAdapter(
-                getApplicationContext(), list);
+                getApplicationContext(), spinnerArraylist);
 
 
         // Default ArrayAdapter with default spinner item layout, getting some
@@ -170,13 +183,13 @@ public class MembersActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
-              //  Log.e("onQueryTextSubmit", query);
+                //  Log.e("onQueryTextSubmit", query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(final String newText) {
-               // Log.e("onQueryTextChange", newText);
+                // Log.e("onQueryTextChange", newText);
                 performSearch(newText);
                 return true;
             }

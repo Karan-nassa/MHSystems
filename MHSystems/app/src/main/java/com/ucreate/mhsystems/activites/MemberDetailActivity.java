@@ -271,6 +271,7 @@ public class MemberDetailActivity extends BaseActivity {
         aJsonParamsMembersDatail.setCallid("1456315336575");
         aJsonParamsMembersDatail.setVersion(1);
         aJsonParamsMembersDatail.setMemberid(iMemberID);
+        aJsonParamsMembersDatail.setLoginMemberId(10784);
 
         membersDetailAPI = new MembersDetailAPI(44118078, "GETMEMBER", aJsonParamsMembersDatail, "WEBSERVICES", "Members");
 

@@ -92,7 +92,7 @@ public class MembersFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            Log.e(LOG_TAG, "Member ID "+ membersDatas.get(0).getMembersList().get(position).getMemberID());
+            Log.e(LOG_TAG, "Member ID " + membersDatas.get(0).getMembersList().get(position).getMemberID());
 //            Log.e(LOG_TAG, "Member FORMAL NAME "+ membersDatas.get(0).getMembersList().get(position).);
 //            Log.e(LOG_TAG, "Member ID "+ membersDatas.get(0).getMembersList().get(position).getMemberID());
 
@@ -114,7 +114,7 @@ public class MembersFragment extends Fragment {
         mListView = (PinnedHeaderListView) viewRootFragment.findViewById(R.id.lvMembersList);
 
         //Set Members list click listener.
-      //  mListView.setOnItemClickListener(mListMemberListener);
+        //  mListView.setOnItemClickListener(mListMemberListener);
 
         return viewRootFragment;
     }
@@ -122,7 +122,6 @@ public class MembersFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
 
         if (isVisibleToUser) {
 
@@ -251,7 +250,7 @@ public class MembersFragment extends Fragment {
      */
     private void setMembersListAdapter(ArrayList<MembersList> membersList) {
         //Members list demo.
-       Collections.sort(membersList, new Comparator<MembersList>() {
+        Collections.sort(membersList, new Comparator<MembersList>() {
             @Override
             public int compare(MembersList lhs, MembersList rhs) {
                 char lhsFirstLetter = TextUtils.isEmpty(lhs.getDisplayName()) ? ' ' : lhs.getDisplayName().charAt(0);
@@ -272,8 +271,6 @@ public class MembersFragment extends Fragment {
         mListView.setAdapter(mAdapter);
         mListView.setOnScrollListener(mAdapter);
         mListView.setEnableHeaderTransparencyChanges(false);
-//            mAdapter.getFilter().filter(mQueryText,new FilterListener() ...
-//        You can also perform operations on selected item by using :
     }
 
 
@@ -291,9 +288,9 @@ public class MembersFragment extends Fragment {
         return typedValue.resourceId;
     }
 
-    // ////////////////////////////////////////////////////////////
-// ContactsAdapter //
-// //////////////////
+    ////////////////////////////
+    // AlphabaticalListAdapter /
+    // /////////////////////////
     public class AlphabaticalListAdapter extends SearchablePinnedHeaderListViewAdapter<MembersList> {
         private ArrayList<MembersList> mContacts;
         private final int CONTACT_PHOTO_IMAGE_SIZE;
@@ -431,9 +428,9 @@ public class MembersFragment extends Fragment {
             return mContacts;
         }
 
-        // /////////////////////////////////////////////////////////////////////////////////////
-// ViewHolder //
-// /////////////
+        // /////////////
+        // ViewHolder //
+        // /////////////
         class ViewHolder {
             public CircularContactView friendProfileCircularContactView;
             TextView friendName, headerView, tvPlayHCapStr;

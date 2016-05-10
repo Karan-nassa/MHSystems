@@ -17,6 +17,10 @@ public class AJsonParamsMembersDatail {
     @SerializedName("memberid")
     @Expose
     private Integer memberid;
+    @SerializedName("LoginMemberId")
+    @Expose
+    private Integer LoginMemberId;
+
 
     /**
      * 
@@ -70,6 +74,24 @@ public class AJsonParamsMembersDatail {
      */
     public void setMemberid(Integer memberid) {
         this.memberid = memberid;
+    }
+
+    /**
+     *
+     * @return
+     * The LoginMemberId
+     */
+    public Integer getLoginMemberId() {
+        return LoginMemberId;
+    }
+
+    /**
+     *
+     * @param LoginMemberId
+     * The LoginMemberId
+     */
+    public void setLoginMemberId(Integer LoginMemberId) {
+        this.LoginMemberId = LoginMemberId;
     }
 
 }

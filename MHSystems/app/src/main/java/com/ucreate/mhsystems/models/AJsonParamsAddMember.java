@@ -67,7 +67,7 @@ public class AJsonParamsAddMember {
     }
 
     /**
-     * 
+     *
      * @param memberid
      *     The memberid
      */
@@ -76,7 +76,7 @@ public class AJsonParamsAddMember {
     }
 
     /**
-     * 
+     *
      * @return
      *     The friendid
      */
@@ -85,7 +85,7 @@ public class AJsonParamsAddMember {
     }
 
     /**
-     * 
+     *
      * @param friendid
      *     The friendid
      */
