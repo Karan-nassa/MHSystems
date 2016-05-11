@@ -73,11 +73,18 @@ public class ApplicationGlobal {
 
     /**
      * Used during tap on SPINNER/DROPDOWN selectable items to sent on
-     * MembersTabFragment for update MEMBERS list accordingly.
+     * {@link com.ucreate.mhsystems.fragments.MembersTabFragment} for update MEMBERS list accordingly.
      */
     public static final int ACTION_MEMBERS_ALL = 2;
     public static final int ACTION_MEMBERS_LADIES = 1;
     public static final int ACTION_MEMBERS_GENTLEMENS = 0;
+
+    /**
+     * Used during tap on SPINNER/DROPDOWN selectable items to sent on
+     * {@link com.ucreate.mhsystems.fragments.MembersTabFragment} for update FRIENDS list accordingly.
+     */
+    public static final int ACTION_FRIENDS_YOUR_FRIENDS = 0;
+    public static final int ACTION_FRIENDS_ADDED_ME = 1;
 
     /**
      * Declares the KEY used to pass Member ID from

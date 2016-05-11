@@ -1,12 +1,5 @@
 package com.ucreate.mhsystems.fragments;
 
-/**
- * Created by karan@ucreate.co.in to load and display
- * <br>NEWS
- * <br>tabs content on 12/23/2015.
- */
-
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,7 +20,7 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.MemberDetailActivity;
-import com.ucreate.mhsystems.adapter.BaseAdapter.MembersAdapter;
+import com.ucreate.mhsystems.activites.MembersActivity;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
@@ -55,6 +48,10 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+/**
+ * Created by <b>karan@ucreate.co.in</b> to display {@link MembersFragment}
+ * list data on 11-May-2016.
+ */
 public class MembersFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -68,9 +65,6 @@ public class MembersFragment extends Fragment {
      * INSTANCES OF CLASSES
      *******************************/
     View viewRootFragment;
-    //  ListView lvMembers;
-
-    MembersAdapter membersAdapter;
 
     //Create instance of Model class MembersItems.
     MembersItems membersItems;
@@ -80,7 +74,7 @@ public class MembersFragment extends Fragment {
     AJsonParamsMembers aJsonParamsMembers;
 
     //Members list demo.
-    private PinnedHeaderListView mListView;
+    private PinnedHeaderListView mPinnedHeaderListView;
     public static AlphabaticalListAdapter mAdapter = null;
     public LayoutInflater mInflater;
 
@@ -93,11 +87,8 @@ public class MembersFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             Log.e(LOG_TAG, "Member ID " + membersDatas.get(0).getMembersList().get(position).getMemberID());
-//            Log.e(LOG_TAG, "Member FORMAL NAME "+ membersDatas.get(0).getMembersList().get(position).);
-//            Log.e(LOG_TAG, "Member ID "+ membersDatas.get(0).getMembersList().get(position).getMemberID());
 
             Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
-            //intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).);
             intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).getMemberID());
             startActivity(intent);
         }
@@ -108,13 +99,11 @@ public class MembersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mInflater = LayoutInflater.from(getActivity());
 
+        ((MembersActivity)getActivity()).setFragmentInstance(new MembersFragment());
+
         viewRootFragment = inflater.inflate(R.layout.fragment_members, container, false);
 
-        //lvMembers = (ListView) viewRootFragment.findViewById(R.id.lvMembers);
-        mListView = (PinnedHeaderListView) viewRootFragment.findViewById(R.id.lvMembersList);
-
-        //Set Members list click listener.
-        //  mListView.setOnItemClickListener(mListMemberListener);
+        mPinnedHeaderListView = (PinnedHeaderListView) viewRootFragment.findViewById(R.id.lvMembersList);
 
         return viewRootFragment;
     }
@@ -209,9 +198,6 @@ public class MembersFragment extends Fragment {
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
-//                    membersAdapter = new MembersAdapter(getActivity(), membersDatas.get(0).getMembersList());
-//                    lvMembers.setAdapter(membersAdapter);
-
                     setMembersListAdapter(membersDatas.get(0).getMembersList());
 
                     Log.e(LOG_TAG, "getMembersList : " + membersDatas.get(0).getMembersList().size());
@@ -267,10 +253,10 @@ public class MembersFragment extends Fragment {
         int pinnedHeaderBackgroundColor = getResources().getColor(getResIdFromAttribute(getActivity(), android.R.attr.colorBackground));
         mAdapter.setPinnedHeaderBackgroundColor(pinnedHeaderBackgroundColor);
         mAdapter.setPinnedHeaderTextColor(getResources().getColor(R.color.pinned_header_text));
-        mListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mListView, false));
-        mListView.setAdapter(mAdapter);
-        mListView.setOnScrollListener(mAdapter);
-        mListView.setEnableHeaderTransparencyChanges(false);
+        mPinnedHeaderListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mPinnedHeaderListView, false));
+        mPinnedHeaderListView.setAdapter(mAdapter);
+        mPinnedHeaderListView.setOnScrollListener(mAdapter);
+        mPinnedHeaderListView.setEnableHeaderTransparencyChanges(false);
     }
 
 

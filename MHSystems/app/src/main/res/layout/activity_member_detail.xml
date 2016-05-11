@@ -124,7 +124,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:layout_marginRight="20dp"
-                        android:src="@mipmap/ic_members_add_friend"
                         app:backgroundTint="@color/color535796a"
                         app:borderWidth="0dp"
                         app:elevation="6dp"

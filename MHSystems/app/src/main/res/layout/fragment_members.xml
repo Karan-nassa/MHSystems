@@ -10,15 +10,6 @@
         android:background="@color/colorFFEFEFF4"
         android:orientation="vertical">
 
-        <!--<ListView
-            android:id="@+id/lvMembers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:cacheColorHint="@android:color/white"
-            android:divider="@color/colorWhiteffffff"
-            android:dividerHeight="0dp"/>-->
-
         <!-- ALPHABETICAL LIST -->
 
         <lb.library.PinnedHeaderListView

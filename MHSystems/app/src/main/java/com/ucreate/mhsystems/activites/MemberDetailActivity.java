@@ -227,8 +227,8 @@ public class MemberDetailActivity extends BaseActivity {
         aJsonParamsAddMember = new AJsonParamsAddMember();
         aJsonParamsAddMember.setCallid("1456315336575");
         aJsonParamsAddMember.setVersion(1);
-        aJsonParamsAddMember.setMemberid(iMemberID);
-        aJsonParamsAddMember.setFriendid(806);
+        aJsonParamsAddMember.setMemberid(10784);
+        aJsonParamsAddMember.setFriendid(iMemberID); //806
 
         addMemberAPI = new AddMemberAPI("44118078", "ADDLINKTOMEMBER", aJsonParamsAddMember, "WEBSERVICES", "Members");
 
@@ -367,6 +367,8 @@ public class MemberDetailActivity extends BaseActivity {
                     strTelNoWork = membersDetailItems.getData().getContactDetails().getTelNoWork();
                     strHandCapPlay = membersDetailItems.getData().getHCapPlayStr();
 
+                    updateIsFriendUI(membersDetailItems.getData().getIsfriend());
+
                     displayMembersData();
 
                     Log.e(LOG_TAG, "MemberID : " + membersDetailItems.getData().getMemberID());
@@ -383,6 +385,29 @@ public class MemberDetailActivity extends BaseActivity {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
+        }
+
+    }
+
+    /**
+     *  Implements a method to check if selected member is already friend
+     *  then show FRIENDS icon in {@link FloatingActionButton} otherwise
+     *  show ADD FRIEND icon.
+     *
+     *  @param  isfriend : TRUE, if FRIENDS
+    */
+    private void updateIsFriendUI(boolean isfriend) {
+
+        if(isfriend){
+            fabFriendInvitation.setImageResource(R.mipmap.ic_friend_pending);
+            fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
+            //Set TRUE so don't display YES/NO alert dialog.
+            isFriendInvite = true;
+        }else{
+            fabFriendInvitation.setImageResource(R.mipmap.ic_members_add_friend);
+            fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#535796")));
+            //Set TRUE so don't display YES/NO alert dialog.
+            isFriendInvite = false;
         }
 
     }

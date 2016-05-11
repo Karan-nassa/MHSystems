@@ -13,7 +13,7 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 
-    <!-- MENU BAR ICON MORE -->.
+    <!-- MENU BAR ICON MORE -->
 
     <item
         android:id="@+id/action_delete"

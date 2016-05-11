@@ -61,6 +61,9 @@ public class MembersDetailsData {
     @SerializedName("HCapList")
     @Expose
     private List<Object> HCapList = new ArrayList<Object>();
+    @SerializedName("Isfriend")
+    @Expose
+    private boolean Isfriend;
 
     /**
      *
@@ -368,4 +371,21 @@ public class MembersDetailsData {
         this.HCapList = HCapList;
     }
 
+    /**
+     *
+     * @return
+     * The Isfriend
+     */
+    public Boolean getIsfriend() {
+        return Isfriend;
+    }
+
+    /**
+     *
+     * @param Isfriend
+     * The Isfriend
+     */
+    public void setIsfriend(Boolean Isfriend) {
+        this.Isfriend = Isfriend;
+    }
 }

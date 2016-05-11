@@ -1,26 +1,25 @@
 package com.ucreate.mhsystems.activites;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CustomSpinnerAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
+import com.ucreate.mhsystems.fragments.FriendsFragment;
 import com.ucreate.mhsystems.fragments.MembersFragment;
 import com.ucreate.mhsystems.fragments.MembersTabFragment;
 
@@ -34,6 +33,7 @@ public class MembersActivity extends BaseActivity {
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
+    String straFriendCommand = "GETLINKSTOMEMBERS";
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -45,6 +45,12 @@ public class MembersActivity extends BaseActivity {
     LinearLayout llHomeMembers;
 
     ArrayList<String> spinnerArraylist = new ArrayList<>();
+
+    /**
+     * Instance of {@link Fragment} used for separate result
+     * of {@link MembersFragment} and {@link com.ucreate.mhsystems.fragments.FriendsFragment} list data.
+     */
+    Fragment fragmentInstance;
 
     /**
      * Implements HOME icons press
@@ -105,9 +111,9 @@ public class MembersActivity extends BaseActivity {
 
         spinnerArraylist.clear();
 
-        switch (MembersTabFragment.iLastTabPosition){
+        switch (MembersTabFragment.iLastTabPosition) {
             case 0:
-                spinnerArraylist.add("All");
+                spinnerArraylist.add("All Members");
                 spinnerArraylist.add("Ladies");
                 spinnerArraylist.add("Gentlemens");
                 break;
@@ -140,21 +146,37 @@ public class MembersActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapter, View v,
                                        int position, long id) {
-                // On selecting a spinner item
-                String item = adapter.getItemAtPosition(position).toString();
-                switch (position) {
-                    case ApplicationGlobal.ACTION_MEMBERS_ALL:
-                        updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
-                        break;
+                if (getFragmentInstance() instanceof MembersFragment) {
 
-                    case ApplicationGlobal.ACTION_MEMBERS_LADIES:
-                        updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
-                        break;
+                    // On selecting a spinner item
+                    //String item = adapter.getItemAtPosition(position).toString();
+                    switch (position) {
+                        case ApplicationGlobal.ACTION_MEMBERS_ALL:
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
+                            break;
 
-                    case ApplicationGlobal.ACTION_MEMBERS_GENTLEMENS:
-                        updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_GENTLEMENS));
-                        break;
+                        case ApplicationGlobal.ACTION_MEMBERS_LADIES:
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
+                            break;
+
+                        case ApplicationGlobal.ACTION_MEMBERS_GENTLEMENS:
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_GENTLEMENS));
+                            break;
+                    }
+                } else if (getFragmentInstance() instanceof FriendsFragment) {
+                    switch (position) {
+                        case ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS:
+                            setStraFriendCommand("GETLINKSTOMEMBERS");
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
+                            break;
+
+                        case ApplicationGlobal.ACTION_FRIENDS_ADDED_ME:
+                            setStraFriendCommand("GETLINKSFROMMEMBERS");
+                        //    updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
+                            break;
+                    }
                 }
+
             }
 
             @Override
@@ -203,9 +225,17 @@ public class MembersActivity extends BaseActivity {
      * in tool bar.
      */
     public void performSearch(final String queryText) {
-        MembersFragment.mAdapter.getFilter().filter(queryText);
-        MembersFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
-        MembersFragment.mAdapter.notifyDataSetChanged();
+
+        if (getFragmentInstance() instanceof MembersFragment) {
+            MembersFragment.mAdapter.getFilter().filter(queryText);
+            MembersFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
+            MembersFragment.mAdapter.notifyDataSetChanged();
+        } else if (getFragmentInstance() instanceof FriendsFragment) {
+            FriendsFragment.mAdapter.getFilter().filter(queryText);
+            FriendsFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
+            FriendsFragment.mAdapter.notifyDataSetChanged();
+        }
+
     }
 
     @SuppressWarnings("deprecation")
@@ -230,5 +260,37 @@ public class MembersActivity extends BaseActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivity(intent);
         return true;
+    }
+
+    /**
+     * Set the current opening {@link Fragment} instance.
+     *
+     * @param fragmentInstance
+     */
+    public void setFragmentInstance(Fragment fragmentInstance) {
+        this.fragmentInstance = fragmentInstance;
+    }
+
+    /**
+     * @return fragmentInstance
+     */
+    public Fragment getFragmentInstance() {
+        return fragmentInstance;
+    }
+
+    /**
+     * Set the current selected {@link String} FRIEND command.
+     *
+     * @param straFriendCommand
+     */
+    public void setStraFriendCommand(String straFriendCommand) {
+        this.straFriendCommand = straFriendCommand;
+    }
+
+    /**
+     * @return fragmentInstance
+     */
+    public String getStraFriendCommand() {
+        return straFriendCommand;
     }
 }

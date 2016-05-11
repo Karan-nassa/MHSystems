@@ -5,6 +5,7 @@ import com.ucreate.mhsystems.models.AddMemberAPI;
 import com.ucreate.mhsystems.models.CompetitionsAPI;
 import com.ucreate.mhsystems.models.CourseDiaryAPI;
 import com.ucreate.mhsystems.models.DashboardAPI;
+import com.ucreate.mhsystems.models.FriendsAPI;
 import com.ucreate.mhsystems.models.HandicapAPI;
 import com.ucreate.mhsystems.models.MembersAPI;
 import com.ucreate.mhsystems.models.MembersDetailAPI;
@@ -112,6 +113,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getAddMember(@Body AddMemberAPI addMemberAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of FRIENDS web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param friendsAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp/RpcRequest")
+    public void getFriends(@Body FriendsAPI friendsAPI, Callback<JsonObject> response);
 
 }
 

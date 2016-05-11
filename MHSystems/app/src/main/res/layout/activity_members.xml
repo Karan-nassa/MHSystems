@@ -49,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
-                    android:gravity="top"
+                    android:padding="4dp"
                     android:popupBackground="@color/colorWhiteffffff" />
 
             </LinearLayout>

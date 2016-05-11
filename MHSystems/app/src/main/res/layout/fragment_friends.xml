@@ -10,35 +10,21 @@
         android:background="@color/colorFFEFEFF4"
         android:orientation="vertical">
 
+        <!-- ALPHABETICAL LIST -->
 
-        <!-- RECYCLER VIEW TO DISPLAY COURSE DIARY CONTENT -->
-
-        <!--  <android.support.v7.widget.RecyclerView
-              android:id="@+id/rvCourseDiary"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@android:color/white"
-              android:scrollbars="vertical" />-->
-        <ListView
-            android:id="@+id/lvFriends"
+        <lb.library.PinnedHeaderListView
+            android:id="@+id/phlvFriends"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:cacheColorHint="@android:color/white"
-            android:divider="@color/colorFFEFEFF4"
-            android:dividerHeight="2dp">
-
-        </ListView>
+            android:layout_height="match_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:dividerHeight="0px"
+            android:fadeScrollbars="false"
+            android:fastScrollEnabled="true"
+            android:listSelector="@drawable/list_item_alphabet_selector"
+            android:scrollingCache="false"
+            tools:listitem="@layout/list_item_alphabets_member" />
 
     </LinearLayout>
-
-    <!-- DUMMY TITLE FOR NOW -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/tab_title_friends"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="35sp" />
 
 </RelativeLayout>
