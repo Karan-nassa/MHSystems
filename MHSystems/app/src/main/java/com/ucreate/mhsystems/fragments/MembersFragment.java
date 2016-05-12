@@ -49,8 +49,13 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
 /**
- * Created by <b>karan@ucreate.co.in</b> to display {@link MembersFragment}
- * list data on 11-May-2016.
+ * The {@link MembersFragment} used to display the Member list
+ * with {@link AlphabaticalListAdapter} indexing and {@link android.support.v7.widget.SearchView}
+ * <p>
+ *
+ * @author karan@ucreate.co.in
+ * @version 1.0
+ * @since 1 May, 2016
  */
 public class MembersFragment extends Fragment {
     /*********************************
@@ -58,8 +63,6 @@ public class MembersFragment extends Fragment {
      *******************************/
     public static final String LOG_TAG = MembersFragment.class.getSimpleName();
     ArrayList<MembersData> membersDatas = new ArrayList<>();
-
-    private boolean isSwipeVisible = false;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -99,8 +102,6 @@ public class MembersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mInflater = LayoutInflater.from(getActivity());
 
-        ((MembersActivity)getActivity()).setFragmentInstance(new MembersFragment());
-
         viewRootFragment = inflater.inflate(R.layout.fragment_members, container, false);
 
         mPinnedHeaderListView = (PinnedHeaderListView) viewRootFragment.findViewById(R.id.lvMembersList);
@@ -112,7 +113,11 @@ public class MembersFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
+
+
         if (isVisibleToUser) {
+
+            ((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
 
             /**
              *  Check internet connection before hitting server request.
@@ -165,7 +170,7 @@ public class MembersFragment extends Fragment {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
 
-                ((BaseActivity) getActivity()).showAlertMessage("" + error);
+                ((BaseActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
 
@@ -392,7 +397,8 @@ public class MembersFragment extends Fragment {
                 public void onClick(View v) {
 
                     Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
-                    //intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).);
+                   // intent.putExtra("A_COMMAND", "GETMEMBER");
+                    intent.putExtra("PASS_FROM", 1); // 1 means from Member Fragment and 2 for Friends Fragment.
                     intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
                     startActivity(intent);
                 }

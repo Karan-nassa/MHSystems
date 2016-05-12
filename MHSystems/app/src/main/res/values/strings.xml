@@ -64,6 +64,8 @@
     <string name="text_member_no_address">Address not found.</string>
     <string name="alert_title_friend_invitation">Friend Invitation</string>
     <string name="alert_title_friend_invite_message">Do you wish to add this member to your Friend list?</string>
+    <string name="alert_title_friend_remove">Remove Friend</string>
+    <string name="alert_title_friend_remove_message">Do you wish to remove this member from your Friend list?</string>
     <!-- START OF MEMBERS DETAIL ACTIVITY -->
 
     <!-- START OF FINANCE FRAGMENT -->

@@ -171,7 +171,7 @@ public class DashboardActivity extends BaseActivity {
 
                 //you can handle the errors here
                 hideProgress();
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }

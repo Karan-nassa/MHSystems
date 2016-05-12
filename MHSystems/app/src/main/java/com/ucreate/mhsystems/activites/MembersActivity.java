@@ -172,7 +172,7 @@ public class MembersActivity extends BaseActivity {
 
                         case ApplicationGlobal.ACTION_FRIENDS_ADDED_ME:
                             setStraFriendCommand("GETLINKSFROMMEMBERS");
-                        //    updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
                             break;
                     }
                 }

@@ -30,6 +30,9 @@ import com.ucreate.mhsystems.models.AJsonParamsAddMember;
 import com.ucreate.mhsystems.models.AJsonParamsMembers;
 import com.ucreate.mhsystems.models.AddMemberAPI;
 import com.ucreate.mhsystems.models.AddMemberItems;
+import com.ucreate.mhsystems.models.Friends.AJsonParamsRemoveFriend;
+import com.ucreate.mhsystems.models.Friends.RemoveFriendAPI;
+import com.ucreate.mhsystems.models.Friends.RemoveFriendItems;
 import com.ucreate.mhsystems.models.MembersDetailsData;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.models.AJsonParamsMembersDatail;
@@ -45,6 +48,15 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+/**
+ * The {@link MemberDetailActivity} used to display the detail of selected
+ * member from {@link com.ucreate.mhsystems.fragments.MembersFragment} or
+ * {@link com.ucreate.mhsystems.fragments.FriendsFragment} by passing MemberId.
+ *
+ * @author {@link karan@ucreate.co.in}
+ * @version 1.0
+ * @since 12 May, 2016
+ */
 public class MemberDetailActivity extends BaseActivity {
 
     /*********************************
@@ -54,6 +66,17 @@ public class MemberDetailActivity extends BaseActivity {
 
     String strAddressLine, strMemberEmail, strTelNoHome, strTelNoWork, strTelNoMob, strHandCapPlay;
     int iMemberID;
+
+    /**
+     * iCallFrom will be
+     * <br> 1, if {@link com.ucreate.mhsystems.fragments.MembersFragment}
+     * <br> 2, if {@link com.ucreate.mhsystems.fragments.FriendsFragment}
+     */
+    int iCallFrom;
+
+    //Used to refresh data on REMOVE friend.
+    public static boolean isRefreshData;
+
     //Only send Invite if 'isFriendInvite' false.
     boolean isFriendInvite;
 
@@ -66,10 +89,15 @@ public class MemberDetailActivity extends BaseActivity {
     ImageView ivActionMap, ivActionEmail, ivActionCall;
     Toolbar tbMemberDetail;
 
-    //List of type books this list will store type Book which is our data model
+    //List of type Members list will store type Book which is our data model
     private MembersDetailAPI membersDetailAPI;
     AJsonParamsMembersDatail aJsonParamsMembersDatail;
     MembersDetailsItems membersDetailItems;
+
+    //List of type Remove Friend this list will store type Book which is our data model
+    private RemoveFriendAPI removeFriendAPI;
+    AJsonParamsRemoveFriend aJsonParamsRemoveFriend;
+    RemoveFriendItems removeFriendItems;
 
     private AddMemberAPI addMemberAPI;
     AJsonParamsAddMember aJsonParamsAddMember;
@@ -110,9 +138,12 @@ public class MemberDetailActivity extends BaseActivity {
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
-
                     //Yes button clicked...
+                    //if (iCallFrom == 1) {
                     requestAddMemberService();
+//                    } else {
+//                        requestRemoveFriendService();
+//                    }
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -141,6 +172,7 @@ public class MemberDetailActivity extends BaseActivity {
         initializeAppResources();
 
         iMemberID = getIntent().getExtras().getInt(ApplicationGlobal.KEY_MEMBER_ID);
+        iCallFrom = getIntent().getExtras().getInt("PASS_FROM");
 
         tbMemberDetail = (Toolbar) findViewById(R.id.tbMemberDetail);
         setSupportActionBar(tbMemberDetail);
@@ -161,12 +193,22 @@ public class MemberDetailActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
+
                 if (!isFriendInvite) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MemberDetailActivity.this);
-                    builder.setTitle(getResources().getString(R.string.alert_title_friend_invitation))
-                            .setMessage(getResources().getString(R.string.alert_title_friend_invite_message))
-                            .setPositiveButton("Yes", dialogClickListener)
-                            .setNegativeButton("Cancel", dialogClickListener).show();
+                    if(iCallFrom == 1){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MemberDetailActivity.this);
+                        builder.setTitle(getResources().getString(R.string.alert_title_friend_invitation))
+                                .setMessage(getResources().getString(R.string.alert_title_friend_invite_message))
+                                .setPositiveButton("Yes", dialogClickListener)
+                                .setNegativeButton("Cancel", dialogClickListener).show();
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MemberDetailActivity.this);
+                        builder.setTitle(getResources().getString(R.string.alert_title_friend_remove))
+                                .setMessage(getResources().getString(R.string.alert_title_friend_remove_message))
+                                .setPositiveButton("Remove", dialogClickListener)
+                                .setNegativeButton("Keep", dialogClickListener).show();
+                    }
+
                 }
             }
         });
@@ -228,9 +270,9 @@ public class MemberDetailActivity extends BaseActivity {
         aJsonParamsAddMember.setCallid("1456315336575");
         aJsonParamsAddMember.setVersion(1);
         aJsonParamsAddMember.setMemberid(10784);
-        aJsonParamsAddMember.setFriendid(iMemberID); //806
+        aJsonParamsAddMember.setFriendid(iMemberID);
 
-        addMemberAPI = new AddMemberAPI("44118078", "ADDLINKTOMEMBER", aJsonParamsAddMember, "WEBSERVICES", "Members");
+        addMemberAPI = new AddMemberAPI("44118078", getCommandA()/*"ADDLINKTOMEMBER"*/, aJsonParamsAddMember, "WEBSERVICES", "Members");
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -244,8 +286,11 @@ public class MemberDetailActivity extends BaseActivity {
         api.getAddMember(addMemberAPI, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
-
-                AddMemberSuccessResponse(jsonObject);
+                if (iCallFrom == 1) {
+                    AddMemberSuccessResponse(jsonObject);
+                } else {
+                    updateRemoveResponse(jsonObject);
+                }
             }
 
             @Override
@@ -254,9 +299,24 @@ public class MemberDetailActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
+    }
+
+    /**
+     * Implements a method to PASS 'aCommand' key to ADD and REMOVE
+     * friend according choice of user.
+     * <p/>
+     * ADD MEMBER     : ADDLINKTOMEMBER
+     * REMOVE MEMBER  : REMOVELINKTOMEMBER
+     */
+    private String getCommandA() {
+        if (iCallFrom == 1) {
+            return "ADDLINKTOMEMBER";
+        } else {
+            return "REMOVELINKTOMEMBER";
+        }
     }
 
     /**
@@ -275,6 +335,8 @@ public class MemberDetailActivity extends BaseActivity {
 
         membersDetailAPI = new MembersDetailAPI(44118078, "GETMEMBER", aJsonParamsMembersDatail, "WEBSERVICES", "Members");
 
+        Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
+
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(WebAPI.API_BASE_URL)
@@ -288,7 +350,7 @@ public class MemberDetailActivity extends BaseActivity {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
-                updateSuccessResponse(jsonObject);
+                    updateSuccessResponse(jsonObject);
             }
 
             @Override
@@ -297,7 +359,7 @@ public class MemberDetailActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }
@@ -319,7 +381,7 @@ public class MemberDetailActivity extends BaseActivity {
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
             if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
-                fabFriendInvitation.setImageResource(R.mipmap.ic_friend_pending);
+                fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
                 fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
 
                 //Set TRUE so don't display YES/NO alert dialog.
@@ -336,9 +398,49 @@ public class MemberDetailActivity extends BaseActivity {
 
     /**
      * Implements a method to update SUCCESS
+     * response of web service after REMOVE
+     * friend.
+     */
+    private void updateRemoveResponse(JsonObject jsonObject) {
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<RemoveFriendItems>() {
+        }.getType();
+        removeFriendItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
+
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                builder.setMessage(removeFriendItems.getData())
+//                        .setCancelable(false)
+//                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                //do things
+//                            }
+//                        });
+//                AlertDialog alert = builder.create();
+//                alert.show();
+
+                isRefreshData = true;
+
+                onBackPressed();
+            }
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Implements a method to update SUCCESS
      * response of web service.
      */
-
     private void updateSuccessResponse(JsonObject jsonObject) {
 
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
@@ -346,9 +448,6 @@ public class MemberDetailActivity extends BaseActivity {
         Type type = new TypeToken<MembersDetailsItems>() {
         }.getType();
         membersDetailItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
-
-        //Clear array list before inserting items.
-        //membersDatas.clear();
 
         try {
             /**
@@ -390,24 +489,42 @@ public class MemberDetailActivity extends BaseActivity {
     }
 
     /**
-     *  Implements a method to check if selected member is already friend
-     *  then show FRIENDS icon in {@link FloatingActionButton} otherwise
-     *  show ADD FRIEND icon.
+     * Implements a method to check if selected member is already friend
+     * then show FRIENDS icon in {@link FloatingActionButton} otherwise
+     * show ADD FRIEND icon.
      *
-     *  @param  isfriend : TRUE, if FRIENDS
-    */
+     * @param isfriend : TRUE, if FRIENDS
+     */
     private void updateIsFriendUI(boolean isfriend) {
 
-        if(isfriend){
-            fabFriendInvitation.setImageResource(R.mipmap.ic_friend_pending);
-            fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
-            //Set TRUE so don't display YES/NO alert dialog.
-            isFriendInvite = true;
-        }else{
-            fabFriendInvitation.setImageResource(R.mipmap.ic_members_add_friend);
-            fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#535796")));
-            //Set TRUE so don't display YES/NO alert dialog.
-            isFriendInvite = false;
+        /**
+         *  iCallFrom will be
+         * <br> 1, if {@link com.ucreate.mhsystems.fragments.MembersFragment}
+         * <br> 2, if {@link com.ucreate.mhsystems.fragments.FriendsFragment}
+         *
+         */
+        switch (iCallFrom) {
+
+            case 1:
+                if (isfriend) {
+                    fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
+                    fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
+                    //Set TRUE so don't display YES/NO alert dialog.
+                    isFriendInvite = true;
+                } else {
+                    fabFriendInvitation.setImageResource(R.mipmap.ic_members_add_friend);
+                    fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#535796")));
+                    //Set TRUE so don't display YES/NO alert dialog.
+                    isFriendInvite = false;
+                }
+                break;
+
+            case 2:
+                fabFriendInvitation.setImageResource(R.mipmap.ic_remove_friend);
+                fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#535796")));
+                //Set TRUE so don't display YES/NO alert dialog.
+                isFriendInvite = false;
+                break;
         }
 
     }

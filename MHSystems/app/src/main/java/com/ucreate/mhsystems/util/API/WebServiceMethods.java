@@ -5,6 +5,7 @@ import com.ucreate.mhsystems.models.AddMemberAPI;
 import com.ucreate.mhsystems.models.CompetitionsAPI;
 import com.ucreate.mhsystems.models.CourseDiaryAPI;
 import com.ucreate.mhsystems.models.DashboardAPI;
+import com.ucreate.mhsystems.models.Friends.RemoveFriendAPI;
 import com.ucreate.mhsystems.models.FriendsAPI;
 import com.ucreate.mhsystems.models.HandicapAPI;
 import com.ucreate.mhsystems.models.MembersAPI;
@@ -124,6 +125,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getFriends(@Body FriendsAPI friendsAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of REMOVE FRIEND web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param removeFriendAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp/RpcRequest")
+    public void removeFriend(@Body RemoveFriendAPI removeFriendAPI, Callback<JsonObject> response);
 
 }
 

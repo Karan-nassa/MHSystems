@@ -46,8 +46,13 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
 /**
- * Created by <b>karan@ucreate.co.in</b> to display {@link FriendsFragment}
- * list data in {@link Fragment} on 11-May-2016.
+ * The {@link FriendsFragment} used to display the Member list
+ * with {@link AlphabaticalListAdapter} indexing and {@link android.support.v7.widget.SearchView}
+ * <p>
+ *
+ * @author karan@ucreate.co.in
+ * @version 1.0
+ * @since 12 May, 2016
  */
 public class FriendsFragment extends Fragment {
     /*********************************
@@ -79,8 +84,6 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mInflater = LayoutInflater.from(getActivity());
 
-        ((MembersActivity)getActivity()).setFragmentInstance(new FriendsFragment());
-
         viewRootFragment = inflater.inflate(R.layout.fragment_friends, container, false);
 
         phlvFriends = (PinnedHeaderListView) viewRootFragment.findViewById(R.id.phlvFriends);
@@ -92,17 +95,40 @@ public class FriendsFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
+        //Log.e(LOG_TAG, "isVisibleToUser" + isVisibleToUser);
+
         if (isVisibleToUser) {
 
-            /**
-             *  Check internet connection before hitting server request.
-             */
-            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                //Method to hit Members list API.
-                requestFriendService();
-            } else {
-                ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
-            }
+            ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
+
+            callWebService();
+        }
+    }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        //Refresh data after REMOVE friend from detail screen.
+//        if (MemberDetailActivity.isRefreshData) {
+//
+//            MemberDetailActivity.isRefreshData = false;
+//
+//            callWebService();
+//        }
+//    }
+
+    /**
+     * Implements a method to call web service after check
+     * INTERNET connection.
+     */
+    public void callWebService() {
+
+        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            //Method to hit Members list API.
+            requestFriendService();
+        } else {
+            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
     }
 
@@ -119,9 +145,7 @@ public class FriendsFragment extends Fragment {
         aJsonParamsFriends.setVersion(1);
         aJsonParamsFriends.setMemberId(10784);
 
-        Log.e(LOG_TAG, "((MembersActivity)getActivity()).getStraFriendCommand()"+((MembersActivity)getActivity()).getStraFriendCommand());
-
-        friendsAPI = new FriendsAPI(44118078, ((MembersActivity)getActivity()).getStraFriendCommand(), aJsonParamsFriends, "WEBSERVICES", "Members");
+        friendsAPI = new FriendsAPI(44118078, ((MembersActivity) getActivity()).getStraFriendCommand(), aJsonParamsFriends, "WEBSERVICES", "Members");
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -145,7 +169,7 @@ public class FriendsFragment extends Fragment {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
 
-                ((BaseActivity) getActivity()).showAlertMessage("" + error);
+                ((BaseActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
 
@@ -177,7 +201,6 @@ public class FriendsFragment extends Fragment {
                 if (friendsDataArrayList.size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-
                     setMembersListAdapter(friendsDataArrayList);
                 }
             } else {
@@ -368,10 +391,11 @@ public class FriendsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-//                    Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
-//                    //intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).);
-//                    intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
-//                    startActivity(intent);
+                    Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
+                    // intent.putExtra("A_COMMAND", "REMOVELINKTOMEMBER");
+                    intent.putExtra("PASS_FROM", 2); // 1 means from Member Fragment and 2 for Friends Fragment.
+                    intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
+                    startActivity(intent);
                 }
             });
             return rootView;
