@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -91,31 +92,29 @@ public class FriendsFragment extends Fragment {
         return viewRootFragment;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        //Log.e(LOG_TAG, "isVisibleToUser" + isVisibleToUser);
-
-        if (isVisibleToUser) {
-
-            ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
-
-            callWebService();
-        }
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//
+//        if (isVisibleToUser) {
+//
+//            ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
+//
+//            callWebService();
+//        }
+//    }
 
     @Override
     public void onResume() {
         super.onResume();
 
         //Refresh data after REMOVE friend from detail screen.
-        if (MemberDetailActivity.isRefreshData) {
-
+       // if (MemberDetailActivity.isRefreshData) {
+            ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
             MemberDetailActivity.isRefreshData = false;
 
             callWebService();
-        }
+       // }
     }
 
     /**
@@ -212,20 +211,8 @@ public class FriendsFragment extends Fragment {
             e.printStackTrace();
         }
 
-        new Handler().postDelayed(new Runnable() {
-
-            /*
-             * Showing splash screen with a timer. This will be useful when you
-             * want to show case your app logo / company
-             */
-
-            @Override
-            public void run() {
-                //Dismiss progress dialog.
-                ((BaseActivity) getActivity()).hideProgress();
-            }
-        }, 500);
-
+        //Dismiss progress dialog.
+        ((BaseActivity) getActivity()).hideProgress();
     }
 
 
@@ -235,6 +222,7 @@ public class FriendsFragment extends Fragment {
      * @param friendsDatas
      */
     private void setMembersListAdapter(ArrayList<FriendsData> friendsDatas) {
+
         //Members list demo.
         Collections.sort(friendsDatas, new Comparator<FriendsData>() {
             @Override
@@ -250,13 +238,15 @@ public class FriendsFragment extends Fragment {
 
         mAdapter = new AlphabaticalListAdapter(friendsDatas);
 
-        int pinnedHeaderBackgroundColor = getResources().getColor(getResIdFromAttribute(getActivity(), android.R.attr.colorBackground));
+
+        int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(), android.R.attr.colorBackground)));
         mAdapter.setPinnedHeaderBackgroundColor(pinnedHeaderBackgroundColor);
-        mAdapter.setPinnedHeaderTextColor(getResources().getColor(R.color.pinned_header_text));
+        mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.pinned_header_text));
         phlvFriends.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, phlvFriends, false));
         phlvFriends.setAdapter(mAdapter);
         phlvFriends.setOnScrollListener(mAdapter);
         phlvFriends.setEnableHeaderTransparencyChanges(false);
+        mAdapter.notifyDataSetChanged();
     }
 
 
@@ -283,6 +273,10 @@ public class FriendsFragment extends Fragment {
         private final int[] PHOTO_TEXT_BACKGROUND_COLORS;
         public final AsyncTaskThreadPool mAsyncTaskThreadPool = new AsyncTaskThreadPool(1, 2, 10);
 
+        @Override
+        public int getCount() {
+            return mContacts.size();
+        }
 
         @Override
         public CharSequence getSectionTitle(int sectionIndex) {
@@ -317,6 +311,9 @@ public class FriendsFragment extends Fragment {
             final View rootView;
             final FriendsData contact;
             if (convertView == null) {
+
+                ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
+
                 holder = new ViewHolder();
 
                 rootView = mInflater.inflate(R.layout.list_item_alphabets_member, parent, false);
@@ -339,9 +336,10 @@ public class FriendsFragment extends Fragment {
                 holder = (ViewHolder) rootView.getTag();
             }
             contact = getItem(position);
-            final String displayName = contact.getNameRecord().getDisplayName();
-            holder.friendName.setText(displayName);
-            holder.tvPlayHCapStr.setText(contact.getHCapPlayStr());
+            if(contact != null) {
+                final String displayName = contact.getNameRecord().getDisplayName();
+                holder.friendName.setText(displayName);
+                holder.tvPlayHCapStr.setText(contact.getHCapPlayStr());
 
 //            boolean hasPhoto = !TextUtils.isEmpty(contact.getPlayHCapStr());
 //            if (holder.updateTask != null && !holder.updateTask.isCancelled())
@@ -385,20 +383,21 @@ public class FriendsFragment extends Fragment {
 //                    mAsyncTaskThreadPool.executeAsyncTask(holder.updateTask);
 //                }
 //            }
-            bindSectionHeader(holder.headerView, null, position);
+                bindSectionHeader(holder.headerView, null, position);
 
-            rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                rootView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                    Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
-                    // intent.putExtra("A_COMMAND", "REMOVELINKTOMEMBER");
-                    intent.putExtra("PASS_FROM", 2); // 1 means from Member Fragment and 2 for Friends Fragment.
-                    intent.putExtra("SPINNER_ITEM", ((MembersActivity)getActivity()).getiWhichSpinnerItem());
-                    intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
-                    startActivity(intent);
-                }
-            });
+                        Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
+                        // intent.putExtra("A_COMMAND", "REMOVELINKTOMEMBER");
+                        intent.putExtra("PASS_FROM", 2); // 1 means from Member Fragment and 2 for Friends Fragment.
+                        intent.putExtra("SPINNER_ITEM", ((MembersActivity) getActivity()).getiWhichSpinnerItem());
+                        intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
+                        startActivity(intent);
+                    }
+                });
+            }
             return rootView;
         }
 

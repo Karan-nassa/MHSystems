@@ -268,9 +268,8 @@
 
                             <com.ucreate.mhsystems.customfonts.RobotoTextView
                                 android:id="@+id/tvMemberAddress"
-                                android:layout_width="150dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:maxLines="2"
                                 android:text=""
                                 android:textColor="@color/colorBlack000000"
                                 android:textSize="16sp" />

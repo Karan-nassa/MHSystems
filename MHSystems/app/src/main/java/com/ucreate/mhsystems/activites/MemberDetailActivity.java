@@ -75,7 +75,7 @@ public class MemberDetailActivity extends BaseActivity {
     int iCallFrom;
 
     //Used to refresh data on REMOVE friend.
-    public static boolean isRefreshData;
+    public static boolean isRefreshData = false;
 
     //Only send Invite if 'isFriendInvite' false.
     boolean isFriendInvite;
@@ -191,13 +191,13 @@ public class MemberDetailActivity extends BaseActivity {
 
 
                 if (!isFriendInvite) {
-                    if(iCallFrom == 1){
+                    if (iCallFrom == 1) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MemberDetailActivity.this);
                         builder.setTitle(getResources().getString(R.string.alert_title_friend_invitation))
                                 .setMessage(getResources().getString(R.string.alert_title_friend_invite_message))
                                 .setPositiveButton("Yes", dialogClickListener)
                                 .setNegativeButton("Cancel", dialogClickListener).show();
-                    }else{
+                    } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MemberDetailActivity.this);
                         builder.setTitle(getResources().getString(R.string.alert_title_friend_remove))
                                 .setMessage(getResources().getString(R.string.alert_title_friend_remove_message))
@@ -268,7 +268,7 @@ public class MemberDetailActivity extends BaseActivity {
         aJsonParamsAddMember.setMemberid(10784);
         aJsonParamsAddMember.setFriendid(iMemberID);
 
-        addMemberAPI = new AddMemberAPI("44118078", getCommandA()/*"ADDLINKTOMEMBER"*/, aJsonParamsAddMember, "WEBSERVICES", "Members");
+        addMemberAPI = new AddMemberAPI("44118078", getCommandA(), aJsonParamsAddMember, "WEBSERVICES", "Members");
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -283,7 +283,7 @@ public class MemberDetailActivity extends BaseActivity {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
                 if (iCallFrom == 1) {
-                    AddMemberSuccessResponse(jsonObject);
+                    addMemberSuccessResponse(jsonObject);
                 } else {
                     updateRemoveResponse(jsonObject);
                 }
@@ -303,7 +303,7 @@ public class MemberDetailActivity extends BaseActivity {
     /**
      * Implements a method to PASS 'aCommand' key to ADD and REMOVE
      * friend according choice of user.
-     * <p/>
+     * <p>
      * ADD MEMBER     : ADDLINKTOMEMBER
      * REMOVE MEMBER  : REMOVELINKTOMEMBER
      */
@@ -346,7 +346,7 @@ public class MemberDetailActivity extends BaseActivity {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
-                    updateSuccessResponse(jsonObject);
+                updateSuccessResponse(jsonObject);
             }
 
             @Override
@@ -364,7 +364,7 @@ public class MemberDetailActivity extends BaseActivity {
      * Implements a method to update SUCCESS
      * response of ADD MEMBER web service.
      */
-    private void AddMemberSuccessResponse(JsonObject jsonObject) {
+    private void addMemberSuccessResponse(JsonObject jsonObject) {
 
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
@@ -422,8 +422,9 @@ public class MemberDetailActivity extends BaseActivity {
 //                alert.show();
 
                 isRefreshData = true;
+                finish();
 
-                onBackPressed();
+                //onBackPressed();
             }
             hideProgress();
         } catch (Exception e) {
@@ -465,9 +466,6 @@ public class MemberDetailActivity extends BaseActivity {
                     updateIsFriendUI(membersDetailItems.getData().getIsfriend());
 
                     displayMembersData();
-
-                    Log.e(LOG_TAG, "MemberID : " + membersDetailItems.getData().getMemberID());
-                    Log.e(LOG_TAG, "EMail : " + membersDetailItems.getData().getContactDetails().getEMail());
                 } else {
                     showAlertMessage(getResources().getString(R.string.error_no_data));
                 }
@@ -518,19 +516,19 @@ public class MemberDetailActivity extends BaseActivity {
                 break;
 
             case 2:
-               switch (getIntent().getExtras().getInt("SPINNER_ITEM")){
-                   case 1:
-                       fabFriendInvitation.setVisibility(View.VISIBLE);
-                       fabFriendInvitation.setImageResource(R.mipmap.ic_remove_friend);
-                       fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
-                       //Set TRUE so don't display YES/NO alert dialog.
-                       isFriendInvite = false;
-                       break;
+                switch (getIntent().getExtras().getInt("SPINNER_ITEM")) {
+                    case 1:
+                        fabFriendInvitation.setVisibility(View.VISIBLE);
+                        fabFriendInvitation.setImageResource(R.mipmap.ic_remove_friend);
+                        fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
+                        //Set TRUE so don't display YES/NO alert dialog.
+                        isFriendInvite = false;
+                        break;
 
-                   case 2:
-                       fabFriendInvitation.setVisibility(View.INVISIBLE);
-                       break;
-               }
+                    case 2:
+                        fabFriendInvitation.setVisibility(View.INVISIBLE);
+                        break;
+                }
 
                 break;
         }

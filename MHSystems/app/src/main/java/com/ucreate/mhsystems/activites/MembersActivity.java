@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CustomSpinnerAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
+import com.ucreate.mhsystems.fragments.CourseDairyTabFragment;
 import com.ucreate.mhsystems.fragments.FriendsFragment;
 import com.ucreate.mhsystems.fragments.MembersFragment;
 import com.ucreate.mhsystems.fragments.MembersTabFragment;
@@ -77,6 +78,12 @@ public class MembersActivity extends BaseActivity {
 
         //Initialize view resources.
         ButterKnife.bind(this);
+
+        /**
+         *  If user back press on any other tab then app should
+         *  open first tab by default when opening 'MEMBERS'.
+         */
+        MembersTabFragment.iLastTabPosition = 0;
 
         /**
          *  Setup Tool bar of Members screen with DROP-DOWN [SPINNER]
@@ -174,13 +181,13 @@ public class MembersActivity extends BaseActivity {
                         case ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS:
                             setStraFriendCommand("GETLINKSTOMEMBERS");
                             setiWhichSpinnerItem(1);
-                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
                             break;
 
                         case ApplicationGlobal.ACTION_FRIENDS_ADDED_ME:
                             setStraFriendCommand("GETLINKSFROMMEMBERS");
                             setiWhichSpinnerItem(2);
-                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_ADDED_ME));
                             break;
                     }
                 }

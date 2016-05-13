@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -89,7 +90,7 @@ public class MembersFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            Log.e(LOG_TAG, "Member ID " + membersDatas.get(0).getMembersList().get(position).getMemberID());
+           // Log.e(LOG_TAG, "Member ID " + membersDatas.get(0).getMembersList().get(position).getMemberID());
 
             Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
             intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).getMemberID());
@@ -115,12 +116,12 @@ public class MembersFragment extends Fragment {
 
         if (isVisibleToUser) {
 
-            ((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
-
             /**
              *  Check internet connection before hitting server request.
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                ((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
+
                 //Method to hit Members list API.
                 requestMemberService();
             } else {
@@ -202,9 +203,6 @@ public class MembersFragment extends Fragment {
                 } else {
 
                     setMembersListAdapter(membersDatas.get(0).getMembersList());
-
-                    Log.e(LOG_TAG, "getMembersList : " + membersDatas.get(0).getMembersList().size());
-                    Log.e(LOG_TAG, "getMember().getDisplayName : " + membersDatas.get(0).getMember().getDisplayName());
                 }
             } else {
                 //If web service not respond in any case.
@@ -253,9 +251,9 @@ public class MembersFragment extends Fragment {
 
         mAdapter = new AlphabaticalListAdapter(membersList);
 
-        int pinnedHeaderBackgroundColor = getResources().getColor(getResIdFromAttribute(getActivity(), android.R.attr.colorBackground));
+        int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(), android.R.attr.colorBackground)));
         mAdapter.setPinnedHeaderBackgroundColor(pinnedHeaderBackgroundColor);
-        mAdapter.setPinnedHeaderTextColor(getResources().getColor(R.color.pinned_header_text));
+        mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.pinned_header_text));
         mPinnedHeaderListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mPinnedHeaderListView, false));
         mPinnedHeaderListView.setAdapter(mAdapter);
         mPinnedHeaderListView.setOnScrollListener(mAdapter);
@@ -320,6 +318,9 @@ public class MembersFragment extends Fragment {
             final View rootView;
             final MembersList contact;
             if (convertView == null) {
+
+                ((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
+
                 holder = new ViewHolder();
 
                 rootView = mInflater.inflate(R.layout.list_item_alphabets_member, parent, false);
