@@ -139,11 +139,7 @@ public class MemberDetailActivity extends BaseActivity {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
                     //Yes button clicked...
-                    //if (iCallFrom == 1) {
                     requestAddMemberService();
-//                    } else {
-//                        requestRemoveFriendService();
-//                    }
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -507,11 +503,13 @@ public class MemberDetailActivity extends BaseActivity {
 
             case 1:
                 if (isfriend) {
+                    fabFriendInvitation.setVisibility(View.VISIBLE);
                     fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
                     fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
                     //Set TRUE so don't display YES/NO alert dialog.
                     isFriendInvite = true;
                 } else {
+                    fabFriendInvitation.setVisibility(View.VISIBLE);
                     fabFriendInvitation.setImageResource(R.mipmap.ic_members_add_friend);
                     fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#535796")));
                     //Set TRUE so don't display YES/NO alert dialog.
@@ -520,10 +518,20 @@ public class MemberDetailActivity extends BaseActivity {
                 break;
 
             case 2:
-                fabFriendInvitation.setImageResource(R.mipmap.ic_remove_friend);
-                fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#535796")));
-                //Set TRUE so don't display YES/NO alert dialog.
-                isFriendInvite = false;
+               switch (getIntent().getExtras().getInt("SPINNER_ITEM")){
+                   case 1:
+                       fabFriendInvitation.setVisibility(View.VISIBLE);
+                       fabFriendInvitation.setImageResource(R.mipmap.ic_remove_friend);
+                       fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
+                       //Set TRUE so don't display YES/NO alert dialog.
+                       isFriendInvite = false;
+                       break;
+
+                   case 2:
+                       fabFriendInvitation.setVisibility(View.INVISIBLE);
+                       break;
+               }
+
                 break;
         }
 

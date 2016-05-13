@@ -35,6 +35,12 @@ public class MembersActivity extends BaseActivity {
      *******************************/
     String straFriendCommand = "GETLINKSTOMEMBERS";
 
+    /**
+     * This instance is used to identify and set {@link android.support.design.widget.FloatingActionButton} VISIBLE
+     * if 1 [YOUR FRIENDS], selected in spinner and disable for 2 [ADDED ME]
+     */
+    int iWhichSpinnerItem = 0;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -167,11 +173,13 @@ public class MembersActivity extends BaseActivity {
                     switch (position) {
                         case ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS:
                             setStraFriendCommand("GETLINKSTOMEMBERS");
+                            setiWhichSpinnerItem(1);
                             updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
                             break;
 
                         case ApplicationGlobal.ACTION_FRIENDS_ADDED_ME:
                             setStraFriendCommand("GETLINKSFROMMEMBERS");
+                            setiWhichSpinnerItem(2);
                             updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
                             break;
                     }
@@ -190,6 +198,9 @@ public class MembersActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        /**
+         *  CANCEL all tasks.
+         */
         if (MembersFragment.mAdapter != null) {
             MembersFragment.mAdapter.mAsyncTaskThreadPool.cancelAllTasks(true);
         }
@@ -242,17 +253,7 @@ public class MembersActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         String url = null;
-//        switch (item.getItemId()) {
-//            case R.id.menuItem_all_my_apps:
-//                url = "https://play.google.com/store/apps/developer?id=AndroidDeveloperLB";
-//                break;
-//            case R.id.menuItem_all_my_repositories:
-//                url = "https://github.com/AndroidDeveloperLB";
-//                break;
-//            case R.id.menuItem_current_repository_website:
-//                url = "https://github.com/AndroidDeveloperLB/ListViewVariants";
-//                break;
-//        }
+
         if (url == null)
             return true;
         final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -293,4 +294,19 @@ public class MembersActivity extends BaseActivity {
     public String getStraFriendCommand() {
         return straFriendCommand;
     }
+
+    /**
+     * @return iWhichSpinnerItem
+     */
+    public int getiWhichSpinnerItem() {
+        return iWhichSpinnerItem;
+    }
+
+    /**
+     * @param iWhichSpinnerItem The iWhichSpinnerItem
+     */
+    public void setiWhichSpinnerItem(int iWhichSpinnerItem) {
+        this.iWhichSpinnerItem = iWhichSpinnerItem;
+    }
+
 }

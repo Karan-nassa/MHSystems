@@ -15,4 +15,8 @@
             android:textColor="@color/colorBlack000000"
             android:textSize="18sp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
 </RelativeLayout>

@@ -105,18 +105,18 @@ public class FriendsFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        //Refresh data after REMOVE friend from detail screen.
-//        if (MemberDetailActivity.isRefreshData) {
-//
-//            MemberDetailActivity.isRefreshData = false;
-//
-//            callWebService();
-//        }
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //Refresh data after REMOVE friend from detail screen.
+        if (MemberDetailActivity.isRefreshData) {
+
+            MemberDetailActivity.isRefreshData = false;
+
+            callWebService();
+        }
+    }
 
     /**
      * Implements a method to call web service after check
@@ -394,6 +394,7 @@ public class FriendsFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
                     // intent.putExtra("A_COMMAND", "REMOVELINKTOMEMBER");
                     intent.putExtra("PASS_FROM", 2); // 1 means from Member Fragment and 2 for Friends Fragment.
+                    intent.putExtra("SPINNER_ITEM", ((MembersActivity)getActivity()).getiWhichSpinnerItem());
                     intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
                     startActivity(intent);
                 }

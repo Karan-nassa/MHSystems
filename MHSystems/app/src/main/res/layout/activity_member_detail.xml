@@ -109,7 +109,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="CONGU(L)"
+                            android:text=""
                             android:textColor="@color/colorBlack000000"
                             android:textSize="18sp" />
 
@@ -125,6 +125,7 @@
                         android:layout_gravity="center|right"
                         android:layout_marginRight="20dp"
                         app:backgroundTint="@color/color535796a"
+                        android:visibility="invisible"
                         app:borderWidth="0dp"
                         app:elevation="6dp"
                         app:fabSize="normal" />
