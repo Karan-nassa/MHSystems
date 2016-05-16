@@ -56,6 +56,7 @@ public class OldCourseFragment extends Fragment {
 
     boolean isDialogVisible = false;
 
+
     //Stop user to scroll or change MONTH once no data found.
     boolean isMoreToScroll;
 

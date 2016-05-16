@@ -91,5 +91,41 @@
         <item name="colorAccent">@android:color/holo_blue_light</item>
     </style>
 
+
+    <!-- +++++++++++++++ START OF MY DETAIL [HEADING] +++++++++++++++ -->
+
+    <style name="MyDetailHeading">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorEF8176</item>
+    </style>
+
+    <!-- ++++++++++++++  END OF MY DETAIL [HEADING]   +++++++++++++++ -->
+
+    <!-- +++++++++++++++ START OF MY DETAIL [SUB-HEADING] +++++++++++++++ -->
+
+    <style name="MyDetailSubHeading">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorBlack000000</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:alpha">0.4</item>
+    </style>
+
+    <!-- ++++++++++++++  END OF MY DETAIL [HEADING]   +++++++++++++++ -->
+
+    <!-- +++++++++++++++ START OF MY DETAIL [VALUES/RECORDS] +++++++++++++++ -->
+
+    <style name="MyDetailValues">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorBlack000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:alpha">0.7</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+
+    <!-- ++++++++++++++  END OF MY DETAIL [VALUES/RECORDS]  +++++++++++++++ -->
+
 </resources>
 

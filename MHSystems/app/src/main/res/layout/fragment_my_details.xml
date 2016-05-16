@@ -2,43 +2,221 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorFFEFEFF4">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorFFEFEFF4"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-
-        <!-- RECYCLER VIEW TO DISPLAY COURSE DIARY CONTENT -->
-
-        <!--  <android.support.v7.widget.RecyclerView
-              android:id="@+id/rvCourseDiary"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@android:color/white"
-              android:scrollbars="vertical" />-->
-        <ListView
-            android:id="@+id/lvFriends"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:cacheColorHint="@android:color/white"
-            android:divider="@color/colorFFEFEFF4"
-            android:dividerHeight="2dp">
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+            android:orientation="vertical">
 
-        </ListView>
+            <!-- PERSONAL DETAILS -->
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-    <!-- DUMMY TITLE FOR NOW -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="My Details"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="35sp" />
+                android:orientation="vertical">
 
+                <!-- TITLE PERSONAL DETAIL -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailHeading"
+                    android:text="@string/title_text_personal_details" />
+
+                <!-- NAME OF PERSON -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:text="Mr. Greg Hadala" />
+
+                <!-- TITLE NAME -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_name" />
+
+                <!-- TYPE OF MEMBER -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:text="Regular Member" />
+
+                <!-- TITLE MEMBER TYPE -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_membership_type" />
+
+            </LinearLayout>
+
+            <!-- CONTACT DETAILS -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical">
+
+                <!-- TITLE CONTACT DETAILS -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailHeading"
+                    android:text="@string/title_text_contact_details" />
+
+                <!-- PHONE CONTACT OF MEMBER -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:text="501-254-6175" />
+
+                <!-- TITLE PHONE CONTACT -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_phone_number" />
+
+                <!-- MOBILE CONTACT OF MEMBER -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:text="791-439-4986" />
+
+                <!-- TITLE MEMBER MOBILE CONTACT -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_mobile" />
+
+                <!-- WORK CONTACT OF MEMBER -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:text="284-813-5899" />
+
+                <!-- TITLE MEMBER WORK CONTACT -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_work" />
+
+                <!-- EMAIL OF MEMBER -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:text="willims.katrine@howell.com" />
+
+                <!-- TITLE EMAIL -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_email" />
+
+            </LinearLayout>
+
+            <!-- ADDRESS -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical">
+
+                <!-- TITLE ADDRESS -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailHeading"
+                    android:text="@string/title_text_address" />
+
+                <!-- CITY OF MEMBER -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:text="London" />
+
+                <!-- TITLE CITY -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_city" />
+
+                <!-- STREET OF MEMBER -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:text="838 Marks Brook" />
+
+                <!-- TITLE STREET -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_street" />
+
+                <!-- POSTAL CODE OF MEMBER -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:text="E1 6EF" />
+
+                <!-- TITLE POSTAL CODE -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_postal_code" />
+
+            </LinearLayout>
+
+            <!-- username &amp; PASSWORD -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical">
+
+                <!-- TITLE USERNAME &amp; PASSWORD -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailHeading"
+                    android:text="@string/title_text_uname_password" />
+
+                <!-- USERNAME OF MEMBER -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:text="greg_golfpro" />
+
+                <!-- TITLE USERNAME -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_username" />
+
+                <!-- PASSWORD OF MEMBER -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailValues"
+                    android:inputType="textPassword"
+                    android:text="838 Marks Brook" />
+
+                <!-- TITLE PASSWORD -->
+
+                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailSubHeading"
+                    android:text="@string/title_text_password" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="50sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

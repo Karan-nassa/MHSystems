@@ -63,7 +63,7 @@ public class MyDetailsFragment extends Fragment implements SwipeRefreshLayout.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_my_details, container, false);
 
-        lvFriends = (ListView) viewRootFragment.findViewById(R.id.lvFriends);
+     //   lvFriends = (ListView) viewRootFragment.findViewById(R.id.lvFriends);
 
         return viewRootFragment;
     }
