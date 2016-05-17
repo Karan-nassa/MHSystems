@@ -32,8 +32,8 @@
                 <!-- NAME OF PERSON -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailValues"
-                    android:text="Mr. Greg Hadala" />
+                    android:id="@+id/tvNameOfPerson"
+                    style="@style/MyDetailValues" />
 
                 <!-- TITLE NAME -->
 
@@ -44,8 +44,8 @@
                 <!-- TYPE OF MEMBER -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailValues"
-                    android:text="Regular Member" />
+                    android:id="@+id/tvTypeOfPerson"
+                    style="@style/MyDetailValues" />
 
                 <!-- TITLE MEMBER TYPE -->
 
@@ -72,8 +72,8 @@
                 <!-- PHONE CONTACT OF MEMBER -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailValues"
-                    android:text="501-254-6175" />
+                    android:id="@+id/tvPhoneContactOfPerson"
+                    style="@style/MyDetailValues" />
 
                 <!-- TITLE PHONE CONTACT -->
 
@@ -84,8 +84,8 @@
                 <!-- MOBILE CONTACT OF MEMBER -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailValues"
-                    android:text="791-439-4986" />
+                    android:id="@+id/tvMobileContactOfPerson"
+                    style="@style/MyDetailValues" />
 
                 <!-- TITLE MEMBER MOBILE CONTACT -->
 
@@ -96,8 +96,8 @@
                 <!-- WORK CONTACT OF MEMBER -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailValues"
-                    android:text="284-813-5899" />
+                    android:id="@+id/tvWorkContactOfPerson"
+                    style="@style/MyDetailValues" />
 
                 <!-- TITLE MEMBER WORK CONTACT -->
 
@@ -108,8 +108,8 @@
                 <!-- EMAIL OF MEMBER -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailValues"
-                    android:text="willims.katrine@howell.com" />
+                    android:id="@+id/tvEmailOfPerson"
+                    style="@style/MyDetailValues" />
 
                 <!-- TITLE EMAIL -->
 
@@ -136,8 +136,8 @@
                 <!-- CITY OF MEMBER -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailValues"
-                    android:text="London" />
+                    android:id="@+id/tvCityOfPerson"
+                    style="@style/MyDetailValues" />
 
                 <!-- TITLE CITY -->
 
@@ -148,8 +148,8 @@
                 <!-- STREET OF MEMBER -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailValues"
-                    android:text="838 Marks Brook" />
+                    android:id="@+id/tvStreetOfPerson"
+                    style="@style/MyDetailValues" />
 
                 <!-- TITLE STREET -->
 
@@ -160,8 +160,8 @@
                 <!-- POSTAL CODE OF MEMBER -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailValues"
-                    android:text="E1 6EF" />
+                    android:id="@+id/tvPostalCodeOfPerson"
+                    style="@style/MyDetailValues" />
 
                 <!-- TITLE POSTAL CODE -->
 
@@ -188,8 +188,8 @@
                 <!-- USERNAME OF MEMBER -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailValues"
-                    android:text="greg_golfpro" />
+                    android:id="@+id/tvUsernameOfPerson"
+                    style="@style/MyDetailValues" />
 
                 <!-- TITLE USERNAME -->
 
@@ -197,23 +197,23 @@
                     style="@style/MyDetailSubHeading"
                     android:text="@string/title_text_username" />
 
-                <!-- PASSWORD OF MEMBER -->
+                <!--&lt;!&ndash; PASSWORD OF MEMBER &ndash;&gt;
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                     style="@style/MyDetailValues"
                     android:inputType="textPassword"
                     android:text="838 Marks Brook" />
 
-                <!-- TITLE PASSWORD -->
+                &lt;!&ndash; TITLE PASSWORD &ndash;&gt;
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                     style="@style/MyDetailSubHeading"
                     android:text="@string/title_text_password" />
-
+                -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="50sp" />
+                    android:textSize="40sp" />
 
             </LinearLayout>
 

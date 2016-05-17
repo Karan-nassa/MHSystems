@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -21,6 +22,9 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
 import com.ucreate.mhsystems.constants.WebAPI;
+import com.ucreate.mhsystems.models.AJsonParamsMembersDatail;
+import com.ucreate.mhsystems.models.MembersDetailAPI;
+import com.ucreate.mhsystems.models.MembersDetailsItems;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.models.CompetitionsAPI;
 import com.ucreate.mhsystems.models.CompetitionsData;
@@ -34,95 +38,92 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class MyDetailsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class MyDetailsFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     public static final String LOG_TAG = MyDetailsFragment.class.getSimpleName();
-    ArrayList<CompetitionsData> competitionsDatas = new ArrayList<>();
-
-    private boolean isSwipeVisible = false;
 
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    View viewRootFragment;
+    private TextView tvUsernameOfPerson, tvPostalCodeOfPerson, tvStreetOfPerson, tvCityOfPerson, tvEmailOfPerson,
+            tvWorkContactOfPerson, tvMobileContactOfPerson, tvPhoneContactOfPerson, tvTypeOfPerson, tvNameOfPerson;
+    private View viewRootFragment;
     ListView lvFriends;
 
     CompetitionsAdapter competitionsAdapter;
 
-    //Create instance of Model class CourseDiaryItems.
-    CompetitionsResultItems competitionsResultItems;
-    CompetitionsJsonParams competitionsJsonParams;
-
-    //List of type books this list will store type Book which is our data model
-    private CompetitionsAPI competitionsAPI;
+    //List of type Members list will store type Book which is our data model
+    private MembersDetailAPI membersDetailAPI;
+    AJsonParamsMembersDatail aJsonParamsMembersDatail;
+    MembersDetailsItems membersDetailItems;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_my_details, container, false);
 
-     //   lvFriends = (ListView) viewRootFragment.findViewById(R.id.lvFriends);
+        //Initialize the view resources.
+        initializeViewResources(viewRootFragment);
 
         return viewRootFragment;
+    }
+
+    /**
+     * Implements a method to initialize the view
+     * resources of {@link MyDetailsFragment}
+     *
+     * @param viewRootFragment : Used to bind and initialize each view.
+     */
+    private void initializeViewResources(View viewRootFragment) {
+        tvNameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvNameOfPerson);
+        tvTypeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPerson);
+        tvPhoneContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPhoneContactOfPerson);
+        tvMobileContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvMobileContactOfPerson);
+        tvWorkContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvWorkContactOfPerson);
+        tvEmailOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvEmailOfPerson);
+        tvCityOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvCityOfPerson);
+        tvStreetOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvStreetOfPerson);
+        tvPostalCodeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPostalCodeOfPerson);
+        tvUsernameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvUsernameOfPerson);
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-
         if (isVisibleToUser) {
 
-            callMyEventsWebService();
+            /**
+             *  Check internet connection before hitting server request.
+             */
+            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                //Method to hit Members list API.
+                requestMemberDetailService();
+            } else {
+                ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+            }
         }
     }
 
     /**
-     * Implements a method to call News web service either call
-     * initially or call from onSwipeRefresh.
-     */
-    private void callMyEventsWebService() {
-        /**
-         *  Check internet connection before hitting server request.
-         */
-//        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-//            //Method to hit Squads API.
-//            requestCompetitionsEvents();
-//        } else {
-//            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
-//        }
-    }
-
-    /**
-     * Implement a method to hit Competitions
+     * Implement a method to hit Members Detail
      * web service to get response.
      */
-    public void requestCompetitionsEvents() {
+    public void requestMemberDetailService() {
 
-        if (!isSwipeVisible) {
-            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
-        }
+        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
-        competitionsJsonParams = new CompetitionsJsonParams();
-        competitionsJsonParams.setCallid("1456315336575");
-        competitionsJsonParams.setVersion(1);
-        competitionsJsonParams.setMemberId(10784);
-        competitionsJsonParams.setMyEventsOnly(true);
-        competitionsJsonParams.setIncludeCompletedEvents(true);
-        competitionsJsonParams.setIncludeCurrentEvents(true);
-        competitionsJsonParams.setIncludeFutureEvents(true);
-        competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY
-        competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY
-        competitionsJsonParams.setPageNo("0");
-        competitionsJsonParams.setPageSize("10");
+        aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
+        aJsonParamsMembersDatail.setCallid("1456315336575");
+        aJsonParamsMembersDatail.setVersion(1);
+        aJsonParamsMembersDatail.setMemberid(10784);
+        aJsonParamsMembersDatail.setLoginMemberId(10784);
 
-        competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
+        membersDetailAPI = new MembersDetailAPI(44118078, "GETMEMBER", aJsonParamsMembersDatail, "WEBSERVICES", "Members");
 
-
-//        Log.e(LOG_TAG, "requestCompetitionsEvents()" +  "START DATE : " + CompetitionsTabFragment.strDateFrom);
-//        Log.e(LOG_TAG, "requestCompetitionsEvents()" + "END DATE : " + CompetitionsTabFragment.strDateTo);
+        Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -133,7 +134,7 @@ public class MyDetailsFragment extends Fragment implements SwipeRefreshLayout.On
         WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
         //Defining the method
-        api.getCompetitionsEvents(competitionsAPI, new Callback<JsonObject>() {
+        api.getMembersDetail(membersDetailAPI, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
@@ -146,10 +147,9 @@ public class MyDetailsFragment extends Fragment implements SwipeRefreshLayout.On
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
 
-                ((BaseActivity) getActivity()).showAlertMessage("" + error);
+                ((BaseActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
-
     }
 
     /**
@@ -160,48 +160,51 @@ public class MyDetailsFragment extends Fragment implements SwipeRefreshLayout.On
 
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
-        Type type = new TypeToken<CompetitionsResultItems>() {
+        Type type = new TypeToken<MembersDetailsItems>() {
         }.getType();
-        competitionsResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
-
-        //Clear array list before inserting items.
-        competitionsDatas.clear();
-        //arrayCourseDataBackup.clear();
+        membersDetailItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         try {
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
-            if (competitionsResultItems.getMessage().equalsIgnoreCase("Success")) {
+            if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
 
-                competitionsDatas.addAll(competitionsResultItems.getData());
+                //  membersDatas.add(membersItems.getData());
 
-                if (competitionsDatas.size() == 0) {
-                    ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                if (membersDetailItems.getData() != null) {
+
+                    displayMembersData();
                 } else {
-
-                    competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas/*((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup)*/);
-                    lvFriends.setAdapter(competitionsAdapter);
-
-                    Log.e(LOG_TAG, "arrayListCourseData : " + competitionsDatas.size());
+                    ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 }
             } else {
                 //If web service not respond in any case.
-                ((BaseActivity) getActivity()).showAlertMessage(competitionsResultItems.getMessage());
+                ((BaseActivity) getActivity()).showAlertMessage(membersDetailItems.getMessage());
             }
+            ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
+            ((BaseActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
-
-        //Dismiss progress dialog.
-        ((BaseActivity) getActivity()).hideProgress();
     }
 
+    /**
+     * Implements a method to display data on each view
+     * after getting SUCCESS from web service.
+     */
+    private void displayMembersData() {
 
-    @Override
-    public void onRefresh() {
-        isSwipeVisible = true;
-        callMyEventsWebService();
+        tvUsernameOfPerson.setText(membersDetailItems.getData().getUserLoginID());
+        tvNameOfPerson.setText(membersDetailItems.getData().getNameRecord().getFormalName());
+        tvMobileContactOfPerson.setText(membersDetailItems.getData().getContactDetails().getTelNoMob());
+        tvPhoneContactOfPerson.setText(membersDetailItems.getData().getContactDetails().getTelNoHome());
+        tvWorkContactOfPerson.setText(membersDetailItems.getData().getContactDetails().getTelNoWork());
+        tvEmailOfPerson.setText(membersDetailItems.getData().getContactDetails().getEMail());
+        tvTypeOfPerson.setText(membersDetailItems.getData().getMembershipStatus());
+        tvCityOfPerson.setText(membersDetailItems.getData().getContactDetails().getAddress().getCounty());
+        tvStreetOfPerson.setText(membersDetailItems.getData().getContactDetails().getAddress().getLine2());
+        tvPostalCodeOfPerson.setText(membersDetailItems.getData().getContactDetails().getAddress().getPostCode());
     }
 }

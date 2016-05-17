@@ -16,6 +16,9 @@ public class MembersDetailsData {
     @SerializedName("MemberID")
     @Expose
     private Integer MemberID;
+    @SerializedName("UserLoginID")
+    @Expose
+    private String UserLoginID;
     @SerializedName("NameRecord")
     @Expose
     private NameRecord NameRecord;
@@ -64,6 +67,24 @@ public class MembersDetailsData {
     @SerializedName("Isfriend")
     @Expose
     private boolean Isfriend;
+
+    /**
+     *
+     * @return
+     *     The userLoginID
+     */
+    public String getUserLoginID() {
+        return UserLoginID;
+    }
+
+    /**
+     *
+     * @param userLoginID
+     *     The userLoginID
+     */
+    public void setUserLoginID(String userLoginID) {
+        UserLoginID = userLoginID;
+    }
 
     /**
      *
