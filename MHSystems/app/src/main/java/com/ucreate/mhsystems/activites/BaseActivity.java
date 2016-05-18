@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -41,6 +42,9 @@ public class BaseActivity extends AppCompatActivity {
 
     Snackbar snackbar;
     private ProgressDialog mProgress;
+
+    static SharedPreferences sharedpreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +156,32 @@ public class BaseActivity extends AppCompatActivity {
             exp.printStackTrace();
         }
         return strDate;
+    }
+
+    /**
+     * Load Preference any string value
+     *
+     * @paramContext - Context of class
+     * @paramKey - To get value corresponding to KEY_VALUE
+     */
+    public String loadPreferenceValue(
+            String key, String defValue) {
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        return sharedpreferences.getString(key, defValue);
+    }
+
+    /**
+     * Save Preference for future use.
+     */
+    @SuppressWarnings("static-access")
+    public void savePreferenceValue(String key,
+                                    String value) {
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
     }
 
 }

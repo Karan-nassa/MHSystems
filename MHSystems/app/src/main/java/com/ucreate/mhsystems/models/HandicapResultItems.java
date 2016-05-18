@@ -14,7 +14,7 @@ public class HandicapResultItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("DashboardData")
+    @SerializedName("LoginData")
     @Expose
     private HandicapData Data;
 
@@ -57,7 +57,7 @@ public class HandicapResultItems {
     /**
      * 
      * @return
-     *     The DashboardData
+     *     The LoginData
      */
     public HandicapData getData() {
         return Data;
@@ -66,7 +66,7 @@ public class HandicapResultItems {
     /**
      * 
      * @param Data
-     *     The DashboardData
+     *     The LoginData
      */
     public void setData(HandicapData Data) {
         this.Data = Data;

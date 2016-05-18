@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.CompetitionsActivity;
+import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.adapter.TabsAdapter.TabsPageAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 
@@ -91,8 +92,7 @@ public class MyAccountTabFragment extends Fragment {
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MY_ACCOUNT);
         viewPager.setAdapter(pageAdapter);
 
-        //viewPager.setCurrentItem(2);
-        viewPager.setCurrentItem(ApplicationGlobal.TAB_DETAIL);
+        viewPager.setCurrentItem(((MyAccountActivity)getActivity()).getIntent().getExtras().getInt("iTabPosition"));
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

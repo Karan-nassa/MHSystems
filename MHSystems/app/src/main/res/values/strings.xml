@@ -25,11 +25,19 @@
     <string name="text_alert_course_message">In order to book a tee time or create event call us or email:</string>
     <!-- END OF ALERT DIALOG OF APP  -->
 
-    <!-- START OF HOME ACTIVITY -->
+    <!-- START OF LOGIN ACTIVITY -->
+    <string name="text_title_please_login">PLEASE LOGIN</string>
+    <string name="text_email_hint">Username</string>
+    <string name="text_password">Password</string>
+    <string name="button_text_login">Login</string>
+    <string name="error_all_required">All fields are required.</string>
+    <!-- END OF LOGIN ACTIVITY -->
+
+    <!-- START OF DASHBOARD ACTIVITY -->
     <string name="title_golf_club_name">SUNNINGDALE GOLF CLUB</string>
     <string name="title_home_message">“Kindness is the language which the deaf can hear and the blind can see.”</string>
     <string name="title_home_message_author">Mark Twain</string>
-    <!-- END OF HOME ACTIVITY -->
+    <!-- END OF DASHBOARD ACTIVITY -->
 
     <!-- START OF COURSE DIARY ACTIVITY -->
     <string name="title_course_diary">COURSE DIARY</string>
@@ -78,7 +86,6 @@
     <string name="tab_title_handicap">Handicap</string>
     <string name="tab_title_finances">Finances</string>
     <!-- END OF MY ACCOUNT ACTIVITY -->
-
 
     <!-- START OF DETAIL INVOICE ACTIVITY -->
     <string name="title_text_invoice">INVOICE NUMBER</string>

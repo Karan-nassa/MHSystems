@@ -99,14 +99,31 @@ public class ApplicationGlobal {
     public static final int LOAD_MORE_VALUES = 12;
 
     /**
-     * Declares the instance of TAB DETAIL specified for
-     * View Pager Item Position
-     */
-    public static int TAB_DETAIL = 0;
-
-    /**
      * Declares the CLIENT ID key globally which will retrieve after
      * LOG-IN of particular member used to get data in all API.
      */
     public static String TAG_MEMBER_CLIENT_ID = "44118078";
+
+    /**
+     * SHARED PREFERENCE KEY COLLECTION.
+     */
+    public static final String SHARED_PREF = "MHSystemsPrefs";
+    public static final String KEY_USER_LOGINID = "UserLoginID";
+    public static final String KEY_PASSWORD = "password";
+    public static final String KEY_CLUB_ID="ClubID";
+    public static final String KEY_MEMBERID = "MemberID";
+    public static final String KEY_HCAP_TYPE_STR =  "HCapTypeStr";
+    public static final String KEY_HCAP_EXACT_STR = "HCapExactStr";
+    public static final String KEY_HCAP_PLAY_STR = "HCapPlayStr";
+
 }
+
+
+
+
+
+
+
+
+
+

@@ -1,10 +1,5 @@
 package com.ucreate.mhsystems.fragments;
 
-/**
- * Created by karan@ucreate.co.in to load and display
- * <br>NEWS
- * <br>tabs content on 12/23/2015.
- */
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -38,6 +33,14 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+/**
+ * The {@link MyDetailsFragment} used to display the detail of LOGIN
+ * MEMBER by passing MemberId.
+ *
+ * @author {@link karan@ucreate.co.in}
+ * @version 1.0
+ * @since 17 May, 2016
+ */
 public class MyDetailsFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE

@@ -16,9 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeMaterial">
 
-        <!-- HOME ACTIVITY -->
-        <activity
-            android:name=".activites.DashboardActivity"
+        <!-- SPLASH ACTIVITY -->
+        <activity android:name=".activites.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +25,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- LOGIN ACTIVITY -->
+        <activity
+            android:name=".activites.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+
+        <!-- DASHBOARD ACTIVITY -->
+        <activity
+            android:name=".activites.DashboardActivity"
+            android:screenOrientation="portrait" />
 
         <!-- COURSE DIARY ACTIVITY -->
         <activity
