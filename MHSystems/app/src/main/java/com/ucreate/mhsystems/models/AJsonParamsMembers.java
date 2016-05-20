@@ -16,7 +16,7 @@ public class AJsonParamsMembers {
     private String callid;
     @SerializedName("Memberid")
     @Expose
-    private Integer Memberid;
+    private String Memberid;
     @SerializedName("GenderFilter")
     @Expose
     private int GenderFilter;
@@ -68,14 +68,14 @@ public class AJsonParamsMembers {
     /**
      * @return The Memberid
      */
-    public Integer getMemberid() {
+    public String getMemberid() {
         return Memberid;
     }
 
     /**
      * @param Memberid The Memberid
      */
-    public void setMemberid(Integer Memberid) {
+    public void setMemberid(String Memberid) {
         this.Memberid = Memberid;
     }
 

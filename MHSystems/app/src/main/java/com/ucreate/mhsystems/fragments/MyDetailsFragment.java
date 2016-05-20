@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,7 +16,10 @@ import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
+import com.ucreate.mhsystems.activites.CompetitionsActivity;
+import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.models.AJsonParamsMembersDatail;
 import com.ucreate.mhsystems.models.MembersDetailAPI;
@@ -46,16 +50,27 @@ public class MyDetailsFragment extends Fragment {
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     public static final String LOG_TAG = MyDetailsFragment.class.getSimpleName();
+    private String strUsernameOfPerson, strPostalCodeOfPerson, strStreetOfPerson, strCityOfPerson, strEmailOfPerson,
+            strWorkContactOfPerson, strMobileContactOfPerson, strPhoneContactOfPerson, strTypeOfPerson, strNameOfPerson;
+
+    String strTitileValues[];
 
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
     private TextView tvUsernameOfPerson, tvPostalCodeOfPerson, tvStreetOfPerson, tvCityOfPerson, tvEmailOfPerson,
             tvWorkContactOfPerson, tvMobileContactOfPerson, tvPhoneContactOfPerson, tvTypeOfPerson, tvNameOfPerson;
-    private View viewRootFragment;
-    ListView lvFriends;
 
-    CompetitionsAdapter competitionsAdapter;
+    private LinearLayout llUsernameOfPerson, llPostalCodeOfPerson, llStreetOfPerson, llCityOfPerson, llEmailOfPerson,
+            llWorkContactOfPerson, llMobileContactOfPerson, llPhoneContactOfPerson, llTypeOfPerson, llNameOfPerson;
+
+    /**
+     * View Group and Title Label for hide if any of the view empty.
+     */
+    View llViewGroup[];
+    View tvTitleLabel[];
+
+    private View mRootFragment;
 
     //List of type Members list will store type Book which is our data model
     private MembersDetailAPI membersDetailAPI;
@@ -65,12 +80,18 @@ public class MyDetailsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        viewRootFragment = inflater.inflate(R.layout.fragment_my_details, container, false);
+        mRootFragment = inflater.inflate(R.layout.fragment_my_details, container, false);
 
         //Initialize the view resources.
-        initializeViewResources(viewRootFragment);
+        initializeViewResources(mRootFragment);
 
-        return viewRootFragment;
+        llViewGroup = new View[]{llUsernameOfPerson, llPostalCodeOfPerson, llStreetOfPerson, llCityOfPerson, llEmailOfPerson,
+                llWorkContactOfPerson, llMobileContactOfPerson, llPhoneContactOfPerson, llTypeOfPerson, llNameOfPerson};
+
+        tvTitleLabel = new View[]{tvUsernameOfPerson, tvPostalCodeOfPerson, tvStreetOfPerson, tvCityOfPerson, tvEmailOfPerson,
+                tvWorkContactOfPerson, tvMobileContactOfPerson, tvPhoneContactOfPerson, tvTypeOfPerson, tvNameOfPerson};
+
+        return mRootFragment;
     }
 
     /**
@@ -90,6 +111,17 @@ public class MyDetailsFragment extends Fragment {
         tvStreetOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvStreetOfPerson);
         tvPostalCodeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPostalCodeOfPerson);
         tvUsernameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvUsernameOfPerson);
+
+        llNameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llNameOfPerson);
+        llTypeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llTypeOfPerson);
+        llPhoneContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPhoneContactOfPerson);
+        llMobileContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llMobileContactOfPerson);
+        llWorkContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llWorkContactOfPerson);
+        llEmailOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llEmailOfPerson);
+        llCityOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llCityOfPerson);
+        llStreetOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llStreetOfPerson);
+        llPostalCodeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPostalCodeOfPerson);
+        llUsernameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llUsernameOfPerson);
     }
 
     @Override
@@ -119,12 +151,12 @@ public class MyDetailsFragment extends Fragment {
         ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
-        aJsonParamsMembersDatail.setCallid("1456315336575");
-        aJsonParamsMembersDatail.setVersion(1);
-        aJsonParamsMembersDatail.setMemberid(10784);
-        aJsonParamsMembersDatail.setLoginMemberId(10784);
+        aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsMembersDatail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsMembersDatail.setMemberid(((MyAccountActivity) getActivity()).getMemberId());
+        aJsonParamsMembersDatail.setLoginMemberId(((MyAccountActivity) getActivity()).getMemberId());
 
-        membersDetailAPI = new MembersDetailAPI(44118078, "GETMEMBER", aJsonParamsMembersDatail, "WEBSERVICES", "Members");
+        membersDetailAPI = new MembersDetailAPI((((MyAccountActivity) getActivity()).getClientId()), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
 
@@ -176,7 +208,6 @@ public class MyDetailsFragment extends Fragment {
                 //  membersDatas.add(membersItems.getData());
 
                 if (membersDetailItems.getData() != null) {
-
                     displayMembersData();
                 } else {
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
@@ -199,15 +230,43 @@ public class MyDetailsFragment extends Fragment {
      */
     private void displayMembersData() {
 
-        tvUsernameOfPerson.setText(membersDetailItems.getData().getUserLoginID());
-        tvNameOfPerson.setText(membersDetailItems.getData().getNameRecord().getFormalName());
-        tvMobileContactOfPerson.setText(membersDetailItems.getData().getContactDetails().getTelNoMob());
-        tvPhoneContactOfPerson.setText(membersDetailItems.getData().getContactDetails().getTelNoHome());
-        tvWorkContactOfPerson.setText(membersDetailItems.getData().getContactDetails().getTelNoWork());
-        tvEmailOfPerson.setText(membersDetailItems.getData().getContactDetails().getEMail());
-        tvTypeOfPerson.setText(membersDetailItems.getData().getMembershipStatus());
-        tvCityOfPerson.setText(membersDetailItems.getData().getContactDetails().getAddress().getCounty());
-        tvStreetOfPerson.setText(membersDetailItems.getData().getContactDetails().getAddress().getLine2());
-        tvPostalCodeOfPerson.setText(membersDetailItems.getData().getContactDetails().getAddress().getPostCode());
+        getMemberData();
+
+        /**
+         * Check value one by one and set GONE visibility if any of view
+         * have empty value.
+         */
+        for (int iCouunter = 0; iCouunter < strTitileValues.length; iCouunter++) {
+            checkHideStatus(strTitileValues[iCouunter], (TextView) tvTitleLabel[iCouunter], (LinearLayout) llViewGroup[iCouunter]);
+        }
+    }
+
+    private void checkHideStatus(String strValue, TextView tvTextLabel, LinearLayout llViewGroup) {
+        if (strValue.length() == 0) {
+            llViewGroup.setVisibility(View.GONE);
+        } else {
+            tvTextLabel.setText(strValue);
+        }
+    }
+
+    /**
+     * Implements a method to get data and store to
+     * local instance.
+     */
+    private void getMemberData() {
+        strUsernameOfPerson = membersDetailItems.getData().getUserLoginID();
+        strNameOfPerson = membersDetailItems.getData().getNameRecord().getFormalName();
+        strMobileContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoMob();
+        strPostalCodeOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getPostCode();
+        strStreetOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getLine2();
+        strCityOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getCounty();
+        strEmailOfPerson = membersDetailItems.getData().getContactDetails().getEMail();
+        strWorkContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoWork();
+        strPhoneContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoHome();
+        strTypeOfPerson = membersDetailItems.getData().getMembershipStatus();
+
+        //Store values to array.
+        strTitileValues = new String[]{strUsernameOfPerson, strPostalCodeOfPerson, strStreetOfPerson, strCityOfPerson, strEmailOfPerson,
+                strWorkContactOfPerson, strMobileContactOfPerson, strPhoneContactOfPerson, strTypeOfPerson, strNameOfPerson};
     }
 }

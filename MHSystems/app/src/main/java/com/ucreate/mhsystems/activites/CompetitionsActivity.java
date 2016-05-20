@@ -478,4 +478,18 @@ public class CompetitionsActivity extends BaseActivity {
             menuInstance.getItem(1).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_right_blur));
         }
     }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    public String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078");
+    }
 }

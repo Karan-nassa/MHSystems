@@ -22,6 +22,7 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.MemberDetailActivity;
 import com.ucreate.mhsystems.activites.MembersActivity;
+import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
@@ -90,7 +91,7 @@ public class MembersFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-           // Log.e(LOG_TAG, "Member ID " + membersDatas.get(0).getMembersList().get(position).getMemberID());
+            // Log.e(LOG_TAG, "Member ID " + membersDatas.get(0).getMembersList().get(position).getMemberID());
 
             Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
             intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, membersDatas.get(0).getMembersList().get(position).getMemberID());
@@ -132,20 +133,19 @@ public class MembersFragment extends Fragment {
 
 
     /**
-     * Implement a method to hit Members
-     * web service to get response.
+     * Implement a method to hit Members web service to get response.
      */
     public void requestMemberService() {
 
         ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParamsMembers = new AJsonParamsMembers();
-        aJsonParamsMembers.setCallid("1456315336575");
-        aJsonParamsMembers.setVersion(1);
-        aJsonParamsMembers.setMemberid(10784);
+        aJsonParamsMembers.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsMembers.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsMembers.setMemberid(((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
         aJsonParamsMembers.setGenderFilter(MembersTabFragment.iMemberType);
 
-        membersAPI = new MembersAPI(44118078, "GetAllMembers", aJsonParamsMembers, "WEBSERVICES", "Members");
+        membersAPI = new MembersAPI(getClientId(), "GetAllMembers", aJsonParamsMembers, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -176,6 +176,13 @@ public class MembersFragment extends Fragment {
     }
 
     /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return ((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078");
+    }
+
+    /**
      * Implements a method to update SUCCESS
      * response of web service.
      */
@@ -195,13 +202,11 @@ public class MembersFragment extends Fragment {
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
             if (membersItems.getMessage().equalsIgnoreCase("Success")) {
-
                 membersDatas.add(membersItems.getData());
 
                 if (membersDatas.size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-
                     setMembersListAdapter(membersDatas.get(0).getMembersList());
                 }
             } else {
@@ -213,19 +218,16 @@ public class MembersFragment extends Fragment {
             e.printStackTrace();
         }
 
+        /**
+         * Hide alert dialog after 1500Ms.
+         */
         new Handler().postDelayed(new Runnable() {
-
-            /*
-             * Showing splash screen with a timer. This will be useful when you
-             * want to show case your app logo / company
-             */
-
             @Override
             public void run() {
-//                Dismiss progress dialog.
+                //Dismiss progress dialog.
                 ((BaseActivity) getActivity()).hideProgress();
             }
-        }, 500);
+        }, 1500);
 
     }
 
@@ -396,7 +398,7 @@ public class MembersFragment extends Fragment {
                 public void onClick(View v) {
 
                     Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
-                   // intent.putExtra("A_COMMAND", "GETMEMBER");
+                    // intent.putExtra("A_COMMAND", "GETMEMBER");
                     intent.putExtra("PASS_FROM", 1); // 1 means from Member Fragment and 2 for Friends Fragment.
                     intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
                     startActivity(intent);

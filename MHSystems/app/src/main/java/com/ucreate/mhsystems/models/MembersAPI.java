@@ -10,7 +10,7 @@ public class MembersAPI {
 
     @SerializedName("aClientId")
     @Expose
-    private Integer aClientId;
+    private String aClientId;
     @SerializedName("aCommand")
     @Expose
     private String aCommand;
@@ -33,7 +33,7 @@ public class MembersAPI {
      * @param aModuleId
      * @param aUserClass
      */
-    public MembersAPI(int aClientId, String aCommand, AJsonParamsMembers aJsonParams, String aModuleId, String aUserClass) {
+    public MembersAPI(String aClientId, String aCommand, AJsonParamsMembers aJsonParams, String aModuleId, String aUserClass) {
         this.aClientId = aClientId;
         this.aCommand = aCommand;
         this.aJsonParams = aJsonParams;
@@ -44,14 +44,14 @@ public class MembersAPI {
     /**
      * @return The aClientId
      */
-    public Integer getAClientId() {
+    public String getAClientId() {
         return aClientId;
     }
 
     /**
      * @param aClientId The aClientId
      */
-    public void setAClientId(Integer aClientId) {
+    public void setAClientId(String aClientId) {
         this.aClientId = aClientId;
     }
 

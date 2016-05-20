@@ -99,10 +99,13 @@ public class ApplicationGlobal {
     public static final int LOAD_MORE_VALUES = 12;
 
     /**
-     * Declares the CLIENT ID key globally which will retrieve after
-     * LOG-IN of particular member used to get data in all API.
+     * Declare some of the CONSTANT fields which
+     * will be used during call web service.
      */
-    public static String TAG_MEMBER_CLIENT_ID = "44118078";
+    public static String TAG_GCLUB_WEBSERVICES = "WEBSERVICES";
+    public static String TAG_GCLUB_MEMBERS = "Members";
+    public static int TAG_GCLUB_VERSION = 1;
+    public static String TAG_GCLUB_CALL_ID = "1456315336575";
 
     /**
      * SHARED PREFERENCE KEY COLLECTION.
@@ -110,9 +113,9 @@ public class ApplicationGlobal {
     public static final String SHARED_PREF = "MHSystemsPrefs";
     public static final String KEY_USER_LOGINID = "UserLoginID";
     public static final String KEY_PASSWORD = "password";
-    public static final String KEY_CLUB_ID="ClubID";
+    public static final String KEY_CLUB_ID = "ClubID";
     public static final String KEY_MEMBERID = "MemberID";
-    public static final String KEY_HCAP_TYPE_STR =  "HCapTypeStr";
+    public static final String KEY_HCAP_TYPE_STR = "HCapTypeStr";
     public static final String KEY_HCAP_EXACT_STR = "HCapExactStr";
     public static final String KEY_HCAP_PLAY_STR = "HCapPlayStr";
 

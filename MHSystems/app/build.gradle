@@ -84,4 +84,7 @@ dependencies {
 
     //Use to display Collapse tool bar text in multi-line.
     compile 'net.opacapp:multiline-collapsingtoolbar:1.0.0'
+
+    //3rd party Progress Wheel to display loading with animation.
+    compile 'com.pnikosis:materialish-progress:1.7'
 }

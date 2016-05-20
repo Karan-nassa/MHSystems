@@ -16,7 +16,7 @@ public class AJsonParamsAddMember {
     private String callid;
     @SerializedName("memberid")
     @Expose
-    private Integer memberid;
+    private String memberid;
     @SerializedName("friendid")
     @Expose
     private Integer friendid;
@@ -62,7 +62,7 @@ public class AJsonParamsAddMember {
      * @return
      *     The memberid
      */
-    public Integer getMemberid() {
+    public String getMemberid() {
         return memberid;
     }
 
@@ -71,7 +71,7 @@ public class AJsonParamsAddMember {
      * @param memberid
      *     The memberid
      */
-    public void setMemberid(Integer memberid) {
+    public void setMemberid(String memberid) {
         this.memberid = memberid;
     }
 

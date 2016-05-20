@@ -16,7 +16,7 @@ public class CompetitionsJsonParams {
     private String callid;
     @SerializedName("MemberId")
     @Expose
-    private Integer MemberId;
+    private String MemberId;
     @SerializedName("IncludeFutureEvents")
     @Expose
     private boolean IncludeFutureEvents;
@@ -192,7 +192,7 @@ public class CompetitionsJsonParams {
      * @return
      *     The MemberId
      */
-    public Integer getMemberId() {
+    public String getMemberId() {
         return MemberId;
     }
 
@@ -201,7 +201,7 @@ public class CompetitionsJsonParams {
      * @param MemberId
      *     The MemberId
      */
-    public void setMemberId(Integer MemberId) {
+    public void setMemberId(String MemberId) {
         this.MemberId = MemberId;
     }
 

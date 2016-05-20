@@ -17,11 +17,11 @@
 
         <!-- FOR SETTINGS ICON ON LEFT SIDE VIEW GROUP -->
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <!-- SETTINGS ICON -->
 
@@ -31,7 +31,23 @@
                 android:layout_margin="10dp"
                 android:src="@mipmap/ic_tablet_settings" />
 
-        </LinearLayout>
+            <!-- LOGOUT BUTTON -->
+
+            <LinearLayout
+                android:id="@+id/llLogoutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:src="@android:drawable/ic_menu_directions" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <!-- VIEW GROUP FOR GOLF CLUB NAME AND TREE ICON -->
 
@@ -52,9 +68,9 @@
             <com.ucreate.mhsystems.customfonts.BaskervilleTextFont
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:alpha="0.5"
                 android:text="@string/title_golf_club_name"
                 android:textColor="@color/colorC0995B"
-                android:alpha="0.5"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -127,8 +143,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:cacheColorHint="@color/colorGreyf1f1f0"
+                android:gravity="center"
                 android:numColumns="3" />
 
         </LinearLayout>

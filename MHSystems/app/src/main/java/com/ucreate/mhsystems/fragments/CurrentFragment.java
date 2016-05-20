@@ -24,6 +24,7 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.models.CompetitionsAPI;
@@ -122,9 +123,9 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
         }
 
         competitionsJsonParams = new CompetitionsJsonParams();
-        competitionsJsonParams.setCallid("1456315336575");
-        competitionsJsonParams.setVersion(1);
-        competitionsJsonParams.setMemberId(10784);
+        competitionsJsonParams.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        competitionsJsonParams.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        competitionsJsonParams.setMemberId(((CompetitionsActivity) getActivity()).getMemberId());
         competitionsJsonParams.setIncludeCurrentEvents(true);
         competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY
         competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY
@@ -132,10 +133,7 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
         competitionsJsonParams.setPageSize("10");
         competitionsJsonParams.setAscendingDateOrder(true);
 
-        competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
-
-//        Log.e(LOG_TAG, "requestCompetitionsEvents()" +  "START DATE : " + CompetitionsTabFragment.strDateFrom);
-//        Log.e(LOG_TAG, "requestCompetitionsEvents()" + "END DATE : " + CompetitionsTabFragment.strDateTo);
+        competitionsAPI = new CompetitionsAPI(((CompetitionsActivity) getActivity()).getClientId(), "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()

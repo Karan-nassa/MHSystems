@@ -26,11 +26,12 @@ import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.activites.CustomAlertDialogActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
+import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
-import com.ucreate.mhsystems.models.AJsonParams_;
+import com.ucreate.mhsystems.models.AJsonParamsCourse;
 import com.ucreate.mhsystems.models.CourseDiaryAPI;
 import com.ucreate.mhsystems.models.CourseDiaryData;
 import com.ucreate.mhsystems.models.CourseDiaryDataCopy;
@@ -72,13 +73,13 @@ public class NewCourseFragment extends Fragment {
 
     CourseDiaryAdapter courseDiaryAdapter;
 
+    //List of type books this list will store type Book which is our data model
+    private CourseDiaryAPI courseDiaryAPI;
+
     //Create instance of Model class CourseDiaryItems.
     CourseDiaryItems courseDiaryItems;
     CourseDiaryItemsCopy courseDiaryItemsCopy;
-    AJsonParams_ aJsonParams;
-
-    //List of type books this list will store type Book which is our data model
-    private CourseDiaryAPI courseDiaryAPI;
+    AJsonParamsCourse aJsonParams;
 
     int iScrollCount;
 
@@ -344,16 +345,16 @@ public class NewCourseFragment extends Fragment {
      */
     public void requestCourseService() {
 
-        aJsonParams = new AJsonParams_();
-        aJsonParams.setCallid("1456315336575");
-        aJsonParams.setVersion("1");
+        aJsonParams = new AJsonParamsCourse();
+        aJsonParams.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParams.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParams.setDateto(CourseDairyTabFragment.strDateTo); // MM-DD-YYYY
         aJsonParams.setDatefrom(CourseDairyTabFragment.strDateFrom); // MM-DD-YYYY
         aJsonParams.setPageNo("0");
         aJsonParams.setPageSize("10");
         aJsonParams.setCourseKey("1.3");
 
-        courseDiaryAPI = new CourseDiaryAPI(aJsonParams, "COURSEDIARY", "44118078", "GetSlots", "Members");
+        courseDiaryAPI = new CourseDiaryAPI(aJsonParams, "COURSEDIARY", ((CourseDiaryActivity)getActivity()).getClientId(), "GetSlots", ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -383,6 +384,13 @@ public class NewCourseFragment extends Fragment {
 
     }
 
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    private String getMemberId() {
+        return ((CourseDiaryActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
+
     private void updateSuccessResponse(JsonObject jsonObject) {
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
@@ -394,8 +402,6 @@ public class NewCourseFragment extends Fragment {
         }.getType();
         courseDiaryItemsCopy = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type2);
 
-//        arrayListCourseData.clear();
-//        arrayCourseDataBackup.clear();
         try {
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.

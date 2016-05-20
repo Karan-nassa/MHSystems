@@ -13,12 +13,18 @@ public class Line {
     @SerializedName("Description")
     @Expose
     private String Description;
-    @SerializedName("BilledFrom")
+//    @SerializedName("BilledFrom")
+//    @Expose
+//    private String BilledFrom;
+    @SerializedName("strBilledFrom")
     @Expose
-    private String BilledFrom;
-    @SerializedName("BilledTo")
+    private String strBilledFrom;
+//    @SerializedName("BilledTo")
+//    @Expose
+//    private String BilledTo;
+    @SerializedName("strBilledTo")
     @Expose
-    private String BilledTo;
+    private String strBilledTo;
     @SerializedName("Tax")
     @Expose
     private Integer Tax;
@@ -28,6 +34,41 @@ public class Line {
     @SerializedName("BillingPeriodStr")
     @Expose
     private String BillingPeriodStr;
+
+    /**
+     *
+     * @param strBilledFrom
+     *     The strBilledFrom
+     */
+    public void setStrBilledFrom(String strBilledFrom) {
+        this.strBilledFrom = strBilledFrom;
+    }
+    /**
+     *
+     * @return
+     *     The strBilledTo
+     */
+    public String getStrBilledTo() {
+        return strBilledTo;
+    }
+
+    /**
+     *
+     * @param strBilledTo
+     *     The strBilledTo
+     */
+    public void setStrBilledTo(String strBilledTo) {
+        this.strBilledTo = strBilledTo;
+    }
+
+    /**
+     *
+     * @return
+     *     The strBilledFrom
+     */
+    public String getStrBilledFrom() {
+        return strBilledFrom;
+    }
 
     /**
      * 
@@ -70,36 +111,36 @@ public class Line {
      * @return
      *     The BilledFrom
      */
-    public String getBilledFrom() {
-        return BilledFrom;
-    }
+//    public String getBilledFrom() {
+//        return BilledFrom;
+//    }
 
     /**
      * 
      * @param BilledFrom
      *     The BilledFrom
      */
-    public void setBilledFrom(String BilledFrom) {
-        this.BilledFrom = BilledFrom;
-    }
+//    public void setBilledFrom(String BilledFrom) {
+//        this.BilledFrom = BilledFrom;
+//    }
 
     /**
      * 
      * @return
      *     The BilledTo
      */
-    public String getBilledTo() {
-        return BilledTo;
-    }
+//    public String getBilledTo() {
+//        return BilledTo;
+//    }
 
     /**
      * 
      * @param BilledTo
      *     The BilledTo
      */
-    public void setBilledTo(String BilledTo) {
-        this.BilledTo = BilledTo;
-    }
+//    public void setBilledTo(String BilledTo) {
+//        this.BilledTo = BilledTo;
+//    }
 
     /**
      * 

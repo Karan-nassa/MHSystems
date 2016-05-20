@@ -58,9 +58,9 @@ public class MembersDetailsData {
     @SerializedName("HCapClub")
     @Expose
     private String HCapClub;
-    @SerializedName("LastJoiningDate")
+    @SerializedName("strLastJoiningDate")
     @Expose
-    private String LastJoiningDate;
+    private String strLastJoiningDate;
     @SerializedName("HCapList")
     @Expose
     private List<Object> HCapList = new ArrayList<Object>();
@@ -89,19 +89,19 @@ public class MembersDetailsData {
     /**
      *
      * @return
-     *     The LastJoiningDate
+     *     The strLastJoiningDate
      */
-    public String getLastJoiningDate() {
-        return LastJoiningDate;
+    public String getStrLastJoiningDate() {
+        return strLastJoiningDate;
     }
 
     /**
      *
-     * @param lastJoiningDate
-     *     The LastJoiningDate
+     * @param strLastJoiningDate
+     *     The strLastJoiningDate
      */
-    public void setLastJoiningDate(String lastJoiningDate) {
-        LastJoiningDate = lastJoiningDate;
+    public void setStrLastJoiningDate(String strLastJoiningDate) {
+        strLastJoiningDate = strLastJoiningDate;
     }
 
     /**

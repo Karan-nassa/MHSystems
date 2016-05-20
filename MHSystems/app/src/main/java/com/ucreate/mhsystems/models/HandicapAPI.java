@@ -10,7 +10,7 @@ public class HandicapAPI {
 
     @SerializedName("aClientId")
     @Expose
-    private Integer aClientId;
+    private String aClientId;
     @SerializedName("aCommand")
     @Expose
     private String aCommand;
@@ -39,7 +39,7 @@ public class HandicapAPI {
      * @param aClientId
      * @param aCommand
      */
-    public HandicapAPI(Integer aClientId, String aCommand, AJsonParamsHandicap aJsonParams, String aModuleId, String aUserClass) {
+    public HandicapAPI(String aClientId, String aCommand, AJsonParamsHandicap aJsonParams, String aModuleId, String aUserClass) {
         this.aClientId = aClientId;
         this.aCommand = aCommand;
         this.aJsonParams = aJsonParams;
@@ -52,7 +52,7 @@ public class HandicapAPI {
      * @return
      *     The aClientId
      */
-    public Integer getAClientId() {
+    public String getAClientId() {
         return aClientId;
     }
 
@@ -61,7 +61,7 @@ public class HandicapAPI {
      * @param aClientId
      *     The aClientId
      */
-    public void setAClientId(Integer aClientId) {
+    public void setAClientId(String aClientId) {
         this.aClientId = aClientId;
     }
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.MyAccountTabFragment;
 
 import butterknife.Bind;
@@ -79,5 +80,19 @@ public class MyAccountActivity extends BaseActivity {
         setSupportActionBar(tbMyAccount);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
+    }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    public String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078");
     }
 }

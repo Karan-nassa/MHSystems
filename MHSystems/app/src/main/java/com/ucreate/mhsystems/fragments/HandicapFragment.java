@@ -45,6 +45,7 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.activites.ShowCertificateWebview;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.util.MyMarkerView;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
@@ -96,7 +97,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     ImageView ivNextYearGraph, ivPreviousYearGraph;
     TextView tvDateOfPlayedStr, tvTitleOfPlayStr, tvTypeOfPlayStr;
     TextView tvSelectGraphYear;
-    LinearLayout llPreviousYearGraph, llNextYearGraph;
+    LinearLayout llPreviousYearGraph, llNextYearGraph, llMonthNavigationGroup;
 
     //List of type books this list will store type Book which is our data model
     private HandicapAPI handicapAPI;
@@ -135,22 +136,6 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
             setNavigationIcons();
         }
     };
-
-    /**
-     * Implements a method to update navigation icons
-     * for GRAPH.
-     */
-    private void setNavigationIcons() {
-
-        if (mYearIndex == 0) {
-            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left_blur);
-        } else if (mYearIndex == (arrNameOfYear.size() - 1)) {
-            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right_blur);
-        } else {
-            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right);
-            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -192,6 +177,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
         llPreviousYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llPreviousYearGraph);
         llNextYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llNextYearGraph);
+        llMonthNavigationGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llMonthNavigationGroup);
 
         ivPreviousYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivPreviousYearGraph);
         ivNextYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivNextYearGraph);
@@ -267,6 +253,22 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         mChart.setOnChartValueSelectedListener(this);
     }
 
+    /**
+     * Implements a method to update navigation icons
+     * for GRAPH.
+     */
+    private void setNavigationIcons() {
+
+        if (mYearIndex == 0) {
+            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left_blur);
+        } else if (mYearIndex == (arrNameOfYear.size() - 1)) {
+            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right_blur);
+        } else {
+            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right);
+            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left);
+        }
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -301,11 +303,11 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParamsHandicap = new AJsonParamsHandicap();
-        aJsonParamsHandicap.setCallid("1456315336575");
-        aJsonParamsHandicap.setVersion(1);
-        aJsonParamsHandicap.setMemberid(10784);
+        aJsonParamsHandicap.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsHandicap.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsHandicap.setMemberid(((MyAccountActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
 
-        handicapAPI = new HandicapAPI(44118078, "GETMEMBERHCAP", aJsonParamsHandicap, "WEBSERVICES", "Members");
+        handicapAPI = new HandicapAPI(getClientId(), "GETMEMBERHCAP", aJsonParamsHandicap, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -336,6 +338,13 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     }
 
     /**
+     * Implements a method to get CLIENT ID from {@link android.content.SharedPreferences}
+     */
+    private String getClientId() {
+        return ((MyAccountActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078");
+    }
+
+    /**
      * Implements a method to update SUCCESS
      * response of web service.
      */
@@ -358,8 +367,9 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
                 alHandicapData.add(handicapResultItems.getData());
 
-                if (alHandicapData.size() == 0) {
+                if (alHandicapData.get(0).getHCapRecords().size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    llMonthNavigationGroup.setVisibility(View.GONE);
                 } else {
 
                     tvHandicapExact.setText(alHandicapData.get(0).getHCapExactStr());
@@ -402,9 +412,6 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                         jsonObjectArrayList.add(hCapRecordsList);
                     }
 
-                    /**
-                     *
-                     */
                     Collections.reverse(jsonObjectArrayList);
                     Collections.reverse(arrNameOfYear);
 

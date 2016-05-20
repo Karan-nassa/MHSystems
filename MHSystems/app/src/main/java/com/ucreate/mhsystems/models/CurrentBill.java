@@ -9,9 +9,13 @@ import java.util.List;
 
 public class CurrentBill {
 
-    @SerializedName("InvoiceDate")
+//    @SerializedName("InvoiceDate")
+//    @Expose
+//    private String InvoiceDate;
+
+    @SerializedName("strInvoiceDate")
     @Expose
-    private String InvoiceDate;
+    private String strInvoiceDate;
 
     @SerializedName("InvoiceNo")
     @Expose
@@ -106,19 +110,19 @@ public class CurrentBill {
     /**
      * 
      * @return
-     *     The InvoiceDate
+     *     The strInvoiceDate
      */
-    public String getInvoiceDate() {
-        return InvoiceDate;
+    public String getStrInvoiceDate() {
+        return strInvoiceDate;
     }
 
     /**
      * 
-     * @param InvoiceDate
-     *     The InvoiceDate
+     * @param strInvoiceDate
+     *     The strInvoiceDate
      */
-    public void setInvoiceDate(String InvoiceDate) {
-        this.InvoiceDate = InvoiceDate;
+    public void setStrInvoiceDate(String strInvoiceDate) {
+        this.strInvoiceDate = strInvoiceDate;
     }
 
 }

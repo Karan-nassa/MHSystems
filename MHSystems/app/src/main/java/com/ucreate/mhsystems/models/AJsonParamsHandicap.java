@@ -16,7 +16,7 @@ public class AJsonParamsHandicap {
     private String callid;
     @SerializedName("memberid")
     @Expose
-    private Integer memberid;
+    private String memberid;
 
     /**
      * 
@@ -59,7 +59,7 @@ public class AJsonParamsHandicap {
      * @return
      *     The memberid
      */
-    public Integer getMemberid() {
+    public String getMemberid() {
         return memberid;
     }
 
@@ -68,7 +68,7 @@ public class AJsonParamsHandicap {
      * @param memberid
      *     The memberid
      */
-    public void setMemberid(Integer memberid) {
+    public void setMemberid(String memberid) {
         this.memberid = memberid;
     }
 

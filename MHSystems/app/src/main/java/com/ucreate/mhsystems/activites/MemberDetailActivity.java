@@ -263,12 +263,12 @@ public class MemberDetailActivity extends BaseActivity {
         showPleaseWait("Loading...");
 
         aJsonParamsAddMember = new AJsonParamsAddMember();
-        aJsonParamsAddMember.setCallid("1456315336575");
-        aJsonParamsAddMember.setVersion(1);
-        aJsonParamsAddMember.setMemberid(10784);
+        aJsonParamsAddMember.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsAddMember.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsAddMember.setMemberid(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
         aJsonParamsAddMember.setFriendid(iMemberID);
 
-        addMemberAPI = new AddMemberAPI("44118078", getCommandA(), aJsonParamsAddMember, "WEBSERVICES", "Members");
+        addMemberAPI = new AddMemberAPI(getClientId(), getCommandA(), aJsonParamsAddMember, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -301,6 +301,13 @@ public class MemberDetailActivity extends BaseActivity {
     }
 
     /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078");
+    }
+
+    /**
      * Implements a method to PASS 'aCommand' key to ADD and REMOVE
      * friend according choice of user.
      * <p>
@@ -324,14 +331,12 @@ public class MemberDetailActivity extends BaseActivity {
         showPleaseWait("Loading...");
 
         aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
-        aJsonParamsMembersDatail.setCallid("1456315336575");
-        aJsonParamsMembersDatail.setVersion(1);
-        aJsonParamsMembersDatail.setMemberid(iMemberID);
-        aJsonParamsMembersDatail.setLoginMemberId(10784);
+        aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsMembersDatail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsMembersDatail.setMemberid(""+iMemberID);
+        aJsonParamsMembersDatail.setLoginMemberId(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
 
-        membersDetailAPI = new MembersDetailAPI(44118078, "GETMEMBER", aJsonParamsMembersDatail, "WEBSERVICES", "Members");
-
-        Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
+        membersDetailAPI = new MembersDetailAPI(getClientId(), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -551,8 +556,8 @@ public class MemberDetailActivity extends BaseActivity {
         }
 
         tvHandicapTypeStr.setText(membersDetailItems.getData().getHCapTypeStr());
-        tvMemberNameDD.setText(membersDetailItems.getData().getNameRecord().getFormalName());
-        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getLastJoiningDate()));
+        tvMemberNameDD.setText(membersDetailItems.getData().getNameRecord().getDisplayName());
+        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
 
         /**
          *  Implements check for EMPTY email.

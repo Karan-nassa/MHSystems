@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.pnikosis.materialishprogress.ProgressWheel;
 import com.rollbar.android.Rollbar;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
@@ -42,6 +44,7 @@ public class BaseActivity extends AppCompatActivity {
 
     Snackbar snackbar;
     private ProgressDialog mProgress;
+    Dialog pDialog;
 
     static SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
@@ -88,21 +91,33 @@ public class BaseActivity extends AppCompatActivity {
      */
     public void showPleaseWait(String sMessage) {
 
-        if (mProgress == null) {
-            mProgress = new ProgressDialog(BaseActivity.this);
-            mProgress.setCancelable(false);
-            mProgress.setMessage(sMessage);
-            mProgress.show();
+        try {
+            if (pDialog == null) {
+                pDialog = new Dialog(BaseActivity.this);
+                pDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                pDialog.setContentView(R.layout.custom_progress_wheel);
+                pDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                ProgressWheel wheel = new ProgressWheel(BaseActivity.this);
+                wheel.setBarColor(Color.RED);
+                pDialog.setCancelable(false);
+
+                if (!pDialog.isShowing()) {
+                    pDialog.show();
+                }
+            }
+        } catch (Exception e) {
+            Log.e("Exception", "Progress error : " + e);
         }
     }
 
-    /**
-     * hide Progress dialog.
-     */
     public void hideProgress() {
-        if (mProgress != null && mProgress.isShowing()) {
-            mProgress.dismiss();
-            mProgress = null;
+        if (pDialog != null && pDialog.isShowing()) {
+            try {
+                pDialog.dismiss();
+                pDialog = null;
+            } catch (Exception e) {
+                Log.e("hide", "" + e);
+            }
         }
     }
 
@@ -181,6 +196,17 @@ public class BaseActivity extends AppCompatActivity {
                 ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(key, value);
+        editor.commit();
+    }
+
+    /**
+     * Reset shared-preference state.
+     */
+    public void clearAutoPreference() {
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear();
         editor.commit();
     }
 

@@ -95,8 +95,8 @@ public class FinanceSectionAdapter extends BaseAdapter {
                 switch (position){
                     case 0:
                         Log.e("pos ", ":"+position);
-                        Log.e("DATA ", ":"+mData.get(0).getCurrentBills().get(position).getInvoiceDate());
-                        holder.textView.setText(""+mData.get(0).getCurrentBills().get(position).getInvoiceDate());
+                        Log.e("DATA ", ":"+mData.get(0).getCurrentBills().get(position).getStrInvoiceDate());
+                        holder.textView.setText(""+mData.get(0).getCurrentBills().get(position).getStrInvoiceDate());
                         break;
 
                     case 1:

@@ -16,7 +16,7 @@ public class MyAccountJsonParams {
     private String callid;
     @SerializedName("MemberId")
     @Expose
-    private Integer MemberId;
+    private String MemberId;
 
 
     /**
@@ -58,7 +58,7 @@ public class MyAccountJsonParams {
      * @return
      *     The MemberId
      */
-    public Integer getMemberId() {
+    public String getMemberId() {
         return MemberId;
     }
 
@@ -67,7 +67,7 @@ public class MyAccountJsonParams {
      * @param MemberId
      *     The MemberId
      */
-    public void setMemberId(Integer MemberId) {
+    public void setMemberId(String MemberId) {
         this.MemberId = MemberId;
     }
 

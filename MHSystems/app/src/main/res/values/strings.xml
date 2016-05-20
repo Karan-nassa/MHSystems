@@ -6,7 +6,7 @@
     <!-- START OF SNACK BAR MESSAGES -->
     <string name="error_no_internet">Please check your internet connection</string>
     <string name="error_no_data">No data found.</string>
-    <string name="error_please_retry">Something went wrong. please try again later.</string>
+    <string name="error_please_retry">Bad internet connection. please try again later.</string>
     <string name="message_no_date_selected">No date selected.</string>
     <string name="error_wrong_date_selection">You can only view data of current date and future dates.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->

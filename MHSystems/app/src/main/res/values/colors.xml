@@ -41,6 +41,10 @@
     <color name="colorDDD8D3">#DDD8D3</color>
     <color name="colorDBD6D0">#DBD6D0</color>
 
+    <!-- PROGRESS WHEL COLOR -->
+
+    <color name="color5588FF">#5588FF</color>
+
     <!-- START OF COLORS THAT ARE USING AT HOME MENU GRID VIEW -->
 
     <color name="colorF6B98C">#F6B98C</color>

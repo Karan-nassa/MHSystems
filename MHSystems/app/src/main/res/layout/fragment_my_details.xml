@@ -20,7 +20,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:orientation="vertical">
 
                 <!-- TITLE PERSONAL DETAIL -->
@@ -29,29 +28,45 @@
                     style="@style/MyDetailHeading"
                     android:text="@string/title_text_personal_details" />
 
-                <!-- NAME OF PERSON -->
+                <LinearLayout
+                    android:id="@+id/llNameOfPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvNameOfPerson"
-                    style="@style/MyDetailValues" />
+                    <!-- NAME OF PERSON -->
 
-                <!-- TITLE NAME -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvNameOfPerson"
+                        style="@style/MyDetailValues" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailSubHeading"
-                    android:text="@string/title_text_name" />
+                    <!-- TITLE NAME -->
 
-                <!-- TYPE OF MEMBER -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailSubHeading"
+                        android:text="@string/title_text_name" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvTypeOfPerson"
-                    style="@style/MyDetailValues" />
+                </LinearLayout>
 
-                <!-- TITLE MEMBER TYPE -->
+                <LinearLayout
+                    android:id="@+id/llTypeOfPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailSubHeading"
-                    android:text="@string/title_text_membership_type" />
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvTypeOfPerson"
+                        style="@style/MyDetailValues" />
+
+                    <!-- TITLE MEMBER TYPE -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailSubHeading"
+                        android:text="@string/title_text_membership_type" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -63,59 +78,91 @@
                 android:layout_marginTop="25dp"
                 android:orientation="vertical">
 
+
                 <!-- TITLE CONTACT DETAILS -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                     style="@style/MyDetailHeading"
                     android:text="@string/title_text_contact_details" />
 
-                <!-- PHONE CONTACT OF MEMBER -->
+                <LinearLayout
+                    android:id="@+id/llPhoneContactOfPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvPhoneContactOfPerson"
-                    style="@style/MyDetailValues" />
+                    <!-- PHONE CONTACT OF MEMBER -->
 
-                <!-- TITLE PHONE CONTACT -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvPhoneContactOfPerson"
+                        style="@style/MyDetailValues" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailSubHeading"
-                    android:text="@string/title_text_phone_number" />
+                    <!-- TITLE PHONE CONTACT -->
 
-                <!-- MOBILE CONTACT OF MEMBER -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailSubHeading"
+                        android:text="@string/title_text_phone_number" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvMobileContactOfPerson"
-                    style="@style/MyDetailValues" />
+                </LinearLayout>
 
-                <!-- TITLE MEMBER MOBILE CONTACT -->
+                <LinearLayout
+                    android:id="@+id/llMobileContactOfPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailSubHeading"
-                    android:text="@string/title_text_mobile" />
+                    <!-- MOBILE CONTACT OF MEMBER -->
 
-                <!-- WORK CONTACT OF MEMBER -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvMobileContactOfPerson"
+                        style="@style/MyDetailValues" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvWorkContactOfPerson"
-                    style="@style/MyDetailValues" />
+                    <!-- TITLE MEMBER MOBILE CONTACT -->
 
-                <!-- TITLE MEMBER WORK CONTACT -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailSubHeading"
+                        android:text="@string/title_text_mobile" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailSubHeading"
-                    android:text="@string/title_text_work" />
+                </LinearLayout>
 
-                <!-- EMAIL OF MEMBER -->
+                <LinearLayout
+                    android:id="@+id/llWorkContactOfPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvEmailOfPerson"
-                    style="@style/MyDetailValues" />
+                    <!-- WORK CONTACT OF MEMBER -->
 
-                <!-- TITLE EMAIL -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvWorkContactOfPerson"
+                        style="@style/MyDetailValues" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailSubHeading"
-                    android:text="@string/title_text_email" />
+                    <!-- TITLE MEMBER WORK CONTACT -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailSubHeading"
+                        android:text="@string/title_text_work" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llEmailOfPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- EMAIL OF MEMBER -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvEmailOfPerson"
+                        style="@style/MyDetailValues" />
+
+                    <!-- TITLE EMAIL -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailSubHeading"
+                        android:text="@string/title_text_email" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -133,41 +180,65 @@
                     style="@style/MyDetailHeading"
                     android:text="@string/title_text_address" />
 
-                <!-- CITY OF MEMBER -->
+                <LinearLayout
+                    android:id="@+id/llCityOfPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvCityOfPerson"
-                    style="@style/MyDetailValues" />
+                    <!-- CITY OF MEMBER -->
 
-                <!-- TITLE CITY -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvCityOfPerson"
+                        style="@style/MyDetailValues" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailSubHeading"
-                    android:text="@string/title_text_city" />
+                    <!-- TITLE CITY -->
 
-                <!-- STREET OF MEMBER -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailSubHeading"
+                        android:text="@string/title_text_city" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvStreetOfPerson"
-                    style="@style/MyDetailValues" />
+                </LinearLayout>
 
-                <!-- TITLE STREET -->
+                <LinearLayout
+                    android:id="@+id/llStreetOfPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailSubHeading"
-                    android:text="@string/title_text_street" />
+                    <!-- STREET OF MEMBER -->
 
-                <!-- POSTAL CODE OF MEMBER -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvStreetOfPerson"
+                        style="@style/MyDetailValues" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvPostalCodeOfPerson"
-                    style="@style/MyDetailValues" />
+                    <!-- TITLE STREET -->
 
-                <!-- TITLE POSTAL CODE -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailSubHeading"
+                        android:text="@string/title_text_street" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailSubHeading"
-                    android:text="@string/title_text_postal_code" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPostalCodeOfPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- POSTAL CODE OF MEMBER -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvPostalCodeOfPerson"
+                        style="@style/MyDetailValues" />
+
+                    <!-- TITLE POSTAL CODE -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailSubHeading"
+                        android:text="@string/title_text_postal_code" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -185,17 +256,25 @@
                     style="@style/MyDetailHeading"
                     android:text="@string/title_text_uname_password" />
 
-                <!-- USERNAME OF MEMBER -->
+                <LinearLayout
+                    android:id="@+id/llUsernameOfPerson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvUsernameOfPerson"
-                    style="@style/MyDetailValues" />
+                    <!-- USERNAME OF MEMBER -->
 
-                <!-- TITLE USERNAME -->
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvUsernameOfPerson"
+                        style="@style/MyDetailValues" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    style="@style/MyDetailSubHeading"
-                    android:text="@string/title_text_username" />
+                    <!-- TITLE USERNAME -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailSubHeading"
+                        android:text="@string/title_text_username" />
+
+                </LinearLayout>
 
                 <!--&lt;!&ndash; PASSWORD OF MEMBER &ndash;&gt;
 

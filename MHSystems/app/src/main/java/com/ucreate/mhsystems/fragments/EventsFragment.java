@@ -1,10 +1,5 @@
 package com.ucreate.mhsystems.fragments;
 
-/**
- * Created by karan@ucreate.co.in to load and display
- * <br>NEWS
- * <br>tabs content on 12/23/2015.
- */
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -23,7 +18,9 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.CompetitionsActivity;
+import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.models.CompetitionsAPI;
@@ -38,6 +35,12 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+/**
+ * Created by karan@ucreate.co.in to load and display
+ * EVENTS of {@link CompetitionsTabFragment}
+ *
+ * @since on 2 JANUARY, 2016
+ */
 public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -58,12 +61,12 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     CompetitionsAdapter competitionsAdapter;
 
+    //List of type books this list will store type Book which is our data model
+    private CompetitionsAPI competitionsAPI;
+
     //Create instance of Model class CourseDiaryItems.
     CompetitionsResultItems competitionsResultItems;
     CompetitionsJsonParams competitionsJsonParams;
-
-    //List of type books this list will store type Book which is our data model
-    private CompetitionsAPI competitionsAPI;
 
 
     @Override
@@ -130,9 +133,9 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         }
 
         competitionsJsonParams = new CompetitionsJsonParams();
-        competitionsJsonParams.setCallid("1456315336575");
-        competitionsJsonParams.setVersion(1);
-        competitionsJsonParams.setMemberId(10784);
+        competitionsJsonParams.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        competitionsJsonParams.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        competitionsJsonParams.setMemberId(((CompetitionsActivity) getActivity()).getMemberId());
         competitionsJsonParams.setMyEventsOnly(true);
         competitionsJsonParams.setIncludeCompletedEvents(true);
         competitionsJsonParams.setIncludeCurrentEvents(true);
@@ -143,11 +146,7 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         competitionsJsonParams.setPageSize("10");
         competitionsJsonParams.setAscendingDateOrder(true);
 
-        competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
-
-
-//        Log.e(LOG_TAG, "requestCompetitionsEvents()" +  "START DATE : " + CompetitionsTabFragment.strDateFrom);
-//        Log.e(LOG_TAG, "requestCompetitionsEvents()" + "END DATE : " + CompetitionsTabFragment.strDateTo);
+        competitionsAPI = new CompetitionsAPI(((CompetitionsActivity) getActivity()).getClientId(), "GetClubEventList", competitionsJsonParams, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()

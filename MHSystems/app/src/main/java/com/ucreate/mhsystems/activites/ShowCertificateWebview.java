@@ -20,7 +20,7 @@ import butterknife.Bind;
 public class ShowCertificateWebview extends BaseActivity {
 
     /* ++ LOCAL DATA TYPE INSTANCE DECLARATION ++ */
-    String strURL = "http://www.sunningdale.ucreate.co.in/webapi/clubapppdf?aClientId=" + ApplicationGlobal.TAG_MEMBER_CLIENT_ID + "&aCommand=GETMEMBERHCAPCERT&aJsonParams={%22version%22:1,%22callid%22:1456315336575,memberid:%2710784%27}&aModuleId=WEBSERVICES&aUserClass=Members";
+    String strURL;
 
     /* ++ INSTANCES OF CLASSES ++ */
     WebView wvWebView;
@@ -34,6 +34,8 @@ public class ShowCertificateWebview extends BaseActivity {
 
         progressWebView = (ProgressBar) findViewById(R.id.progressWebView);
         wvWebView = (WebView) findViewById(R.id.wvWebView);
+
+        strURL = "http://www.sunningdale.ucreate.co.in/webapi/clubapppdf?aClientId=" + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078") + "&aCommand=GETMEMBERHCAPCERT&aJsonParams={%22version%22:"+ApplicationGlobal.TAG_GCLUB_VERSION+",%22callid%22:"+ApplicationGlobal.TAG_GCLUB_CALL_ID+",memberid:"+loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784")+"}&aModuleId="+ApplicationGlobal.TAG_GCLUB_WEBSERVICES+"&aUserClass="+ApplicationGlobal.TAG_GCLUB_MEMBERS;
 
         tbCertificate = (Toolbar) findViewById(R.id.tbCertificate);
         setSupportActionBar(tbCertificate);

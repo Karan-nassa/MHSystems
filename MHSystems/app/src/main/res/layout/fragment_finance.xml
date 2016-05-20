@@ -182,18 +182,20 @@
                 android:id="@+id/tvCurrentInvoice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_marginLeft="12dp"
+                android:padding="10dp"
                 android:text=""
                 android:textColor="@color/colorBlack000000"
                 android:textSize="17sp" />
 
+            <!-- RIGHT ARROW -->
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
                 android:layout_gravity="right|center"
-                android:src="@mipmap/ic_arrow_right"/>
+                android:layout_marginRight="15dp"
+                android:src="@mipmap/ic_arrow_right" />
 
         </FrameLayout>
 

@@ -21,6 +21,7 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.MemberDetailActivity;
 import com.ucreate.mhsystems.activites.MembersActivity;
+import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.models.AJsonParamsFriends;
@@ -110,7 +111,7 @@ public class FriendsFragment extends Fragment {
 
         //Refresh data after REMOVE friend from detail screen.
        // if (MemberDetailActivity.isRefreshData) {
-            ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
+          ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
             MemberDetailActivity.isRefreshData = false;
 
             callWebService();
@@ -140,11 +141,11 @@ public class FriendsFragment extends Fragment {
         ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParamsFriends = new AJsonParamsFriends();
-        aJsonParamsFriends.setCallid("1456315336575");
-        aJsonParamsFriends.setVersion(1);
-        aJsonParamsFriends.setMemberId(10784);
+        aJsonParamsFriends.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsFriends.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsFriends.setMemberId(((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
 
-        friendsAPI = new FriendsAPI(44118078, ((MembersActivity) getActivity()).getStraFriendCommand(), aJsonParamsFriends, "WEBSERVICES", "Members");
+        friendsAPI = new FriendsAPI(getClientId(), ((MembersActivity) getActivity()).getStraFriendCommand(), aJsonParamsFriends,  ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -172,6 +173,13 @@ public class FriendsFragment extends Fragment {
             }
         });
 
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return ((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078");
     }
 
     /**

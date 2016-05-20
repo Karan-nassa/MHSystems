@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.JsonObject;
@@ -31,10 +32,11 @@ import retrofit.RetrofitError;
 
 public class DashboardActivity extends BaseActivity {
 
-    private static final String LOG_TAG = DashboardActivity.class.getSimpleName();
-
     @Bind(R.id.gvMenuOptions)
     GridView gvMenuOptions;
+
+    @Bind(R.id.llLogoutBtn)
+    LinearLayout llLogoutBtn;
 
     //Instance of Grid Adapter.
     GridAdapter mGridAdapter;
@@ -43,13 +45,6 @@ public class DashboardActivity extends BaseActivity {
     TypedArray gridIcons;
     String gridTitles[];
     TypedArray gridBackground;
-
-    //List of type books this list will store type Book which is our data model
-    private DashboardAPI dashboardAPI;
-    AJsonParamsDashboard aJsonParamsDashboard;
-
-    LoginItems dashboardItems;
-    LoginData dashboardData;
 
     /**
      * Set click event listener of Grid Menu Options to
@@ -86,6 +81,25 @@ public class DashboardActivity extends BaseActivity {
         }
     };
 
+    /**
+     * Logout user from app and navigate back to
+     * Login screen.
+     */
+    private View.OnClickListener mLogoutListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            /**
+             *  Clear shared-preference memory.
+             */
+            clearAutoPreference();
+
+            startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+            finish();
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +116,9 @@ public class DashboardActivity extends BaseActivity {
 
         //Set Menu Options click event handle.
         gvMenuOptions.setOnItemClickListener(mGridItemListener);
+
+        //LogOut listener.
+        llLogoutBtn.setOnClickListener(mLogoutListener);
     }
 
     /**

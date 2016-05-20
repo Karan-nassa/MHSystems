@@ -9,7 +9,7 @@ public class CourseDiaryAPI {
 
     @SerializedName("aJsonParams")
     @Expose
-    private AJsonParams_ aJsonParams;
+    private AJsonParamsCourse aJsonParams;
     @SerializedName("aModuleId")
     @Expose
     private String aModuleId;
@@ -23,7 +23,7 @@ public class CourseDiaryAPI {
     @Expose
     private String aUserClass;
 
-    public CourseDiaryAPI(AJsonParams_ aJsonParams, String aModuleId, String aClientId, String aCommand, String aUserClass) {
+    public CourseDiaryAPI(AJsonParamsCourse aJsonParams, String aModuleId, String aClientId, String aCommand, String aUserClass) {
         this.aJsonParams = aJsonParams;
         this.aModuleId = aModuleId;
         this.aClientId = aClientId;
@@ -37,7 +37,7 @@ public class CourseDiaryAPI {
      * @return
      *     The aJsonParams
      */
-    public AJsonParams_ getAJsonParams() {
+    public AJsonParamsCourse getAJsonParams() {
         return aJsonParams;
     }
 
@@ -46,7 +46,7 @@ public class CourseDiaryAPI {
      * @param aJsonParams
      *     The aJsonParams
      */
-    public void setAJsonParams(AJsonParams_ aJsonParams) {
+    public void setAJsonParams(AJsonParamsCourse aJsonParams) {
         this.aJsonParams = aJsonParams;
     }
 

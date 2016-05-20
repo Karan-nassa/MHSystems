@@ -9,7 +9,7 @@ public class MyAccountAPI {
 
     @SerializedName("aClientId")
     @Expose
-    private Integer aClientId;
+    private String aClientId;
     @SerializedName("aCommand")
     @Expose
     private String aCommand;
@@ -28,7 +28,7 @@ public class MyAccountAPI {
      * Constructor to initialize data members to
      * POST.
      */
-    public MyAccountAPI(Integer aClientId, String aCommand, MyAccountJsonParams myAccountJsonParams, String aModuleId, String aUserClass) {
+    public MyAccountAPI(String aClientId, String aCommand, MyAccountJsonParams myAccountJsonParams, String aModuleId, String aUserClass) {
         this.aClientId = aClientId;
         this.aCommand = aCommand;
         this.myAccountJsonParams = myAccountJsonParams;
@@ -39,14 +39,14 @@ public class MyAccountAPI {
     /**
      * @return The aClientId
      */
-    public Integer getAClientId() {
+    public String getAClientId() {
         return aClientId;
     }
 
     /**
      * @param aClientId The aClientId
      */
-    public void setAClientId(Integer aClientId) {
+    public void setAClientId(String aClientId) {
         this.aClientId = aClientId;
     }
 

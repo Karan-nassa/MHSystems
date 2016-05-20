@@ -117,9 +117,9 @@ public class CompletedFragment extends Fragment implements SwipeRefreshLayout.On
         setDatesForCompleted(CompetitionsTabFragment.iActionCalendarStates);
 
         competitionsJsonParams = new CompetitionsJsonParams();
-        competitionsJsonParams.setCallid("1456315336575");
-        competitionsJsonParams.setVersion(1);
-        competitionsJsonParams.setMemberId(10784);
+        competitionsJsonParams.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        competitionsJsonParams.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        competitionsJsonParams.setMemberId(((CompetitionsActivity) getActivity()).getMemberId());
         competitionsJsonParams.setIncludeCompletedEvents(true);
         competitionsJsonParams.setDateto(CompetitionsTabFragment.strDateTo); // MM-DD-YYYY [END DATE]
         competitionsJsonParams.setDatefrom(CompetitionsTabFragment.strDateFrom); // MM-DD-YYYY [START DATE]
@@ -127,7 +127,7 @@ public class CompletedFragment extends Fragment implements SwipeRefreshLayout.On
         competitionsJsonParams.setPageSize("10");
         competitionsJsonParams.setAscendingDateOrder(true);
 
-        competitionsAPI = new CompetitionsAPI(44118078, "GetClubEventList", competitionsJsonParams, "WEBSERVICES", "Members");
+        competitionsAPI = new CompetitionsAPI(((CompetitionsActivity) getActivity()).getClientId(), "GetClubEventList", competitionsJsonParams, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()

@@ -100,6 +100,9 @@ public class LoginActivity extends BaseActivity {
         //Initialize Butter knife.
         ButterKnife.bind(this);
 
+        etUserName.setText("NABECASIS");
+        etPassword.setText("BILLABONG1");
+
         btLogin.setOnClickListener(mLoginListener);
     }
 
@@ -127,12 +130,12 @@ public class LoginActivity extends BaseActivity {
         showPleaseWait("Loading...");
 
         aJsonParamsDashboard = new AJsonParamsDashboard();
-        aJsonParamsDashboard.setCallid("1457589857009");
-        aJsonParamsDashboard.setVersion(1);
+        aJsonParamsDashboard.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsDashboard.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsDashboard.setUserID(strUserName/*"NABECASIS"*/);
         aJsonParamsDashboard.setPassword(strPassword/*"BILLABONG1"*/);
 
-        dashboardAPI = new DashboardAPI(44118078, "AuthenticateMember", aJsonParamsDashboard, "WEBSERVICES", "Members");
+        dashboardAPI = new DashboardAPI(44118078, "AuthenticateMember", aJsonParamsDashboard, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -186,8 +189,8 @@ public class LoginActivity extends BaseActivity {
                 if (dashboardData == null) {
                     showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-                    savePreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ""+dashboardData.getClubID());
-                    savePreferenceValue(ApplicationGlobal.KEY_MEMBERID, ""+dashboardData.getMemberID());
+                    savePreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "" + dashboardData.getClubID());
+                    savePreferenceValue(ApplicationGlobal.KEY_MEMBERID, "" + dashboardData.getMemberID());
                     savePreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, dashboardData.getUserLoginID());
                     savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);
                     savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
@@ -198,7 +201,7 @@ public class LoginActivity extends BaseActivity {
                 }
             } else {
                 //If web service not respond in any case.
-                 showAlertMessage(dashboardItems.getMessage());
+                showAlertMessage(dashboardItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
