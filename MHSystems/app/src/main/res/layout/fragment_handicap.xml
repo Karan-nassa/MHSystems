@@ -279,10 +279,10 @@
 
             <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                 android:id="@+id/tvSelectGraphYear"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_margin="7dp"
-                android:text="2016"
+                android:gravity="center"
                 android:textColor="@color/color535796"
                 android:textSize="25sp" />
 

@@ -110,6 +110,9 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Implements a method to hide progress wheel.
+     */
     public void hideProgress() {
         if (pDialog != null && pDialog.isShowing()) {
             try {
