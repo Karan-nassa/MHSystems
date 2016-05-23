@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <!-- COMPETITIONS TITLE WITH BACK ARROW AND JOIN BUTTON -->
+    <!-- COMPETITIONS TITLE WITH CROSS ARROW IN TOOL BAR -->
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -20,8 +20,8 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:expandedTitleTextAppearance="@style/CompetitionsToolExpand"
             app:collapsedTitleTextAppearance="@style/CompetitionsToolCollapse"
+            app:expandedTitleTextAppearance="@style/CompetitionsToolExpand"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
@@ -200,14 +200,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:textSize="14sp"
                     android:text="In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis. In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis."
-                    android:textColor="@color/color030303" />
+                    android:textColor="@color/color030303"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <!-- JOIN COMPETITIONS FLOATING ACTION BUTTON -->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabJoinCompetition"
@@ -215,8 +217,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
-        app:backgroundTint="@color/color535796a"
         android:src="@mipmap/ic_members_add_friend"
+        app:backgroundTint="@color/color535796a"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
 
