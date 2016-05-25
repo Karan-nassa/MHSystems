@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,11 +63,16 @@ public class MyAccountTabFragment extends Fragment {
 
         @Override
         public void onTabUnselected(TabLayout.Tab tab) {
-
         }
 
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
+            /**
+             *  When user direct navigtate to Handicap Graph and tap on My Detail Tab then tab selection
+             *  and content not replacing so change and notify pageAdapter here onReselected.
+             */
+            viewPager.setCurrentItem(tab.getPosition());
+            pageAdapter.notifyDataSetChanged();
         }
     };
 
@@ -87,12 +93,14 @@ public class MyAccountTabFragment extends Fragment {
 
         viewPager = (ViewPager) viewRootFragment.findViewById(R.id.pager);
 
-        Log.e("COUNT:",""+tabLayout.getTabCount());
+        //  Log.e("COUNT:",""+tabLayout.getTabCount());
         pageAdapter = new TabsPageAdapter
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MY_ACCOUNT);
         viewPager.setAdapter(pageAdapter);
 
-        viewPager.setCurrentItem(((MyAccountActivity)getActivity()).getIntent().getExtras().getInt("iTabPosition"));
+        iLastTabPosition = ((MyAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
+        viewPager.setCurrentItem(iLastTabPosition);
+        iLastTabPosition = 0;
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

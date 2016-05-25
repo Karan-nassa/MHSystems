@@ -19,7 +19,7 @@ public class MyAccountActivity extends BaseActivity {
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
-    public static final String LOG_TAG = MyAccountActivity.class.getSimpleName();
+    public final String LOG_TAG = MyAccountActivity.class.getSimpleName();
 
     /*********************************
      * INSTANCES OF CLASSES

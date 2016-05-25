@@ -1,9 +1,5 @@
 package com.ucreate.mhsystems.fragments;
 
-/**
- * Created by karan@ucreate.co.in to load and display Graph and
- * Certificate of Handicap.
- */
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -65,6 +61,10 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+/**
+ * Created by karan@ucreate.co.in to load and display Graph and
+ * Certificate of Handicap.
+ */
 public class HandicapFragment extends Fragment implements OnChartValueSelectedListener {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -357,7 +357,9 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         handicapResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         //Clear array list before inserting items.
-        //handicapData.clear();
+        alHandicapData.clear();
+        jsonObjectArrayList.clear();
+        arrNameOfYear.clear();
 
         try {
             /**
