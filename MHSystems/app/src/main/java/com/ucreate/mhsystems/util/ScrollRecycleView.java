@@ -32,7 +32,7 @@ public class ScrollRecycleView {
 
         Log.e("HEIGHT", ""+myListView.getChildCount());
 
-        //setting list view item in adapter
+        //ic_home_settings list view item in adapter
         ViewGroup.LayoutParams params = myListView.getLayoutParams();
         params.height = totalHeight + (myListView.getChildCount() * (myListAdapter.getCount() - 1));
         myListView.setLayoutParams(params);

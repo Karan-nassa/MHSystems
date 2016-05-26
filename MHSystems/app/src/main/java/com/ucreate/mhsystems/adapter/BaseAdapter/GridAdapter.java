@@ -90,7 +90,7 @@ public class GridAdapter extends BaseAdapter {
         holder.ivGridLogo.setImageResource(gridIcons.getResourceId(position, -1));
 
         //Set Background colors.
-        holder.rlGridMenuItem.setBackgroundResource(gridBackground.getResourceId(position, -1));
+        //holder.rlGridMenuItem.setBackgroundResource(gridBackground.getResourceId(position, -1));
 
         return rowView;
     }

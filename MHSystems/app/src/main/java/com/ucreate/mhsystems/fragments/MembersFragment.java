@@ -218,16 +218,16 @@ public class MembersFragment extends Fragment {
             e.printStackTrace();
         }
 
-        /**
+       /* *//**
          * Hide alert dialog after 1500Ms.
-         */
+         *//*
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 //Dismiss progress dialog.
                 ((BaseActivity) getActivity()).hideProgress();
             }
-        }, 1500);
+        }, 1500);*/
 
     }
 

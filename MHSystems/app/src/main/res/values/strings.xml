@@ -30,7 +30,9 @@
     <string name="text_email_hint">Username</string>
     <string name="text_password">Password</string>
     <string name="button_text_login">Login</string>
+    <string name="text_title_forgot_password"><u>Forgot your password?</u></string>
     <string name="error_all_required">All fields are required.</string>
+    <string name="text_title_copyright">© 2016 Gemini Media Network</string>
     <!-- END OF LOGIN ACTIVITY -->
 
     <!-- START OF DASHBOARD ACTIVITY -->
@@ -141,12 +143,12 @@
 
     <string-array name="HomeGridIcons">
 
-        <item>@mipmap/ic_handicap_red</item>
+        <item>@mipmap/ic_handicap_chart</item>
         <item>@mipmap/ic_home_diary</item>
         <item>@mipmap/ic_home_competitions</item>
         <item>@mipmap/ic_home_members</item>
-        <item>@mipmap/ic_home_golfclub</item>
-        <item>@mipmap/ic_home_myaccount</item>
+        <item>@mipmap/ic_home_clubnews</item>
+        <item>@mipmap/ic_my_account</item>
 
     </string-array>
 

@@ -240,7 +240,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         // // center the view to a specific position inside the chart
         // mChart.centerViewPort(10, 50);
 
-        // get the legend (only possible after setting data)
+        // get the legend (only possible after ic_home_settings data)
         Legend l = mChart.getLegend();
 
         // modify the legend ...

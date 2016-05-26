@@ -29,7 +29,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:src="@mipmap/ic_tablet_settings" />
+                android:src="@mipmap/ic_home_settings" />
 
             <!-- LOGOUT BUTTON -->
 
@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:src="@android:drawable/ic_menu_directions" />
+                    android:src="@mipmap/ic_home_logout" />
 
             </LinearLayout>
 
@@ -54,7 +54,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
+            android:layout_weight="45"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -62,67 +62,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_home_golfclub" />
-
-            <!-- GOLF CLUB NAME -->
-            <com.ucreate.mhsystems.customfonts.BaskervilleTextFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.5"
-                android:text="@string/title_golf_club_name"
-                android:textColor="@color/colorC0995B"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <!-- DIVIDER LINE -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <!-- DIVIDER LINE -->
-
-            <TextView
-                android:layout_width="25dp"
-                android:layout_height="2dp"
-                android:background="@color/colorFFEFEFF4" />
-
-        </LinearLayout>
-
-        <!-- VIEW GROUP FOR GOLF CLUB MESSAGE -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="22"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <!-- HOME QUOTATIONS -->
-
-            <com.ucreate.mhsystems.customfonts.BaskervilleTextFont
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/title_home_message"
-                android:textColor="@color/color333333"
-                android:textSize="17sp" />
-
-            <!-- NAME OF QUOTATION -->
-
-            <com.ucreate.mhsystems.customfonts.BaskervilleTextFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:alpha="0.5"
-                android:text="@string/title_home_message_author"
-                android:textColor="@color/color333333"
-                android:textSize="17sp"
-                android:textStyle="italic" />
+                android:src="@mipmap/ic_logo_celtic" />
 
         </LinearLayout>
 
@@ -132,8 +72,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="43"
-            android:background="@color/colorGreyf1f1f0"
+            android:layout_weight="45"
+            android:background="@color/color4B4B49"
             android:orientation="vertical">
 
             <!-- GRID VIEW FOR MENU OPTIONS -->
@@ -143,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:cacheColorHint="@color/colorGreyf1f1f0"
+                android:cacheColorHint="@color/color4B4B49"
                 android:gravity="center"
                 android:numColumns="3" />
 

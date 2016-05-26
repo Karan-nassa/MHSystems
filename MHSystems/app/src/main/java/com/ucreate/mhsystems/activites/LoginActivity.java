@@ -1,11 +1,13 @@
 package com.ucreate.mhsystems.activites;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -46,6 +48,9 @@ public class LoginActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF CLASSES
      ********************************/
+    @Bind(R.id.tvLoginTitle)
+    TextView tvLoginTitle;
+
     @Bind(R.id.btLogin)
     Button btLogin;
 
@@ -54,6 +59,8 @@ public class LoginActivity extends BaseActivity {
 
     @Bind(R.id.etPassword)
     EditText etPassword;
+
+    Typeface tfRobotoRegular, getTfRobotoMedium;
 
     //List of type books this list will store type Book which is our data model
     private DashboardAPI dashboardAPI;
@@ -210,5 +217,20 @@ public class LoginActivity extends BaseActivity {
 
         //Dismiss progress dialog.
         hideProgress();
+    }
+
+    /**
+     * Implements a method to set FONT style using .ttf by putting
+     * in main\assets\fonts directory of current project.
+     */
+    private void setFontTypeFace() {
+        tfRobotoRegular   =  Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
+        getTfRobotoMedium =  Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+
+        etUserName.setTypeface(tfRobotoRegular);
+        etPassword.setTypeface(tfRobotoRegular);
+
+        tvLoginTitle.setTypeface(getTfRobotoMedium);
+        btLogin.setTypeface(getTfRobotoMedium);
     }
 }
