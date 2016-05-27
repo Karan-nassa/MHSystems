@@ -428,7 +428,7 @@ public class CompetitionsActivity extends BaseActivity {
      */
     public void resetCalendarEvents() {
 
-        if (iMonth < iCurrentMonth) {
+        if (iMonth <= iCurrentMonth) {
 
             //Reset to current MONTH.
             resetCalendar();

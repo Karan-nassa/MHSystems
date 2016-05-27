@@ -1,11 +1,5 @@
 package com.ucreate.mhsystems.fragments;
 
-/**
- * Created by karan@ucreate.co.in to load and display
- * <br>NEWS
- * <br>tabs content on 12/23/2015.
- */
-
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -39,11 +33,16 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+/**
+ * Created by karan@ucreate.co.in to load and display
+ * {@link UpcomingFragment} tab content on 12/23/2015.
+ */
 public class UpcomingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = UpcomingFragment.class.getSimpleName();
+    public final String LOG_TAG = UpcomingFragment.class.getSimpleName();
     ArrayList<CompetitionsData> competitionsDatas = new ArrayList<>();
 
     private boolean isSwipeVisible = false;

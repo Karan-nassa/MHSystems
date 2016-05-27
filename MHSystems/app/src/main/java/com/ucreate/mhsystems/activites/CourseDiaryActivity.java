@@ -186,7 +186,7 @@ public class CourseDiaryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_diary);
+        setContentView(R.layout.activity_course_diary_new);
 
         //Initialize view resources.
         ButterKnife.bind(this);
@@ -219,13 +219,13 @@ public class CourseDiaryActivity extends BaseActivity {
         iNumOfDays = CourseDiaryActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         //Load Default fragment of COURSE DIARY.
-        updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_NOTHING));
+      //  updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_NOTHING));
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
 
         //When user want to Select date from CALENDAR.
-        llMonthTitle.setOnClickListener(mCalendarListener);
+     //   llMonthTitle.setOnClickListener(mCalendarListener);
     }
 
     /**
@@ -397,12 +397,12 @@ public class CourseDiaryActivity extends BaseActivity {
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        menuInstance = menu;
-
-        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-        resetMonthsNavigationIcons();
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//
+//        menuInstance = menu;
+//
+//        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+//        resetMonthsNavigationIcons();
 
         return true;
     }
