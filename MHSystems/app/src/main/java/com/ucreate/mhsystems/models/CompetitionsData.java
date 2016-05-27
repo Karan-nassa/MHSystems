@@ -47,6 +47,9 @@ public class CompetitionsData {
     @SerializedName("eventStatusStr")
     @Expose
     private String eventStatusStr;
+    @SerializedName("IsMemberJoined")
+    @Expose
+    private boolean IsMemberJoined;
 
     /**
      * @return The eventStatusStr
@@ -243,5 +246,20 @@ public class CompetitionsData {
     public void setDayName(String dayName) {
         this.dayName = dayName;
     }
+
+    /**
+     * @return The IsMemberJoined
+     */
+    public boolean getIsMemberJoined() {
+        return IsMemberJoined;
+    }
+
+    /**
+     * @param IsMemberJoined The IsMemberJoined
+     */
+    public void setIsMemberJoined(boolean isMemberJoined) {
+        IsMemberJoined = isMemberJoined;
+    }
+
 
 }

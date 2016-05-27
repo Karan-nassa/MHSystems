@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.CompetitionsDetailActivity;
+import com.ucreate.mhsystems.fragments.UpcomingFragment;
 import com.ucreate.mhsystems.models.CompetitionsData;
 
 import java.util.ArrayList;
@@ -22,22 +24,28 @@ import java.util.ArrayList;
  * to display SQUADS on 12/4/2015.
  */
 public class CompetitionsAdapter extends BaseAdapter {
+
     Activity context;
     ArrayList<CompetitionsData> compititionsDatas;
     LayoutInflater inflater = null;
     String strLastDate = "";
+    boolean isJoinVisible;
 
     Typeface typeface, typefaceMedium;
 
     /**
      * VIDEOS Adapter to initialize all instances.
      *
-     * @param context:              To hold context.
-     * @param CourseDiaryData    : Used for Videos data.
+     * @param context:        To hold context.
+     * @param CourseDiaryData : Used for Videos data.
+     * @param isJoinVisible   : JOIN will be visible only for {@link UpcomingFragment}
      */
-    public CompetitionsAdapter(Activity context, ArrayList<CompetitionsData> CourseDiaryData) {
+    public CompetitionsAdapter(Activity context, ArrayList<CompetitionsData> CourseDiaryData, boolean isJoinVisible) {
+
         this.context = context;
         this.compititionsDatas = CourseDiaryData;
+        this.isJoinVisible = isJoinVisible;
+
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -118,9 +126,11 @@ public class CompetitionsAdapter extends BaseAdapter {
                 intent.putExtra("COMPETITIONS_EVENT_TIME", compititionsDatas.get(position).getEventTime());
                 intent.putExtra("COMPETITIONS_EVENT_PRIZE", "" + compititionsDatas.get(position).getPricePerGuest());
                 intent.putExtra("COMPETITIONS_EVENT_DESCRIPTION", compititionsDatas.get(position).getDesc());
+                intent.putExtra("COMPETITIONS_JOIN_STATE", isJoinVisible);
+                intent.putExtra("COMPETITIONS_IsMemberJoined", compititionsDatas.get(position).getIsMemberJoined());
+                intent.putExtra("COMPETITIONS_eventId", compititionsDatas.get(position).getEventId());
                 context.startActivity(intent);
             }
-
         });
 
         return rowView;

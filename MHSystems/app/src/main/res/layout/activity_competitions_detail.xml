@@ -217,6 +217,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
+        android:visibility="invisible"
         android:src="@mipmap/ic_members_add_friend"
         app:backgroundTint="@color/color535796a"
         app:layout_anchor="@id/appbar"

@@ -59,12 +59,12 @@ public class UpcomingFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     CompetitionsAdapter competitionsAdapter;
 
+    //List of type books this list will store type Book which is our data model
+    private CompetitionsAPI competitionsAPI;
+
     //Create instance of Model class CourseDiaryItems.
     CompetitionsResultItems competitionsResultItems;
     CompetitionsJsonParams competitionsJsonParams;
-
-    //List of type books this list will store type Book which is our data model
-    private CompetitionsAPI competitionsAPI;
 
 
     @Override
@@ -75,19 +75,6 @@ public class UpcomingFragment extends Fragment implements SwipeRefreshLayout.OnR
         lvCompetitions = (ListView) viewRootFragment.findViewById(R.id.lvCompetitions);
 
         return viewRootFragment;
-    }
-
-    /**
-     * Implements a method to initialize all view resources
-     * of VIEW or VIEW GROUP.
-     */
-    private void initializeAppResources() {
-
-        cdlCompetitions = (CoordinatorLayout) viewRootFragment.findViewById(R.id.cdlCompetitions);
-        // toolBar = (Toolbar) viewRootFragment.findViewById(R.id.toolBar);
-        // tvCourseSchedule = (TextView) viewRootFragment.findViewById(R.id.tvCourseSchedule);
-        lvCompetitions = (ListView) viewRootFragment.findViewById(R.id.lvCompetitions);
-        // tvCourseSchedule = (TextView) viewRootFragment.findViewById(R.id.tvCourseSchedule);
     }
 
     @Override
@@ -111,7 +98,6 @@ public class UpcomingFragment extends Fragment implements SwipeRefreshLayout.OnR
          *  Check internet connection before hitting server request.
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            //Method to hit Squads API.
             requestCompetitionsEvents();
         } else {
             ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
@@ -139,7 +125,7 @@ public class UpcomingFragment extends Fragment implements SwipeRefreshLayout.OnR
         competitionsJsonParams.setPageSize("10");
         competitionsJsonParams.setAscendingDateOrder(true);
 
-        competitionsAPI = new CompetitionsAPI(((CompetitionsActivity) getActivity()).getClientId(), "GetClubEventList", competitionsJsonParams, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        competitionsAPI = new CompetitionsAPI(((CompetitionsActivity) getActivity()).getClientId(), "GETCLUBEVENTLIST", competitionsJsonParams, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -197,7 +183,8 @@ public class UpcomingFragment extends Fragment implements SwipeRefreshLayout.OnR
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
-                    competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas/*((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup)*/);
+                    //TRUE to set visible of JOIN button.
+                    competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas, true);
                     lvCompetitions.setAdapter(competitionsAdapter);
 
                     Log.e(LOG_TAG, "arrayListCourseData : " + competitionsDatas.size());

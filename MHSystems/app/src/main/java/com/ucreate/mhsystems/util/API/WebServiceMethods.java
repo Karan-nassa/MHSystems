@@ -2,6 +2,7 @@ package com.ucreate.mhsystems.util.API;
 
 import com.google.gson.JsonObject;
 import com.ucreate.mhsystems.models.AddMemberAPI;
+import com.ucreate.mhsystems.models.CompetitionJoinAPI;
 import com.ucreate.mhsystems.models.CompetitionsAPI;
 import com.ucreate.mhsystems.models.CourseDiaryAPI;
 import com.ucreate.mhsystems.models.DashboardAPI;
@@ -16,7 +17,9 @@ import org.json.JSONObject;
 
 import retrofit.Callback;
 import retrofit.http.Body;
+import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Query;
 
 /**
  * Created by karan@ucreate.co.in for
@@ -61,6 +64,26 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getCompetitionsEvents(@Body CompetitionsAPI jsonElements, Callback<JsonObject> response);
+
+
+    @GET("/webapi/api/ClubsApp/RpcRequest")
+    void joinCompetitionEventGet(@Query("aClientId") String aClientId, @Query("aCommand") String aCommand,
+                                 @Query("aJsonParams") String aJsonParams,
+                                 @Query("aModuleId") String aModuleId,
+                                 @Query("aUserClass") String aUserClass,
+                                 Callback<JsonObject> cb);
+
+    /**
+     * Declaration of JOIN COMPETITION event web service method.
+     * <p/>
+     * TYPE : POST
+     * <p/>
+     *
+     * @param competitionJoinAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp/RpcRequest")
+    public void joinCompetitionEvent(@Body CompetitionJoinAPI competitionJoinAPI, Callback<JsonObject> response);
 
     /**
      * Declaration of Members Detail screen web service method.

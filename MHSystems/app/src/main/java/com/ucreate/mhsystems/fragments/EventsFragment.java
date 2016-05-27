@@ -146,7 +146,7 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         competitionsJsonParams.setPageSize("10");
         competitionsJsonParams.setAscendingDateOrder(true);
 
-        competitionsAPI = new CompetitionsAPI(((CompetitionsActivity) getActivity()).getClientId(), "GetClubEventList", competitionsJsonParams, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        competitionsAPI = new CompetitionsAPI(((CompetitionsActivity) getActivity()).getClientId(), "GETCLUBEVENTLIST", competitionsJsonParams, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -204,7 +204,8 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
                     ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
-                    competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas/*((CourseDiaryActivity)getActivity()).filterCourseDates(arrayCourseDataBackup)*/);
+                    //FALSE to set visible of JOIN button.
+                    competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas, false);
                     lvCompetitions.setAdapter(competitionsAdapter);
 
                     Log.e(LOG_TAG, "arrayListCourseData : " + competitionsDatas.size());

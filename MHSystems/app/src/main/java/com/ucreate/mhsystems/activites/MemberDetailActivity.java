@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,13 +26,11 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.models.AJsonParamsAddMember;
-import com.ucreate.mhsystems.models.AJsonParamsMembers;
 import com.ucreate.mhsystems.models.AddMemberAPI;
-import com.ucreate.mhsystems.models.AddMemberItems;
+import com.ucreate.mhsystems.models.AddRequestResult;
 import com.ucreate.mhsystems.models.Friends.AJsonParamsRemoveFriend;
 import com.ucreate.mhsystems.models.Friends.RemoveFriendAPI;
 import com.ucreate.mhsystems.models.Friends.RemoveFriendItems;
-import com.ucreate.mhsystems.models.MembersDetailsData;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.models.AJsonParamsMembersDatail;
 import com.ucreate.mhsystems.models.MembersDetailAPI;
@@ -101,7 +98,8 @@ public class MemberDetailActivity extends BaseActivity {
 
     private AddMemberAPI addMemberAPI;
     AJsonParamsAddMember aJsonParamsAddMember;
-    AddMemberItems addMemberItems;
+    //Create instance of Model class for display result.
+    AddRequestResult addRequestResult;
 
     /**
      * Implements a CONSTANT field to call
@@ -373,9 +371,9 @@ public class MemberDetailActivity extends BaseActivity {
 
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
-        Type type = new TypeToken<AddMemberItems>() {
+        Type type = new TypeToken<AddRequestResult>() {
         }.getType();
-        addMemberItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        addRequestResult = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         try {
             /**
