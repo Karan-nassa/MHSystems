@@ -133,11 +133,11 @@ public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiary
         public ViewHolder(View drawerItem, int itemType, Context context) {
             super(drawerItem);
 
-            tvDateOfEvent = (TextView) itemView.findViewById(R.id.tvDateOfEvent);
-            tvDayOfEvent = (TextView) itemView.findViewById(R.id.tvDayOfEvent);
+         //   tvDateOfEvent = (TextView) itemView.findViewById(R.id.tvDateOfEvent);
+          //  tvDayOfEvent = (TextView) itemView.findViewById(R.id.tvDayOfEvent);
             tvTimeOfEvent = (TextView) itemView.findViewById(R.id.tvTimeOfEvent);
-            tvTitleOfEvent = (TextView) itemView.findViewById(R.id.tvTitleOfEvent);
-            tvDescOfEvent = (TextView) itemView.findViewById(R.id.tvDescOfEvent);
+          //  tvTitleOfEvent = (TextView) itemView.findViewById(R.id.tvTitleOfEvent);
+           // tvDescOfEvent = (TextView) itemView.findViewById(R.id.tvDescOfEvent);
         }
     }
 }

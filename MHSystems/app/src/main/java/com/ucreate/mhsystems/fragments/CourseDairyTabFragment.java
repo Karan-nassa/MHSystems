@@ -74,7 +74,7 @@ public class CourseDairyTabFragment extends Fragment {
 
             iLastTabPosition = tab.getPosition();
 
-            CourseDiaryActivity.resetMonthsNavigationIcons();
+            //CourseDiaryActivity.resetMonthsNavigationIcons();
         }
 
         @Override
@@ -199,7 +199,7 @@ public class CourseDairyTabFragment extends Fragment {
             CourseDiaryActivity.iMonth++;
 
             if (CourseDiaryActivity.iMonth > CourseDiaryActivity.iCurrentMonth) {
-                CourseDiaryActivity.setPreviousButton(true);
+             //   CourseDiaryActivity.setPreviousButton(true);
             }
 
             //Do nothing. Just load data according current date.

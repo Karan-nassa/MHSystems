@@ -117,7 +117,7 @@ public class OldCourseFragment extends Fragment {
                 ((CourseDiaryActivity) getActivity()).setTitleBar(arrayCourseDataBackup.get(++firstVisibleItem).getMonthName());
 
                 CourseDiaryActivity.iMonth = arrayCourseDataBackup.get(firstVisibleItem).getiMonthNum();
-                CourseDiaryActivity.resetMonthsNavigationIcons();
+               // CourseDiaryActivity.resetMonthsNavigationIcons();
             }
 
         }
@@ -211,7 +211,7 @@ public class OldCourseFragment extends Fragment {
                 callCourseWebService();
             }
         }
-        CourseDiaryActivity.resetMonthsNavigationIcons();
+       // CourseDiaryActivity.resetMonthsNavigationIcons();
     }
 
     @Override

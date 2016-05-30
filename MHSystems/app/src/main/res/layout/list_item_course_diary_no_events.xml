@@ -10,94 +10,90 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-       <!-- <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/card_margin">-->
-
 
         <!-- HORIZONTAL VIEW GROUP FOR DATE AND DESCRIPTION -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="12dp"
             android:orientation="horizontal"
             android:weightSum="100">
 
-            <!-- EVENT DATE & DAY ON LEFT HAND -->
+            <!-- EVENT TIME ON LEFT HAND -->
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="15"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
                 android:orientation="vertical">
 
-                <!-- DATE OF EVENT -->
+                <!-- START TIME OF EVENT -->
 
                 <TextView
-                    android:id="@+id/tvDateOfEvent"
+                    android:id="@+id/tvStartOfEvent"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="22sp" />
-
-                <!-- NAME OF DAY [EVENT] -->
-
-                <TextView
-                    android:id="@+id/tvDayOfEvent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/color808080"
-                    android:textSize="14sp" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="11:15"
+                    android:textColor="@color/colorC0995B"
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <!-- EVENT TIME, TITLE, DESCRIPTION AND CATEGORY -->
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="85"
-                android:orientation="vertical"
+                android:layout_weight="80"
+                android:orientation="horizontal"
                 android:padding="10dp">
 
                 <!-- TIME and CATEGORY -->
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <!-- TIME  -->
+                    <!-- TITLE OF EVENT  -->
+
+                    <TextView
+                        android:id="@+id/tvTitleOfEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Events"
+                        android:textColor="@color/colorBlack000000"
+                        android:textSize="17sp" />
+
+                    <!-- FREE SLOT TIME OF EVENT -->
 
                     <TextView
                         android:id="@+id/tvTimeOfEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10:15 - 11:30"
+                        android:alpha="0.5"
+                        android:singleLine="true"
+                        android:text="2 hours free slot"
                         android:textColor="@color/colorBlack000000"
-                        android:alpha="0.4"
                         android:textSize="14sp" />
 
                 </LinearLayout>
 
-                <!-- EVENT DESCRIPTION  -->
-
-                <TextView
-                    android:id="@+id/tvDescOfEvent"
+                <Button
+                    android:id="@+id/btBookNow"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:alpha="0.4"
-                    android:text="After topping our group, we now enter the GO Season 2 Playoffs. After topping our group, we now enter the GOCL Season 2 Playoffs."
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center"
+                    android:background="@drawable/ic_book_button_shape"
+                    android:padding="5dp"
+                    android:text="Book Now"
+                    android:textColor="@color/colorC0995B" />
+
+            </FrameLayout>
 
         </LinearLayout>
-
-     <!--   </android.support.v7.widget.CardView>-->
 
     </LinearLayout>
 

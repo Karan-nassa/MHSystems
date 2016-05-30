@@ -22,6 +22,21 @@ public class CourseDiaryData {
     String title;
     String logo;
     int slotType;
+    String Duration;
+
+    /**
+     * @return The Duration
+     */
+    public String getDuration() {
+        return Duration;
+    }
+
+    /**
+     * @param Duration The Duration
+     */
+    public void setDuration(String duration) {
+        Duration = duration;
+    }
 
     /**
      * @return The slotType

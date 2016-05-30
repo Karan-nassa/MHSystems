@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Created by  karan@ucreate.co.in to Create adapter
- * to display SQUADS on 12/4/2015.
+ * to display COURSE DIARY EVENTS on 12/4/2015.
  */
 public class CourseDiaryAdapter extends BaseAdapter {
     Activity context;
@@ -28,7 +29,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
 
 
     /**
-     * VIDEOS Adapter to initialize all instances.
+     * COURSE DIARY events Adapter constructor to initialize all instances.
      *
      * @param context:        : To hold context.
      * @param CourseDiaryData : Used for Videos data.
@@ -80,35 +81,32 @@ public class CourseDiaryAdapter extends BaseAdapter {
             rowView = inflater.inflate(R.layout.list_item_course_diary_no_events, parent, false);
 
             viewHolder = new View_Holder();
-            viewHolder.tvDateOfEvent = (TextView) rowView.findViewById(R.id.tvDateOfEvent);
+            viewHolder.tvStartOfEvent = (TextView) rowView.findViewById(R.id.tvStartOfEvent);
             viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
-            viewHolder.tvDescOfEvent = (TextView) rowView.findViewById(R.id.tvDescOfEvent);
-            viewHolder.tvDayOfEvent = (TextView) rowView.findViewById(R.id.tvDayOfEvent);
+            viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
+            viewHolder.btBookNow = (Button) rowView.findViewById(R.id.btBookNow);
 
             //Set Font Style Typeface
-            setEventTypeFace(viewHolder);
+            //setEventTypeFace(viewHolder);
 
             rowView.setTag(viewHolder);
             viewHolder = (View_Holder) rowView.getTag();
 
-            viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
-            viewHolder.tvDateOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
-            viewHolder.tvDescOfEvent.setText(CourseDiaryData.get(position).getDesc());
-            viewHolder.tvDayOfEvent.setText(CourseDiaryData.get(position).getDayName());
+            viewHolder.tvStartOfEvent.setText(""+CourseDiaryData.get(position).getStartTime());
+            viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
+            viewHolder.tvTimeOfEvent.setText(""+CourseDiaryData.get(position).getDuration());
 
         } else {
 
             rowView = inflater.inflate(R.layout.list_item_course_diary, parent, false);
 
             viewHolder = new View_Holder();
-            viewHolder.tvDateOfEvent = (TextView) rowView.findViewById(R.id.tvDateOfEvent);
-            viewHolder.tvDayOfEvent = (TextView) rowView.findViewById(R.id.tvDayOfEvent);
             viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
             viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
-            viewHolder.tvDescOfEvent = (TextView) rowView.findViewById(R.id.tvDescOfEvent);
+            viewHolder.tvStartOfEvent = (TextView) rowView.findViewById(R.id.tvStartOfEvent);
 
             //Set Font Style Typeface
-            setNoEventTypeFace(viewHolder);
+           // setNoEventTypeFace(viewHolder);
             rowView.setTag(viewHolder);
 
             viewHolder = (View_Holder) rowView.getTag();
@@ -131,15 +129,12 @@ public class CourseDiaryAdapter extends BaseAdapter {
              *  Set Course Diary events on each view.
              */
             viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
-            viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
-            viewHolder.tvDescOfEvent.setText(CourseDiaryData.get(position).getDesc());
-            //Display date if existing different one.
-            viewHolder.tvDateOfEvent.setText(CourseDiaryData.get(position).getCourseEventDate());
-            viewHolder.tvDayOfEvent.setText(CourseDiaryData.get(position).getDayName());
+            viewHolder.tvTimeOfEvent.setText(""+CourseDiaryData.get(position).getDuration());
+            viewHolder.tvStartOfEvent.setText(""+CourseDiaryData.get(position).getStartTime());
         }
 
 
-      //  ((CourseDiaryActivity) context).setTitleBar(CourseDiaryData.get(position).getMonthName()/*CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear*/);
+        //  ((CourseDiaryActivity) context).setTitleBar(CourseDiaryData.get(position).getMonthName()/*CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear*/);
 
         return rowView;
     }
@@ -150,8 +145,6 @@ public class CourseDiaryAdapter extends BaseAdapter {
      */
     public void setEventTypeFace(View_Holder viewHolder) {
 
-        viewHolder.tvDateOfEvent.setTypeface(typeface, Typeface.NORMAL);
-        viewHolder.tvDayOfEvent.setTypeface(typeface, Typeface.NORMAL);
         viewHolder.tvTimeOfEvent.setTypeface(typeface, Typeface.NORMAL);
     }
 
@@ -160,24 +153,22 @@ public class CourseDiaryAdapter extends BaseAdapter {
      * font for NO EVENTS row.
      */
     public void setNoEventTypeFace(View_Holder viewHolder) {
-
-        viewHolder.tvDateOfEvent.setTypeface(typeface, Typeface.NORMAL);
-        viewHolder.tvDayOfEvent.setTypeface(typeface, Typeface.NORMAL);
         viewHolder.tvTimeOfEvent.setTypeface(typeface, Typeface.NORMAL);
         viewHolder.tvTitleOfEvent.setTypeface(typeface, Typeface.NORMAL);
-        viewHolder.tvDescOfEvent.setTypeface(typeface, Typeface.NORMAL);
     }
 
     /**
-     * View_Holder to create item_list_squads_row to
-     * display Squads.
+     * View_Holder to create COURSE DIARY row to
+     * display EVENTS of COURSE DIARY.
      */
     class View_Holder {
         /**
          * Text Row VIEW INSTANCES DECLARATION
          */
-        TextView tvDateOfEvent, tvDayOfEvent, tvTimeOfEvent;
-        TextView tvTitleOfEvent, tvDescOfEvent;
+//        TextView tvDateOfEvent, tvDayOfEvent, tvTimeOfEvent;
+//        TextView tvTitleOfEvent, tvDescOfEvent;
+        TextView tvStartOfEvent, tvTitleOfEvent, tvTimeOfEvent;
+        Button btBookNow;
 
     }
 }

@@ -23,6 +23,21 @@ public class CourseDiaryDataCopy {
     String logo;
     int slotType;
     int iMonthNum;
+    String Duration;
+
+    /**
+     * @return The Duration
+     */
+    public String getDuration() {
+        return Duration;
+    }
+
+    /**
+     * @param Duration The Duration
+     */
+    public void setDuration(String duration) {
+        Duration = duration;
+    }
 
     /**
      * @return The iMonthNum
