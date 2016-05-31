@@ -1,5 +1,8 @@
 package com.ucreate.mhsystems.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by karan@ucreate.co.in to get JSOn response of
  * COURSE DIARY data on 02-03-2016.
@@ -23,6 +26,41 @@ public class CourseDiaryData {
     String logo;
     int slotType;
     String Duration;
+    @SerializedName("startTime24Format")
+    @Expose
+    private String startTime24Format;
+    @SerializedName("strCourseEventDate")
+    @Expose
+    private String strCourseEventDate;
+
+    /**
+     * @return The startTime24Format
+     */
+    public String getStartTime24Format() {
+        return startTime24Format;
+    }
+
+    /**
+     * @param startTime24Format The startTime24Format
+     */
+    public void setStartTime24Format(String startTime24Format) {
+        this.startTime24Format = startTime24Format;
+    }
+
+    /**
+     * @return The strCourseEventDate
+     */
+    public String getStrCourseEventDate() {
+        return strCourseEventDate;
+    }
+
+    /**
+     * @param strCourseEventDate The strCourseEventDate
+     */
+    public void setStrCourseEventDate(String strCourseEventDate) {
+        this.strCourseEventDate = strCourseEventDate;
+    }
+
 
     /**
      * @return The Duration

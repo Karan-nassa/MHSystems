@@ -2,6 +2,7 @@ package com.ucreate.mhsystems.adapter.BaseAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.activites.CustomAlertDialogActivity;
+import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.models.CourseDiaryDataCopy;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
     LayoutInflater inflater = null;
     String strLastDate = "";
 
-    Typeface typeface;
+    Typeface tfSFUIDisplayBold, tfSFUITextMedium, tfSFUIDisplayRegular;
 
 
     /**
@@ -41,7 +44,9 @@ public class CourseDiaryAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
+        tfSFUIDisplayBold = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Bold.otf");
+        tfSFUITextMedium = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Text-Medium.otf");
+        tfSFUIDisplayRegular = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Regular.otf");
     }
 
     /**
@@ -86,15 +91,27 @@ public class CourseDiaryAdapter extends BaseAdapter {
             viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
             viewHolder.btBookNow = (Button) rowView.findViewById(R.id.btBookNow);
 
-            //Set Font Style Typeface
-            //setEventTypeFace(viewHolder);
+            /**
+             *  Book free slot of Event.
+             */
+            viewHolder.btBookNow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Show alert dialog.
+                    Intent mIntent = new Intent(context, CustomAlertDialogActivity.class);
+                    //Pass theme green color.
+                    mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
+                    mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
+                    context.startActivity(mIntent);
+                }
+            });
 
             rowView.setTag(viewHolder);
             viewHolder = (View_Holder) rowView.getTag();
 
-            viewHolder.tvStartOfEvent.setText(""+CourseDiaryData.get(position).getStartTime());
+            viewHolder.tvStartOfEvent.setText("" + CourseDiaryData.get(position).getStartTime24Format());
             viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
-            viewHolder.tvTimeOfEvent.setText(""+CourseDiaryData.get(position).getDuration());
+            viewHolder.tvTimeOfEvent.setText("" + CourseDiaryData.get(position).getDuration());
 
         } else {
 
@@ -106,7 +123,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
             viewHolder.tvStartOfEvent = (TextView) rowView.findViewById(R.id.tvStartOfEvent);
 
             //Set Font Style Typeface
-           // setNoEventTypeFace(viewHolder);
+            // setNoEventTypeFace(viewHolder);
             rowView.setTag(viewHolder);
 
             viewHolder = (View_Holder) rowView.getTag();
@@ -129,32 +146,25 @@ public class CourseDiaryAdapter extends BaseAdapter {
              *  Set Course Diary events on each view.
              */
             viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
-            viewHolder.tvTimeOfEvent.setText(""+CourseDiaryData.get(position).getDuration());
-            viewHolder.tvStartOfEvent.setText(""+CourseDiaryData.get(position).getStartTime());
+            viewHolder.tvTimeOfEvent.setText("" + CourseDiaryData.get(position).getDuration());
+            viewHolder.tvStartOfEvent.setText("" + CourseDiaryData.get(position).getStartTime24Format());
         }
 
+        //Set Font Style Typeface
+        setEventTypeFace(viewHolder);
 
-        //  ((CourseDiaryActivity) context).setTitleBar(CourseDiaryData.get(position).getMonthName()/*CourseDiaryActivity.getMonth(Integer.parseInt(String.valueOf(CourseDiaryActivity.iMonth))) + " " + CourseDiaryActivity.iYear*/);
+        //  ((CourseDiaryActivity) context).setTitleBar(CourseDiaryData.get(position).getMonthName()/* getMonth(Integer.parseInt(String.valueOf( iMonth))) + " " +  iYear*/);
 
         return rowView;
     }
 
     /**
-     * Implements a method to set ROBOTO normal
-     * font for EVENTS row.
+     * Implements a method to set typeface.
      */
     public void setEventTypeFace(View_Holder viewHolder) {
-
-        viewHolder.tvTimeOfEvent.setTypeface(typeface, Typeface.NORMAL);
-    }
-
-    /**
-     * Implements a method to set ROBOTO normal
-     * font for NO EVENTS row.
-     */
-    public void setNoEventTypeFace(View_Holder viewHolder) {
-        viewHolder.tvTimeOfEvent.setTypeface(typeface, Typeface.NORMAL);
-        viewHolder.tvTitleOfEvent.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvTitleOfEvent.setTypeface(tfSFUIDisplayBold, Typeface.NORMAL);
+        viewHolder.tvStartOfEvent.setTypeface(tfSFUITextMedium, Typeface.NORMAL);
+        viewHolder.tvTimeOfEvent.setTypeface(tfSFUIDisplayRegular, Typeface.NORMAL);
     }
 
     /**
@@ -165,8 +175,6 @@ public class CourseDiaryAdapter extends BaseAdapter {
         /**
          * Text Row VIEW INSTANCES DECLARATION
          */
-//        TextView tvDateOfEvent, tvDayOfEvent, tvTimeOfEvent;
-//        TextView tvTitleOfEvent, tvDescOfEvent;
         TextView tvStartOfEvent, tvTitleOfEvent, tvTimeOfEvent;
         Button btBookNow;
 

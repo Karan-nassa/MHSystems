@@ -8,7 +8,6 @@ package com.ucreate.mhsystems.adapter.TabsAdapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.CompletedFragment;
@@ -20,8 +19,6 @@ import com.ucreate.mhsystems.fragments.MembersFragment;
 import com.ucreate.mhsystems.fragments.MyDetailsFragment;
 import com.ucreate.mhsystems.fragments.UpcomingFragment;
 import com.ucreate.mhsystems.fragments.EventsFragment;
-import com.ucreate.mhsystems.fragments.NewCourseFragment;
-import com.ucreate.mhsystems.fragments.OldCourseFragment;
 
 
 /**
@@ -89,18 +86,18 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      */
     private Fragment loadCourseDiaryTabs(int iPosition) {
 
-        switch (iPosition) {
-            case 0:
-                OldCourseFragment oldCourseFragment = new OldCourseFragment();
-                return oldCourseFragment;
-
-            case 1:
-                NewCourseFragment newCourseFragment = new NewCourseFragment();
-                return newCourseFragment;
-
-            default:
+//        switch (iPosition) {
+//            case 0:
+//                OldCourseFragment oldCourseFragment = new OldCourseFragment();
+//                return oldCourseFragment;
+//
+//            case 1:
+//                NewCourseFragment newCourseFragment = new NewCourseFragment();
+//                return newCourseFragment;
+//
+//            default:
                 return null;
-        }
+//        }
     }
 
     /**
