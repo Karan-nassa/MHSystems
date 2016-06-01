@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +13,36 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.activites.CourseDiaryActivity;
+import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
 import com.ucreate.mhsystems.activites.CustomAlertDialogActivity;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
+import com.ucreate.mhsystems.models.CourseDiaryData;
 import com.ucreate.mhsystems.models.CourseDiaryDataCopy;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 /**
  * Created by  karan@ucreate.co.in to Create adapter
  * to display COURSE DIARY EVENTS on 12/4/2015.
  */
 public class CourseDiaryAdapter extends BaseAdapter {
+
+    private static final int TYPE_ITEM = 0;
+    private static final int TYPE_SEPARATOR = 1;
+
+    private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
+    public ArrayList<CourseDiaryData> CourseDiaryData = new ArrayList<>();
+
     Activity context;
-    ArrayList<CourseDiaryDataCopy> CourseDiaryData;
     LayoutInflater inflater = null;
     String strLastDate = "";
 
+    /**
+     * Declares the Typeface here for custom font style.
+     */
     Typeface tfSFUIDisplayBold, tfSFUITextMedium, tfSFUIDisplayRegular;
-
 
     /**
      * COURSE DIARY events Adapter constructor to initialize all instances.
@@ -37,7 +50,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
      * @param context:        : To hold context.
      * @param CourseDiaryData : Used for Videos data.
      */
-    public CourseDiaryAdapter(Activity context, ArrayList<CourseDiaryDataCopy> CourseDiaryData) {
+    public CourseDiaryAdapter(Activity context, ArrayList<CourseDiaryData> CourseDiaryData) {
 
         this.context = context;
         this.CourseDiaryData = CourseDiaryData;
@@ -47,6 +60,28 @@ public class CourseDiaryAdapter extends BaseAdapter {
         tfSFUIDisplayBold = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Bold.otf");
         tfSFUITextMedium = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Text-Medium.otf");
         tfSFUIDisplayRegular = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Regular.otf");
+
+    }
+
+    public CourseDiaryAdapter(Activity context) {
+        this.context = context;
+        inflater = (LayoutInflater) context.
+                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        tfSFUIDisplayBold = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Bold.otf");
+        tfSFUITextMedium = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Text-Medium.otf");
+        tfSFUIDisplayRegular = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Regular.otf");
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return sectionHeader.contains(position) ? TYPE_SEPARATOR : TYPE_ITEM;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
     }
 
     /**
@@ -61,8 +96,8 @@ public class CourseDiaryAdapter extends BaseAdapter {
      * @return Videos item position
      */
     @Override
-    public Object getItem(int position) {
-        return position;
+    public String getItem(int position) {
+        return CourseDiaryData.get(position).getCourseEventDate();
     }
 
     /**
@@ -79,61 +114,70 @@ public class CourseDiaryAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View rowView = convertView;
-        View_Holder viewHolder = null;
+        View_Holder viewHolder = new View_Holder();
 
-        if (CourseDiaryData.get(position).getSlotType() == 2) {
+        int rowType = getItemViewType(position);
+        switch (rowType) {
+            case TYPE_SEPARATOR:
+                rowView = inflater.inflate(R.layout.list_item_course_title_row, parent, false);
+                viewHolder.tvCourseDateTitle = (TextView) rowView.findViewById(R.id.tvCourseDateTitle);
+                viewHolder.tvCourseDateTitle.setText(CourseDiaryData.get(position).getStrCourseEventDate());
+                break;
 
-            rowView = inflater.inflate(R.layout.list_item_course_diary_no_events, parent, false);
+            case TYPE_ITEM: {
+                if (CourseDiaryData.get(position).getSlotType() == 2) {
 
-            viewHolder = new View_Holder();
-            viewHolder.tvStartOfEvent = (TextView) rowView.findViewById(R.id.tvStartOfEvent);
-            viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
-            viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
-            viewHolder.btBookNow = (Button) rowView.findViewById(R.id.btBookNow);
+                    rowView = inflater.inflate(R.layout.list_item_course_diary_no_events, parent, false);
 
-            /**
-             *  Book free slot of Event.
-             */
-            viewHolder.btBookNow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Show alert dialog.
-                    Intent mIntent = new Intent(context, CustomAlertDialogActivity.class);
-                    //Pass theme green color.
-                    mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
-                    mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
-                    context.startActivity(mIntent);
-                }
-            });
+                    viewHolder = new View_Holder();
+                    viewHolder.tvStartOfEvent = (TextView) rowView.findViewById(R.id.tvStartOfEvent);
+                    viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
+                    viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
+                    viewHolder.btBookNow = (Button) rowView.findViewById(R.id.btBookNow);
 
-            rowView.setTag(viewHolder);
-            viewHolder = (View_Holder) rowView.getTag();
+                    /**
+                     *  Book free slot of Event.
+                     */
+                    viewHolder.btBookNow.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //Show alert dialog.
+                            Intent mIntent = new Intent(context, CustomAlertDialogActivity.class);
+                            //Pass theme green color.
+                            mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
+                            mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
+                            context.startActivity(mIntent);
+                        }
+                    });
 
-            viewHolder.tvStartOfEvent.setText("" + CourseDiaryData.get(position).getStartTime24Format());
-            viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
-            viewHolder.tvTimeOfEvent.setText("" + CourseDiaryData.get(position).getDuration());
+                    rowView.setTag(viewHolder);
+                    viewHolder = (View_Holder) rowView.getTag();
 
-        } else {
+                    viewHolder.tvStartOfEvent.setText(CourseDiaryData.get(position).getStartTime24Format());
+                    viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
+                    viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getDuration());
 
-            rowView = inflater.inflate(R.layout.list_item_course_diary, parent, false);
+                } else {
 
-            viewHolder = new View_Holder();
-            viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
-            viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
-            viewHolder.tvStartOfEvent = (TextView) rowView.findViewById(R.id.tvStartOfEvent);
+                    rowView = inflater.inflate(R.layout.list_item_course_diary, parent, false);
 
-            //Set Font Style Typeface
-            // setNoEventTypeFace(viewHolder);
-            rowView.setTag(viewHolder);
+                    viewHolder = new View_Holder();
+                    viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
+                    viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
+                    viewHolder.tvStartOfEvent = (TextView) rowView.findViewById(R.id.tvStartOfEvent);
 
-            viewHolder = (View_Holder) rowView.getTag();
+                    //Set Font Style Typeface
+                    // setNoEventTypeFace(viewHolder);
+                    rowView.setTag(viewHolder);
+
+                    viewHolder = (View_Holder) rowView.getTag();
 
 //        String strDateOfEvent = formatDateOfEvent(CourseDiaryData.get(position).getCourseEventDate());
 
-            /**
-             * Check if same date or not of Course Diary event If yes then just
-             * display date and day name once otherwise skip.
-             */
+                    /**
+                     * Check if same date or not of Course Diary event If yes then just
+                     * display date and day name once otherwise skip.
+                     */
 //        if (!strLastDate.equalsIgnoreCase(strDateOfEvent)) {
 //            strLastDate = strDateOfEvent;
 //
@@ -142,16 +186,45 @@ public class CourseDiaryAdapter extends BaseAdapter {
 //            viewHolder.tvDayOfEvent.setText(formatDayOfEvent(CourseDiaryData.get(position).getDayName()));
 //        }
 
-            /**
-             *  Set Course Diary events on each view.
-             */
-            viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
-            viewHolder.tvTimeOfEvent.setText("" + CourseDiaryData.get(position).getDuration());
-            viewHolder.tvStartOfEvent.setText("" + CourseDiaryData.get(position).getStartTime24Format());
+                    /**
+                     *  Set Course Diary events on each view.
+                     */
+                    viewHolder.tvTitleOfEvent.setText(CourseDiaryData.get(position).getTitle());
+                    viewHolder.tvTimeOfEvent.setText(CourseDiaryData.get(position).getDuration());
+                    viewHolder.tvStartOfEvent.setText(CourseDiaryData.get(position).getStartTime24Format());
+                }
+
+                rowView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        /**
+                         *  Handle NULL @Exception.
+                         */
+                        if (CourseDiaryData.get(position) != null) {
+
+                            if (CourseDiaryData.get(position).getSlotType() == 3) {
+
+                                Intent intent = new Intent(context, CourseDiaryDetailActivity.class);
+                                intent.putExtra("COURSE_TITLE", CourseDiaryData.get(position).getTitle());
+                                intent.putExtra("COURSE_EVENT_IMAGE", CourseDiaryData.get(position).getLogo());
+                                intent.putExtra("COURSE_EVENT_JOIN", CourseDiaryData.get(position).isJoinStatus());
+                                intent.putExtra("COURSE_EVENT_DATE", CourseDiaryData.get(position).getCourseEventDate());
+                                intent.putExtra("COURSE_EVENT_DAY_NAME", CourseDiaryData.get(position).getDayName());
+                                intent.putExtra("COURSE_EVENT_PRIZE", "" + CourseDiaryData.get(position).getPrizePerGuest());
+                                intent.putExtra("COURSE_EVENT_DESCRIPTION", CourseDiaryData.get(position).getDesc());
+                                intent.putExtra("COURSE_EVENT_TIME", CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
+                                context.startActivity(intent);
+                            }
+                        }
+                    }
+                });
+
+                //Set Font Style Typeface
+                setEventTypeFace(viewHolder);
+                break;
+            }
         }
 
-        //Set Font Style Typeface
-        setEventTypeFace(viewHolder);
 
         //  ((CourseDiaryActivity) context).setTitleBar(CourseDiaryData.get(position).getMonthName()/* getMonth(Integer.parseInt(String.valueOf( iMonth))) + " " +  iYear*/);
 
@@ -168,6 +241,25 @@ public class CourseDiaryAdapter extends BaseAdapter {
     }
 
     /**
+     * Implements a method to add ITEMS programmatically. Note here its the data of list
+     * not heading.
+     */
+    public void addItem(final CourseDiaryData item) {
+        CourseDiaryData.add(item);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * Implements a method to add section heading for COURSE DIARY
+     * events.
+     */
+    public void addSectionHeaderItem(final CourseDiaryData courseDiaryData) {
+        CourseDiaryData.add(courseDiaryData);
+        sectionHeader.add(CourseDiaryData.size() - 1);
+        notifyDataSetChanged();
+    }
+
+    /**
      * View_Holder to create COURSE DIARY row to
      * display EVENTS of COURSE DIARY.
      */
@@ -176,7 +268,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
          * Text Row VIEW INSTANCES DECLARATION
          */
         TextView tvStartOfEvent, tvTitleOfEvent, tvTimeOfEvent;
+        TextView tvCourseDateTitle;
         Button btBookNow;
-
     }
 }

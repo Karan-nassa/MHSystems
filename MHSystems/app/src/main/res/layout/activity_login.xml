@@ -19,18 +19,28 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="60dp" />
+                android:layout_height="80dp" />
 
             <!-- GOLF CLUB LOGO -->
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_logo_celtic" />
+                android:src="@mipmap/ic_home_golfclub" />
+
+            <!-- GOLF CLUB NAME -->
+
+            <com.ucreate.mhsystems.customfonts.BaskervilleTextFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:text="@string/title_golf_club_name"
+                android:textColor="@color/colorC0995B"
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="60sp"/>
+                android:textSize="70sp"/>
 
         </LinearLayout>
 

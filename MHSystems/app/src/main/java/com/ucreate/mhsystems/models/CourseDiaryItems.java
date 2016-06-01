@@ -11,7 +11,7 @@ public class CourseDiaryItems {
 
     String Message;
     String Result;
-    List<CourseDiaryData> Data = new ArrayList<>();
+    ArrayList<CourseDiaryData> Data = new ArrayList<>();
 
 
     /**
@@ -45,14 +45,14 @@ public class CourseDiaryItems {
     /**
      * @return The MyAccountData
      */
-    public List<CourseDiaryData> getData() {
+    public ArrayList<CourseDiaryData> getData() {
         return Data;
     }
 
     /**
      * @param Data The MyAccountData
      */
-    public void setData(List<CourseDiaryData> data) {
+    public void setData(ArrayList<CourseDiaryData> data) {
         Data = data;
     }
 }

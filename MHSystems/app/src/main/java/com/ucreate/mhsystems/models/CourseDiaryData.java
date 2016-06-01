@@ -26,12 +26,27 @@ public class CourseDiaryData {
     String logo;
     int slotType;
     String Duration;
+    int iMonthNum;
     @SerializedName("startTime24Format")
     @Expose
     private String startTime24Format;
     @SerializedName("strCourseEventDate")
     @Expose
     private String strCourseEventDate;
+
+    /**
+     * @return The iMonthNum
+     */
+    public int getiMonthNum() {
+        return iMonthNum;
+    }
+
+    /**
+     * @return The iMonthNum
+     */
+    public void setiMonthNum(int iMonthNum) {
+        this.iMonthNum = iMonthNum;
+    }
 
     /**
      * @return The startTime24Format

@@ -14,7 +14,7 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorBlack000000</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorBlack000000</item>
         <item name="colorAccent">@android:color/holo_blue_light</item>
 
         <!-- &lt;!&ndash; ORANGE COLOR FOCUSABLE EDIT TEXT &ndash;&gt;

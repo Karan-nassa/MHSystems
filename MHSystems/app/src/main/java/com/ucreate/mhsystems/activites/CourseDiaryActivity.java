@@ -1,11 +1,8 @@
 package com.ucreate.mhsystems.activites;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,13 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -66,9 +61,6 @@ public class CourseDiaryActivity extends BaseActivity {
     @Bind(R.id.toolBar)
     Toolbar toolbar;
 
-    @Bind(R.id.cdlCourse)
-    CoordinatorLayout cdlCourse;
-
     @Bind(R.id.tvCourseType)
     TextView tvCourseType;
 
@@ -96,10 +88,10 @@ public class CourseDiaryActivity extends BaseActivity {
     //Create instance of Menu to change PREV, NEXT and TODAY icon.
     private Menu menuInstance;
 
+    //Pop Menu to show Categories of Course Diary.
     PopupMenu popupMenu;
 
-    private Context mActivityContext;
-
+    //Declares the instance of Course Diary Adapter.
     CourseDiaryAdapter courseDiaryAdapter;
 
     //List of type books this list will store type Book which is our data model
@@ -127,6 +119,9 @@ public class CourseDiaryActivity extends BaseActivity {
      * +++++ START OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++
      **/
     public int iLessDays;
+
+    int iLastListCount = 0;
+
     /**
      * +++++ END OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++
      **/
@@ -190,43 +185,19 @@ public class CourseDiaryActivity extends BaseActivity {
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            if (arrayCourseDataBackup.size() > 0) {
-                setTitleBar(arrayCourseDataBackup.get(firstVisibleItem).getMonthName());
+            if (courseDiaryAdapter.CourseDiaryData.size() > 0) {
+                setTitleBar(courseDiaryAdapter.CourseDiaryData.get(firstVisibleItem).getMonthName());
 
-                //iMonth = arrayCourseDataBackup.get(firstVisibleItem).getiMonthNum();
+                iMonth = courseDiaryAdapter.CourseDiaryData.get(firstVisibleItem).getiMonthNum();
                 resetMonthsNavigationIcons();
             }
         }
     };
 
     /**
-     * Set COURSE DIARY events listener.
+     * Declares the click event handling FIELD to set categories
+     * of COURSE DIARY.
      */
-    private AdapterView.OnItemClickListener mCourseEventListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            /**
-             *  Handle NULL @Exception.
-             */
-            if (arrayListCourseData.get(position) != null) {
-
-                if (arrayListCourseData.get(position).getSlotType() == 3) {
-
-                    Intent intent = new Intent(CourseDiaryActivity.this, CourseDiaryDetailActivity.class);
-                    intent.putExtra("COURSE_TITLE", arrayListCourseData.get(position).getTitle());
-                    intent.putExtra("COURSE_EVENT_IMAGE", arrayListCourseData.get(position).getLogo());
-                    intent.putExtra("COURSE_EVENT_JOIN", arrayListCourseData.get(position).isJoinStatus());
-                    intent.putExtra("COURSE_EVENT_DATE", arrayListCourseData.get(position).getCourseEventDate());
-                    intent.putExtra("COURSE_EVENT_DAY_NAME", arrayListCourseData.get(position).getDayName());
-                    intent.putExtra("COURSE_EVENT_PRIZE", "" + arrayListCourseData.get(position).getPrizePerGuest());
-                    intent.putExtra("COURSE_EVENT_DESCRIPTION", arrayListCourseData.get(position).getDesc());
-                    intent.putExtra("COURSE_EVENT_TIME", arrayListCourseData.get(position).getStartTime() + " - " + arrayListCourseData.get(position).getEndTime());
-                    startActivity(intent);
-                }
-            }
-        }
-    };
     private PopupMenu.OnMenuItemClickListener mCourseTypeLitener =
             new PopupMenu.OnMenuItemClickListener() {
                 @Override
@@ -262,11 +233,11 @@ public class CourseDiaryActivity extends BaseActivity {
         //Initialize view resources.
         ButterKnife.bind(this);
 
-        //Get Context
-        mActivityContext = this;
-
         //Let's first set up toolbar
         setupToolbar();
+
+        //Initialize Course Events Adapter.
+        courseDiaryAdapter = new CourseDiaryAdapter(this);
 
         //Initialize CALENDAR instance.
         mCalendarInstance = Calendar.getInstance();
@@ -295,9 +266,6 @@ public class CourseDiaryActivity extends BaseActivity {
         //   llMonthTitle.setOnClickListener(mCalendarListener);
 
         initializeCourseCategory();
-
-        //Course Diary events click listener.
-        lvCourseDiary.setOnItemClickListener(mCourseEventListener);
 
         //Load more COURSE listener call here.
         lvCourseDiary.setOnScrollListener(mLoadMoreScrollListener);
@@ -330,19 +298,6 @@ public class CourseDiaryActivity extends BaseActivity {
 
         //Initially display title at position 0 of R.menu.course_menu.
         tvCourseType.setText("" + popupMenu.getMenu().getItem(0));
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        //resetArrayData();
-
-        //Initially clear the scroll count instance so filter date from BASE i.e. 0.
-        //iScrollCount = 0;
-
-//        showPleaseWait("Loading...");
-        //callCourseDiaryWebService();
     }
 
     /**
@@ -563,12 +518,11 @@ public class CourseDiaryActivity extends BaseActivity {
             if (courseDiaryItems.getMessage().equalsIgnoreCase("Success")) {
 
                 //  arrayListCourseData.addAll(courseDiaryItems.getData());
-                arrayListCourseData.addAll(courseDiaryItems.getData());
+                // arrayListCourseData.addAll(courseDiaryItems.getData());
                 //Take backup of List before changing to record.
                 arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
 
-
-                if (arrayListCourseData.size() == 0) {
+                if (arrayCourseDataBackup.size() == 0) {
                     isMoreToScroll = false;
                     resetArrayData();
                     showAlertMessage(getResources().getString(R.string.error_no_data));
@@ -576,8 +530,9 @@ public class CourseDiaryActivity extends BaseActivity {
 
                     isMoreToScroll = true;
 
-                    //Initialize Course Events Adapter.
-                    courseDiaryAdapter = new CourseDiaryAdapter(this,/* filterCourseDates(iScrollCount,*/ arrayCourseDataBackup/*, arrayListCourseData)*/);
+                    //Set Course Diary Adapter after create section title of Course Events.
+                    filterCourseDates(courseDiaryItems.getData());
+
                     lvCourseDiary.setAdapter(courseDiaryAdapter);
                     courseDiaryAdapter.notifyDataSetChanged();
                 }
@@ -601,7 +556,6 @@ public class CourseDiaryActivity extends BaseActivity {
      * or set as initial state.
      */
     public void resetCalendar() {
-
         strDate = strCurrentDate;
         iMonth = iCurrentMonth;
         iYear = iCurrentYear;
@@ -636,33 +590,24 @@ public class CourseDiaryActivity extends BaseActivity {
      * month value.
      */
     public String getMonth(int month) {
-
         return new DateFormatSymbols().getMonths()[month - 1];
-    }
-
-    /**
-     * Show snackBar message defined in BaseActivity.
-     */
-    public void showSnackMessage(String strSnackMessage) {
-        Log.e("Snack:", strSnackMessage);
-        showSnackBarMessages(cdlCourse, strSnackMessage);
     }
 
     /**
      * Implements a method to filter or set date and name of Day
      * one time for all course events having same date and day.
      */
-    public ArrayList<CourseDiaryDataCopy> filterCourseDates(int iStart, ArrayList<CourseDiaryDataCopy> arrayListCourseDataCopies, ArrayList<CourseDiaryData> arrayListCourseData) {
-        ArrayList<CourseDiaryDataCopy> courseDiaryDataArrayList = new ArrayList<>();
-        courseDiaryDataArrayList.clear();
-        String strLastDate = "";
+    public ArrayList<CourseDiaryData> filterCourseDates(ArrayList<CourseDiaryData> arrayListCourseData) {
+        ArrayList<CourseDiaryData> diaryDataArrayList = new ArrayList<>();
+        diaryDataArrayList.clear();
+        String strLastCourseEventDate = "";
         String strNameOfMonth;
         int iMonthNum; //For update navigation icon to enable, disable.
 
         /**
          *  Loop filter till end of Course Diary events.
          */
-        for (int iCounter = 0; iCounter < arrayListCourseDataCopies.size(); iCounter++) {
+        for (int iCounter = 0; iCounter < arrayListCourseData.size(); iCounter++) {
 
             /**
              *Place NAME of Month for all events to set as Title bar when scroll down or up.
@@ -670,39 +615,30 @@ public class CourseDiaryActivity extends BaseActivity {
             strNameOfMonth = arrayListCourseData.get(iCounter).getCourseEventDate();
             iMonthNum = Integer.parseInt(strNameOfMonth.substring((strNameOfMonth.indexOf("-") + 1), strNameOfMonth.lastIndexOf("-")));
 
-            strNameOfMonth = strNameOfMonth.substring(0, strNameOfMonth.indexOf("-"));
+            // strNameOfMonth = strNameOfMonth.substring(0, strNameOfMonth.indexOf("-"));
 
-            arrayListCourseDataCopies.get(iCounter).setMonthName(arrayListCourseData.get(iCounter).getMonthName() + " " + strNameOfMonth);
+            //arrayListCourseDataCopies.get(iCounter).setMonthName(arrayListCourseData.get(iCounter).getMonthName() + " " + strNameOfMonth);
 
-            arrayListCourseDataCopies.get(iCounter).setiMonthNum(iMonthNum);
+            arrayListCourseData.get(iCounter).setiMonthNum(iMonthNum);
 
-            if (iCounter < iStart) {
-                courseDiaryDataArrayList.add(arrayListCourseDataCopies.get(iCounter));
-            } else {
-                String strDateOfEvent = formatDateOfEvent(arrayListCourseDataCopies.get(iCounter).getCourseEventDate());
+            String strCourseEventDate = arrayListCourseData.get(iCounter).getStrCourseEventDate();
 
-                /**
-                 * Check if same date or not of Course Diary event If yes then just
-                 * display date and day name once otherwise skip.
-                 */
-                if (strLastDate.equalsIgnoreCase(strDateOfEvent)) {
-
-                    arrayListCourseDataCopies.get(iCounter).setCourseEventDate("");
-                    arrayListCourseDataCopies.get(iCounter).setDayName("");
-
-                } else {
-                    strLastDate = strDateOfEvent;
-
-                    arrayListCourseDataCopies.get(iCounter).setCourseEventDate(strDateOfEvent);
-                    arrayListCourseDataCopies.get(iCounter).setDayName(formatDayOfEvent(arrayListCourseDataCopies.get(iCounter).getDayName()));
-                }
-
-                //Add final to new arrat list.
-                courseDiaryDataArrayList.add(arrayListCourseDataCopies.get(iCounter));
+            /**
+             *  Add section title of Course Event if not added before.
+             *
+             */
+        //Log.e("before:",""+strLastCourseEventDate);
+            if (!(strLastCourseEventDate.equalsIgnoreCase(strCourseEventDate))) {
+                Log.e("after:",""+strLastCourseEventDate);
+                courseDiaryAdapter.addSectionHeaderItem(arrayListCourseData.get(iCounter)/*strCourseEventDate*/);
+                strLastCourseEventDate = strCourseEventDate;
             }
+            courseDiaryAdapter.addItem(arrayListCourseData.get(iCounter));
+
+            //Add final to new arrat list.
+            diaryDataArrayList.add(arrayListCourseData.get(iCounter));
         }
-        // Log.e("filterCourseDates:", "" + courseDiaryDataArrayList.size());
-        return courseDiaryDataArrayList;
+        return diaryDataArrayList;
     }
 
     /**
@@ -710,7 +646,7 @@ public class CourseDiaryActivity extends BaseActivity {
      *                           Implements a method to return the format the day of
      *                           event.
      *                           <p>
-     *                           Exapmle: 2016-03-04T00:00:00
+     *                           Example: 2016-03-04T00:00:00
      * @Return : 04
      */
     private String formatDateOfEvent(String strCourseEventDate) {
@@ -757,57 +693,6 @@ public class CourseDiaryActivity extends BaseActivity {
     }
 
     /**
-     * Create Menu Options with previous, next, Today icons.
-     *
-     * @param menu
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//
-//        menuInstance = menu;
-//
-//        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-//        resetMonthsNavigationIcons();
-
-        return true;
-    }
-
-    /**
-     * Handle click event on Menu bar icons
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-//        //Here we change the fragment
-//        FragmentManager fm = getSupportFragmentManager();
-//        FragmentTransaction tr = fm.beginTransaction();
-//
-//        switch (item.getItemId()) {
-//            case R.id.action_PrevMonth:
-//                if (iMonth > iCurrentMonth) {
-//                    updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
-//                }
-//                break;
-//
-//            case R.id.action_NextMonth:
-//                updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_NEXT_MONTH));
-//                break;
-//
-//            case R.id.action_Today:
-//                updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_TODAY));
-//                break;
-//        }
-
-//        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-//        resetMonthsNavigationIcons();
-//
-//        //Commit and navigate to new fragment.
-//        tr.commit();
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
      * Implements Today functionality to display CURRENT date to
      * next specific dates.
      */
@@ -823,7 +708,6 @@ public class CourseDiaryActivity extends BaseActivity {
 
         strNameOfMonth = getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear;
 
-        Log.e(LOG_TAG, "callTodayScrollEvents : " + strNameOfMonth);
         int iDate;
         if (iLessDays < ApplicationGlobal.LOAD_MORE_VALUES) {
 
@@ -908,10 +792,8 @@ public class CourseDiaryActivity extends BaseActivity {
 
         if (isEnable) {
             ivPrevMonth.setAlpha((float) 1.0);
-//            menuInstance.getItem(0).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_left));
         } else {
             ivPrevMonth.setAlpha((float) 0.3);
-            //menuInstance.getItem(0).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_left_blur));
         }
     }
 
@@ -923,10 +805,8 @@ public class CourseDiaryActivity extends BaseActivity {
 
         if (isEnable) {
             ivNextMonth.setAlpha((float) 1.0);
-            //menuInstance.getItem(1).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_right));
         } else {
             ivNextMonth.setAlpha((float) 0.3);
-            //  menuInstance.getItem(1).setIcon(ContextCompat.getDrawable(mActivityContext, R.mipmap.ic_arrow_right_blur));
         }
     }
 
@@ -945,6 +825,10 @@ public class CourseDiaryActivity extends BaseActivity {
         arrayListCourseData.clear();
         arrayCourseDataBackup.clear();
         iScrollCount = 0;
+
+        courseDiaryAdapter.CourseDiaryData.clear();
+       // lvCourseDiary.setAdapter(courseDiaryAdapter);
+        courseDiaryAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -1032,10 +916,6 @@ public class CourseDiaryActivity extends BaseActivity {
             default: {
                 showPleaseWait("Loading more...");
                 callNextMonthAction();
-
-               /* //Show progress dialog during call web service.
-                showPleaseWait("Loading...");
-                callCourseDiaryWebService();*/
             }
         }
 
@@ -1127,6 +1007,4 @@ public class CourseDiaryActivity extends BaseActivity {
         //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
         //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
     }
-
-
 }

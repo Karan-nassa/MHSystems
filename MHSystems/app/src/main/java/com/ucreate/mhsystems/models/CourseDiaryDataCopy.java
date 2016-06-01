@@ -34,6 +34,11 @@ public class CourseDiaryDataCopy {
     @Expose
     private String strCourseEventDate;
 
+
+    public CourseDiaryDataCopy(String strCourseEventDate) {
+        this.strCourseEventDate = strCourseEventDate;
+    }
+
     /**
      * @return The startTime24Format
      */

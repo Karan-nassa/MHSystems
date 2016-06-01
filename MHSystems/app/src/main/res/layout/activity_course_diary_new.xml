@@ -131,7 +131,6 @@
                         android:layout_marginRight="5dp"
                         android:gravity="center"
                         android:onClick="onClick"
-                        android:text="September"
                         android:textColor="@color/color030303"
                         android:textSize="17sp" />
 

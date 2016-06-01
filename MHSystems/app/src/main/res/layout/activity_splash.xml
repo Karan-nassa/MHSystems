@@ -4,12 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- GOLF CLUB LOGO -->
-
-    <ImageView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:src="@mipmap/ic_logo_celtic" />
+        android:orientation="vertical">
+
+        <!-- GOLF CLUB LOGO -->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_home_golfclub" />
+
+        <!-- GOLF CLUB NAME -->
+
+        <com.ucreate.mhsystems.customfonts.BaskervilleTextFont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.5"
+            android:text="@string/title_golf_club_name"
+            android:textColor="@color/colorC0995B"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

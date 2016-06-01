@@ -11,7 +11,7 @@
         <!-- Customize your theme here. -->
         <!-- <item name="colorPrimary">@color/colorBlack191919</item>-->
         <item name="colorPrimary">@color/colorBlack000000</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorBlack000000</item>
         <item name="colorAccent">@android:color/holo_blue_light</item>
     </style>
 

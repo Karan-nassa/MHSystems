@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorF9F8F7">
+
+    <!-- SECTION TITLE OF COURSE DIARY -->
+
+    <com.ucreate.mhsystems.customfonts.SFUI_TextFontMedium
+        android:id="@+id/tvCourseDateTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
+        android:text="29th Monday"
+        android:textColor="@color/color1E1E1C"
+        android:textSize="13sp" />
+
+</LinearLayout>
