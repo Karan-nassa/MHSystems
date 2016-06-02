@@ -18,7 +18,7 @@ import com.ucreate.mhsystems.constants.ApplicationGlobal;
  */
 public class SplashActivity extends BaseActivity {
 
-    private final int SPLASH_TIME_OUT = 2000;
+    private final int SPLASH_TIME_OUT = 1500;
 
     String strUserName;
 

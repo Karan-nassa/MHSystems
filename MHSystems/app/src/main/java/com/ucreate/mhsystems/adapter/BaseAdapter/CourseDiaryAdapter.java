@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.activites.CourseDiaryActivity;
 import com.ucreate.mhsystems.activites.CourseDiaryDetailActivity;
 import com.ucreate.mhsystems.activites.CustomAlertDialogActivity;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.models.CourseDiaryData;
-import com.ucreate.mhsystems.models.CourseDiaryDataCopy;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -32,7 +29,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_SEPARATOR = 1;
 
-    private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
+    public TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
     public ArrayList<CourseDiaryData> CourseDiaryData = new ArrayList<>();
 
     Activity context;

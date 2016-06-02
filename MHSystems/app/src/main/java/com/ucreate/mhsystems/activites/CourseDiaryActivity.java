@@ -42,6 +42,19 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+/**
+ * The {@link CourseDiaryActivity} used to display the Course Diary events by months. First of all current month events
+ * will be loaded and when user scroll down then some events of next months will be loaded and so on...
+ * <p/>
+ * After redesign Course Diary, remove the OLD and NEW COURSE {@link android.support.v4.app.Fragment} and implements this
+ * functionality in {@link PopupMenu}.
+ * <p/>
+ * Also update PREVIOUS, NEXT, TODAY and {@link Calendar} functionality in a top bar below of {@link Toolbar}.
+ *
+ * @author {@link karan@ucreate.co.in}
+ * @version 1.0
+ * @since 12 May, 2016
+ */
 public class CourseDiaryActivity extends BaseActivity {
 
     /*********************************
@@ -57,9 +70,6 @@ public class CourseDiaryActivity extends BaseActivity {
 
     @Bind(R.id.llMonthTitle)
     LinearLayout llMonthTitle;
-
-    @Bind(R.id.toolBar)
-    Toolbar toolbar;
 
     @Bind(R.id.tvCourseType)
     TextView tvCourseType;
@@ -228,13 +238,10 @@ public class CourseDiaryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_diary_new);
+        setContentView(R.layout.activity_course_diary);
 
         //Initialize view resources.
         ButterKnife.bind(this);
-
-        //Let's first set up toolbar
-        setupToolbar();
 
         //Initialize Course Events Adapter.
         courseDiaryAdapter = new CourseDiaryAdapter(this);
@@ -257,13 +264,9 @@ public class CourseDiaryActivity extends BaseActivity {
         //Load Default fragment of COURSE DIARY.
         createDateForData();
         resetMonthsNavigationIcons();
-        //  updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_NOTHING));
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
-
-        //When user want to Select date from CALENDAR.
-        //   llMonthTitle.setOnClickListener(mCalendarListener);
 
         initializeCourseCategory();
 
@@ -281,7 +284,7 @@ public class CourseDiaryActivity extends BaseActivity {
     }
 
     /**
-     * Implements a method to initialize Course Diary catergories in pop-up menu like
+     * Implements a method to initialize Course Diary categories in pop-up menu like
      * <b>Old Course</b> and <b>New Course</b> for Sunningdales golf club.
      */
     private void initializeCourseCategory() {
@@ -320,10 +323,6 @@ public class CourseDiaryActivity extends BaseActivity {
                 }
                 break;
 
-            case R.id.tvNameOfMonth:
-                Log.e(LOG_TAG, "tvNameOfMonth : ");
-                break;
-
             case R.id.ivNextMonth:
                 if (iMonth < 12) {
                     resetArrayData();
@@ -336,7 +335,6 @@ public class CourseDiaryActivity extends BaseActivity {
 
                 iLastCalendarAction = ApplicationGlobal.ACTION_TODAY;
 
-                // updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_TODAY));
                 //Reset To current date.
 //                 mCalendarInstance.set(Calendar.YEAR,  iCurrentYear);
 //                 mCalendarInstance.set(Calendar.MONTH, ( iCurrentMonth - 1));
@@ -443,7 +441,6 @@ public class CourseDiaryActivity extends BaseActivity {
          *  Check internet connection before hitting server request.
          */
         if (isOnline(this)) {
-
             //Method to hit Squads API.
             requestCourseService();
         } else {
@@ -489,7 +486,6 @@ public class CourseDiaryActivity extends BaseActivity {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
-
                 showAlertMessage("" + error);
             }
         });
@@ -517,7 +513,6 @@ public class CourseDiaryActivity extends BaseActivity {
              */
             if (courseDiaryItems.getMessage().equalsIgnoreCase("Success")) {
 
-                //  arrayListCourseData.addAll(courseDiaryItems.getData());
                 // arrayListCourseData.addAll(courseDiaryItems.getData());
                 //Take backup of List before changing to record.
                 arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
@@ -538,6 +533,8 @@ public class CourseDiaryActivity extends BaseActivity {
                 }
             } else {
                 isMoreToScroll = false;
+                setTitleBar(getMonth(iMonth));
+
                 //If web service not respond in any case.
                 showAlertMessage(courseDiaryItems.getMessage());
             }
@@ -566,7 +563,6 @@ public class CourseDiaryActivity extends BaseActivity {
      * or set as initial state.
      */
     public void resetCalendarPicker() {
-
         strDate = strDateTemp;
         iMonth = iMonthTemp;
         iYear = iYearTemp;
@@ -594,8 +590,8 @@ public class CourseDiaryActivity extends BaseActivity {
     }
 
     /**
-     * Implements a method to filter or set date and name of Day
-     * one time for all course events having same date and day.
+     * Implements this method to filter or create section and item rows
+     * of Course Diary events.
      */
     public ArrayList<CourseDiaryData> filterCourseDates(ArrayList<CourseDiaryData> arrayListCourseData) {
         ArrayList<CourseDiaryData> diaryDataArrayList = new ArrayList<>();
@@ -615,73 +611,23 @@ public class CourseDiaryActivity extends BaseActivity {
             strNameOfMonth = arrayListCourseData.get(iCounter).getCourseEventDate();
             iMonthNum = Integer.parseInt(strNameOfMonth.substring((strNameOfMonth.indexOf("-") + 1), strNameOfMonth.lastIndexOf("-")));
 
-            // strNameOfMonth = strNameOfMonth.substring(0, strNameOfMonth.indexOf("-"));
-
-            //arrayListCourseDataCopies.get(iCounter).setMonthName(arrayListCourseData.get(iCounter).getMonthName() + " " + strNameOfMonth);
-
             arrayListCourseData.get(iCounter).setiMonthNum(iMonthNum);
 
             String strCourseEventDate = arrayListCourseData.get(iCounter).getStrCourseEventDate();
 
             /**
              *  Add section title of Course Event if not added before.
-             *
              */
-        //Log.e("before:",""+strLastCourseEventDate);
             if (!(strLastCourseEventDate.equalsIgnoreCase(strCourseEventDate))) {
-                Log.e("after:",""+strLastCourseEventDate);
-                courseDiaryAdapter.addSectionHeaderItem(arrayListCourseData.get(iCounter)/*strCourseEventDate*/);
+                courseDiaryAdapter.addSectionHeaderItem(arrayListCourseData.get(iCounter));
                 strLastCourseEventDate = strCourseEventDate;
             }
             courseDiaryAdapter.addItem(arrayListCourseData.get(iCounter));
 
-            //Add final to new arrat list.
+            //Add final to new array-list.
             diaryDataArrayList.add(arrayListCourseData.get(iCounter));
         }
         return diaryDataArrayList;
-    }
-
-    /**
-     * @param strCourseEventDate <br>
-     *                           Implements a method to return the format the day of
-     *                           event.
-     *                           <p>
-     *                           Example: 2016-03-04T00:00:00
-     * @Return : 04
-     */
-    private String formatDateOfEvent(String strCourseEventDate) {
-
-        //Used when Date format in Hyphen['-']. Example : dd-MM-yyyy
-        String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
-
-        //Used when Date format in slashes['/']. Example : dd/MM/yyyy
-        //String strEventDate = strCourseEventDate.substring(strCourseEventDate.indexOf("/") + 1, strCourseEventDate.lastIndexOf("/"));
-
-        return strEventDate;
-    }
-
-    /**
-     * @param strDayName <br>
-     *                   Implements a method to return the format the day of
-     *                   event.
-     *                   <p>
-     *                   Exapmle: NAME OF DAY : Friday
-     * @Return : Fri
-     */
-    private String formatDayOfEvent(String strDayName) {
-        return (strDayName.substring(0, 3));
-    }
-
-    /**
-     * Initialize tool bar to display menu bar options, app-icon and
-     * navigation drawer icon.
-     */
-    void setupToolbar() {
-        setSupportActionBar(toolbar);
-        //toolbar.setLogo(R.mipmap.ic_home_menu);
-        // toolbar.setTitle("March 2016");
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
 
     /**
@@ -738,47 +684,20 @@ public class CourseDiaryActivity extends BaseActivity {
     }
 
     /**
-     * Implements this method to reset CALENDAR PREV, NEXT icon.
+     * Implements this method to reset Previous and Next months
+     * navigation icons ENABLE or DISABLE state.
      */
     public void resetMonthsNavigationIcons() {
-        /**
-         *  To disable or display blur previous icon.
-         */
-        if (iMonth <= iCurrentMonth) {
+
+        if (iMonth == iCurrentMonth) {
             setPreviousButton(false);
+            setNextButton(true);
+        } else if (iMonth == 12) {
+            setPreviousButton(true);
+            setNextButton(false);
         } else {
             setPreviousButton(true);
-        }
-    }
-
-    /**
-     * User can navigate back to 1st JAN of current YEAR for COMPLETED tab so reset or navigate
-     * to current MONTH if past MONTH/DATE selected via PREVIOUS MONTH icon.
-     */
-    public void resetCalendarEvents() {
-
-        if (iMonth <= iCurrentMonth) {
-
-            //Reset to current MONTH.
-            resetCalendar();
-
-            // Create a calendar object and set year and month
-            mCalendarInstance = new GregorianCalendar(iYear, (iMonth - 1), Integer.parseInt(strDate));
-
-            // Get the number of days in that month
-            iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-            //FORMAT : MM-DD-YYYY
-            strDateFrom = "" + iMonth + "/" + strDate + "/" + iYear;
-
-            //FORMAT : MM-DD-YYYY
-            strDateTo = "" + iMonth + "/" + iNumOfDays + "/" + iYear;
-
-            //Set MONTH title.
-            setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth)))/* + " " + iYear*/);
-
-            Log.e(LOG_TAG, "START DATE : " + strDateFrom);
-            Log.e(LOG_TAG, "END DATE : " + strDateTo);
+            setNextButton(true);
         }
     }
 
@@ -827,7 +746,7 @@ public class CourseDiaryActivity extends BaseActivity {
         iScrollCount = 0;
 
         courseDiaryAdapter.CourseDiaryData.clear();
-       // lvCourseDiary.setAdapter(courseDiaryAdapter);
+        courseDiaryAdapter.sectionHeader.clear();
         courseDiaryAdapter.notifyDataSetChanged();
     }
 
@@ -954,10 +873,6 @@ public class CourseDiaryActivity extends BaseActivity {
                                 //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
                                 resetMonthsNavigationIcons();
 
-                                //setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
-
-                                //updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
-
                                 // iNumOfDays = Integer.parseInt( strDate);
                                 callTodayScrollEvents();
                             } else if (tMonthofYear == iCurrentMonth) {
@@ -973,9 +888,6 @@ public class CourseDiaryActivity extends BaseActivity {
                                     //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
                                     resetMonthsNavigationIcons();
 
-                                    //  setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
-
-                                    //updateFragment(new CourseDairyTabFragment(ApplicationGlobal.ACTION_CALENDAR));
                                     // iNumOfDays = Integer.parseInt( strDate);
                                     callTodayScrollEvents();
                                 } else {

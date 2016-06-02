@@ -48,16 +48,16 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile files('libs/rollbar-android-0.1.2-dev.jar')
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
 
     //New Relic compile dependency.
     //  compile 'com.newrelic.agent.android:android-agent:5.6'
-    compile 'com.newrelic.agent.android:android-agent:5.6.0'
+    compile 'com.newrelic.agent.android:android-agent:5.6.1'
 
     //Recycler View Adapter.
-    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
     //Bind resources of xml using Butter Knife library.
 
     compile 'com.jakewharton:butterknife:7.0.1'
