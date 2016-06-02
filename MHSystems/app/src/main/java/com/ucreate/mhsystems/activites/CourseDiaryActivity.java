@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -111,6 +112,9 @@ public class CourseDiaryActivity extends BaseActivity {
     CourseDiaryItems courseDiaryItems;
     CourseDiaryItemsCopy courseDiaryItemsCopy;
     AJsonParamsCourse aJsonParams;
+
+    @Bind(R.id.inc_noInternet)
+    RelativeLayout inc_noInternet;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -309,54 +313,59 @@ public class CourseDiaryActivity extends BaseActivity {
      */
     public void onClick(View view) {
 
-        switch (view.getId()) {
+        if (isOnline(CourseDiaryActivity.this)) {
+            inc_noInternet.setVisibility(View.GONE);
+            switch (view.getId()) {
 
-            case ApplicationGlobal.ACTION_NOTHING:
-                resetArrayData();
-                createDateForData();
-                break;
-
-            case R.id.ivPrevMonth:
-                if (iMonth > iCurrentMonth) {
+                case ApplicationGlobal.ACTION_NOTHING:
                     resetArrayData();
-                    callPrevMonthAction();
-                }
-                break;
+                    createDateForData();
+                    break;
 
-            case R.id.ivNextMonth:
-                if (iMonth < 12) {
+                case R.id.ivPrevMonth:
+                    if (iMonth > iCurrentMonth) {
+                        resetArrayData();
+                        callPrevMonthAction();
+                    }
+                    break;
+
+                case R.id.ivNextMonth:
+                    if (iMonth < 12) {
+                        resetArrayData();
+                        callNextMonthAction();
+                    }
+                    break;
+
+                case R.id.tvToday:
                     resetArrayData();
-                    callNextMonthAction();
-                }
-                break;
 
-            case R.id.tvToday:
-                resetArrayData();
+                    iLastCalendarAction = ApplicationGlobal.ACTION_TODAY;
 
-                iLastCalendarAction = ApplicationGlobal.ACTION_TODAY;
-
-                //Reset To current date.
+                    //Reset To current date.
 //                 mCalendarInstance.set(Calendar.YEAR,  iCurrentYear);
 //                 mCalendarInstance.set(Calendar.MONTH, ( iCurrentMonth - 1));
 //                 mCalendarInstance.set(Calendar.DATE, Integer.parseInt( strCurrentDate));
 
-                resetCalendar();
+                    resetCalendar();
 
-                /** +++++ START OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++ **/
-                callTodayScrollEvents();
-                /** +++++ END OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++ **/
-                break;
+                    /** +++++ START OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++ **/
+                    callTodayScrollEvents();
+                    /** +++++ END OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++ **/
+                    break;
 
-            case R.id.ivCalendar:
-                resetArrayData();
-                iLastCalendarAction = ApplicationGlobal.ACTION_CALENDAR;
+                case R.id.ivCalendar:
+                    resetArrayData();
+                    iLastCalendarAction = ApplicationGlobal.ACTION_CALENDAR;
 
-                showCalendar();
-                break;
+                    showCalendar();
+                    break;
+            }
+
+            //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+            resetMonthsNavigationIcons();
+        }else{
+            inc_noInternet.setVisibility(View.VISIBLE);
         }
-
-        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-        resetMonthsNavigationIcons();
     }
 
     /**
@@ -441,10 +450,12 @@ public class CourseDiaryActivity extends BaseActivity {
          *  Check internet connection before hitting server request.
          */
         if (isOnline(this)) {
+            inc_noInternet.setVisibility(View.GONE);
             //Method to hit Squads API.
             requestCourseService();
         } else {
-            showAlertMessage(getResources().getString(R.string.error_no_internet));
+            inc_noInternet.setVisibility(View.VISIBLE);
+            //showAlertMessage(getResources().getString(R.string.error_no_internet));
             hideProgress();
         }
     }

@@ -17,69 +17,69 @@
 
             <!-- STATUS BAR -->
 
-           <!-- <android.support.v7.widget.Toolbar
-                android:id="@+id/toolBar"
+            <!-- <android.support.v7.widget.Toolbar
+                 android:id="@+id/toolBar"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@color/color4B4B49"
+                 android:fitsSystemWindows="true"
+                 android:minHeight="?android:attr/actionBarSize"
+                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color4B4B49"
-                android:fitsSystemWindows="true"
                 android:minHeight="?android:attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
-
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/llHomeIcon"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/color4B4B49"
-                    android:minHeight="?android:attr/actionBarSize"
-                    android:orientation="horizontal">
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/llHomeIcon"
+                    <!-- HOME MENU ICON -->
+
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-
-                        <!-- HOME MENU ICON -->
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/icon_menu" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llMonthTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="horizontal">
-
-                        <!-- COURSE TYPE [OLD/NEW COURSE] -->
-
-                        <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                            android:id="@+id/tvCourseType"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:text="Course Name"
-                            android:textColor="@color/colorWhiteffffff"
-                            android:textSize="20sp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:src="@mipmap/ic_arrow_down" />
-
-                    </LinearLayout>
+                        android:src="@mipmap/icon_menu" />
 
                 </LinearLayout>
 
-         <!--   </android.support.v7.widget.Toolbar>-->
+                <LinearLayout
+                    android:id="@+id/llMonthTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- COURSE TYPE [OLD/NEW COURSE] -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvCourseType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="Course Name"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_arrow_down" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--   </android.support.v7.widget.Toolbar>-->
 
             <!-- QUICK NAVIGATION ICONS FOR CHANGE CONTENT LIKE PREVIOUS, NEXT, CALENDAR AND TODAY -->
 
@@ -108,13 +108,7 @@
 
                     <!-- DIVIDER LINE -->
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/colorBDB6AE" />
+                    <View style="@style/CourseNavDividers" />
 
                 </LinearLayout>
 
@@ -140,12 +134,7 @@
                     <!-- DIVIDER LINE -->
 
                     <View
-                        android:layout_width="1dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/colorBDB6AE" />
+                       style="@style/CourseNavDividers" />
 
                 </FrameLayout>
 
@@ -168,11 +157,7 @@
                     <!-- DIVIDER LINE -->
 
                     <View
-                        android:layout_width="1dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/colorBDB6AE" />
+                        style="@style/CourseNavDividers" />
 
                 </LinearLayout>
 
@@ -198,12 +183,7 @@
                     <!-- DIVIDER LINE -->
 
                     <View
-                        android:layout_width="1dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/colorBDB6AE" />
+                        style="@style/CourseNavDividers" />
 
                 </FrameLayout>
 
@@ -226,6 +206,11 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <include
+                android:id="@+id/inc_noInternet"
+                layout="@layout/include_no_internet"
+                android:visibility="gone"/>
 
 
             <!-- USE TO DISPLAY COURSE LIST -->
