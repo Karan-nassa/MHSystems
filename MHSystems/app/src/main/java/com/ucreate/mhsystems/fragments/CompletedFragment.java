@@ -96,10 +96,11 @@ public class CompletedFragment extends Fragment implements SwipeRefreshLayout.On
          *  Check internet connection before hitting server request.
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            //Method to hit Squads API.
+            ((CompetitionsActivity) getActivity()).updateNoInternetUI(true);
             requestCompetitionsEvents();
         } else {
-            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+            ((CompetitionsActivity) getActivity()).updateNoInternetUI(false);
+            //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
     }
 

@@ -86,7 +86,6 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-
         if (isVisibleToUser) {
 
             //Reset CALENDAR.
@@ -105,10 +104,12 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
          *  Check internet connection before hitting server request.
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            ((CompetitionsActivity) getActivity()).updateNoInternetUI(true);
             //Method to hit Squads API.
             requestCompetitionsEvents();
         } else {
-            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+            ((CompetitionsActivity) getActivity()).updateNoInternetUI(false);
+            //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
     }
 

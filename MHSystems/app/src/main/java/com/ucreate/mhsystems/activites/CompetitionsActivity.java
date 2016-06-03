@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
@@ -53,6 +54,9 @@ public class CompetitionsActivity extends BaseActivity {
 
     @Bind(R.id.tvMonthNameComp)
     TextView tvMonthNameComp;
+
+    @Bind(R.id.inc_noInternet)
+    RelativeLayout inc_noInternet;
 
     //Create instance of  {@link Calendar} class.
     public static Calendar mCalendarInstance;
@@ -200,6 +204,20 @@ public class CompetitionsActivity extends BaseActivity {
 
         //When user want to Select date from CALENDAR.
         llMonthTitleComp.setOnClickListener(mCalendarListener);
+    }
+
+    /**
+     * Implements a method to update UI when 'No Internet connection'
+     * when disconnect internet connection.
+     *
+     * @param isOnline : True means internet working fine.
+     */
+    public void updateNoInternetUI(boolean isOnline) {
+        if (isOnline) {
+            inc_noInternet.setVisibility(View.GONE);
+        } else {
+            inc_noInternet.setVisibility(View.VISIBLE);
+        }
     }
 
     /**

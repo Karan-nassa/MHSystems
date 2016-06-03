@@ -1,6 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -18,9 +17,9 @@
             android:layout_height="wrap_content"
             android:background="@color/colorF6EA8C"
             android:elevation="6dp"
-            app:tabMode="scrollable"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/colorBlack000000"
             app:tabTextColor="@color/colorb5ad67" />
 
@@ -30,10 +29,10 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_below="@id/tab_layout"
-            android:elevation="6dp"
-            android:background="@android:color/white" />
+            android:background="@android:color/white"
+            android:elevation="6dp" />
 
     </LinearLayout>
 

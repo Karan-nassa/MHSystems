@@ -125,9 +125,12 @@ public class CourseDiaryActivity extends BaseActivity {
 
     private int iLastCalendarAction;
 
-    public String strDateFrom; //Start date.
-    public String strDateTo; //End date.
-    public String strNameOfMonth = "MARCH 2016";
+    public String strDateFrom = ""; //Start date.
+    public String strDateTo = ""; //End date.
+    public String strNameOfMonth = "JUNE 2016";
+
+    String strLastDateFrom;
+    String strLastDateTo;
 
     /**
      * +++++ START OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++
@@ -149,6 +152,8 @@ public class CourseDiaryActivity extends BaseActivity {
 
     int iMonthTemp, iYearTemp;
     String strDateTemp;
+
+    String strLastCourseEventDate = "";
 
     /**
      * iCourseType for categorised like Old or New Course.
@@ -191,7 +196,9 @@ public class CourseDiaryActivity extends BaseActivity {
 
                         iScrollCount = count;
 
-                        getMoreCourseEvents();
+                        if (isMoreToScroll) {
+                            getMoreCourseEvents();
+                        }
                     }
                 }
             }
@@ -363,7 +370,7 @@ public class CourseDiaryActivity extends BaseActivity {
 
             //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
             resetMonthsNavigationIcons();
-        }else{
+        } else {
             inc_noInternet.setVisibility(View.VISIBLE);
         }
     }
@@ -424,6 +431,10 @@ public class CourseDiaryActivity extends BaseActivity {
      * functionality.
      */
     public void createDateForData() {
+
+        strLastDateFrom = strDateFrom;
+        strLastDateTo = strDateTo;
+
         //FORMAT : MM-DD-YYYY
         strDateFrom = iMonth + "/" + strDate + "/" + iYear;
 
@@ -436,9 +447,14 @@ public class CourseDiaryActivity extends BaseActivity {
         Log.e(LOG_TAG, "END DATE : " + strDateTo);
         Log.e(LOG_TAG, "NAME OF MONTH : " + strNameOfMonth);
 
-        //Show progress dialog during call web service.
-        showPleaseWait("Loading...");
-        callCourseDiaryWebService();
+        if (strLastDateFrom.equals(strDateFrom) && strLastDateTo.equals(strDateTo)) {
+            isMoreToScroll = false;
+            hideProgress();
+        } else {
+            //Show progress dialog during call web service.
+            showPleaseWait("Loading...");
+            callCourseDiaryWebService();
+        }
     }
 
     /**
@@ -607,7 +623,6 @@ public class CourseDiaryActivity extends BaseActivity {
     public ArrayList<CourseDiaryData> filterCourseDates(ArrayList<CourseDiaryData> arrayListCourseData) {
         ArrayList<CourseDiaryData> diaryDataArrayList = new ArrayList<>();
         diaryDataArrayList.clear();
-        String strLastCourseEventDate = "";
         String strNameOfMonth;
         int iMonthNum; //For update navigation icon to enable, disable.
 
@@ -767,6 +782,9 @@ public class CourseDiaryActivity extends BaseActivity {
      */
     private void getMoreCourseEvents() {
 
+        strLastDateFrom = strDateFrom;
+        strLastDateTo = strDateTo;
+
         //Scroll down functionality should only work for TODAY and CALENDAR date picker.
         switch (iLastCalendarAction) {
             case ApplicationGlobal.ACTION_CALENDAR:
@@ -831,14 +849,19 @@ public class CourseDiaryActivity extends BaseActivity {
                         strDateTo = iMonth + "/" + strDate + "/" + iYear;
                     }
 
-                    setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth)))/* + " " + iYear*/);
+                    if (strLastDateFrom.equals(strDateFrom) && strLastDateTo.equals(strDateTo)) {
+                        isMoreToScroll = false;
+                        hideProgress();
+                    } else {
+                        //setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth)))/* + " " + iYear*/);
 
-                    Log.e(LOG_TAG, "strDateFrom " + strDateFrom);
-                    Log.e(LOG_TAG, "strDateTo " + strDateTo);
+                        Log.e(LOG_TAG, "strDateFrom " + strDateFrom);
+                        Log.e(LOG_TAG, "strDateTo " + strDateTo);
 
-                    //Show progress dialog during call web service.
-                    showPleaseWait("Loading...");
-                    callCourseDiaryWebService();
+                        //Show progress dialog during call web service.
+                        showPleaseWait("Loading...");
+                        callCourseDiaryWebService();
+                    }
                     break;
                 }
             }

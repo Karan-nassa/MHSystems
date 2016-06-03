@@ -20,12 +20,25 @@
 
         <!-- INTERNET CONNECTION TITLE -->
 
-        <com.ucreate.mhsystems.customfonts.RobotoTextView
+        <com.ucreate.mhsystems.customfonts.RobotoTextFontBold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:textColor="@color/color1E1E1C"
+            android:alpha="0.5"
             android:text="@string/error_no_connection"
-            android:textSize="20sp" />
+            android:textStyle="bold"
+            android:textSize="13sp" />
+
+        <!-- TRY AGAIN TITLE-->
+
+        <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color1E1E1C"
+            android:text="@string/error_try_again"
+            android:alpha="0.5"
+            android:textSize="13sp" />
 
     </LinearLayout>
 
