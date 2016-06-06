@@ -55,7 +55,7 @@ public class CustomAlertDialogActivity extends AppCompatActivity {
          * For example: If come from Course Diary then Theme would be #AFD9A1
          * and from COMPETITIONS then Theme would be #F6EA8C
          */
-        strColorTheme = getIntent().getExtras().getString("colorTheme");
+        //strColorTheme = getIntent().getExtras().getString("colorTheme");
 
         /**
          *  callFrom describe the calling class name.
@@ -67,7 +67,7 @@ public class CustomAlertDialogActivity extends AppCompatActivity {
         setConentofAlert(iCallFrom);
 
         //Set Theme of Alert Dialog.
-        flPopupTheme.setBackgroundColor(Color.parseColor(strColorTheme));
+       // flPopupTheme.setBackgroundColor(Color.parseColor(strColorTheme));
     }
 
     /**

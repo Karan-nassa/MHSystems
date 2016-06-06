@@ -1,6 +1,5 @@
 package com.ucreate.mhsystems.activites;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,8 +20,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pnikosis.materialishprogress.ProgressWheel;
@@ -33,8 +32,6 @@ import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by karan@ucreate.co.in for base
@@ -70,6 +67,49 @@ public class BaseActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Implements a method to show 'NO INTERNET CONNECTION' view
+     * and hide it on access internet.
+     *
+     * @param inc_message_view :  Whole view group for set VISIBILITY of view VISIBLE/INVISIBLE.
+     * @param ivMessageSymbol  :  View to set Image at run time like CUP icon for NO COMPETITION.
+     * @param tvMessageTitle   :  View to set Text title of message.
+     * @param tvMessageDesc    :  View to set detail Text description of message.
+     * @param hasInternet      :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     */
+    public void showNoInternetView(RelativeLayout inc_message_view, ImageView ivMessageSymbol, TextView tvMessageTitle, TextView tvMessageDesc, boolean hasInternet) {
+
+        if (hasInternet) {
+            inc_message_view.setVisibility(View.GONE);
+        } else {
+            inc_message_view.setVisibility(View.VISIBLE);
+            ivMessageSymbol.setImageResource(R.mipmap.ic_no_internet);
+            tvMessageTitle.setText(getResources().getString(R.string.error_no_connection));
+            tvMessageDesc.setText(getResources().getString(R.string.error_try_again));
+        }
+    }
+
+    /**
+     * Implements a method to show 'NO COMPETITIONS' view and hide it at least one Competition.
+     *
+     * @param inc_message_view :  Whole view group for set VISIBILITY of view VISIBLE/INVISIBLE.
+     * @param ivMessageSymbol  :  View to set Image at run time like CUP icon for NO COMPETITION.
+     * @param tvMessageTitle   :  View to set Text title of message.
+     * @param tvMessageDesc    :  View to set detail Text description of message.
+     * @param hasData      :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     */
+    public void showNoCompetitionsView(RelativeLayout inc_message_view, ImageView ivMessageSymbol, TextView tvMessageTitle, TextView tvMessageDesc, boolean hasData) {
+
+        if (hasData) {
+            inc_message_view.setVisibility(View.GONE);
+        } else {
+            inc_message_view.setVisibility(View.VISIBLE);
+            ivMessageSymbol.setImageResource(R.mipmap.ic_home_competitions);
+            tvMessageTitle.setText(getResources().getString(R.string.error_no_competitions));
+            tvMessageDesc.setText(getResources().getString(R.string.error_select_different_month));
+        }
     }
 
     /**

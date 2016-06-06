@@ -208,7 +208,7 @@
             </LinearLayout>
 
             <include
-                android:id="@+id/inc_noInternet"
+                android:id="@+id/inc_message_view"
                 layout="@layout/include_no_internet"
                 android:visibility="gone"/>
 

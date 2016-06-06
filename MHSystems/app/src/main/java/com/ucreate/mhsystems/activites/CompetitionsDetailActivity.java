@@ -107,7 +107,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
         setSupportActionBar(toolbarComp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_black);
 
         tvDateCourseEvent.setText(strEventDate);
         tvTimeCourseEvent.setText(strEventTime);

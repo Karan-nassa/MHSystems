@@ -113,8 +113,21 @@ public class CourseDiaryActivity extends BaseActivity {
     CourseDiaryItemsCopy courseDiaryItemsCopy;
     AJsonParamsCourse aJsonParams;
 
-    @Bind(R.id.inc_noInternet)
-    RelativeLayout inc_noInternet;
+    /* ++ INTERNET CONNECTION PARAMETERS ++ */
+
+    @Bind(R.id.inc_message_view)
+    RelativeLayout inc_message_view;
+
+    @Bind(R.id.ivMessageSymbol)
+    ImageView ivMessageSymbol;
+
+    @Bind(R.id.tvMessageTitle)
+    TextView tvMessageTitle;
+
+    @Bind(R.id.tvMessageDesc)
+    TextView tvMessageDesc;
+
+     /* -- INTERNET CONNECTION PARAMETERS -- */
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -274,7 +287,7 @@ public class CourseDiaryActivity extends BaseActivity {
 
         //Load Default fragment of COURSE DIARY.
         createDateForData();
-        resetMonthsNavigationIcons();
+        //resetMonthsNavigationIcons();
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
@@ -321,7 +334,8 @@ public class CourseDiaryActivity extends BaseActivity {
     public void onClick(View view) {
 
         if (isOnline(CourseDiaryActivity.this)) {
-            inc_noInternet.setVisibility(View.GONE);
+            showNoInternetView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            //  inc_message_view.setVisibility(View.GONE);
             switch (view.getId()) {
 
                 case ApplicationGlobal.ACTION_NOTHING:
@@ -371,7 +385,8 @@ public class CourseDiaryActivity extends BaseActivity {
             //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
             resetMonthsNavigationIcons();
         } else {
-            inc_noInternet.setVisibility(View.VISIBLE);
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            //inc_message_view.setVisibility(View.VISIBLE);
         }
     }
 
@@ -466,11 +481,13 @@ public class CourseDiaryActivity extends BaseActivity {
          *  Check internet connection before hitting server request.
          */
         if (isOnline(this)) {
-            inc_noInternet.setVisibility(View.GONE);
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            // inc_message_view.setVisibility(View.GONE);
             //Method to hit Squads API.
             requestCourseService();
         } else {
-            inc_noInternet.setVisibility(View.VISIBLE);
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            // inc_message_view.setVisibility(View.VISIBLE);
             //showAlertMessage(getResources().getString(R.string.error_no_internet));
             hideProgress();
         }
@@ -547,8 +564,11 @@ public class CourseDiaryActivity extends BaseActivity {
                 if (arrayCourseDataBackup.size() == 0) {
                     isMoreToScroll = false;
                     resetArrayData();
-                    showAlertMessage(getResources().getString(R.string.error_no_data));
+                    showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+                   // showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
+
+                    showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
 
                     isMoreToScroll = true;
 
@@ -562,8 +582,9 @@ public class CourseDiaryActivity extends BaseActivity {
                 isMoreToScroll = false;
                 setTitleBar(getMonth(iMonth));
 
+                showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
                 //If web service not respond in any case.
-                showAlertMessage(courseDiaryItems.getMessage());
+              //  showAlertMessage(courseDiaryItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());

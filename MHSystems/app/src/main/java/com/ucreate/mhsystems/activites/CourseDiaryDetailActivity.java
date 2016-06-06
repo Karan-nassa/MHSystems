@@ -75,7 +75,7 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
 
         setSupportActionBar(tbCourse);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_black);
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -95,7 +95,7 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
                 if (!isDialogVisible) {
                     //Yes button clicked
                     fabJoinCourse.setImageResource(R.mipmap.ic_friend_pending);
-                    fabJoinCourse.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#95D32B")));
+                    fabJoinCourse.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
 
                     Intent mIntent = new Intent(CourseDiaryDetailActivity.this, CustomAlertDialogActivity.class);
                     //Pass theme green color.

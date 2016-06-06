@@ -195,8 +195,10 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 // arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getMyAccountData());
 
                 if (competitionsDatas.size() == 0) {
-                    ((CompetitionsActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    //((CompetitionsActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    ((CompetitionsActivity) getActivity()).updateNoCompetitionsUI(false);
                 } else {
+                    ((CompetitionsActivity) getActivity()).updateNoCompetitionsUI(true);
 
                     //FALSE to set visible of JOIN button.
                     competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas, false);
@@ -205,8 +207,9 @@ public class CurrentFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     Log.e(LOG_TAG, "arrayListCourseData : " + competitionsDatas.size());
                 }
             } else {
+                ((CompetitionsActivity) getActivity()).updateNoCompetitionsUI(false);
                 //If web service not respond in any case.
-                ((BaseActivity) getActivity()).showAlertMessage(competitionsResultItems.getMessage());
+                //((BaseActivity) getActivity()).showAlertMessage(competitionsResultItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());

@@ -181,8 +181,11 @@ public class UpcomingFragment extends Fragment implements SwipeRefreshLayout.OnR
                 competitionsDatas.addAll(competitionsResultItems.getData());
 
                 if (competitionsDatas.size() == 0) {
-                    ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                   // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    ((CompetitionsActivity) getActivity()).updateNoCompetitionsUI(false);
                 } else {
+
+                    ((CompetitionsActivity) getActivity()).updateNoCompetitionsUI(true);
 
                     //TRUE to set visible of JOIN button.
                     competitionsAdapter = new CompetitionsAdapter(getActivity(), competitionsDatas, true);
@@ -191,8 +194,9 @@ public class UpcomingFragment extends Fragment implements SwipeRefreshLayout.OnR
                     Log.e(LOG_TAG, "arrayListCourseData : " + competitionsDatas.size());
                 }
             } else {
+                ((CompetitionsActivity) getActivity()).updateNoCompetitionsUI(false);
                 //If web service not respond in any case.
-                ((BaseActivity) getActivity()).showAlertMessage(competitionsResultItems.getMessage());
+                //((BaseActivity) getActivity()).showAlertMessage(competitionsResultItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());

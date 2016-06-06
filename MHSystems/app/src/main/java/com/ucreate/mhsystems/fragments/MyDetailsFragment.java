@@ -134,10 +134,12 @@ public class MyDetailsFragment extends Fragment {
              *  Check internet connection before hitting server request.
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
                 //Method to hit Members list API.
                 requestMemberDetailService();
             } else {
-                ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+                ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
+               // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
             }
         }
     }
@@ -208,13 +210,16 @@ public class MyDetailsFragment extends Fragment {
                 //  membersDatas.add(membersItems.getData());
 
                 if (membersDetailItems.getData() != null) {
+                    ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
                     displayMembersData();
                 } else {
-                    ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
+                    //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 }
             } else {
+                ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
                 //If web service not respond in any case.
-                ((BaseActivity) getActivity()).showAlertMessage(membersDetailItems.getMessage());
+                //((BaseActivity) getActivity()).showAlertMessage(membersDetailItems.getMessage());
             }
             ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {

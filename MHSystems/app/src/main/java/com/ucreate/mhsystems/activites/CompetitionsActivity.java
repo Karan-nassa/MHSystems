@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -55,8 +56,21 @@ public class CompetitionsActivity extends BaseActivity {
     @Bind(R.id.tvMonthNameComp)
     TextView tvMonthNameComp;
 
-    @Bind(R.id.inc_noInternet)
-    RelativeLayout inc_noInternet;
+     /* ++ INTERNET CONNECTION PARAMETERS ++ */
+
+    @Bind(R.id.inc_message_view)
+    RelativeLayout inc_message_view;
+
+    @Bind(R.id.ivMessageSymbol)
+    ImageView ivMessageSymbol;
+
+    @Bind(R.id.tvMessageTitle)
+    TextView tvMessageTitle;
+
+    @Bind(R.id.tvMessageDesc)
+    TextView tvMessageDesc;
+
+     /* -- INTERNET CONNECTION PARAMETERS -- */
 
     //Create instance of  {@link Calendar} class.
     public static Calendar mCalendarInstance;
@@ -214,9 +228,25 @@ public class CompetitionsActivity extends BaseActivity {
      */
     public void updateNoInternetUI(boolean isOnline) {
         if (isOnline) {
-            inc_noInternet.setVisibility(View.GONE);
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            //inc_noInternet.setVisibility(View.GONE);
         } else {
-            inc_noInternet.setVisibility(View.VISIBLE);
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            //inc_noInternet.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Implements a method to update UI when 'No Competitions'.
+     *
+     * @param hasData : True means more than 1 data.
+     */
+    public void updateNoCompetitionsUI(boolean hasData) {
+        if (hasData) {
+            //showNoCompetitionsView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+        } else {
+            showAlertMessage(getResources().getString(R.string.error_no_data));
+            //showNoCompetitionsView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
         }
     }
 

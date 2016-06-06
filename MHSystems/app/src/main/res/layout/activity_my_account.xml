@@ -55,19 +55,29 @@
                         android:gravity="center|left"
                         android:text="@string/title_my_account"
                         android:textColor="@color/colorBlack000000"
-                        android:textSize="16sp"
-                        />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
             </android.support.v7.widget.Toolbar>
 
-            <!-- VIEW TO LOAD NAVIGATION DRAWER CONTENT -->
-
+            <!-- VIEW TO LOAD CONTENT &amp; MESSAGE VIEW -->
             <FrameLayout
-                android:id="@+id/containerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <!-- USE COMMON VIEW TO DISPLAY TAB DATA -->
+
+                <FrameLayout
+                    android:id="@+id/containerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <!-- NO INTERNET CONNECTION VIEW -->
+
+                <include
+                    android:id="@+id/inc_message_view"
+                    layout="@layout/include_no_internet"
+                    android:visibility="gone" />
 
             </FrameLayout>
 

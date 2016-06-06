@@ -39,6 +39,7 @@ import com.google.gson.JsonParser;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
+import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.activites.ShowCertificateWebview;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
@@ -287,10 +288,11 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
          *  Check internet connection before hitting server request.
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            //Method to hit Squads API.
             requestCompetitionsEvents();
+            ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
         } else {
-            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+            ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
+           // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
     }
 
@@ -370,9 +372,11 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 alHandicapData.add(handicapResultItems.getData());
 
                 if (alHandicapData.get(0).getHCapRecords().size() == 0) {
-                    ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    ((MyAccountActivity) getActivity()).updateNoCompetitionsUI(false);
+                   // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                     llMonthNavigationGroup.setVisibility(View.GONE);
                 } else {
+                    ((MyAccountActivity) getActivity()).updateNoCompetitionsUI(true);
 
                     tvHandicapExact.setText(alHandicapData.get(0).getHCapExactStr());
                     tvHandicapPlaying.setText(alHandicapData.get(0).getHCapPlayStr());
@@ -425,8 +429,9 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                     //Log.e(LOG_TAG, "arrayListCourseData : " + hCapRecordsList.size());
                 }
             } else {
+                ((MyAccountActivity) getActivity()).updateNoCompetitionsUI(false);
                 //If web service not respond in any case.
-                ((BaseActivity) getActivity()).showAlertMessage(handicapResultItems.getMessage());
+               // ((BaseActivity) getActivity()).showAlertMessage(handicapResultItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
