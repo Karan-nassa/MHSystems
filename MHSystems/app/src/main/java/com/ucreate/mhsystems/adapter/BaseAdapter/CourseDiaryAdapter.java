@@ -60,6 +60,11 @@ public class CourseDiaryAdapter extends BaseAdapter {
 
     }
 
+    /**
+     * Initialize the constructor.
+     *
+     * @param context
+     */
     public CourseDiaryAdapter(Activity context) {
         this.context = context;
         inflater = (LayoutInflater) context.
@@ -68,7 +73,6 @@ public class CourseDiaryAdapter extends BaseAdapter {
         tfSFUIDisplayBold = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Bold.otf");
         tfSFUITextMedium = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Text-Medium.otf");
         tfSFUIDisplayRegular = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Regular.otf");
-
     }
 
     @Override
@@ -82,7 +86,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
     }
 
     /**
-     * @return Videos array size.
+     * @return Course Event array size.
      */
     @Override
     public int getCount() {
@@ -90,7 +94,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
     }
 
     /**
-     * @return Videos item position
+     * @return Course Event item position
      */
     @Override
     public String getItem(int position) {
@@ -98,7 +102,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
     }
 
     /**
-     * @return Videos item id
+     * @return Course Event item id
      */
     @Override
     public long getItemId(int position) {
@@ -106,7 +110,7 @@ public class CourseDiaryAdapter extends BaseAdapter {
     }
 
     /**
-     * @return View after create vidoe row
+     * @return View after create Course Event row
      */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {

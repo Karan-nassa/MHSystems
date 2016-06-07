@@ -38,6 +38,27 @@ public class NameRecord {
     @SerializedName("FormalName")
     @Expose
     private String FormalName;
+    @SerializedName("FullName")
+    @Expose
+    private String FullName;
+
+    /**
+     *
+     * @return
+     *     The FullName
+     */
+    public String getFullName() {
+        return FullName;
+    }
+
+    /**
+     *
+     * @param fullName
+     *     The FullName
+     */
+    public void setFullName(String fullName) {
+        FullName = fullName;
+    }
 
     /**
      * 

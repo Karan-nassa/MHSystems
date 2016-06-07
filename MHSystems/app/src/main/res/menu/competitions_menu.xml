@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- MY EVENTS -->
+
+    <item
+        android:id="@+id/item_My_Events"
+        android:title="My Events" />
+
+    <!-- UPCOMING -->
+
+    <item
+        android:id="@+id/item_Upcoming"
+        android:title="Upcoming" />
+
+    <!-- PAST -->
+
+    <item
+        android:id="@+id/item_Past"
+        android:title="Past" />
+
+    <!-- COMPLETED -->
+
+    <item
+        android:id="@+id/item_Completed"
+        android:title="Completed" />
+
+</menu>

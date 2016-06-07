@@ -232,7 +232,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * Declares the click event handling FIELD to set categories
      * of COURSE DIARY.
      */
-    private PopupMenu.OnMenuItemClickListener mCourseTypeLitener =
+    private PopupMenu.OnMenuItemClickListener mCourseTypeListener =
             new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -289,15 +289,15 @@ public class CourseDiaryActivity extends BaseActivity {
         createDateForData();
         //resetMonthsNavigationIcons();
 
+        initializeCourseCategory();
+
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
-
-        initializeCourseCategory();
 
         //Load more COURSE listener call here.
         lvCourseDiary.setOnScrollListener(mLoadMoreScrollListener);
 
-        popupMenu.setOnMenuItemClickListener(mCourseTypeLitener);
+        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
 
         llMonthTitle.setOnClickListener(new View.OnClickListener() {
             @Override

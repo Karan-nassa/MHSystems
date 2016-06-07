@@ -10,15 +10,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
-import com.ucreate.mhsystems.fragments.CompletedFragment;
-import com.ucreate.mhsystems.fragments.CurrentFragment;
 import com.ucreate.mhsystems.fragments.FinanceFragment;
 import com.ucreate.mhsystems.fragments.FriendsFragment;
 import com.ucreate.mhsystems.fragments.HandicapFragment;
 import com.ucreate.mhsystems.fragments.MembersFragment;
 import com.ucreate.mhsystems.fragments.MyDetailsFragment;
-import com.ucreate.mhsystems.fragments.UpcomingFragment;
-import com.ucreate.mhsystems.fragments.EventsFragment;
 
 
 /**
@@ -168,7 +164,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      */
     private Fragment loadCompetitionsEvent(int iPosition) {
 
-        switch (iPosition) {
+       /* switch (iPosition) {
             case 0:
                 EventsFragment competitionsTabFragment = new EventsFragment();
                 return competitionsTabFragment;
@@ -186,7 +182,8 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 return upcomingFragment;
             default:
                 return null;
-        }
+        }*/
+        return null;
     }
 
     /**

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +13,18 @@ import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.CompetitionsDetailActivity;
-import com.ucreate.mhsystems.fragments.UpcomingFragment;
 import com.ucreate.mhsystems.models.CompetitionsData;
 
 import java.util.ArrayList;
 
 /**
  * Created by  karan@ucreate.co.in to Create adapter
- * to display SQUADS on 12/4/2015.
+ * to display COMPETITIONS on 12/4/2015.
  */
 public class CompetitionsAdapter extends BaseAdapter {
 
     Activity context;
-    ArrayList<CompetitionsData> compititionsDatas;
+    public ArrayList<CompetitionsData> compititionsDatas;
     LayoutInflater inflater = null;
     String strLastDate = "";
     boolean isJoinVisible;
@@ -34,7 +32,7 @@ public class CompetitionsAdapter extends BaseAdapter {
     Typeface typeface, typefaceMedium;
 
     /**
-     * VIDEOS Adapter to initialize all instances.
+     * COMPETITIONS Adapter to initialize all instances.
      *
      * @param context:        To hold context.
      * @param CourseDiaryData : Used for Videos data.
@@ -54,7 +52,24 @@ public class CompetitionsAdapter extends BaseAdapter {
     }
 
     /**
-     * @return Videos array size.
+     * COMPETITIONS Adapter to initialize all instances.
+     *
+     * @param context:        To hold context.
+     */
+    public CompetitionsAdapter(Activity context) {
+
+        this.context = context;
+        this.isJoinVisible = isJoinVisible;
+
+        inflater = (LayoutInflater) context.
+                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
+        typefaceMedium = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
+    }
+
+    /**
+     * @return COMPETITIONS array size.
      */
     @Override
     public int getCount() {
@@ -62,7 +77,7 @@ public class CompetitionsAdapter extends BaseAdapter {
     }
 
     /**
-     * @return Videos item position
+     * @return COMPETITIONS item position
      */
     @Override
     public Object getItem(int position) {
@@ -70,7 +85,7 @@ public class CompetitionsAdapter extends BaseAdapter {
     }
 
     /**
-     * @return Videos item id
+     * @return COMPETITIONS item id
      */
     @Override
     public long getItemId(int position) {
@@ -78,7 +93,7 @@ public class CompetitionsAdapter extends BaseAdapter {
     }
 
     /**
-     * @return View after create vidoe row
+     * @return View after create COMPETITIONS row
      */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
