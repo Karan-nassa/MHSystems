@@ -64,6 +64,8 @@ public class MyDetailsFragment extends Fragment {
     private LinearLayout llUsernameOfPerson, llPostalCodeOfPerson, llStreetOfPerson, llCityOfPerson, llEmailOfPerson,
             llWorkContactOfPerson, llMobileContactOfPerson, llPhoneContactOfPerson, llTypeOfPerson, llNameOfPerson;
 
+    LinearLayout llMyDetailGroup;
+
     /**
      * View Group and Title Label for hide if any of the view empty.
      */
@@ -84,6 +86,8 @@ public class MyDetailsFragment extends Fragment {
 
         //Initialize the view resources.
         initializeViewResources(mRootFragment);
+
+        llMyDetailGroup = (LinearLayout) mRootFragment.findViewById(R.id.llMyDetailGroup);
 
         llViewGroup = new View[]{llUsernameOfPerson, llPostalCodeOfPerson, llStreetOfPerson, llCityOfPerson, llEmailOfPerson,
                 llWorkContactOfPerson, llMobileContactOfPerson, llPhoneContactOfPerson, llTypeOfPerson, llNameOfPerson};
@@ -129,18 +133,33 @@ public class MyDetailsFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser) {
-
             /**
              *  Check internet connection before hitting server request.
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
+              //  ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
+                //llMyDetailGroup.setVisibility(View.VISIBLE);
                 //Method to hit Members list API.
                 requestMemberDetailService();
             } else {
-                ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
-               // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+              //  llMyDetailGroup.setVisibility(View.GONE);
+                //((MyAccountActivity) getActivity()).updateHasInternetUI(false);
             }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        /**
+         *  Check internet connection before hitting server request.
+         */
+       if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
+            llMyDetailGroup.setVisibility(View.VISIBLE);
+        } else {
+            llMyDetailGroup.setVisibility(View.GONE);
+            ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
         }
     }
 

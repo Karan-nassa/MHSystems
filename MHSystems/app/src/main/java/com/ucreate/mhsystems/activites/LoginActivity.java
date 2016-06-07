@@ -107,8 +107,8 @@ public class LoginActivity extends BaseActivity {
         //Initialize Butter knife.
         ButterKnife.bind(this);
 
-        etUserName.setText("NABECASIS");
-        etPassword.setText("BILLABONG1");
+        etUserName.setText("TONYP1952");
+        etPassword.setText("WINCHESTER1952");
 
         btLogin.setOnClickListener(mLoginListener);
     }

@@ -14,12 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
+import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.MemberDetailActivity;
 import com.ucreate.mhsystems.activites.MembersActivity;
 import com.ucreate.mhsystems.activites.MyAccountActivity;
@@ -43,6 +46,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.Bind;
 import lb.library.PinnedHeaderListView;
 import lb.library.SearchablePinnedHeaderListViewAdapter;
 import lb.library.StringArrayAlphabetIndexer;
@@ -121,16 +125,17 @@ public class MembersFragment extends Fragment {
              *  Check internet connection before hitting server request.
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                ((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
+                //((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
 
                 //Method to hit Members list API.
                 requestMemberService();
+                ((MembersActivity) getActivity()).updateNoInternetUI(true);
             } else {
-                ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+                ((MembersActivity) getActivity()).updateNoInternetUI(false);
+                //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
             }
         }
     }
-
 
     /**
      * Implement a method to hit Members web service to get response.
@@ -172,7 +177,6 @@ public class MembersFragment extends Fragment {
                 ((BaseActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
-
     }
 
     /**
@@ -205,18 +209,24 @@ public class MembersFragment extends Fragment {
                 membersDatas.add(membersItems.getData());
 
                 if (membersDatas.size() == 0) {
-                    ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    ((MembersActivity) getActivity()).updateNoDataUI(false);
+                   // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
+                    ((MembersActivity) getActivity()).updateNoDataUI(true);
                     setMembersListAdapter(membersDatas.get(0).getMembersList());
                 }
             } else {
+                ((MembersActivity) getActivity()).updateNoDataUI(false);
                 //If web service not respond in any case.
-                ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
+               // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
+
+        //Dismiss progress dialog.
+        ((BaseActivity) getActivity()).hideProgress();
 
        /* *//**
          * Hide alert dialog after 1500Ms.

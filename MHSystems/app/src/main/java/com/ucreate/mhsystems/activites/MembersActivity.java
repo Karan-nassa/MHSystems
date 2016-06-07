@@ -12,8 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CustomSpinnerAdapter;
@@ -48,6 +51,22 @@ public class MembersActivity extends BaseActivity {
 
     @Bind(R.id.llHomeMembers)
     LinearLayout llHomeMembers;
+
+     /* ++ INTERNET CONNECTION PARAMETERS ++ */
+
+    @Bind(R.id.inc_message_view)
+    RelativeLayout inc_message_view;
+
+    @Bind(R.id.ivMessageSymbol)
+    ImageView ivMessageSymbol;
+
+    @Bind(R.id.tvMessageTitle)
+    TextView tvMessageTitle;
+
+    @Bind(R.id.tvMessageDesc)
+    TextView tvMessageDesc;
+
+     /* -- INTERNET CONNECTION PARAMETERS -- */
 
     ArrayList<String> spinnerArraylist = new ArrayList<>();
 
@@ -97,6 +116,35 @@ public class MembersActivity extends BaseActivity {
     }
 
     /**
+     * Implements a method to update UI when 'No Internet connection'
+     * when disconnect internet connection.
+     *
+     * @param isOnline : True means internet working fine.
+     */
+    public void updateNoInternetUI(boolean isOnline) {
+        if (isOnline) {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            //inc_noInternet.setVisibility(View.GONE);
+        } else {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            //inc_noInternet.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Implements a method to update UI when 'No Competitions'.
+     *
+     * @param hasData : True means more than 1 data.
+     */
+    public void updateNoDataUI(boolean hasData) {
+        if (hasData) {
+            showNoDataView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+        } else {
+            showNoDataView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+        }
+    }
+
+    /**
      * Implements a method to define SPINNER and
      * SEARCH bar icon.
      */
@@ -126,7 +174,7 @@ public class MembersActivity extends BaseActivity {
             case 0:
                 spinnerArraylist.add("All Members");
                 spinnerArraylist.add("Ladies");
-                spinnerArraylist.add("Gentlemens");
+                spinnerArraylist.add("Men");
                 break;
 
             case 1:

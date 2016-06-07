@@ -1,10 +1,5 @@
 package com.ucreate.mhsystems.fragments;
 
-/**
- * Created by karan@ucreate.co.in to load and display
- * <br>NEWS
- * <br>tabs content on 12/23/2015.
- */
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -39,7 +35,11 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+/**
+ * Created by karan@ucreate.co.in to load and FINANCE
+ * tab content on 12/23/2015.
+ */
+public class FinanceFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
@@ -49,9 +49,6 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
     String strInvoiceTitle, strInvoiceNo, strInvoiceValue, strInvoiceTax, strInvoiceDate, strInvoiceDesc, strInvoiceBillFrom,
             strInvoiceBillTo, strInvoiceTotalPayable, strInvoiceStatus;
 
-    private boolean isSwipeVisible = false;
-
-
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -60,6 +57,8 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
     TextView tvCreditBalance, tvCurrentInvoice;
     FrameLayout flCurrentInvoice;
     Intent mIntent;
+
+    LinearLayout llFinanceGroup;
 
     FinanceSectionAdapter mFinanceAdapter;
 
@@ -97,7 +96,7 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_STATUS_STR, strInvoiceStatus);
                 startActivity(mIntent);
             } else {
-                ((BaseActivity)getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
             }
         }
     };
@@ -129,6 +128,20 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
         tvCurrentInvoice = (TextView) viewRootFragment.findViewById(R.id.tvCurrentInvoice);
         flCurrentInvoice = (FrameLayout) viewRootFragment.findViewById(R.id.flCurrentInvoice);
 
+        llFinanceGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFinanceGroup);
+
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
+            llFinanceGroup.setVisibility(View.VISIBLE);
+        } else {
+            ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
+            llFinanceGroup.setVisibility(View.GONE);
+        }
+
+        //Set click event handle here.
         flCurrentInvoice.setOnClickListener(mInvoiceDetailListener);
 
         return viewRootFragment;
@@ -138,7 +151,7 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser) {
+        if (isVisibleToUser && llFinanceGroup != null) {
             callFinanceWebService();
         }
     }
@@ -154,8 +167,10 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             requestFinanceService();
             ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
+            llFinanceGroup.setVisibility(View.VISIBLE);
         } else {
             ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
+            llFinanceGroup.setVisibility(View.GONE);
             //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
     }
@@ -166,9 +181,7 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
      */
     public void requestFinanceService() {
 
-        if (!isSwipeVisible) {
-            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
-        }
+        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
         myAccountJsonParams = new MyAccountJsonParams();
         myAccountJsonParams.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
@@ -237,7 +250,7 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
                     //Get INVOICE number.
                     strInvoiceTitle = "INV/" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getStrInvoiceDate()
-                           +"/" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo();
+                            + "/" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo();
 
                     tvCurrentInvoice.setText(myAccountItems.getMyAccountData().get(0).getMemBalance().get(0).getCrnSymbolStr() + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable() + " - " + strInvoiceTitle);
 
@@ -256,10 +269,4 @@ public class FinanceFragment extends Fragment implements SwipeRefreshLayout.OnRe
         ((BaseActivity) getActivity()).hideProgress();
     }
 
-
-    @Override
-    public void onRefresh() {
-        isSwipeVisible = true;
-        callFinanceWebService();
-    }
 }

@@ -65,12 +65,15 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <!-- USE COMMON VIEW TO DISPLAY TAB DATA -->
 
-                <FrameLayout
-                    android:id="@+id/containerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                <include
+                    android:id="@+id/container"
+                    layout="@layout/include_container_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true" />
 
                 <!-- NO INTERNET CONNECTION VIEW -->
 

@@ -168,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="8dp"
-                    android:text="£5 fee per guest"
+                    android:text="£5 fee per player"
                     android:textColor="@color/color030303" />
 
             </LinearLayout>

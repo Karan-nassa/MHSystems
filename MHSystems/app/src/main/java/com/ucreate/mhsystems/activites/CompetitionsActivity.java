@@ -243,10 +243,9 @@ public class CompetitionsActivity extends BaseActivity {
      */
     public void updateNoCompetitionsUI(boolean hasData) {
         if (hasData) {
-            //showNoCompetitionsView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            showNoCompetitionsView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
         } else {
-            showAlertMessage(getResources().getString(R.string.error_no_data));
-            //showNoCompetitionsView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            showNoCompetitionsView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
         }
     }
 

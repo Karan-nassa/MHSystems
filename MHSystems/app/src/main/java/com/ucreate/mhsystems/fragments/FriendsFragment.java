@@ -50,7 +50,7 @@ import retrofit.RetrofitError;
 /**
  * The {@link FriendsFragment} used to display the Member list
  * with {@link AlphabaticalListAdapter} indexing and {@link android.support.v7.widget.SearchView}
- * <p>
+ * <p/>
  *
  * @author karan@ucreate.co.in
  * @version 1.0
@@ -93,30 +93,30 @@ public class FriendsFragment extends Fragment {
         return viewRootFragment;
     }
 
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//
-//        if (isVisibleToUser) {
-//
-//            ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
-//
-//            callWebService();
-//        }
-//    }
-
     @Override
-    public void onResume() {
-        super.onResume();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
 
-        //Refresh data after REMOVE friend from detail screen.
-       // if (MemberDetailActivity.isRefreshData) {
-          ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
-            MemberDetailActivity.isRefreshData = false;
+        if (isVisibleToUser) {
+
+            ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
 
             callWebService();
-       // }
+        }
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        //Refresh data after REMOVE friend from detail screen.
+//        // if (MemberDetailActivity.isRefreshData) {
+//        ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
+//        MemberDetailActivity.isRefreshData = false;
+//
+//        callWebService();
+//        // }
+//    }
 
     /**
      * Implements a method to call web service after check
@@ -125,10 +125,12 @@ public class FriendsFragment extends Fragment {
     public void callWebService() {
 
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            ((MembersActivity) getActivity()).updateNoInternetUI(true);
+           // MemberDetailActivity.isRefreshData = false;
             //Method to hit Members list API.
             requestFriendService();
         } else {
-            ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+            ((MembersActivity) getActivity()).updateNoInternetUI(false);
         }
     }
 
@@ -145,7 +147,7 @@ public class FriendsFragment extends Fragment {
         aJsonParamsFriends.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsFriends.setMemberId(((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
 
-        friendsAPI = new FriendsAPI(getClientId(), ((MembersActivity) getActivity()).getStraFriendCommand(), aJsonParamsFriends,  ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        friendsAPI = new FriendsAPI(getClientId(), ((MembersActivity) getActivity()).getStraFriendCommand(), aJsonParamsFriends, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -206,13 +208,14 @@ public class FriendsFragment extends Fragment {
                 friendsDataArrayList.addAll(friendsItems.getData());
 
                 if (friendsDataArrayList.size() == 0) {
-                    ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    ((MembersActivity) getActivity()).updateNoDataUI(false);
+                    //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
+                    ((MembersActivity) getActivity()).updateNoDataUI(true);
                     setMembersListAdapter(friendsDataArrayList);
                 }
             } else {
-                //If web service not respond in any case.
-                ((BaseActivity) getActivity()).showAlertMessage(friendsItems.getMessage());
+                ((MembersActivity) getActivity()).updateNoDataUI(false);
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
@@ -344,7 +347,7 @@ public class FriendsFragment extends Fragment {
                 holder = (ViewHolder) rootView.getTag();
             }
             contact = getItem(position);
-            if(contact != null) {
+            if (contact != null) {
                 final String displayName = contact.getNameRecord().getDisplayName();
                 holder.friendName.setText(displayName);
                 holder.tvPlayHCapStr.setText(contact.getHCapPlayStr());

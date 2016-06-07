@@ -6,6 +6,7 @@
     android:background="@color/colorGreyf1f1f0">
 
     <LinearLayout
+        android:id="@+id/llFinanceGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorFFEFEFF4"

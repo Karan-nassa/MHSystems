@@ -34,8 +34,8 @@ public class MyAccountActivity extends BaseActivity {
     @Bind(R.id.toolBar)
     Toolbar tbMyAccount;
 
-    @Bind(R.id.containerView)
-    FrameLayout containerView;
+    /*@Bind(R.id.container)
+    FrameLayout container;*/
 
      /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
@@ -92,10 +92,10 @@ public class MyAccountActivity extends BaseActivity {
         if (isOnline) {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
             //inc_noInternet.setVisibility(View.GONE);
-            containerView.setVisibility(View.VISIBLE);
+            //container.setVisibility(View.VISIBLE);
         } else {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
-            containerView.setVisibility(View.GONE);
+            //container.setVisibility(View.GONE);
             //inc_noInternet.setVisibility(View.VISIBLE);
         }
     }

@@ -10,7 +10,7 @@
     <string name="error_no_competitions">No competitions</string>
     <string name="error_select_different_month">Select different month</string>
     <string name="error_check_internet">Please check your internet connectivity and try again</string>
-    <string name="error_no_data">No data found.</string>
+    <string name="error_no_data">No data found</string>
     <string name="error_please_retry">Bad internet connection. please try again later.</string>
     <string name="message_no_date_selected">No date selected.</string>
     <string name="error_wrong_date_selection">You can only view data of current date and future dates.</string>
@@ -139,7 +139,7 @@
         <item>Course Diary</item>
         <item>Competitions</item>
         <item>Members</item>
-        <item>About The Club</item>
+        <item>Club News</item>
         <item>My Account</item>
 
     </string-array>
