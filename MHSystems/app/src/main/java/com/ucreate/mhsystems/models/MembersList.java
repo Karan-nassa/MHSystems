@@ -34,8 +34,14 @@ public class MembersList {
     @SerializedName("GenderStr")
     @Expose
     private String GenderStr;
+    @SerializedName("FullName")
+    @Expose
+    private String FullName;
+    @SerializedName("HCapTypeStr")
+    @Expose
+    private String HCapTypeStr;
 
-    public MembersList(Integer clubID, Integer memberID, String userLoginID, Boolean isReadOnly, Boolean isRegistered, String displayName, String playHCapStr, Integer gender, String genderStr, String HCapTypeStr) {
+    public MembersList(Integer clubID, Integer memberID, String userLoginID, Boolean isReadOnly, Boolean isRegistered, String displayName, String playHCapStr, Integer gender, String genderStr, String HCapTypeStr, String FullName) {
         this.ClubID = clubID;
         this.MemberID = memberID;
         this.UserLoginID = userLoginID;
@@ -46,11 +52,26 @@ public class MembersList {
         this.Gender = gender;
         this.GenderStr = genderStr;
         this.HCapTypeStr = HCapTypeStr;
+        this.FullName = FullName;
     }
 
-    @SerializedName("HCapTypeStr")
-    @Expose
-    private String HCapTypeStr;
+    /**
+     *
+     * @return
+     *     The FullName
+     */
+    public String getFullName() {
+        return FullName;
+    }
+
+    /**
+     *
+     * @param fullName
+     *     The fullName
+     */
+    public void setFullName(String fullName) {
+        FullName = fullName;
+    }
 
     /**
      * 

@@ -53,7 +53,7 @@
 
     <!-- START OF COMPETITIONS EVENT ACTIVITY -->
     <string name="title_competitions">COMPETITIONS</string>
-    <string name="title_competitions_prize">fee per guest</string>
+    <string name="title_competitions_prize">fee per player</string>
     <!-- END OF COMPETITIONS EVENT ACTIVITY -->
 
     <!-- START OF COMPETITIONS FRAGMENT -->

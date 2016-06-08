@@ -29,7 +29,7 @@ public class CompetitionsAdapter extends BaseAdapter {
     String strLastDate = "";
     boolean isJoinVisible;
 
-    Typeface typeface, typefaceMedium;
+    Typeface typeface, tpRobotoMedium;
 
     /**
      * COMPETITIONS Adapter to initialize all instances.
@@ -48,7 +48,7 @@ public class CompetitionsAdapter extends BaseAdapter {
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
-        typefaceMedium = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
+        tpRobotoMedium = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
     }
 
     /**
@@ -65,7 +65,7 @@ public class CompetitionsAdapter extends BaseAdapter {
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
-        typefaceMedium = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
+        tpRobotoMedium = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
     }
 
     /**
@@ -108,8 +108,11 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.tvCompDesc = (TextView) rowView.findViewById(R.id.tvCompDesc);
         viewHolder.tvCompTitle = (TextView) rowView.findViewById(R.id.tvCompTitle);
         viewHolder.tvEventStatusStr = (TextView) rowView.findViewById(R.id.tvEventStatusStr);
+        viewHolder.tvTimeOfCompEvent = (TextView) rowView.findViewById(R.id.tvTimeOfCompEvent);
 
-        viewHolder.llShowDetails = (LinearLayout) rowView.findViewById(R.id.llShowDetails);
+        viewHolder.llCompetitionGroup = (LinearLayout) rowView.findViewById(R.id.llCompetitionGroup);
+
+        //viewHolder.llShowDetails = (LinearLayout) rowView.findViewById(R.id.llShowDetails);
 
         //Set Font Style Typeface
         setTypeFace(viewHolder);
@@ -121,7 +124,8 @@ public class CompetitionsAdapter extends BaseAdapter {
          *  Set Course Diary events on each view.
          */
         viewHolder.tvCompTitle.setText(compititionsDatas.get(position).getTitle());
-        viewHolder.tvDateCompEvent.setText(compititionsDatas.get(position).getEventDateStr() + ", " + compititionsDatas.get(position).getEventTime());
+        viewHolder.tvDateCompEvent.setText(compititionsDatas.get(position).getEventDateStr());
+        viewHolder.tvTimeOfCompEvent.setText(compititionsDatas.get(position).getEventTime());
         viewHolder.tvCompDesc.setText(compititionsDatas.get(position).getDesc());
         viewHolder.tvEventStatusStr.setText(compititionsDatas.get(position).getEventStatusStr());
         viewHolder.tvFeeCompEvent.setText("£" + compititionsDatas.get(position).getPricePerGuest() + " " + context.getResources().getString(R.string.title_competitions_prize));
@@ -129,7 +133,7 @@ public class CompetitionsAdapter extends BaseAdapter {
         /**
          *  Show detail page on tap of 'Show Details & Join'.
          */
-        viewHolder.llShowDetails.setOnClickListener(new View.OnClickListener() {
+        viewHolder.llCompetitionGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -163,7 +167,7 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.tvCompDesc.setTypeface(typeface, Typeface.NORMAL);
         viewHolder.tvEventStatusStr.setTypeface(typeface, Typeface.NORMAL);
 
-        viewHolder.tvCompTitle.setTypeface(typefaceMedium, Typeface.NORMAL);
+        viewHolder.tvCompTitle.setTypeface(tpRobotoMedium, Typeface.NORMAL);
     }
 
     /**
@@ -175,7 +179,9 @@ public class CompetitionsAdapter extends BaseAdapter {
          * Text Row VIEW INSTANCES DECLARATION
          */
         TextView tvFeeCompEvent, tvDateCompEvent, tvCompDesc, tvCompTitle, tvEventStatusStr;
+        TextView tvTimeOfCompEvent;
         //Linear Layout instances declaration.
-        LinearLayout llShowDetails;
+        //LinearLayout llShowDetails;
+        LinearLayout llCompetitionGroup;
     }
 }

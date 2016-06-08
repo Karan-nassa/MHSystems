@@ -297,7 +297,7 @@ public class CourseDiaryActivity extends BaseActivity {
         //Load more COURSE listener call here.
         lvCourseDiary.setOnScrollListener(mLoadMoreScrollListener);
 
-        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
+
 
         llCourseCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -305,6 +305,7 @@ public class CourseDiaryActivity extends BaseActivity {
                 popupMenu.show();
             }
         });
+        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
     }
 
     /**

@@ -2,6 +2,7 @@ package com.ucreate.mhsystems.activites;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
@@ -51,10 +52,9 @@ public class CompetitionsActivity extends BaseActivity {
     /**
      * iCourseType for categorised of Competitions. By default 'My Events' is selected.
      */
-    boolean isMyEvent = true;
     boolean isUpcoming = true;
-    boolean isPast = true;
-    boolean isCompleted = true;
+    boolean isJoined = false;
+    boolean isCompleted = false;
 
     int iPopItemPos = 0;
 
@@ -64,6 +64,9 @@ public class CompetitionsActivity extends BaseActivity {
     public static String strDateFrom; //Start date.
     public static String strDateTo; //End date.
     public static String strNameOfMonth = "MARCH 2016";
+
+    int iMonthTemp, iYearTemp;
+    String strDateTemp;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -157,44 +160,49 @@ public class CompetitionsActivity extends BaseActivity {
                     tvCompType.setText(item.getTitle());
 
                     switch (item.getItemId()) {
-                        case R.id.item_My_Events:
+                       /* case R.id.item_My_Events:
                             iPopItemPos = 0;
                             isMyEvent = true;
                             isUpcoming = true;
                             isPast = true;
                             isCompleted = true;
-                            break;
+                            break;*/
 
                         case R.id.item_Upcoming:
-                            iPopItemPos = 1;
-                            isMyEvent = false;
+                            iPopItemPos = 0;
                             isUpcoming = true;
-                            isPast = false;
+                            isJoined = false;
                             isCompleted = false;
                             break;
 
-                        case R.id.item_Past:
-                            iPopItemPos = 2;
-                            isMyEvent = false;
+                        case R.id.item_Joined:
+                            iPopItemPos = 1;
                             isUpcoming = false;
-                            isPast = true;
+                            isJoined = true;
                             isCompleted = false;
                             break;
 
                         case R.id.item_Completed:
-                            iPopItemPos = 3;
-                            isMyEvent = false;
+                            iPopItemPos = 2;
                             isUpcoming = false;
-                            isPast = false;
+                            isJoined = false;
                             isCompleted = true;
                             break;
                     }
 
                     resetArrayData();
 
-                    //Show progress dialog during call web service.
-                    showPleaseWait("Loading...");
-                    callCompetitionsWebService();
+                    if (iPopItemPos < 2) {
+                        resetCalendar();
+                        createDateForData();
+                    } else {
+                        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+                        //resetMonthsNavigationIcons();
+
+                        //Show progress dialog during call web service.
+                        showPleaseWait("Loading...");
+                        callCompetitionsWebService();
+                    }
                     return true;
                 }
             };
@@ -269,15 +277,18 @@ public class CompetitionsActivity extends BaseActivity {
      */
     public void requestCompetitionsEvents() {
 
+        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+        resetMonthsNavigationIcons();
+
         showPleaseWait("Loading...");
 
         competitionsJsonParams = new CompetitionsJsonParams();
         competitionsJsonParams.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         competitionsJsonParams.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         competitionsJsonParams.setMemberId(getMemberId());
-        competitionsJsonParams.setMyEventsOnly(isMyEvent);
-        competitionsJsonParams.setIncludeCompletedEvents(isPast);
-        competitionsJsonParams.setIncludeCurrentEvents(isCompleted);
+        competitionsJsonParams.setMyEventsOnly(isJoined);
+        competitionsJsonParams.setIncludeCompletedEvents(isCompleted);
+        //  competitionsJsonParams.setIncludeCurrentEvents(isCompleted);
         competitionsJsonParams.setIncludeFutureEvents(isUpcoming);
         competitionsJsonParams.setDateto(strDateTo); // MM-DD-YYYY
         competitionsJsonParams.setDatefrom(strDateFrom); // MM-DD-YYYY
@@ -383,6 +394,35 @@ public class CompetitionsActivity extends BaseActivity {
         competitionsAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Implements a method to RESET CALENDAR state
+     * or set as initial state.
+     */
+    public void resetCalendarPicker() {
+        strDate = strDateTemp;
+        iMonth = iMonthTemp;
+        iYear = iYearTemp;
+    }
+
+    /**
+     * Implements a method to initialize Competitions category in pop-up menu like <b>My Events</b>, <b>Upcoming</b>, <b>Past</b>
+     * and <b>Completed</b> for Sunningdales golf club.
+     */
+    private void initCompetitionsCategory() {
+
+        /**
+         * Step 1: Create a new instance of popup menu
+         */
+        popupMenu = new PopupMenu(this, tvNameOfMonthComp);
+        /**
+         * Step 2: Inflate the menu resource. Here the menu resource is
+         * defined in the res/menu project folder
+         */
+        popupMenu.inflate(R.menu.competitions_menu);
+
+        //Initially display title at position 0 of R.menu.course_menu.
+        tvCompType.setText("" + popupMenu.getMenu().getItem(0));
+    }
 
     /**
      * Declares the quick navigation of top bar icons like Previous/Next Month, Today or
@@ -484,7 +524,7 @@ public class CompetitionsActivity extends BaseActivity {
         Log.e("DATA ", "DATE : " + strDate + " MONTH : " + iMonth + " YEAR : " + iYear + " NUM OF DAYS : " + iNumOfDays);
 
         //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-        resetMonthsNavigationIcons();
+        // resetMonthsNavigationIcons();
 
         callCompetitionsWebService();
     }
@@ -588,73 +628,6 @@ public class CompetitionsActivity extends BaseActivity {
      */
     public static String getMonth(int month) {
         return new DateFormatSymbols().getMonths()[month - 1];
-    }
-
-    /**
-     * Implements a method to filter or set date and name of Day
-     * one time for all course events having same date and day.
-     */
-    public ArrayList<CourseDiaryDataCopy> filterCourseDates(ArrayList<CourseDiaryDataCopy> arrayListCourseData) {
-        ArrayList<CourseDiaryDataCopy> courseDiaryDataArrayList = new ArrayList<>();
-        courseDiaryDataArrayList.clear();
-        String strLastDate = "";
-
-        /**
-         *  Loop filter till end of Course
-         *  Diary events.
-         */
-        for (int iCounter = 0; iCounter < arrayListCourseData.size(); iCounter++) {
-
-            String strDateOfEvent = formatDateOfEvent(arrayListCourseData.get(iCounter).getCourseEventDate());
-
-            /**
-             * Check if same date or not of Course Diary event If yes then just
-             * display date and day name once otherwise skip.
-             */
-            if (strLastDate.equalsIgnoreCase(strDateOfEvent)) {
-
-                arrayListCourseData.get(iCounter).setCourseEventDate("");
-                arrayListCourseData.get(iCounter).setDayName("");
-
-            } else {
-                strLastDate = strDateOfEvent;
-
-                arrayListCourseData.get(iCounter).setCourseEventDate(strDateOfEvent);
-                arrayListCourseData.get(iCounter).setDayName(formatDayOfEvent(arrayListCourseData.get(iCounter).getDayName()));
-            }
-
-            //Add final to new arrat list.
-            courseDiaryDataArrayList.add(arrayListCourseData.get(iCounter));
-        }
-        return courseDiaryDataArrayList;
-    }
-
-    /**
-     * @param strCourseEventDate <br>
-     *                           Implements a method to return the format the day of
-     *                           event.
-     *                           <p/>
-     *                           Exapmle: 2016-03-04T00:00:00
-     * @Return : 04
-     */
-    private String formatDateOfEvent(String strCourseEventDate) {
-
-        //Used when Date format in Hyphen['-']. Example : dd-MM-yyyy
-        String strEventDate = strCourseEventDate.substring(strCourseEventDate.lastIndexOf("-") + 1, strCourseEventDate.lastIndexOf("T"));
-
-        return strEventDate;
-    }
-
-    /**
-     * @param strDayName <br>
-     *                   Implements a method to return the format the day of
-     *                   event.
-     *                   <p/>
-     *                   Exapmle: NAME OF DAY : Friday
-     * @Return : Fri
-     */
-    private String formatDayOfEvent(String strDayName) {
-        return (strDayName.substring(0, 3));
     }
 
     /**
@@ -830,29 +803,14 @@ public class CompetitionsActivity extends BaseActivity {
     }
 
     /**
-     * Implements a method to initialize Competitions category in pop-up menu like <b>My Events</b>, <b>Upcoming</b>, <b>Past</b>
-     * and <b>Completed</b> for Sunningdales golf club.
-     */
-    private void initCompetitionsCategory() {
-
-        /**
-         * Step 1: Create a new instance of popup menu
-         */
-        popupMenu = new PopupMenu(this, tvNameOfMonthComp);
-        /**
-         * Step 2: Inflate the menu resource. Here the menu resource is
-         * defined in the res/menu project folder
-         */
-        popupMenu.inflate(R.menu.competitions_menu);
-
-        //Initially display title at position 0 of R.menu.course_menu.
-        tvCompType.setText("" + popupMenu.getMenu().getItem(0));
-    }
-
-    /**
      * Implements a method to display {@link Calendar}.
      */
     private void showCalendar() {
+
+        iMonthTemp = iMonth;
+        iYearTemp = iYear;
+        strDateTemp = strDate;
+
         // Launch Date Picker Dialog
         DatePickerDialog dpd = new DatePickerDialog(CompetitionsActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
@@ -908,20 +866,31 @@ public class CompetitionsActivity extends BaseActivity {
                                         // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
                                     } else {
-                                        resetCalendar();
+                                        resetCalendarPicker();
                                         showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                     }
                                 } else {
-                                    resetCalendar();
+                                    resetCalendarPicker();
                                     showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                 }
                             }
                         } else {
-                            resetCalendar();
+                            resetCalendarPicker();
                             showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                         }
                     }
                 }, iYear, --iMonth, Integer.parseInt(strDate));
+
+        dpd.setButton(
+                DialogInterface.BUTTON_NEGATIVE, "Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == DialogInterface.BUTTON_NEGATIVE) {
+                            resetCalendarPicker();
+                        }
+                    }
+                });
+
         //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
         resetMonthsNavigationIcons();
         dpd.show();

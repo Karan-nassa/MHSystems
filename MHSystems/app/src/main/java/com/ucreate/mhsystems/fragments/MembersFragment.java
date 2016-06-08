@@ -252,11 +252,11 @@ public class MembersFragment extends Fragment {
         Collections.sort(membersList, new Comparator<MembersList>() {
             @Override
             public int compare(MembersList lhs, MembersList rhs) {
-                char lhsFirstLetter = TextUtils.isEmpty(lhs.getDisplayName()) ? ' ' : lhs.getDisplayName().charAt(0);
-                char rhsFirstLetter = TextUtils.isEmpty(rhs.getDisplayName()) ? ' ' : rhs.getDisplayName().charAt(0);
+                char lhsFirstLetter = TextUtils.isEmpty(lhs.getFullName()/*getDisplayName()*/) ? ' ' : lhs.getFullName()/*getDisplayName()*/.charAt(0);
+                char rhsFirstLetter = TextUtils.isEmpty(rhs.getFullName()/*getDisplayName()*/) ? ' ' : rhs.getFullName()/*getDisplayName()*/.charAt(0);
                 int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
                 if (firstLetterComparison == 0)
-                    return lhs.getDisplayName().compareTo(rhs.getDisplayName());
+                    return lhs.getFullName()/*getDisplayName()*/.compareTo(rhs.getFullName()/*getDisplayName()*/);
                 return firstLetterComparison;
             }
         });
@@ -320,7 +320,7 @@ public class MembersFragment extends Fragment {
             final ArrayList<String> contactNames = new ArrayList<String>();
             if (contacts != null)
                 for (final MembersList contactEntity : contacts)
-                    contactNames.add(contactEntity.getDisplayName());
+                    contactNames.add(contactEntity.getFullName()/*getDisplayName()*/);
             return contactNames.toArray(new String[contactNames.size()]);
         }
 
@@ -355,7 +355,7 @@ public class MembersFragment extends Fragment {
                 holder = (ViewHolder) rootView.getTag();
             }
             contact = getItem(position);
-            final String displayName = contact.getDisplayName();
+            final String displayName = contact.getFullName()/*getDisplayName()*/;
             holder.friendName.setText(displayName);
             holder.tvPlayHCapStr.setText(contact.getPlayHCapStr());
 
@@ -421,7 +421,7 @@ public class MembersFragment extends Fragment {
         public boolean doFilter(final MembersList item, final CharSequence constraint) {
             if (TextUtils.isEmpty(constraint))
                 return true;
-            final String displayName = item.getDisplayName();
+            final String displayName = item.getFullName()/*getDisplayName()*/;
             return !TextUtils.isEmpty(displayName) && displayName.toLowerCase(Locale.getDefault())
                     .contains(constraint.toString().toLowerCase(Locale.getDefault()));
         }

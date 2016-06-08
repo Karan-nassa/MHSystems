@@ -6,6 +6,7 @@
     android:background="@drawable/button_corner_shape_ffffff">
 
     <LinearLayout
+        android:id="@+id/llCompetitionGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -29,18 +30,30 @@
                 android:textColor="@color/colorBlack000000"
                 android:textSize="20sp" />
 
+            <!-- STATUS OF COMPETITION -->
+
+            <TextView
+                android:id="@+id/tvEventStatusStr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textAllCaps="true"
+                android:text="ENTRY OPEN"
+                android:textColor="@color/colorC0995B"
+                android:textSize="14sp" />
+
             <!-- DESCRIPTION -->
 
             <TextView
                 android:id="@+id/tvCompDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:text="Description"
                 android:textColor="@color/color4A4A4A"
                 android:textSize="14sp" />
 
-            <!-- DATE AND TIME OF COMPETITIONS EVENT -->
+            <!-- DATE OF COMPETITIONS EVENT -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,22 +66,50 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:alpha="0.3"
+                    android:alpha="0.1"
                     android:paddingLeft="4dp"
                     android:src="@mipmap/ic_today" />
 
-                <!-- DATE OF COURSE EVENT -->
+                    <!-- DATE OF COMPETITION EVENT -->
 
-                <TextView
-                    android:id="@+id/tvDateCompEvent"
+                    <TextView
+                        android:id="@+id/tvDateCompEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="Monday, 29th February 2016"
+                        android:textColor="@color/color030303"
+                        android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <!-- TIME OF COMPETITION EVENT -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
-                    android:text="Monday, 29th February 2016, 10:30 - 12:30"
-                    android:textColor="@color/color030303"
-                    android:textSize="12sp" />
+                    android:alpha="0.1"
+                    android:paddingLeft="4dp"
+                    android:visibility="invisible"
+                    android:src="@mipmap/ic_today" />
 
+                <!-- TIME OF COMPETITION EVENT -->
+
+                <TextView
+                    android:id="@+id/tvTimeOfCompEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="10:30 - 12:30"
+                    android:textColor="@color/color030303"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -86,7 +127,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:alpha="0.3"
+                    android:alpha="0.1"
                     android:src="@mipmap/ic_fee" />
 
                 <!-- PRIZE OF COURSE EVENT -->
@@ -97,9 +138,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="8dp"
-                    android:text="£5 fee per guest"
+                    android:text="£5 fee per player"
                     android:textColor="@color/color030303"
-                    android:textSize="12sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -116,7 +157,7 @@
 
         <!-- SHOW DETAILS & JOIN -->
 
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -132,16 +173,16 @@
                     android:id="@+id/tvEventStatusStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="ENTRY OPEN"
                     android:alpha="0.5"
+                    android:gravity="right"
                     android:padding="8dp"
+                    android:text="ENTRY OPEN"
                     android:textColor="@color/color939393"
                     android:textSize="14sp" />
 
             </LinearLayout>
 
-            <!-- -->
+            &lt;!&ndash; &ndash;&gt;
 
             <LinearLayout
                 android:id="@+id/llShowDetails"
@@ -154,15 +195,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SHOW DETAIL"
-                    android:paddingTop="8dp"
                     android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="SHOW DETAIL"
                     android:textColor="@color/color4942AA"
                     android:textSize="14sp" />
 
             </LinearLayout>
 
-        </LinearLayout>
+        </LinearLayout>-->
 
     </LinearLayout>
 </RelativeLayout>

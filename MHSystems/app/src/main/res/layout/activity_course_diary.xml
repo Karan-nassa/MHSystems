@@ -15,18 +15,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- STATUS BAR -->
-
-            <!-- <android.support.v7.widget.Toolbar
-                 android:id="@+id/toolBar"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:background="@color/color4B4B49"
-                 android:fitsSystemWindows="true"
-                 android:minHeight="?android:attr/actionBarSize"
-                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,8 +66,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <!--   </android.support.v7.widget.Toolbar>-->
 
             <!-- QUICK NAVIGATION ICONS FOR CHANGE CONTENT LIKE PREVIOUS, NEXT, CALENDAR AND TODAY -->
 
