@@ -15,6 +15,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
             <!-- STATUS BAR -->
 
             <!-- <android.support.v7.widget.Toolbar
@@ -203,6 +204,8 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <!-- VIEW TO DISPLAY MESSAGE LIKE NO EVENT FOUND OR INTERNET CONNECTION ERROR -->
 
             <include
                 android:id="@+id/inc_message_view"

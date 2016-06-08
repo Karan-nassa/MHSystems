@@ -55,6 +55,8 @@ public class MyDetailsFragment extends Fragment {
 
     String strTitileValues[];
 
+    private boolean isClassVisible = false;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -79,7 +81,6 @@ public class MyDetailsFragment extends Fragment {
     AJsonParamsMembersDatail aJsonParamsMembersDatail;
     MembersDetailsItems membersDetailItems;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootFragment = inflater.inflate(R.layout.fragment_my_details, container, false);
@@ -87,7 +88,11 @@ public class MyDetailsFragment extends Fragment {
         //Initialize the view resources.
         initializeViewResources(mRootFragment);
 
-        llMyDetailGroup = (LinearLayout) mRootFragment.findViewById(R.id.llMyDetailGroup);
+        //Check Internet connection and hit web service only on first time.
+        isClassVisible = true;
+        if (isClassVisible) {
+            callWebService();
+        }
 
         llViewGroup = new View[]{llUsernameOfPerson, llPostalCodeOfPerson, llStreetOfPerson, llCityOfPerson, llEmailOfPerson,
                 llWorkContactOfPerson, llMobileContactOfPerson, llPhoneContactOfPerson, llTypeOfPerson, llNameOfPerson};
@@ -98,65 +103,23 @@ public class MyDetailsFragment extends Fragment {
         return mRootFragment;
     }
 
-    /**
-     * Implements a method to initialize the view
-     * resources of {@link MyDetailsFragment}
-     *
-     * @param viewRootFragment : Used to bind and initialize each view.
-     */
-    private void initializeViewResources(View viewRootFragment) {
-        tvNameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvNameOfPerson);
-        tvTypeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPerson);
-        tvPhoneContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPhoneContactOfPerson);
-        tvMobileContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvMobileContactOfPerson);
-        tvWorkContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvWorkContactOfPerson);
-        tvEmailOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvEmailOfPerson);
-        tvCityOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvCityOfPerson);
-        tvStreetOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvStreetOfPerson);
-        tvPostalCodeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPostalCodeOfPerson);
-        tvUsernameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvUsernameOfPerson);
-
-        llNameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llNameOfPerson);
-        llTypeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llTypeOfPerson);
-        llPhoneContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPhoneContactOfPerson);
-        llMobileContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llMobileContactOfPerson);
-        llWorkContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llWorkContactOfPerson);
-        llEmailOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llEmailOfPerson);
-        llCityOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llCityOfPerson);
-        llStreetOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llStreetOfPerson);
-        llPostalCodeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPostalCodeOfPerson);
-        llUsernameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llUsernameOfPerson);
-    }
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser) {
-            /**
-             *  Check internet connection before hitting server request.
-             */
-            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-              //  ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
-                //llMyDetailGroup.setVisibility(View.VISIBLE);
-                //Method to hit Members list API.
-                requestMemberDetailService();
-            } else {
-              //  llMyDetailGroup.setVisibility(View.GONE);
-                //((MyAccountActivity) getActivity()).updateHasInternetUI(false);
-            }
+        if (isVisibleToUser && isClassVisible) {
+            callWebService();
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void callWebService(){
         /**
          *  Check internet connection before hitting server request.
          */
-       if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
             llMyDetailGroup.setVisibility(View.VISIBLE);
+            requestMemberDetailService();
         } else {
             llMyDetailGroup.setVisibility(View.GONE);
             ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
@@ -292,5 +255,37 @@ public class MyDetailsFragment extends Fragment {
         //Store values to array.
         strTitileValues = new String[]{strUsernameOfPerson, strPostalCodeOfPerson, strStreetOfPerson, strCityOfPerson, strEmailOfPerson,
                 strWorkContactOfPerson, strMobileContactOfPerson, strPhoneContactOfPerson, strTypeOfPerson, strNameOfPerson};
+    }
+
+    /**
+     * Implements a method to initialize the view
+     * resources of {@link MyDetailsFragment}
+     *
+     * @param viewRootFragment : Used to bind and initialize each view.
+     */
+    private void initializeViewResources(View viewRootFragment) {
+        tvNameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvNameOfPerson);
+        tvTypeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPerson);
+        tvPhoneContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPhoneContactOfPerson);
+        tvMobileContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvMobileContactOfPerson);
+        tvWorkContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvWorkContactOfPerson);
+        tvEmailOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvEmailOfPerson);
+        tvCityOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvCityOfPerson);
+        tvStreetOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvStreetOfPerson);
+        tvPostalCodeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPostalCodeOfPerson);
+        tvUsernameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvUsernameOfPerson);
+
+        llNameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llNameOfPerson);
+        llTypeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llTypeOfPerson);
+        llPhoneContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPhoneContactOfPerson);
+        llMobileContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llMobileContactOfPerson);
+        llWorkContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llWorkContactOfPerson);
+        llEmailOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llEmailOfPerson);
+        llCityOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llCityOfPerson);
+        llStreetOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llStreetOfPerson);
+        llPostalCodeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPostalCodeOfPerson);
+        llUsernameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llUsernameOfPerson);
+
+        llMyDetailGroup = (LinearLayout) mRootFragment.findViewById(R.id.llMyDetailGroup);
     }
 }

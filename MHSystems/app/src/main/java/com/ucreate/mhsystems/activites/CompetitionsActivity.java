@@ -146,81 +146,6 @@ public class CompetitionsActivity extends BaseActivity {
     };
 
     /**
-     * Display CALENDAR view on tap of Month Title.
-     */
-    private View.OnClickListener mCalendarListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            // Launch Date Picker Dialog
-            DatePickerDialog dpd = new DatePickerDialog(CompetitionsActivity.this,
-                    new DatePickerDialog.OnDateSetListener() {
-
-                        @Override
-                        public void onDateSet(DatePicker view, int year,
-                                              int monthOfYear, int dayOfMonth) {
-
-                            int tMonthofYear = ++monthOfYear;
-
-                            if (year == iCurrentYear) {
-
-                                if (iPopItemPos == 2) {
-
-                                    iYear = year;
-                                    iMonth = tMonthofYear;
-                                    strDate = "" + dayOfMonth;
-
-                                    //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
-
-                                } else {
-
-                                    if (tMonthofYear > iCurrentMonth) {
-
-                                        iYear = year;
-                                        iMonth = tMonthofYear;
-                                        strDate = "" + dayOfMonth;
-
-                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-                                       // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
-
-                                    } else if (tMonthofYear == iCurrentMonth) {
-
-                                        if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
-
-                                            iYear = year;
-                                            iMonth = tMonthofYear;
-                                            strDate = "" + dayOfMonth;
-
-                                            getNumberofDays();
-
-                                           // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
-
-                                        } else {
-                                            resetCalendar();
-                                            showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
-                                        }
-                                    } else {
-                                        resetCalendar();
-                                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
-                                    }
-                                }
-                            } else {
-                                resetCalendar();
-                                showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
-                            }
-                        }
-                    }, iYear, --iMonth, Integer.parseInt(strDate));
-            //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-            resetMonthsNavigationIcons();
-            dpd.show();
-
-            //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
-            //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        }
-    };
-
-    /**
      * Declares the click event handling FIELD to set categories
      * of COURSE DIARY.
      */
@@ -234,22 +159,34 @@ public class CompetitionsActivity extends BaseActivity {
                     switch (item.getItemId()) {
                         case R.id.item_My_Events:
                             iPopItemPos = 0;
-                            isMyEvent = true; isUpcoming = true; isPast = true; isCompleted = true;
+                            isMyEvent = true;
+                            isUpcoming = true;
+                            isPast = true;
+                            isCompleted = true;
                             break;
 
                         case R.id.item_Upcoming:
                             iPopItemPos = 1;
-                            isMyEvent = false; isUpcoming = true; isPast = false; isCompleted = false;
+                            isMyEvent = false;
+                            isUpcoming = true;
+                            isPast = false;
+                            isCompleted = false;
                             break;
 
                         case R.id.item_Past:
                             iPopItemPos = 2;
-                            isMyEvent = false; isUpcoming = false; isPast = true; isCompleted = false;
+                            isMyEvent = false;
+                            isUpcoming = false;
+                            isPast = true;
+                            isCompleted = false;
                             break;
 
                         case R.id.item_Completed:
                             iPopItemPos = 3;
-                            isMyEvent = false; isUpcoming = false; isPast = false; isCompleted = true;
+                            isMyEvent = false;
+                            isUpcoming = false;
+                            isPast = false;
+                            isCompleted = true;
                             break;
                     }
 
@@ -319,7 +256,7 @@ public class CompetitionsActivity extends BaseActivity {
          *  Check internet connection before hitting server request.
          */
         if (isOnline(CompetitionsActivity.this)) {
-           updateNoInternetUI(true);
+            updateNoInternetUI(true);
             requestCompetitionsEvents();
         } else {
             updateNoInternetUI(false);
@@ -375,7 +312,6 @@ public class CompetitionsActivity extends BaseActivity {
                 showAlertMessage("" + error);
             }
         });
-
     }
 
     /**
@@ -404,7 +340,7 @@ public class CompetitionsActivity extends BaseActivity {
 
                 if (competitionsDatas.size() == 0) {
                     // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
-                   updateNoCompetitionsUI(false);
+                    updateNoCompetitionsUI(false);
                 } else {
 
                     updateNoCompetitionsUI(true);
@@ -427,6 +363,9 @@ public class CompetitionsActivity extends BaseActivity {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
+
+        //Update Month title name.
+        setTitleBar(getMonth(iMonth));
 
         //Dismiss progress dialog.
         hideProgress();
@@ -452,60 +391,43 @@ public class CompetitionsActivity extends BaseActivity {
     public void onClick(View view) {
 
         if (isOnline(CompetitionsActivity.this)) {
-            showNoInternetView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
             switch (view.getId()) {
 
                 case ApplicationGlobal.ACTION_NOTHING:
 
                     break;
 
-                case R.id.ivPrevMonth:
-                    //IF COMPLETED TAB SELECTED THEN DISPLAY DATA FROM 1st JAN of current year.
+                case R.id.ivPrevMonthComp:
+                    /**
+                     *  User can navigate back till current MONTH but can back to JANUARY MONTH for
+                     *  COMPLETED tab.
+                     */
                     if (iPopItemPos == 2) {
 
-                        if (iMonth == Calendar.JANUARY) {
-
-                            setPreviousButton(false);
+                        if (iMonth > 1) {
+                            actionPreviousMonth();
+                            createDateForData();
+                            //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
                         } else {
-
-                            iMonth--;
-
-                            //Do nothing. Just load data according current date.
-                            strDate = "01";
-
-                           getNumberofDays();
+                            setPreviousButton(false);
                         }
                     } else {
-
-                        /**
-                         *  User cannot navigate back to current
-                         *  month.
-                         */
-                        if (/*iMonth == 1 ||*/ iMonth > iCurrentMonth) {
-                            iMonth--;
-
-                            if (iMonth == iCurrentMonth) {
-                                //Do nothing. Just load data according current date.
-                                strDate = strCurrentDate;
-                            } else {
-                                //Do nothing. Just load data according current date.
-                                strDate = "01";
-                            }
-
-                            getNumberofDays();
-                        }else{
-                            setPreviousButton(false);
+                        if (iMonth > iCurrentMonth) {
+                            actionPreviousMonth();
+                            createDateForData();
+                            // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
                         }
                     }
                     break;
 
-                case R.id.ivNextMonth:
+                case R.id.ivNextMonthComp:
                     if (iMonth == 12) {
 
                     } else {
                         iMonth++;
 
-                        if(iMonth > iCurrentMonth){
+                        if (iMonth > iCurrentMonth) {
                             setPreviousButton(true);
                         }
 
@@ -513,10 +435,12 @@ public class CompetitionsActivity extends BaseActivity {
                         strDate = "01";
 
                         getNumberofDays();
+
+                        createDateForData();
                     }
                     break;
 
-                case R.id.tvToday:
+                case R.id.tvTodayComp:
                     mCalendarInstance.set(Calendar.YEAR, iCurrentYear);
                     mCalendarInstance.set(Calendar.MONTH, (iCurrentMonth - 1));
                     mCalendarInstance.set(Calendar.DATE, Integer.parseInt(strCurrentDate));
@@ -527,19 +451,24 @@ public class CompetitionsActivity extends BaseActivity {
 
                     //Get MONTH and YEAR.
                     iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
+
+                    createDateForData();
                     break;
 
-                case R.id.ivCalendar:
-                    iNumOfDays = Integer.parseInt(strDate);
+                case R.id.ivCalendarComp:
+                    showCalendar();
                     break;
             }
-
-            //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-            resetMonthsNavigationIcons();
         } else {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
         }
+    }
 
+    /**
+     * Implements a method to create date to display for
+     * selected month, year and date.
+     */
+    private void createDateForData() {
         //FORMAT : MM-DD-YYYY
         strDateFrom = "" + iMonth + "/" + strDate + "/" + iYear;
 
@@ -554,6 +483,54 @@ public class CompetitionsActivity extends BaseActivity {
         Log.e(LOG_TAG, strNameOfMonth);
         Log.e("DATA ", "DATE : " + strDate + " MONTH : " + iMonth + " YEAR : " + iYear + " NUM OF DAYS : " + iNumOfDays);
 
+        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+        resetMonthsNavigationIcons();
+
+        callCompetitionsWebService();
+    }
+
+    /**
+     * Implements a method to perform PREVIOUS month
+     * action.
+     */
+    private void actionPreviousMonth() {
+        //IF COMPLETED TAB SELECTED THEN DISPLAY DATA FROM 1st JAN of current year.
+        if (iPopItemPos == 2) {
+
+            if (iMonth == Calendar.JANUARY) {
+
+                setPreviousButton(false);
+            } else {
+
+                iMonth--;
+
+                //Do nothing. Just load data according current date.
+                strDate = "01";
+
+                getNumberofDays();
+            }
+        } else {
+
+            /**
+             *  User cannot navigate back to current
+             *  month.
+             */
+            if (/*iMonth == 1 ||*/ iMonth > iCurrentMonth) {
+                iMonth--;
+
+                if (iMonth == iCurrentMonth) {
+                    //Do nothing. Just load data according current date.
+                    strDate = strCurrentDate;
+                } else {
+                    //Do nothing. Just load data according current date.
+                    strDate = "01";
+                }
+
+                getNumberofDays();
+            } else {
+                setPreviousButton(false);
+            }
+        }
     }
 
     /**
@@ -565,10 +542,8 @@ public class CompetitionsActivity extends BaseActivity {
     public void updateNoInternetUI(boolean isOnline) {
         if (isOnline) {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
-            //inc_noInternet.setVisibility(View.GONE);
         } else {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
-            //inc_noInternet.setVisibility(View.VISIBLE);
         }
     }
 
@@ -590,7 +565,6 @@ public class CompetitionsActivity extends BaseActivity {
      * or set as initial state.
      */
     public void resetCalendar() {
-
         strDate = strCurrentDate;
         iMonth = iCurrentMonth;
         iYear = iCurrentYear;
@@ -691,6 +665,7 @@ public class CompetitionsActivity extends BaseActivity {
     public void setTitleBar(String strNameOfMonth) {
         tvNameOfMonthComp.setText(strNameOfMonth);
     }
+
 
 //    /**
 //     * Create Menu Options
@@ -872,5 +847,86 @@ public class CompetitionsActivity extends BaseActivity {
 
         //Initially display title at position 0 of R.menu.course_menu.
         tvCompType.setText("" + popupMenu.getMenu().getItem(0));
+    }
+
+    /**
+     * Implements a method to display {@link Calendar}.
+     */
+    private void showCalendar() {
+        // Launch Date Picker Dialog
+        DatePickerDialog dpd = new DatePickerDialog(CompetitionsActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        int tMonthofYear = ++monthOfYear;
+
+                        if (year == iCurrentYear) {
+
+                            if (iPopItemPos == 2) {
+
+                                iYear = year;
+                                iMonth = tMonthofYear;
+                                strDate = "" + dayOfMonth;
+
+                                iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                                createDateForData();
+
+                                //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+
+                            } else {
+
+                                if (tMonthofYear > iCurrentMonth) {
+
+                                    iYear = year;
+                                    iMonth = tMonthofYear;
+                                    strDate = "" + dayOfMonth;
+
+                                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                                    createDateForData();
+
+                                    // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+
+                                } else if (tMonthofYear == iCurrentMonth) {
+
+                                    if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
+
+                                        iYear = year;
+                                        iMonth = tMonthofYear;
+                                        strDate = "" + dayOfMonth;
+
+                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                                        getNumberofDays();
+
+                                        createDateForData();
+
+                                        // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+
+                                    } else {
+                                        resetCalendar();
+                                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                                    }
+                                } else {
+                                    resetCalendar();
+                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                                }
+                            }
+                        } else {
+                            resetCalendar();
+                            showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                        }
+                    }
+                }, iYear, --iMonth, Integer.parseInt(strDate));
+        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+        resetMonthsNavigationIcons();
+        dpd.show();
+
+        //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
+        //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
     }
 }

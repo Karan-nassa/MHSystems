@@ -49,6 +49,8 @@ public class FinanceFragment extends Fragment {
     String strInvoiceTitle, strInvoiceNo, strInvoiceValue, strInvoiceTax, strInvoiceDate, strInvoiceDesc, strInvoiceBillFrom,
             strInvoiceBillTo, strInvoiceTotalPayable, strInvoiceStatus;
 
+    private boolean isClassVisible = false;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -101,25 +103,6 @@ public class FinanceFragment extends Fragment {
         }
     };
 
-    /**
-     * Implements a method to get all CURRENT INVOICE data
-     * to pass for DetailInvoiceActivity.
-     */
-    private void getCurrentInvoiceData() {
-
-        strInvoiceNo = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo();
-        strInvoiceDate = /*formatDate(*/myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getStrInvoiceDate()/*).replaceAll("/", "-")*/;
-        strInvoiceStatus = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceStatusStr();
-        strInvoiceTotalPayable = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable();
-
-        strInvoiceBillFrom = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getStrBilledFrom();
-        strInvoiceBillTo = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getStrBilledTo();
-        strInvoiceDesc = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getDescription();
-        strInvoiceValue = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getValueX();
-        strInvoiceTax = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getTax();
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
@@ -130,15 +113,9 @@ public class FinanceFragment extends Fragment {
 
         llFinanceGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFinanceGroup);
 
-        /**
-         *  Check internet connection before hitting server request.
-         */
-        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
-            llFinanceGroup.setVisibility(View.VISIBLE);
-        } else {
-            ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
-            llFinanceGroup.setVisibility(View.GONE);
+        isClassVisible = true;
+        if (isClassVisible) {
+            callFinanceWebService();
         }
 
         //Set click event handle here.
@@ -151,8 +128,19 @@ public class FinanceFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser && llFinanceGroup != null) {
+        if (isVisibleToUser && isClassVisible) {
             callFinanceWebService();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //Check Internet connection and hit web service only on first time.
+        isClassVisible = true;
+        if (isClassVisible) {
+            requestFinanceService();
         }
     }
 
@@ -171,7 +159,6 @@ public class FinanceFragment extends Fragment {
         } else {
             ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
             llFinanceGroup.setVisibility(View.GONE);
-            //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
     }
 
@@ -180,6 +167,8 @@ public class FinanceFragment extends Fragment {
      * web service to get balance.
      */
     public void requestFinanceService() {
+
+        Log.e(LOG_TAG, "requestFinanceService");
 
         ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
@@ -209,13 +198,11 @@ public class FinanceFragment extends Fragment {
             @Override
             public void failure(RetrofitError error) {
                 //you can handle the errors here
-                Log.e(LOG_TAG, "RetrofitError : " + error);
+                // Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
-
-                ((BaseActivity) getActivity()).showAlertMessage("" + error);
+                //((BaseActivity) getActivity()).showAlertMessage("" + error);
             }
         });
-
     }
 
     /**
@@ -269,4 +256,21 @@ public class FinanceFragment extends Fragment {
         ((BaseActivity) getActivity()).hideProgress();
     }
 
+    /**
+     * Implements a method to get all CURRENT INVOICE data
+     * to pass for DetailInvoiceActivity.
+     */
+    private void getCurrentInvoiceData() {
+
+        strInvoiceNo = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo();
+        strInvoiceDate = /*formatDate(*/myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getStrInvoiceDate()/*).replaceAll("/", "-")*/;
+        strInvoiceStatus = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceStatusStr();
+        strInvoiceTotalPayable = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable();
+
+        strInvoiceBillFrom = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getStrBilledFrom();
+        strInvoiceBillTo = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getStrBilledTo();
+        strInvoiceDesc = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getDescription();
+        strInvoiceValue = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getValueX();
+        strInvoiceTax = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getTax();
+    }
 }

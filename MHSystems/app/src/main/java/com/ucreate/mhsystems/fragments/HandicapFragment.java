@@ -1,11 +1,9 @@
 package com.ucreate.mhsystems.fragments;
 
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -35,11 +33,9 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.activites.ShowCertificateWebview;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
@@ -89,6 +85,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     private String TAG_COMPETITION_OR_REASON = "CompetitionOrReason";
     private String TAG_NEW_EXACT_HCAP_ONLY_STR = "NewExactHCapOnlyStr";
 
+    private boolean isClassVisible = false;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -112,6 +110,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     private static LineChart mChart;
     LineDataSet set1;
     public static MyMarkerView mv;
+
 
     /**
      * Declares the Graph YEAR navigation listener to redraw
@@ -149,15 +148,10 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
         setHasOptionsMenu(true);
 
-        /**
-         * Check internet connection and alert user if not set INTERNET.
-         */
-        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
-            llHandicapGroup.setVisibility(View.VISIBLE);
-        } else {
-            ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
-            llHandicapGroup.setVisibility(View.GONE);
+        //Check Internet connection and hit web service only on first time.
+        isClassVisible = true;
+        if (isClassVisible) {
+            callHandicapWebService();
         }
 
         btShowCertificate.setOnClickListener(new View.OnClickListener() {
@@ -174,139 +168,12 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         return viewRootFragment;
     }
 
-    /**
-     * Implements a method to initialize all resources
-     * used for Handicap graph.
-     */
-    private void initializeResources() {
-        tvHandicapExact = (TextView) viewRootFragment.findViewById(R.id.tvHandicapExact);
-        tvHandicapPlaying = (TextView) viewRootFragment.findViewById(R.id.tvHandicapPlaying);
-        //  tvHandicapType = (TextView) viewRootFragment.findViewById(R.id.tvHandicapType);
-        tvDateOfPlayedStr = (TextView) viewRootFragment.findViewById(R.id.tvDateOfPlayedStr);
-        tvTitleOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTitleOfPlayStr);
-        tvTypeOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPlayStr);
-        tvSelectGraphYear = (TextView) viewRootFragment.findViewById(R.id.tvSelectGraphYear);
-
-        btShowCertificate = (Button) viewRootFragment.findViewById(R.id.btShowCertificate);
-
-        llPreviousYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llPreviousYearGraph);
-        llNextYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llNextYearGraph);
-        llMonthNavigationGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llMonthNavigationGroup);
-
-        llHandicapGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llHandicapGroup);
-
-        ivPreviousYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivPreviousYearGraph);
-        ivNextYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivNextYearGraph);
-    }
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser &&llHandicapGroup != null) {
+        if (isVisibleToUser && isClassVisible) {
             callHandicapWebService();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-//        /**
-//         *  Check internet connection before hitting server request.
-//         */
-//         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-//            ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
-//            llHandicapGroup.setVisibility(View.VISIBLE);
-//        } else {
-//            ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
-//            llHandicapGroup.setVisibility(View.GONE);
-//        }
-    }
-
-    /**
-     * Implements a method to Initialize the Graph
-     * or chart with HANDICAP values.
-     */
-    private void refreshGraph() {
-
-        mChart = (LineChart) viewRootFragment.findViewById(R.id.linechart);
-        mChart.setOnChartValueSelectedListener(this);
-        mChart.setDrawGridBackground(false);
-        // no description text
-        mChart.setDescription("");
-
-        // enable touch gestures
-        mChart.setTouchEnabled(true);
-        // enable scaling and dragging
-        mChart.setDragEnabled(false);
-        mChart.setScaleEnabled(false); //Zoom functioanlity
-        // if disabled, scaling can be done on x- and y-axis separately
-        mChart.setPinchZoom(false);
-
-        // set an alternative background color
-        // mChart.setBackgroundColor(Color.GRAY);
-
-        // create a custom MarkerView (extend MarkerView) and specify the layout
-        // to use for it
-        mv = new MyMarkerView(getActivity(), R.layout.graph_marker_view, jsonObjectArrayList.get(mYearIndex));
-
-        // set the marker to the chart
-        mChart.setMarkerView(mv);
-
-        //Disable shows data set labels and colors of Graph.
-        mChart.getLegend().setEnabled(false);
-
-        XAxis xl = mChart.getXAxis();
-        xl.setAvoidFirstLastClipping(true);
-        xl.setDrawGridLines(false);
-        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setInverted(false);
-        leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
-        leftAxis.setEnabled(true);
-        leftAxis.setDrawGridLines(false);
-        // leftAxis.setAxisMaxValue(30);
-
-        YAxis rightAxis = mChart.getAxisRight();
-        rightAxis.setEnabled(false);
-
-        // add data
-        set_Data(jsonObjectArrayList.get(mYearIndex).size(), jsonObjectArrayList.get(mYearIndex));
-
-        // // restrain the maximum scale-out factor
-        // mChart.setScaleMinima(3f, 3f);
-        //
-        // // center the view to a specific position inside the chart
-        // mChart.centerViewPort(10, 50);
-
-        // get the legend (only possible after ic_home_settings data)
-        Legend l = mChart.getLegend();
-
-        // modify the legend ...
-//         l.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-//          l.setForm(Legend.LegendForm.LINE);
-
-        // dont forget to refresh the drawing
-        mChart.invalidate();
-
-        mChart.setOnChartValueSelectedListener(this);
-    }
-
-    /**
-     * Implements a method to update navigation icons
-     * for GRAPH.
-     */
-    private void setNavigationIcons() {
-
-        if (mYearIndex == 0) {
-            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left_blur);
-        } else if (mYearIndex == (arrNameOfYear.size() - 1)) {
-            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right_blur);
-        } else {
-            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right);
-            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left);
         }
     }
 
@@ -315,6 +182,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * data from server.
      */
     private void callHandicapWebService() {
+
         /**
          *  Check internet connection before hitting server request.
          */
@@ -324,8 +192,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
             llHandicapGroup.setVisibility(View.VISIBLE);
         } else {
             ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
-            llHandicapGroup.setVisibility(View.VISIBLE);
-            // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
+            llHandicapGroup.setVisibility(View.GONE);
         }
     }
 
@@ -365,7 +232,6 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
-
                 ((BaseActivity) getActivity()).showAlertMessage("" + error);
             }
         });
@@ -448,6 +314,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                                 hCapRecordsList.add(hCapRecord);
                             }
                         }
+                        Collections.reverse(hCapRecordsList);
+
                         jsonObjectArrayList.add(hCapRecordsList);
                     }
 
@@ -625,7 +493,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
          * Reverse the Handicap graph records for annually
          * ascending order.
          */
-        Collections.reverse(range);
+        //Collections.reverse(range);
 
         loadDetailGraphInfo(jsonObjectArrayList.get(mYearIndex), jsonObjectArrayList.get(mYearIndex).size() - 1);
 
@@ -670,6 +538,120 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         mChart.setData(data);
         mChart.animateX(1500);
         mChart.invalidate();
+    }
+
+    /**
+     * Implements a method to Initialize the Graph
+     * or chart with HANDICAP values.
+     */
+    private void refreshGraph() {
+
+        if (jsonObjectArrayList.size() != 0) {
+
+            mChart = (LineChart) viewRootFragment.findViewById(R.id.linechart);
+            mChart.setOnChartValueSelectedListener(this);
+            mChart.setDrawGridBackground(false);
+            // no description text
+            mChart.setDescription("");
+
+            // enable touch gestures
+            mChart.setTouchEnabled(true);
+            // enable scaling and dragging
+            mChart.setDragEnabled(false);
+            mChart.setScaleEnabled(false); //Zoom functioanlity
+            // if disabled, scaling can be done on x- and y-axis separately
+            mChart.setPinchZoom(false);
+
+            // set an alternative background color
+            // mChart.setBackgroundColor(Color.GRAY);
+
+            // create a custom MarkerView (extend MarkerView) and specify the layout
+            // to use for it
+            mv = new MyMarkerView(getActivity(), R.layout.graph_marker_view, jsonObjectArrayList.get(mYearIndex));
+
+            // set the marker to the chart
+            mChart.setMarkerView(mv);
+
+            //Disable shows data set labels and colors of Graph.
+            mChart.getLegend().setEnabled(false);
+
+            XAxis xl = mChart.getXAxis();
+            xl.setAvoidFirstLastClipping(true);
+            xl.setDrawGridLines(false);
+            xl.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+            YAxis leftAxis = mChart.getAxisLeft();
+            leftAxis.setInverted(false);
+            leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
+            leftAxis.setEnabled(true);
+            leftAxis.setDrawGridLines(false);
+            // leftAxis.setAxisMaxValue(30);
+
+            YAxis rightAxis = mChart.getAxisRight();
+            rightAxis.setEnabled(false);
+
+            // add data
+            set_Data(jsonObjectArrayList.get(mYearIndex).size(), jsonObjectArrayList.get(mYearIndex));
+
+            // // restrain the maximum scale-out factor
+            // mChart.setScaleMinima(3f, 3f);
+            //
+            // // center the view to a specific position inside the chart
+            // mChart.centerViewPort(10, 50);
+
+            // get the legend (only possible after ic_home_settings data)
+            Legend l = mChart.getLegend();
+
+            // modify the legend ...
+//         l.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+//          l.setForm(Legend.LegendForm.LINE);
+
+            // dont forget to refresh the drawing
+            mChart.invalidate();
+
+            mChart.setOnChartValueSelectedListener(this);
+        }
+    }
+
+    /**
+     * Implements a method to update navigation icons
+     * for GRAPH.
+     */
+    private void setNavigationIcons() {
+
+        if (mYearIndex == 0) {
+            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left_blur);
+        } else if (mYearIndex == (arrNameOfYear.size() - 1)) {
+            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right_blur);
+        } else {
+            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right);
+            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left);
+        }
+    }
+
+    /**
+     * Implements a method to initialize all resources
+     * used for Handicap graph.
+     */
+    private void initializeResources() {
+        tvHandicapExact = (TextView) viewRootFragment.findViewById(R.id.tvHandicapExact);
+        tvHandicapPlaying = (TextView) viewRootFragment.findViewById(R.id.tvHandicapPlaying);
+        //  tvHandicapType = (TextView) viewRootFragment.findViewById(R.id.tvHandicapType);
+        tvDateOfPlayedStr = (TextView) viewRootFragment.findViewById(R.id.tvDateOfPlayedStr);
+        tvTitleOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTitleOfPlayStr);
+        tvTypeOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPlayStr);
+        tvSelectGraphYear = (TextView) viewRootFragment.findViewById(R.id.tvSelectGraphYear);
+
+        btShowCertificate = (Button) viewRootFragment.findViewById(R.id.btShowCertificate);
+
+        llPreviousYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llPreviousYearGraph);
+        llNextYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llNextYearGraph);
+        llMonthNavigationGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llMonthNavigationGroup);
+
+        llHandicapGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llHandicapGroup);
+
+        ivPreviousYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivPreviousYearGraph);
+        ivNextYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivNextYearGraph);
     }
 
 }

@@ -3,32 +3,17 @@ package com.ucreate.mhsystems.activites;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.google.gson.JsonObject;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.GridAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
-import com.ucreate.mhsystems.constants.WebAPI;
-import com.ucreate.mhsystems.models.AJsonParamsDashboard;
-import com.ucreate.mhsystems.models.DashboardAPI;
-import com.ucreate.mhsystems.models.LoginData;
-import com.ucreate.mhsystems.models.LoginItems;
-import com.ucreate.mhsystems.util.API.WebServiceMethods;
-
-import java.lang.reflect.Type;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
 
 public class DashboardActivity extends BaseActivity {
 

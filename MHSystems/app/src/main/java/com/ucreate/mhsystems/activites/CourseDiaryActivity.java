@@ -69,8 +69,8 @@ public class CourseDiaryActivity extends BaseActivity {
     @Bind(R.id.llHomeIcon)
     LinearLayout llHomeIcon;
 
-    @Bind(R.id.llMonthTitle)
-    LinearLayout llMonthTitle;
+    @Bind(R.id.llCourseCategory)
+    LinearLayout llCourseCategory;
 
     @Bind(R.id.tvCourseType)
     TextView tvCourseType;
@@ -299,7 +299,7 @@ public class CourseDiaryActivity extends BaseActivity {
 
         popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
 
-        llMonthTitle.setOnClickListener(new View.OnClickListener() {
+        llCourseCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupMenu.show();
@@ -334,7 +334,7 @@ public class CourseDiaryActivity extends BaseActivity {
     public void onClick(View view) {
 
         if (isOnline(CourseDiaryActivity.this)) {
-            showNoInternetView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
             //  inc_message_view.setVisibility(View.GONE);
             switch (view.getId()) {
 
@@ -386,7 +386,6 @@ public class CourseDiaryActivity extends BaseActivity {
             resetMonthsNavigationIcons();
         } else {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
-            //inc_message_view.setVisibility(View.VISIBLE);
         }
     }
 
@@ -565,7 +564,7 @@ public class CourseDiaryActivity extends BaseActivity {
                     isMoreToScroll = false;
                     resetArrayData();
                     showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
-                   // showAlertMessage(getResources().getString(R.string.error_no_data));
+                    // showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
                     showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
@@ -584,7 +583,7 @@ public class CourseDiaryActivity extends BaseActivity {
 
                 showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
                 //If web service not respond in any case.
-              //  showAlertMessage(courseDiaryItems.getMessage());
+                //  showAlertMessage(courseDiaryItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
@@ -897,7 +896,7 @@ public class CourseDiaryActivity extends BaseActivity {
     }
 
     /**
-     * Display CALENDAR view on tap of Month Title.
+     * Display CALENDAR view on tap of CALENDAR icon.
      */
     private void showCalendar() {
 
