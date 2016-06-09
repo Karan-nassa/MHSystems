@@ -16,11 +16,11 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorB2E6D9"
+            android:background="@color/color4B4B49"
             android:elevation="6dp"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:tabSelectedTextColor="@color/colorBlack000000"
+            app:tabSelectedTextColor="@color/colorWhiteffffff"
             app:tabTextColor="@color/colorAAAAAA" />
 
 

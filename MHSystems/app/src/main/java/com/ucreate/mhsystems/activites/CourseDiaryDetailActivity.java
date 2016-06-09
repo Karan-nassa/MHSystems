@@ -75,7 +75,7 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
 
         setSupportActionBar(tbCourse);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_black);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_white);
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);

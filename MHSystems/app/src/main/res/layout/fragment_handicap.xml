@@ -336,7 +336,7 @@
                         android:layout_width="140dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/background_blue_border_535796"
+                        android:background="@drawable/background_blue_border_4b4b49"
                         android:text="@string/text_title_show_certificate"
                         android:textAllCaps="false"
                         android:textColor="@color/colorWhiteffffff"

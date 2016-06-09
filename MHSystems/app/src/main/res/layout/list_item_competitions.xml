@@ -17,10 +17,9 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-
             <!-- CONTENT OF COMPETITIONS -->
 
-            <!-- TITILE OF COMPETITIONS EVENT -->
+            <!-- TITLE OF COMPETITIONS EVENT -->
 
             <TextView
                 android:id="@+id/tvCompTitle"
@@ -37,8 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:textAllCaps="true"
                 android:text="ENTRY OPEN"
+                android:textAllCaps="true"
                 android:textColor="@color/colorC0995B"
                 android:textSize="14sp" />
 
@@ -70,16 +69,16 @@
                     android:paddingLeft="4dp"
                     android:src="@mipmap/ic_today" />
 
-                    <!-- DATE OF COMPETITION EVENT -->
+                <!-- DATE OF COMPETITION EVENT -->
 
-                    <TextView
-                        android:id="@+id/tvDateCompEvent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="Monday, 29th February 2016"
-                        android:textColor="@color/color030303"
-                        android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tvDateCompEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="Monday, 29th February 2016"
+                    android:textColor="@color/color030303"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -97,8 +96,8 @@
                     android:layout_height="wrap_content"
                     android:alpha="0.1"
                     android:paddingLeft="4dp"
-                    android:visibility="invisible"
-                    android:src="@mipmap/ic_today" />
+                    android:src="@mipmap/ic_today"
+                    android:visibility="invisible" />
 
                 <!-- TIME OF COMPETITION EVENT -->
 
@@ -122,23 +121,36 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <!-- CALENDER ICON -->
+                <!-- PRICE OR POSITION ICON -->
 
                 <ImageView
+                    android:id="@+id/ivStatOfEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.1"
                     android:src="@mipmap/ic_fee" />
 
-                <!-- PRIZE OF COURSE EVENT -->
+                <!-- PRIZE OF COMPETITION EVENT -->
 
                 <TextView
                     android:id="@+id/tvFeeCompEvent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
                     android:text="£5 fee per player"
+                    android:textColor="@color/color030303"
+                    android:textSize="16sp" />
+
+                <!-- POSITION OF PERSON IN COMPETITION EVENT -->
+
+                <TextView
+                    android:id="@+id/tvPosOfPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end|center"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/color030303"
                     android:textSize="16sp" />
 
@@ -151,7 +163,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
             android:background="@color/colorD3D2D6" />
 
 

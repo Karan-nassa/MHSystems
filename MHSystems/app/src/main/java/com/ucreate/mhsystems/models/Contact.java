@@ -35,7 +35,7 @@ public class Contact {
         this.contactUri = contactUri;
     }
 
-    public String getDisplayName() {
+    public String getFullName() {
         return displayName;
     }
 

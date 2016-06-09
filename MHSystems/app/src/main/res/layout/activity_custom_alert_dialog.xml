@@ -1,145 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="75dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="34dp"
         android:background="@drawable/ic_white_bg"
         android:orientation="vertical">
 
-
+        <!-- TOP IMAGE WITH BOOK TEE TITLE -->
         <FrameLayout
-            android:id="@+id/container"
+            android:id="@+id/flPopupTheme"
             android:layout_width="match_parent"
-            android:layout_height="320dp">
+            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_booknow_dialog">
 
-            <FrameLayout
-                android:id="@+id/flPopupTheme"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@mipmap/bg_booknow_dialog">
+            <!-- BOOK TEE TIME TEXT -->
 
-            </FrameLayout>
-
-            <!-- CENTER WHITE CIRCLE WITH LOGO -->
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="74dp"
-                android:layout_marginTop="60dp"
-                android:orientation="vertical">
-
-                <!-- TEAM LOGO -->
-
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:id="@+id/ivBackgroundColor"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom"
-                    android:padding="2dp"
-                    android:scaleType="fitCenter"
-                    app:placeholderImage="@android:color/white"
-                    app:roundAsCircle="true" />
-
-                <!-- LOGO OF ITEM -->
-
-                <ImageView
-                    android:id="@+id/ivGridLogo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/ic_calendar_popup" />
-            </FrameLayout>
-
-
-            <com.ucreate.mhsystems.customfonts.ButlerMediumTextView
+            <com.ucreate.mhsystems.customfonts.RobotoTextView
                 android:id="@+id/tvAlertTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|top"
-                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
                 android:text="@string/text_alert_book_course"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="27sp" />
 
-            <com.ucreate.mhsystems.customfonts.RobotoTextView
-                android:id="@+id/tvAlertMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:text="@string/text_alert_course_message"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-            <com.ucreate.mhsystems.customfonts.RobotoTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="100dp"
-                android:text="+44 1234 60947"
-                android:textColor="#74B4FF"
-                android:textSize="16sp" />
-
-
-            <!-- DIVIDER LINE -->
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="120dp"
-                android:alpha="0.5"
-                android:background="@color/colorAAAAAA" />
-
-            <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:layout_margin="12dp"
-                android:text="contact@golfclub.co.uk"
-                android:textColor="#74B4FF"
-                android:textSize="16sp" />
-
-            <!-- DIVIDER LINE -->
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="160dp"
-                android:alpha="0.5"
-                android:background="@color/colorAAAAAA" />
         </FrameLayout>
 
+        <!-- ALERT MESSAGE OF BOOK EVENT -->
+
         <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:id="@+id/tvAlertMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="35dp"
+            android:gravity="center"
+            android:text="@string/text_alert_course_message"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <!-- CONTACT NUMBER -->
+
+        <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:padding="12dp"
+            android:text="+44 1234 60947"
+            android:textColor="@color/color0076FF"
+            android:textSize="17sp" />
+
+        <!-- DIVIDER LINE -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:alpha="0.5"
+            android:background="@color/colorAAAAAA" />
+
+        <!-- EMAIL OF MEMBER -->
+
+        <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:padding="12dp"
+            android:text="contact@golfclub.co.uk"
+            android:textColor="@color/color0076FF"
+            android:textSize="17sp" />
+
+        <!-- DIVIDER LINE -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:alpha="0.5"
+            android:background="@color/colorAAAAAA" />
+
+        <!-- CLOSE TEXT-->
+
+        <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
             android:id="@+id/tvCloseDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:alpha="0.4"
             android:gravity="center"
             android:onClick="onClose"
+            android:padding="12dp"
             android:text="Close"
+            android:textAllCaps="true"
             android:textColor="@color/colorD6D0C9"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:textSize="17sp" />
 
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

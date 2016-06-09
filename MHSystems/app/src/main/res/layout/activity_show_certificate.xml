@@ -16,9 +16,10 @@
             android:id="@+id/tbCertificate"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorB2E6D9"
+            android:background="@color/color4B4B49"
             app:layout_collapseMode="pin"
-            app:popupTheme="@style/App_Theme"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:titleTextColor="@color/colorWhiteffffff"
             app:title="Handicap Certificate" />
 
         <!-- WEB VIEW TO LOAD HTML CONTENT / URL-->

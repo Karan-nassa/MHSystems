@@ -1,13 +1,10 @@
 package com.ucreate.mhsystems.activites;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
@@ -27,7 +24,6 @@ import com.ucreate.mhsystems.models.CompetitionsAPI;
 import com.ucreate.mhsystems.models.CompetitionsData;
 import com.ucreate.mhsystems.models.CompetitionsJsonParams;
 import com.ucreate.mhsystems.models.CompetitionsResultItems;
-import com.ucreate.mhsystems.models.CourseDiaryDataCopy;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 
 import java.lang.reflect.Type;
@@ -56,6 +52,12 @@ public class CompetitionsActivity extends BaseActivity {
     boolean isJoined = false;
     boolean isCompleted = false;
 
+    /**
+     * iPopItemPos describes the position of POP MENU selected item.
+     * <br> 0 : UPCOMING
+     * <br> 1 : JOINED
+     * <br> 2 : COMPLETED
+     */
     int iPopItemPos = 0;
 
     ArrayList<CompetitionsData> competitionsDatas = new ArrayList<>();
@@ -199,8 +201,6 @@ public class CompetitionsActivity extends BaseActivity {
                         //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
                         //resetMonthsNavigationIcons();
 
-                        //Show progress dialog during call web service.
-                        showPleaseWait("Loading...");
                         callCompetitionsWebService();
                     }
                     return true;
@@ -211,7 +211,7 @@ public class CompetitionsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_competitions_new);
+        setContentView(R.layout.activity_competitions);
 
         //Initialize view resources.
         ButterKnife.bind(this);
@@ -234,7 +234,8 @@ public class CompetitionsActivity extends BaseActivity {
         iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         initCompetitionsCategory();
-        callCompetitionsWebService();
+        createDateForData();
+        //callCompetitionsWebService();
 
         //Load Default fragment of COURSE DIARY.
         //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_NOTHING));
@@ -356,10 +357,7 @@ public class CompetitionsActivity extends BaseActivity {
 
                     updateNoCompetitionsUI(true);
 
-                   /* //TRUE to set visible of JOIN button.
-                    competitionsAdapter = new CompetitionsAdapter(CompetitionsActivity.this, competitionsDatas, true);
-                    lvCompetitions.setAdapter(competitionsAdapter);*/
-                    competitionsAdapter = new CompetitionsAdapter(CompetitionsActivity.this, competitionsDatas, true);
+                    competitionsAdapter = new CompetitionsAdapter(CompetitionsActivity.this, competitionsDatas, true, iPopItemPos);
                     lvCompetitions.setAdapter(competitionsAdapter);
                     competitionsAdapter.notifyDataSetChanged();
 
@@ -390,8 +388,10 @@ public class CompetitionsActivity extends BaseActivity {
         competitionsDatas.clear();
         iScrollCount = 0;
 
-        competitionsAdapter.compititionsDatas.clear();
-        competitionsAdapter.notifyDataSetChanged();
+        /*if (competitionsAdapter.compititionsDatas.size() > 0) {*/
+            competitionsAdapter.compititionsDatas.clear();
+            competitionsAdapter.notifyDataSetChanged();
+        /*}*/
     }
 
     /**
@@ -639,74 +639,6 @@ public class CompetitionsActivity extends BaseActivity {
         tvNameOfMonthComp.setText(strNameOfMonth);
     }
 
-
-//    /**
-//     * Create Menu Options
-//     */
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//
-//        menuInstance = menu;
-//
-//        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-//        resetMonthsNavigationIcons();
-//
-//        return true;
-//    }
-
-//    /**
-//     * Handle click event on Menu bar icons
-//     */
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        //Here we change the fragment
-//        FragmentManager fm = getSupportFragmentManager();
-//        FragmentTransaction tr = fm.beginTransaction();
-//
-//        switch (item.getItemId()) {
-//            case R.id.action_PrevMonth:
-//                /**
-//                 *  User can navigate back till current MONTH but can back to JANUARY MONTH for
-//                 *  COMPLETED tab.
-//                 */
-//                if (CompetitionsTabFragment.iLastTabPosition == 2) {
-//
-//                    if (iMonth > 1) {
-//                        updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
-////                        menuInstance.getItem(0).setIcon(ContextCompat.getDrawable(CompetitionsActivity.this, R.mipmap.ic_arrow_left_blur));
-////                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
-//                    } else {
-//                        setPreviousButton(false);
-//                    }
-//                } else {
-//                    if (iMonth > iCurrentMonth) {
-//                        updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
-//                    }
-//                }
-//                break;
-//
-//            case R.id.action_NextMonth:
-//                updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_NEXT_MONTH));
-//                break;
-//
-//            case R.id.action_Today:
-//                updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_TODAY));
-//                break;
-//        }
-//
-//        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-//        resetMonthsNavigationIcons();
-//
-//        //Commit and navigate to new fragment.
-//        tr.commit();
-//        return super.
-//
-//                onOptionsItemSelected(item);
-//
-//    }
-
     /**
      * Implements this method to reset CALENDAR PREV, NEXT and TODAY icon.
      */
@@ -756,9 +688,6 @@ public class CompetitionsActivity extends BaseActivity {
 
             //Set MONTH title.
             setTitleBar(getMonth(Integer.parseInt(String.valueOf(iMonth))) + " " + iYear);
-
-//            Log.e(LOG_TAG, "START DATE : " + CompetitionsTabFragment.strDateFrom);
-//            Log.e(LOG_TAG, "END DATE : " + CompetitionsTabFragment.strDateTo);
         }
     }
 

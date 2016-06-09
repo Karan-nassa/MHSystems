@@ -68,6 +68,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
      *******************************/
     String strEventTitle, strEventLogo, strEventDate, strEventTime, strEventPrize, strEventDesc;
     boolean isEventJoin, isJoinVisible, IsMemberJoined;
+    int iPopItemPos;
 
     /**
      * Declares the field to JOIN a COMPETITIONS if user come from
@@ -83,7 +84,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
                  *  Check internet connection before hitting server request.
                  */
                 if (isOnline(CompetitionsDetailActivity.this)) {
-                    callJoinWebService();
+                    callJoinCompetitionWebService();
                 } else {
                     showAlertMessage(getResources().getString(R.string.error_no_internet));
                 }
@@ -107,7 +108,9 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
         setSupportActionBar(toolbarComp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_black);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_white);
+
+        toolbarComp.setTitleTextColor(0xFFFFFFFF);
 
         tvDateCourseEvent.setText(strEventDate);
         tvTimeCourseEvent.setText(strEventTime);
@@ -147,6 +150,8 @@ public class CompetitionsDetailActivity extends BaseActivity {
         isJoinVisible = getIntent().getExtras().getBoolean("COMPETITIONS_JOIN_STATE");
         IsMemberJoined = getIntent().getExtras().getBoolean("COMPETITIONS_IsMemberJoined");
 
+        iPopItemPos = getIntent().getExtras().getInt("COMPETITIONS_iPopItemPos");
+
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(strEventTitle);
@@ -155,13 +160,18 @@ public class CompetitionsDetailActivity extends BaseActivity {
          *  FAB ({@link FloatingActionButton}) button should be visible for
          *  {@link com.ucreate.mhsystems.fragments.UpcomingFragment} only.
          */
-        if (isJoinVisible) {
-            fabJoinCompetition.setVisibility(View.VISIBLE);
+        if (iPopItemPos < 2) {
+            if (isJoinVisible) {
+                fabJoinCompetition.setVisibility(View.VISIBLE);
 
-            if (IsMemberJoined) {
-                fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
-                fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#95D32B")));
+                if (IsMemberJoined) {
+                    fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
+                    fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
+                }
             }
+        } else {
+            //Floating Action button should not VISIBLE when user view the detail of COMPLETED COMPETITIONS.
+            fabJoinCompetition.setVisibility(View.GONE);
         }
     }
 
@@ -169,7 +179,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
      * Implements a method to JOIN competitions web service if
      * user not already JOINED.
      */
-    private void callJoinWebService() {
+    private void callJoinCompetitionWebService() {
 
         String strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
 
@@ -243,7 +253,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
             if (addRequestResult.getMessage().equalsIgnoreCase("Success")) {
                 //Yes button clicked
                 fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
-                fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#95D32B")));
+                fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
 
                 //Set Member JOIN event programmatically so that user cannot apply for JOIN again.
                 IsMemberJoined = true;

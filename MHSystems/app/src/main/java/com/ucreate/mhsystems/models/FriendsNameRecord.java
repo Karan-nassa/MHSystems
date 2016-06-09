@@ -134,7 +134,7 @@ public class FriendsNameRecord {
      * @return
      *     The DisplayName
      */
-    public String getDisplayName() {
+    public String getFullName() {
         return DisplayName;
     }
 

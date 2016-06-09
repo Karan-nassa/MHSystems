@@ -19,19 +19,21 @@
 
             <!-- STATUS BAR -->
 
-            <android.support.v7.widget.Toolbar
+         <!--   <android.support.v7.widget.Toolbar
                 android:id="@+id/toolBarComp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorB2E6D9"
+                android:background="@color/color4B4B49"
                 android:fitsSystemWindows="true"
                 android:minHeight="?android:attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
+-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="?android:attr/actionBarSize"
+                    android:background="@color/color4B4B49"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
 
@@ -41,11 +43,13 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!-- BACK ARROW  -->
+                        <!-- HOME ICON  -->
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/home_icon_pressed" />
+                            android:layout_marginLeft="10dp"
+                            android:src="@mipmap/icon_menu" />
 
                     </LinearLayout>
 
@@ -64,15 +68,15 @@
                             android:gravity="center|left"
                             android:layout_marginLeft="15dp"
                             android:text=""
-                            android:textColor="@color/colorBlack000000"
-                            android:textSize="16sp" />
+                            android:textColor="@color/colorWhiteffffff"
+                            android:textSize="20sp" />
 
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-            </android.support.v7.widget.Toolbar>
+        <!--    </android.support.v7.widget.Toolbar>-->
         </LinearLayout>
 
         <!-- DETAIL CONTENT OF INVOICE-->

@@ -16,12 +16,12 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorA1B7E0"
+            android:background="@color/color4B4B49"
             android:elevation="6dp"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:tabSelectedTextColor="@color/colorFFEFEFF4"
-            app:tabTextColor="@color/colorWhiteffffff" />
+            app:tabSelectedTextColor="@color/colorWhiteffffff"
+            app:tabTextColor="@color/colorAAAAAA" />
 
 
         <!-- VIEW PAGER TO LOAD SELECTED TAB PAGES -->

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,10 +25,12 @@ import java.util.ArrayList;
 public class CompetitionsAdapter extends BaseAdapter {
 
     Activity context;
-    public ArrayList<CompetitionsData> compititionsDatas;
+    public ArrayList<CompetitionsData> compititionsDatas = new ArrayList<>();
     LayoutInflater inflater = null;
     String strLastDate = "";
     boolean isJoinVisible;
+
+    int iPopItemPos;
 
     Typeface typeface, tpRobotoMedium;
 
@@ -38,11 +41,12 @@ public class CompetitionsAdapter extends BaseAdapter {
      * @param CourseDiaryData : Used for Videos data.
      * @param isJoinVisible   : JOIN will be visible only for {@link UpcomingFragment}
      */
-    public CompetitionsAdapter(Activity context, ArrayList<CompetitionsData> CourseDiaryData, boolean isJoinVisible) {
+    public CompetitionsAdapter(Activity context, ArrayList<CompetitionsData> CourseDiaryData, boolean isJoinVisible, int iPopItemPos) {
 
         this.context = context;
         this.compititionsDatas = CourseDiaryData;
         this.isJoinVisible = isJoinVisible;
+        this.iPopItemPos = iPopItemPos;
 
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -54,12 +58,11 @@ public class CompetitionsAdapter extends BaseAdapter {
     /**
      * COMPETITIONS Adapter to initialize all instances.
      *
-     * @param context:        To hold context.
+     * @param context: To hold context.
      */
     public CompetitionsAdapter(Activity context) {
 
         this.context = context;
-        this.isJoinVisible = isJoinVisible;
 
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -110,7 +113,10 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.tvEventStatusStr = (TextView) rowView.findViewById(R.id.tvEventStatusStr);
         viewHolder.tvTimeOfCompEvent = (TextView) rowView.findViewById(R.id.tvTimeOfCompEvent);
 
+        viewHolder.ivStatOfEvent = (ImageView) rowView.findViewById(R.id.ivStatOfEvent);
+
         viewHolder.llCompetitionGroup = (LinearLayout) rowView.findViewById(R.id.llCompetitionGroup);
+        viewHolder.tvPosOfPerson = (TextView) rowView.findViewById(R.id.tvPosOfPerson);
 
         //viewHolder.llShowDetails = (LinearLayout) rowView.findViewById(R.id.llShowDetails);
 
@@ -128,7 +134,17 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.tvTimeOfCompEvent.setText(compititionsDatas.get(position).getEventTime());
         viewHolder.tvCompDesc.setText(compititionsDatas.get(position).getDesc());
         viewHolder.tvEventStatusStr.setText(compititionsDatas.get(position).getEventStatusStr());
-        viewHolder.tvFeeCompEvent.setText("£" + compititionsDatas.get(position).getPricePerGuest() + " " + context.getResources().getString(R.string.title_competitions_prize));
+
+        if (iPopItemPos < 2) {
+            /* EXECUTE ONLY FOR UPCOMING and JOINED */
+            viewHolder.tvFeeCompEvent.setText("£" + compititionsDatas.get(position).getPricePerGuest() + " " + context.getResources().getString(R.string.title_competitions_prize));
+            viewHolder.ivStatOfEvent.setVisibility(View.VISIBLE);
+        } else {
+            /* EXECUTE FOR COMPLETED */
+            viewHolder.tvFeeCompEvent.setText("Player Name");
+            viewHolder.tvPosOfPerson.setText("70");
+            viewHolder.ivStatOfEvent.setVisibility(View.INVISIBLE);
+        }
 
         /**
          *  Show detail page on tap of 'Show Details & Join'.
@@ -148,6 +164,7 @@ public class CompetitionsAdapter extends BaseAdapter {
                 intent.putExtra("COMPETITIONS_JOIN_STATE", isJoinVisible);
                 intent.putExtra("COMPETITIONS_IsMemberJoined", compititionsDatas.get(position).getIsMemberJoined());
                 intent.putExtra("COMPETITIONS_eventId", compititionsDatas.get(position).getEventId());
+                intent.putExtra("COMPETITIONS_iPopItemPos", iPopItemPos);//To HIDE IF COMPETITION COMPLETED/CLOSED.
                 context.startActivity(intent);
             }
         });
@@ -166,6 +183,7 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.tvDateCompEvent.setTypeface(typeface, Typeface.NORMAL);
         viewHolder.tvCompDesc.setTypeface(typeface, Typeface.NORMAL);
         viewHolder.tvEventStatusStr.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvPosOfPerson.setTypeface(typeface, Typeface.NORMAL);
 
         viewHolder.tvCompTitle.setTypeface(tpRobotoMedium, Typeface.NORMAL);
     }
@@ -179,7 +197,9 @@ public class CompetitionsAdapter extends BaseAdapter {
          * Text Row VIEW INSTANCES DECLARATION
          */
         TextView tvFeeCompEvent, tvDateCompEvent, tvCompDesc, tvCompTitle, tvEventStatusStr;
-        TextView tvTimeOfCompEvent;
+        TextView tvTimeOfCompEvent, tvPosOfPerson;
+        //Use for Statistics/Position or Price of Booking a COMPETITION.
+        ImageView ivStatOfEvent;
         //Linear Layout instances declaration.
         //LinearLayout llShowDetails;
         LinearLayout llCompetitionGroup;

@@ -34,6 +34,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:src="@mipmap/icon_menu" />
 
                 </LinearLayout>
@@ -197,7 +198,7 @@
 
             <include
                 android:id="@+id/inc_message_view"
-                layout="@layout/include_no_internet"
+                layout="@layout/include_display_message"
                 android:visibility="gone"/>
 
 

@@ -20,7 +20,7 @@
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorB2E6D9"
+                android:background="@color/color4B4B49"
                 android:fitsSystemWindows="true"
                 android:minHeight="?android:attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -42,7 +42,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/home_icon_pressed" />
+                            android:src="@mipmap/icon_menu" />
 
                     </LinearLayout>
 
@@ -54,7 +54,7 @@
                         android:layout_marginLeft="15dp"
                         android:gravity="center|left"
                         android:text="@string/title_my_account"
-                        android:textColor="@color/colorBlack000000"
+                        android:textColor="@color/colorWhiteffffff"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -79,7 +79,7 @@
 
                 <include
                     android:id="@+id/inc_message_view"
-                    layout="@layout/include_no_internet"
+                    layout="@layout/include_display_message"
                     android:visibility="gone" />
 
             </FrameLayout>

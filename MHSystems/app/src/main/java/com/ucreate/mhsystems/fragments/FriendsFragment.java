@@ -238,11 +238,11 @@ public class FriendsFragment extends Fragment {
         Collections.sort(friendsDatas, new Comparator<FriendsData>() {
             @Override
             public int compare(FriendsData lhs, FriendsData rhs) {
-                char lhsFirstLetter = TextUtils.isEmpty(lhs.getNameRecord().getDisplayName()) ? ' ' : lhs.getNameRecord().getDisplayName().charAt(0);
-                char rhsFirstLetter = TextUtils.isEmpty(rhs.getNameRecord().getDisplayName()) ? ' ' : rhs.getNameRecord().getDisplayName().charAt(0);
+                char lhsFirstLetter = TextUtils.isEmpty(lhs.getNameRecord().getFullName()) ? ' ' : lhs.getNameRecord().getFullName().charAt(0);
+                char rhsFirstLetter = TextUtils.isEmpty(rhs.getNameRecord().getFullName()) ? ' ' : rhs.getNameRecord().getFullName().charAt(0);
                 int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
                 if (firstLetterComparison == 0)
-                    return lhs.getNameRecord().getDisplayName().compareTo(rhs.getNameRecord().getDisplayName());
+                    return lhs.getNameRecord().getFullName().compareTo(rhs.getNameRecord().getFullName());
                 return firstLetterComparison;
             }
         });
@@ -312,7 +312,7 @@ public class FriendsFragment extends Fragment {
             final ArrayList<String> contactNames = new ArrayList<String>();
             if (contacts != null)
                 for (final FriendsData contactEntity : contacts)
-                    contactNames.add(contactEntity.getNameRecord().getDisplayName());
+                    contactNames.add(contactEntity.getNameRecord().getFullName());
             return contactNames.toArray(new String[contactNames.size()]);
         }
 
@@ -348,7 +348,7 @@ public class FriendsFragment extends Fragment {
             }
             contact = getItem(position);
             if (contact != null) {
-                final String displayName = contact.getNameRecord().getDisplayName();
+                final String displayName = contact.getNameRecord().getFullName();
                 holder.friendName.setText(displayName);
                 holder.tvPlayHCapStr.setText(contact.getHCapPlayStr());
 
@@ -375,7 +375,7 @@ public class FriendsFragment extends Fragment {
 //                        public Bitmap doInBackground(final Void... params) {
 //                            if (isCancelled())
 //                                return null;
-//                            final Bitmap b = ContactImageUtil.loadContactPhotoThumbnail(getActivity(), contact.getDisplayName(), CONTACT_PHOTO_IMAGE_SIZE);
+//                            final Bitmap b = ContactImageUtil.loadContactPhotoThumbnail(getActivity(), contact.getFullName(), CONTACT_PHOTO_IMAGE_SIZE);
 //                            if (b != null)
 //                                return ThumbnailUtils.extractThumbnail(b, CONTACT_PHOTO_IMAGE_SIZE,
 //                                        CONTACT_PHOTO_IMAGE_SIZE);
@@ -416,7 +416,7 @@ public class FriendsFragment extends Fragment {
         public boolean doFilter(final FriendsData item, final CharSequence constraint) {
             if (TextUtils.isEmpty(constraint))
                 return true;
-            final String displayName = item.getNameRecord().getDisplayName();
+            final String displayName = item.getNameRecord().getFullName();
             return !TextUtils.isEmpty(displayName) && displayName.toLowerCase(Locale.getDefault())
                     .contains(constraint.toString().toLowerCase(Locale.getDefault()));
         }

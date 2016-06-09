@@ -64,7 +64,7 @@ class ContactsAdapter extends SearchablePinnedHeaderListViewAdapter<Contact> {
         final ArrayList<String> contactNames = new ArrayList<String>();
         if (contacts != null)
             for (final Contact contactEntity : contacts)
-                contactNames.add(contactEntity.getDisplayName());
+                contactNames.add(contactEntity.getFullName());
         return contactNames.toArray(new String[contactNames.size()]);
     }
 
@@ -87,7 +87,7 @@ class ContactsAdapter extends SearchablePinnedHeaderListViewAdapter<Contact> {
             holder = (ViewHolder) rootView.getTag();
         }
         final Contact contact = getItem(position);
-        final String displayName = contact.getDisplayName();
+        final String displayName = contact.getFullName();
         holder.friendName.setText(displayName);
         boolean hasPhoto = !TextUtils.isEmpty(contact.getPhotoId());
         if (holder.updateTask != null && !holder.updateTask.isCancelled())
@@ -139,7 +139,7 @@ class ContactsAdapter extends SearchablePinnedHeaderListViewAdapter<Contact> {
     public boolean doFilter(final Contact item, final CharSequence constraint) {
         if (TextUtils.isEmpty(constraint))
             return true;
-        final String displayName = item.getDisplayName();
+        final String displayName = item.getFullName();
         return !TextUtils.isEmpty(displayName) && displayName.toLowerCase(Locale.getDefault())
                 .contains(constraint.toString().toLowerCase(Locale.getDefault()));
     }

@@ -506,13 +506,13 @@ public class MemberDetailActivity extends BaseActivity {
                 if (isfriend) {
                     fabFriendInvitation.setVisibility(View.VISIBLE);
                     fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
-                    fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
+                    fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
                     //Set TRUE so don't display YES/NO alert dialog.
                     isFriendInvite = true;
                 } else {
                     fabFriendInvitation.setVisibility(View.VISIBLE);
                     fabFriendInvitation.setImageResource(R.mipmap.ic_members_add_friend);
-                    fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#535796")));
+                    fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
                     //Set TRUE so don't display YES/NO alert dialog.
                     isFriendInvite = false;
                 }
