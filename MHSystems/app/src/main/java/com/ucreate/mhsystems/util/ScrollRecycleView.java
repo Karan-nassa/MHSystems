@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 
 /**
  * Created by karan@ucreate.co.in to display Recycle
@@ -15,7 +16,7 @@ import android.widget.ListAdapter;
 public class ScrollRecycleView {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public static void getListViewSize(GridView myListView) {
+    public static void getListViewSize(ListView myListView) {
         ListAdapter myListAdapter = myListView.getAdapter();
         if (myListAdapter == null) {
             //do nothing return null

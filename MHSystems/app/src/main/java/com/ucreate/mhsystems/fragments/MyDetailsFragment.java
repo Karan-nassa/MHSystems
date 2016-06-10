@@ -50,8 +50,8 @@ public class MyDetailsFragment extends Fragment {
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     public static final String LOG_TAG = MyDetailsFragment.class.getSimpleName();
-    private String strUsernameOfPerson, strPostalCodeOfPerson, strStreetOfPerson, strCityOfPerson, strEmailOfPerson,
-            strWorkContactOfPerson, strMobileContactOfPerson, strPhoneContactOfPerson, strTypeOfPerson, strNameOfPerson;
+    private String strUsernameOfPerson, /*strPostalCodeOfPerson,*/ strStreetOfPerson, /*strCityOfPerson,*/ strEmailOfPerson,
+            /*strWorkContactOfPerson,*/ strMobileContactOfPerson, /*strPhoneContactOfPerson,*/ strTypeOfPerson, strNameOfPerson;
 
     String strTitileValues[];
 
@@ -60,11 +60,11 @@ public class MyDetailsFragment extends Fragment {
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    private TextView tvUsernameOfPerson, tvPostalCodeOfPerson, tvStreetOfPerson, tvCityOfPerson, tvEmailOfPerson,
-            tvWorkContactOfPerson, tvMobileContactOfPerson, tvPhoneContactOfPerson, tvTypeOfPerson, tvNameOfPerson;
+    private TextView tvUsernameOfPerson, /*tvPostalCodeOfPerson,*/ /*tvCityOfPerson,*/ tvStreetOfPerson, tvEmailOfPerson,
+            /*tvWorkContactOfPerson,*/ tvMobileContactOfPerson, /*tvPhoneContactOfPerson,*/ tvTypeOfPerson, tvNameOfPerson;
 
-    private LinearLayout llUsernameOfPerson, llPostalCodeOfPerson, llStreetOfPerson, llCityOfPerson, llEmailOfPerson,
-            llWorkContactOfPerson, llMobileContactOfPerson, llPhoneContactOfPerson, llTypeOfPerson, llNameOfPerson;
+    private LinearLayout llUsernameOfPerson, /*llPostalCodeOfPerson,*/ llStreetOfPerson,/* llCityOfPerson,*/ llEmailOfPerson,
+            /*llWorkContactOfPerson,*/ llMobileContactOfPerson, /*llPhoneContactOfPerson,*/ llTypeOfPerson, llNameOfPerson;
 
     LinearLayout llMyDetailGroup;
 
@@ -94,11 +94,11 @@ public class MyDetailsFragment extends Fragment {
             callWebService();
         }
 
-        llViewGroup = new View[]{llUsernameOfPerson, llPostalCodeOfPerson, llStreetOfPerson, llCityOfPerson, llEmailOfPerson,
-                llWorkContactOfPerson, llMobileContactOfPerson, llPhoneContactOfPerson, llTypeOfPerson, llNameOfPerson};
+        llViewGroup = new View[]{llUsernameOfPerson, /*llPostalCodeOfPerson, llStreetOfPerson,*/ llStreetOfPerson, llEmailOfPerson,
+                /*llWorkContactOfPerson,*/ llMobileContactOfPerson,/* llPhoneContactOfPerson,*/ llTypeOfPerson, llNameOfPerson};
 
-        tvTitleLabel = new View[]{tvUsernameOfPerson, tvPostalCodeOfPerson, tvStreetOfPerson, tvCityOfPerson, tvEmailOfPerson,
-                tvWorkContactOfPerson, tvMobileContactOfPerson, tvPhoneContactOfPerson, tvTypeOfPerson, tvNameOfPerson};
+        tvTitleLabel = new View[]{tvUsernameOfPerson, /*tvPostalCodeOfPerson, llCityOfPerson,*/ tvStreetOfPerson, tvEmailOfPerson,
+                /*tvWorkContactOfPerson,*/ tvMobileContactOfPerson,/* tvPhoneContactOfPerson,*/ tvTypeOfPerson, tvNameOfPerson};
 
         return mRootFragment;
     }
@@ -244,17 +244,17 @@ public class MyDetailsFragment extends Fragment {
         strUsernameOfPerson = membersDetailItems.getData().getUserLoginID();
         strNameOfPerson = membersDetailItems.getData().getNameRecord().getFormalName();
         strMobileContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoMob();
-        strPostalCodeOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getPostCode();
+        /*strPostalCodeOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getPostCode();*/
         strStreetOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getLine2();
-        strCityOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getCounty();
+      /*  strCityOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getCounty();*/
         strEmailOfPerson = membersDetailItems.getData().getContactDetails().getEMail();
-        strWorkContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoWork();
-        strPhoneContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoHome();
+       /* strWorkContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoWork();
+        strPhoneContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoHome();*/
         strTypeOfPerson = membersDetailItems.getData().getMembershipStatus();
 
         //Store values to array.
-        strTitileValues = new String[]{strUsernameOfPerson, strPostalCodeOfPerson, strStreetOfPerson, strCityOfPerson, strEmailOfPerson,
-                strWorkContactOfPerson, strMobileContactOfPerson, strPhoneContactOfPerson, strTypeOfPerson, strNameOfPerson};
+        strTitileValues = new String[]{strUsernameOfPerson, /*strPostalCodeOfPerson,*/ strStreetOfPerson, /*strCityOfPerson,*/ strEmailOfPerson,
+                /*strWorkContactOfPerson,*/ strMobileContactOfPerson, /*strPhoneContactOfPerson,*/ strTypeOfPerson, strNameOfPerson};
     }
 
     /**
@@ -266,24 +266,24 @@ public class MyDetailsFragment extends Fragment {
     private void initializeViewResources(View viewRootFragment) {
         tvNameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvNameOfPerson);
         tvTypeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPerson);
-        tvPhoneContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPhoneContactOfPerson);
+    /*    tvPhoneContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPhoneContactOfPerson);*/
         tvMobileContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvMobileContactOfPerson);
-        tvWorkContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvWorkContactOfPerson);
+       /* tvWorkContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvWorkContactOfPerson);*/
         tvEmailOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvEmailOfPerson);
-        tvCityOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvCityOfPerson);
+       /* tvCityOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvCityOfPerson);*/
         tvStreetOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvStreetOfPerson);
-        tvPostalCodeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPostalCodeOfPerson);
+       /* tvPostalCodeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPostalCodeOfPerson);*/
         tvUsernameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvUsernameOfPerson);
 
         llNameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llNameOfPerson);
         llTypeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llTypeOfPerson);
-        llPhoneContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPhoneContactOfPerson);
+       /* llPhoneContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPhoneContactOfPerson);*/
         llMobileContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llMobileContactOfPerson);
-        llWorkContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llWorkContactOfPerson);
+      /*  llWorkContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llWorkContactOfPerson);*/
         llEmailOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llEmailOfPerson);
-        llCityOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llCityOfPerson);
+       /* llCityOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llCityOfPerson);*/
         llStreetOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llStreetOfPerson);
-        llPostalCodeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPostalCodeOfPerson);
+       /* llPostalCodeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPostalCodeOfPerson);*/
         llUsernameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llUsernameOfPerson);
 
         llMyDetailGroup = (LinearLayout) mRootFragment.findViewById(R.id.llMyDetailGroup);

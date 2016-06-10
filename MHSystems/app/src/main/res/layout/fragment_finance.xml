@@ -3,203 +3,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGreyf1f1f0">
+    android:background="@color/colorWhiteffffff">
 
     <LinearLayout
         android:id="@+id/llFinanceGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorFFEFEFF4"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
-        <!-- YOUR BALANCE -->
+        <!-- CARD BALANCE -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:id="@+id/textSeparator"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="CARD BALANCE"
+            android:textAllCaps="true"
+            android:textColor="@color/colorC0995B"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
 
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorGreyf1f1f0"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="15dp">
+        <!-- TOTAL CREDIT BALANCE -->
 
-                <TextView
-                    android:id="@+id/textSeparator"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.4"
-                    android:padding="7dp"
-                    android:text="YOUR BALANCE"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:visibility="visible" />
-
-            </FrameLayout>
-        </LinearLayout>
-
-        <!-- AMOUNT IN CARD -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:id="@+id/tvCreditBalance"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhiteffffff"
-            android:orientation="vertical">
-
-            <!-- TOTAL CREDIT BALANCE -->
-
-            <TextView
-                android:id="@+id/tvCreditBalance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:padding="5dp"
-                android:text=""
-                android:textColor="@color/colorBlack000000"
-                android:textSize="17sp" />
-
-        </LinearLayout>
+            android:layout_marginTop="5dp"
+            android:text="£100.00"
+            android:textColor="@color/color030303"
+            android:textSize="17sp" />
 
         <!-- RECENT TRANSACTIONS -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="35dp"
+            android:text="@string/title_recent_transaction"
+            android:textAllCaps="true"
+            android:textColor="@color/colorC0995B"
+            android:textSize="14sp" />
 
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorGreyf1f1f0"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="15dp">
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.4"
-                    android:padding="7dp"
-                    android:text="@string/title_recent_transaction"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:visibility="visible" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|center"
-                    android:alpha=".6"
-                    android:paddingRight="10dp"
-                    android:text="SHOW ALL"
-                    android:textColor="@color/color107EFD"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </FrameLayout>
-        </LinearLayout>
-
-        <!-- RECENT TRANSACTION LIST -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:id="@+id/tvRecentTransaction"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhiteffffff"
-            android:orientation="vertical">
-
-            <!-- TOTAL CREDIT BALANCE -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:padding="5dp"
-                android:text=""
-                android:textColor="@color/colorBlack000000"
-                android:textSize="17sp" />
-
-        </LinearLayout>
+            android:layout_marginTop="5dp"
+            android:text="£1930 - INV/01/01/2016/747"
+            android:textColor="@color/color030303"
+            android:textSize="17sp" />
 
         <!-- CURRENT TRANSACTION -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="35dp"
+            android:text="@string/title_current_invoice"
+            android:textAllCaps="true"
+            android:textColor="@color/colorC0995B"
+            android:textSize="14sp" />
 
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorGreyf1f1f0"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="15dp">
+        <!-- TOTAL CREDIT BALANCE -->
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.4"
-                    android:padding="7dp"
-                    android:text="CURRENT INVOICE"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:visibility="visible" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|center"
-                    android:alpha=".6"
-                    android:paddingRight="10dp"
-                    android:text="SHOW ALL"
-                    android:textColor="@color/color107EFD"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </FrameLayout>
-        </LinearLayout>
-
-        <!-- CURRENT INVOICE TOP RECORD -->
-
-        <FrameLayout
-            android:id="@+id/flCurrentInvoice"
-            android:layout_width="match_parent"
+        <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:id="@+id/tvCurrentInvoice"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhiteffffff"
-            android:orientation="horizontal">
+            android:layout_marginTop="5dp"
+            android:text="£1930 - INV/01/01/2016/747"
+            android:textColor="@color/color030303"
+            android:textSize="17sp" />
 
-            <!-- TOTAL CREDIT BALANCE -->
+        <!-- SHOW ALL -->
 
-            <TextView
-                android:id="@+id/tvCurrentInvoice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:padding="10dp"
-                android:text=""
-                android:textColor="@color/colorBlack000000"
-                android:textSize="17sp" />
-
-            <!-- RIGHT ARROW -->
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center"
-                android:layout_marginRight="15dp"
-                android:src="@mipmap/ic_arrow_right" />
-
-        </FrameLayout>
-
+        <Button
+            android:id="@+id/btShowAll"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="35dp"
+            android:textSize="14sp"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"
+            android:background="@drawable/button_shape_c0995b"
+            android:textColor="@color/colorWhiteffffff"
+            android:text="@string/button_title_show_all" />
 
     </LinearLayout>
 

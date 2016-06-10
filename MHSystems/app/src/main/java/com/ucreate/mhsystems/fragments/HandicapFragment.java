@@ -620,12 +620,16 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     private void setNavigationIcons() {
 
         if (mYearIndex == 0) {
-            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left_blur);
+            /*ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left_blur);*/
+            ivPreviousYearGraph.setAlpha((float) 0.3);
         } else if (mYearIndex == (arrNameOfYear.size() - 1)) {
-            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right_blur);
+           /* ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right_blur);*/
+            ivNextYearGraph.setAlpha((float) 0.3);
         } else {
-            ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right);
-            ivPreviousYearGraph.setImageResource(R.mipmap.ic_arrow_left);
+            ivPreviousYearGraph.setAlpha((float) 1.0);
+            ivNextYearGraph.setAlpha((float) 1.0);
+            ivNextYearGraph.setImageResource(R.mipmap.ic_date_nextmonth);
+            ivPreviousYearGraph.setImageResource(R.mipmap.ic_date_prevmonth);
         }
     }
 

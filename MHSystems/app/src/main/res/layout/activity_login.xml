@@ -115,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/button_shape_bg"
+                    android:background="@drawable/button_login_shape_c0995b"
                     android:text="@string/button_text_login"
                     android:elevation="0dp"
                     android:textAllCaps="false"

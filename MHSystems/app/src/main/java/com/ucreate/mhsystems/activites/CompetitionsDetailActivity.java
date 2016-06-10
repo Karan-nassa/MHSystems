@@ -10,17 +10,20 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.models.AJsonParamsJoinCompetition;
 import com.ucreate.mhsystems.models.AddRequestResult;
 import com.ucreate.mhsystems.models.CompetitionJoinAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
+import com.ucreate.mhsystems.util.ScrollRecycleView;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
@@ -62,6 +65,14 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
     //Create instance of Model class for display result.
     AddRequestResult addRequestResult;
+
+    CompetitionDetailAdapter competitionDetailAdapter;
+
+    @Bind(R.id.lvListOfMembers)
+    ListView lvListOfMembers;
+
+    @Bind(R.id.llRankOfMembers)
+    LinearLayout llRankOfMembers;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -167,6 +178,13 @@ public class CompetitionsDetailActivity extends BaseActivity {
                 if (IsMemberJoined) {
                     fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
                     fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
+
+                    //Display Rank of Members.
+                    llRankOfMembers.setVisibility(View.VISIBLE);
+
+                    competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionsDetailActivity.this);
+                    lvListOfMembers.setAdapter(competitionDetailAdapter);
+                    ScrollRecycleView.getListViewSize(lvListOfMembers);
                 }
             }
         } else {
@@ -258,6 +276,13 @@ public class CompetitionsDetailActivity extends BaseActivity {
                 //Set Member JOIN event programmatically so that user cannot apply for JOIN again.
                 IsMemberJoined = true;
 
+
+                //Display Rank of Members.
+                llRankOfMembers.setVisibility(View.VISIBLE);
+
+                competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionsDetailActivity.this);
+                lvListOfMembers.setAdapter(competitionDetailAdapter);
+                ScrollRecycleView.getListViewSize(lvListOfMembers);
             } else {
                 //If web service not respond in any case.
                 showAlertMessage(addRequestResult.getMessage());

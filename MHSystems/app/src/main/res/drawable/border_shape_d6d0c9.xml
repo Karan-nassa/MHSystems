@@ -8,15 +8,16 @@
 
     <gradient
         android:angle="45"
-        android:centerColor="@color/color4B4B49"
+        android:centerColor="@color/colorWhiteffffff"
         android:centerX="35%"
-        android:endColor="@color/color4B4B49"
-        android:startColor="@color/color4B4B49"
+        android:endColor="@color/colorWhiteffffff"
+        android:startColor="@color/colorWhiteffffff"
         android:type="linear" />
+
 
     <!-- BORDER LINE -->
 
     <stroke
-        android:width="2dp"
-        android:color="@color/color4B4B49" />
+        android:width="1dp"
+        android:color="@color/colorD3D2D6" />
 </shape>

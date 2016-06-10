@@ -2,6 +2,7 @@ package com.ucreate.mhsystems.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,11 +58,11 @@ public class FinanceFragment extends Fragment {
      *******************************/
     View viewRootFragment;
     //    ListView lvFinance;
-    TextView tvCreditBalance, tvCurrentInvoice;
-    FrameLayout flCurrentInvoice;
+    TextView tvCreditBalance, tvCurrentInvoice, tvRecentTransaction;
     Intent mIntent;
 
-    LinearLayout llFinanceGroup;
+    Button btShowAll;
+    Typeface tpRobotoMedium;
 
     FinanceSectionAdapter mFinanceAdapter;
 
@@ -109,9 +111,11 @@ public class FinanceFragment extends Fragment {
 
         tvCreditBalance = (TextView) viewRootFragment.findViewById(R.id.tvCreditBalance);
         tvCurrentInvoice = (TextView) viewRootFragment.findViewById(R.id.tvCurrentInvoice);
-        flCurrentInvoice = (FrameLayout) viewRootFragment.findViewById(R.id.flCurrentInvoice);
+        tvRecentTransaction = (TextView) viewRootFragment.findViewById(R.id.tvRecentTransaction);
 
-        llFinanceGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFinanceGroup);
+        btShowAll = (Button) viewRootFragment.findViewById(R.id.btShowAll);
+        tpRobotoMedium = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Medium.ttf");
+        btShowAll.setTypeface(tpRobotoMedium);
 
         isClassVisible = true;
         if (isClassVisible) {
@@ -119,7 +123,7 @@ public class FinanceFragment extends Fragment {
         }
 
         //Set click event handle here.
-        flCurrentInvoice.setOnClickListener(mInvoiceDetailListener);
+        btShowAll.setOnClickListener(mInvoiceDetailListener);
 
         return viewRootFragment;
     }
@@ -155,10 +159,10 @@ public class FinanceFragment extends Fragment {
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             requestFinanceService();
             ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
-            llFinanceGroup.setVisibility(View.VISIBLE);
+            btShowAll.setVisibility(View.VISIBLE);
         } else {
             ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
-            llFinanceGroup.setVisibility(View.GONE);
+            btShowAll.setVisibility(View.GONE);
         }
     }
 
