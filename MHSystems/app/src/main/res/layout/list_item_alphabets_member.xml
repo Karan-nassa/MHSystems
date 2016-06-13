@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                app:placeholderImage="@color/colorD3D2D6"
+                app:placeholderImage="@color/colorF1F1F0"
                 app:roundAsCircle="true" />
 
             <!-- VIEW TO DISPLAY 'PlayHCapStr' OF EACH MEMBER -->

@@ -5,9 +5,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,11 +48,20 @@ public class MembersActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    private Toolbar toolbar;
-    private Spinner spinner_nav;
+    @Bind(R.id.toolBarMembers)
+    Toolbar toolBarMembers;
 
     @Bind(R.id.llHomeMembers)
     LinearLayout llHomeMembers;
+
+    @Bind(R.id.llPopMenuBar)
+    LinearLayout llPopMenuBar;
+
+    @Bind(R.id.llMemberCategory)
+    LinearLayout llMemberCategory;
+
+    @Bind(R.id.tvMemberType)
+    TextView tvMemberType;
 
      /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
@@ -65,6 +76,9 @@ public class MembersActivity extends BaseActivity {
 
     @Bind(R.id.tvMessageDesc)
     TextView tvMessageDesc;
+
+    //Pop Menu to show Categories of Course Diary.
+    PopupMenu popupMenu;
 
      /* -- INTERNET CONNECTION PARAMETERS -- */
 
@@ -88,6 +102,50 @@ public class MembersActivity extends BaseActivity {
     };
 
 
+    /**
+     * Declares the click event handling FIELD to set categories
+     * of COURSE DIARY.
+     */
+    private PopupMenu.OnMenuItemClickListener mCourseTypeListener =
+            new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    tvMemberType.setText(item.getTitle());
+                   /* if (getFragmentInstance() instanceof MembersFragment) {*/
+                    switch (item.getItemId()) {
+                        case R.id.item_all:
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
+                            break;
+
+                        case R.id.item_ladies:
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
+                            break;
+
+                        case R.id.item_gents:
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_GENTLEMENS));
+                            break;
+
+                        case R.id.item_your_friends:
+                            setStraFriendCommand("GETLINKSTOMEMBERS");
+                            setiWhichSpinnerItem(1);
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
+                            break;
+
+                        case R.id.item_added_me:
+                            setStraFriendCommand("GETLINKSFROMMEMBERS");
+                            setiWhichSpinnerItem(2);
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_ADDED_ME));
+                            break;
+                    }
+                       /* }
+                    }else if(getFragmentInstance() instanceof FriendsFragment){
+
+                    }*/
+                    return true;
+                }
+            };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,23 +154,38 @@ public class MembersActivity extends BaseActivity {
         //Initialize view resources.
         ButterKnife.bind(this);
 
+        if (toolBarMembers != null) {
+            setSupportActionBar(toolBarMembers);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
         /**
          *  If user back press on any other tab then app should
          *  open first tab by default when opening 'MEMBERS'.
          */
         MembersTabFragment.iLastTabPosition = 0;
 
+        initializeMembersCategory();
+
         /**
          *  Setup Tool bar of Members screen with DROP-DOWN [SPINNER]
          *  and SEARCH bar icon.
          */
-        setupToolBar();
+        //setupToolBar();
 
         //Load Default fragment of Members Activity.
         updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
 
         //Set click listener events declaration.
         llHomeMembers.setOnClickListener(mHomePressListener);
+
+        llMemberCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMenu.show();
+            }
+        });
+        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
     }
 
     /**
@@ -138,9 +211,9 @@ public class MembersActivity extends BaseActivity {
      */
     public void updateNoDataUI(boolean hasData) {
         if (hasData) {
-            showNoDataView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            showNoDataView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
         } else {
-            showNoDataView(inc_message_view,ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            showNoDataView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
         }
     }
 
@@ -148,15 +221,39 @@ public class MembersActivity extends BaseActivity {
      * Implements a method to define SPINNER and
      * SEARCH bar icon.
      */
-    private void setupToolBar() {
-        toolbar = (Toolbar) findViewById(R.id.toolBarMembers);
-        spinner_nav = (Spinner) findViewById(R.id.spinner_nav);
+    /*private void setupToolBar() {
+       *//* spinner_nav = (Spinner) findViewById(R.id.spinner_nav);*//*
 
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
         refreshSpinnerItems();
+    }*/
+
+    /**
+     * Implements a method to initialize Members categories in pop-up menu like
+     * <b>All</b> and <b>Ladies</b> for Sunningdales golf club.
+     */
+    public void initializeMembersCategory() {
+
+        /**
+         * Step 1: Create a new instance of popup menu
+         */
+        popupMenu = new PopupMenu(this, tvMemberType);
+
+        /**
+         * Step 2: Inflate the menu resource. Here the menu resource is
+         * defined in the res/menu project folder
+         */
+        switch (MembersTabFragment.iLastTabPosition) {
+            case 0:
+                popupMenu.inflate(R.menu.members_menu);
+                break;
+
+            case 1:
+                popupMenu.inflate(R.menu.members_friends_menu);
+                break;
+        }
+
+        //Initially display title at position 0 of R.menu.course_menu.
+        tvMemberType.setText("" + popupMenu.getMenu().getItem(0));
     }
 
     /**
@@ -166,7 +263,7 @@ public class MembersActivity extends BaseActivity {
      * <br> 2.) LADIES,
      * <br> and 3.) GENTLEMEN's
      */
-    public void refreshSpinnerItems() {
+   /* public void refreshSpinnerItems() {
 
         spinnerArraylist.clear();
 
@@ -193,11 +290,11 @@ public class MembersActivity extends BaseActivity {
         // view rendering problem in lollypop device, need to test in other
         // devices
 
-      /* ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(this,
+      *//* ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(this,
       android.R.layout.simple_spinner_item, list);
       spinAdapter.setDropDownViewResource
       (android.R.layout.simple_spinner_dropdown_item);
-        */
+        *//*
         spinner_nav.setAdapter(spinAdapter);
 
         spinner_nav.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -246,7 +343,7 @@ public class MembersActivity extends BaseActivity {
         });
 
     }
-
+*/
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -259,10 +356,25 @@ public class MembersActivity extends BaseActivity {
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menu_members, menu);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search), new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                llPopMenuBar.setVisibility(View.INVISIBLE);
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                //DO SOMETHING WHEN THE SEARCHVIEW IS CLOSING
+                llPopMenuBar.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
 
 //        searchView.setBackground(ContextCompat.getDrawable(MembersActivity.this, R.drawable.ic_search_bar_pressed));
 
@@ -270,6 +382,7 @@ public class MembersActivity extends BaseActivity {
             @Override
             public boolean onQueryTextSubmit(final String query) {
                 //  Log.e("onQueryTextSubmit", query);
+
                 return true;
             }
 
@@ -305,22 +418,23 @@ public class MembersActivity extends BaseActivity {
     @SuppressWarnings("deprecation")
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        String url = null;
+                String url = null;
 
-        if (url == null)
-            return true;
-        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        startActivity(intent);
-        return true;
+                if (url == null)
+                    return true;
+                final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                startActivity(intent);
+                return true;
     }
 
-    /**
-     * Set the current opening {@link Fragment} instance.
-     *
-     * @param fragmentInstance
-     */
+        /**
+         * Set the current opening {@link Fragment} instance.
+         *
+         * @param fragmentInstance
+         */
+
     public void setFragmentInstance(Fragment fragmentInstance) {
         this.fragmentInstance = fragmentInstance;
     }

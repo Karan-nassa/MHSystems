@@ -263,9 +263,9 @@ public class MembersFragment extends Fragment {
 
         mAdapter = new AlphabaticalListAdapter(membersList);
 
-        int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(), android.R.attr.colorBackground)));
+        int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(),  android.R.attr.colorBackground)));
         mAdapter.setPinnedHeaderBackgroundColor(pinnedHeaderBackgroundColor);
-        mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.pinned_header_text));
+        mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.color9B9B9B));
         mPinnedHeaderListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mPinnedHeaderListView, false));
         mPinnedHeaderListView.setAdapter(mAdapter);
         mPinnedHeaderListView.setOnScrollListener(mAdapter);

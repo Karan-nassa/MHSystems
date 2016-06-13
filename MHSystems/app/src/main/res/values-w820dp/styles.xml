@@ -6,6 +6,6 @@
         <!--   your app branding color for the app bar -->
         <item name="colorPrimary">@color/colorBlack000000</item>
         <item name="colorPrimaryDark">@color/colorBlack000000</item>
-        <item name="colorAccent">@android:color/holo_blue_light</item>
+        <item name="colorAccent">@color/colorC0995B</item>
     </style>
 </resources>

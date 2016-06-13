@@ -69,7 +69,7 @@ public class MembersTabFragment extends Fragment {
             iLastTabPosition = tab.getPosition();
 
             //Refresh Spinner in Tool bar according selected tab.
-            ((MembersActivity) getActivity()).refreshSpinnerItems();
+            ((MembersActivity) getActivity()).initializeMembersCategory();
         }
 
         @Override

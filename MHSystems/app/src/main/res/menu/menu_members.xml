@@ -17,7 +17,7 @@
 
     <item
         android:id="@+id/action_delete"
-        android:icon="@mipmap/ic_menu_more"
+        android:icon="@mipmap/ic_menu_white"
         android:orderInCategory="100"
         android:title=""
         app:showAsAction="ifRoom" />

@@ -1,314 +1,336 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <!-- COMPETITIONS TITLE WITH CROSS ARROW IN TOOL BAR -->
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@color/color4B4B49"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-
-            <!-- SUPPORT TOOL BAR FOR TITLE AND BACK ARROW -->
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/tbMemberDetail"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/color4B4B49"
-                app:layout_collapseMode="pin"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-
-        <!-- CONTENT OF MEMBER DETAIL -->
-
-        <ScrollView
+        <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:collapsedTitleTextAppearance="@style/CompetitionsToolCollapse"
+            app:expandedTitleTextAppearance="@style/CompetitionsToolExpand"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
+                <!-- SUPPORT TOOL BAR FOR TITLE AND BACK ARROW -->
 
-                <!-- TOP BAR CONTENT -->
-
-                <FrameLayout
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/tbMemberDetail"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_gravity="top|right"
-                        android:background="@color/color4B4B49">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center|left"
-                            android:layout_marginLeft="30dp"
-                            android:orientation="vertical">
-
-                            <!-- MEMBER NAME -->
-
-                            <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                                android:id="@+id/tvMemberNameDD"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:textColor="@color/colorWhiteffffff"
-                                android:textSize="25sp" />
-
-                            <!-- MEMBER JOIN DATE -->
-
-                            <com.ucreate.mhsystems.customfonts.RobotoTextView
-                                android:id="@+id/tvMemberJoinDate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:alpha="0.5"
-                                android:textColor="@color/colorWhiteffffff"
-                                android:textSize="13sp" />
-
-                        </LinearLayout>
-
-                    </FrameLayout>
-
-                    <!-- HANDICAP PERSON -->
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="30dp"
-                        android:layout_marginLeft="30dp"
-                        android:orientation="vertical">
-
-                        <!-- HANDICAP PLAY STR -->
-
-                        <com.ucreate.mhsystems.customfonts.RobotoTextView
-                            android:id="@+id/tvHandicapPlayStr"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/colorC0995B"
-                            android:padding="15dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorWhiteffffff"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-
-                        <!-- HANDICAP TYPE STR -->
-
-                        <com.ucreate.mhsystems.customfonts.RobotoTextView
-                            android:id="@+id/tvHandicapTypeStr"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:text=""
-                            android:textColor="@color/colorBlack000000"
-                            android:textSize="18sp" />
-
-                    </LinearLayout>
-
-
-                    <!-- ADD MEMBER -->
-
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/fabFriendInvitation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|right"
-                        android:layout_marginRight="20dp"
-                        app:backgroundTint="@color/colorC0995B"
-                        android:visibility="invisible"
-                        app:borderWidth="0dp"
-                        app:elevation="6dp"
-                        app:fabSize="normal" />
-
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    android:minHeight="?android:attr/actionBarSize"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:layout_collapseMode="pin" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginBottom="40dp"
                     android:orientation="vertical">
 
-                    <!-- PERSONAL DETAILS -->
 
-                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    <!-- MEMBER NAME -->
+
+                    <com.ucreate.mhsystems.customfonts.ButlerLightTextView
+                        android:id="@+id/tvMemberNameDD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Personal Details"
-                        android:textColor="@color/colorEF8176"
-                        android:textSize="14sp" />
+                        android:text="Hadala, Mr Grzegorz"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="27sp" />
 
-                    <FrameLayout
-                        android:id="@+id/flContactGroup"
-                        android:layout_width="match_parent"
+                    <!-- MEMBER JOIN DATE -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
+                        android:id="@+id/tvMemberJoinDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.5"
+                        android:text="Member since 14/04/2016"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="13sp" />
+
+                    <!-- MEMBER TYPE -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:orientation="vertical">
+                        android:text="HANDICAP"
+                        android:textColor="@color/colorC0995B"
+                        android:textSize="13sp" />
+
+                    <!-- MEMBER HANDICAP STR -->
+
+                    <com.ucreate.mhsystems.customfonts.ButlerLightTextView
+                        android:id="@+id/tvHandicapPlayStr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12C"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="27sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhiteffffff"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- BOTTOM DESCRIPTION OF COURSE EVENT DETAIL -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="45dp"
+            android:orientation="vertical">
 
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
 
-                            <!-- MEMBER NAME -->
+                <!-- HANDICAP PERSON -->
 
-                            <com.ucreate.mhsystems.customfonts.RobotoTextView
-                                android:id="@+id/tvMemberContact"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="left|bottom"
-                                android:text=""
-                                android:textColor="@color/colorBlack000000"
-                                android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
 
-                            <!-- TEXT PHONE NUMBER -->
+                    <!-- LABEL HANDICAP TYPE STR -->
 
-                            <com.ucreate.mhsystems.customfonts.RobotoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Phone number"
-                                android:textColor="@color/colorb2b7bf"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-                        <!-- MEMBER CALL ICON -->
-
-                        <ImageView
-                            android:id="@+id/ivActionCall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right|center"
-                            android:layout_marginRight="10dp"
-                            android:src="@mipmap/ic_action_call" />
-
-
-                    </FrameLayout>
-
-                    <!--  EMAIL  -->
-
-                    <FrameLayout
-                        android:id="@+id/flEmailGroup"
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="vertical">
+                        android:gravity="center"
+                        android:text="MEMBERSHIP TYPE"
+                        android:textColor="@color/colorC0995B"
+                        android:textSize="13sp" />
 
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                    <!-- HANDICAP TYPE STR -->
 
-                            <!-- MEMBER EMAIL -->
-
-                            <com.ucreate.mhsystems.customfonts.RobotoTextView
-                                android:id="@+id/tvMemberEmail"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="left"
-                                android:text=""
-                                android:textColor="@color/colorBlack000000"
-                                android:textSize="16sp" />
-
-
-                            <!-- TEXT TITLE EMAIL -->
-
-                            <com.ucreate.mhsystems.customfonts.RobotoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Email address"
-                                android:textColor="@color/colorb2b7bf"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-                        <!-- MEMBER CALL ICON -->
-
-                        <ImageView
-                            android:id="@+id/ivActionEmail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right|center"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:src="@mipmap/ic_action_mail" />
-
-
-                    </FrameLayout>
-
-                    <!--  ADDRESS OF MEMBER  -->
-
-                    <FrameLayout
-                        android:id="@+id/flAddressGroup"
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
+                        android:id="@+id/tvHandicapTypeStr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="vertical">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <!-- MEMBER ADDRESS WITH DETAIL -->
-
-                            <com.ucreate.mhsystems.customfonts.RobotoTextView
-                                android:id="@+id/tvMemberAddress"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="50dp"
-                                android:textColor="@color/colorBlack000000"
-                                android:textSize="16sp" />
-
-
-                            <!-- TEXT ADDRESS TITLE -->
-
-                            <com.ucreate.mhsystems.customfonts.RobotoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Address"
-                                android:textColor="@color/colorb2b7bf"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-                        <!-- MEMBER ADDRESS ICON -->
-
-                        <ImageView
-                            android:id="@+id/ivActionMap"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right|center"
-                            android:layout_marginRight="10dp"
-                            android:src="@mipmap/ic_action_map" />
-
-
-                    </FrameLayout>
+                        android:text="TYPE"
+                        android:textColor="@color/color030303"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
-                <!-- SPACE VIEW -->
-                <View
+                <FrameLayout
+                    android:id="@+id/flContactGroup"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:orientation="vertical">
+
+                        <!-- TEXT PHONE NUMBER -->
+
+                        <com.ucreate.mhsystems.customfonts.RobotoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MOBILE"
+                            android:textColor="@color/colorC0995B"
+                            android:textSize="14sp" />
+
+                        <!-- MEMBER NAME -->
+
+                        <com.ucreate.mhsystems.customfonts.RobotoTextView
+                            android:id="@+id/tvMemberContact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="left|bottom"
+                            android:text="07561048644"
+                            android:textColor="@color/colorBlack000000"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <!-- MEMBER CALL ICON -->
+
+                    <ImageView
+                        android:id="@+id/ivActionCall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/ic_action_call"
+                        android:visibility="gone" />
+
+
+                </FrameLayout>
+
+                <!--  EMAIL  -->
+
+                <FrameLayout
+                    android:id="@+id/flEmailGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:orientation="vertical">
+
+                        <!-- TEXT TITLE EMAIL -->
+
+                        <com.ucreate.mhsystems.customfonts.RobotoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="EMAIL"
+                            android:textColor="@color/colorC0995B"
+                            android:textSize="14sp" />
+
+                        <!-- MEMBER EMAIL -->
+
+                        <com.ucreate.mhsystems.customfonts.RobotoTextView
+                            android:id="@+id/tvMemberEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="greg@ucreate.it"
+                            android:textColor="@color/colorBlack000000"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <!-- MEMBER CALL ICON -->
+
+                    <ImageView
+                        android:id="@+id/ivActionEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/ic_action_mail"
+                        android:visibility="gone" />
+
+
+                </FrameLayout>
+
+                <!--  ADDRESS OF MEMBER  -->
+
+                <FrameLayout
+                    android:id="@+id/flAddressGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:orientation="vertical">
+
+                        <!-- TEXT ADDRESS TITLE -->
+
+                        <com.ucreate.mhsystems.customfonts.RobotoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ADDRESS"
+                            android:textColor="@color/colorC0995B"
+                            android:textSize="13sp" />
+
+
+                        <!-- MEMBER ADDRESS WITH DETAIL -->
+
+                        <com.ucreate.mhsystems.customfonts.RobotoTextView
+                            android:id="@+id/tvMemberAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="50dp"
+                            android:textColor="@color/colorBlack000000"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <!-- MEMBER ADDRESS ICON -->
+
+                    <ImageView
+                        android:id="@+id/ivActionMap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/ic_action_map"
+                        android:visibility="gone" />
+
+
+                </FrameLayout>
 
             </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-</RelativeLayout>
+
+            <!-- SPACE VIEW -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <!-- ADD MEMBER -->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabFriendInvitation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:src="@mipmap/ic_plus"
+        app:backgroundTint="@color/colorC0995B"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right|end" />
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+
+

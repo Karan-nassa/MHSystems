@@ -179,9 +179,9 @@ public class CompetitionsActivity extends BaseActivity {
 
                         case R.id.item_Joined:
                             iPopItemPos = 1;
-                            isUpcoming = false;
+                            isUpcoming = true;
                             isJoined = true;
-                            isCompleted = false;
+                            isCompleted = true;
                             break;
 
                         case R.id.item_Completed:

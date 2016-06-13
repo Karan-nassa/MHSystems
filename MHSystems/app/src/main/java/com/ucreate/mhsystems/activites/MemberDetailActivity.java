@@ -381,7 +381,7 @@ public class MemberDetailActivity extends BaseActivity {
              */
             if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
                 fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
-                fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#838383")));
+                fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
 
                 //Set TRUE so don't display YES/NO alert dialog.
                 isFriendInvite = true;

@@ -7,6 +7,6 @@
     android:layout_height="50dp"
     android:background="@null"
     android:text="A"
-    android:textColor="@color/pinned_header_text"
+    android:textColor="@color/color9B9B9B"
     android:textSize="20sp"
     tools:ignore="HardcodedText" />

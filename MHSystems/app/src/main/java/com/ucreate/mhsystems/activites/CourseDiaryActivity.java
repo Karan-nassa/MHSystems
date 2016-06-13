@@ -258,7 +258,6 @@ public class CourseDiaryActivity extends BaseActivity {
                 }
             };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -296,8 +295,6 @@ public class CourseDiaryActivity extends BaseActivity {
 
         //Load more COURSE listener call here.
         lvCourseDiary.setOnScrollListener(mLoadMoreScrollListener);
-
-
 
         llCourseCategory.setOnClickListener(new View.OnClickListener() {
             @Override
