@@ -181,11 +181,11 @@ public class CompetitionsAdapter extends BaseAdapter {
 
         viewHolder.tvFeeCompEvent.setTypeface(typeface, Typeface.NORMAL);
         viewHolder.tvDateCompEvent.setTypeface(typeface, Typeface.NORMAL);
-        viewHolder.tvCompDesc.setTypeface(typeface, Typeface.NORMAL);
-        viewHolder.tvEventStatusStr.setTypeface(typeface, Typeface.NORMAL);
         viewHolder.tvPosOfPerson.setTypeface(typeface, Typeface.NORMAL);
 
         viewHolder.tvCompTitle.setTypeface(tpRobotoMedium, Typeface.NORMAL);
+        viewHolder.tvEventStatusStr.setTypeface(tpRobotoMedium, Typeface.NORMAL);
+        viewHolder.tvCompDesc.setTypeface(tpRobotoMedium, Typeface.NORMAL);
     }
 
     /**

@@ -60,7 +60,10 @@ public class LoginActivity extends BaseActivity {
     @Bind(R.id.etPassword)
     EditText etPassword;
 
-    Typeface tfRobotoRegular, getTfRobotoMedium;
+    @Bind(R.id.tvCopyRight)
+    TextView tvCopyRight;
+
+    Typeface tfRobotoRegular, tfRobotoLight, getTfRobotoMedium;
 
     //List of type books this list will store type Book which is our data model
     private DashboardAPI dashboardAPI;
@@ -224,13 +227,16 @@ public class LoginActivity extends BaseActivity {
      * in main\assets\fonts directory of current project.
      */
     private void setFontTypeFace() {
-        tfRobotoRegular   =  Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
-        getTfRobotoMedium =  Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
+        getTfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        tfRobotoLight = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 
         etUserName.setTypeface(tfRobotoRegular);
         etPassword.setTypeface(tfRobotoRegular);
 
         tvLoginTitle.setTypeface(getTfRobotoMedium);
         btLogin.setTypeface(getTfRobotoMedium);
+
+        tvCopyRight.setTypeface(tfRobotoLight);
     }
 }

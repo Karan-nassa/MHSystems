@@ -14,52 +14,44 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- STATUS BAR -->
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolBar"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color4B4B49"
-                android:fitsSystemWindows="true"
                 android:minHeight="?android:attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                android:orientation="horizontal">
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:id="@+id/llHomeMyAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-
-                    <LinearLayout
-                        android:id="@+id/llHomeMyAccount"
+                    <!-- BACK ARROW  -->
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <!-- BACK ARROW  -->
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/icon_menu" />
-
-                    </LinearLayout>
-
-                    <!-- TITLE OF SCREEN -->
-                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center|left"
-                        android:text="@string/title_my_account"
-                        android:textColor="@color/colorWhiteffffff"
-                        android:textSize="16sp" />
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/icon_menu" />
 
                 </LinearLayout>
 
-            </android.support.v7.widget.Toolbar>
+                <!-- TITLE OF SCREEN -->
+                <TextView
+                    android:id="@+id/tvMyAccountTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:gravity="center|left"
+                    android:text="@string/title_my_account"
+                    android:textColor="@color/colorWhiteffffff"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
 
             <!-- VIEW TO LOAD CONTENT &amp; MESSAGE VIEW -->
             <FrameLayout

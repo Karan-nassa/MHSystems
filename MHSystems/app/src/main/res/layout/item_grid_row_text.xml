@@ -40,12 +40,12 @@
                 android:layout_gravity="center"
                 android:orientation="vertical">
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                <TextView
                     android:id="@+id/tvHCapExactStr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="20sp"
+                    android:textSize="24sp"
                     android:gravity="center"
                     android:paddingTop="7dp"
                     android:textColor="@color/colorWhiteffffff"
@@ -93,7 +93,7 @@
 
         <!-- TITLE OF ITEM-->
 
-        <com.ucreate.mhsystems.customfonts.ButlerMediumTextView
+        <TextView
             android:id="@+id/tvGridTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

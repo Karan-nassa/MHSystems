@@ -52,7 +52,7 @@
                         android:id="@+id/tvCourseType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginLeft="12dp"
                         android:text="Course Name"
                         android:textColor="@color/colorWhiteffffff"
                         android:textSize="20sp" />
@@ -210,8 +210,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:cacheColorHint="@android:color/white"
-                android:divider="@color/colorC0995B"
-                android:dividerHeight="0.3dp" />
+                android:divider="@color/colorF1F1F0"
+                android:dividerHeight="1dp" />
 
         </LinearLayout>
 

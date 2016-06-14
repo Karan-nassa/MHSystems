@@ -2,6 +2,7 @@ package com.ucreate.mhsystems.adapter.BaseAdapter;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import com.ucreate.mhsystems.activites.DashboardActivity;
  * Created by karan@ucreate.co.in
  * for Home Grid options on 14-03-2016.
  */
-public class GridAdapter extends BaseAdapter {
+public class DashboardGridAdapter extends BaseAdapter {
 
     // String [] result;
     Context context;
@@ -30,7 +31,9 @@ public class GridAdapter extends BaseAdapter {
     String hCapExactStr;
     TypedArray gridBackground;
 
-    public GridAdapter(DashboardActivity mainActivity, String gridTitles[], TypedArray gridIcons, TypedArray gridBackground, String hCapExactStr) {
+    Typeface tfButtlerMedium, tfRobotoMedium;
+
+    public DashboardGridAdapter(DashboardActivity mainActivity, String gridTitles[], TypedArray gridIcons, TypedArray gridBackground, String hCapExactStr) {
 
         context = mainActivity;
         this.gridTitles = gridTitles;
@@ -40,6 +43,8 @@ public class GridAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        tfButtlerMedium = Typeface.createFromAsset(context.getAssets(), "fonts/Butler_Medium.otf");
+        tfRobotoMedium = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
     }
 
     @Override
@@ -78,6 +83,8 @@ public class GridAdapter extends BaseAdapter {
 
             holder.tvHCapExactStr = (TextView) rowView.findViewById(R.id.tvHCapExactStr);
             holder.tvHCapExactStr.setText(hCapExactStr);
+
+            holder.tvHCapExactStr.setTypeface(tfRobotoMedium);
         } else {
             rowView = inflater.inflate(R.layout.item_grid_row_icon, null);
         }
@@ -88,6 +95,9 @@ public class GridAdapter extends BaseAdapter {
         //Set View data according position.
         holder.tvGridTitle.setText(gridTitles[position]);
         holder.ivGridLogo.setImageResource(gridIcons.getResourceId(position, -1));
+
+        //Set Font type.
+        holder.tvGridTitle.setTypeface(tfButtlerMedium);
 
         //Set Background colors.
         //holder.rlGridMenuItem.setBackgroundResource(gridBackground.getResourceId(position, -1));

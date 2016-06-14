@@ -77,7 +77,7 @@
 
         <!-- TITLE OF ITEM-->
 
-        <com.ucreate.mhsystems.customfonts.ButlerMediumTextView
+        <TextView
             android:id="@+id/tvGridTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

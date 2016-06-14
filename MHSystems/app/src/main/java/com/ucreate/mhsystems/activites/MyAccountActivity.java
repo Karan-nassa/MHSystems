@@ -1,9 +1,11 @@
 package com.ucreate.mhsystems.activites;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -31,11 +33,13 @@ public class MyAccountActivity extends BaseActivity {
     @Bind(R.id.llHomeMyAccount)
     LinearLayout llHomeMyAccount;
 
-    @Bind(R.id.toolBar)
-    Toolbar tbMyAccount;
-
     /*@Bind(R.id.container)
     FrameLayout container;*/
+
+    @Bind(R.id.tvMyAccountTitle)
+    TextView tvMyAccountTitle;
+
+    Typeface tfRobotoMedium;
 
      /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
@@ -72,8 +76,8 @@ public class MyAccountActivity extends BaseActivity {
         //Initialize view resources.
         ButterKnife.bind(this);
 
-        //Let's first set up toolbar
-        setupToolbar();
+        tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        tvMyAccountTitle.setTypeface(tfRobotoMedium);
 
         //Load Default fragment of COURSE DIARY.
         updateFragment(new MyAccountTabFragment());
@@ -125,16 +129,6 @@ public class MyAccountActivity extends BaseActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.containerView, mFragment);
         fragmentTransaction.commit();
-    }
-
-    /**
-     * Initialize tool bar to display menu bar options, app-icon and
-     * navigation drawer icon.
-     */
-    void setupToolbar() {
-        setSupportActionBar(tbMyAccount);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
 
     /**

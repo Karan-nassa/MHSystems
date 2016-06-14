@@ -6,11 +6,11 @@
 
     <!-- SECTION TITLE OF COURSE DIARY -->
 
-    <com.ucreate.mhsystems.customfonts.SFUI_TextFontMedium
+    <TextView
         android:id="@+id/tvCourseDateTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="7dp"
         android:gravity="center_horizontal"
         android:text="29th Monday"
         android:textColor="@color/color1E1E1C"

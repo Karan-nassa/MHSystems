@@ -57,7 +57,6 @@ public class CourseDiaryAdapter extends BaseAdapter {
         tfSFUIDisplayBold = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Bold.otf");
         tfSFUITextMedium = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Text-Medium.otf");
         tfSFUIDisplayRegular = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Regular.otf");
-
     }
 
     /**
@@ -123,6 +122,8 @@ public class CourseDiaryAdapter extends BaseAdapter {
                 rowView = inflater.inflate(R.layout.list_item_course_title_row, parent, false);
                 viewHolder.tvCourseDateTitle = (TextView) rowView.findViewById(R.id.tvCourseDateTitle);
                 viewHolder.tvCourseDateTitle.setText(CourseDiaryData.get(position).getStrCourseEventDate());
+
+                viewHolder.tvCourseDateTitle.setTypeface(tfSFUITextMedium);
                 break;
 
             case TYPE_ITEM: {
@@ -135,6 +136,8 @@ public class CourseDiaryAdapter extends BaseAdapter {
                     viewHolder.tvTimeOfEvent = (TextView) rowView.findViewById(R.id.tvTimeOfEvent);
                     viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
                     viewHolder.btBookNow = (Button) rowView.findViewById(R.id.btBookNow);
+
+                    viewHolder.btBookNow.setTypeface(tfSFUITextMedium);
 
                     /**
                      *  Book free slot of Event.

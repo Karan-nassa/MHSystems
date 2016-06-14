@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.adapter.BaseAdapter.GridAdapter;
+import com.ucreate.mhsystems.adapter.BaseAdapter.DashboardGridAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,7 +24,7 @@ public class DashboardActivity extends BaseActivity {
     LinearLayout llLogoutBtn;
 
     //Instance of Grid Adapter.
-    GridAdapter mGridAdapter;
+    DashboardGridAdapter mDashboardGridAdapter;
     Intent intent = null;
 
     TypedArray gridIcons;
@@ -117,8 +117,8 @@ public class DashboardActivity extends BaseActivity {
         gridBackground = getResources().obtainTypedArray(R.array.gridBackgroundColors);
 
         //Set Grid options adapter.
-        mGridAdapter = new GridAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
-        gvMenuOptions.setAdapter(mGridAdapter);
+        mDashboardGridAdapter = new DashboardGridAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(mDashboardGridAdapter);
 
         // ScrollRecycleView.getListViewSize(gvMenuOptions);
     }

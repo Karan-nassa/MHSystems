@@ -89,12 +89,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="25dp"
                     android:orientation="vertical">
 
                     <!-- DATE OF COURSE EVENT -->
 
-                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    <TextView
                         android:id="@+id/tvDateCourseEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
 
                     <!-- DATE OF COURSE EVENT -->
 
-                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    <TextView
                         android:id="@+id/tvTimeCourseEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -137,12 +137,12 @@
 
                 <!-- PRIZE OF COURSE EVENT -->
 
-                <com.ucreate.mhsystems.customfonts.RobotoTextView
+                <TextView
                     android:id="@+id/tvFeeCourseEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="25dp"
                     android:textSize="17sp"
                     android:text="£5 fee per player"
                     android:textColor="@color/color030303" />
@@ -172,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="25dp"
                     android:textSize="17sp"
                     android:text="CONGU(tm), 18 Holes, 1 Round"
                     android:textColor="@color/color030303" />
@@ -198,12 +198,12 @@
 
                 <!-- PRIZE OF COURSE EVENT -->
 
-                <com.ucreate.mhsystems.customfonts.RobotoTextView
+                <TextView
                     android:id="@+id/tvCombaseOfCompEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="25dp"
                     android:textSize="17sp"
                     android:text="Strokeplay"
                     android:textColor="@color/color030303" />
@@ -235,10 +235,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="30dp"
                     android:text="In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis. In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis."
                     android:textColor="@color/color4A4A4A"
-                    android:textSize="17sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 

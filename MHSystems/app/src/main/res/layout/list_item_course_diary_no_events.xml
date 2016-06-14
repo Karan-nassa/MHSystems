@@ -87,8 +87,9 @@
                     android:layout_height="30dp"
                     android:layout_gravity="end|center"
                     android:background="@drawable/ic_book_button_shape"
-                    android:padding="5dp"
+                    android:padding="8dp"
                     android:text="Book Now"
+                    android:textSize="13sp"
                     android:textColor="@color/colorC0995B" />
 
             </FrameLayout>

@@ -26,8 +26,8 @@
             <!-- SETTINGS ICON -->
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:src="@mipmap/ic_home_settings" />
 

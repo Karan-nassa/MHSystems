@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7">
 
     <LinearLayout
         android:id="@+id/llHandicapGroup"
@@ -189,8 +190,9 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="90dp"
                         android:orientation="horizontal"
+                        android:background="@color/colorWhiteffffff"
                         android:paddingLeft="10dp"
                         android:weightSum="100">
 
@@ -213,7 +215,7 @@
 
                             <!-- SELECTED HANDICAP GRAPH DESCRIPTION  -->
 
-                            <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                            <com.ucreate.mhsystems.customfonts.RobotoTextView
                                 android:id="@+id/tvTitleOfPlayStr"
                                 android:layout_width="170dp"
                                 android:layout_height="wrap_content"
@@ -234,11 +236,13 @@
 
                             <com.ucreate.mhsystems.customfonts.RobotoTextFontBold
                                 android:id="@+id/tvTypeOfPlayStr"
-                                android:layout_width="84dp"
-                                android:layout_height="84dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:background="@color/colorDB766C"
                                 android:gravity="center"
+                                android:paddingLeft="28dp"
+                                android:paddingRight="28dp"
                                 android:text="8.4"
                                 android:textColor="@color/colorWhiteffffff"
                                 android:textSize="20sp" />
@@ -254,7 +258,6 @@
                         android:id="@+id/linechart"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:background="#ffffff"
                         android:padding="10dp" />
 
                     <!-- STATISTICS LINEAR LAYOUT STOP-->
@@ -293,15 +296,15 @@
 
                     <!-- CURRENT SELECTED HANDICAP GRAPH YEAR  -->
 
-                    <com.ucreate.mhsystems.customfonts.ButlerMediumTextView
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                         android:id="@+id/tvSelectGraphYear"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="2013"
-                        android:textColor="@color/color535796"
-                        android:textSize="25sp" />
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="17sp" />
 
                     <!-- NEXT YEAR GRAPH NAVIGATION ICON  -->
 

@@ -2,6 +2,7 @@ package com.ucreate.mhsystems.activites;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
@@ -46,10 +47,14 @@ public class CompetitionsDetailActivity extends BaseActivity {
     Toolbar toolbarComp;
     @Bind(R.id.tvDateCourseEvent)
     TextView tvDateCourseEvent;
+    @Bind(R.id.tvTypeOfCompEvent)
+    TextView tvTypeOfCompEvent;
     @Bind(R.id.tvTimeCourseEvent)
     TextView tvTimeCourseEvent;
     @Bind(R.id.tvFeeCourseEvent)
     TextView tvFeeCourseEvent;
+    @Bind(R.id.tvCombaseOfCompEvent)
+    TextView tvCombaseOfCompEvent;
     @Bind(R.id.tvDescCourseEvent)
     TextView tvDescCourseEvent;
     @Bind(R.id.llPriceGroup)
@@ -80,6 +85,8 @@ public class CompetitionsDetailActivity extends BaseActivity {
     String strEventTitle, strEventLogo, strEventDate, strEventTime, strEventPrize, strEventDesc;
     boolean isEventJoin, isJoinVisible, IsMemberJoined;
     int iPopItemPos;
+
+    Typeface tpRobotoMedium;
 
     /**
      * Declares the field to JOIN a COMPETITIONS if user come from
@@ -191,6 +198,8 @@ public class CompetitionsDetailActivity extends BaseActivity {
             //Floating Action button should not VISIBLE when user view the detail of COMPLETED COMPETITIONS.
             fabJoinCompetition.setVisibility(View.GONE);
         }
+
+        setFontTypeFace();
     }
 
     /**
@@ -307,5 +316,15 @@ public class CompetitionsDetailActivity extends BaseActivity {
      */
     public String getClientId() {
         return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078");
+    }
+
+    /**
+     * Implements a method to set custom font style.
+     */
+    private void setFontTypeFace() {
+        tpRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        tvDateCourseEvent.setTypeface(tpRobotoMedium);
+        tvTimeCourseEvent.setTypeface(tpRobotoMedium);
+        tvFeeCourseEvent.setTypeface(tpRobotoMedium);
     }
 }
