@@ -33,7 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="£100.00"
             android:textColor="@color/color030303"
             android:textSize="17sp" />
 
@@ -53,7 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="£1930 - INV/01/01/2016/747"
             android:textColor="@color/color030303"
             android:textSize="17sp" />
 
@@ -75,7 +73,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="£1930 - INV/01/01/2016/747"
             android:textColor="@color/color030303"
             android:textSize="17sp" />
 

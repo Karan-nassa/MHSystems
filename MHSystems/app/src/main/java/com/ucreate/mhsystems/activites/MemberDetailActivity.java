@@ -492,7 +492,7 @@ public class MemberDetailActivity extends BaseActivity {
      *
      * @param isfriend : TRUE, if FRIENDS
      */
-    private void updateIsFriendUI(boolean isfriend) {
+    private void updateIsFriendUI(boolean isFriend) {
 
         /**
          *  iCallFrom will be
@@ -503,7 +503,7 @@ public class MemberDetailActivity extends BaseActivity {
         switch (iCallFrom) {
 
             case 1:
-                if (isfriend) {
+                if (isFriend) {
                     fabFriendInvitation.setVisibility(View.VISIBLE);
                     fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
                     fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));

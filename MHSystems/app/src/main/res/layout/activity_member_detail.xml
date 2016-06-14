@@ -56,7 +56,6 @@
                         android:id="@+id/tvMemberNameDD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hadala, Mr Grzegorz"
                         android:textColor="@color/colorWhiteffffff"
                         android:textSize="27sp" />
 
@@ -67,7 +66,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.5"
-                        android:text="Member since 14/04/2016"
                         android:textColor="@color/colorWhiteffffff"
                         android:textSize="13sp" />
 
@@ -87,7 +85,6 @@
                         android:id="@+id/tvHandicapPlayStr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12C"
                         android:textColor="@color/colorWhiteffffff"
                         android:textSize="27sp" />
 
@@ -146,7 +143,6 @@
                         android:id="@+id/tvHandicapTypeStr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TYPE"
                         android:textColor="@color/color030303"
                         android:textSize="17sp" />
 
@@ -181,7 +177,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="left|bottom"
-                            android:text="07561048644"
                             android:textColor="@color/colorBlack000000"
                             android:textSize="17sp" />
 
@@ -232,7 +227,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="left"
-                            android:text="greg@ucreate.it"
                             android:textColor="@color/colorBlack000000"
                             android:textSize="17sp" />
 

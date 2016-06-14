@@ -43,7 +43,7 @@ public class MembersActivity extends BaseActivity {
      * This instance is used to identify and set {@link android.support.design.widget.FloatingActionButton} VISIBLE
      * if 1 [YOUR FRIENDS], selected in spinner and disable for 2 [ADDED ME]
      */
-    int iWhichSpinnerItem = 0;
+    int iWhichItem = 1;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -129,12 +129,16 @@ public class MembersActivity extends BaseActivity {
                         case R.id.item_your_friends:
                             setStraFriendCommand("GETLINKSTOMEMBERS");
                             setiWhichSpinnerItem(1);
+                            //Initially display title at position 0 of R.menu.course_menu.
+                            tvMemberType.setText("" + popupMenu.getMenu().getItem(0));
                             updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
                             break;
 
                         case R.id.item_added_me:
                             setStraFriendCommand("GETLINKSFROMMEMBERS");
                             setiWhichSpinnerItem(2);
+                            //Initially display title at position 0 of R.menu.course_menu.
+                            tvMemberType.setText("" + popupMenu.getMenu().getItem(1));
                             updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_ADDED_ME));
                             break;
                     }
@@ -159,13 +163,13 @@ public class MembersActivity extends BaseActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        initializeMembersCategory();
+
         /**
          *  If user back press on any other tab then app should
          *  open first tab by default when opening 'MEMBERS'.
          */
         MembersTabFragment.iLastTabPosition = 0;
-
-        initializeMembersCategory();
 
         /**
          *  Setup Tool bar of Members screen with DROP-DOWN [SPINNER]
@@ -178,14 +182,6 @@ public class MembersActivity extends BaseActivity {
 
         //Set click listener events declaration.
         llHomeMembers.setOnClickListener(mHomePressListener);
-
-        llMemberCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupMenu.show();
-            }
-        });
-        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
     }
 
     /**
@@ -254,6 +250,14 @@ public class MembersActivity extends BaseActivity {
 
         //Initially display title at position 0 of R.menu.course_menu.
         tvMemberType.setText("" + popupMenu.getMenu().getItem(0));
+
+        llMemberCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMenu.show();
+            }
+        });
+        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
     }
 
     /**
@@ -418,22 +422,22 @@ public class MembersActivity extends BaseActivity {
     @SuppressWarnings("deprecation")
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-                String url = null;
+        String url = null;
 
-                if (url == null)
-                    return true;
-                final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                startActivity(intent);
-                return true;
+        if (url == null)
+            return true;
+        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+        return true;
     }
 
-        /**
-         * Set the current opening {@link Fragment} instance.
-         *
-         * @param fragmentInstance
-         */
+    /**
+     * Set the current opening {@link Fragment} instance.
+     *
+     * @param fragmentInstance
+     */
 
     public void setFragmentInstance(Fragment fragmentInstance) {
         this.fragmentInstance = fragmentInstance;
@@ -466,14 +470,14 @@ public class MembersActivity extends BaseActivity {
      * @return iWhichSpinnerItem
      */
     public int getiWhichSpinnerItem() {
-        return iWhichSpinnerItem;
+        return iWhichItem;
     }
 
     /**
-     * @param iWhichSpinnerItem The iWhichSpinnerItem
+     * @param iWhichItem The iWhichItem
      */
-    public void setiWhichSpinnerItem(int iWhichSpinnerItem) {
-        this.iWhichSpinnerItem = iWhichSpinnerItem;
+    public void setiWhichSpinnerItem(int iWhichItem) {
+        this.iWhichItem = iWhichItem;
     }
 
 }
