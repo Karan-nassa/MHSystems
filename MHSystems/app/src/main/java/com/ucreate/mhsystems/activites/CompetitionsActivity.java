@@ -200,7 +200,6 @@ public class CompetitionsActivity extends BaseActivity {
                     } else {
                         //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
                         //resetMonthsNavigationIcons();
-
                         callCompetitionsWebService();
                     }
                     return true;
@@ -451,10 +450,12 @@ public class CompetitionsActivity extends BaseActivity {
                             //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
                         } else {
                             setPreviousButton(false);
+                            setNextButton(true);
                         }
                     } else {
                         if (iMonth > iCurrentMonth) {
                             actionPreviousMonth();
+                            setNextButton(true);
                             createDateForData();
                             // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
                         }
@@ -469,6 +470,8 @@ public class CompetitionsActivity extends BaseActivity {
 
                         if (iMonth > iCurrentMonth) {
                             setPreviousButton(true);
+                        }else if(iMonth == 12){
+                            setNextButton(false);
                         }
 
                         //Do nothing. Just load data according current date.

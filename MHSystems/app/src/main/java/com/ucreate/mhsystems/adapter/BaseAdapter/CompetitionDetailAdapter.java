@@ -2,10 +2,14 @@ package com.ucreate.mhsystems.adapter.BaseAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
 
@@ -25,7 +29,7 @@ public class CompetitionDetailAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 9;
     }
 
     @Override
@@ -40,7 +44,22 @@ public class CompetitionDetailAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View rowView = inflater.inflate(R.layout.item_list_competition_detail, parent, false);
+        View rowView = convertView;
+        RowView rowViewInstance = new RowView();
+
+        rowView = inflater.inflate(R.layout.item_list_competition_detail, parent, false);
+        rowViewInstance.llRankGroupRow = (LinearLayout) rowView.findViewById(R.id.llRankGroupRow);
+
+        if(position%2 == 0){
+            rowViewInstance.llRankGroupRow.setBackgroundColor(ContextCompat.getColor(context, R.color.colorF1F1F0));
+        }else{
+            rowViewInstance.llRankGroupRow.setBackgroundColor(ContextCompat.getColor(context, R.color.colorF9F8F7));
+        }
+
         return rowView;
+    }
+
+    class RowView{
+        LinearLayout llRankGroupRow;
     }
 }

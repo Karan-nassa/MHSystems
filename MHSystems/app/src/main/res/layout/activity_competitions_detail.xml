@@ -4,6 +4,7 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7"
     android:fitsSystemWindows="true">
 
     <!-- COMPETITIONS TITLE WITH CROSS ARROW IN TOOL BAR -->
@@ -34,10 +35,11 @@
                     android:layout_marginTop="20dp" />
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    android:id="@+id/tvEventStatusStrDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="60dp"
-                    android:text="PLANNED"
+                    android:textAllCaps="true"
                     android:textColor="@color/colorC0995B"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -67,15 +69,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="35dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -125,6 +126,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -143,9 +146,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="25dp"
-                    android:textSize="17sp"
                     android:text="£5 fee per player"
-                    android:textColor="@color/color030303" />
+                    android:textColor="@color/color030303"
+                    android:textSize="17sp" />
 
             </LinearLayout>
 
@@ -156,6 +159,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -173,9 +178,9 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="25dp"
-                    android:textSize="17sp"
                     android:text="CONGU(tm), 18 Holes, 1 Round"
-                    android:textColor="@color/color030303" />
+                    android:textColor="@color/color030303"
+                    android:textSize="17sp" />
 
             </LinearLayout>
 
@@ -186,6 +191,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -204,9 +211,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="25dp"
-                    android:textSize="17sp"
                     android:text="Strokeplay"
-                    android:textColor="@color/color030303" />
+                    android:textColor="@color/color030303"
+                    android:textSize="17sp" />
 
             </LinearLayout>
 
@@ -217,6 +224,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -250,75 +259,70 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="25dp"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="3dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:weightSum="100">
 
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
+                        android:layout_weight="30"
+                        android:alpha="0.5"
                         android:background="@color/color1E1E1C" />
 
-                    <View
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="TABLE OF RESULTS"
-                        android:textColor="@color/color1E1E1C"
-                        android:textSize="12sp" />
+                        android:layout_weight="40"
+                        android:orientation="vertical">
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2" />
+                        <TextView
+                            android:id="@+id/tvTitleTableResult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.3"
+                            android:layout_gravity="center"
+                            android:text="TABLE OF RESULTS"
+                            android:textColor="@color/color1E1E1C"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
+                        android:layout_weight="30"
+                        android:alpha="0.5"
                         android:background="@color/color1E1E1C" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2" />
 
                 </LinearLayout>
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="30dp">-->
-
-                <!--<View-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="0.2" />-->
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:text="Round 1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:textColor="@color/colorC0995B"
                     android:textSize="17sp" />
-                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="3dp">
-
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp">
 
                     <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                         android:layout_width="0dp"
@@ -355,17 +359,73 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="end"
                         android:text="Total"
                         android:textColor="@color/color1E1E1C"
                         android:textSize="15sp" />
                 </LinearLayout>
 
+                <!-- RANK LIST -->
+
                 <ListView
                     android:id="@+id/lvListOfMembers"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp" />
+
+                <LinearLayout
+                    android:id="@+id/llRankGroupRow"
+                    android:layout_width="match_parent"
+                    android:background="@color/colorC0995B"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_height="40dp">
+
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="12"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="15sp" />
+
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="Greg Hadala"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="15sp" />
+
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="70"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="15sp" />
+
+                    <com.ucreate.mhsystems.customfonts.RobotoTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end|center"
+                        android:text="70"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="15sp" />
+                </LinearLayout>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:background="@color/colorF9F8F7"
     tools:ignore="UnusedAttribute">
 
     <!--just a background view for the header, so that it won't interfere with the headers changes and row-clicking-->
     <FrameLayout
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:background="?android:attr/colorBackground">
+       >
 
         <include layout="@layout/pinned_header_listview_side_header" />
     </FrameLayout>
@@ -21,7 +22,6 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:background="?android:attr/colorBackground"
         android:paddingBottom="6dp"
         android:paddingEnd="6dp"
         android:paddingRight="6dp"

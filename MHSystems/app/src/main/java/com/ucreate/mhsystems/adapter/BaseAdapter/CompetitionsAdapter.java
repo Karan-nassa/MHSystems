@@ -165,6 +165,7 @@ public class CompetitionsAdapter extends BaseAdapter {
                 intent.putExtra("COMPETITIONS_IsMemberJoined", compititionsDatas.get(position).getIsMemberJoined());
                 intent.putExtra("COMPETITIONS_eventId", compititionsDatas.get(position).getEventId());
                 intent.putExtra("COMPETITIONS_iPopItemPos", iPopItemPos);//To HIDE IF COMPETITION COMPLETED/CLOSED.
+                intent.putExtra("COMPETITIONS_EventStatusStr", compititionsDatas.get(position).getEventStatusStr());
                 context.startActivity(intent);
             }
         });

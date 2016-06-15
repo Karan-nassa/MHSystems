@@ -3,6 +3,7 @@ package com.ucreate.mhsystems.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -249,8 +250,8 @@ public class FriendsFragment extends Fragment {
 
         mAdapter = new AlphabaticalListAdapter(friendsDatas);
 
-        int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(), android.R.attr.colorBackground)));
-        mAdapter.setPinnedHeaderBackgroundColor(pinnedHeaderBackgroundColor);
+        //int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(), android.R.attr.colorBackground)));
+        mAdapter.setPinnedHeaderBackgroundColor(Color.parseColor("#F9F8F7")/*pinnedHeaderBackgroundColor*/);
         mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.color9B9B9B));
         phlvFriends.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, phlvFriends, false));
         phlvFriends.setAdapter(mAdapter);

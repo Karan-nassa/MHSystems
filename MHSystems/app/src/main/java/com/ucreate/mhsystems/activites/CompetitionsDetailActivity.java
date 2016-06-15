@@ -59,6 +59,13 @@ public class CompetitionsDetailActivity extends BaseActivity {
     TextView tvDescCourseEvent;
     @Bind(R.id.llPriceGroup)
     LinearLayout llPriceGroup;
+    @Bind(R.id.tvEventStatusStrDD)
+    TextView tvEventStatusStrDD;
+
+
+    /* ++ TABLE RESULT RESOURCES ++ */
+    @Bind(R.id.tvTitleTableResult)
+    TextView tvTitleTableResult;
 
     //Join Competition Button
     @Bind(R.id.fabJoinCompetition)
@@ -82,11 +89,11 @@ public class CompetitionsDetailActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    String strEventTitle, strEventLogo, strEventDate, strEventTime, strEventPrize, strEventDesc;
+    String strEventTitle, strEventLogo, strEventDate, strEventTime, strEventPrize, strEventDesc, strEventStatus;
     boolean isEventJoin, isJoinVisible, IsMemberJoined;
     int iPopItemPos;
 
-    Typeface tpRobotoMedium;
+    Typeface tpRobotoMedium, tfSFUITextSemibold;
 
     /**
      * Declares the field to JOIN a COMPETITIONS if user come from
@@ -135,6 +142,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
         tvFeeCourseEvent.setText("£" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
         tvDescCourseEvent.setText(strEventDesc);
+        tvEventStatusStrDD.setText(strEventStatus);
 
         fabJoinCompetition.setOnClickListener(mJoinOnClickListener);
     }
@@ -164,6 +172,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
         strEventPrize = getIntent().getExtras().getString("COMPETITIONS_EVENT_PRIZE");
         strEventTime = getIntent().getExtras().getString("COMPETITIONS_EVENT_TIME");
         strEventDesc = getIntent().getExtras().getString("COMPETITIONS_EVENT_DESCRIPTION");
+        strEventStatus = getIntent().getExtras().getString("COMPETITIONS_EventStatusStr");
 
         isJoinVisible = getIntent().getExtras().getBoolean("COMPETITIONS_JOIN_STATE");
         IsMemberJoined = getIntent().getExtras().getBoolean("COMPETITIONS_IsMemberJoined");
@@ -185,18 +194,18 @@ public class CompetitionsDetailActivity extends BaseActivity {
                 if (IsMemberJoined) {
                     fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
                     fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
-
-                    //Display Rank of Members.
-                    llRankOfMembers.setVisibility(View.VISIBLE);
-
-                    competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionsDetailActivity.this);
-                    lvListOfMembers.setAdapter(competitionDetailAdapter);
-                    ScrollRecycleView.getListViewSize(lvListOfMembers);
                 }
             }
         } else {
             //Floating Action button should not VISIBLE when user view the detail of COMPLETED COMPETITIONS.
             fabJoinCompetition.setVisibility(View.GONE);
+
+            //Display Rank of Members.
+            llRankOfMembers.setVisibility(View.VISIBLE);
+
+            competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionsDetailActivity.this);
+            lvListOfMembers.setAdapter(competitionDetailAdapter);
+            ScrollRecycleView.getListViewSize(lvListOfMembers);
         }
 
         setFontTypeFace();
@@ -286,12 +295,12 @@ public class CompetitionsDetailActivity extends BaseActivity {
                 IsMemberJoined = true;
 
 
-                //Display Rank of Members.
+               /* //Display Rank of Members.
                 llRankOfMembers.setVisibility(View.VISIBLE);
 
                 competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionsDetailActivity.this);
                 lvListOfMembers.setAdapter(competitionDetailAdapter);
-                ScrollRecycleView.getListViewSize(lvListOfMembers);
+                ScrollRecycleView.getListViewSize(lvListOfMembers);*/
             } else {
                 //If web service not respond in any case.
                 showAlertMessage(addRequestResult.getMessage());
@@ -323,8 +332,12 @@ public class CompetitionsDetailActivity extends BaseActivity {
      */
     private void setFontTypeFace() {
         tpRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        tfSFUITextSemibold = Typeface.createFromAsset(getAssets(), "fonts/SF-UI-Display-Bold.otf");
+
         tvDateCourseEvent.setTypeface(tpRobotoMedium);
         tvTimeCourseEvent.setTypeface(tpRobotoMedium);
         tvFeeCourseEvent.setTypeface(tpRobotoMedium);
+
+        tvTitleTableResult.setTypeface(tfSFUITextSemibold);
     }
 }

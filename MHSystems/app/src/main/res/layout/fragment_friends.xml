@@ -7,7 +7,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorFFEFEFF4"
         android:orientation="vertical">
 
         <!-- ALPHABETICAL LIST -->
@@ -16,8 +15,8 @@
             android:id="@+id/phlvFriends"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:cacheColorHint="?android:attr/colorBackground"
-            android:background="?android:attr/colorBackground"
+            android:cacheColorHint="@color/colorF9F8F7"
+            android:background="@color/colorF9F8F7"
             android:divider="@null"
             android:dividerHeight="0px"
             android:fadeScrollbars="false"

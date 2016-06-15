@@ -1,6 +1,7 @@
 package com.ucreate.mhsystems.activites;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -33,6 +34,8 @@ public class CustomAlertDialogActivity extends AppCompatActivity {
     @Bind(R.id.tvAlertTitle)
     TextView tvAlertTitle;
 
+    Typeface tfRobotoLight;
+
     /* + LOCAL INSTANCES DECLARATION  + */
     String strColorTheme;
     int iCallFrom;
@@ -49,6 +52,9 @@ public class CustomAlertDialogActivity extends AppCompatActivity {
          * automatically cast the corresponding view in your layout.
          */
         ButterKnife.bind(CustomAlertDialogActivity.this);
+
+        tfRobotoLight = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+        tvAlertTitle.setTypeface(tfRobotoLight);
 
         /**
          * Get Intent to get theme according screen.

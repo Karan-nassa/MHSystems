@@ -52,6 +52,11 @@ public class DashboardActivity extends BaseActivity {
                 case 3:
                     intent = new Intent(DashboardActivity.this, MembersActivity.class);
                     break;
+
+                case 4:
+                    intent = new Intent(DashboardActivity.this, ClubNewsActivity.class);
+                    break;
+
                 case 5:
                     intent = new Intent(DashboardActivity.this, MyAccountActivity.class);
                     intent.putExtra("iTabPosition", 0);

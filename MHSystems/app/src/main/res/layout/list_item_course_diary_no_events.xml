@@ -85,9 +85,8 @@
                     android:id="@+id/btBookNow"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_gravity="end|center"
+                    android:layout_gravity="center|end"
                     android:background="@drawable/ic_book_button_shape"
-                    android:padding="8dp"
                     android:text="Book Now"
                     android:textSize="13sp"
                     android:textColor="@color/colorC0995B" />

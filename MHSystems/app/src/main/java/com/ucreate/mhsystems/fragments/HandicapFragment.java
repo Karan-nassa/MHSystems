@@ -334,13 +334,13 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 //If web service not respond in any case.
                 // ((BaseActivity) getActivity()).showAlertMessage(handicapResultItems.getMessage());
             }
+
+            //Dismiss progress dialog.
+            ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
-
-        //Dismiss progress dialog.
-        ((BaseActivity) getActivity()).hideProgress();
     }
 
 

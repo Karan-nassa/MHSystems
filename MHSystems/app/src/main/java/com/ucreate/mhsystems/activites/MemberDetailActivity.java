@@ -381,7 +381,7 @@ public class MemberDetailActivity extends BaseActivity {
              */
             if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
                 fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
-                fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
+                fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D6D0C9")));
 
                 //Set TRUE so don't display YES/NO alert dialog.
                 isFriendInvite = true;
@@ -506,7 +506,7 @@ public class MemberDetailActivity extends BaseActivity {
                 if (isFriend) {
                     fabFriendInvitation.setVisibility(View.VISIBLE);
                     fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
-                    fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
+                    fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D6D0C9")));
                     //Set TRUE so don't display YES/NO alert dialog.
                     isFriendInvite = true;
                 } else {
