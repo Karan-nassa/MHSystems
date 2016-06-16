@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@color/colorF9F8F7">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,6 +16,8 @@
             android:background="@color/color4B4B49"
             android:minHeight="?android:attr/actionBarSize"
             android:orientation="horizontal">
+
+            <!-- VIEW GROUP TO SET TITLE BAR -->
 
             <LinearLayout
                 android:id="@+id/llHomeIcon"
@@ -53,8 +55,17 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
-
         </LinearLayout>
+
+        <!-- CLUB NEWS LIST -->
+
+        <ListView
+            android:id="@+id/lvClubNewsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorE8E2DD"
+            android:dividerHeight="1dp"
+            android:cacheColorHint="@color/colorF9F8F7"/>
 
     </LinearLayout>
 

@@ -130,7 +130,7 @@ public class MembersActivity extends BaseActivity {
                             setStraFriendCommand("GETLINKSTOMEMBERS");
                             setiWhichSpinnerItem(1);
                             //Initially display title at position 0 of R.menu.course_menu.
-                            tvMemberType.setText("" + popupMenu.getMenu().getItem(0));
+//                            tvMemberType.setText("" + popupMenu.getMenu().getItem(0));
                             updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
                             break;
 
@@ -138,7 +138,7 @@ public class MembersActivity extends BaseActivity {
                             setStraFriendCommand("GETLINKSFROMMEMBERS");
                             setiWhichSpinnerItem(2);
                             //Initially display title at position 0 of R.menu.course_menu.
-                            tvMemberType.setText("" + popupMenu.getMenu().getItem(1));
+//                            tvMemberType.setText("" + popupMenu.getMenu().getItem(1));
                             updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_ADDED_ME));
                             break;
                     }
@@ -241,10 +241,14 @@ public class MembersActivity extends BaseActivity {
         switch (MembersTabFragment.iLastTabPosition) {
             case 0:
                 popupMenu.inflate(R.menu.members_menu);
+                updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
                 break;
 
             case 1:
                 popupMenu.inflate(R.menu.members_friends_menu);
+                setStraFriendCommand("GETLINKSTOMEMBERS");
+                setiWhichSpinnerItem(1);
+                updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
                 break;
         }
 

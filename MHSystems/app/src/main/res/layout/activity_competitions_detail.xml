@@ -125,9 +125,9 @@
                 android:id="@+id/llPriceGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -158,9 +158,9 @@
                 android:id="@+id/llTypeGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -190,9 +190,9 @@
                 android:id="@+id/llCombaseCompGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -223,9 +223,9 @@
                 android:id="@+id/llDescGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -264,9 +264,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:orientation="horizontal"
                     android:weightSum="100">
 
 
@@ -288,8 +288,8 @@
                             android:id="@+id/tvTitleTableResult"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:alpha="0.3"
                             android:layout_gravity="center"
+                            android:alpha="0.3"
                             android:text="TABLE OF RESULTS"
                             android:textColor="@color/color1E1E1C"
                             android:textSize="10sp" />
@@ -310,10 +310,10 @@
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Round 1"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Round 1"
                     android:textColor="@color/colorC0995B"
                     android:textSize="17sp" />
 
@@ -376,10 +376,10 @@
                 <LinearLayout
                     android:id="@+id/llRankGroupRow"
                     android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:background="@color/colorC0995B"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:layout_height="40dp">
+                    android:paddingRight="20dp">
 
                     <com.ucreate.mhsystems.customfonts.RobotoTextView
                         android:layout_width="0dp"
@@ -425,7 +425,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="40dp"/>
+                android:layout_height="40dp" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

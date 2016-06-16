@@ -16,7 +16,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+            android:id="@+id/collapseMemberDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:collapsedTitleTextAppearance="@style/CompetitionsToolCollapse"
@@ -42,13 +42,13 @@
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:layout_collapseMode="pin" />
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
                     android:layout_marginBottom="40dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="vertical">
-
 
                     <!-- MEMBER NAME -->
 
@@ -90,6 +90,16 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- TEMP TOOL BAR VIEW SO COLLAPSE TOOL NOT GO INSIDE ON SCROLL DOWN  -->
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:minHeight="?android:attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:layout_collapseMode="pin" />
 
         </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
 

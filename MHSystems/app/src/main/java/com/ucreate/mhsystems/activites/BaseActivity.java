@@ -100,14 +100,14 @@ public class BaseActivity extends AppCompatActivity {
      * @param tvMessageDesc    :  View to set detail Text description of message.
      * @param hasData      :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
      */
-    public void showNoCompetitionsView(RelativeLayout inc_message_view, ImageView ivMessageSymbol, TextView tvMessageTitle, TextView tvMessageDesc, boolean hasData) {
+    public void showNoEventView(RelativeLayout inc_message_view, ImageView ivMessageSymbol, TextView tvMessageTitle, TextView tvMessageDesc, boolean hasData, String strMessageTitle) {
 
         if (hasData) {
             inc_message_view.setVisibility(View.GONE);
         } else {
             inc_message_view.setVisibility(View.VISIBLE);
             ivMessageSymbol.setImageResource(R.mipmap.ic_home_competitions);
-            tvMessageTitle.setText(getResources().getString(R.string.error_no_competitions));
+            tvMessageTitle.setText(strMessageTitle);
             tvMessageDesc.setText(getResources().getString(R.string.error_select_different_month));
         }
     }

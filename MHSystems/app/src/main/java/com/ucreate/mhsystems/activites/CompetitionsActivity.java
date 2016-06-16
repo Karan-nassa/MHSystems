@@ -597,9 +597,9 @@ public class CompetitionsActivity extends BaseActivity {
      */
     public void updateNoCompetitionsUI(boolean hasData) {
         if (hasData) {
-            showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            showNoEventView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true, "");
         } else {
-            showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            showNoEventView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false, getResources().getString(R.string.error_no_competitions));
         }
     }
 

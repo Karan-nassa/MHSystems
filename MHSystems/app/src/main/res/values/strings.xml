@@ -8,6 +8,7 @@
     <string name="error_no_connection">No Internet Connection</string>
     <string name="error_try_again">Try again later</string>
     <string name="error_no_competitions">No competitions</string>
+    <string name="error_no_course">No Course</string>
     <string name="error_select_different_month">Select different month</string>
     <string name="error_check_internet">Please check your internet connectivity and try again</string>
     <string name="error_no_data">No data found</string>

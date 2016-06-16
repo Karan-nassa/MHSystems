@@ -8,6 +8,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -36,6 +37,8 @@ import com.ucreate.mhsystems.models.AJsonParamsMembersDatail;
 import com.ucreate.mhsystems.models.MembersDetailAPI;
 import com.ucreate.mhsystems.models.MembersDetailsItems;
 
+import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
+
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -62,6 +65,7 @@ public class MemberDetailActivity extends BaseActivity {
     public static final String LOG_TAG = MemberDetailActivity.class.getSimpleName();
 
     String strAddressLine, strMemberEmail, strTelNoHome, strTelNoWork, strTelNoMob, strHandCapPlay;
+    String strNameOfMember;
     int iMemberID;
 
     /**
@@ -100,6 +104,9 @@ public class MemberDetailActivity extends BaseActivity {
     AJsonParamsAddMember aJsonParamsAddMember;
     //Create instance of Model class for display result.
     AddRequestResult addRequestResult;
+
+    CollapsingToolbarLayout collapseMemberDetail;
+    AppBarLayout appBarLayout;
 
     /**
      * Implements a CONSTANT field to call
@@ -207,8 +214,31 @@ public class MemberDetailActivity extends BaseActivity {
             }
         });
 
+        showTitleOnCollapse();
+
         ivActionCall.setOnClickListener(mCallMemberListener);
         ivActionEmail.setOnClickListener(mEmailMemberListener);
+    }
+
+    private void showTitleOnCollapse() {
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapseMemberDetail.setTitle(strNameOfMember);
+                    isShow = true;
+                } else if(isShow) {
+                    collapseMemberDetail.setTitle("");
+                    isShow = false;
+                }
+            }
+        });
     }
 
     @Override
@@ -251,6 +281,9 @@ public class MemberDetailActivity extends BaseActivity {
         flAddressGroup = (FrameLayout) findViewById(R.id.flAddressGroup);
 
         fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
+
+        collapseMemberDetail = (CollapsingToolbarLayout) findViewById(R.id.collapseMemberDetail);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
     }
 
     /**
@@ -544,6 +577,8 @@ public class MemberDetailActivity extends BaseActivity {
      */
     private void displayMembersData() {
 
+        strNameOfMember = membersDetailItems.getData().getNameRecord().getFullName();
+
         /**
          *  Implements check for empty STRING of HANDICAP.
          */
@@ -554,7 +589,7 @@ public class MemberDetailActivity extends BaseActivity {
         }
 
         tvHandicapTypeStr.setText(membersDetailItems.getData().getHCapTypeStr());
-        tvMemberNameDD.setText(membersDetailItems.getData().getNameRecord().getFullName());
+        tvMemberNameDD.setText(strNameOfMember);
         tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
 
         /**

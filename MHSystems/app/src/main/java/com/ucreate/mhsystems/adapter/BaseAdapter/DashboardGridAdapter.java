@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -71,6 +72,7 @@ public class DashboardGridAdapter extends BaseAdapter {
         TextView tvGridTitle;
         ImageView ivGridLogo;
         RelativeLayout rlGridMenuItem;
+        FrameLayout flBadgerGroup;
     }
 
     @Override
@@ -91,10 +93,15 @@ public class DashboardGridAdapter extends BaseAdapter {
         holder.tvGridTitle = (TextView) rowView.findViewById(R.id.tvGridTitle);
         holder.ivGridLogo = (ImageView) rowView.findViewById(R.id.ivGridLogo);
         holder.rlGridMenuItem = (RelativeLayout) rowView.findViewById(R.id.rlGridMenuItem);
+        holder.flBadgerGroup = (FrameLayout) rowView.findViewById(R.id.flBadgerGroup);
 
         //Set View data according position.
         holder.tvGridTitle.setText(gridTitles[position]);
         holder.ivGridLogo.setImageResource(gridIcons.getResourceId(position, -1));
+
+        if(position==4) {
+            holder.flBadgerGroup.setVisibility(View.VISIBLE);
+        }
 
         //Set Font type.
         holder.tvGridTitle.setTypeface(tfButtlerMedium);

@@ -95,7 +95,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     Button btShowCertificate;
     ImageView ivNextYearGraph, ivPreviousYearGraph;
     TextView tvDateOfPlayedStr, tvTitleOfPlayStr, tvTypeOfPlayStr;
-    TextView tvSelectGraphYear;
+    TextView tvSelectGraphYear, tvLatestGraphYear;
     LinearLayout llPreviousYearGraph, llNextYearGraph, llMonthNavigationGroup;
 
     LinearLayout llHandicapGroup;
@@ -139,6 +139,23 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         }
     };
 
+    /**
+     * Navigate user to LATEST year of Graph.
+     */
+    private View.OnClickListener mLatestGraphListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (arrNameOfYear.size() > 0) {
+                mYearIndex = (arrNameOfYear.size() - 1);
+
+                setNavigationIcons();
+
+                //setData(10, handicapData.get(0).getHCapRecords());
+                refreshGraph();
+            }
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_handicap, container, false);
@@ -164,6 +181,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
         llPreviousYearGraph.setOnClickListener(mGraphNavListener);
         llNextYearGraph.setOnClickListener(mGraphNavListener);
+
+        tvLatestGraphYear.setOnClickListener(mLatestGraphListener);
 
         return viewRootFragment;
     }
@@ -323,6 +342,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                     Collections.reverse(arrNameOfYear);
 
                     mYearIndex = (arrNameOfYear.size() - 1);
+
+                    setNavigationIcons();
 
                     //setData(10, handicapData.get(0).getHCapRecords());
                     refreshGraph();
@@ -625,6 +646,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         } else if (mYearIndex == (arrNameOfYear.size() - 1)) {
            /* ivNextYearGraph.setImageResource(R.mipmap.ic_arrow_right_blur);*/
             ivNextYearGraph.setAlpha((float) 0.3);
+            ivPreviousYearGraph.setAlpha((float) 1.0); //ENABLE previous button when mYearIndex
         } else {
             ivPreviousYearGraph.setAlpha((float) 1.0);
             ivNextYearGraph.setAlpha((float) 1.0);
@@ -645,6 +667,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         tvTitleOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTitleOfPlayStr);
         tvTypeOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPlayStr);
         tvSelectGraphYear = (TextView) viewRootFragment.findViewById(R.id.tvSelectGraphYear);
+
+        tvLatestGraphYear = (TextView) viewRootFragment.findViewById(R.id.tvLatestGraphYear);
 
         btShowCertificate = (Button) viewRootFragment.findViewById(R.id.btShowCertificate);
 

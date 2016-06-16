@@ -94,7 +94,7 @@ public class MembersTabFragment extends Fragment {
      * <p/>
      * <br> 1.) ALL         : 0
      * <br> 2.) LADIES      : 1
-     * <br> 3.) GENTLEMENS  : 2
+     * <br> 3.) MENS        : 2
      */
     @SuppressLint("ValidFragment")
     public MembersTabFragment(int action) {

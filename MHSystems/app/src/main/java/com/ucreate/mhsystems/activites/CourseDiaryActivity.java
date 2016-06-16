@@ -561,11 +561,11 @@ public class CourseDiaryActivity extends BaseActivity {
                 if (arrayCourseDataBackup.size() == 0) {
                     isMoreToScroll = false;
                     resetArrayData();
-                    showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+                    showNoCourseView(false);
                     // showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
 
-                    showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+                    showNoCourseView(true);
 
                     isMoreToScroll = true;
 
@@ -579,7 +579,7 @@ public class CourseDiaryActivity extends BaseActivity {
                 isMoreToScroll = false;
                 setTitleBar(getMonth(iMonth));
 
-                showNoCompetitionsView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+                showNoCourseView(false);
                 //If web service not respond in any case.
                 //  showAlertMessage(courseDiaryItems.getMessage());
             }
@@ -970,5 +970,25 @@ public class CourseDiaryActivity extends BaseActivity {
 
         //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
         //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+    }
+
+    /**
+     * Implements a method to show 'NO COURSE' view and hide it at least one Course event.
+     *
+     * @param inc_message_view :  Whole view group for set VISIBILITY of view VISIBLE/INVISIBLE.
+     * @param ivMessageSymbol  :  View to set Image at run time like DIARY icon for NO COURSE.
+     * @param tvMessageTitle   :  View to set Text title of message.
+     * @param tvMessageDesc    :  View to set detail Text description of message.
+     * @param hasData          :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     */
+    public void showNoCourseView(boolean hasData) {
+        if (hasData) {
+            inc_message_view.setVisibility(View.GONE);
+        } else {
+            inc_message_view.setVisibility(View.VISIBLE);
+            ivMessageSymbol.setImageResource(R.mipmap.ic_home_diary);
+            tvMessageTitle.setText(getResources().getString(R.string.error_no_course));
+            tvMessageDesc.setText(getResources().getString(R.string.error_select_different_month));
+        }
     }
 }
