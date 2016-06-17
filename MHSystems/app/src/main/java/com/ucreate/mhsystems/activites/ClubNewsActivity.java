@@ -1,13 +1,23 @@
 package com.ucreate.mhsystems.activites;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.ClubNewsAdapter;
+import com.ucreate.mhsystems.adapter.RecyclerAdapter.ClubNewsSwipeAdapter;
+import com.ucreate.mhsystems.models.ClubNews.ClubNewsItems;
+import com.ucreate.mhsystems.util.DividerItemDecoration;
+import com.ucreate.mhsystems.util.RecycleViewDividerDecoration;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,13 +31,15 @@ public class ClubNewsActivity extends BaseActivity {
     LinearLayout llHomeIcon;
 
     @Bind(R.id.lvClubNewsList)
-    ListView lvClubNewsList;
+    RecyclerView lvClubNewsList;
 
-    ClubNewsAdapter clubNewsAdapter;
+    // ClubNewsAdapter clubNewsAdapter;
+    ClubNewsSwipeAdapter clubNewsSwipeAdapter;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
+    ArrayList<ClubNewsItems> clubNewsItemses;
 
     /**
      * Implements HOME icons press listener.
@@ -39,6 +51,18 @@ public class ClubNewsActivity extends BaseActivity {
         }
     };
 
+    /**
+     * Declares the CLUB NEWS item click event here.
+     */
+    private AdapterView.OnItemClickListener mNewsItemListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            Intent detailNewsIntent = new Intent(ClubNewsActivity.this, ClubNewsDetailActivity.class);
+            startActivity(detailNewsIntent);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,18 +70,39 @@ public class ClubNewsActivity extends BaseActivity {
 
         //Initialize view resources.
         ButterKnife.bind(this);
-
+        // Layout Managers:
+        lvClubNewsList.setLayoutManager(new LinearLayoutManager(this));
+        // Item Decorator:
+        lvClubNewsList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
+        // mRecyclerView.setItemAnimator(new FadeInLeftAnimator());
         setClubNewsAdapter();
-
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
+
+
+        // lvClubNewsList.setOnItemClickListener(mNewsItemListener);
     }
 
     /**
      * Implements a method to set Club news adapter.
      */
     private void setClubNewsAdapter() {
-        clubNewsAdapter = new ClubNewsAdapter(ClubNewsActivity.this);
-        lvClubNewsList.setAdapter(clubNewsAdapter);
+
+        //Add Static data.
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        stringArrayList.clear();
+        stringArrayList.add("1");
+        stringArrayList.add("1");
+        stringArrayList.add("1");
+        stringArrayList.add("1");
+        stringArrayList.add("1");
+        stringArrayList.add("1");
+        stringArrayList.add("1");
+        stringArrayList.add("1");
+        stringArrayList.add("1");
+        stringArrayList.add("1");
+
+        clubNewsSwipeAdapter = new ClubNewsSwipeAdapter(ClubNewsActivity.this, stringArrayList);
+        lvClubNewsList.setAdapter(clubNewsSwipeAdapter);
     }
 }

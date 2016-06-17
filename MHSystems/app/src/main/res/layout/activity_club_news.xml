@@ -36,36 +36,36 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llCourseCategory"
+            <!-- CLUB NEWS TITLE -->
+
+            <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                android:id="@+id/tvCourseType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginLeft="12dp"
+                android:text="Club News"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorWhiteffffff"
+                android:textSize="20sp" />
 
-                <!-- COURSE TYPE [OLD/NEW COURSE] -->
-
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvCourseType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:text="Club News"
-                    android:textColor="@color/colorWhiteffffff"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
         </LinearLayout>
 
         <!-- CLUB NEWS LIST -->
 
-        <ListView
+     <!--   <ListView
             android:id="@+id/lvClubNewsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:cacheColorHint="@color/colorF9F8F7"
             android:divider="@color/colorE8E2DD"
-            android:dividerHeight="1dp"
-            android:cacheColorHint="@color/colorF9F8F7"/>
+            android:dividerHeight="1dp" />-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lvClubNewsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@color/colorF9F8F7"
+            android:divider="@color/colorE8E2DD"
+            android:dividerHeight="1dp" />
 
     </LinearLayout>
 

@@ -89,7 +89,17 @@
         <activity
             android:name=".activites.ShowCertificateWebview"
             android:screenOrientation="portrait" />
-        <activity android:name=".activites.ClubNewsActivity"></activity>
+
+        <!-- CLUB NEWS ACTIVITY -->
+        <activity
+            android:name=".activites.ClubNewsActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- CLUB NEWS DETAIL ACTIVITY -->
+        <activity
+            android:name=".activites.ClubNewsDetailActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

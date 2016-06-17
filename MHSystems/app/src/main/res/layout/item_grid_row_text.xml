@@ -11,8 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -45,11 +45,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="24sp"
                     android:gravity="center"
                     android:paddingTop="7dp"
                     android:textColor="@color/colorWhiteffffff"
-                    />
+                    android:textSize="24sp" />
 
                 <ImageView
                     android:id="@+id/ivGridLogo"
@@ -58,6 +57,8 @@
                     android:paddingBottom="10dp"
                     android:src="@mipmap/ic_handicap_chart" />
             </LinearLayout>
+            <!-- BADGER ICON -->
+
             <!-- BADGER ICON -->
 
             <FrameLayout
@@ -75,7 +76,6 @@
                     android:id="@+id/ivBadgerBackground"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="2dp"
                     android:scaleType="fitCenter"
                     app:placeholderImage="@color/colorFFEF8176"
                     app:roundAsCircle="true" />
@@ -83,13 +83,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="4dp"
-                    android:text="9+"
+                    android:padding="7dp"
+                    android:text="2"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
 
             </FrameLayout>
-
         </FrameLayout>
 
         <!-- TITLE OF ITEM-->
@@ -100,9 +99,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
+            android:text="@string/app_name"
             android:textColor="@color/colorWhiteffffff"
-            android:textSize="15sp"
-            android:text="@string/app_name" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 

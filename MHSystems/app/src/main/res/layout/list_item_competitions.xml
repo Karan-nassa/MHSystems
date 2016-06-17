@@ -70,7 +70,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:alpha="0.1"
                     android:paddingLeft="4dp"
                     android:src="@mipmap/ic_today" />
 
@@ -138,7 +137,7 @@
                     android:id="@+id/ivStatOfEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:alpha="0.1"
+                    android:alpha="0.3"
                     android:src="@mipmap/ic_fee" />
 
                 <!-- PRIZE OF COMPETITION EVENT -->

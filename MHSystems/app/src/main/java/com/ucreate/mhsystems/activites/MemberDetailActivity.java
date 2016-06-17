@@ -669,6 +669,4 @@ public class MemberDetailActivity extends BaseActivity {
             Toast.makeText(MemberDetailActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }
