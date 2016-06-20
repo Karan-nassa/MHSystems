@@ -2,20 +2,24 @@ package com.ucreate.mhsystems.adapter.RecyclerAdapter;
 
 import android.content.Context;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.activites.ClubNewsDetailActivity;
 
 import java.util.ArrayList;
 
@@ -26,26 +30,18 @@ import java.util.ArrayList;
  */
 public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdapter.SimpleViewHolder> {
 
-
     private Context mContext;
     ArrayList<String> stringArrayList;
-    // private ArrayList<Student> studentList;
-    //  ArrayList<Datum> datum;
-    String AccessToken, joinEventId;
-    // PrefsManager prefsManager;
 
     public ClubNewsSwipeAdapter(Context context, ArrayList<String> stringArrayList) {
         this.mContext = context;
         this.stringArrayList = stringArrayList;
-        // this.studentList = objects;
-        // this.datum = datum;
-        //prefsManager = new PrefsManager(context);
     }
 
     @Override
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_club_news, parent, false);
-        return new SimpleViewHolder(view);
+        return new SimpleViewHolder(view, mContext);
     }
 
     @Override
@@ -68,9 +64,22 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             viewHolder.tvLabelHaveJoined.setText("Have Joined");
         }*/
 
-        if(position>1){
+        if (position > 1) {
             viewHolder.ivReadStatus.setVisibility(View.INVISIBLE);
         }
+
+        viewHolder.flRemoveGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
+                stringArrayList.remove(position);
+                notifyItemRemoved(position);
+                notifyDataSetChanged();
+                notifyItemRangeChanged(position, stringArrayList.size());
+                mItemManger.closeAllItems();
+            }
+        });
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
 
@@ -113,20 +122,6 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
                 //when user's hand released.
             }
         });
-
-        viewHolder.flRemoveGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
-                stringArrayList.remove(position);
-                notifyItemRemoved(position);
-                notifyDataSetChanged();
-                notifyItemRangeChanged(position, stringArrayList.size());
-                mItemManger.closeAllItems();
-            }
-        });
-
 
       /*  viewHolder.lllinear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +170,6 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
 
         // mItemManger is member in RecyclerSwipeAdapter Class
         mItemManger.bindView(viewHolder.itemView, position);
-
     }
 
     @Override
@@ -189,46 +183,31 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
     }
 
     //  ViewHolder Class
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
+    public static class SimpleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         SwipeLayout swipeLayout;
         FrameLayout flRemoveGroup;
         ImageView ivReadStatus;
-       /* FrameLayout frameremove;
-        FrameLayout fmchat;
-        TextView tvRemove;
-        TextView tvEdit, tvTitle, tvdate, tvtime, tvDesplace, tvNumberOfRiders, tvLabelHaveJoined;
-        ImageButton btnLocation;
-        ImageView ivimage;
-        RelativeLayout rllayout;
-        LinearLayout lllinear;
-        ImageView ivMap;*/
+        RelativeLayout rlNewsGroup;
+        Context mContext;
 
-        public SimpleViewHolder(View itemView) {
+        public SimpleViewHolder(View itemView, Context context) {
             super(itemView);
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
 
             flRemoveGroup = (FrameLayout) itemView.findViewById(R.id.flRemoveGroup);
             ivReadStatus = (ImageView) itemView.findViewById(R.id.ivReadStatus);
+            rlNewsGroup = (RelativeLayout) itemView.findViewById(R.id.rlNewsGroup);
 
-           /* tvRemove = (TextView) itemView.findViewById(R.id.tvRemove);
-            frameremove = (FrameLayout) itemView.findViewById(R.id.frameremove);
-            btnLocation = (ImageButton) itemView.findViewById(R.id.btnLocation);
-            ivimage = (ImageView) itemView.findViewById(R.id.ivimage);
-            fmchat = (FrameLayout) itemView.findViewById(R.id.fmchat);
-            //  fmRoutereview=(FrameLayout)itemView.findViewById(R.id.fmRoutereview);
-            tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-            tvdate = (TextView) itemView.findViewById(R.id.tvdate);
-            tvtime = (TextView) itemView.findViewById(R.id.tvtime);
-            tvDesplace = (TextView) itemView.findViewById(R.id.tvDesplace);
-            tvNumberOfRiders = (TextView) itemView.findViewById(R.id.tvNumberOfRiders);
-            tvLabelHaveJoined = (TextView) itemView.findViewById(R.id.tvLabelHaveJoined);
-            rllayout = (RelativeLayout) itemView.findViewById(R.id.rllayout);
-            lllinear = (LinearLayout) itemView.findViewById(R.id.lllinear);
-            ivMap = (ImageView) itemView.findViewById(R.id.ivMap);*/
+            mContext = context;
 
+            rlNewsGroup.setOnClickListener(this);
+        }
 
+        @Override
+        public void onClick(View itemView) {
+            Intent detailNewsIntent = new Intent(mContext, ClubNewsDetailActivity.class);
+            mContext.startActivity(detailNewsIntent);
         }
     }
-
 }
 

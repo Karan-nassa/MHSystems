@@ -30,8 +30,8 @@ public class ClubNewsActivity extends BaseActivity {
     @Bind(R.id.llHomeIcon)
     LinearLayout llHomeIcon;
 
-    @Bind(R.id.lvClubNewsList)
-    RecyclerView lvClubNewsList;
+    @Bind(R.id.rvClubNewsList)
+    RecyclerView rvClubNewsList;
 
     // ClubNewsAdapter clubNewsAdapter;
     ClubNewsSwipeAdapter clubNewsSwipeAdapter;
@@ -51,18 +51,6 @@ public class ClubNewsActivity extends BaseActivity {
         }
     };
 
-    /**
-     * Declares the CLUB NEWS item click event here.
-     */
-    private AdapterView.OnItemClickListener mNewsItemListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            Intent detailNewsIntent = new Intent(ClubNewsActivity.this, ClubNewsDetailActivity.class);
-            startActivity(detailNewsIntent);
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,16 +59,13 @@ public class ClubNewsActivity extends BaseActivity {
         //Initialize view resources.
         ButterKnife.bind(this);
         // Layout Managers:
-        lvClubNewsList.setLayoutManager(new LinearLayoutManager(this));
+        rvClubNewsList.setLayoutManager(new LinearLayoutManager(this));
         // Item Decorator:
-        lvClubNewsList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
+        rvClubNewsList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
         // mRecyclerView.setItemAnimator(new FadeInLeftAnimator());
         setClubNewsAdapter();
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
-
-
-        // lvClubNewsList.setOnItemClickListener(mNewsItemListener);
     }
 
     /**
@@ -102,7 +87,8 @@ public class ClubNewsActivity extends BaseActivity {
         stringArrayList.add("1");
         stringArrayList.add("1");
 
+        //Set Adapter.
         clubNewsSwipeAdapter = new ClubNewsSwipeAdapter(ClubNewsActivity.this, stringArrayList);
-        lvClubNewsList.setAdapter(clubNewsSwipeAdapter);
+        rvClubNewsList.setAdapter(clubNewsSwipeAdapter);
     }
 }
