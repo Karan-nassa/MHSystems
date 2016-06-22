@@ -388,8 +388,8 @@ public class CompetitionsActivity extends BaseActivity {
         iScrollCount = 0;
 
         /*if (competitionsAdapter.compititionsDatas.size() > 0) {*/
-            competitionsAdapter.compititionsDatas.clear();
-            competitionsAdapter.notifyDataSetChanged();
+        competitionsAdapter.compititionsDatas.clear();
+        competitionsAdapter.notifyDataSetChanged();
         /*}*/
     }
 

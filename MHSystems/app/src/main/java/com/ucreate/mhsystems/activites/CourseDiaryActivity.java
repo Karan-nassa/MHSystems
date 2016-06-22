@@ -150,8 +150,6 @@ public class CourseDiaryActivity extends BaseActivity {
      **/
     public int iLessDays;
 
-    int iLastListCount = 0;
-
     /**
      * +++++ END OF SCROLL DOWN TO LOAD MORE FUNCTIONALITY +++++
      **/

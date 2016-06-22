@@ -2,6 +2,7 @@ package com.ucreate.mhsystems.util.API;
 
 import com.google.gson.JsonObject;
 import com.ucreate.mhsystems.models.AddMemberAPI;
+import com.ucreate.mhsystems.models.CompetitionResultAPI;
 import com.ucreate.mhsystems.models.CompetitionJoinAPI;
 import com.ucreate.mhsystems.models.CompetitionsAPI;
 import com.ucreate.mhsystems.models.CourseDiaryAPI;
@@ -12,8 +13,6 @@ import com.ucreate.mhsystems.models.HandicapAPI;
 import com.ucreate.mhsystems.models.MembersAPI;
 import com.ucreate.mhsystems.models.MembersDetailAPI;
 import com.ucreate.mhsystems.models.MyAccountAPI;
-
-import org.json.JSONObject;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -84,6 +83,18 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void joinCompetitionEvent(@Body CompetitionJoinAPI competitionJoinAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of RESULT OF COMPETITION event web service method.
+     * <p/>
+     * TYPE : POST
+     * <p/>
+     *
+     * @param competitionResultAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void resultOfCompetitionEvent(@Body CompetitionResultAPI competitionResultAPI, Callback<JsonObject> response);
 
     /**
      * Declaration of Members Detail screen web service method.

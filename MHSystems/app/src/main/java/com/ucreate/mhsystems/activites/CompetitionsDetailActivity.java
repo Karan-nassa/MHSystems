@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,15 +21,21 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
+import com.ucreate.mhsystems.models.AJsonParamsResultOfCompetition;
 import com.ucreate.mhsystems.models.AJsonParamsJoinCompetition;
 import com.ucreate.mhsystems.models.AddRequestResult;
+import com.ucreate.mhsystems.models.CompResultItems;
+import com.ucreate.mhsystems.models.CompetitionResultAPI;
 import com.ucreate.mhsystems.models.CompetitionJoinAPI;
+import com.ucreate.mhsystems.models.CompetitionsResultData;
+import com.ucreate.mhsystems.models.ResultEntry;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.util.ScrollRecycleView;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,6 +68,8 @@ public class CompetitionsDetailActivity extends BaseActivity {
     LinearLayout llPriceGroup;
     @Bind(R.id.tvEventStatusStrDD)
     TextView tvEventStatusStrDD;
+    @Bind(R.id.nsvContent)
+    NestedScrollView nsvContent;
 
 
     /* ++ TABLE RESULT RESOURCES ++ */
@@ -74,6 +83,13 @@ public class CompetitionsDetailActivity extends BaseActivity {
     //List of type books this list will store type Book which is our data model
     CompetitionJoinAPI competitionJoinAPI;
     AJsonParamsJoinCompetition aJsonParamsJoinCompetition;
+
+    //Create instance of Competitions detail API to display ROUND result.
+    CompetitionResultAPI competitionResultAPI;
+    AJsonParamsResultOfCompetition aJsonParamsResultOfCompetition;
+
+    CompResultItems compResultItems;
+    ArrayList<ResultEntry> resultEntryArrayList = new ArrayList<>();
 
     //Create instance of Model class for display result.
     AddRequestResult addRequestResult;
@@ -203,9 +219,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
             //Display Rank of Members.
             llRankOfMembers.setVisibility(View.VISIBLE);
 
-            competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionsDetailActivity.this);
-            lvListOfMembers.setAdapter(competitionDetailAdapter);
-            ScrollRecycleView.getListViewSize(lvListOfMembers);
+            callResultOfCompetitionWebService();
         }
 
         setFontTypeFace();
@@ -246,10 +260,10 @@ public class CompetitionsDetailActivity extends BaseActivity {
                     }*/
 
         //Defining the method
-        Log.e("getClientId():", "" + getClientId());
+        /*Log.e("getClientId():", "" + getClientId());
         Log.e("aJsonParamsJoin:", "" + aJsonParamsJoinCompetition.toString());
         Log.e("GCLUB_WEBSERVICES:", "" + ApplicationGlobal.TAG_GCLUB_WEBSERVICES);
-        Log.e("GCLUB_MEMBERS:", "" + ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        Log.e("GCLUB_MEMBERS:", "" + ApplicationGlobal.TAG_GCLUB_MEMBERS);*/
 
         api.joinCompetitionEventGet(getClientId(), "ADDMEMBERTOEVENT", "{version :" + ApplicationGlobal.TAG_GCLUB_VERSION + ",callid:" + ApplicationGlobal.TAG_GCLUB_CALL_ID + ",MemberId:" + getMemberId() + ",EventId:" + strEventId + "}", ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS, new Callback<JsonObject>() {
             @Override
@@ -339,5 +353,103 @@ public class CompetitionsDetailActivity extends BaseActivity {
         tvFeeCourseEvent.setTypeface(tpRobotoMedium);
 
         tvTitleTableResult.setTypeface(tfSFUITextSemibold);
+    }
+
+    /**
+     * Implements a method to JOIN competitions web service if
+     * user not already JOINED.
+     */
+    private void callResultOfCompetitionWebService() {
+
+        String strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
+
+        showPleaseWait("Please wait...");
+
+        aJsonParamsResultOfCompetition = new AJsonParamsResultOfCompetition();
+        aJsonParamsResultOfCompetition.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsResultOfCompetition.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsResultOfCompetition.setMemberId(getMemberId());
+        aJsonParamsResultOfCompetition.setEventId(/*strEventId*/"32");
+
+        competitionResultAPI = new CompetitionResultAPI(getClientId(), "GETCLUBEVENT", aJsonParamsResultOfCompetition, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.resultOfCompetitionEvent(competitionResultAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                resultOfCompetitionSuccess(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                showAlertMessage("" + error);
+            }
+        });
+
+    }
+
+    /**
+     * Implements a method to update SUCCESS of Competitions Round Result
+     * response of web service.
+     */
+    private void resultOfCompetitionSuccess(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<CompResultItems>() {
+        }.getType();
+        compResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        //Clear array list before inserting items.
+        resultEntryArrayList.clear();
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (compResultItems.getMessage().equalsIgnoreCase("Success")) {
+
+                resultEntryArrayList.addAll(compResultItems.getData().get(0).getResultEntries());
+
+                if (resultEntryArrayList.size() > 0) {
+
+                    competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionsDetailActivity.this, resultEntryArrayList);
+                    lvListOfMembers.setAdapter(competitionDetailAdapter);
+                    ScrollRecycleView.getListViewSize(lvListOfMembers);
+
+                    //Forcefully scroll UP of screen after loading.
+                    nsvContent.post(new Runnable() {
+                        public void run() {
+                            nsvContent.fullScroll(View.FOCUS_UP);
+                        }
+                    });
+                } else {
+                    //If web service having empty data.
+                    showAlertMessage(compResultItems.getMessage());
+                }
+
+            } else {
+                //If web service not respond in any case.
+                showAlertMessage(compResultItems.getMessage());
+            }
+
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+        hideProgress();
     }
 }

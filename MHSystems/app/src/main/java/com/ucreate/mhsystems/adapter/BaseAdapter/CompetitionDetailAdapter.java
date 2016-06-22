@@ -8,26 +8,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
+import com.ucreate.mhsystems.models.ResultEntry;
+
+import java.util.ArrayList;
 
 /**
- * Created by karan@ucreate.co.in on 6/10/2016.
+ * Created by karan@ucreate.co.in to display Competitions Round result
+ * on 6/10/2016.
  */
 public class CompetitionDetailAdapter extends BaseAdapter {
 
     LayoutInflater inflater = null;
     Context context;
+    ArrayList<ResultEntry> resultEntryArrayList;
 
-    public CompetitionDetailAdapter(Activity activity) {
+    public CompetitionDetailAdapter(Activity activity, ArrayList<ResultEntry> resultEntryArrayList) {
         context = activity;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.resultEntryArrayList = resultEntryArrayList;
     }
 
     @Override
     public int getCount() {
-        return 9;
+        return resultEntryArrayList.size();
     }
 
     @Override
@@ -48,16 +55,27 @@ public class CompetitionDetailAdapter extends BaseAdapter {
         rowView = inflater.inflate(R.layout.list_item_competition_detail, parent, false);
         rowViewInstance.llRankGroupRow = (LinearLayout) rowView.findViewById(R.id.llRankGroupRow);
 
-        if(position%2 == 0){
+        rowViewInstance.tvPosOfMember = (TextView) rowView.findViewById(R.id.tvPosOfMember);
+        rowViewInstance.tvNameOfMember = (TextView) rowView.findViewById(R.id.tvNameOfMember);
+        rowViewInstance.tvScoreOfMember = (TextView) rowView.findViewById(R.id.tvScoreOfMember);
+        rowViewInstance.tvTotalScoreOfMember = (TextView) rowView.findViewById(R.id.tvTotalScoreOfMember);
+
+        if (position % 2 == 0) {
             rowViewInstance.llRankGroupRow.setBackgroundColor(ContextCompat.getColor(context, R.color.colorF1F1F0));
-        }else{
+        } else {
             rowViewInstance.llRankGroupRow.setBackgroundColor(ContextCompat.getColor(context, R.color.colorF9F8F7));
         }
+
+        rowViewInstance.tvPosOfMember.setText(resultEntryArrayList.get(position).getPlaceStr());
+        rowViewInstance.tvNameOfMember.setText(resultEntryArrayList.get(position).getShortName());
+        rowViewInstance.tvScoreOfMember.setText(resultEntryArrayList.get(position).getScoreSummary());
+        rowViewInstance.tvTotalScoreOfMember.setText(resultEntryArrayList.get(position).getScoreSummary());
 
         return rowView;
     }
 
-    class RowView{
+    class RowView {
         LinearLayout llRankGroupRow;
+        TextView tvPosOfMember, tvNameOfMember, tvScoreOfMember, tvTotalScoreOfMember;
     }
 }

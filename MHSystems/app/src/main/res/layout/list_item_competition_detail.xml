@@ -7,11 +7,12 @@
     <LinearLayout
         android:id="@+id/llRankGroupRow"
         android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_height="40dp">
+        android:paddingRight="20dp">
 
         <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:id="@+id/tvPosOfMember"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -22,6 +23,7 @@
             android:textSize="15sp" />
 
         <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:id="@+id/tvNameOfMember"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -32,6 +34,7 @@
             android:textSize="15sp" />
 
         <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:id="@+id/tvScoreOfMember"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -42,6 +45,7 @@
             android:textSize="15sp" />
 
         <com.ucreate.mhsystems.customfonts.RobotoTextView
+            android:id="@+id/tvTotalScoreOfMember"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"

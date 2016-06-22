@@ -3,35 +3,26 @@ package com.ucreate.mhsystems.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
-import com.ucreate.mhsystems.activites.CompetitionsActivity;
 import com.ucreate.mhsystems.activites.MyAccountActivity;
-import com.ucreate.mhsystems.adapter.BaseAdapter.CompetitionsAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.models.AJsonParamsMembersDatail;
 import com.ucreate.mhsystems.models.MembersDetailAPI;
 import com.ucreate.mhsystems.models.MembersDetailsItems;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
-import com.ucreate.mhsystems.models.CompetitionsAPI;
-import com.ucreate.mhsystems.models.CompetitionsData;
-import com.ucreate.mhsystems.models.CompetitionsJsonParams;
-import com.ucreate.mhsystems.models.CompetitionsResultItems;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
