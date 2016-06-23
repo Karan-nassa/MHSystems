@@ -79,8 +79,8 @@ public class CompetitionsActivity extends BaseActivity {
     @Bind(R.id.tvCompType)
     TextView tvCompType;
 
-    @Bind(R.id.llMonthTitle)
-    LinearLayout llMonthTitle;
+    @Bind(R.id.llCompCategory)
+    LinearLayout llCompCategory;
 
     @Bind(R.id.lvCompetitions)
     ListView lvCompetitions;
@@ -232,26 +232,20 @@ public class CompetitionsActivity extends BaseActivity {
         //Get total number of days of selected month.
         iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        initCompetitionsCategory();
         createDateForData();
         //callCompetitionsWebService();
 
-        //Load Default fragment of COURSE DIARY.
-        //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_NOTHING));
+        initCompetitionsCategory();
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
 
-        //When user want to Select date from CALENDAR.
-        //llMonthTitleComp.setOnClickListener(mCalendarListener);
-
-        llMonthTitle.setOnClickListener(new View.OnClickListener() {
+        llCompCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupMenu.show();
             }
         });
-
         popupMenu.setOnMenuItemClickListener(mCompetitionsTypeLitener);
     }
 
@@ -412,7 +406,7 @@ public class CompetitionsActivity extends BaseActivity {
         /**
          * Step 1: Create a new instance of popup menu
          */
-        popupMenu = new PopupMenu(this, tvNameOfMonthComp);
+        popupMenu = new PopupMenu(this, tvCompType);
         /**
          * Step 2: Inflate the menu resource. Here the menu resource is
          * defined in the res/menu project folder

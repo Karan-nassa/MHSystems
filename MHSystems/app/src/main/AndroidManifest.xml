@@ -99,7 +99,6 @@
         <activity
             android:name=".activites.ClubNewsDetailActivity"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>

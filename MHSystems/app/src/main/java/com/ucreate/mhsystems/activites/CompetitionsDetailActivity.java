@@ -307,14 +307,6 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
                 //Set Member JOIN event programmatically so that user cannot apply for JOIN again.
                 IsMemberJoined = true;
-
-
-               /* //Display Rank of Members.
-                llRankOfMembers.setVisibility(View.VISIBLE);
-
-                competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionsDetailActivity.this);
-                lvListOfMembers.setAdapter(competitionDetailAdapter);
-                ScrollRecycleView.getListViewSize(lvListOfMembers);*/
             } else {
                 //If web service not respond in any case.
                 showAlertMessage(addRequestResult.getMessage());
@@ -371,7 +363,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
         aJsonParamsResultOfCompetition.setMemberId(getMemberId());
         aJsonParamsResultOfCompetition.setEventId(/*strEventId*/"32");
 
-        competitionResultAPI = new CompetitionResultAPI(getClientId(), "GETCLUBEVENT", aJsonParamsResultOfCompetition, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        competitionResultAPI = new CompetitionResultAPI(getClientId(), "GETCLUBEVENTRESULTS", aJsonParamsResultOfCompetition, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()

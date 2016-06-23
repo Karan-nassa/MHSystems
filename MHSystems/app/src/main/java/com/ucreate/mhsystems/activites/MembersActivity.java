@@ -112,7 +112,6 @@ public class MembersActivity extends BaseActivity {
                 public boolean onMenuItemClick(MenuItem item) {
 
                     tvMemberType.setText(item.getTitle());
-                   /* if (getFragmentInstance() instanceof MembersFragment) {*/
                     switch (item.getItemId()) {
                         case R.id.item_all:
                             updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
@@ -142,10 +141,6 @@ public class MembersActivity extends BaseActivity {
                             updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_ADDED_ME));
                             break;
                     }
-                       /* }
-                    }else if(getFragmentInstance() instanceof FriendsFragment){
-
-                    }*/
                     return true;
                 }
             };
