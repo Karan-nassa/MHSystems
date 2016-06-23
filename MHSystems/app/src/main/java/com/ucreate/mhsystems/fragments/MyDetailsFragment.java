@@ -180,7 +180,7 @@ public class MyDetailsFragment extends Fragment {
              */
             if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
 
-                //  membersDatas.add(membersItems.getData());
+                //  membersDatas.add(membersItems.getCompResultData());
 
                 if (membersDetailItems.getData() != null) {
                     ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
@@ -235,12 +235,12 @@ public class MyDetailsFragment extends Fragment {
         strUsernameOfPerson = membersDetailItems.getData().getUserLoginID();
         strNameOfPerson = membersDetailItems.getData().getNameRecord().getFormalName();
         strMobileContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoMob();
-        /*strPostalCodeOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getPostCode();*/
+        /*strPostalCodeOfPerson = membersDetailItems.getCompResultData().getContactDetails().getAddress().getPostCode();*/
         strStreetOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getLine2();
-      /*  strCityOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getCounty();*/
+      /*  strCityOfPerson = membersDetailItems.getCompResultData().getContactDetails().getAddress().getCounty();*/
         strEmailOfPerson = membersDetailItems.getData().getContactDetails().getEMail();
-       /* strWorkContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoWork();
-        strPhoneContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoHome();*/
+       /* strWorkContactOfPerson = membersDetailItems.getCompResultData().getContactDetails().getTelNoWork();
+        strPhoneContactOfPerson = membersDetailItems.getCompResultData().getContactDetails().getTelNoHome();*/
         strTypeOfPerson = membersDetailItems.getData().getMembershipStatus();
 
         //Store values to array.

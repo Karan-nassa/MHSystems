@@ -7,17 +7,17 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class CompetitionsResultData {
+public class Result {
 
     @SerializedName("ResultID")
     @Expose
     private Integer ResultID;
-    @SerializedName("IsPrimaryResult")
+    @SerializedName("Description")
     @Expose
-    private Boolean IsPrimaryResult;
+    private String Description;
     @SerializedName("ResultEntries")
     @Expose
-    private ArrayList<ResultEntry> ResultEntries = new ArrayList<ResultEntry>();
+    private List<ResultEntries> ResultEntries = new ArrayList<ResultEntries>();
 
     /**
      * 
@@ -40,19 +40,19 @@ public class CompetitionsResultData {
     /**
      * 
      * @return
-     *     The IsPrimaryResult
+     *     The Description
      */
-    public Boolean getIsPrimaryResult() {
-        return IsPrimaryResult;
+    public String getDescription() {
+        return Description;
     }
 
     /**
      * 
-     * @param isPrimaryResult
-     *     The IsPrimaryResult
+     * @param Description
+     *     The Description
      */
-    public void setIsPrimaryResult(Boolean IsPrimaryResult) {
-        this.IsPrimaryResult = IsPrimaryResult;
+    public void setDescription(String Description) {
+        this.Description = Description;
     }
 
     /**
@@ -60,7 +60,7 @@ public class CompetitionsResultData {
      * @return
      *     The ResultEntries
      */
-    public ArrayList<ResultEntry> getResultEntries() {
+    public List<ResultEntries> getResultEntries() {
         return ResultEntries;
     }
 
@@ -69,7 +69,7 @@ public class CompetitionsResultData {
      * @param ResultEntries
      *     The ResultEntries
      */
-    public void setResultEntries(ArrayList<ResultEntry> ResultEntries) {
+    public void setResultEntries(List<ResultEntries> ResultEntries) {
         this.ResultEntries = ResultEntries;
     }
 

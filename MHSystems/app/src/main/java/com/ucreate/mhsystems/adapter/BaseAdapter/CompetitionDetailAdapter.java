@@ -3,6 +3,7 @@ package com.ucreate.mhsystems.adapter.BaseAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ucreate.mhsystems.R;
-import com.ucreate.mhsystems.models.ResultEntry;
+import com.ucreate.mhsystems.models.ResultEntries;
 
 import java.util.ArrayList;
 
@@ -23,9 +24,9 @@ public class CompetitionDetailAdapter extends BaseAdapter {
 
     LayoutInflater inflater = null;
     Context context;
-    ArrayList<ResultEntry> resultEntryArrayList;
+    ArrayList<ResultEntries> resultEntryArrayList;
 
-    public CompetitionDetailAdapter(Activity activity, ArrayList<ResultEntry> resultEntryArrayList) {
+    public CompetitionDetailAdapter(Activity activity, ArrayList<ResultEntries> resultEntryArrayList) {
         context = activity;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -60,15 +61,21 @@ public class CompetitionDetailAdapter extends BaseAdapter {
         rowViewInstance.tvScoreOfMember = (TextView) rowView.findViewById(R.id.tvScoreOfMember);
         rowViewInstance.tvTotalScoreOfMember = (TextView) rowView.findViewById(R.id.tvTotalScoreOfMember);
 
+        rowViewInstance.vSpaceView = (View) rowView.findViewById(R.id.vSpaceView);
+
         if (position % 2 == 0) {
             rowViewInstance.llRankGroupRow.setBackgroundColor(ContextCompat.getColor(context, R.color.colorF1F1F0));
         } else {
             rowViewInstance.llRankGroupRow.setBackgroundColor(ContextCompat.getColor(context, R.color.colorF9F8F7));
         }
 
+        if(position == (resultEntryArrayList.size()-1)){
+            rowViewInstance.vSpaceView.setVisibility(View.VISIBLE);
+        }
+
         rowViewInstance.tvPosOfMember.setText(resultEntryArrayList.get(position).getPlaceStr());
-        rowViewInstance.tvNameOfMember.setText(resultEntryArrayList.get(position).getShortName());
-        rowViewInstance.tvScoreOfMember.setText(resultEntryArrayList.get(position).getScoreSummary());
+        rowViewInstance.tvNameOfMember.setText(resultEntryArrayList.get(position).getEntryName());
+        rowViewInstance.tvScoreOfMember.setText(resultEntryArrayList.get(position).getExactHCap());
         rowViewInstance.tvTotalScoreOfMember.setText(resultEntryArrayList.get(position).getScoreSummary());
 
         return rowView;
@@ -77,5 +84,6 @@ public class CompetitionDetailAdapter extends BaseAdapter {
     class RowView {
         LinearLayout llRankGroupRow;
         TextView tvPosOfMember, tvNameOfMember, tvScoreOfMember, tvTotalScoreOfMember;
+        View vSpaceView;
     }
 }

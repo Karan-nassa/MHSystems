@@ -447,7 +447,7 @@ public class MemberDetailActivity extends BaseActivity {
             if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
 
 //                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                builder.setMessage(removeFriendItems.getData())
+//                builder.setMessage(removeFriendItems.getCompResultData())
 //                        .setCancelable(false)
 //                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 //                            public void onClick(DialogInterface dialog, int id) {
@@ -488,7 +488,7 @@ public class MemberDetailActivity extends BaseActivity {
              */
             if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
 
-                //  membersDatas.add(membersItems.getData());
+                //  membersDatas.add(membersItems.getCompResultData());
 
                 if (membersDetailItems.getData() != null) {
 

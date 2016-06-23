@@ -14,7 +14,7 @@ public class FriendsItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("CompResultData")
     @Expose
     private List<FriendsData> Data = new ArrayList<FriendsData>();
 
@@ -57,7 +57,7 @@ public class FriendsItems {
     /**
      * 
      * @return
-     *     The Data
+     *     The CompResultData
      */
     public List<FriendsData> getData() {
         return Data;
@@ -66,7 +66,7 @@ public class FriendsItems {
     /**
      * 
      * @param Data
-     *     The Data
+     *     The CompResultData
      */
     public void setData(List<FriendsData> Data) {
         this.Data = Data;

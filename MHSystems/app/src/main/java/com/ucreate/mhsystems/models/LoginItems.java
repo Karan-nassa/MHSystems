@@ -14,7 +14,7 @@ public class LoginItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("CompResultData")
     @Expose
     private LoginData Data;
 
@@ -57,7 +57,7 @@ public class LoginItems {
     /**
      * 
      * @return
-     *     The Data
+     *     The CompResultData
      */
     public LoginData getData() {
         return Data;
@@ -66,7 +66,7 @@ public class LoginItems {
     /**
      * 
      * @param Data
-     *     The Data
+     *     The CompResultData
      */
     public void setData(LoginData Data) {
         this.Data = Data;

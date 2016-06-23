@@ -1,13 +1,12 @@
 
 package com.ucreate.mhsystems.models;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class CompResultItems {
+public class CompetitionDetailItems {
 
     @SerializedName("Message")
     @Expose
@@ -17,7 +16,7 @@ public class CompResultItems {
     private Integer Result;
     @SerializedName("Data")
     @Expose
-    private List<CompetitionsResultData> Data = new ArrayList<CompetitionsResultData>();
+    private CompResultData Data;
 
     /**
      * 
@@ -33,7 +32,7 @@ public class CompResultItems {
      * @param Message
      *     The Message
      */
-    public void setMessage(String Message) {
+    public void setMessage(String message) {
         this.Message = Message;
     }
 
@@ -51,7 +50,7 @@ public class CompResultItems {
      * @param Result
      *     The Result
      */
-    public void setResult(Integer Result) {
+    public void setResult(Integer result) {
         this.Result = Result;
     }
 
@@ -60,7 +59,7 @@ public class CompResultItems {
      * @return
      *     The Data
      */
-    public List<CompetitionsResultData> getData() {
+    public CompResultData getCompResultData() {
         return Data;
     }
 
@@ -69,7 +68,7 @@ public class CompResultItems {
      * @param Data
      *     The Data
      */
-    public void setData(List<CompetitionsResultData> Data) {
+    public void setCompResultData(CompResultData Data) {
         this.Data = Data;
     }
 

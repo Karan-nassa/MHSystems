@@ -79,7 +79,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      */
     private int mYearIndex;
 
-    private String TAG_DATA = "Data";
+    private String TAG_DATA = "CompResultData";
     private String TAG_HCAP_RECORDS = "HCapRecords";
     private String TAG_DATE_PLAYED_STR = "DatePlayedStr";
     private String TAG_COMPETITION_OR_REASON = "CompetitionOrReason";
@@ -150,7 +150,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
                 setNavigationIcons();
 
-                //setData(10, handicapData.get(0).getHCapRecords());
+                //setCompResultData(10, handicapData.get(0).getHCapRecords());
                 refreshGraph();
             }
         }
@@ -345,7 +345,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
                     setNavigationIcons();
 
-                    //setData(10, handicapData.get(0).getHCapRecords());
+                    //setCompResultData(10, handicapData.get(0).getHCapRecords());
                     refreshGraph();
 
                     //Log.e(LOG_TAG, "arrayListCourseData : " + hCapRecordsList.size());

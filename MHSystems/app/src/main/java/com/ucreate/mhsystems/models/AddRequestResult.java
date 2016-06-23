@@ -14,7 +14,7 @@ public class AddRequestResult {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("CompResultData")
     @Expose
     private String Data;
 
@@ -57,7 +57,7 @@ public class AddRequestResult {
     /**
      * 
      * @return
-     *     The Data
+     *     The CompResultData
      */
     public String getData() {
         return Data;
@@ -66,7 +66,7 @@ public class AddRequestResult {
     /**
      * 
      * @param Data
-     *     The Data
+     *     The CompResultData
      */
     public void setData(String Data) {
         this.Data = Data;

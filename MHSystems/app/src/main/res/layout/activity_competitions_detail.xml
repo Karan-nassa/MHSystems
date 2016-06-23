@@ -236,7 +236,7 @@
                     android:paddingLeft="4dp"
                     android:src="@mipmap/ic_description" />
 
-                <!-- DESCRIPTION OF COURSY EVENTS -->
+                <!-- DESCRIPTION OF COMPETITION EVENTS -->
 
                 <com.ucreate.mhsystems.customfonts.RobotoTextView
                     android:id="@+id/tvDescCourseEvent"
@@ -307,27 +307,31 @@
                 </LinearLayout>
 
                 <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    android:id="@+id/tvResultDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="15dp"
-                    android:text="Round 1"
                     android:textColor="@color/colorC0995B"
                     android:textSize="17sp" />
+
+                <!-- VIEW GROUP FOR RESULT TITLE -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
                     <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_weight="1"
+                        android:layout_weight="15"
                         android:gravity="center_vertical"
                         android:text="Pos"
                         android:textColor="@color/color1E1E1C"
@@ -337,7 +341,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_weight="2"
+                        android:layout_weight="50"
                         android:gravity="center_vertical"
                         android:text="Player"
                         android:textColor="@color/color1E1E1C"
@@ -346,8 +350,7 @@
                     <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.2"
+                        android:layout_weight="20"
                         android:gravity="center"
                         android:text="Handicap"
                         android:textColor="@color/color1E1E1C"
@@ -356,22 +359,41 @@
                     <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
+                        android:layout_weight="15"
                         android:gravity="end"
                         android:text="Total"
                         android:textColor="@color/color1E1E1C"
                         android:textSize="15sp" />
                 </LinearLayout>
 
-                <!-- RANK LIST -->
+                <!-- RANK LIST and 'NO DATA FOUND' VIEW GROUP -->
 
-                <ListView
-                    android:id="@+id/lvListOfMembers"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp" />
+                    android:layout_height="wrap_content">
+
+                    <!-- RANK LIST -->
+
+                    <ListView
+                        android:id="@+id/lvListOfMembers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" />
+
+                    <!-- NO DATA FOUND -->
+
+                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvNoDataView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:text="@string/error_no_data_found"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                </FrameLayout>
 
                 <!--   <LinearLayout
                        android:id="@+id/llRankGroupRow"
@@ -422,12 +444,8 @@
                            android:textSize="15sp" />
                    </LinearLayout>-->
             </LinearLayout>
-
-            <!--<View
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />-->
-
         </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
     <!-- JOIN COMPETITIONS FLOATING ACTION BUTTON -->

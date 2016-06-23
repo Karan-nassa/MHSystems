@@ -552,7 +552,7 @@ public class CourseDiaryActivity extends BaseActivity {
              */
             if (courseDiaryItems.getMessage().equalsIgnoreCase("Success")) {
 
-                // arrayListCourseData.addAll(courseDiaryItems.getData());
+                // arrayListCourseData.addAll(courseDiaryItems.getCompResultData());
                 //Take backup of List before changing to record.
                 arrayCourseDataBackup.addAll(courseDiaryItemsCopy.getData());
 

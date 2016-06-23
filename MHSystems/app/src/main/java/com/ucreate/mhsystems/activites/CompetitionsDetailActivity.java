@@ -24,11 +24,11 @@ import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.models.AJsonParamsResultOfCompetition;
 import com.ucreate.mhsystems.models.AJsonParamsJoinCompetition;
 import com.ucreate.mhsystems.models.AddRequestResult;
-import com.ucreate.mhsystems.models.CompResultItems;
+import com.ucreate.mhsystems.models.CompetitionDetailItems;
 import com.ucreate.mhsystems.models.CompetitionResultAPI;
 import com.ucreate.mhsystems.models.CompetitionJoinAPI;
-import com.ucreate.mhsystems.models.CompetitionsResultData;
-import com.ucreate.mhsystems.models.ResultEntry;
+import com.ucreate.mhsystems.models.CompetitionsResultItems;
+import com.ucreate.mhsystems.models.ResultEntries;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.util.ScrollRecycleView;
 
@@ -70,6 +70,10 @@ public class CompetitionsDetailActivity extends BaseActivity {
     TextView tvEventStatusStrDD;
     @Bind(R.id.nsvContent)
     NestedScrollView nsvContent;
+    @Bind(R.id.tvResultDesc)
+    TextView tvResultDesc;
+    @Bind(R.id.tvNoDataView)
+    TextView tvNoDataView;
 
 
     /* ++ TABLE RESULT RESOURCES ++ */
@@ -88,8 +92,8 @@ public class CompetitionsDetailActivity extends BaseActivity {
     CompetitionResultAPI competitionResultAPI;
     AJsonParamsResultOfCompetition aJsonParamsResultOfCompetition;
 
-    CompResultItems compResultItems;
-    ArrayList<ResultEntry> resultEntryArrayList = new ArrayList<>();
+    CompetitionDetailItems competitionDetailItems;
+    ArrayList<ResultEntries> resultEntryArrayList = new ArrayList<>();
 
     //Create instance of Model class for display result.
     AddRequestResult addRequestResult;
@@ -361,7 +365,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
         aJsonParamsResultOfCompetition.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsResultOfCompetition.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsResultOfCompetition.setMemberId(getMemberId());
-        aJsonParamsResultOfCompetition.setEventId(/*strEventId*/"32");
+        aJsonParamsResultOfCompetition.setEventId(strEventId);
 
         competitionResultAPI = new CompetitionResultAPI(getClientId(), "GETCLUBEVENTRESULTS", aJsonParamsResultOfCompetition, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
@@ -401,9 +405,9 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
-        Type type = new TypeToken<CompResultItems>() {
+        Type type = new TypeToken<CompetitionDetailItems>() {
         }.getType();
-        compResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        competitionDetailItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         //Clear array list before inserting items.
         resultEntryArrayList.clear();
@@ -412,11 +416,15 @@ public class CompetitionsDetailActivity extends BaseActivity {
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
-            if (compResultItems.getMessage().equalsIgnoreCase("Success")) {
+            if (competitionDetailItems.getMessage().equalsIgnoreCase("Success")) {
 
-                resultEntryArrayList.addAll(compResultItems.getData().get(0).getResultEntries());
+                resultEntryArrayList.addAll(competitionDetailItems.getCompResultData().getResults().get(0).getResultEntries());
 
                 if (resultEntryArrayList.size() > 0) {
+
+                    tvNoDataView.setVisibility(View.INVISIBLE);
+
+                    tvResultDesc.setText(competitionDetailItems.getCompResultData().getResults().get(0).getDescription());
 
                     competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionsDetailActivity.this, resultEntryArrayList);
                     lvListOfMembers.setAdapter(competitionDetailAdapter);
@@ -429,13 +437,12 @@ public class CompetitionsDetailActivity extends BaseActivity {
                         }
                     });
                 } else {
-                    //If web service having empty data.
-                    showAlertMessage(compResultItems.getMessage());
+                    tvNoDataView.setVisibility(View.VISIBLE);
                 }
 
             } else {
                 //If web service not respond in any case.
-                showAlertMessage(compResultItems.getMessage());
+                showAlertMessage(competitionDetailItems.getMessage());
             }
 
         } catch (Exception e) {
