@@ -99,6 +99,8 @@
         <activity
             android:name=".activites.ClubNewsDetailActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activites.SettingsActivity" />
+        <activity android:name=".activites.ResetPasswordActivity"></activity>
     </application>
 
 </manifest>

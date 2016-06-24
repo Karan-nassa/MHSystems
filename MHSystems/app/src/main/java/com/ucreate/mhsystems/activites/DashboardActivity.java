@@ -12,10 +12,23 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.adapter.BaseAdapter.DashboardGridAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * The {@link DashboardActivity} used to display {@link GridView}, Settings and
+ * Logout option. Basically, it will be use as the main screen of application
+ * after Login.
+ *
+ * @author {@link karan@ucreate.co.in}
+ * @version 1.0
+ */
 public class DashboardActivity extends BaseActivity {
+
+    /*********************************
+     * INSTANCES OF CLASSES
+     *******************************/
 
     @Bind(R.id.gvMenuOptions)
     GridView gvMenuOptions;
@@ -23,13 +36,21 @@ public class DashboardActivity extends BaseActivity {
     @Bind(R.id.llLogoutBtn)
     LinearLayout llLogoutBtn;
 
+    @Bind(R.id.llSettings)
+    LinearLayout llSettings;
+
     //Instance of Grid Adapter.
     DashboardGridAdapter mDashboardGridAdapter;
     Intent intent = null;
 
     TypedArray gridIcons;
-    String gridTitles[];
     TypedArray gridBackground;
+
+    /*********************************
+     * INSTANCES OF LOCAL DATA TYPE
+     *******************************/
+
+    String gridTitles[];
 
     /**
      * Set click event listener of Grid Menu Options to
@@ -109,6 +130,15 @@ public class DashboardActivity extends BaseActivity {
 
         //LogOut listener.
         llLogoutBtn.setOnClickListener(mLogoutListener);
+
+        //Settings click event handle here.
+        llSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(DashboardActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**

@@ -13,6 +13,7 @@ import com.ucreate.mhsystems.models.HandicapAPI;
 import com.ucreate.mhsystems.models.MembersAPI;
 import com.ucreate.mhsystems.models.MembersDetailAPI;
 import com.ucreate.mhsystems.models.MyAccountAPI;
+import com.ucreate.mhsystems.models.ResetPassword.ResetPasswordAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -170,6 +171,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void removeFriend(@Body RemoveFriendAPI removeFriendAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Reset Password web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param resetPasswordAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void resetPassword(@Body ResetPasswordAPI resetPasswordAPI, Callback<JsonObject> response);
 
 }
 

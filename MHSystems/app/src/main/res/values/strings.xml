@@ -125,6 +125,16 @@
 \n\nAlways remember that “whole health” deals with mind, body, and spirit, as they are interconnected. If these three components are healthy, you are in good shape at any age.</string>
     <!-- END OF CLUB NEWS DETAIL ACTIVITY -->
 
+    <!-- ACCOUNT/SETTINGS SCREEN -->
+    <string name="text_title_settings">Settings</string>
+    <string name="text_title_reset_pwd">Reset Password</string>
+    <string name="edit_title_current_pwd">Current password</string>
+    <string name="edit_title_new_pwd">New password</string>
+    <string name="edit_title_confirm_pwd">New password confirm</string>
+    <string name="button_reset_pwd">Reset password</string>
+    <string name="error_incorrect_current_pwd">Incorrect current password</string>
+    <string name="error_pwd_no_match">New passwords did not match</string>
+
     <!-- START OF MY DETAIL FRAGMENT -->
 
     <!-- HEADING TITLE -->

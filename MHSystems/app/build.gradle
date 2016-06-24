@@ -90,4 +90,7 @@ dependencies {
 
     //3rd party SwipeView.
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
+
+    //Awesome validation library for form-fields.
+    compile 'com.basgeekball:awesome-validation:1.3'
 }
