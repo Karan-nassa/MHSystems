@@ -1,14 +1,19 @@
 package com.ucreate.mhsystems.activites;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.common.collect.Range;
@@ -61,10 +66,47 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
     AJsonParamsResetPwd aJsonParamsResetPwd;
     ResetPasswordItems resetPasswordItems;
 
+    Typeface tfRobotoRegular, tfRobotoMedium;
+
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     String strNewPassword = "", strConfirmPassword = "", strCurrentPassword = "";
+
+    private TextWatcher mTextChangeListener = new TextWatcher() {
+
+        public void afterTextChanged(Editable s) {
+        }
+
+        public void beforeTextChanged(CharSequence s, int start,
+                                      int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start,
+                                  int before, int count) {
+
+            if (etNewPassword.getText().toString().length() == 0 || etConfirmPassword.getText().toString().length() == 0 || etCurrentPassword.getText().toString().length() == 0) {
+                btResetPassword.setEnabled(false);
+                btResetPassword.setBackground(ContextCompat.getDrawable(ResetPasswordActivity.this, R.drawable.background_button_e8dcc9));
+            } else {
+                btResetPassword.setEnabled(true);
+                btResetPassword.setBackground(ContextCompat.getDrawable(ResetPasswordActivity.this, R.drawable.button_login_shape_c0995b));
+            }
+        }
+    };
+
+    /**
+     * Implements a method to RESET/UPDATE button UI.
+     */
+    private void updateResetButtonUI() {
+        if (etNewPassword.getText().toString().length() == 0 || etConfirmPassword.getText().toString().length() == 0 || etCurrentPassword.getText().toString().length() == 0) {
+            btResetPassword.setEnabled(false);
+            btResetPassword.setBackground(ContextCompat.getDrawable(ResetPasswordActivity.this, R.drawable.background_button_e8dcc9));
+        } else {
+            btResetPassword.setEnabled(true);
+            btResetPassword.setBackground(ContextCompat.getDrawable(ResetPasswordActivity.this, R.drawable.button_login_shape_c0995b));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +118,21 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
         // Step 1: designate a style
         mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
         mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
-        mAwesomeValidation.addValidation(ResetPasswordActivity.this, R.id.etConfirmPassword, Range.closed(strNewPassword, strConfirmPassword), R.string.error_pwd_no_match);
+        mAwesomeValidation.addValidation(this, R.id.etConfirmPassword, Range.closed(strNewPassword, strConfirmPassword), R.string.error_pwd_no_match);
 
         setSupportActionBar(tbResetPassword);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.text_title_reset_pwd));
+
+        btResetPassword.setEnabled(false);
+
+        //Set Custom font style.
+        setFontTypeFace();
+
+        etCurrentPassword.addTextChangedListener(mTextChangeListener);
+        etNewPassword.addTextChangedListener(mTextChangeListener);
+        etConfirmPassword.addTextChangedListener(mTextChangeListener);
 
         //Set Click listener event.
         btResetPassword.setOnClickListener(this);
@@ -243,4 +294,19 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
         mAwesomeValidation.clear();
     }
 
+
+    /**
+     * Implements a method to set FONT style using .ttf by putting
+     * in main\assets\fonts directory of current project.
+     */
+    private void setFontTypeFace() {
+        tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
+        tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+
+        etNewPassword.setTypeface(tfRobotoRegular);
+        etConfirmPassword.setTypeface(tfRobotoRegular);
+        etCurrentPassword.setTypeface(tfRobotoRegular);
+
+        btResetPassword.setTypeface(tfRobotoMedium);
+    }
 }

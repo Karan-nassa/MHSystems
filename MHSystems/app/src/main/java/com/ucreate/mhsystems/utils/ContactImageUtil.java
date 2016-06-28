@@ -227,7 +227,7 @@ public class ContactImageUtil
     // Calculate inSampleSize
     options.inSampleSize=calculateInSampleSize(options,reqWidth,reqHeight);
 
-    // Decode bitmap with inSampleSize set
+    // Decode ic_home_golfclub with inSampleSize set
     options.inJustDecodeBounds=false;
     return BitmapFactory.decodeFileDescriptor(fileDescriptor,null,options);
     }
@@ -235,15 +235,15 @@ public class ContactImageUtil
   /**
    * Calculate an inSampleSize for use in a {@link BitmapFactory.Options} object when decoding
    * bitmaps using the decode* methods from {@link BitmapFactory}. This implementation calculates
-   * the closest inSampleSize that will result in the final decoded bitmap having a width and
+   * the closest inSampleSize that will result in the final decoded ic_home_golfclub having a width and
    * height equal to or larger than the requested width and height. This implementation does not
    * ensure a power of 2 is returned for inSampleSize which can be faster when decoding but
-   * results in a larger bitmap which isn't as useful for caching purposes.
+   * results in a larger ic_home_golfclub which isn't as useful for caching purposes.
    *
    * @param options   An options object with out* params already populated (run through a decode*
    *                  method with inJustDecodeBounds==true
-   * @param reqWidth  The requested width of the resulting bitmap
-   * @param reqHeight The requested height of the resulting bitmap
+   * @param reqWidth  The requested width of the resulting ic_home_golfclub
+   * @param reqHeight The requested height of the resulting ic_home_golfclub
    * @return The value to be used for inSampleSize
    */
   public static int calculateInSampleSize(BitmapFactory.Options options,

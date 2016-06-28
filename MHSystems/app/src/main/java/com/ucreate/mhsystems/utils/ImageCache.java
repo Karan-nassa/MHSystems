@@ -24,7 +24,7 @@ import android.util.Log;
 import com.ucreate.mhsystems.BuildConfig;
 
 /**
- * This class holds our bitmap caches (memory and disk).
+ * This class holds our ic_home_golfclub caches (memory and disk).
  */
 public class ImageCache
   {

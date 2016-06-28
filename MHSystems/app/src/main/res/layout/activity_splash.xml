@@ -21,13 +21,13 @@
 
         <!-- GOLF CLUB NAME -->
 
-        <com.ucreate.mhsystems.customfonts.BaskervilleTextFont
+        <!--<com.ucreate.mhsystems.customfonts.BaskervilleTextFont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0.5"
             android:text="@string/title_golf_club_name"
             android:textColor="@color/colorC0995B"
-            android:textSize="12sp" />
+            android:textSize="12sp" />-->
 
     </LinearLayout>
 
