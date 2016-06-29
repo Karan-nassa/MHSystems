@@ -9,7 +9,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class HCapRecord {
+public class HCapRecords {
 
     @SerializedName("ClubID")
     @Expose

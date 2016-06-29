@@ -51,6 +51,7 @@ public class CompetitionsActivity extends BaseActivity {
     boolean isUpcoming = true;
     boolean isJoined = false;
     boolean isCompleted = false;
+    boolean isCurrent = false;
 
     /**
      * iPopItemPos describes the position of POP MENU selected item.
@@ -175,6 +176,7 @@ public class CompetitionsActivity extends BaseActivity {
                             isUpcoming = true;
                             isJoined = false;
                             isCompleted = false;
+                            isCurrent = false;
                             break;
 
                         case R.id.item_Joined:
@@ -182,6 +184,7 @@ public class CompetitionsActivity extends BaseActivity {
                             isUpcoming = true;
                             isJoined = true;
                             isCompleted = true;
+                            isCurrent = true;
                             break;
 
                         case R.id.item_Completed:
@@ -189,6 +192,7 @@ public class CompetitionsActivity extends BaseActivity {
                             isUpcoming = false;
                             isJoined = false;
                             isCompleted = true;
+                            isCurrent = false;
                             break;
                     }
 
@@ -232,7 +236,7 @@ public class CompetitionsActivity extends BaseActivity {
         //Get total number of days of selected month.
         iNumOfDays = CompetitionsActivity.mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        createDateForData();
+//        createDateForData();
         //callCompetitionsWebService();
 
         initCompetitionsCategory();
@@ -247,6 +251,12 @@ public class CompetitionsActivity extends BaseActivity {
             }
         });
         popupMenu.setOnMenuItemClickListener(mCompetitionsTypeLitener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createDateForData();
     }
 
     /**
@@ -282,7 +292,7 @@ public class CompetitionsActivity extends BaseActivity {
         competitionsJsonParams.setMemberId(getMemberId());
         competitionsJsonParams.setMyEventsOnly(isJoined);
         competitionsJsonParams.setIncludeCompletedEvents(isCompleted);
-        //  competitionsJsonParams.setIncludeCurrentEvents(isCompleted);
+        competitionsJsonParams.setIncludeCurrentEvents(isCompleted);
         competitionsJsonParams.setIncludeFutureEvents(isUpcoming);
         competitionsJsonParams.setDateto(strDateTo); // MM-DD-YYYY
         competitionsJsonParams.setDatefrom(strDateFrom); // MM-DD-YYYY

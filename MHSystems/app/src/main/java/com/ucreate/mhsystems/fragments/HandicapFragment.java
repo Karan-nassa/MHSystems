@@ -39,11 +39,11 @@ import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.activites.ShowCertificateWebview;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
+import com.ucreate.mhsystems.models.HCapRecords;
 import com.ucreate.mhsystems.util.MyMarkerView;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.models.AJsonParamsHandicap;
-import com.ucreate.mhsystems.models.HCapRecord;
 import com.ucreate.mhsystems.models.HandicapAPI;
 import com.ucreate.mhsystems.models.HandicapData;
 import com.ucreate.mhsystems.models.HandicapResultItems;
@@ -69,9 +69,9 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     public static final String LOG_TAG = HandicapFragment.class.getSimpleName();
     ArrayList<HandicapData> alHandicapData = new ArrayList<>();
 
-    private ArrayList<HCapRecord> hCapRecordsList = new ArrayList<>();
+    private ArrayList<HCapRecords> hCapRecordsList = new ArrayList<>();
     private ArrayList<String> arrNameOfYear = new ArrayList<>();
-    private ArrayList<ArrayList<HCapRecord>> jsonObjectArrayList = new ArrayList<>();
+    private ArrayList<ArrayList<HCapRecords>> jsonObjectArrayList = new ArrayList<>();
 
     /**
      * Used for YEAR index navigation of Graph if HANDICAP has
@@ -79,7 +79,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      */
     private int mYearIndex;
 
-    private String TAG_DATA = "CompResultData";
+    private String TAG_DATA = "Data";
     private String TAG_HCAP_RECORDS = "HCapRecords";
     private String TAG_DATE_PLAYED_STR = "DatePlayedStr";
     private String TAG_COMPETITION_OR_REASON = "CompetitionOrReason";
@@ -150,7 +150,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
                 setNavigationIcons();
 
-                //setCompResultData(10, handicapData.get(0).getHCapRecords());
+                //setCompResultData(10, handicapData.get(0).getHCapRecordses());
                 refreshGraph();
             }
         }
@@ -324,13 +324,13 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
                                 JsonObject jsonHCapRecord = jsonArray.get(jCounter).getAsJsonObject();
 
-                                HCapRecord hCapRecord = new HCapRecord();
+                                HCapRecords hCapRecords = new HCapRecords();
 
-                                hCapRecord.setDatePlayedStr("" + jsonHCapRecord.get(TAG_DATE_PLAYED_STR));
-                                hCapRecord.setCompetitionOrReason("" + jsonHCapRecord.get(TAG_COMPETITION_OR_REASON));
-                                hCapRecord.setNewExactHCapOnlyStr("" + jsonHCapRecord.get(TAG_NEW_EXACT_HCAP_ONLY_STR));
+                                hCapRecords.setDatePlayedStr("" + jsonHCapRecord.get(TAG_DATE_PLAYED_STR));
+                                hCapRecords.setCompetitionOrReason("" + jsonHCapRecord.get(TAG_COMPETITION_OR_REASON));
+                                hCapRecords.setNewExactHCapOnlyStr("" + jsonHCapRecord.get(TAG_NEW_EXACT_HCAP_ONLY_STR));
 
-                                hCapRecordsList.add(hCapRecord);
+                                hCapRecordsList.add(hCapRecords);
                             }
                         }
                         Collections.reverse(hCapRecordsList);
@@ -345,7 +345,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
                     setNavigationIcons();
 
-                    //setCompResultData(10, handicapData.get(0).getHCapRecords());
+                    //setCompResultData(10, handicapData.get(0).getHCapRecordses());
                     refreshGraph();
 
                     //Log.e(LOG_TAG, "arrayListCourseData : " + hCapRecordsList.size());
@@ -495,20 +495,20 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * Define globally method to display detail information
      * of Handicap on graph.
      *
-     * @param hCapRecords
+     * @param hCapRecordses
      * @param size
      */
-    public void loadDetailGraphInfo(ArrayList<HCapRecord> hCapRecords, int size) {
-        tvDateOfPlayedStr.setText(hCapRecords.get(size).getDatePlayedStr().replace("\"", ""));
-        tvTitleOfPlayStr.setText(hCapRecords.get(size).getCompetitionOrReason().replace("\"", ""));
-        tvTypeOfPlayStr.setText(hCapRecords.get(size).getNewExactHCapOnlyStr().replace("\"", ""));
+    public void loadDetailGraphInfo(ArrayList<HCapRecords> hCapRecordses, int size) {
+        tvDateOfPlayedStr.setText(hCapRecordses.get(size).getDatePlayedStr().replace("\"", ""));
+        tvTitleOfPlayStr.setText(hCapRecordses.get(size).getCompetitionOrReason().replace("\"", ""));
+        tvTypeOfPlayStr.setText(hCapRecordses.get(size).getNewExactHCapOnlyStr().replace("\"", ""));
     }
 
     /**
      * Implements a method to initialize X-axis and Y-axis
      * to display on GRAPH.
      */
-    private void set_Data(int count, List<HCapRecord> range) {
+    private void set_Data(int count, List<HCapRecords> range) {
 
         /**
          * Reverse the Handicap graph records for annually

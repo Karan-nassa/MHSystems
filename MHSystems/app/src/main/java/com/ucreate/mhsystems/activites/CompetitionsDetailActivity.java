@@ -1,5 +1,6 @@
 package com.ucreate.mhsystems.activites;
 
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -23,12 +26,14 @@ import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
 import com.ucreate.mhsystems.models.AJsonParamsResultOfCompetition;
 import com.ucreate.mhsystems.models.AJsonParamsJoinCompetition;
+import com.ucreate.mhsystems.models.AJsonParamsUnjoin;
 import com.ucreate.mhsystems.models.AddRequestResult;
 import com.ucreate.mhsystems.models.CompetitionDetailItems;
 import com.ucreate.mhsystems.models.CompetitionResultAPI;
 import com.ucreate.mhsystems.models.CompetitionJoinAPI;
-import com.ucreate.mhsystems.models.CompetitionsResultItems;
 import com.ucreate.mhsystems.models.ResultEntries;
+import com.ucreate.mhsystems.models.CompetitionUnjoinAPI;
+import com.ucreate.mhsystems.models.UnjoinItems;
 import com.ucreate.mhsystems.util.API.WebServiceMethods;
 import com.ucreate.mhsystems.util.ScrollRecycleView;
 
@@ -93,6 +98,12 @@ public class CompetitionsDetailActivity extends BaseActivity {
     AJsonParamsResultOfCompetition aJsonParamsResultOfCompetition;
 
     CompetitionDetailItems competitionDetailItems;
+
+    //Create instance of Competitions unjoin API.
+    CompetitionUnjoinAPI competitionUnjoinAPI;
+    AJsonParamsUnjoin aJsonParamsUnjoin;
+    UnjoinItems unjoinItems;
+
     ArrayList<ResultEntries> resultEntryArrayList = new ArrayList<>();
 
     //Create instance of Model class for display result.
@@ -124,14 +135,26 @@ public class CompetitionsDetailActivity extends BaseActivity {
         @Override
         public void onClick(View view) {
 
-            if (!IsMemberJoined) {
+            //Check for Unjoin competition.
+            if (iPopItemPos == 1 && IsMemberJoined) {
                 /**
                  *  Check internet connection before hitting server request.
                  */
                 if (isOnline(CompetitionsDetailActivity.this)) {
-                    callJoinCompetitionWebService();
+                    unJoinWebService();
                 } else {
                     showAlertMessage(getResources().getString(R.string.error_no_internet));
+                }
+            } else {
+                if (!IsMemberJoined) {
+                    /**
+                     *  Check internet connection before hitting server request.
+                     */
+                    if (isOnline(CompetitionsDetailActivity.this)) {
+                        callJoinCompetitionWebService();
+                    } else {
+                        showAlertMessage(getResources().getString(R.string.error_no_internet));
+                    }
                 }
             }
         }
@@ -211,10 +234,27 @@ public class CompetitionsDetailActivity extends BaseActivity {
             if (isJoinVisible) {
                 fabJoinCompetition.setVisibility(View.VISIBLE);
 
-                if (IsMemberJoined) {
+                switch (iPopItemPos){
+                    case 0:
+                        if (IsMemberJoined) {
+                            fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
+                            fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
+                        }
+                        break;
+
+                    case 1:
+                        fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
+                        fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
+                        break;
+                }
+
+               /* if (IsMemberJoined) {
                     fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
                     fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
-                }
+                } else {
+                    fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
+                    fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
+                }*/
             }
         } else {
             //Floating Action button should not VISIBLE when user view the detail of COMPLETED COMPETITIONS.
@@ -311,6 +351,8 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
                 //Set Member JOIN event programmatically so that user cannot apply for JOIN again.
                 IsMemberJoined = true;
+
+                showAlertMessage(addRequestResult.getData().toString());
             } else {
                 //If web service not respond in any case.
                 showAlertMessage(addRequestResult.getMessage());
@@ -450,5 +492,102 @@ public class CompetitionsDetailActivity extends BaseActivity {
             e.printStackTrace();
         }
         hideProgress();
+    }
+
+    /**
+     * Implements a method to unjoin competitions web service if
+     * user already JOINED.
+     */
+    private void unJoinWebService() {
+
+        String strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
+
+        showPleaseWait("Please wait...");
+
+        aJsonParamsUnjoin = new AJsonParamsUnjoin();
+        aJsonParamsUnjoin.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsUnjoin.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsUnjoin.setMemberId(getMemberId());
+        aJsonParamsUnjoin.setEventId(strEventId);
+
+        competitionUnjoinAPI = new CompetitionUnjoinAPI(getClientId(), "UNJOINEVENT", aJsonParamsUnjoin, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.unjoinCompetition(competitionUnjoinAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                unJoinCompetitionSuccess(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                showAlertMessage("" + error);
+            }
+        });
+
+    }
+
+    /**
+     * Implements a method to update SUCCESS unJoin competition
+     * response of web service.
+     */
+    private void unJoinCompetitionSuccess(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<UnjoinItems>() {
+        }.getType();
+        unjoinItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (unjoinItems.getMessage().equalsIgnoreCase("Success")) {
+
+                //unJoin competition event.
+                showAlertMessage(unjoinItems.getData().toString());
+
+            } else {
+                //If web service not respond in any case.
+                showAlertMessage(unjoinItems.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+        hideProgress();
+    }
+
+    /**
+     * Implement a method to display Alert Dialog message
+     * after unJoin Competitions.
+     */
+    public void showAlertMessage(String strAlertMessage) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(strAlertMessage)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                        onBackPressed();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

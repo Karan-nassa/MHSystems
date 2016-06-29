@@ -20,7 +20,7 @@ public class HandicapData {
     private String HCapTypeStr;
     @SerializedName("HCapRecords")
     @Expose
-    private List<HCapRecord> HCapRecords = new ArrayList<HCapRecord>();
+    private List<HCapRecords> HCapRecords = new ArrayList<HCapRecords>();
     @SerializedName("HCapCertificate")
     @Expose
     private HCapCertificate HCapCertificate;
@@ -84,7 +84,7 @@ public class HandicapData {
           * @return
           *     The HCapRecords
           */
-    public List<HCapRecord> getHCapRecords() {
+    public List<HCapRecords> getHCapRecords() {
         return HCapRecords;
     }
 
@@ -93,7 +93,7 @@ public class HandicapData {
      * @param HCapRecords
      *     The HCapRecords
      */
-    public void setHCapRecords(List<HCapRecord> HCapRecords) {
+    public void setHCapRecords(List<HCapRecords> HCapRecords) {
         this.HCapRecords = HCapRecords;
     }
 

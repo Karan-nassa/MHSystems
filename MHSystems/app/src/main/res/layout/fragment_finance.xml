@@ -3,92 +3,218 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhiteffffff">
+    android:background="@color/colorF9F8F7">
 
     <LinearLayout
         android:id="@+id/llFinanceGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
-        <!-- CARD BALANCE -->
+        <!-- FILTER AND CARD BALANCE GROUP -->
 
-        <com.ucreate.mhsystems.customfonts.RobotoTextView
-            android:id="@+id/textSeparator"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="CARD BALANCE"
-            android:textAllCaps="true"
-            android:textColor="@color/colorC0995B"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:visibility="visible" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <!-- TOTAL CREDIT BALANCE -->
+            <LinearLayout
+                android:id="@+id/llBalanceGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal"
+                android:weightSum="100">
 
-        <com.ucreate.mhsystems.customfonts.RobotoTextView
-            android:id="@+id/tvCreditBalance"
+                <!-- CARD BALANCE GROUP -->
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="50"
+                    android:background="@drawable/bg_shape_finance_d6d0c9"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/tvLabelCardBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="YOUR CARD BALANCE"
+                        android:textColor="@color/color030303"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvCardBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="£100"
+                        android:textColor="@color/color030303"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <!-- YOUR INVOICE GROUP -->
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="50"
+                    android:background="@drawable/bg_shape_finance_c0995b"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/tvLabelYourInvoice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="YOUR INVOICES"
+                        android:textColor="@color/color030303"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvYourInvoice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Pending"
+                        android:textColor="@color/color030303"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- FILTER VIEW GROUP -->
+
+            <LinearLayout
+                android:id="@+id/llFilterGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorD6D0C9"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <!-- FILTER BY TIME LABEL -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FILTER BY TIME"
+                    android:textColor="@color/color030303"
+                    android:textSize="14sp" />
+
+                <!-- FILTER VALUES -->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <!-- TODAY BUTTON -->
+
+                    <Button
+                        android:id="@+id/btToday"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/button_shape_c0995b"
+                        android:gravity="center"
+                        android:text="TODAY"
+                        android:textColor="@color/color030303"
+                        android:textSize="14sp" />
+
+                    <!-- 1 WEEK BUTTON -->
+
+                    <Button
+                        android:id="@+id/btWeek"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_shape_white"
+                        android:gravity="center"
+                        android:text="1 WEEK"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="14sp" />
+
+                    <!-- 1 MONTH BUTTON -->
+
+                    <Button
+                        android:id="@+id/btOneMonth"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_shape_white"
+                        android:text="1 MONTH"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="14sp" />
+
+                    <!-- 3 MONTHS BUTTON -->
+
+                    <Button
+                        android:id="@+id/btThreeMonths"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_shape_white"
+                        android:text="3 MONTHS"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="14sp" />
+
+                    <!-- 6 MONTHS BUTTON -->
+
+                    <Button
+                        android:id="@+id/btSixMonths"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_shape_white"
+                        android:text="6 MONTHS"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="14sp" />
+
+                    <!-- 1 YEAR BUTTON -->
+
+                    <Button
+                        android:id="@+id/btOneYear"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_shape_white"
+                        android:text="1 YEAR"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="14sp" />
+
+                    <!-- FROM START BUTTON -->
+
+                    <Button
+                        android:id="@+id/btFromStart"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_shape_white"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="FROM START"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/ivFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/color030303"
-            android:textSize="17sp" />
-
-        <!-- RECENT TRANSACTIONS -->
-
-        <com.ucreate.mhsystems.customfonts.RobotoTextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="@string/title_recent_transaction"
-            android:textAllCaps="true"
-            android:textColor="@color/colorC0995B"
-            android:textSize="14sp" />
-
-        <com.ucreate.mhsystems.customfonts.RobotoTextView
-            android:id="@+id/tvRecentTransaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/color030303"
-            android:textSize="17sp" />
-
-        <!-- CURRENT TRANSACTION -->
-
-        <com.ucreate.mhsystems.customfonts.RobotoTextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="@string/title_current_invoice"
-            android:textAllCaps="true"
-            android:textColor="@color/colorC0995B"
-            android:textSize="14sp" />
-
-        <!-- TOTAL CREDIT BALANCE -->
-
-        <com.ucreate.mhsystems.customfonts.RobotoTextView
-            android:id="@+id/tvCurrentInvoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/color030303"
-            android:textSize="17sp" />
-
-        <!-- SHOW ALL -->
-
-        <Button
-            android:id="@+id/btShowAll"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="35dp"
-            android:textSize="14sp"
-            android:paddingLeft="17dp"
-            android:paddingRight="17dp"
-            android:background="@drawable/button_shape_c0995b"
-            android:textColor="@color/colorWhiteffffff"
-            android:text="@string/button_title_show_all" />
+            android:layout_gravity="right"
+            android:layout_margin="8dp"
+            android:src="@mipmap/ic_account_finance_filter"/>
 
     </LinearLayout>
 

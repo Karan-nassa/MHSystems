@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.ucreate.mhsystems.models.AddMemberAPI;
 import com.ucreate.mhsystems.models.CompetitionResultAPI;
 import com.ucreate.mhsystems.models.CompetitionJoinAPI;
+import com.ucreate.mhsystems.models.CompetitionUnjoinAPI;
 import com.ucreate.mhsystems.models.CompetitionsAPI;
 import com.ucreate.mhsystems.models.CourseDiaryAPI;
 import com.ucreate.mhsystems.models.DashboardAPI;
@@ -183,5 +184,15 @@ public interface WebServiceMethods {
     @POST("/webapi/api/ClubsApp")
     public void resetPassword(@Body ResetPasswordAPI resetPasswordAPI, Callback<JsonObject> response);
 
+    /**
+     * Declaration of Unjoin Competition web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param resetPasswordAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void unjoinCompetition(@Body CompetitionUnjoinAPI competitionUnjoinAPI, Callback<JsonObject> response);
 }
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -53,16 +55,25 @@ public class FinanceFragment extends Fragment {
 
     private boolean isClassVisible = false;
 
+    private boolean isToday, isWeek, isOneMonth, isThreeMonths, isSixMonths, isOneYear, isFromStart;
+    private boolean isFilterOpen;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
     View viewRootFragment;
     //    ListView lvFinance;
     TextView tvCreditBalance, tvCurrentInvoice, tvRecentTransaction;
+    TextView tvLabelCardBalance, tvCardBalance;
+    TextView tvLabelYourInvoice, tvYourInvoice;
+    ImageView ivFilter;
     Intent mIntent;
 
     Button btShowAll;
-    Typeface tpRobotoMedium;
+    Button btToday, btWeek, btOneMonth, btThreeMonths, btSixMonths, btOneYear, btFromStart;
+    Typeface tpRobotoMedium, tpRobotoRegular;
+
+    LinearLayout llBalanceGroup, llFilterGroup;
 
     FinanceSectionAdapter mFinanceAdapter;
 
@@ -105,11 +116,119 @@ public class FinanceFragment extends Fragment {
         }
     };
 
+    /**
+     * Implements this method to update Filter view
+     * Group.
+     */
+    private View.OnClickListener mFilterListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+
+                case R.id.btToday:
+                    if (isToday) {
+                        isToday = false;
+                    } else {
+                        isToday = true;
+                    }
+                    updateFilterUI((Button) view, isToday);
+                    break;
+
+                case R.id.btWeek:
+                    if (isWeek) {
+                        isWeek = false;
+                    } else {
+                        isWeek = true;
+                    }
+                    updateFilterUI((Button) view, isWeek);
+                    break;
+
+                case R.id.btOneMonth:
+                    if (isOneMonth) {
+                        isOneMonth = false;
+                    } else {
+                        isOneMonth = true;
+                    }
+                    updateFilterUI((Button) view, isOneMonth);
+                    break;
+
+                case R.id.btThreeMonths:
+                    if (isThreeMonths) {
+                        isThreeMonths = false;
+                    } else {
+                        isThreeMonths = true;
+                    }
+                    updateFilterUI((Button) view, isThreeMonths);
+                    break;
+
+                case R.id.btSixMonths:
+                    if (isSixMonths) {
+                        isSixMonths = false;
+                    } else {
+                        isSixMonths = true;
+                    }
+                    updateFilterUI((Button) view, isSixMonths);
+                    break;
+
+                case R.id.btOneYear:
+                    if (isOneYear) {
+                        isOneYear = false;
+                    } else {
+                        isOneYear = true;
+                    }
+                    updateFilterUI((Button) view, isOneYear);
+                    break;
+
+                case R.id.btFromStart:
+                    if (isFromStart) {
+                        isFromStart = false;
+                    } else {
+                        isFromStart = true;
+                    }
+                    updateFilterUI((Button) view, isFromStart);
+                    break;
+            }
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
 
-        tvCreditBalance = (TextView) viewRootFragment.findViewById(R.id.tvCreditBalance);
+        initialzeViewResources();
+
+        //Set click events here.
+        btToday.setOnClickListener(mFilterListener);
+        btWeek.setOnClickListener(mFilterListener);
+        btOneMonth.setOnClickListener(mFilterListener);
+        btThreeMonths.setOnClickListener(mFilterListener);
+        btSixMonths.setOnClickListener(mFilterListener);
+        btOneYear.setOnClickListener(mFilterListener);
+        btFromStart.setOnClickListener(mFilterListener);
+
+        setFontTypeface();
+
+        isClassVisible = true;
+        if (isClassVisible) {
+            callFinanceWebService();
+        }
+
+        ivFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isFilterOpen) {
+                    llFilterGroup.setVisibility(View.GONE);
+                    llBalanceGroup.setVisibility(View.VISIBLE);
+                    isFilterOpen = false;
+                } else {
+                    llFilterGroup.setVisibility(View.VISIBLE);
+                    llBalanceGroup.setVisibility(View.GONE);
+                    isFilterOpen = true;
+                }
+            }
+        });
+
+       /* tvCreditBalance = (TextView) viewRootFragment.findViewById(R.id.tvCreditBalance);
         tvCurrentInvoice = (TextView) viewRootFragment.findViewById(R.id.tvCurrentInvoice);
         tvRecentTransaction = (TextView) viewRootFragment.findViewById(R.id.tvRecentTransaction);
 
@@ -117,14 +236,9 @@ public class FinanceFragment extends Fragment {
         tpRobotoMedium = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Medium.ttf");
         btShowAll.setTypeface(tpRobotoMedium);
 
-        isClassVisible = true;
-        if (isClassVisible) {
-            callFinanceWebService();
-        }
-
         //Set click event handle here.
         btShowAll.setOnClickListener(mInvoiceDetailListener);
-
+*/
         return viewRootFragment;
     }
 
@@ -149,6 +263,48 @@ public class FinanceFragment extends Fragment {
     }
 
     /**
+     * Implements this method to initialize all
+     * view resources.
+     */
+    private void initialzeViewResources() {
+        btToday = (Button) viewRootFragment.findViewById(R.id.btToday);
+        btWeek = (Button) viewRootFragment.findViewById(R.id.btWeek);
+        btOneMonth = (Button) viewRootFragment.findViewById(R.id.btOneMonth);
+        btThreeMonths = (Button) viewRootFragment.findViewById(R.id.btThreeMonths);
+        btSixMonths = (Button) viewRootFragment.findViewById(R.id.btSixMonths);
+        btOneYear = (Button) viewRootFragment.findViewById(R.id.btOneYear);
+        btFromStart = (Button) viewRootFragment.findViewById(R.id.btFromStart);
+
+        tvLabelCardBalance = (TextView) viewRootFragment.findViewById(R.id.tvLabelCardBalance);
+        tvCardBalance = (TextView) viewRootFragment.findViewById(R.id.tvCardBalance);
+        tvLabelYourInvoice = (TextView) viewRootFragment.findViewById(R.id.tvLabelYourInvoice);
+        tvYourInvoice = (TextView) viewRootFragment.findViewById(R.id.tvYourInvoice);
+
+        llBalanceGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llBalanceGroup);
+        llFilterGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFilterGroup);
+
+        ivFilter = (ImageView) viewRootFragment.findViewById(R.id.ivFilter);
+    }
+
+    /**
+     * Implements a method to update FILTER buttons according selection. Set
+     * as unselected if isSelected TRUE and wise-versa.
+     *
+     * @param view       : Instance of View to update background.
+     * @param isSelected : TRUE means to selected Otherwise unselected.
+     */
+    private void updateFilterUI(Button btView, boolean isSelected) {
+
+        if (isSelected) {
+            btView.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.border_shape_white));
+            btView.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorWhiteffffff));
+        } else {
+            btView.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_shape_c0995b));
+            btView.setTextColor(ContextCompat.getColor(getActivity(), R.color.color030303));
+        }
+    }
+
+    /**
      * Implements a method to call News web service either call
      * initially or call from onSwipeRefresh.
      */
@@ -159,10 +315,10 @@ public class FinanceFragment extends Fragment {
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             requestFinanceService();
             ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
-            btShowAll.setVisibility(View.VISIBLE);
+            // btShowAll.setVisibility(View.VISIBLE);
         } else {
             ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
-            btShowAll.setVisibility(View.GONE);
+            //btShowAll.setVisibility(View.GONE);
         }
     }
 
@@ -276,5 +432,26 @@ public class FinanceFragment extends Fragment {
         strInvoiceDesc = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getDescription();
         strInvoiceValue = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getValueX();
         strInvoiceTax = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getTax();
+    }
+
+    /**
+     * Implements a method to set Font style.
+     */
+    private void setFontTypeface() {
+        tpRobotoRegular = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Regular.ttf");
+        tpRobotoMedium = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Medium.ttf");
+
+        btToday.setTypeface(tpRobotoMedium);
+        btWeek.setTypeface(tpRobotoMedium);
+        btOneMonth.setTypeface(tpRobotoMedium);
+        btThreeMonths.setTypeface(tpRobotoMedium);
+        btSixMonths.setTypeface(tpRobotoMedium);
+        btOneYear.setTypeface(tpRobotoMedium);
+        btFromStart.setTypeface(tpRobotoMedium);
+
+        tvLabelCardBalance.setTypeface(tpRobotoRegular);
+        tvLabelYourInvoice.setTypeface(tpRobotoRegular);
+        tvCardBalance.setTypeface(tpRobotoRegular);
+        tvYourInvoice.setTypeface(tpRobotoRegular);
     }
 }

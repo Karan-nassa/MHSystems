@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.ucreate.mhsystems.models.HCapRecord;
+import com.ucreate.mhsystems.models.HCapRecords;
 
 import java.util.List;
 
@@ -19,12 +19,12 @@ import java.util.List;
 public class MyMarkerView extends MarkerView {
 
     private TextView tvContent, tvHandicapDate;
-    private List<HCapRecord> hCapRecords;
+    private List<HCapRecords> hCapRecordses;
 
-    public MyMarkerView(Context context, int layoutResource, List<HCapRecord> hCapRecords) {
+    public MyMarkerView(Context context, int layoutResource, List<HCapRecords> hCapRecordses) {
         super(context, layoutResource);
 
-        this.hCapRecords = hCapRecords;
+        this.hCapRecordses = hCapRecordses;
 
 //        tvContent = (TextView) findViewById(R.id.tvHandicapPlayStr);
 //        tvHandicapDate = (TextView) findViewById(R.id.tvHandicapDate);
@@ -37,8 +37,8 @@ public class MyMarkerView extends MarkerView {
 
 
        // HandicapFragment.mv.refreshContent(e, highlight);
-       // HandicapFragment.showHandicapInfo(hCapRecords.get(e.getXIndex()).getDatePlayedStr(), hCapRecords.get(e.getXIndex()).getNewExactHCapOnlyStr());
-//          tvHandicapDate.setText(hCapRecords.get(e.getXIndex()).getDatePlayedStr());
+       // HandicapFragment.showHandicapInfo(hCapRecordses.get(e.getXIndex()).getDatePlayedStr(), hCapRecordses.get(e.getXIndex()).getNewExactHCapOnlyStr());
+//          tvHandicapDate.setText(hCapRecordses.get(e.getXIndex()).getDatePlayedStr());
 
 //        if (e instanceof CandleEntry) {
 //
