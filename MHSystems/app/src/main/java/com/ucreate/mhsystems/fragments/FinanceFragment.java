@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -23,6 +24,7 @@ import com.ucreate.mhsystems.R;
 import com.ucreate.mhsystems.activites.BaseActivity;
 import com.ucreate.mhsystems.activites.DetailInvoiceActivity;
 import com.ucreate.mhsystems.activites.MyAccountActivity;
+import com.ucreate.mhsystems.adapter.BaseAdapter.FinanceAdapter;
 import com.ucreate.mhsystems.adapter.BaseAdapter.FinanceSectionAdapter;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.constants.WebAPI;
@@ -74,6 +76,11 @@ public class FinanceFragment extends Fragment {
     Typeface tpRobotoMedium, tpRobotoRegular;
 
     LinearLayout llBalanceGroup, llFilterGroup;
+
+    //Instance of Transaction listview.
+    ListView lvTransactionList;
+
+    FinanceAdapter financeAdapter;
 
     FinanceSectionAdapter mFinanceAdapter;
 
@@ -228,6 +235,8 @@ public class FinanceFragment extends Fragment {
             }
         });
 
+        setDefaultTransactions();
+
        /* tvCreditBalance = (TextView) viewRootFragment.findViewById(R.id.tvCreditBalance);
         tvCurrentInvoice = (TextView) viewRootFragment.findViewById(R.id.tvCurrentInvoice);
         tvRecentTransaction = (TextView) viewRootFragment.findViewById(R.id.tvRecentTransaction);
@@ -240,6 +249,32 @@ public class FinanceFragment extends Fragment {
         btShowAll.setOnClickListener(mInvoiceDetailListener);
 */
         return viewRootFragment;
+    }
+
+    /**
+     * I
+     */
+    private void setDefaultTransactions() {
+
+        //Initialize the Finance adapter.
+        financeAdapter = new FinanceAdapter(getActivity());
+
+        for (int iCounter = 0; iCounter < 4; iCounter++) {
+
+            switch (iCounter) {
+                case 0:
+                    financeAdapter.addSectionHeaderItem("Today");
+                    break;
+
+                case 2:
+                    financeAdapter.addSectionHeaderItem("Last week");
+                    break;
+            }
+            financeAdapter.addItem("Pint of Carslberg");
+        }
+
+        lvTransactionList.setAdapter(financeAdapter);
+        financeAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -284,23 +319,25 @@ public class FinanceFragment extends Fragment {
         llFilterGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFilterGroup);
 
         ivFilter = (ImageView) viewRootFragment.findViewById(R.id.ivFilter);
+
+        lvTransactionList = (ListView) viewRootFragment.findViewById(R.id.lvTransactionList);
     }
 
     /**
      * Implements a method to update FILTER buttons according selection. Set
      * as unselected if isSelected TRUE and wise-versa.
      *
-     * @param view       : Instance of View to update background.
+     * @param btView     : Instance of View to update background.
      * @param isSelected : TRUE means to selected Otherwise unselected.
      */
     private void updateFilterUI(Button btView, boolean isSelected) {
 
         if (isSelected) {
-            btView.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.border_shape_white));
-            btView.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorWhiteffffff));
-        } else {
             btView.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_shape_c0995b));
             btView.setTextColor(ContextCompat.getColor(getActivity(), R.color.color030303));
+        } else {
+            btView.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.border_shape_white));
+            btView.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorWhiteffffff));
         }
     }
 

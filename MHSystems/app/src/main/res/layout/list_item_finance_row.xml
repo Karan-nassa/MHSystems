@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhiteffffff"
+    android:orientation="vertical">
+
+    <!-- FINANCE TITLE WITH PRICE -->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <!-- TRANSACTION TITLE -->
+
+        <TextView
+            android:id="@+id/tvTransTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Burger"
+            android:textColor="@color/colorBlack000000"
+            android:textSize="16sp" />
+
+        <!-- PAID FOR TRANSACTION -->
+
+        <TextView
+            android:id="@+id/tvPayOfTrans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="£3.80"
+            android:textColor="@color/colorBlack000000"
+            android:textSize="16sp" />
+
+    </FrameLayout>
+
+    <!-- TIME OF TRANSACTION -->
+
+    <TextView
+        android:id="@+id/tvTimeOfTrans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:alpha="0.5"
+        android:text="11:05"
+        android:textColor="@color/colorBlack000000"
+        android:textSize="14sp" />
+
+    <!-- DIVIDER LINE -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorE8E2DD" />
+
+</LinearLayout>
