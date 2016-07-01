@@ -83,6 +83,7 @@ public class MyDetailsFragment extends Fragment {
         isClassVisible = true;
         if (isClassVisible) {
             callWebService();
+            ((MyAccountActivity) getActivity()).updateFilterIcon(8);
         }
 
         llViewGroup = new View[]{llUsernameOfPerson, /*llPostalCodeOfPerson, llStreetOfPerson,*/ llStreetOfPerson, llEmailOfPerson,
@@ -100,6 +101,7 @@ public class MyDetailsFragment extends Fragment {
 
         if (isVisibleToUser && isClassVisible) {
             callWebService();
+            ((MyAccountActivity) getActivity()).updateFilterIcon(8);
         }
     }
 

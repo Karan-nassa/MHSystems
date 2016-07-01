@@ -46,6 +46,8 @@ public class BaseActivity extends AppCompatActivity {
     static SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
 
+    static Fragment fragmentInstance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,8 +214,10 @@ public class BaseActivity extends AppCompatActivity {
      */
     public void updateFragment(Fragment mFragment) {
 
+        this.fragmentInstance = mFragment;
+
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.containerView, mFragment);
+        fragmentTransaction.replace(R.id.containerView, fragmentInstance);
         fragmentTransaction.commit();
     }
 

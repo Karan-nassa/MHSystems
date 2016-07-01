@@ -95,7 +95,7 @@ public class MyAccountTabFragment extends Fragment {
 
         //  Log.e("COUNT:",""+tabLayout.getTabCount());
         pageAdapter = new TabsPageAdapter
-                (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MY_ACCOUNT);
+                (getActivity(), getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MY_ACCOUNT);
         viewPager.setAdapter(pageAdapter);
 
         iLastTabPosition = ((MyAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");

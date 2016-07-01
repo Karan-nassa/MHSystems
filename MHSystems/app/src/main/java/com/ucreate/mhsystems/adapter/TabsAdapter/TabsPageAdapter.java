@@ -5,10 +5,13 @@ package com.ucreate.mhsystems.adapter.TabsAdapter;
  * Adapter on 22/12/2015.
  */
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.ucreate.mhsystems.activites.MyAccountActivity;
 import com.ucreate.mhsystems.constants.ApplicationGlobal;
 import com.ucreate.mhsystems.fragments.FinanceFragment;
 import com.ucreate.mhsystems.fragments.FriendsFragment;
@@ -19,7 +22,7 @@ import com.ucreate.mhsystems.fragments.MyDetailsFragment;
 
 /**
  * Tab Page Adapter initialization.
- * <p>
+ * <p/>
  * <br> @param  Fm        : Instance of Fragment Manager
  * <br> @param  NumOfTabs : Total number of Instance
  * <br> @param  iFromWhat : Value 1 means call from Article and 2 from Media
@@ -34,9 +37,11 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      */
     private int iFromWhat;
 
+    Context context;
+
     /**
      * Tab Page Adapter initialization.
-     * <p>
+     * <p/>
      *
      * @param fm
      * @param NumOfTabs
@@ -46,6 +51,13 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.iFromWhat = iFromWhat;
+    }
+
+    public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat) {
+        super(supportFragmentManager);
+        this.mNumOfTabs = NumOfTabs;
+        this.iFromWhat = iFromWhat;
+        this.context = context;
     }
 
     /**
@@ -75,7 +87,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * Load Course Diary Tabs i.e
      * <br> 1. Old Courses
      * <br> 2. New Courses
-     * <p>
+     * <p/>
      *
      * @param iPosition
      * @return Fragment
@@ -92,7 +104,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 //                return newCourseFragment;
 //
 //            default:
-                return null;
+        return null;
 //        }
     }
 
@@ -100,7 +112,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * Load MEMBERS Tabs i.e
      * <br> 1. Members
      * <br> 2. Friends
-     * <p>
+     * <p/>
      *
      * @param iPosition
      * @return Fragment
@@ -126,29 +138,31 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * <br> 1. My Details
      * <br> 2. Handicap
      * <br> 3. Finances
-     * <p>
+     * <p/>
      *
      * @param iPosition
      * @return Fragment
      */
     private Fragment loadMyAccountTabs(int iPosition) {
 
+        Fragment fragment = null;
+
         switch (iPosition) {
             case 0:
-                MyDetailsFragment financeFragment1 = new MyDetailsFragment();
-                return financeFragment1;
+                fragment = new MyDetailsFragment();
+                break;
 
             case 1:
-                HandicapFragment handicapFragment = new HandicapFragment();
-                return handicapFragment;
+                fragment = new HandicapFragment();
+                break;
 
             case 2:
-                FinanceFragment financeFragment = new FinanceFragment();
-                return financeFragment;
-
-            default:
-                return null;
+                fragment = new FinanceFragment();
+                break;
         }
+
+        ((MyAccountActivity) context).setFragmentInstance(fragment);
+        return fragment;
     }
 
     /**
@@ -157,7 +171,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * <br> 2. Current.
      * <br> 3. Completed.
      * <br> 4. Future.
-     * <p>
+     * <p/>
      *
      * @param iPosition
      * @return Fragment

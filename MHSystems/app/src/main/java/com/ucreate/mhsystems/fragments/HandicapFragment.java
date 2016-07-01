@@ -166,10 +166,11 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         setHasOptionsMenu(true);
 
         //Check Internet connection and hit web service only on first time.
-        isClassVisible = true;
+       /* isClassVisible = true;
         if (isClassVisible) {
             callHandicapWebService();
-        }
+            ((MyAccountActivity) getActivity()).updateFilterIcon(8);
+        }*/
 
         btShowCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,8 +192,9 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser && isClassVisible) {
+        if (isVisibleToUser /*&& isClassVisible*/) {
             callHandicapWebService();
+            ((MyAccountActivity) getActivity()).updateFilterIcon(8);
         }
     }
 
@@ -202,16 +204,19 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      */
     private void callHandicapWebService() {
 
-        /**
-         *  Check internet connection before hitting server request.
-         */
-        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            requestCompetitionsEvents();
-            ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
-            llHandicapGroup.setVisibility(View.VISIBLE);
-        } else {
-            ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
-            llHandicapGroup.setVisibility(View.GONE);
+        try {
+            /**
+             *  Check internet connection before hitting server request.
+             */
+            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                requestCompetitionsEvents();
+                ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
+                llHandicapGroup.setVisibility(View.VISIBLE);
+            } else {
+                ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
+                llHandicapGroup.setVisibility(View.GONE);
+            }
+        }catch (Exception exp){
         }
     }
 

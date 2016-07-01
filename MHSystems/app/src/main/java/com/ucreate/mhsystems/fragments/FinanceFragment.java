@@ -73,6 +73,7 @@ public class FinanceFragment extends Fragment {
 
     Button btShowAll;
     Button btToday, btWeek, btOneMonth, btThreeMonths, btSixMonths, btOneYear, btFromStart;
+    Button btLastView;
     Typeface tpRobotoMedium, tpRobotoRegular;
 
     LinearLayout llBalanceGroup, llFilterGroup;
@@ -130,71 +131,46 @@ public class FinanceFragment extends Fragment {
     private View.OnClickListener mFilterListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch (view.getId()) {
 
+            switch (view.getId()) {
                 case R.id.btToday:
-                    if (isToday) {
-                        isToday = false;
-                    } else {
-                        isToday = true;
-                    }
-                    updateFilterUI((Button) view, isToday);
+                    updateFilterUI((Button) view);
                     break;
 
                 case R.id.btWeek:
-                    if (isWeek) {
-                        isWeek = false;
-                    } else {
-                        isWeek = true;
-                    }
-                    updateFilterUI((Button) view, isWeek);
+                    updateFilterUI((Button) view);
                     break;
 
                 case R.id.btOneMonth:
-                    if (isOneMonth) {
-                        isOneMonth = false;
-                    } else {
-                        isOneMonth = true;
-                    }
-                    updateFilterUI((Button) view, isOneMonth);
+                    updateFilterUI((Button) view);
                     break;
 
                 case R.id.btThreeMonths:
-                    if (isThreeMonths) {
-                        isThreeMonths = false;
-                    } else {
-                        isThreeMonths = true;
-                    }
-                    updateFilterUI((Button) view, isThreeMonths);
+                    updateFilterUI((Button) view);
                     break;
 
                 case R.id.btSixMonths:
-                    if (isSixMonths) {
-                        isSixMonths = false;
-                    } else {
-                        isSixMonths = true;
-                    }
-                    updateFilterUI((Button) view, isSixMonths);
+                    updateFilterUI((Button) view);
                     break;
 
                 case R.id.btOneYear:
-                    if (isOneYear) {
-                        isOneYear = false;
-                    } else {
-                        isOneYear = true;
-                    }
-                    updateFilterUI((Button) view, isOneYear);
+                    updateFilterUI((Button) view);
                     break;
 
                 case R.id.btFromStart:
-                    if (isFromStart) {
-                        isFromStart = false;
-                    } else {
-                        isFromStart = true;
-                    }
-                    updateFilterUI((Button) view, isFromStart);
+                    updateFilterUI((Button) view);
                     break;
             }
+
+            llFilterGroup.setVisibility(View.GONE);
+            llBalanceGroup.setVisibility(View.VISIBLE);
+
+            btLastView.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.border_shape_white));
+            btLastView.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorWhiteffffff));
+
+            isFilterOpen = false;
+
+            btLastView = (Button) view;
         }
     };
 
@@ -203,6 +179,8 @@ public class FinanceFragment extends Fragment {
         viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
 
         initialzeViewResources();
+
+        btLastView = btToday;
 
         //Set click events here.
         btToday.setOnClickListener(mFilterListener);
@@ -215,25 +193,11 @@ public class FinanceFragment extends Fragment {
 
         setFontTypeface();
 
-        isClassVisible = true;
+        /*isClassVisible = true;
         if (isClassVisible) {
             callFinanceWebService();
-        }
-
-        ivFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isFilterOpen) {
-                    llFilterGroup.setVisibility(View.GONE);
-                    llBalanceGroup.setVisibility(View.VISIBLE);
-                    isFilterOpen = false;
-                } else {
-                    llFilterGroup.setVisibility(View.VISIBLE);
-                    llBalanceGroup.setVisibility(View.GONE);
-                    isFilterOpen = true;
-                }
-            }
-        });
+            ((MyAccountActivity) getActivity()).updateFilterIcon(0);
+        }*/
 
         setDefaultTransactions();
 
@@ -249,6 +213,19 @@ public class FinanceFragment extends Fragment {
         btShowAll.setOnClickListener(mInvoiceDetailListener);
 */
         return viewRootFragment;
+    }
+
+    /**
+     * Implements a method to show Filter view.
+     */
+    public void updateFilterControl() {
+        if (isFilterOpen) {
+            isFilterOpen = false;
+        } else {
+            llFilterGroup.setVisibility(View.VISIBLE);
+            llBalanceGroup.setVisibility(View.GONE);
+            isFilterOpen = true;
+        }
     }
 
     /**
@@ -281,8 +258,10 @@ public class FinanceFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser && isClassVisible) {
+        if (isVisibleToUser /*&& isClassVisible*/) {
             callFinanceWebService();
+
+            ((MyAccountActivity) getActivity()).updateFilterIcon(0);
         }
     }
 
@@ -330,15 +309,15 @@ public class FinanceFragment extends Fragment {
      * @param btView     : Instance of View to update background.
      * @param isSelected : TRUE means to selected Otherwise unselected.
      */
-    private void updateFilterUI(Button btView, boolean isSelected) {
+    private void updateFilterUI(Button btView/*, boolean isSelected*/) {
 
-        if (isSelected) {
+       /* if (isSelected) {*/
             btView.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_shape_c0995b));
             btView.setTextColor(ContextCompat.getColor(getActivity(), R.color.color030303));
-        } else {
+       /* } else {
             btView.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.border_shape_white));
             btView.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorWhiteffffff));
-        }
+        }*/
     }
 
     /**

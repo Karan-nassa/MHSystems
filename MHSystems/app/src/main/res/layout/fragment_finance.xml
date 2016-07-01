@@ -208,14 +208,6 @@
 
         </FrameLayout>
 
-        <ImageView
-            android:id="@+id/ivFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_margin="16dp"
-            android:src="@mipmap/ic_account_finance_filter" />
-
 
         <!-- USE TO DISPLAY TRANSACTION LIST -->
 
