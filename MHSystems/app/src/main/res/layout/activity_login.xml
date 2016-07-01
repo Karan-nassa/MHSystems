@@ -29,7 +29,7 @@
 
             <!--&lt;!&ndash; GOLF CLUB NAME &ndash;&gt;
 
-            <com.ucreate.mhsystems.customfonts.BaskervilleTextFont
+            <mhstems.customfonts.BaskervilleTextFont
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.5"
@@ -54,7 +54,7 @@
 
             <!-- PLEASE LOGIN TEXT -->
 
-            <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+            <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                 android:id="@+id/tvLoginTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
 
                 <!-- FORGOT PASSWORD -->
 
-                <com.ucreate.mhsystems.customfonts.RobotoTextView
+                <com.mh.systems.sunningdale.customfonts.RobotoTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

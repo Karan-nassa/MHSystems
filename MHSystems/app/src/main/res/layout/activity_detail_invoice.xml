@@ -61,7 +61,7 @@
 
                         <!-- COURSE DATE WEEKEND/MONTHLY -->
 
-                        <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                        <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                             android:id="@+id/tvInvoiceTitle"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

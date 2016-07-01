@@ -21,7 +21,7 @@
 
         <!-- INTERNET CONNECTION TITLE -->
 
-        <com.ucreate.mhsystems.customfonts.RobotoTextFontBold
+        <com.mh.systems.sunningdale.customfonts.RobotoTextFontBold
             android:id="@+id/tvMessageTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
 
         <!-- TRY AGAIN TITLE-->
 
-        <com.ucreate.mhsystems.customfonts.RobotoTextView
+        <com.mh.systems.sunningdale.customfonts.RobotoTextView
             android:id="@+id/tvMessageDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

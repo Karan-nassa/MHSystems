@@ -6,7 +6,7 @@
     android:paddingRight="8dp"
     android:orientation="vertical">
 
-        <com.ucreate.mhsystems.customfonts.RobotoTextView
+        <com.mh.systems.sunningdale.customfonts.RobotoTextView
             android:id="@+id/tvCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

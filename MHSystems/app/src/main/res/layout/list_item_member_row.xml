@@ -44,7 +44,7 @@
 
             <!-- VIEW TO DISPLAY 'PlayHCapStr' OF EACH MEMBER -->
 
-            <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+            <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                 android:id="@+id/tvPlayHCapStr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
 
         <!-- NAME OF MEMBER -->
 
-        <com.ucreate.mhsystems.customfonts.RobotoTextView
+        <com.mh.systems.sunningdale.customfonts.RobotoTextView
             android:id="@+id/tvMemberName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

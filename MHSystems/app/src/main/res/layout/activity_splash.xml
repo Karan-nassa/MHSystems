@@ -21,7 +21,7 @@
 
         <!-- GOLF CLUB NAME -->
 
-        <!--<com.ucreate.mhsystems.customfonts.BaskervilleTextFont
+        <!--<mhstems.customfonts.BaskervilleTextFont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0.5"

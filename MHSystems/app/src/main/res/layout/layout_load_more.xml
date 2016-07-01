@@ -7,7 +7,7 @@
 
     <!-- LOAD MORE VIEW TO DISPLAY BOTTOM OF LIST -->
 
-    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+    <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
         android:id="@id/android:empty"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"

@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp" />
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                     android:id="@+id/tvEventStatusStrDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
 
                 <!-- PRIZE OF COURSE EVENT -->
 
-                <com.ucreate.mhsystems.customfonts.RobotoTextView
+                <com.mh.systems.sunningdale.customfonts.RobotoTextView
                     android:id="@+id/tvTypeOfCompEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -238,7 +238,7 @@
 
                 <!-- DESCRIPTION OF COMPETITION EVENTS -->
 
-                <com.ucreate.mhsystems.customfonts.RobotoTextView
+                <com.mh.systems.sunningdale.customfonts.RobotoTextView
                     android:id="@+id/tvDescCourseEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -306,7 +306,7 @@
 
                 </LinearLayout>
 
-                <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                     android:id="@+id/tvResultDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -327,7 +327,7 @@
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -337,7 +337,7 @@
                         android:textColor="@color/color1E1E1C"
                         android:textSize="15sp" />
 
-                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -347,7 +347,7 @@
                         android:textColor="@color/color1E1E1C"
                         android:textSize="15sp" />
 
-                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="20"
@@ -356,7 +356,7 @@
                         android:textColor="@color/color1E1E1C"
                         android:textSize="15sp" />
 
-                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="15"
@@ -382,7 +382,7 @@
 
                     <!-- NO DATA FOUND -->
 
-                    <com.ucreate.mhsystems.customfonts.RobotoMediumTextView
+                    <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                         android:id="@+id/tvNoDataView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -403,7 +403,7 @@
                        android:paddingLeft="20dp"
                        android:paddingRight="20dp">
 
-                       <com.ucreate.mhsystems.customfonts.RobotoTextView
+                       <mhstems.customfonts.RobotoTextView
                            android:layout_width="0dp"
                            android:layout_height="match_parent"
                            android:layout_gravity="center"
@@ -413,7 +413,7 @@
                            android:textColor="@color/color1E1E1C"
                            android:textSize="15sp" />
 
-                       <com.ucreate.mhsystems.customfonts.RobotoTextView
+                       <mhstems.customfonts.RobotoTextView
                            android:layout_width="0dp"
                            android:layout_height="match_parent"
                            android:layout_gravity="center"
@@ -423,7 +423,7 @@
                            android:textColor="@color/color1E1E1C"
                            android:textSize="15sp" />
 
-                       <com.ucreate.mhsystems.customfonts.RobotoTextView
+                       <mhstems.customfonts.RobotoTextView
                            android:layout_width="0dp"
                            android:layout_height="match_parent"
                            android:layout_gravity="center"
@@ -433,7 +433,7 @@
                            android:textColor="@color/color1E1E1C"
                            android:textSize="15sp" />
 
-                       <com.ucreate.mhsystems.customfonts.RobotoTextView
+                       <mhstems.customfonts.RobotoTextView
                            android:layout_width="0dp"
                            android:layout_height="match_parent"
                            android:layout_gravity="center"
