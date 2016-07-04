@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
@@ -38,6 +39,9 @@ public class DashboardActivity extends BaseActivity {
 
     @Bind(R.id.llSettings)
     LinearLayout llSettings;
+
+    @Bind(R.id.btSendFeedback)
+    Button btSendFeedback;
 
     //Instance of Grid Adapter.
     DashboardGridAdapter mDashboardGridAdapter;
@@ -136,6 +140,15 @@ public class DashboardActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(DashboardActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //Send Feedback click event here.
+        btSendFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(DashboardActivity.this, SendFeedbackActivity.class);
                 startActivity(intent);
             }
         });

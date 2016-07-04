@@ -100,7 +100,8 @@
             android:name=".activites.ClubNewsDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activites.SettingsActivity" />
-        <activity android:name=".activites.ResetPasswordActivity"></activity>
+        <activity android:name=".activites.ResetPasswordActivity" />
+        <activity android:name=".activites.SendFeedbackActivity"></activity>
     </application>
 
 </manifest>

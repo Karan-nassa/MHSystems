@@ -93,7 +93,7 @@ public class MyAccountActivity extends BaseActivity {
 
             tbMyAccount.setNavigationIcon(R.mipmap.icon_menu);
 
-            getSupportActionBar().setTitle("My Account");
+            getSupportActionBar().setTitle("Your Account");
             //getSupportActionBar().setIcon(R.mipmap.icon_menu);
         }
 

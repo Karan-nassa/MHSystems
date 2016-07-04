@@ -11,6 +11,156 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/colorD6D0C9"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <!-- EXACT VIEW OF HANDICAP -->
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="33">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <!-- EXACT LABEL OF HANDICAP -->
+
+                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.4"
+                        android:text="Card Balance"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- EXACT LABEL VALUE OF HANDICAP -->
+
+                    <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvHandicapExact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+
+                <!-- DIVIDER LINE  -->
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color8F8E94" />
+
+            </FrameLayout>
+
+            <!-- PLAYING VIEW OF HANDICAP -->
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="34">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <!-- CURRENT INVOICE -->
+
+                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.4"
+                        android:text="Current Invoice"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- CURRENT INVOICE VALUE -->
+
+                    <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvHandicapPlaying"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+
+
+                <!-- DIVIDER LINE  -->
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color8F8E94" />
+
+            </FrameLayout>
+
+            <!-- TYPE VIEW OF HANDICAP -->
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="33">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <!-- TYPE LABEL -->
+
+                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.4"
+                        android:text="Your Card"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btShowCertificate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_shape_d6d0c9"
+                        android:text="TOP UP"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBlack000000"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+
         <!-- FILTER AND CARD BALANCE GROUP -->
 
         <FrameLayout
