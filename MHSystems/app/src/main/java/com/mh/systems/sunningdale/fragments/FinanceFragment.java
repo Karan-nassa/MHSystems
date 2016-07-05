@@ -162,7 +162,7 @@ public class FinanceFragment extends Fragment {
         }
     }
 
-    @Override
+   /* @Override
     public void onResume() {
         super.onResume();
 
@@ -171,7 +171,7 @@ public class FinanceFragment extends Fragment {
         if (isClassVisible) {
             requestFinanceService();
         }
-    }
+    }*/
 
     /**
      * Implements this method to initialize all

@@ -74,7 +74,7 @@ public class MyAccountTabFragment extends Fragment {
         //Initialize view resources.
         tabLayout = (TabLayout) viewRootFragment.findViewById(R.id.tab_layout);
 
-        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_my_details)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_your_details)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_handicap)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_finances)));
 
