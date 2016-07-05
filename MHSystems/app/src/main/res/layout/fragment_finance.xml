@@ -23,30 +23,30 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="33">
+                android:layout_weight="50">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="10dp">
 
                     <!-- EXACT LABEL OF HANDICAP -->
 
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
+                    <TextView
+                        android:id="@+id/tvLabelCardBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.4"
                         android:text="Card Balance"
                         android:textColor="@color/color1E1E1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
+                        android:textSize="13sp" />
 
                     <!-- EXACT LABEL VALUE OF HANDICAP -->
 
-                    <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
-                        android:id="@+id/tvHandicapExact"
+                    <TextView
+                        android:id="@+id/tvCardBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -71,292 +71,54 @@
 
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="34">
+                android:layout_height="match_parent"
+                android:layout_weight="50">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="10dp">
 
                     <!-- CURRENT INVOICE -->
 
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
+                    <TextView
+                        android:id="@+id/tvLabelYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.4"
                         android:text="Current Invoice"
                         android:textColor="@color/color1E1E1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <!-- CURRENT INVOICE VALUE -->
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
-                        android:id="@+id/tvHandicapPlaying"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/color1E1E1C"
-                        android:textSize="19sp" />
-
-                </LinearLayout>
-
-
-                <!-- DIVIDER LINE  -->
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/color8F8E94" />
-
-            </FrameLayout>
-
-            <!-- TYPE VIEW OF HANDICAP -->
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="33">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <!-- TYPE LABEL -->
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:alpha="0.4"
-                        android:text="Your Card"
-                        android:textColor="@color/color1E1E1C"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/btShowCertificate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/button_shape_d6d0c9"
-                        android:text="TOP UP"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorBlack000000"
                         android:textSize="13sp" />
 
-                </LinearLayout>
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-
-        <!-- FILTER AND CARD BALANCE GROUP -->
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/llBalanceGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <!-- CARD BALANCE GROUP -->
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="50"
-                    android:background="@drawable/bg_shape_finance_d6d0c9"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/tvLabelCardBalance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="YOUR CARD BALANCE"
-                        android:textColor="@color/color030303"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvCardBalance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="£100"
-                        android:textColor="@color/color030303"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-                <!-- YOUR INVOICE GROUP -->
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_weight="50"
-                    android:background="@drawable/bg_shape_finance_c0995b"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/tvLabelYourInvoice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="YOUR INVOICES"
-                        android:textColor="@color/color030303"
-                        android:textSize="14sp" />
+                    <!-- CURRENT INVOICE VALUE -->
 
                     <TextView
                         android:id="@+id/tvYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1 Pending"
-                        android:textColor="@color/color030303"
-                        android:textSize="16sp" />
+                        android:layout_marginTop="10dp"
+                        android:text="0 Pending"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="19sp" />
 
                 </LinearLayout>
+            </FrameLayout>
 
-            </LinearLayout>
+        </LinearLayout>
 
-            <!-- FILTER VIEW GROUP -->
+        <!-- DATE/FILTER TYPE-->
 
-            <LinearLayout
-                android:id="@+id/llFilterGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorD6D0C9"
-                android:orientation="vertical"
-                android:padding="15dp"
-                android:visibility="gone">
-
-                <!-- FILTER BY TIME LABEL -->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="FILTER BY TIME"
-                    android:textColor="@color/color030303"
-                    android:textSize="14sp" />
-
-                <!-- FILTER VALUES -->
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <!-- TODAY BUTTON -->
-
-                    <Button
-                        android:id="@+id/btToday"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/button_shape_c0995b"
-                        android:gravity="center"
-                        android:text="TODAY"
-                        android:textColor="@color/color030303"
-                        android:textSize="14sp" />
-
-                    <!-- 1 WEEK BUTTON -->
-
-                    <Button
-                        android:id="@+id/btWeek"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/border_shape_white"
-                        android:gravity="center"
-                        android:text="1 WEEK"
-                        android:textColor="@color/colorWhiteffffff"
-                        android:textSize="14sp" />
-
-                    <!-- 1 MONTH BUTTON -->
-
-                    <Button
-                        android:id="@+id/btOneMonth"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/border_shape_white"
-                        android:text="1 MONTH"
-                        android:textColor="@color/colorWhiteffffff"
-                        android:textSize="14sp" />
-
-                    <!-- 3 MONTHS BUTTON -->
-
-                    <Button
-                        android:id="@+id/btThreeMonths"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/border_shape_white"
-                        android:text="3 MONTHS"
-                        android:textColor="@color/colorWhiteffffff"
-                        android:textSize="14sp" />
-
-                    <!-- 6 MONTHS BUTTON -->
-
-                    <Button
-                        android:id="@+id/btSixMonths"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/border_shape_white"
-                        android:text="6 MONTHS"
-                        android:textColor="@color/colorWhiteffffff"
-                        android:textSize="14sp" />
-
-                    <!-- 1 YEAR BUTTON -->
-
-                    <Button
-                        android:id="@+id/btOneYear"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/border_shape_white"
-                        android:text="1 YEAR"
-                        android:textColor="@color/colorWhiteffffff"
-                        android:textSize="14sp" />
-
-                    <!-- FROM START BUTTON -->
-
-                    <Button
-                        android:id="@+id/btFromStart"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/border_shape_white"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="FROM START"
-                        android:textColor="@color/colorWhiteffffff"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-        </FrameLayout>
+        <TextView
+            android:id="@+id/tvDateHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorC59A5C"
+            android:textSize="14sp" />
 
 
         <!-- USE TO DISPLAY TRANSACTION LIST -->
@@ -365,8 +127,7 @@
             android:id="@+id/lvTransactionList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhiteffffff"
-            android:cacheColorHint="@color/colorWhiteffffff"
+            android:cacheColorHint="@color/colorF9F8F7"
             android:divider="@color/colorE8E2DD"
             android:dividerHeight="0dp" />
 

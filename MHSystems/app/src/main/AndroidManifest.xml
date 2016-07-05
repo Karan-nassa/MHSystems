@@ -66,7 +66,7 @@
 
         <!-- MY ACCOUNT ACTIVITY -->
         <activity
-            android:name=".activites.MyAccountActivity"
+            android:name=".activites.YourAccountActivity"
             android:screenOrientation="portrait" />
 
         <!-- DETAIL INVOICE ACTIVITY -->
@@ -99,9 +99,26 @@
         <activity
             android:name=".activites.ClubNewsDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activites.SettingsActivity" />
-        <activity android:name=".activites.ResetPasswordActivity" />
-        <activity android:name=".activites.SendFeedbackActivity"></activity>
+
+        <!-- SETTING SCREEN -->
+        <activity
+            android:name=".activites.SettingsActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- RESET PASSWORD SCREEN -->
+        <activity
+            android:name=".activites.ResetPasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- SEND FEEDBACK SCREEN -->
+        <activity
+            android:name=".activites.SendFeedbackActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- SEND FEEDBACK SCREEN -->
+        <activity
+            android:name=".activites.FinanceDetailWeb"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

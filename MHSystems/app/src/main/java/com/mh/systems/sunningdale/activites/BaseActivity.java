@@ -43,6 +43,8 @@ public class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgress;
     Dialog pDialog;
 
+    AlertDialog.Builder builder;
+
     static SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
 
@@ -100,7 +102,7 @@ public class BaseActivity extends AppCompatActivity {
      * @param ivMessageSymbol  :  View to set Image at run time like CUP icon for NO COMPETITION.
      * @param tvMessageTitle   :  View to set Text title of message.
      * @param tvMessageDesc    :  View to set detail Text description of message.
-     * @param hasData      :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     * @param hasData          :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
      */
     public void showNoEventView(RelativeLayout inc_message_view, ImageView ivMessageSymbol, TextView tvMessageTitle, TextView tvMessageDesc, boolean hasData, String strMessageTitle) {
 
@@ -121,7 +123,7 @@ public class BaseActivity extends AppCompatActivity {
      * @param ivMessageSymbol  :  View to set Image at run time like CUP icon for NO COMPETITION.
      * @param tvMessageTitle   :  View to set Text title of message.
      * @param tvMessageDesc    :  View to set detail Text description of message.
-     * @param hasData      :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     * @param hasData          :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
      */
     public void showNoDataView(RelativeLayout inc_message_view, ImageView ivMessageSymbol, TextView tvMessageTitle, TextView tvMessageDesc, boolean hasData) {
 
@@ -194,16 +196,19 @@ public class BaseActivity extends AppCompatActivity {
      */
     public void showAlertMessage(String strAlertMessage) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(strAlertMessage)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //do things
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
     /**

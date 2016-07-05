@@ -6,11 +6,11 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class MyAccountJsonParams {
+public class FinanceAJsonParams {
 
-    @SerializedName("version")
+    @SerializedName("DateRange")
     @Expose
-    private Integer version;
+    private Integer DateRange;
     @SerializedName("callid")
     @Expose
     private String callid;
@@ -20,19 +20,19 @@ public class MyAccountJsonParams {
 
 
     /**
-     * @return The version
+     * @return The DateRange
      */
-    public Integer getVersion() {
-        return version;
+    public Integer getDateRange() {
+        return DateRange;
     }
 
     /**
      * 
-     * @param version
-     *     The version
+     * @param DateRange
+     *     The DateRange
      */
-    public void setVersion(Integer version) {
-        this.version = version;
+    public void setDateRange(Integer DateRange) {
+        this.DateRange = DateRange;
     }
 
     /**

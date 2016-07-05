@@ -3,6 +3,7 @@ package com.mh.systems.sunningdale.activites;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -20,12 +21,12 @@ import com.mh.systems.sunningdale.fragments.MyAccountTabFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MyAccountActivity extends BaseActivity {
+public class YourAccountActivity extends BaseActivity {
 
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
-    public final String LOG_TAG = MyAccountActivity.class.getSimpleName();
+    public final String LOG_TAG = YourAccountActivity.class.getSimpleName();
 
     private boolean isFilterOpen;
 
@@ -65,7 +66,53 @@ public class MyAccountActivity extends BaseActivity {
     @Bind(R.id.ivFilter)
     ImageView ivFilter;
 
+    //Pop Menu to show Categories of Course Diary.
+    PopupMenu popupMenu;
+
      /* -- INTERNET CONNECTION PARAMETERS -- */
+
+    /**
+     * Declares the click event handling FIELD to set categories
+     * of Your Account Finance {@link Fragment}.
+     */
+    private PopupMenu.OnMenuItemClickListener mCourseTypeListener =
+            new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    switch (item.getItemId()) {
+                        case R.id.item_today:
+                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(0);
+                            break;
+
+                        case R.id.item_a_week:
+                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(1);
+                            break;
+
+                        case R.id.item_one_month:
+                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(2);
+                            break;
+
+                        case R.id.item_three_months:
+                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(3);
+                            break;
+
+                        case R.id.item_six_months:
+                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(4);
+                            break;
+
+                        case R.id.item_a_year:
+                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(5);
+                            break;
+
+                        case R.id.item_from_start:
+                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(6);
+                            break;
+                    }
+                    return true;
+                }
+            };
+
 
     /**
      * Implements HOME icons press
@@ -103,17 +150,15 @@ public class MyAccountActivity extends BaseActivity {
         //Load Default fragment of COURSE DIARY.
         updateFragment(new MyAccountTabFragment());
 
+        initFianaceCategory();
+
         ivFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getFragmentInstance() instanceof FinanceFragment) {
-                    ((FinanceFragment) getFragmentInstance()).updateFilterControl();
-                }
+                    popupMenu.show();
             }
         });
-
-        //Set click listener events declaration.
-        //llHomeMyAccount.setOnClickListener(mHomePressListener);
+        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
     }
 
     @Override
@@ -129,14 +174,29 @@ public class MyAccountActivity extends BaseActivity {
                 finish();
                 break;
 
-            case R.id.action_filter:
-                Log.e("Club News", "Delete item clicked...");
-                break;
-
             default:
                 break;
         }
         return true;
+    }
+
+    /**
+     * Implements a method to initialize Finance categories in pop-up menu.
+     */
+    private void initFianaceCategory() {
+
+        /**
+         * Step 1: Create a new instance of popup menu
+         */
+        popupMenu = new PopupMenu(this, ivFilter);
+        /**
+         * Step 2: Inflate the menu resource. Here the menu resource is
+         * defined in the res/menu project folder
+         */
+        popupMenu.inflate(R.menu.finance_menu);
+
+        /*//Initially display title at position 0 of R.menu.course_menu.
+        tvCourseType.setText("" + popupMenu.getMenu().getItem(0));*/
     }
 
     /**

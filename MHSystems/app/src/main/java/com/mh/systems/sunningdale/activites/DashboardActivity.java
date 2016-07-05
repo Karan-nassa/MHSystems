@@ -65,7 +65,7 @@ public class DashboardActivity extends BaseActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             switch (position) {
                 case 0:
-                    intent = new Intent(DashboardActivity.this, MyAccountActivity.class);
+                    intent = new Intent(DashboardActivity.this, YourAccountActivity.class);
                     intent.putExtra("iTabPosition", 1);
                     break;
                 case 1:
@@ -83,7 +83,7 @@ public class DashboardActivity extends BaseActivity {
                     break;
 
                 case 5:
-                    intent = new Intent(DashboardActivity.this, MyAccountActivity.class);
+                    intent = new Intent(DashboardActivity.this, YourAccountActivity.class);
                     intent.putExtra("iTabPosition", 0);
                     break;
             }

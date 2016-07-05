@@ -13,7 +13,7 @@ import com.mh.systems.sunningdale.models.FriendsAPI;
 import com.mh.systems.sunningdale.models.HandicapAPI;
 import com.mh.systems.sunningdale.models.MembersAPI;
 import com.mh.systems.sunningdale.models.MembersDetailAPI;
-import com.mh.systems.sunningdale.models.MyAccountAPI;
+import com.mh.systems.sunningdale.models.FinanceAPI;
 import com.mh.systems.sunningdale.models.ResetPassword.ResetPasswordAPI;
 
 import retrofit.Callback;
@@ -114,9 +114,17 @@ public interface WebServiceMethods {
      * web service method.
      * <p/>
      * TYPE : POST
+     *//*
+    @POST("/ClubsApp/RpcRequest")
+    public void getMyAccount(@Body FinanceAPI jsonElements, Callback<JsonObject> response);*/
+
+    /**
+     * Declaration of Finance API method declaration.
+     * <p/>
+     * TYPE : POST
      */
-    @POST("/webapi/api/ClubsApp/RpcRequest")
-    public void getMyAccount(@Body MyAccountAPI jsonElements, Callback<JsonObject> response);
+    @POST("/api/ClubsApp/RpcRequest")
+    public void getFinanceDetail(@Body FinanceAPI jsonElements, Callback<JsonObject> response);
 
     /**
      * Declaration of Members web service method.

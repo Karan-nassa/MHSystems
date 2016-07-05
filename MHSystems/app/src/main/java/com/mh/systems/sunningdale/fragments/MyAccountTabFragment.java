@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mh.systems.sunningdale.R;
-import com.mh.systems.sunningdale.activites.MyAccountActivity;
+import com.mh.systems.sunningdale.activites.YourAccountActivity;
 import com.mh.systems.sunningdale.adapter.TabsAdapter.TabsPageAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 
@@ -88,7 +88,7 @@ public class MyAccountTabFragment extends Fragment {
                 (getActivity(), getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MY_ACCOUNT);
         viewPager.setAdapter(pageAdapter);
 
-        iLastTabPosition = ((MyAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
+        iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
         viewPager.setCurrentItem(iLastTabPosition);
         iLastTabPosition = 0;
 

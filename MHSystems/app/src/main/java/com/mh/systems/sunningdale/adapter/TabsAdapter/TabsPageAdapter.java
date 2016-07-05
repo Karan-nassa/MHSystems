@@ -10,7 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.mh.systems.sunningdale.activites.MyAccountActivity;
+import com.mh.systems.sunningdale.activites.YourAccountActivity;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.fragments.FinanceFragment;
 import com.mh.systems.sunningdale.fragments.FriendsFragment;
@@ -160,7 +160,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 break;
         }
 
-        ((MyAccountActivity) context).setFragmentInstance(fragment);
+        ((YourAccountActivity) context).setFragmentInstance(fragment);
         return fragment;
     }
 

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhiteffffff"
+    android:background="@color/colorF9F8F7"
     android:orientation="vertical">
 
     <!-- FINANCE TITLE WITH PRICE -->
@@ -29,7 +29,7 @@
         <!-- PAID FOR TRANSACTION -->
 
         <TextView
-            android:id="@+id/tvPayOfTrans"
+            android:id="@+id/tvAmountStr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

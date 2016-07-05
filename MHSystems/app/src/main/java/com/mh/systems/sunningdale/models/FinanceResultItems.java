@@ -1,14 +1,14 @@
 
 package com.mh.systems.sunningdale.models;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 
-
-public class MyAccountItems {
+public class FinanceResultItems {
 
     @SerializedName("Message")
     @Expose
@@ -16,61 +16,49 @@ public class MyAccountItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("MembersDetailsData")
+    @SerializedName("Data")
     @Expose
-    private List<MyAccountData> Data;
+    private FinanceData Data;
 
     /**
-     * 
-     * @return
-     *     The Message
+     * @return The Message
      */
     public String getMessage() {
         return Message;
     }
 
     /**
-     * 
-     * @param Message
-     *     The Message
+     * @param Message The Message
      */
     public void setMessage(String Message) {
         this.Message = Message;
     }
 
     /**
-     * 
-     * @return
-     *     The Result
+     * @return The Result
      */
     public Integer getResult() {
         return Result;
     }
 
     /**
-     * 
-     * @param Result
-     *     The Result
+     * @param Result The Result
      */
     public void setResult(Integer Result) {
         this.Result = Result;
     }
 
     /**
-     * 
-     * @return
-     *     The MyAccountData
+     * @return The Data
      */
-    public List<MyAccountData> getMyAccountData() {
+    public FinanceData getData() {
         return Data;
     }
 
     /**
-     * 
-     * @param Data
-     *     The MyAccountData
+     * @param Data The Data
      */
-    public void setMyAccountData(List<MyAccountData> Data) {
+    public void setData(FinanceData Data) {
         this.Data = Data;
     }
 

@@ -11,10 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.sunningdale.activites.YourAccountActivity;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.activites.BaseActivity;
-import com.mh.systems.sunningdale.activites.MyAccountActivity;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.constants.WebAPI;
 import com.mh.systems.sunningdale.models.AJsonParamsMembersDatail;
@@ -83,7 +83,7 @@ public class MyDetailsFragment extends Fragment {
         isClassVisible = true;
         if (isClassVisible) {
             callWebService();
-            ((MyAccountActivity) getActivity()).updateFilterIcon(8);
+            ((YourAccountActivity) getActivity()).updateFilterIcon(8);
         }
 
         llViewGroup = new View[]{llUsernameOfPerson, /*llPostalCodeOfPerson, llStreetOfPerson,*/ llStreetOfPerson, llEmailOfPerson,
@@ -101,7 +101,7 @@ public class MyDetailsFragment extends Fragment {
 
         if (isVisibleToUser && isClassVisible) {
             callWebService();
-            ((MyAccountActivity) getActivity()).updateFilterIcon(8);
+            ((YourAccountActivity) getActivity()).updateFilterIcon(8);
         }
     }
 
@@ -110,12 +110,12 @@ public class MyDetailsFragment extends Fragment {
          *  Check internet connection before hitting server request.
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
+            ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
             llMyDetailGroup.setVisibility(View.VISIBLE);
             requestMemberDetailService();
         } else {
             llMyDetailGroup.setVisibility(View.GONE);
-            ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
+            ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
         }
     }
 
@@ -130,10 +130,10 @@ public class MyDetailsFragment extends Fragment {
         aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
         aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsMembersDatail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsMembersDatail.setMemberid(((MyAccountActivity) getActivity()).getMemberId());
-        aJsonParamsMembersDatail.setLoginMemberId(((MyAccountActivity) getActivity()).getMemberId());
+        aJsonParamsMembersDatail.setMemberid(((YourAccountActivity) getActivity()).getMemberId());
+        aJsonParamsMembersDatail.setLoginMemberId(((YourAccountActivity) getActivity()).getMemberId());
 
-        membersDetailAPI = new MembersDetailAPI((((MyAccountActivity) getActivity()).getClientId()), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        membersDetailAPI = new MembersDetailAPI((((YourAccountActivity) getActivity()).getClientId()), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
 
@@ -185,14 +185,14 @@ public class MyDetailsFragment extends Fragment {
                 //  membersDatas.add(membersItems.getCompResultData());
 
                 if (membersDetailItems.getData() != null) {
-                    ((MyAccountActivity) getActivity()).updateHasInternetUI(true);
+                    ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
                     displayMembersData();
                 } else {
-                    ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
+                    ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
                     //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 }
             } else {
-                ((MyAccountActivity) getActivity()).updateHasInternetUI(false);
+                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
                 //If web service not respond in any case.
                 //((BaseActivity) getActivity()).showAlertMessage(membersDetailItems.getMessage());
             }

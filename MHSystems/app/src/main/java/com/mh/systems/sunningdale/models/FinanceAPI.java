@@ -5,7 +5,7 @@ package com.mh.systems.sunningdale.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MyAccountAPI {
+public class FinanceAPI {
 
     @SerializedName("aClientId")
     @Expose
@@ -15,7 +15,7 @@ public class MyAccountAPI {
     private String aCommand;
     @SerializedName("aJsonParams")
     @Expose
-    private MyAccountJsonParams myAccountJsonParams;
+    private FinanceAJsonParams aJsonParams;
     @SerializedName("aModuleId")
     @Expose
     private String aModuleId;
@@ -28,10 +28,10 @@ public class MyAccountAPI {
      * Constructor to initialize data members to
      * POST.
      */
-    public MyAccountAPI(String aClientId, String aCommand, MyAccountJsonParams myAccountJsonParams, String aModuleId, String aUserClass) {
+    public FinanceAPI(String aClientId, String aCommand, FinanceAJsonParams aJsonParams, String aModuleId, String aUserClass) {
         this.aClientId = aClientId;
         this.aCommand = aCommand;
-        this.myAccountJsonParams = myAccountJsonParams;
+        this.aJsonParams = aJsonParams;
         this.aModuleId = aModuleId;
         this.aUserClass = aUserClass;
     }
@@ -67,15 +67,15 @@ public class MyAccountAPI {
     /**
      * @return The competitionsJsonParams
      */
-    public MyAccountJsonParams getAJsonParams() {
-        return myAccountJsonParams;
+    public FinanceAJsonParams getAJsonParams() {
+        return aJsonParams;
     }
 
     /**
-     * @param competitionsJsonParams The competitionsJsonParams
+     * @param aJsonParams The aJsonParams
      */
-    public void setAJsonParams(MyAccountJsonParams competitionsJsonParams) {
-        this.myAccountJsonParams = competitionsJsonParams;
+    public void setAJsonParams(FinanceAJsonParams aJsonParams) {
+        this.aJsonParams = aJsonParams;
     }
 
     /**
