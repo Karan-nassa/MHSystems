@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
+import com.mh.systems.sunningdale.constants.WebAPI;
 
 public class ShowCertificateWebview extends BaseActivity {
 
@@ -30,7 +31,7 @@ public class ShowCertificateWebview extends BaseActivity {
         progressWebView = (ProgressBar) findViewById(R.id.progressWebView);
         wvWebView = (WebView) findViewById(R.id.wvWebView);
 
-        strURL = "http://www.sunningdale.mh.co.in/webapi/clubapppdf?aClientId=" + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078") + "&aCommand=GETMEMBERHCAPCERT&aJsonParams={%22version%22:"+ApplicationGlobal.TAG_GCLUB_VERSION+",%22callid%22:"+ApplicationGlobal.TAG_GCLUB_CALL_ID+",memberid:"+loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784")+"}&aModuleId="+ApplicationGlobal.TAG_GCLUB_WEBSERVICES+"&aUserClass="+ApplicationGlobal.TAG_GCLUB_MEMBERS;
+        strURL = WebAPI.API_BASE_URL + "/webapi/clubapppdf?aClientId=" + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID) + "&aCommand=GETMEMBERHCAPCERT&aJsonParams={%22version%22:" + ApplicationGlobal.TAG_GCLUB_VERSION + ",%22callid%22:" + ApplicationGlobal.TAG_GCLUB_CALL_ID + ",memberid:" + loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784") + "}&aModuleId=" + ApplicationGlobal.TAG_GCLUB_WEBSERVICES + "&aUserClass=" + ApplicationGlobal.TAG_GCLUB_MEMBERS;
 
         tbCertificate = (Toolbar) findViewById(R.id.tbCertificate);
         setSupportActionBar(tbCertificate);

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
+import com.mh.systems.sunningdale.models.Line;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
@@ -39,6 +40,8 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
     TextView tvFeeCourseEvent;
     @Bind(R.id.tvDescCourseEvent)
     TextView tvDescCourseEvent;
+    @Bind(R.id.llDescGroup)
+    LinearLayout llDescGroup;
     @Bind(R.id.llPriceGroup)
     LinearLayout llPriceGroup;
 
@@ -85,7 +88,11 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
         tvTimeCourseEvent.setText(strCourseTime);
 
         //tvFeeCourseEvent.setText(strCoursePrize);
-        tvDescCourseEvent.setText(strCourseDesc);
+        if(strCourseDesc.length()>0) {
+            tvDescCourseEvent.setText(strCourseDesc);
+        }else{
+            llDescGroup.setVisibility(View.GONE);
+        }
 
         fabJoinCourse.setOnClickListener(new View.OnClickListener() {
             @Override

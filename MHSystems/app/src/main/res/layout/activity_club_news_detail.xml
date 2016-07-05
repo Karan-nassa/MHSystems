@@ -67,6 +67,11 @@
                     android:text="@string/text_club_news_detail"
                     android:textColor="#A8000000" />
 
+                <!-- SPACE VIEW AT BOTTOM -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
             </LinearLayout>
 
         </ScrollView>

@@ -198,9 +198,9 @@ public class MembersActivity extends BaseActivity {
      */
     public void updateNoDataUI(boolean hasData) {
         if (hasData) {
-            showNoDataView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            showNoMemberView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
         } else {
-            showNoDataView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            showNoMemberView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
         }
     }
 

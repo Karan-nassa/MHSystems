@@ -266,7 +266,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * Implements a method to get CLIENT ID from {@link android.content.SharedPreferences}
      */
     private String getClientId() {
-        return ((YourAccountActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078");
+        return ((YourAccountActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
     /**

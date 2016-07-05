@@ -13,13 +13,4 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 
-    <!-- MENU BAR ICON MORE -->
-
-    <item
-        android:id="@+id/action_delete"
-        android:icon="@mipmap/ic_menu_white"
-        android:orderInCategory="100"
-        android:title=""
-        app:showAsAction="ifRoom" />
-
 </menu>
