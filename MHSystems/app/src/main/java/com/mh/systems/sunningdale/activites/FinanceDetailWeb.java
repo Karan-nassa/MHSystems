@@ -41,7 +41,7 @@ public class FinanceDetailWeb extends BaseActivity {
         tbFinanceDetail = (Toolbar) findViewById(R.id.tbFinanceDetail);
         setSupportActionBar(tbFinanceDetail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getIntent().getExtras().getString("titleOfScreen"));
+        getSupportActionBar().setTitle("Receipt Reprint");
 
         if (strURL.length() > 0) {
             //Load Web View URL.
