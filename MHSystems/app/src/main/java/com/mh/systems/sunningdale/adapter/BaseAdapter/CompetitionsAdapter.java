@@ -137,7 +137,7 @@ public class CompetitionsAdapter extends BaseAdapter {
 
         if (iPopItemPos < 2) {
             /* EXECUTE ONLY FOR UPCOMING and JOINED */
-            viewHolder.tvFeeCompEvent.setText("£" + compititionsDatas.get(position).getPricePerGuest() + " " + context.getResources().getString(R.string.title_competitions_prize));
+            viewHolder.tvFeeCompEvent.setText(/*"£" + */compititionsDatas.get(position).getPricePerGuest() + " " + context.getResources().getString(R.string.title_competitions_prize));
             viewHolder.ivStatOfEvent.setVisibility(View.VISIBLE);
         } else {
             /* EXECUTE FOR COMPLETED */

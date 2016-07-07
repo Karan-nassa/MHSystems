@@ -182,7 +182,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
         tvDateCourseEvent.setText(strEventDate);
         tvTimeCourseEvent.setText(strEventTime);
 
-        tvFeeCourseEvent.setText("£" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
+        tvFeeCourseEvent.setText(/*"£" + */strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
         tvDescCourseEvent.setText(strEventDesc);
         tvEventStatusStrDD.setText(strEventStatus);
 
@@ -258,6 +258,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
         } else {
             //Floating Action button should not VISIBLE when user view the detail of COMPLETED COMPETITIONS.
             fabJoinCompetition.setVisibility(View.GONE);
+            llPriceGroup.setVisibility(View.GONE);
 
             //Display Rank of Members.
             llRankOfMembers.setVisibility(View.VISIBLE);
