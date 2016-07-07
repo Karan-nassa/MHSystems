@@ -123,7 +123,7 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      */
-    @POST("/api/ClubsApp/RpcRequest")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getFinanceDetail(@Body FinanceAPI jsonElements, Callback<JsonObject> response);
 
     /**
@@ -197,7 +197,7 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
-     * @param resetPasswordAPI
+     * @param competitionUnjoinAPI
      * @param response
      */
     @POST("/webapi/api/ClubsApp")

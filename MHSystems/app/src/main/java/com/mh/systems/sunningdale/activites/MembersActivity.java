@@ -78,8 +78,6 @@ public class MembersActivity extends BaseActivity {
 
      /* -- INTERNET CONNECTION PARAMETERS -- */
 
-    ArrayList<String> spinnerArraylist = new ArrayList<>();
-
     /**
      * Instance of {@link Fragment} used for separate result
      * of {@link MembersFragment} and {@link com.mh.systems.sunningdale.fragments.FriendsFragment} list data.

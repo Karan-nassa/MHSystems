@@ -11,13 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.mh.systems.sunningdale.activites.FinanceDetailWeb;
+import com.mh.systems.sunningdale.activites.FinanceDetailWebActivity;
 import com.mh.systems.sunningdale.activites.YourAccountActivity;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.activites.BaseActivity;
@@ -83,7 +82,7 @@ public class FinanceFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            intent = new Intent(getActivity(), FinanceDetailWeb.class);
+            intent = new Intent(getActivity(), FinanceDetailWebActivity.class);
             intent.putExtra("IsTopup", transactionListDataArrayList.get(position).getIsTopup());
             intent.putExtra("iTransactionId", transactionListDataArrayList.get(position).getTransactionId());
             intent.putExtra("iMemberId", ((YourAccountActivity) getActivity()).getMemberId());
@@ -223,7 +222,7 @@ public class FinanceFragment extends Fragment {
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(WebAPI.API_NEW_BASE_URL)
+                .setEndpoint(WebAPI.API_BASE_URL)
                 .build();
 
         //Creating an object of our api interface

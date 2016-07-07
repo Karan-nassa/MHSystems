@@ -11,8 +11,9 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
+import com.mh.systems.sunningdale.constants.WebAPI;
 
-public class FinanceDetailWeb extends BaseActivity {
+public class FinanceDetailWebActivity extends BaseActivity {
 
     /* ++ LOCAL DATA TYPE INSTANCE DECLARATION ++ */
     String strURL;
@@ -36,7 +37,7 @@ public class FinanceDetailWeb extends BaseActivity {
         iTransactionId = getIntent().getExtras().getInt("iTransactionId");
         iMemberId = getIntent().getExtras().getInt("iMemberId");
 
-        strURL = "http://staging.mhsystems.co.uk:8090/ClubTransDetail?aClientId=" + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID) +"&aCommand=GetAccReceipt&aJsonParams={%22MemberId%22:"+iMemberId+",%22TranId%22:"+iTransactionId+",%22IsTopup%22:"+IsTopup+"}&aModuleId="+ApplicationGlobal.TAG_GCLUB_WEBSERVICES;
+        strURL = WebAPI.API_BASE_URL + "/webapi/ClubTransDetail?aClientId=" + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID) +"&aCommand=GetAccReceipt&aJsonParams={%22MemberId%22:"+iMemberId+",%22TranId%22:"+iTransactionId+",%22IsTopup%22:"+IsTopup+"}&aModuleId="+ApplicationGlobal.TAG_GCLUB_WEBSERVICES;
 
         tbFinanceDetail = (Toolbar) findViewById(R.id.tbFinanceDetail);
         setSupportActionBar(tbFinanceDetail);

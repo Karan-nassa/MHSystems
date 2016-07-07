@@ -117,7 +117,7 @@
 
         <!-- SEND FEEDBACK SCREEN -->
         <activity
-            android:name=".activites.FinanceDetailWeb"
+            android:name=".activites.FinanceDetailWebActivity"
             android:screenOrientation="portrait" />
     </application>
 
