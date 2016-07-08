@@ -260,6 +260,9 @@ public class CompetitionsDetailActivity extends BaseActivity {
             fabJoinCompetition.setVisibility(View.GONE);
             llPriceGroup.setVisibility(View.GONE);
 
+            //Hide Time of Event for Completed competitions for now cause of static data.
+            tvTimeCourseEvent.setVisibility(View.GONE);
+
             //Display Rank of Members.
             llRankOfMembers.setVisibility(View.VISIBLE);
 

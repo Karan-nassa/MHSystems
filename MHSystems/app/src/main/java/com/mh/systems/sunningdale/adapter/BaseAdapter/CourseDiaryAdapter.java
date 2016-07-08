@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.sunningdale.R;
@@ -24,7 +25,7 @@ import java.util.TreeSet;
  * Created by  karan@mh.co.in to Create adapter
  * to display COURSE DIARY EVENTS on 12/4/2015.
  */
-public class CourseDiaryAdapter extends BaseAdapter {
+public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListener {
 
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_SEPARATOR = 1;
@@ -137,22 +138,27 @@ public class CourseDiaryAdapter extends BaseAdapter {
                     viewHolder.tvTitleOfEvent = (TextView) rowView.findViewById(R.id.tvTitleOfEvent);
                     viewHolder.btBookNow = (Button) rowView.findViewById(R.id.btBookNow);
 
+                    viewHolder.llBookEventRow = (LinearLayout) rowView.findViewById(R.id.llBookEventRow);
+
                     viewHolder.btBookNow.setTypeface(tfSFUITextMedium);
+
+                    viewHolder.llBookEventRow.setOnClickListener(this);
+                    viewHolder.btBookNow.setOnClickListener(this);
 
                     /**
                      *  Book free slot of Event.
                      */
-                    viewHolder.btBookNow.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //Show alert dialog.
-                            Intent mIntent = new Intent(context, CustomAlertDialogActivity.class);
-                            //Pass theme green color.
-                            mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
-                            mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
-                            context.startActivity(mIntent);
-                        }
-                    });
+//                    viewHolder.llBookEventRow.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            //Show alert dialog.
+//                            Intent mIntent = new Intent(context, CustomAlertDialogActivity.class);
+//                            //Pass theme green color.
+//                            mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
+//                            mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
+//                            context.startActivity(mIntent);
+//                        }
+//                    });
 
                     rowView.setTag(viewHolder);
                     viewHolder = (View_Holder) rowView.getTag();
@@ -263,6 +269,16 @@ public class CourseDiaryAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    @Override
+    public void onClick(View v) {
+        //Show alert dialog.
+        Intent mIntent = new Intent(context, CustomAlertDialogActivity.class);
+        //Pass theme green color.
+        mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");
+        mIntent.putExtra(ApplicationGlobal.TAG_CALL_FROM, ApplicationGlobal.POSITION_COURSE_DIARY);
+        context.startActivity(mIntent);
+    }
+
     /**
      * View_Holder to create COURSE DIARY row to
      * display EVENTS of COURSE DIARY.
@@ -274,5 +290,6 @@ public class CourseDiaryAdapter extends BaseAdapter {
         TextView tvStartOfEvent, tvTitleOfEvent, tvTimeOfEvent;
         TextView tvCourseDateTitle;
         Button btBookNow;
+        LinearLayout llBookEventRow;
     }
 }

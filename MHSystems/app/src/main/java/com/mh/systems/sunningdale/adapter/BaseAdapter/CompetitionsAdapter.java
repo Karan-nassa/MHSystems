@@ -39,7 +39,7 @@ public class CompetitionsAdapter extends BaseAdapter {
      *
      * @param context:        To hold context.
      * @param CourseDiaryData : Used for Videos data.
-     * @param isJoinVisible   : JOIN will be visible only for {@link UpcomingFragment}
+     * @param isJoinVisible   : JOIN will be visible
      */
     public CompetitionsAdapter(Activity context, ArrayList<CompetitionsData> CourseDiaryData, boolean isJoinVisible, int iPopItemPos) {
 
@@ -116,6 +116,9 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.ivStatOfEvent = (ImageView) rowView.findViewById(R.id.ivStatOfEvent);
 
         viewHolder.llCompetitionGroup = (LinearLayout) rowView.findViewById(R.id.llCompetitionGroup);
+
+        viewHolder.llPriceGroup = (LinearLayout) rowView.findViewById(R.id.llPriceGroup);
+
         viewHolder.tvPosOfPerson = (TextView) rowView.findViewById(R.id.tvPosOfPerson);
 
         //viewHolder.llShowDetails = (LinearLayout) rowView.findViewById(R.id.llShowDetails);
@@ -141,8 +144,15 @@ public class CompetitionsAdapter extends BaseAdapter {
             viewHolder.ivStatOfEvent.setVisibility(View.VISIBLE);
         } else {
             /* EXECUTE FOR COMPLETED */
-            viewHolder.tvFeeCompEvent.setText("Player Name");
-            viewHolder.tvPosOfPerson.setText("70");
+
+            /**
+             *  For now hiding Player name and position because its static at back-end.
+             */
+
+          /*  viewHolder.tvFeeCompEvent.setText("Player Name");
+            viewHolder.tvPosOfPerson.setText("70");*/
+            viewHolder.llPriceGroup.setVisibility(View.GONE);
+
             viewHolder.ivStatOfEvent.setVisibility(View.INVISIBLE);
         }
 
@@ -204,5 +214,7 @@ public class CompetitionsAdapter extends BaseAdapter {
         //Linear Layout instances declaration.
         //LinearLayout llShowDetails;
         LinearLayout llCompetitionGroup;
+
+        LinearLayout llPriceGroup;
     }
 }
