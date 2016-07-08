@@ -126,6 +126,34 @@ public class CompetitionsDetailActivity extends BaseActivity {
     Typeface tpRobotoMedium, tfSFUITextSemibold;
 
     /**
+     * Define Floating action button tap Alert Dialog
+     * events handle here.
+     */
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked...
+                    /**
+                     *  Check internet connection before hitting server request.
+                     */
+                    if (isOnline(CompetitionsDetailActivity.this)) {
+                        unJoinWebService();
+                    } else {
+                        showAlertMessage(getResources().getString(R.string.error_no_internet));
+                    }
+
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //Cancel button clicked
+                    break;
+            }
+        }
+    };
+
+    /**
      * Declares the field to JOIN a COMPETITIONS if user come from
      * {@link com.mh.systems.sunningdale.fragments.UpcomingFragment} because
      * user can JOIN only for future COMPETITIONS not past.
@@ -136,14 +164,11 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
             //Check for Unjoin competition.
             if (iPopItemPos == 1 && IsMemberJoined) {
-                /**
-                 *  Check internet connection before hitting server request.
-                 */
-                if (isOnline(CompetitionsDetailActivity.this)) {
-                    unJoinWebService();
-                } else {
-                    showAlertMessage(getResources().getString(R.string.error_no_internet));
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(CompetitionsDetailActivity.this);
+                builder.setTitle(getResources().getString(R.string.alert_title_unjoin))
+                        .setMessage(getResources().getString(R.string.alert_title_unjoin_message))
+                        .setPositiveButton("Leave", dialogClickListener)
+                        .setNegativeButton("Stay", dialogClickListener).show();
             } else {
                 if (!IsMemberJoined) {
                     /**
@@ -242,7 +267,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
                         break;
 
                     case 1:
-                        fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
+                        fabJoinCompetition.setImageResource(R.mipmap.ic_minus);
                         fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
                         break;
                 }

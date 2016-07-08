@@ -84,6 +84,8 @@
     <string name="alert_title_friend_invitation">Friend Invitation</string>
     <string name="alert_title_friend_invite_message">Do you wish to add this member to your Friend list?</string>
     <string name="alert_title_friend_remove">Remove Friend</string>
+    <string name="alert_title_unjoin">Unjoin Competition</string>
+    <string name="alert_title_unjoin_message">Are you sure you want to leave this competition?</string>
     <string name="alert_title_friend_remove_message">Do you wish to remove this member from your Friend list?</string>
     <!-- START OF MEMBERS DETAIL ACTIVITY -->
 
