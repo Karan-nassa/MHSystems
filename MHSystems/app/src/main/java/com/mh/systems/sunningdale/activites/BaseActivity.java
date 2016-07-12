@@ -183,8 +183,8 @@ public class BaseActivity extends AppCompatActivity {
                 pDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 pDialog.setContentView(R.layout.custom_progress_wheel);
                 pDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                ProgressWheel wheel = new ProgressWheel(BaseActivity.this);
-                wheel.setBarColor(Color.RED);
+               // ProgressWheel wheel = new ProgressWheel(BaseActivity.this);
+               // wheel.setBarColor(Color.RED);
                 pDialog.setCancelable(false);
 
                 if (!pDialog.isShowing()) {
