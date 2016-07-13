@@ -50,6 +50,12 @@ public class CompetitionsData {
     @SerializedName("IsMemberJoined")
     @Expose
     private boolean IsMemberJoined;
+
+    /****************************************************************
+     * START:
+     * New four fields added to make Competitions fees dynamically.
+     ***************************************************************/
+
     @SerializedName("PlayerPosition")
     @Expose
     private String PlayerPosition;
@@ -134,6 +140,11 @@ public class CompetitionsData {
     public void setPlayerTotal(String PlayerTotal) {
         this.PlayerTotal = PlayerTotal;
     }
+
+    /****************************************************************
+     * END:
+     * New four fields added to make Competitions fees dynamically.
+     ***************************************************************/
 
     /**
      * @return The eventStatusStr

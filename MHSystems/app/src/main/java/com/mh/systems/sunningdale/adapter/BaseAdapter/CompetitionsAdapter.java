@@ -149,8 +149,8 @@ public class CompetitionsAdapter extends BaseAdapter {
              *  For now hiding Player name and position because its static at back-end.
              */
 
-            viewHolder.tvNameTitle.setText(compititionsDatas.get(position).getPlayerName());
-            viewHolder.tvPosOfPerson.setText(compititionsDatas.get(position).getPlayerPosition());
+            viewHolder.tvNameTitle.setText(compititionsDatas.get(position).getPlayerPosition() + " " + compititionsDatas.get(position).getPlayerName());
+            viewHolder.tvPosOfPerson.setText(compititionsDatas.get(position).getPlayerHandicapped() + isDivderDisplay(position) + compititionsDatas.get(position).getPlayerTotal());
             //viewHolder.llPriceGroup.setVisibility(View.GONE);
 
             viewHolder.ivStatOfEvent.setVisibility(View.INVISIBLE);
@@ -181,6 +181,21 @@ public class CompetitionsAdapter extends BaseAdapter {
         });
 
         return rowView;
+    }
+
+    /**
+     * Implements a method to check PlayerHandicapped and PlayerTotal key. If both have any value then
+     * display Divider ('/') sign between them Otherwise return empty string.
+     *
+     * @param position
+     * @return '/' or '{SPACE}'
+     */
+    public String isDivderDisplay(int position) {
+
+        if (compititionsDatas.get(position).getPlayerHandicapped().length() > 0 && compititionsDatas.get(position).getPlayerTotal().length() > 0) {
+            return "/";
+        }
+        return "";
     }
 
 
