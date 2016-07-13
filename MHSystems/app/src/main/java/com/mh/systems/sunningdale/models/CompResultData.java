@@ -30,7 +30,7 @@ public class CompResultData {
      * @param EventId
      *     The EventId
      */
-    public void setEventId(Integer eventId) {
+    public void setEventId(Integer EventId) {
         this.EventId = EventId;
     }
 
@@ -48,7 +48,7 @@ public class CompResultData {
      * @param Results
      *     The Results
      */
-    public void setResults(List<Result> results) {
+    public void setResults(List<Result> Results) {
         this.Results = Results;
     }
 

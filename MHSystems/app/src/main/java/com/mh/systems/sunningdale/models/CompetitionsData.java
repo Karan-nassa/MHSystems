@@ -50,6 +50,90 @@ public class CompetitionsData {
     @SerializedName("IsMemberJoined")
     @Expose
     private boolean IsMemberJoined;
+    @SerializedName("PlayerPosition")
+    @Expose
+    private String PlayerPosition;
+    @SerializedName("PlayerName")
+    @Expose
+    private String PlayerName;
+    @SerializedName("PlayerHandicapped")
+    @Expose
+    private String PlayerHandicapped;
+    @SerializedName("PlayerTotal")
+    @Expose
+    private String PlayerTotal;
+
+    /**
+     *
+     * @return
+     * The PlayerPosition
+     */
+    public String getPlayerPosition() {
+        return PlayerPosition;
+    }
+
+    /**
+     *
+     * @param PlayerPosition
+     * The PlayerPosition
+     */
+    public void setPlayerPosition(String PlayerPosition) {
+        this.PlayerPosition = PlayerPosition;
+    }
+
+    /**
+     *
+     * @return
+     * The PlayerName
+     */
+    public String getPlayerName() {
+        return PlayerName;
+    }
+
+    /**
+     *
+     * @param PlayerName
+     * The PlayerName
+     */
+    public void setPlayerName(String PlayerName) {
+        this.PlayerName = PlayerName;
+    }
+
+    /**
+     *
+     * @return
+     * The PlayerHandicapped
+     */
+    public String getPlayerHandicapped() {
+        return PlayerHandicapped;
+    }
+
+    /**
+     *
+     * @param PlayerHandicapped
+     * The PlayerHandicapped
+     */
+    public void setPlayerHandicapped(String PlayerHandicapped) {
+        this.PlayerHandicapped = PlayerHandicapped;
+    }
+
+    /**
+     *
+     * @return
+     * The playerTotal
+     */
+    public String getPlayerTotal() {
+        return PlayerTotal;
+    }
+
+    /**
+     *
+     * @param PlayerTotal
+     * The PlayerTotal
+     */
+    public void setPlayerTotal(String PlayerTotal) {
+        this.PlayerTotal = PlayerTotal;
+    }
 
     /**
      * @return The eventStatusStr
@@ -255,7 +339,7 @@ public class CompetitionsData {
     }
 
     /**
-     * @param IsMemberJoined The IsMemberJoined
+     * @param isMemberJoined The isMemberJoined
      */
     public void setIsMemberJoined(boolean isMemberJoined) {
         IsMemberJoined = isMemberJoined;

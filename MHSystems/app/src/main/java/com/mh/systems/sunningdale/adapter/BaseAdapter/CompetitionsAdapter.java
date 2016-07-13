@@ -106,7 +106,7 @@ public class CompetitionsAdapter extends BaseAdapter {
         rowView = inflater.inflate(R.layout.list_item_competitions, parent, false);
 
         viewHolder = new View_Holder();
-        viewHolder.tvFeeCompEvent = (TextView) rowView.findViewById(R.id.tvFeeCompEvent);
+        viewHolder.tvNameTitle = (TextView) rowView.findViewById(R.id.tvNameTitle);
         viewHolder.tvDateCompEvent = (TextView) rowView.findViewById(R.id.tvDateCompEvent);
         viewHolder.tvCompDesc = (TextView) rowView.findViewById(R.id.tvCompDesc);
         viewHolder.tvCompTitle = (TextView) rowView.findViewById(R.id.tvCompTitle);
@@ -139,8 +139,8 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.tvEventStatusStr.setText(compititionsDatas.get(position).getEventStatusStr());
 
         if (iPopItemPos < 2) {
-            /* EXECUTE ONLY FOR UPCOMING and JOINED */
-            viewHolder.tvFeeCompEvent.setText(/*"£" + */compititionsDatas.get(position).getPricePerGuest() + " " + context.getResources().getString(R.string.title_competitions_prize));
+           /* EXECUTE ONLY FOR UPCOMING and JOINED */
+            viewHolder.tvNameTitle.setText(/*"£" + */compititionsDatas.get(position).getPricePerGuest() + " " + context.getResources().getString(R.string.title_competitions_prize));
             viewHolder.ivStatOfEvent.setVisibility(View.VISIBLE);
         } else {
             /* EXECUTE FOR COMPLETED */
@@ -149,9 +149,9 @@ public class CompetitionsAdapter extends BaseAdapter {
              *  For now hiding Player name and position because its static at back-end.
              */
 
-          /*  viewHolder.tvFeeCompEvent.setText("Player Name");
-            viewHolder.tvPosOfPerson.setText("70");*/
-            viewHolder.llPriceGroup.setVisibility(View.GONE);
+            viewHolder.tvNameTitle.setText(compititionsDatas.get(position).getPlayerName());
+            viewHolder.tvPosOfPerson.setText(compititionsDatas.get(position).getPlayerPosition());
+            //viewHolder.llPriceGroup.setVisibility(View.GONE);
 
             viewHolder.ivStatOfEvent.setVisibility(View.INVISIBLE);
         }
@@ -190,7 +190,7 @@ public class CompetitionsAdapter extends BaseAdapter {
      */
     public void setTypeFace(View_Holder viewHolder) {
 
-        viewHolder.tvFeeCompEvent.setTypeface(typeface, Typeface.NORMAL);
+        viewHolder.tvNameTitle.setTypeface(typeface, Typeface.NORMAL);
         viewHolder.tvDateCompEvent.setTypeface(typeface, Typeface.NORMAL);
         viewHolder.tvPosOfPerson.setTypeface(typeface, Typeface.NORMAL);
 
@@ -207,7 +207,7 @@ public class CompetitionsAdapter extends BaseAdapter {
         /**
          * Text Row VIEW INSTANCES DECLARATION
          */
-        TextView tvFeeCompEvent, tvDateCompEvent, tvCompDesc, tvCompTitle, tvEventStatusStr;
+        TextView tvNameTitle, tvDateCompEvent, tvCompDesc, tvCompTitle, tvEventStatusStr;
         TextView tvTimeOfCompEvent, tvPosOfPerson;
         //Use for Statistics/Position or Price of Booking a COMPETITION.
         ImageView ivStatOfEvent;
