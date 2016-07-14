@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">MHSystems</string>
+    <string name="app_name">Sunningdale</string>
 
-    <string name="text_hello_mhsystems">Hello MHSystems!</string>
+    <string name="text_hello_mhsystems">Hello Sunningdale!</string>
 
     <!-- START OF SNACK BAR MESSAGES -->
     <string name="error_no_internet">Please check your internet connection</string>

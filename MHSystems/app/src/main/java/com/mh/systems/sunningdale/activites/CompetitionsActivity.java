@@ -292,7 +292,7 @@ public class CompetitionsActivity extends BaseActivity {
         competitionsJsonParams.setMemberId(getMemberId());
         competitionsJsonParams.setMyEventsOnly(isJoined);
         competitionsJsonParams.setIncludeCompletedEvents(isCompleted);
-        competitionsJsonParams.setIncludeCurrentEvents(isCompleted);
+        competitionsJsonParams.setIncludeCurrentEvents(isCurrent);
         competitionsJsonParams.setIncludeFutureEvents(isUpcoming);
         competitionsJsonParams.setDateto(strDateTo); // MM-DD-YYYY
         competitionsJsonParams.setDatefrom(strDateFrom); // MM-DD-YYYY
