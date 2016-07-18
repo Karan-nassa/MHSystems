@@ -8,7 +8,11 @@ import android.widget.LinearLayout;
 
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.adapter.RecyclerAdapter.ClubNewsSwipeAdapter;
-import com.mh.systems.sunningdale.models.ClubNews.ClubNewsItems;
+import com.mh.systems.sunningdale.models.ClubNews.AJsonParamsClubNews;
+import com.mh.systems.sunningdale.models.ClubNews.ClubNewsAPI;
+import com.mh.systems.sunningdale.models.ResetPassword.AJsonParamsResetPwd;
+import com.mh.systems.sunningdale.models.ResetPassword.ResetPasswordAPI;
+import com.mh.systems.sunningdale.models.ResetPassword.ResetPasswordItems;
 import com.mh.systems.sunningdale.util.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -17,6 +21,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ClubNewsActivity extends BaseActivity {
+
+    private String LOG_TAG = ClubNewsActivity.class.getSimpleName();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -30,10 +36,13 @@ public class ClubNewsActivity extends BaseActivity {
     // ClubNewsAdapter clubNewsAdapter;
     ClubNewsSwipeAdapter clubNewsSwipeAdapter;
 
+    private ClubNewsAPI clubNewsAPI;
+    AJsonParamsClubNews aJsonParamsClubNews;
+
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    ArrayList<ClubNewsItems> clubNewsItemses;
+    ArrayList<ClubNewsAPI> clubNewsItemses;
 
     /**
      * Implements HOME icons press listener.
