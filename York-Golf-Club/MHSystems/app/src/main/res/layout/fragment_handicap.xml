@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7">
+
+    <LinearLayout
+        android:id="@+id/llHandicapGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="false"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorD6D0C9"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <!-- EXACT VIEW OF HANDICAP -->
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <!-- EXACT LABEL OF HANDICAP -->
+
+                            <com.mh.systems.york.customfonts.RobotoTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:alpha="0.4"
+                                android:text="Exact"
+                                android:textColor="@color/color1E1E1C"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <!-- EXACT LABEL VALUE OF HANDICAP -->
+
+                            <com.mh.systems.york.customfonts.RobotoMediumTextView
+                                android:id="@+id/tvHandicapExact"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:textColor="@color/color1E1E1C"
+                                android:textSize="19sp" />
+
+                        </LinearLayout>
+
+                        <!-- DIVIDER LINE  -->
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/color8F8E94" />
+
+                    </FrameLayout>
+
+                    <!-- PLAYING VIEW OF HANDICAP -->
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="34">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <!-- PLAYING LABEL OF HANDICAP -->
+
+                            <com.mh.systems.york.customfonts.RobotoTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:alpha="0.4"
+                                android:text="Playing"
+                                android:textColor="@color/color1E1E1C"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <!-- PLAYING LABEL VALUE OF HANDICAP -->
+
+                            <com.mh.systems.york.customfonts.RobotoMediumTextView
+                                android:id="@+id/tvHandicapPlaying"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:textColor="@color/color1E1E1C"
+                                android:textSize="19sp" />
+
+                        </LinearLayout>
+
+
+                        <!-- DIVIDER LINE  -->
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/color8F8E94" />
+
+                    </FrameLayout>
+
+                    <!-- TYPE VIEW OF HANDICAP -->
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <!-- TYPE LABEL -->
+
+                            <com.mh.systems.york.customfonts.RobotoTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:alpha="0.4"
+                                android:text="Certificate"
+                                android:textColor="@color/color1E1E1C"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <!--   &lt;!&ndash; TYPE LABEL VALUE OF HANDICAP &ndash;&gt;
+
+                               <mhstems.customfonts.RobotoMediumTextView
+                                   android:id="@+id/tvHandicapType"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_marginTop="12dp"
+                                   android:textColor="@color/color535796"
+                                   android:textSize="15sp"
+                                   android:textStyle="bold" />-->
+                            <Button
+                                android:id="@+id/btShowCertificate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/button_shape_d6d0c9"
+                                android:text="@string/text_title_show_certificate"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorBlack000000"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:background="@color/colorWhiteffffff"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:weightSum="100">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="70"
+                            android:orientation="vertical">
+
+                            <!-- SELECTED HANDICAP GRAPH DATE  -->
+
+                            <com.mh.systems.york.customfonts.RobotoTextView
+                                android:id="@+id/tvDateOfPlayedStr"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@color/colorBDB6AE"
+                                android:textSize="13sp" />
+
+                            <!-- SELECTED HANDICAP GRAPH DESCRIPTION  -->
+
+                            <com.mh.systems.york.customfonts.RobotoTextView
+                                android:id="@+id/tvTitleOfPlayStr"
+                                android:layout_width="170dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:textColor="@color/color1E1E1C"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="30"
+                            android:background="@color/colorDB766C"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                            <com.mh.systems.york.customfonts.RobotoTextFontBold
+                                android:id="@+id/tvTypeOfPlayStr"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:padding="20dp"
+                                android:textColor="@color/colorWhiteffffff"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <!-- GRAPH VIEW TO DISPLAY HANDICAP DATA IN GRAPHICAL FORM -->
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/linechart"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:padding="10dp" />
+
+                    <!-- STATISTICS LINEAR LAYOUT STOP-->
+
+                </LinearLayout>
+
+                <!-- HANDICAP RECORD DETAIL  -->
+
+                <LinearLayout
+                    android:id="@+id/llMonthNavigationGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/border_shape_d6d0c9"
+                    android:orientation="horizontal">
+
+                    <!-- PREVIOUS YEAR GRAPH NAVIGATION ICON  -->
+
+                    <LinearLayout
+                        android:id="@+id/llPreviousYearGraph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/ivPreviousYearGraph"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/ic_date_prevmonth" />
+
+                    </LinearLayout>
+
+                    <!-- CURRENT SELECTED HANDICAP GRAPH YEAR  -->
+
+                    <com.mh.systems.york.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvSelectGraphYear"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="17sp" />
+
+                    <!-- NEXT YEAR GRAPH NAVIGATION ICON  -->
+
+                    <LinearLayout
+                        android:id="@+id/llNextYearGraph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/ivNextYearGraph"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/ic_date_nextmonth" />
+
+                    </LinearLayout>
+
+                    <com.mh.systems.york.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvLatestGraphYear"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:text="Latest"
+                        android:textColor="@color/colorC0995B"
+                        android:textSize="17sp" />
+
+                </LinearLayout>
+
+                <!-- SPACE VIEW AT BOTTOM -->
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

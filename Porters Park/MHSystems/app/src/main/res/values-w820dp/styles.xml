@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- inherit from the material theme -->
+    <style name="AppThemeMaterial" parent="MyMaterialTheme.Base">
+        <!--   your app branding color for the app bar -->
+        <item name="colorPrimary">@color/colorBlack000000</item>
+        <item name="colorPrimaryDark">@color/colorBlack000000</item>
+        <item name="colorAccent">@color/colorC0995B</item>
+    </style>
+</resources>

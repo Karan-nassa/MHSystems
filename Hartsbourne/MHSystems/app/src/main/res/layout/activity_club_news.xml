@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49"
+            android:minHeight="?android:attr/actionBarSize"
+            android:orientation="horizontal">
+
+            <!-- VIEW GROUP TO SET TITLE BAR -->
+
+            <LinearLayout
+                android:id="@+id/llHomeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <!-- HOME MENU ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_menu" />
+
+            </LinearLayout>
+
+            <!-- CLUB NEWS TITLE -->
+
+            <com.mh.systems.hartsbourne.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:text="Club News"
+                android:textColor="@color/colorWhiteffffff"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <!-- CLUB NEWS LIST -->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvClubNewsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@color/colorF9F8F7"
+            android:divider="@color/colorE8E2DD"
+            android:dividerHeight="1dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

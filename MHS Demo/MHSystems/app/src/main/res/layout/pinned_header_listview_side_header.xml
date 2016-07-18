@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mh.systems.demoapp.customfonts.RobotoMediumTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/header_text"
+    style="@style/PinnedHeader"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:background="@color/colorF9F8F7"
+    android:text="A"
+    android:textColor="@color/color9B9B9B"
+    android:textSize="20sp"
+    tools:ignore="HardcodedText" />
