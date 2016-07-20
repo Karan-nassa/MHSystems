@@ -52,6 +52,20 @@ public class ClubNewsDetailActivity extends BaseActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        switch (getIntent().getExtras().getInt("NEWS_POS")){
+            case 0:
+                tvDescOfNews.setText("These offers are only available when you book your table online, for free, through Skiddle.");
+                break;
+
+            case 1:
+                tvDescOfNews.setText("Whether you’re a long-time lover of the genre or a total newbie, London’s got something to keep all jazz fans entertained. With top-notch nights taking place.");
+                break;
+
+            case 2:
+                tvDescOfNews.setText("Many people have asked why golf courses have eighteen holes and this is now the universal format played today. The early golf courses all had different numbers of holes and were not always played in a defined order, as evidenced at Earlsferry. The order of play on Aberdeen Links is known to have been laid out in August 1780, but the layouts below were probably established much earlier");
+                break;
+        }
     }
 
     @Override

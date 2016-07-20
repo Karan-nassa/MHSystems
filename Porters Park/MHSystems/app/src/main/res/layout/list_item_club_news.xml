@@ -27,16 +27,16 @@
                 android:layout_marginBottom="5dp"
                 android:src="@mipmap/ic_menu_delete" />
 
-            <com.mh.systems.porterspark.customfonts.RobotoTextView
+            <TextView
                 android:id="@+id/tvShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_margin="5dp"
+                android:alpha="0.5"
                 android:gravity="center"
                 android:text="DELETE"
                 android:textColor="@color/colorWhiteffffff"
-                android:alpha="0.5"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </FrameLayout>
@@ -52,52 +52,70 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="4dp">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="25dp"
-            android:orientation="horizontal">
-
-            <!-- RED CIRCLE-->
-
-            <ImageView
-                android:id="@+id/ivReadStatus"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_red_dot_circle" />
-
-            <!-- TIME and DESCRIPTION OF NEWS VIEW GROUP -->
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="20dp">
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="25dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvTimeOfNews"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:alpha="0.5"
-                    android:text="10 minutes ago"
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="14sp" />
+                <!-- RED CIRCLE-->
 
-                <TextView
-                    android:id="@+id/tvTitleOfNews"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/ivReadStatus"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:visibility="visible"
+                    android:background="@drawable/ic_red_dot_circle" />
+
+                <!-- TIME and DESCRIPTION OF NEWS VIEW GROUP -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Checkout upcoming competitions this month, new promotions…"
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="14sp" />
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp">
+
+                    <TextView
+                        android:id="@+id/tvTimeOfNews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:alpha="0.5"
+                        android:text="Monday, 18th July 2016"
+                        android:textColor="@color/colorBlack000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvTitleOfNews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Checkout upcoming competitions this month, new promotions…"
+                        android:textColor="@color/colorBlack000000"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="gone"
+                android:background="#E8E2DD" />
+
         </LinearLayout>
+
+
     </RelativeLayout>
+
+
 </com.daimajia.swipe.SwipeLayout>

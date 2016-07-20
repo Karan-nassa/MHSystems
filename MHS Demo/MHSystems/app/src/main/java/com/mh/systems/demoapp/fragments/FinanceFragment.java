@@ -48,7 +48,7 @@ public class FinanceFragment extends Fragment {
     ArrayList<TransactionListData> transactionListDataArrayList = new ArrayList<>();
 
     /*++ Filter type for Today, 1 Week, 1 Month, 3 Months, 6 Months, 1 Year or From Start++*/
-    int iFilterType = 0; //By Default Today will be selected.
+    int iFilterType = 2; //By Default Today will be selected.
 
     private boolean isClassVisible = false;
 

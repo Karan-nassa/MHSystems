@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
@@ -166,7 +167,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void failure(RetrofitError error) {
 
-                Log.e(LOG_TAG, ""+error.toString());
+                Log.e(LOG_TAG, "" + error.toString());
 
                 //you can handle the errors here
                 hideProgress();
@@ -207,6 +208,11 @@ public class LoginActivity extends BaseActivity {
                     savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);
                     savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
                     savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
+
+                    Gson gson = new Gson();
+
+                    //Save Courses ArrayList in Shared-preference.
+                    savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
 
                     startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                     this.finish();

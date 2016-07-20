@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
@@ -61,20 +62,30 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             viewHolder.tvLabelHaveJoined.setText("Have Joined");
         }*/
 
-        if (position > 1) {
-            viewHolder.ivReadStatus.setVisibility(View.INVISIBLE);
+        switch (position){
+            case 0:
+                viewHolder.tvTitleOfNews.setText("50% of select food this weekend:");
+                break;
+
+            case 1:
+                viewHolder.tvTitleOfNews.setText("Jazz Evening with 2 course meal at £50 per couple:");
+                break;
+
+            case 2:
+                viewHolder.tvTitleOfNews.setText("Why not bring a friend to play 18 holes at 20% off the standard green fees:");
+                break;
         }
 
         viewHolder.flRemoveGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
+               /* mItemManger.removeShownLayouts(viewHolder.swipeLayout);
                 stringArrayList.remove(position);
                 notifyItemRemoved(position);
                 notifyDataSetChanged();
                 notifyItemRangeChanged(position, stringArrayList.size());
-                mItemManger.closeAllItems();
+                mItemManger.closeAllItems();*/
             }
         });
 
@@ -171,7 +182,7 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
 
     @Override
     public int getItemCount() {
-        return stringArrayList.size();
+        return 3;
     }
 
     @Override
@@ -186,6 +197,7 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         ImageView ivReadStatus;
         RelativeLayout rlNewsGroup;
         Context mContext;
+        TextView tvTimeOfNews, tvTitleOfNews;
 
         public SimpleViewHolder(View itemView, Context context) {
             super(itemView);
@@ -195,6 +207,9 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             ivReadStatus = (ImageView) itemView.findViewById(R.id.ivReadStatus);
             rlNewsGroup = (RelativeLayout) itemView.findViewById(R.id.rlNewsGroup);
 
+            tvTimeOfNews = (TextView) itemView.findViewById(R.id.tvTimeOfNews);
+            tvTitleOfNews = (TextView) itemView.findViewById(R.id.tvTitleOfNews);
+
             mContext = context;
 
             rlNewsGroup.setOnClickListener(this);
@@ -203,6 +218,7 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         @Override
         public void onClick(View itemView) {
             Intent detailNewsIntent = new Intent(mContext, ClubNewsDetailActivity.class);
+            detailNewsIntent.putExtra("NEWS_POS", getAdapterPosition());
             mContext.startActivity(detailNewsIntent);
         }
     }

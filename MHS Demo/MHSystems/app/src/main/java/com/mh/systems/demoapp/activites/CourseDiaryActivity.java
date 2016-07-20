@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.demoapp.models.CoursesData;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.BaseAdapter.CourseDiaryAdapter;
@@ -46,13 +47,13 @@ import retrofit.RetrofitError;
 /**
  * The {@link CourseDiaryActivity} used to display the Course Diary events by months. First of all current month events
  * will be loaded and when user scroll down then some events of next months will be loaded and so on...
- * <p/>
+ * <p>
  * After redesign Course Diary, remove the OLD and NEW COURSE {@link android.support.v4.app.Fragment} and implements this
  * functionality in {@link PopupMenu}.
- * <p/>
+ * <p>
  * Also update PREVIOUS, NEXT, TODAY and {@link Calendar} functionality in a top bar below of {@link Toolbar}.
  *
- * @author {@link karan@mh.co.in}
+ * @author {@link karan@ucreate.co.in}
  * @version 1.0
  * @since 12 May, 2016
  */
@@ -62,6 +63,8 @@ public class CourseDiaryActivity extends BaseActivity {
      * DECLARATION OF CONSTANTS
      *******************************/
     public final String LOG_TAG = CourseDiaryActivity.class.getSimpleName();
+
+    ArrayList<CoursesData> coursesDataArrayList = new ArrayList<>();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -238,12 +241,12 @@ public class CourseDiaryActivity extends BaseActivity {
                     tvCourseType.setText(item.getTitle());
 
                     switch (item.getItemId()) {
-                        case R.id.item_old_course:
+                        case R.id.item_tonbridge:
                             strCourseType = "1.1";
                             break;
 
-                        case R.id.item_new_course:
-                            strCourseType = "1.3";
+                        case R.id.item_pembury:
+                            strCourseType = "1.2";
                             break;
                     }
 
@@ -973,11 +976,7 @@ public class CourseDiaryActivity extends BaseActivity {
     /**
      * Implements a method to show 'NO COURSE' view and hide it at least one Course event.
      *
-     * @param inc_message_view :  Whole view group for set VISIBILITY of view VISIBLE/INVISIBLE.
-     * @param ivMessageSymbol  :  View to set Image at run time like DIARY icon for NO COURSE.
-     * @param tvMessageTitle   :  View to set Text title of message.
-     * @param tvMessageDesc    :  View to set detail Text description of message.
-     * @param hasData          :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     * @param hasData :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
      */
     public void showNoCourseView(boolean hasData) {
         if (hasData) {

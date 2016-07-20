@@ -4,6 +4,9 @@ package com.mh.systems.demoapp.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class LoginData {
 
@@ -22,6 +25,23 @@ public class LoginData {
     @SerializedName("HCapExactStr")
     @Expose
     private String HCapExactStr;
+    @SerializedName("Courses")
+    @Expose
+    private List<CoursesData> Courses = new ArrayList<CoursesData>();
+
+    /**
+     * @return The courses
+     */
+    public List<CoursesData> getCourses() {
+        return Courses;
+    }
+
+    /**
+     * @param courses The courses
+     */
+    public void setCourses(List<CoursesData> courses) {
+        Courses = courses;
+    }
 
     /**
      * @return The ClubID
@@ -92,6 +112,4 @@ public class LoginData {
     public void setHCapExactStr(String HCapExactStr) {
         this.HCapExactStr = HCapExactStr;
     }
-
-
 }

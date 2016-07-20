@@ -7,16 +7,25 @@ public class ClubNewsItems {
     String strTimeOfNews;
     String strDateOfNews;
     String strDescOfNews;
+    String DetailDesc;
 
     public ClubNewsItems() {
     }
 
-    public ClubNewsItems(String strTimeOfNews, String strDateOfNews, String strDescOfNews) {
-        this.strTimeOfNews = strTimeOfNews;
+    public ClubNewsItems(String DetailDesc, String strDateOfNews, String strDescOfNews) {
+        this.DetailDesc = DetailDesc;
         this.strDateOfNews = strDateOfNews;
         this.strDescOfNews = strDescOfNews;
     }
 
+
+    public String getDetailDesc() {
+        return DetailDesc;
+    }
+
+    public void setDetailDesc(String detailDesc) {
+        DetailDesc = detailDesc;
+    }
 
     public String getStrDescOfNews() {
         return strDescOfNews;

@@ -33,7 +33,7 @@ public class ClubNewsActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    ArrayList<ClubNewsItems> clubNewsItemses;
+    ArrayList<String> clubNewsItemses;
 
     /**
      * Implements HOME icons press listener.
@@ -57,7 +57,9 @@ public class ClubNewsActivity extends BaseActivity {
         // Item Decorator:
         rvClubNewsList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
         // mRecyclerView.setItemAnimator(new FadeInLeftAnimator());
+
         setClubNewsAdapter();
+
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
     }
@@ -67,22 +69,20 @@ public class ClubNewsActivity extends BaseActivity {
      */
     private void setClubNewsAdapter() {
 
+       /* ClubNewsItems clubNewsItems1 = new ClubNewsItems("These offers are only available when you book your table online, for free, through Skiddle.",
+                "Monday, 18 July 2016", "50% of select food this weekend:");
+        ClubNewsItems clubNewsItems2 = new ClubNewsItems("These offers are only available when you book your table online, for free, through Skiddle.",
+                "Monday, 18 July 2016", "50% of select food this weekend:");
+        ClubNewsItems clubNewsItems3 = new ClubNewsItems("These offers are only available when you book your table online, for free, through Skiddle.",
+                "Monday, 18 July 2016", "50% of select food this weekend:");
         //Add Static data.
-        ArrayList<String> stringArrayList = new ArrayList<>();
-        stringArrayList.clear();
-        stringArrayList.add("1");
-        stringArrayList.add("1");
-        stringArrayList.add("1");
-        stringArrayList.add("1");
-        stringArrayList.add("1");
-        stringArrayList.add("1");
-        stringArrayList.add("1");
-        stringArrayList.add("1");
-        stringArrayList.add("1");
-        stringArrayList.add("1");
+        clubNewsItemses.clear();
+        clubNewsItemses.add(clubNewsItems1);
+        clubNewsItemses.add(clubNewsItems2);
+        clubNewsItemses.add(clubNewsItems3);*/
 
         //Set Adapter.
-        clubNewsSwipeAdapter = new ClubNewsSwipeAdapter(ClubNewsActivity.this, stringArrayList);
+        clubNewsSwipeAdapter = new ClubNewsSwipeAdapter(ClubNewsActivity.this, clubNewsItemses);
         rvClubNewsList.setAdapter(clubNewsSwipeAdapter);
     }
 }

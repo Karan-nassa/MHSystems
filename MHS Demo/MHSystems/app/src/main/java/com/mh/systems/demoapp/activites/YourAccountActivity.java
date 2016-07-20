@@ -140,7 +140,6 @@ public class YourAccountActivity extends BaseActivity {
             tbMyAccount.setNavigationIcon(R.mipmap.icon_menu);
 
             getSupportActionBar().setTitle("Your Account");
-            //getSupportActionBar().setIcon(R.mipmap.icon_menu);
         }
 
         tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
