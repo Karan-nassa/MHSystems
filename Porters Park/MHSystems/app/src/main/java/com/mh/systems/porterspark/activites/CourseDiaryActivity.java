@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.porterspark.models.CoursesData;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.adapter.BaseAdapter.CourseDiaryAdapter;
@@ -62,6 +63,8 @@ public class CourseDiaryActivity extends BaseActivity {
      * DECLARATION OF CONSTANTS
      *******************************/
     public final String LOG_TAG = CourseDiaryActivity.class.getSimpleName();
+
+    ArrayList<CoursesData> coursesDataArrayList = new ArrayList<>();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -237,16 +240,18 @@ public class CourseDiaryActivity extends BaseActivity {
 
                     tvCourseType.setText(item.getTitle());
 
-                    switch (item.getItemId()) {
-                        case R.id.item_tee_1:
+                    strCourseType = coursesDataArrayList.get(item.getOrder()).getKey();
+
+                  /*  switch (item.getOrder()) {
+                        case 0*//*R.id.item_tonbridge*//*:
                             strCourseType = "1.1";
                             break;
 
-                        case R.id.item_tee_10:
+                        case 1*//*R.id.item_pembury*//*:
                             strCourseType = "1.2";
                             break;
                     }
-
+*/
                     resetArrayData();
 
                     //Show progress dialog during call web service.
@@ -317,7 +322,13 @@ public class CourseDiaryActivity extends BaseActivity {
          * Step 2: Inflate the menu resource. Here the menu resource is
          * defined in the res/menu project folder
          */
-        popupMenu.inflate(R.menu.course_menu);
+        // popupMenu.inflate(R.menu.course_menu);
+
+        coursesDataArrayList = loadPreferencesList(CourseDiaryActivity.this);
+
+        for (int iCounter = 0; iCounter < coursesDataArrayList.size(); iCounter++) {
+            popupMenu.getMenu().add(Menu.NONE, 1, iCounter, coursesDataArrayList.get(iCounter).getDescription());
+        }
 
         //Initially display title at position 0 of R.menu.course_menu.
         tvCourseType.setText("" + popupMenu.getMenu().getItem(0));
@@ -775,7 +786,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
      */
     public String getClientId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID,  ApplicationGlobal.TAG_CLIENT_ID);
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
     /**
@@ -973,11 +984,7 @@ public class CourseDiaryActivity extends BaseActivity {
     /**
      * Implements a method to show 'NO COURSE' view and hide it at least one Course event.
      *
-     * @param inc_message_view :  Whole view group for set VISIBILITY of view VISIBLE/INVISIBLE.
-     * @param ivMessageSymbol  :  View to set Image at run time like DIARY icon for NO COURSE.
-     * @param tvMessageTitle   :  View to set Text title of message.
-     * @param tvMessageDesc    :  View to set detail Text description of message.
-     * @param hasData          :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     * @param hasData :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
      */
     public void showNoCourseView(boolean hasData) {
         if (hasData) {

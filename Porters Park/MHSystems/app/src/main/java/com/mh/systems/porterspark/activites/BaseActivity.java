@@ -24,14 +24,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.pnikosis.materialishprogress.ProgressWheel;
+import com.mh.systems.porterspark.models.CoursesData;
+import com.newrelic.com.google.gson.Gson;
 import com.rollbar.android.Rollbar;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by karan@mh.co.in for base
@@ -183,8 +187,8 @@ public class BaseActivity extends AppCompatActivity {
                 pDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 pDialog.setContentView(R.layout.custom_progress_wheel);
                 pDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                ProgressWheel wheel = new ProgressWheel(BaseActivity.this);
-                wheel.setBarColor(Color.RED);
+                // ProgressWheel wheel = new ProgressWheel(BaseActivity.this);
+                // wheel.setBarColor(Color.RED);
                 pDialog.setCancelable(false);
 
                 if (!pDialog.isShowing()) {
@@ -255,7 +259,7 @@ public class BaseActivity extends AppCompatActivity {
      * @return strDate  : MMM [NOV]
      */
     public static String getFormateMonth(String strDate) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMM");
 
         try {
@@ -291,6 +295,36 @@ public class BaseActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(key, value);
         editor.commit();
+    }
+
+    /**
+     * Save {@link ArrayList} in {@link SharedPreferences} in
+     * Gson form.
+     */
+    @SuppressWarnings("static-access")
+    public void savePreferenceList(String key,
+                                   String json) {
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        editor.putString(key, json);
+        editor.commit();
+    }
+
+    public ArrayList loadPreferencesList(Context context) {
+        List arrayList = null;
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        if (sharedpreferences.contains(ApplicationGlobal.KEY_COURSES)) {
+            String jsonFavorites = sharedpreferences.getString(ApplicationGlobal.KEY_COURSES, null);
+            Gson gson = new Gson();
+            CoursesData[] favoriteItems = gson.fromJson(jsonFavorites, CoursesData[].class);
+            arrayList = Arrays.asList(favoriteItems);
+            arrayList = new ArrayList(arrayList);
+        } else
+            return null;
+        return (ArrayList) arrayList;
     }
 
     /**

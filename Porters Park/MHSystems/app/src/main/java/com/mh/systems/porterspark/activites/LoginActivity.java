@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
@@ -110,8 +111,8 @@ public class LoginActivity extends BaseActivity {
         //Initialize Butter knife.
         ButterKnife.bind(this);
 
-       /* etUserName.setText("MICHAEL11");
-        etPassword.setText("MICHAEL");*/
+//        etUserName.setText("TONYP1952");
+//        etPassword.setText("WINCHESTER1952");
 
         btLogin.setOnClickListener(mLoginListener);
     }
@@ -166,7 +167,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void failure(RetrofitError error) {
 
-                Log.e(LOG_TAG, ""+error.toString());
+                Log.e(LOG_TAG, "" + error.toString());
 
                 //you can handle the errors here
                 hideProgress();
@@ -185,7 +186,7 @@ public class LoginActivity extends BaseActivity {
 
         Type type = new TypeToken<LoginItems>() {
         }.getType();
-        dashboardItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        dashboardItems = new Gson().fromJson(jsonObject.toString(), type);
 
         //Clear the Dashboard data.
         dashboardData = null;
@@ -207,6 +208,11 @@ public class LoginActivity extends BaseActivity {
                     savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);
                     savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
                     savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
+
+                    Gson gson = new Gson();
+
+                    //Save Courses ArrayList in Shared-preference.
+                    savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
 
                     startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                     this.finish();

@@ -17,9 +17,9 @@ public class ClubNewsData {
     @SerializedName("Message")
     @Expose
     private String Message;
-    @SerializedName("CreatedDate")
+    @SerializedName("DateTimeText")
     @Expose
-    private String CreatedDate;
+    private String DateTimeText;
     @SerializedName("IsActive")
     @Expose
     private Boolean IsActive;
@@ -87,19 +87,19 @@ public class ClubNewsData {
     /**
      * 
      * @return
-     *     The CreatedDate
+     *     The DateTimeText
      */
     public String getCreatedDate() {
-        return CreatedDate;
+        return DateTimeText;
     }
 
     /**
      * 
-     * @param CreatedDate
-     *     The CreatedDate
+     * @param DateTimeText
+     *     The DateTimeText
      */
-    public void setCreatedDate(String CreatedDate) {
-        this.CreatedDate = CreatedDate;
+    public void setCreatedDate(String DateTimeText) {
+        this.DateTimeText = DateTimeText;
     }
 
     /**

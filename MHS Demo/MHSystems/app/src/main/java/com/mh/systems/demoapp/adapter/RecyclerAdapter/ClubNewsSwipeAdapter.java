@@ -55,7 +55,7 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         viewHolder.tvTimeOfNews.setText(clubNewsDataArrayList.get(position).getCreatedDate());
 
         if(clubNewsDataArrayList.get(position).getIsRead()){
-            viewHolder.ivReadStatus.setVisibility(View.GONE);
+            viewHolder.ivReadStatus.setVisibility(View.INVISIBLE);
         }
 
         viewHolder.flRemoveGroup.setOnClickListener(new View.OnClickListener() {

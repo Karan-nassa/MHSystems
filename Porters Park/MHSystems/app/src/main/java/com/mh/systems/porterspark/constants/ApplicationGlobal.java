@@ -120,7 +120,7 @@ public class ApplicationGlobal {
     public static final String KEY_HCAP_TYPE_STR = "HCapTypeStr";
     public static final String KEY_HCAP_EXACT_STR = "HCapExactStr";
     public static final String KEY_HCAP_PLAY_STR = "HCapPlayStr";
-
+    public static final String KEY_COURSES = "Courses";
 }
 
 
