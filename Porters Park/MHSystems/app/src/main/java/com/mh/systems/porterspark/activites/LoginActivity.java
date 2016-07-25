@@ -209,10 +209,10 @@ public class LoginActivity extends BaseActivity {
                     savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
                     savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
 
-                    Gson gson = new Gson();
+                   /* Gson gson = new Gson();
 
                     //Save Courses ArrayList in Shared-preference.
-                    savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
+                    savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));*/
 
                     startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                     this.finish();

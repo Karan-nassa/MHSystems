@@ -7,6 +7,7 @@ import com.mh.systems.porterspark.models.CompetitionJoinAPI;
 import com.mh.systems.porterspark.models.CompetitionUnjoinAPI;
 import com.mh.systems.porterspark.models.CompetitionsAPI;
 import com.mh.systems.porterspark.models.CourseDiaryAPI;
+import com.mh.systems.porterspark.models.CourseDiaryNames.CourseDiaryNamesAPI;
 import com.mh.systems.porterspark.models.DashboardAPI;
 import com.mh.systems.porterspark.models.Friends.RemoveFriendAPI;
 import com.mh.systems.porterspark.models.FriendsAPI;
@@ -202,5 +203,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void unjoinCompetition(@Body CompetitionUnjoinAPI competitionUnjoinAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of get COURSE DIARY names
+     * web service method.
+     * <p/>
+     * TYPE : POST
+     * <p/>
+     * USAGE :-
+     * # courseDiaryNamesAPI
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getCourseDiaryNames(@Body CourseDiaryNamesAPI courseDiaryNamesAPI, Callback<JsonObject> response);
 }
 

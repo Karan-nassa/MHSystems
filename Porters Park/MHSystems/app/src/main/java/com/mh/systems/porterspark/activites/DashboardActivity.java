@@ -3,6 +3,7 @@ package com.mh.systems.porterspark.activites;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -10,12 +11,29 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.adapter.BaseAdapter.DashboardGridAdapter;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
+import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.models.AJsonParamsDashboard;
+import com.mh.systems.porterspark.models.CourseDiaryNames.AJsonParamsCourseDiaryNames;
+import com.mh.systems.porterspark.models.CourseDiaryNames.CourseDiaryNamesAPI;
+import com.mh.systems.porterspark.models.CourseDiaryNames.CourseDiaryNamesData;
+import com.mh.systems.porterspark.models.CourseDiaryNames.CourseDiaryNamesResult;
+import com.mh.systems.porterspark.models.DashboardAPI;
+import com.mh.systems.porterspark.models.LoginItems;
+import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 
 /**
  * The {@link DashboardActivity} used to display {@link GridView}, Settings and
@@ -26,6 +44,8 @@ import butterknife.ButterKnife;
  * @version 1.0
  */
 public class DashboardActivity extends BaseActivity {
+
+    private String LOG_TAG = DashboardActivity.class.getSimpleName();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -46,6 +66,12 @@ public class DashboardActivity extends BaseActivity {
     //Instance of Grid Adapter.
     DashboardGridAdapter mDashboardGridAdapter;
     Intent intent = null;
+
+    CourseDiaryNamesAPI courseDiaryNamesAPI;
+    AJsonParamsCourseDiaryNames aJsonParamsCourseDiaryNames;
+
+    CourseDiaryNamesResult courseDiaryNamesResult;
+    CourseDiaryNamesData courseDiaryNamesData;
 
     TypedArray gridIcons;
     TypedArray gridBackground;
@@ -69,7 +95,16 @@ public class DashboardActivity extends BaseActivity {
                     intent.putExtra("iTabPosition", 1);
                     break;
                 case 1:
-                    intent = new Intent(DashboardActivity.this, CourseDiaryActivity.class);
+                    /**
+                     *  Check internet connection before hitting server request.
+                     */
+                    if (isOnline(DashboardActivity.this)) {
+                        //Method to hit Squads API.
+                        requestLoginService();
+                    } else {
+                        showAlertMessage(getResources().getString(R.string.error_no_internet));
+                    }
+                   /* intent = new Intent(DashboardActivity.this, CourseDiaryActivity.class);*/
                     break;
                 case 2:
                     intent = new Intent(DashboardActivity.this, CompetitionsActivity.class);
@@ -89,7 +124,7 @@ public class DashboardActivity extends BaseActivity {
             }
 
             //Check if intent not NULL then navigate to that selected screen.
-            if (intent != null) {
+            if (intent != null && position != 1) {
                 startActivity(intent);
                 intent = null;
             }
@@ -169,5 +204,90 @@ public class DashboardActivity extends BaseActivity {
         gvMenuOptions.setAdapter(mDashboardGridAdapter);
 
         // ScrollRecycleView.getListViewSize(gvMenuOptions);
+    }
+
+    /**
+     * Implement a method to hit Login web service to
+     * get response and information.
+     */
+    public void requestLoginService() {
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsCourseDiaryNames = new AJsonParamsCourseDiaryNames();
+        aJsonParamsCourseDiaryNames.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsCourseDiaryNames.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+
+        courseDiaryNamesAPI = new CourseDiaryNamesAPI(ApplicationGlobal.TAG_CLIENT_ID, "GETCOURSEDIARIES", aJsonParamsCourseDiaryNames, "COURSEDIARY", ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getCourseDiaryNames(courseDiaryNamesAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+                Log.e(LOG_TAG, "" + error.toString());
+
+                //you can handle the errors here
+                hideProgress();
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<CourseDiaryNamesResult>() {
+        }.getType();
+        courseDiaryNamesResult = new Gson().fromJson(jsonObject.toString(), type);
+
+        //Clear the Dashboard data.
+        courseDiaryNamesData = null;
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (courseDiaryNamesResult.getMessage().equalsIgnoreCase("Success")) {
+
+                if (courseDiaryNamesResult.getData().size() == 0) {
+                    showAlertMessage(getResources().getString(R.string.error_no_data));
+                } else {
+                    Gson gson = new Gson();
+
+                    //Save Courses ArrayList in Shared-preference.
+                    savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(courseDiaryNamesResult.getData()));
+
+                    startActivity(new Intent(DashboardActivity.this, CourseDiaryActivity.class));
+                }
+            } else {
+                //If web service not respond in any case.
+                showAlertMessage(courseDiaryNamesResult.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        hideProgress();
     }
 }
