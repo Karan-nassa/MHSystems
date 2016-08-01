@@ -18,7 +18,7 @@
 
         <!-- SPLASH ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.SplashActivity"
+            android:name=".activites.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,96 +29,98 @@
 
         <!-- LOGIN ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.LoginActivity"
+            android:name=".activites.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
         <!-- DASHBOARD ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.DashboardActivity"
+            android:name=".activites.DashboardActivity"
             android:screenOrientation="portrait" />
 
         <!-- COURSE DIARY ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.CourseDiaryActivity"
+            android:name=".activites.CourseDiaryActivity"
             android:screenOrientation="portrait" />
 
         <!-- COURSE DIARY DETAIL ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.CourseDiaryDetailActivity"
+            android:name=".activites.CourseDiaryDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- COURSE DIARY ALERT DIALOG -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.CustomAlertDialogActivity"
+            android:name=".activites.CustomAlertDialogActivity"
             android:screenOrientation="portrait"
             android:theme="@style/App_Theme" />
 
         <!-- COMPETITIONS DIARY ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.CompetitionsActivity"
+            android:name=".activites.CompetitionsActivity"
             android:screenOrientation="portrait" />
 
         <!-- COMPETITIONS DIARY ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.CompetitionsDetailActivity"
+            android:name=".activites.CompetitionsDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- MY ACCOUNT ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.YourAccountActivity"
+            android:name=".activites.YourAccountActivity"
             android:screenOrientation="portrait" />
 
         <!-- DETAIL INVOICE ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.DetailInvoiceActivity"
+            android:name=".activites.DetailInvoiceActivity"
             android:screenOrientation="portrait" />
 
         <!-- MEMBERS ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.MembersActivity"
+            android:name=".activites.MembersActivity"
             android:screenOrientation="portrait" />
 
         <!-- MEMBERS DETAIL ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.MemberDetailActivity"
+            android:name=".activites.MemberDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeMaterial" />
 
         <!-- SHOW CERTIFICATE ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.ShowCertificateWebview"
+            android:name=".activites.ShowCertificateWebview"
             android:screenOrientation="portrait" />
 
         <!-- CLUB NEWS ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.ClubNewsActivity"
+            android:name=".activites.ClubNewsActivity"
             android:screenOrientation="portrait" />
 
         <!-- CLUB NEWS DETAIL ACTIVITY -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.ClubNewsDetailActivity"
+            android:name=".activites.ClubNewsDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- SETTING SCREEN -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.SettingsActivity"
+            android:name=".activites.SettingsActivity"
             android:screenOrientation="portrait" />
 
         <!-- RESET PASSWORD SCREEN -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.ResetPasswordActivity"
+            android:name=".activites.ResetPasswordActivity"
             android:screenOrientation="portrait" />
 
         <!-- SEND FEEDBACK SCREEN -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.SendFeedbackActivity"
+            android:name=".activites.SendFeedbackActivity"
             android:screenOrientation="portrait" />
 
         <!-- SEND FEEDBACK SCREEN -->
         <activity
-            android:name="com.mh.systems.demoapp.activites.FinanceDetailWebActivity"
+            android:name=".activites.FinanceDetailWebActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activites.EditToggleDetailActivity" />
+        <activity android:name=".activites.MyDetailsEditActivity"></activity>
     </application>
 
 </manifest>

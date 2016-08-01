@@ -1,5 +1,6 @@
 package com.mh.systems.demoapp.activites;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.fragments.FinanceFragment;
 import com.mh.systems.demoapp.fragments.MyAccountTabFragment;
+import com.mh.systems.demoapp.fragments.MyDetailsFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -68,6 +70,8 @@ public class YourAccountActivity extends BaseActivity {
     //Pop Menu to show Categories of Course Diary.
     PopupMenu popupMenu;
 
+    Intent intent;
+
      /* -- INTERNET CONNECTION PARAMETERS -- */
 
     /**
@@ -107,22 +111,20 @@ public class YourAccountActivity extends BaseActivity {
                         case R.id.item_from_start:
                             ((FinanceFragment) getFragmentInstance()).updateFilterControl(6);
                             break;
+
+                        case R.id.item_toggle_mode:
+                            intent = new Intent(YourAccountActivity.this, EditToggleDetailActivity.class);
+                            startActivity(intent);
+                            break;
+
+                        case R.id.item_edit_mode:
+                            intent = new Intent(YourAccountActivity.this, MyDetailsEditActivity.class);
+                            startActivity(intent);
+                            break;
                     }
                     return true;
                 }
             };
-
-
-    /**
-     * Implements HOME icons press
-     * listener.
-     */
-    private View.OnClickListener mHomePressListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onBackPressed();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +155,7 @@ public class YourAccountActivity extends BaseActivity {
         ivFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    popupMenu.show();
+                popupMenu.show();
             }
         });
         popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
@@ -187,11 +189,20 @@ public class YourAccountActivity extends BaseActivity {
          * Step 1: Create a new instance of popup menu
          */
         popupMenu = new PopupMenu(this, ivFilter);
+
         /**
          * Step 2: Inflate the menu resource. Here the menu resource is
          * defined in the res/menu project folder
          */
-        popupMenu.inflate(R.menu.finance_menu);
+        if (fragmentObj instanceof FinanceFragment) {
+            ivFilter.setImageResource(R.mipmap.ic_event);
+            popupMenu.inflate(R.menu.finance_menu);
+        }else{
+            ivFilter.setImageResource(R.mipmap.ic_mode_edit);
+            popupMenu.inflate(R.menu.my_details_menu);
+        }
+
+        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
 
         /*//Initially display title at position 0 of R.menu.course_menu.
         tvCourseType.setText("" + popupMenu.getMenu().getItem(0));*/
@@ -261,5 +272,7 @@ public class YourAccountActivity extends BaseActivity {
 
     public void updateFilterIcon(int iVisibleType) {
         ivFilter.setVisibility(iVisibleType);
+
+        initFianaceCategory();
     }
 }

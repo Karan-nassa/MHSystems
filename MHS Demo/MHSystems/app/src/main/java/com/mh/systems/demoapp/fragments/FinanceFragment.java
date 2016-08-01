@@ -127,7 +127,7 @@ public class FinanceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
 
-        initialzeViewResources();
+        initViewResources();
 
         setFontTypeface();
 
@@ -156,7 +156,6 @@ public class FinanceFragment extends Fragment {
 
         if (isVisibleToUser /*&& isClassVisible*/) {
             callFinanceWebService();
-
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
         }
     }
@@ -176,7 +175,7 @@ public class FinanceFragment extends Fragment {
      * Implements this method to initialize all
      * view resources.
      */
-    private void initialzeViewResources() {
+    private void initViewResources() {
         tvCardBalance = (TextView) viewRootFragment.findViewById(R.id.tvCardBalance);
         tvDateHeading = (TextView) viewRootFragment.findViewById(R.id.tvDateHeading);
 

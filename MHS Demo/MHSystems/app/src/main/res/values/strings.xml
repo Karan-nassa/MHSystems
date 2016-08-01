@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">MHSystems</string>
+    <string name="app_name">MHS GOLF</string>
 
-    <string name="text_hello_mhsystems">Hello MHSystems!</string>
+    <string name="text_hello_mhsystems">Hello MHS GOLF!</string>
 
     <!-- START OF SNACK BAR MESSAGES -->
     <string name="error_no_internet">Please check your internet connection</string>
@@ -163,6 +163,10 @@
 
     <string name="title_text_username">Username</string>
     <string name="title_text_password">Password</string>
+
+    <string name="title_text_address_line1">ADDRESS LINE 1</string>
+
+    <string name="title_text_visible">VISIBLE:</string>
     <!-- END OF YOUR DETAIL FRAGMENT -->
 
     <!-- NAVIGATION DRAWER ITEMS -->

@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/item_Joined"
-        android:title="Joined" />
+        android:title="Entered" />
 
     <item
         android:id="@+id/item_Completed"

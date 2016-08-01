@@ -193,8 +193,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser /*&& isClassVisible*/) {
-            callHandicapWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(8);
+            callHandicapWebService();
         }
     }
 
@@ -216,7 +216,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
                 llHandicapGroup.setVisibility(View.GONE);
             }
-        }catch (Exception exp){
+        } catch (Exception exp) {
         }
     }
 

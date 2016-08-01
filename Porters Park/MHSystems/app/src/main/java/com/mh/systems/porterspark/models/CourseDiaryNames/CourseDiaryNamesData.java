@@ -27,7 +27,7 @@ public class CourseDiaryNamesData {
      * @param Key
      *     The Key
      */
-    public void setKey(String key) {
+    public void setKey(String Key) {
         this.Key = Key;
     }
 
@@ -45,7 +45,7 @@ public class CourseDiaryNamesData {
      * @param Description
      *     The Description
      */
-    public void setDescription(String description) {
+    public void setDescription(String Description) {
         this.Description = Description;
     }
 

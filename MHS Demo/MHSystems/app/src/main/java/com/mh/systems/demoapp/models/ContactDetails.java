@@ -23,102 +23,116 @@ public class ContactDetails {
     @SerializedName("Address")
     @Expose
     private Address Address;
-//    @SerializedName("PrivateAddress")
-//    @Expose
-//    private PrivateAddress PrivateAddress;
+
+    /* ++++ EDIT MY DETAILS PRIVACY ++++ */
+    @SerializedName("EMailPrivacy")
+    @Expose
+    private String EMailPrivacy;
+    @SerializedName("Address1Privacy")
+    @Expose
+    private String Address1Privacy;
+    @SerializedName("TelNoMobPrivacy")
+    @Expose
+    private String TelNoMobPrivacy;
+
+    public String getTelNoMobPrivacy() {
+        return TelNoMobPrivacy;
+    }
+
+    public void setTelNoMobPrivacy(String telNoMobPrivacy) {
+        TelNoMobPrivacy = telNoMobPrivacy;
+    }
+
+    public String getEMailPrivacy() {
+        return EMailPrivacy;
+    }
+
+    public void setEMailPrivacy(String EMailPrivacy) {
+        this.EMailPrivacy = EMailPrivacy;
+    }
+
+    public String getAddress1Privacy() {
+        return Address1Privacy;
+    }
+
+    public void setAddress1Privacy(String address1Privacy) {
+        Address1Privacy = address1Privacy;
+    }
+
+  /* ++++ EDIT MY DETAILS PRIVACY ++++ */
 
     /**
-     * 
-     * @return
-     *     The TelNoHome
+     * @return The TelNoHome
      */
     public String getTelNoHome() {
         return TelNoHome;
     }
 
     /**
-     * 
-     * @param TelNoHome
-     *     The TelNoHome
+     * @param TelNoHome The TelNoHome
      */
     public void setTelNoHome(String TelNoHome) {
         this.TelNoHome = TelNoHome;
     }
 
     /**
-     * 
-     * @return
-     *     The TelNoWork
+     * @return The TelNoWork
      */
     public String getTelNoWork() {
         return TelNoWork;
     }
 
     /**
-     * 
-     * @param TelNoWork
-     *     The TelNoWork
+     * @param TelNoWork The TelNoWork
      */
     public void setTelNoWork(String TelNoWork) {
         this.TelNoWork = TelNoWork;
     }
 
     /**
-     * 
-     * @return
-     *     The TelNoMob
+     * @return The TelNoMob
      */
     public String getTelNoMob() {
         return TelNoMob;
     }
 
     /**
-     * 
-     * @param TelNoMob
-     *     The TelNoMob
+     * @param TelNoMob The TelNoMob
      */
     public void setTelNoMob(String TelNoMob) {
         this.TelNoMob = TelNoMob;
     }
 
     /**
-     * 
-     * @return
-     *     The EMail
+     * @return The EMail
      */
     public String getEMail() {
         return EMail;
     }
 
     /**
-     * 
-     * @param EMail
-     *     The EMail
+     * @param EMail The EMail
      */
     public void setEMail(String EMail) {
         this.EMail = EMail;
     }
 
     /**
-     * 
-     * @return
-     *     The Address
+     * @return The Address
      */
     public Address getAddress() {
         return Address;
     }
 
     /**
-     * 
-     * @param Address
-     *     The Address
+     * @param Address The Address
      */
     public void setAddress(Address Address) {
         this.Address = Address;
     }
 
     /**
-     * 
+     *
      * @return
      *     The PrivateAddress
      *//*
@@ -127,7 +141,7 @@ public class ContactDetails {
     }
 
     *//**
-     * 
+     *
      * @param PrivateAddress
      *     The PrivateAddress
      *//*
