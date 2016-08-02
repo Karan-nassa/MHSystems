@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.WelcomeActivity">
+
+    <!-- MENU BAR ICON SAVE -->
+
+    <item
+        android:id="@+id/action_save"
+        android:icon="@mipmap/ic_menu_save"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="always" />
+
+    <!-- MENU BAR ICON OVERFLOW -->
+
+    <item
+        android:id="@+id/action_overflow"
+        android:icon="@mipmap/ic_menu_overflow"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="always" />
+
+</menu>

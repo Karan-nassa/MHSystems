@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGreyf1f1f0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhiteffffff"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+            <!-- GOLF CLUB LOGO -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_home_golfclub" />
+
+            <!--&lt;!&ndash; GOLF CLUB NAME &ndash;&gt;
+
+            <mhstems.customfonts.BaskervilleTextFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:text="@string/title_golf_club_name"
+                android:textColor="@color/colorC0995B"
+                android:textSize="12sp" />-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="50sp"/>
+
+        </LinearLayout>
+
+        <!-- EMAIL &amp; PASSWORD -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <!-- PLEASE LOGIN TEXT -->
+
+            <com.mh.systems.halesworth.customfonts.RobotoMediumTextView
+                android:id="@+id/tvLoginTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="25dp"
+                android:text="@string/text_title_please_login"
+                android:textColor="@color/coloracacac" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:orientation="vertical">
+
+                <!-- EMAIL FIELD -->
+
+                <EditText
+                    android:id="@+id/etUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_shape_white"
+                    android:gravity="center"
+                    android:hint="@string/text_email_hint"
+                    android:textSize="17sp"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack000000"
+                    android:textColorHint="@color/colorD6D0C9">
+
+
+                </EditText>
+
+                <!-- PASSWORD FIELD -->
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edittext_shape_bg"
+                    android:gravity="center"
+                    android:hint="@string/title_text_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:textSize="17sp"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack000000"
+                    android:textColorHint="@color/colorD6D0C9" />
+
+                <!-- LOGIN BUTTON-->
+
+                <Button
+                    android:id="@+id/btLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/button_login_shape_c0995b"
+                    android:text="@string/button_text_login"
+                    android:elevation="0dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhiteffffff"
+                    android:textSize="17sp" />
+
+                <!-- FORGOT PASSWORD -->
+
+                <com.mh.systems.halesworth.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:alpha="0.4"
+                    android:visibility="invisible"
+                    android:text="@string/text_title_forgot_password"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- COPYRIGHT TEXT -->
+
+    <TextView
+        android:id="@+id/tvCopyRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:alpha="0.3"
+        android:text="@string/text_title_copyright"
+        android:textColor="@color/colorBlack000000"
+        android:textSize="17sp" />
+
+
+</RelativeLayout>

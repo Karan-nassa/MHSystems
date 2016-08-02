@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    swipe:leftEdgeSwipeOffset="0dp"
+    swipe:rightEdgeSwipeOffset="0dp">
+
+    <LinearLayout
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <FrameLayout
+            android:id="@+id/flRemoveGroup"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorEF8176">
+
+            <ImageView
+                android:id="@+id/ivroutereview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:src="@mipmap/ic_menu_delete" />
+
+            <com.mh.systems.halesworth.customfonts.RobotoTextView
+                android:id="@+id/tvShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_margin="5dp"
+                android:alpha="0.5"
+                android:gravity="center"
+                android:text="DELETE"
+                android:textColor="@color/colorWhiteffffff"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+    </LinearLayout>
+
+
+    <!--Bottom View For Right to Left-->
+
+
+    <RelativeLayout
+        android:id="@+id/rlNewsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="25dp"
+                android:orientation="horizontal">
+
+                <!-- RED CIRCLE-->
+
+                <ImageView
+                    android:id="@+id/ivReadStatus"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_red_dot_circle" />
+
+                <!-- TIME and DESCRIPTION OF NEWS VIEW GROUP -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp">
+
+                    <TextView
+                        android:id="@+id/tvTimeOfNews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:alpha="0.5"
+                        android:text="10 minutes ago"
+                        android:textColor="@color/colorBlack000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvTitleOfNews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Checkout upcoming competitions this month, new promotions…"
+                        android:textColor="@color/colorBlack000000"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="gone"
+                android:background="#E8E2DD" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</com.daimajia.swipe.SwipeLayout>

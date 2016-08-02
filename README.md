@@ -8,6 +8,7 @@
 - MHSystems (Sunningdale)
 - Porters Park
 - York-Golf-Club
+- Halesworth
 
 --------------------------------------------------------
 

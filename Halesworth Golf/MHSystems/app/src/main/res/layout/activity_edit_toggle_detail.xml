@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- TOOL BAR WITH BACK ARROW AND SAVE -->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbEditToggleDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49"
+            android:minHeight="?android:attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="Edit privacy" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <!-- MOBILE/CONTACT PRIVACY -->
+
+                <LinearLayout
+                    android:id="@+id/llMobilePrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mh.systems.halesworth.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/title_text_contact" />
+
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.mh.systems.halesworth.customfonts.RobotoTextView
+                        android:id="@+id/tvMobilePrivacy"
+                        style="@style/MyDetailValues"
+                        android:text="07561048644" />
+
+                    <!-- BUTTONS TOGGLE SELECTOR -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:weightSum="99"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Public"
+                            android:textAllCaps="false"
+                            android:background="@color/colorC0995B"
+                            android:textColor="@color/colorWhiteffffff"
+                            android:layout_weight="33"/>
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Friends"
+                            android:textAllCaps="false"
+                            android:background="@color/colorE8E2DD"
+                            android:textColor="@color/colorBlack000000"
+                            android:layout_weight="33"/>
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Private"
+                            android:textAllCaps="false"
+                            android:background="@color/colorE8E2DD"
+                            android:textColor="@color/colorBlack000000"
+                            android:layout_weight="33"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- EMAIL PRIVACY -->
+
+                <LinearLayout
+                    android:id="@+id/llEmailPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mh.systems.halesworth.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/title_text_email" />
+
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.mh.systems.halesworth.customfonts.RobotoTextView
+                        android:id="@+id/tvEmailPrivacy"
+                        style="@style/MyDetailValues"
+                        android:text="mail@example.com" />
+
+                    <!-- BUTTONS TOGGLE SELECTOR -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:weightSum="99"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Public"
+                            android:textAllCaps="false"
+                            android:background="@color/colorE8E2DD"
+                            android:textColor="@color/colorBlack000000"
+                            android:layout_weight="33"/>
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Friends"
+                            android:textAllCaps="false"
+                            android:background="@color/colorC0995B"
+                            android:textColor="@color/colorWhiteffffff"
+                            android:layout_weight="33"/>
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Private"
+                            android:textAllCaps="false"
+                            android:background="@color/colorE8E2DD"
+                            android:textColor="@color/colorBlack000000"
+                            android:layout_weight="33"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- ADDRESS LINE 1 PRIVACY -->
+
+                <LinearLayout
+                    android:id="@+id/llAddressPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mh.systems.halesworth.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/title_text_address_line1" />
+
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.mh.systems.halesworth.customfonts.RobotoTextView
+                        android:id="@+id/tvAddressPrivacy"
+                        style="@style/MyDetailValues"
+                        android:text="32 Example Street" />
+
+                    <!-- BUTTONS TOGGLE SELECTOR -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:weightSum="99"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Public"
+                            android:textAllCaps="false"
+                            android:background="@color/colorE8E2DD"
+                            android:textColor="@color/colorBlack000000"
+                            android:layout_weight="33"/>
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Friends"
+                            android:textAllCaps="false"
+                            android:background="@color/colorE8E2DD"
+                            android:textColor="@color/colorBlack000000"
+                            android:layout_weight="33"/>
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Private"
+                            android:textAllCaps="false"
+                            android:background="@color/colorC0995B"
+                            android:textColor="@color/colorWhiteffffff"
+                            android:layout_weight="33"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

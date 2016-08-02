@@ -45,7 +45,6 @@ public class ClubNewsActivity extends BaseActivity {
     @Bind(R.id.rvClubNewsList)
     RecyclerView rvClubNewsList;
 
-    // ClubNewsAdapter clubNewsAdapter;
     ClubNewsSwipeAdapter clubNewsSwipeAdapter;
 
     ClubNewsAPI clubNewsAPI;
@@ -161,7 +160,6 @@ public class ClubNewsActivity extends BaseActivity {
                 showAlertMessage("" + error);
             }
         });
-
     }
 
     /**

@@ -2,6 +2,8 @@ package com.mh.systems.sunningdale.util.API;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.models.AddMemberAPI;
+import com.mh.systems.sunningdale.models.ClubNews.ClubNewsAPI;
+import com.mh.systems.sunningdale.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.sunningdale.models.CompetitionResultAPI;
 import com.mh.systems.sunningdale.models.CompetitionJoinAPI;
 import com.mh.systems.sunningdale.models.CompetitionUnjoinAPI;
@@ -202,5 +204,27 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void unjoinCompetition(@Body CompetitionUnjoinAPI competitionUnjoinAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Club News web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param clubNewsAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getClubNews(@Body ClubNewsAPI clubNewsAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of update Club News READ/DELETE web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param clubNewsDetailAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updateClubNews(@Body ClubNewsDetailAPI clubNewsDetailAPI, Callback<JsonObject> response);
 }
 
