@@ -59,12 +59,14 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             @Override
             public void onClick(View view) {
 
-                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
-                clubNewsDataArrayList.remove(position);
-                notifyItemRemoved(position);
-                notifyDataSetChanged();
-                notifyItemRangeChanged(position, clubNewsDataArrayList.size());
-                mItemManger.closeAllItems();
+                ((ClubNewsActivity)mContext).deleteClubNewsService(position, clubNewsDataArrayList.get(position).getClubNewsID());
+
+//                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
+//                clubNewsDataArrayList.remove(position);
+//                notifyItemRemoved(position);
+//                notifyDataSetChanged();
+//                notifyItemRangeChanged(position, clubNewsDataArrayList.size());
+//                mItemManger.closeAllItems();
             }
         });
 

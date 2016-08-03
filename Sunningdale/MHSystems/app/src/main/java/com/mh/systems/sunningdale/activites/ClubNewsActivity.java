@@ -1,6 +1,8 @@
 package com.mh.systems.sunningdale.activites;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,8 +19,11 @@ import com.mh.systems.sunningdale.adapter.RecyclerAdapter.ClubNewsSwipeAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.constants.WebAPI;
 import com.mh.systems.sunningdale.models.ClubNews.AJsonParamsClubNews;
+import com.mh.systems.sunningdale.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.sunningdale.models.ClubNews.ClubNewsAPI;
 import com.mh.systems.sunningdale.models.ClubNews.ClubNewsData;
+import com.mh.systems.sunningdale.models.ClubNews.ClubNewsDetailAPI;
+import com.mh.systems.sunningdale.models.ClubNews.ClubNewsDetailResult;
 import com.mh.systems.sunningdale.models.ClubNews.ClubNewsItems;
 import com.mh.systems.sunningdale.util.API.WebServiceMethods;
 import com.mh.systems.sunningdale.util.DividerItemDecoration;
@@ -52,6 +57,11 @@ public class ClubNewsActivity extends BaseActivity {
 
     ClubNewsItems clubNewsItems;
 
+    ClubNewsDetailAPI clubNewsDetailAPI;
+    AJsonParamsClubNewsDetail aJsonParamsClubNewsDetail;
+
+    ClubNewsDetailResult clubNewsDetailResult;
+
       /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
     @Bind(R.id.inc_message_view)
@@ -72,6 +82,10 @@ public class ClubNewsActivity extends BaseActivity {
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     ArrayList<ClubNewsData> clubNewsDataArrayList = new ArrayList<>();
+
+    private Boolean isDelete = true, isRead = true;
+
+    private int iDeletePosition = 0;
 
     /**
      * Implements HOME icons press listener.
@@ -206,7 +220,7 @@ public class ClubNewsActivity extends BaseActivity {
                 } else {
                     showNoCourseView(true);
 
-                   clubNewsSwipeAdapter.notifyDataSetChanged();
+                    clubNewsSwipeAdapter.notifyDataSetChanged();
                 }
             } else {
                 showNoCourseView(false);
@@ -235,4 +249,140 @@ public class ClubNewsActivity extends BaseActivity {
             tvMessageDesc.setText(getResources().getString(R.string.error_try_again));
         }
     }
+
+    /******************************   CLUB NEWS SWIPE TO DELETE FUNCTIONALITY   ******************************/
+
+    /**
+     * Implements this method is used to DELETE Club News via swipe to
+     * Delte from Club News list.
+     *
+     * @param iDeletePosition
+     * @param clubNewsID
+     */
+    public void deleteClubNewsService(Integer iDeletePosition, Integer clubNewsID) {
+
+
+        iDeletePosition = iDeletePosition;
+
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (isOnline(this)) {
+            requestDeleteNews(clubNewsID);
+        } else {
+            showAlertMessage(getResources().getString(R.string.error_no_internet));
+            hideProgress();
+        }
+    }
+
+    /**
+     * Implement a method to hit News web service to get response.
+     *
+     * @param iClubNewsID
+     */
+    public void requestDeleteNews(Integer iClubNewsID) {
+
+        showPleaseWait("Please wait...");
+
+        aJsonParamsClubNewsDetail = new AJsonParamsClubNewsDetail();
+        aJsonParamsClubNewsDetail.setLoginMemberId(getMemberId());
+        aJsonParamsClubNewsDetail.setClubNewsID(iClubNewsID);
+        aJsonParamsClubNewsDetail.setIsRead(isRead);
+        aJsonParamsClubNewsDetail.setIsDelete(isDelete);
+
+        clubNewsDetailAPI = new ClubNewsDetailAPI(getClientId(), "UpdateMemberClubNewsStatus", aJsonParamsClubNewsDetail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.updateClubNews(clubNewsDetailAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateDeleteSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                resetValues();
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+                showAlertMessage("" + getResources().getString(R.string.error_server_problem));
+            }
+        });
+    }
+
+    /**
+     * Implements this method to UPDATE the data from webservice in
+     * COURSE DIARY list if get SUCCESS.
+     */
+    private void updateDeleteSuccessResponse(JsonObject jsonObject) {
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<ClubNewsDetailResult>() {
+        }.getType();
+        clubNewsDetailResult = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+           /* *
+         *  Check "Result" 1 or 0. If 1, means data received successfully.
+         */
+            if (clubNewsDetailResult.getMessage().equalsIgnoreCase("Success")) {
+                if (isDelete) {
+                    showAlertOk("News deleted successfully.");
+                }
+            } else {
+                showAlertOk(clubNewsDetailResult.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        resetValues();
+
+        //Dismiss progress dialog.
+        hideProgress();
+    }
+
+    /**
+     * Implements this method is used to reset the values.
+     */
+    private void resetValues() {
+        isRead = false;
+        isDelete = false;
+    }
+
+    /**
+     * Implements this method to display successfully delete club news
+     * or any other message recieved from server.
+     */
+    public void showAlertOk(String strMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(strMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+
+                            clubNewsDataArrayList.remove(iDeletePosition);
+                            clubNewsSwipeAdapter.notifyDataSetChanged();
+                            onBackPressed();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    }
+
+    /******************************   END OF CLUB NEWS SWIPE TO DELETE FUNCTIONALITY   ******************************/
 }
