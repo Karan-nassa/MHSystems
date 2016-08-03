@@ -78,7 +78,7 @@ public class MembersActivity extends BaseActivity {
 
     /**
      * Instance of {@link Fragment} used for separate result
-     * of {@link MembersFragment} and {@link com.mh.systems.demoapp.fragments.FriendsFragment} list data.
+     * of {@link MembersFragment} and {@link FriendsFragment} list data.
      */
     Fragment fragmentInstance;
 
@@ -319,7 +319,6 @@ public class MembersActivity extends BaseActivity {
             FriendsFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
             FriendsFragment.mAdapter.notifyDataSetChanged();
         }
-
     }
 
     @SuppressWarnings("deprecation")
