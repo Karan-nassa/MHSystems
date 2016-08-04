@@ -28,6 +28,7 @@ public class MyDetailsEditActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_edit_privacy, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

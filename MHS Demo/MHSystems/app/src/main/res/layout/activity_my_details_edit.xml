@@ -1,25 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <!-- TOOL BAR WITH BACK ARROW AND DELETE -->
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/tbMyDetailEdit"
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tbMyDetailEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color4B4B49"
+                android:minHeight="?android:attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:title="Edit details"/>
+
+
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color4B4B49"
-            android:minHeight="?android:attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="Edit details"/>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
+                <!-- EMAIL EDIT TEXT -->
+                <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailHeading"
+                    android:layout_marginTop="16dp"
+                    android:text="CONTACT DETAILS"
+                    android:textColor="@color/colorC59A5C"
+                    android:textSize="12sp" />
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    style="@style/MyDetailHeading"
+                    android:layout_marginTop="18dp"
+                    android:paddingLeft="3dp"
+                    android:text="Email"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="3dp"
+                    android:textAllCaps="false"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+                <!-- EMAIL EDIT TEXT END -->
+
+                <!-- MOIL EDIT TEXT -->
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:paddingLeft="3dp"
+                    android:text="Mobile"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="3dp"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+                <!-- MOBILE EDIT TEXT END -->
+
+                <!-- WORK EDIT TEXT -->
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:paddingLeft="3dp"
+                    android:text="Work"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="3dp"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+                <!-- WORK EDIT TEXT END -->
+
+                <!-- HOME EDIT TEXT -->
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:paddingLeft="3dp"
+                    android:text="Home"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+                <!-- HOME EDIT TEXT END -->
+
+
+                <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                    style="@style/MyDetailHeading"
+                    android:layout_marginTop="16dp"
+                    android:paddingLeft="3dp"
+                    android:text="ADDRESS DETAILS"
+                    android:textColor="@color/colorC59A5C"
+                    android:textSize="12sp" />
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    style="@style/MyDetailHeading"
+                    android:layout_marginTop="18dp"
+                    android:paddingLeft="3dp"
+                    android:text="Address Line 1"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="0dp"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    style="@style/MyDetailHeading"
+                    android:layout_marginTop="18dp"
+                    android:text="Address Line 2"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="3dp"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    style="@style/MyDetailHeading"
+                    android:layout_marginTop="18dp"
+                    android:paddingLeft="3dp"
+                    android:text="Town"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="3dp"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    style="@style/MyDetailHeading"
+                    android:layout_marginTop="18dp"
+                    android:paddingLeft="3dp"
+                    android:text="Post Code"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="3dp"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    style="@style/MyDetailHeading"
+                    android:layout_marginTop="18dp"
+                    android:paddingLeft="3dp"
+                    android:text="Country"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="3dp"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
+
 
 </RelativeLayout>
