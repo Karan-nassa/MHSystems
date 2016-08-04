@@ -1,19 +1,36 @@
 package com.mh.systems.hartsbourne.activites;
 
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.mh.systems.hartsbourne.R;
+import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
+import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.models.ClubNews.AJsonParamsClubNewsDetail;
+import com.mh.systems.hartsbourne.models.ClubNews.ClubNewsDetailAPI;
+import com.mh.systems.hartsbourne.models.ClubNews.ClubNewsDetailResult;
+import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+
+import java.lang.reflect.Type;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 
 public class ClubNewsDetailActivity extends BaseActivity {
+
+    private String LOG_TAG = ClubNewsDetailActivity.class.getSimpleName();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -33,9 +50,16 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
     Typeface tfSFUI_TextRegular;
 
+    ClubNewsDetailAPI clubNewsDetailAPI;
+    AJsonParamsClubNewsDetail aJsonParamsClubNewsDetail;
+
+    ClubNewsDetailResult clubNewsDetailResult;
+
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
+    int iClubNewsID;
+    private Boolean isDelete, isRead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +77,17 @@ public class ClubNewsDetailActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        switch (getIntent().getExtras().getInt("NEWS_POS")){
-            case 0:
-                tvDescOfNews.setText("These offers are only available when you book your table online, for free, through Skiddle.");
-                break;
+        tvDateOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
+        //tvTimeOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
+        tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
+        iClubNewsID = getIntent().getExtras().getInt("ClubNewsID");
+        isRead = getIntent().getExtras().getBoolean("IsRead");
 
-            case 1:
-                tvDescOfNews.setText("Whether you’re a long-time lover of the genre or a total newbie, London’s got something to keep all jazz fans entertained. With top-notch nights taking place.");
-                break;
-
-            case 2:
-                tvDescOfNews.setText("Many people have asked why golf courses have eighteen holes and this is now the universal format played today. The early golf courses all had different numbers of holes and were not always played in a defined order, as evidenced at Earlsferry. The order of play on Aberdeen Links is known to have been laid out in August 1780, but the layouts below were probably established much earlier");
-                break;
+        //If user haven't read news then call READ API status.
+        if (!isRead) {
+            isRead = true;
+            isDelete = false;
+            updateMemberClubNewsStatus();
         }
     }
 
@@ -83,7 +106,9 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 break;
 
             case R.id.action_delete:
-                Log.e("Club News", "Delete item clicked...");
+                isRead = true;
+                isDelete = true;
+                updateMemberClubNewsStatus();
                 break;
 
             default:
@@ -93,7 +118,122 @@ public class ClubNewsDetailActivity extends BaseActivity {
     }
 
     /**
-     * Implements a method to initialze all view resources and
+     * Implements this method is used for two web services are:
+     * <p>
+     * - READ   : When user come first time then send READ status TRUE to server.
+     * - DELETE : Whenever user tap on DELETE icon on top right corner to delete the selected news.
+     */
+    private void updateMemberClubNewsStatus() {
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (isOnline(this)) {
+            requestClubNewsService();
+        } else {
+            showAlertMessage(getResources().getString(R.string.error_no_internet));
+            hideProgress();
+        }
+    }
+
+    /**
+     * Implement a method to hit News web service to get response.
+     */
+    public void requestClubNewsService() {
+
+        showPleaseWait("Please wait...");
+
+        aJsonParamsClubNewsDetail = new AJsonParamsClubNewsDetail();
+        aJsonParamsClubNewsDetail.setLoginMemberId(getMemberId());
+        aJsonParamsClubNewsDetail.setClubNewsID(iClubNewsID);
+        aJsonParamsClubNewsDetail.setIsRead(isRead);
+        aJsonParamsClubNewsDetail.setIsDelete(isDelete);
+
+        clubNewsDetailAPI = new ClubNewsDetailAPI(getClientId(), "UpdateMemberClubNewsStatus", aJsonParamsClubNewsDetail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.updateClubNews(clubNewsDetailAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                resetValues();
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+                showAlertMessage("" + getResources().getString(R.string.error_server_problem));
+            }
+        });
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+    }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    public String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "44118078");
+    }
+
+    /**
+     * Implements this method to UPDATE the data from webservice in
+     * COURSE DIARY list if get SUCCESS.
+     */
+    private void updateSuccessResponse(JsonObject jsonObject) {
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<ClubNewsDetailResult>() {
+        }.getType();
+        clubNewsDetailResult = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+           /* *
+         *  Check "Result" 1 or 0. If 1, means data received successfully.
+         */
+            if (clubNewsDetailResult.getMessage().equalsIgnoreCase("Success")) {
+                if (isDelete) {
+                    showAlertOk("News deleted successfully.");
+                }
+            } else {
+                showAlertOk(clubNewsDetailResult.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        resetValues();
+
+        //Dismiss progress dialog.
+        hideProgress();
+    }
+
+    /**
+     * Implements this method is used to reset the values.
+     */
+    private void resetValues() {
+        isRead = false;
+        isDelete = false;
+    }
+
+    /**
+     * Implements a method to initialize all view resources and
      * font style.
      */
     private void initializeAllResources() {
@@ -102,5 +242,26 @@ public class ClubNewsDetailActivity extends BaseActivity {
         tvDateOfNews.setTypeface(tfSFUI_TextRegular);
         tvTimeOfNews.setTypeface(tfSFUI_TextRegular);
         tvDescOfNews.setTypeface(tfSFUI_TextRegular);
+    }
+
+    /**
+     * Implements this method to display successfully delete club news
+     * or any other message recieved from server.
+     */
+    public void showAlertOk(String strMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(strMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            onBackPressed();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

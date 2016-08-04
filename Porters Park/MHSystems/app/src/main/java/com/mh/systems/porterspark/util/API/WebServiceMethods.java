@@ -2,6 +2,8 @@ package com.mh.systems.porterspark.util.API;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.models.AddMemberAPI;
+import com.mh.systems.porterspark.models.ClubNews.ClubNewsAPI;
+import com.mh.systems.porterspark.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.porterspark.models.CompetitionResultAPI;
 import com.mh.systems.porterspark.models.CompetitionJoinAPI;
 import com.mh.systems.porterspark.models.CompetitionUnjoinAPI;
@@ -215,5 +217,26 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getCourseDiaryNames(@Body CourseDiaryNamesAPI courseDiaryNamesAPI, Callback<JsonObject> response);
-}
+
+    /**
+     * Declaration of Club News web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param clubNewsAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getClubNews(@Body ClubNewsAPI clubNewsAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of update Club News READ/DELETE web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param clubNewsDetailAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updateClubNews(@Body ClubNewsDetailAPI clubNewsDetailAPI, Callback<JsonObject> response);}
 

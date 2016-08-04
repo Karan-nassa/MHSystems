@@ -246,7 +246,7 @@ public class ClubNewsActivity extends BaseActivity {
             inc_message_view.setVisibility(View.VISIBLE);
             ivMessageSymbol.setImageResource(R.mipmap.ic_home_clubnews);
             tvMessageTitle.setText(getResources().getString(R.string.error_no_club_news));
-            tvMessageDesc.setText(getResources().getString(R.string.error_try_again));
+            tvMessageDesc.setText(""/*getResources().getString(R.string.error_try_again)*/);
         }
     }
 

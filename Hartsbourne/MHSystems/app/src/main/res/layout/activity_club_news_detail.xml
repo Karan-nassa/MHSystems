@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.5"
-                    android:text="Monday, 18th July 2016"
+                    android:text="@string/text_club_news_date"
                     android:textColor="@color/colorBlack000000"
                     android:textSize="15sp" />
 
