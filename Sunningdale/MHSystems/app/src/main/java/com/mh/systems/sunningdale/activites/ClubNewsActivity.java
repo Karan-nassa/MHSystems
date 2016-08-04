@@ -310,7 +310,6 @@ public class ClubNewsActivity extends BaseActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                resetValues();
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
@@ -346,23 +345,13 @@ public class ClubNewsActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        resetValues();
-
         //Dismiss progress dialog.
         hideProgress();
     }
 
     /**
-     * Implements this method is used to reset the values.
-     */
-    private void resetValues() {
-        isRead = false;
-        isDelete = false;
-    }
-
-    /**
      * Implements this method to display successfully delete club news
-     * or any other message recieved from server.
+     * or any other message received from server.
      */
     public void showAlertOk(String strMessage) {
 
@@ -376,7 +365,6 @@ public class ClubNewsActivity extends BaseActivity {
 
                             clubNewsDataArrayList.remove(iDeletePosition);
                             clubNewsSwipeAdapter.notifyDataSetChanged();
-                            onBackPressed();
                         }
                     });
             AlertDialog alert = builder.create();

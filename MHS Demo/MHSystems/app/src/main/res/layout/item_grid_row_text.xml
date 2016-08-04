@@ -76,6 +76,7 @@
                     android:id="@+id/ivBadgerBackground"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="invisible"
                     android:scaleType="fitCenter"
                     app:placeholderImage="@color/colorFFEF8176"
                     app:roundAsCircle="true" />
@@ -84,7 +85,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="7dp"
-                    android:text="2"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
 
