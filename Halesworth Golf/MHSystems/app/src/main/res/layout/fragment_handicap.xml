@@ -216,9 +216,9 @@
 
                             <com.mh.systems.halesworth.customfonts.RobotoTextView
                                 android:id="@+id/tvTitleOfPlayStr"
-                                android:layout_width="170dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="10dp"
                                 android:textColor="@color/color1E1E1C"
                                 android:textSize="15sp" />
 

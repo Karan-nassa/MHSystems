@@ -239,5 +239,6 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getCourseDiaryNames(@Body CourseDiaryNamesAPI courseDiaryNamesAPI, Callback<JsonObject> response);
+
 }
 

@@ -17,6 +17,7 @@
     <string name="error_no_member">No Member found</string>
     <string name="error_please_retry">Bad internet connection. please try again later.</string>
     <string name="message_no_date_selected">No date selected.</string>
+    <string name="error_no_club_news">No Club News</string>
     <string name="error_wrong_date_selection">You can only view compResultData of current date and future dates.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 

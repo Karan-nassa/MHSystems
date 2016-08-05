@@ -38,7 +38,7 @@
 
             <!-- CLUB NEWS TITLE -->
 
-            <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
+            <com.mh.systems.brokenhurst.customfonts.RobotoTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -49,16 +49,27 @@
 
         </LinearLayout>
 
-        <!-- CLUB NEWS LIST -->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvClubNewsList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:cacheColorHint="@color/colorF9F8F7"
-            android:divider="@color/colorE8E2DD"
-            android:dividerHeight="1dp" />
+
+            <!-- VIEW TO DISPLAY MESSAGE LIKE NO EVENT FOUND OR INTERNET CONNECTION ERROR -->
+
+
+            <!-- CLUB NEWS LIST -->
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvClubNewsList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="@color/colorF9F8F7"
+                android:divider="@color/colorE8E2DD"
+                android:dividerHeight="1dp" />
+
 
     </LinearLayout>
+
+    <include
+        android:id="@+id/inc_message_view"
+        layout="@layout/include_display_message"
+        android:visibility="gone" />
 
 </RelativeLayout>

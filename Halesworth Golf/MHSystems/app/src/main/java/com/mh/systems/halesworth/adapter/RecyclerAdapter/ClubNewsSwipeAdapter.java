@@ -14,23 +14,24 @@ import android.widget.TextView;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.mh.systems.halesworth.R;
+import com.mh.systems.halesworth.activites.ClubNewsActivity;
 import com.mh.systems.halesworth.activites.ClubNewsDetailActivity;
+import com.mh.systems.halesworth.models.ClubNews.ClubNewsData;
 
 import java.util.ArrayList;
 
 
 /**
- * Created by karan@mh.co.in on 17/6/2016 to
- * display Club News and Swipe to remove.
+ * Created by karan@ucreate.co.in on 17/6/2016 to display Club News and Swipe to remove.
  */
 public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdapter.SimpleViewHolder> {
 
     private Context mContext;
-    ArrayList<String> stringArrayList;
+    public ArrayList<ClubNewsData> clubNewsDataArrayList;
 
-    public ClubNewsSwipeAdapter(Context context, ArrayList<String> stringArrayList) {
+    public ClubNewsSwipeAdapter(ClubNewsActivity context, ArrayList<ClubNewsData> clubNewsDataArrayList) {
         this.mContext = context;
-        this.stringArrayList = stringArrayList;
+        this.clubNewsDataArrayList = clubNewsDataArrayList;
     }
 
     @Override
@@ -46,43 +47,26 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         } else {
             viewHolder.rllayout.setBackgroundColor(Color.parseColor("#fefaf1"));
         }*/
-        //    final Student item = studentList.get(position);
 
-     /*   viewHolder.tvTitle.setText(datum.get(position).getBaseLocation() + " To " + datum.get(position).getDestLocation());
-        viewHolder.tvdate.setText(datum.get(position).getStartDate());
-        viewHolder.tvtime.setText(datum.get(position).getStartTime());
-        viewHolder.tvDesplace.setText(datum.get(position).getDestLocation());
-        viewHolder.tvNumberOfRiders.setText(datum.get(position).getRiders() + " Riders");
-        if (datum.get(position).getMutual() == 0) {
-            viewHolder.tvLabelHaveJoined.setText("Not Joined");
-        } else {
-            viewHolder.tvLabelHaveJoined.setText("Have Joined");
-        }*/
+        viewHolder.tvTitleOfNews.setText(clubNewsDataArrayList.get(position).getTitle());
+        viewHolder.tvTimeOfNews.setText(clubNewsDataArrayList.get(position).getCreatedDate());
 
-        switch (position){
-            case 0:
-                viewHolder.tvTitleOfNews.setText("50% of select food this weekend:");
-                break;
-
-            case 1:
-                viewHolder.tvTitleOfNews.setText("Jazz Evening with 2 course meal at £50 per couple:");
-                break;
-
-            case 2:
-                viewHolder.tvTitleOfNews.setText("Why not bring a friend to play 18 holes at 20% off the standard green fees:");
-                break;
+        if(clubNewsDataArrayList.get(position).getIsRead()){
+            viewHolder.ivReadStatus.setVisibility(View.INVISIBLE);
         }
 
         viewHolder.flRemoveGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-               /* mItemManger.removeShownLayouts(viewHolder.swipeLayout);
-                stringArrayList.remove(position);
-                notifyItemRemoved(position);
-                notifyDataSetChanged();
-                notifyItemRangeChanged(position, stringArrayList.size());
-                mItemManger.closeAllItems();*/
+                ((ClubNewsActivity)mContext).deleteClubNewsService(position, clubNewsDataArrayList.get(position).getClubNewsID());
+
+//                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
+//                clubNewsDataArrayList.remove(position);
+//                notifyItemRemoved(position);
+//                notifyDataSetChanged();
+//                notifyItemRangeChanged(position, clubNewsDataArrayList.size());
+//                mItemManger.closeAllItems();
             }
         });
 
@@ -179,7 +163,7 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
 
     @Override
     public int getItemCount() {
-        return 3;
+        return clubNewsDataArrayList.size();
     }
 
     @Override
@@ -188,13 +172,13 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
     }
 
     //  ViewHolder Class
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class SimpleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         SwipeLayout swipeLayout;
         FrameLayout flRemoveGroup;
         ImageView ivReadStatus;
         RelativeLayout rlNewsGroup;
+        TextView tvTitleOfNews, tvTimeOfNews;
         Context mContext;
-        TextView tvTimeOfNews, tvTitleOfNews;
 
         public SimpleViewHolder(View itemView, Context context) {
             super(itemView);
@@ -204,8 +188,8 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             ivReadStatus = (ImageView) itemView.findViewById(R.id.ivReadStatus);
             rlNewsGroup = (RelativeLayout) itemView.findViewById(R.id.rlNewsGroup);
 
-            tvTimeOfNews = (TextView) itemView.findViewById(R.id.tvTimeOfNews);
             tvTitleOfNews = (TextView) itemView.findViewById(R.id.tvTitleOfNews);
+            tvTimeOfNews = (TextView) itemView.findViewById(R.id.tvTimeOfNews);
 
             mContext = context;
 
@@ -215,8 +199,12 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         @Override
         public void onClick(View itemView) {
             Intent detailNewsIntent = new Intent(mContext, ClubNewsDetailActivity.class);
-            detailNewsIntent.putExtra("NEWS_POS", getAdapterPosition());
+            detailNewsIntent.putExtra("ClubNewsID", clubNewsDataArrayList.get(getAdapterPosition()).getClubNewsID());
+            detailNewsIntent.putExtra("CreatedDate", clubNewsDataArrayList.get(getAdapterPosition()).getCreatedDate());
+            detailNewsIntent.putExtra("Message", clubNewsDataArrayList.get(getAdapterPosition()).getMessage());
+            detailNewsIntent.putExtra("IsRead", clubNewsDataArrayList.get(getAdapterPosition()).getIsRead());
             mContext.startActivity(detailNewsIntent);
         }
     }
 }
+

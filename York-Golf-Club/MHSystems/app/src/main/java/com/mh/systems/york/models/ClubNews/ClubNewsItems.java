@@ -1,44 +1,77 @@
+
 package com.mh.systems.york.models.ClubNews;
 
-/**
- * Created by karan@mh.co.in on 17-06-2016.
- */
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class ClubNewsItems {
-    String strTimeOfNews;
-    String strDateOfNews;
-    String strDescOfNews;
 
-    public ClubNewsItems() {
+    @SerializedName("Message")
+    @Expose
+    private String Message;
+    @SerializedName("Result")
+    @Expose
+    private Integer Result;
+    @SerializedName("Data")
+    @Expose
+    private List<ClubNewsData> Data = new ArrayList<ClubNewsData>();
+
+    /**
+     * 
+     * @return
+     *     The Message
+     */
+    public String getMessage() {
+        return Message;
     }
 
-    public ClubNewsItems(String strTimeOfNews, String strDateOfNews, String strDescOfNews) {
-        this.strTimeOfNews = strTimeOfNews;
-        this.strDateOfNews = strDateOfNews;
-        this.strDescOfNews = strDescOfNews;
+    /**
+     * 
+     * @param Message
+     *     The Message
+     */
+    public void setMessage(String Message) {
+        this.Message = Message;
     }
 
-
-    public String getStrDescOfNews() {
-        return strDescOfNews;
+    /**
+     * 
+     * @return
+     *     The Result
+     */
+    public Integer getResult() {
+        return Result;
     }
 
-    public void setStrDescOfNews(String strDescOfNews) {
-        this.strDescOfNews = strDescOfNews;
+    /**
+     * 
+     * @param Result
+     *     The Result
+     */
+    public void setResult(Integer Result) {
+        this.Result = Result;
     }
 
-    public String getStrTimeOfNews() {
-        return strTimeOfNews;
+    /**
+     * 
+     * @return
+     *     The Data
+     */
+    public List<ClubNewsData> getData() {
+        return Data;
     }
 
-    public void setStrTimeOfNews(String strTimeOfNews) {
-        this.strTimeOfNews = strTimeOfNews;
+    /**
+     * 
+     * @param Data
+     *     The Data
+     */
+    public void setData(List<ClubNewsData> Data) {
+        this.Data = Data;
     }
 
-    public String getStrDateOfNews() {
-        return strDateOfNews;
-    }
-
-    public void setStrDateOfNews(String strDateOfNews) {
-        this.strDateOfNews = strDateOfNews;
-    }
 }

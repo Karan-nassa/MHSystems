@@ -1,14 +1,12 @@
 
-package com.mh.systems.brokenhurst.models.ClubNews;
+package com.mh.systems.york.models.ClubNews;
+
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
-public class ClubNewsItems {
+public class ClubNewsDetailResult {
 
     @SerializedName("Message")
     @Expose
@@ -18,7 +16,7 @@ public class ClubNewsItems {
     private Integer Result;
     @SerializedName("Data")
     @Expose
-    private List<ClubNewsData> Data = new ArrayList<ClubNewsData>();
+    private String Data;
 
     /**
      * 
@@ -61,7 +59,7 @@ public class ClubNewsItems {
      * @return
      *     The Data
      */
-    public List<ClubNewsData> getData() {
+    public String getData() {
         return Data;
     }
 
@@ -70,7 +68,7 @@ public class ClubNewsItems {
      * @param Data
      *     The Data
      */
-    public void setData(List<ClubNewsData> Data) {
+    public void setData(String Data) {
         this.Data = Data;
     }
 
