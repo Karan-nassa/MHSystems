@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhiteffffff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical"
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp">
+
+        <!-- DATE &amp; TITLE -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="05/24/2016"
+                android:textColor="@color/color030303"
+                android:textSize="15sp" />
+
+            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Turnhouse Golf Club"
+                android:textColor="@color/color030303"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lothians Amateur Championship"
+                android:textColor="@color/color8F8E94"
+                android:textSize="13sp" />
+
+
+            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="R1"
+                android:textSize="13sp" />
+
+        </FrameLayout>
+
+        <!-- GROUP ROW 1 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorF9F8F7"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <!-- RD. -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rd"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- Type -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Type"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- CSS -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CSS"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- Score -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Score"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- NDB -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NDB"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- RD. -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rd"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!-- GROUP ROW RESULT 1 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <!-- RD. -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- Type -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="STB"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- CSS -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="72"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- Score -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="32"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- NDB -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- RD. -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rd"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- +++++++++++++ GROUP ROW 2 +++++++++++++++ -->
+
+        <!-- GROUP ROW 1 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/colorF9F8F7"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <!-- RD. -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GDiff"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- Type -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NDiff"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- CSS -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="H’Cap +/-"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- Score -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Exact"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- NDB -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Play"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- RD. -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rd"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!-- GROUP ROW RESULT 1 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <!-- RD. -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="22"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- Type -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- CSS -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+0.1"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- Score -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11.2"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- NDB -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11c"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <!-- RD. -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rd"
+                    android:textColor="@color/colorBDB6AE"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- SPACE VIEW -->
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

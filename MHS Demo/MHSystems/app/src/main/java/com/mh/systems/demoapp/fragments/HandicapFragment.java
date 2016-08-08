@@ -33,6 +33,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mh.systems.demoapp.activites.HandicapHistoryActivity;
 import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
@@ -92,7 +93,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      *******************************/
     View viewRootFragment;
     TextView tvHandicapExact, tvHandicapPlaying;// tvHandicapType;
-    Button btShowCertificate;
+    Button btShowCertificate, btDetailHacp;
     ImageView ivNextYearGraph, ivPreviousYearGraph;
     TextView tvDateOfPlayedStr, tvTitleOfPlayStr, tvTypeOfPlayStr;
     TextView tvSelectGraphYear, tvLatestGraphYear;
@@ -110,6 +111,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     private static LineChart mChart;
     LineDataSet set1;
     public static MyMarkerView mv;
+
+    Intent intent;
 
 
     /**
@@ -175,7 +178,15 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         btShowCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ShowCertificateWebview.class);
+                intent = new Intent(getActivity(), ShowCertificateWebview.class);
+                startActivity(intent);
+            }
+        });
+
+        btDetailHacp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(getActivity(), HandicapHistoryActivity.class);
                 startActivity(intent);
             }
         });
@@ -221,8 +232,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     }
 
     /**
-     * Implement a method to hit HANDICAP
-     * web service to get response.
+     * Implement a method to hit HANDICAP web service to get response.
      */
     public void requestCompetitionsEvents() {
 
@@ -676,6 +686,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         tvLatestGraphYear = (TextView) viewRootFragment.findViewById(R.id.tvLatestGraphYear);
 
         btShowCertificate = (Button) viewRootFragment.findViewById(R.id.btShowCertificate);
+        btDetailHacp = (Button) viewRootFragment.findViewById(R.id.btDetailHacp);
 
         llPreviousYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llPreviousYearGraph);
         llNextYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llNextYearGraph);

@@ -131,6 +131,7 @@
         <activity
             android:name=".activites.MyDetailsEditActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activites.HandicapHistoryActivity"></activity>
     </application>
 
 </manifest>

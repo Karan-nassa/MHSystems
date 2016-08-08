@@ -338,12 +338,12 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/button_shape_c0995b"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
                     android:text="@string/button_title_hcap_details"
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack000000"
-                    android:textSize="17sp" />
+                    android:textSize="14sp" />
 
                 <!-- SPACE VIEW AT BOTTOM -->
 
