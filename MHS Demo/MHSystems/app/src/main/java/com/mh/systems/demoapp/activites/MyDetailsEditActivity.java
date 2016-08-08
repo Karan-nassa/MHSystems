@@ -17,7 +17,7 @@ public class MyDetailsEditActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_details_edit);
 
-        tbMyDetailEdit = (Toolbar) findViewById(R.id.tbMyDetailEdit);
+        //tbMyDetailEdit = (Toolbar) findViewById(R.id.tbMyDetailEdit);
         if (tbMyDetailEdit != null) {
             setSupportActionBar(tbMyDetailEdit);
            // getSupportActionBar().setDisplayShowTitleEnabled(true);

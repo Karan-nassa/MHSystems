@@ -52,6 +52,7 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/etEditEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -74,6 +75,7 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/etEditMobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -95,6 +97,7 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/etEditWork"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -116,6 +119,7 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/etEditHome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -143,6 +147,7 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/etEditAddress1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -160,6 +165,7 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/etEditAddress2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -178,6 +184,7 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/etEditTown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -196,6 +203,7 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/etEditPostCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -214,6 +222,7 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/etEditCountry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
