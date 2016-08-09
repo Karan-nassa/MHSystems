@@ -13,6 +13,7 @@ import com.mh.systems.sunningdale.models.DashboardAPI;
 import com.mh.systems.sunningdale.models.Friends.RemoveFriendAPI;
 import com.mh.systems.sunningdale.models.FriendsAPI;
 import com.mh.systems.sunningdale.models.HandicapAPI;
+import com.mh.systems.sunningdale.models.HandicapHistory.HCapHistoryAPI;
 import com.mh.systems.sunningdale.models.MembersAPI;
 import com.mh.systems.sunningdale.models.MembersDetailAPI;
 import com.mh.systems.sunningdale.models.FinanceAPI;
@@ -226,5 +227,16 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void updateClubNews(@Body ClubNewsDetailAPI clubNewsDetailAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of HANDICAP HISTORY web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param hCapHistoryAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getHCapHistory(@Body HCapHistoryAPI hCapHistoryAPI, Callback<JsonObject> response);
 }
 
