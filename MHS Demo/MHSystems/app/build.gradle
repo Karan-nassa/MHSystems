@@ -95,5 +95,5 @@ dependencies {
     compile project(':libValidation')
 
     //Country Picker Dialog
-
+    compile 'com.mukesh:countrypicker:1.1.5'
 }
