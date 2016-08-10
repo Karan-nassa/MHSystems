@@ -1,5 +1,5 @@
 
-package com.mh.systems.sunningdale.models.HandicapHistory;
+package com.mh.systems.sunningdale.models.HCapHistory;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mh.systems.sunningdale.activites;
+package com.mh.systems.demoapp.activites;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,16 +9,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.sunningdale.R;
-import com.mh.systems.sunningdale.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
-import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
-import com.mh.systems.sunningdale.models.HCapHistory.AJsonParamsHcapHistory;
-import com.mh.systems.sunningdale.models.HCapHistory.HCapHistoryAPI;
-import com.mh.systems.sunningdale.models.HCapHistory.HCapHistoryData;
-import com.mh.systems.sunningdale.models.HCapHistory.HCapHistoryResult;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
-import com.mh.systems.sunningdale.util.DividerItemDecoration;
+import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
+import com.mh.systems.demoapp.constants.ApplicationGlobal;
+import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.models.HCapHistory.AJsonParamsHcapHistory;
+import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryAPI;
+import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryData;
+import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryResult;
+import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.util.DividerItemDecoration;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

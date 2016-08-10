@@ -19,18 +19,18 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+            <TextView
+                android:id="@+id/tvDatePlayedStr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="05/24/2016"
                 android:textColor="@color/color030303"
                 android:textSize="15sp" />
 
-            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+            <TextView
+                android:id="@+id/tvVenueOrAuthoriser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="Turnhouse Golf Club"
                 android:textColor="@color/color030303"
                 android:textSize="15sp" />
 
@@ -40,19 +40,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+            <TextView
+                android:id="@+id/tvCompetitionOrReason"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lothians Amateur Championship"
                 android:textColor="@color/color8F8E94"
                 android:textSize="13sp" />
 
 
-            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+            <TextView
+                android:id="@+id/tvRoundNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="R1"
                 android:textSize="13sp" />
 
         </FrameLayout>
@@ -76,7 +76,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvRd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rd"
@@ -94,7 +95,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Type"
@@ -112,7 +114,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvCSS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="CSS"
@@ -130,7 +133,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Score"
@@ -148,7 +152,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvNDB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NDB"
@@ -156,25 +161,6 @@
                     android:textSize="11sp" />
 
             </LinearLayout>
-
-            <!-- RD. -->
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="20"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rd"
-                    android:textColor="@color/colorBDB6AE"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
 
         </LinearLayout>
 
@@ -186,7 +172,7 @@
             android:orientation="horizontal"
             android:weightSum="100">
 
-            <!-- RD. -->
+            <!-- RD. VALUE -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -195,16 +181,16 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <TextView
+                    android:id="@+id/tvRoundNoStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
                     android:textColor="@color/colorBlack000000"
                     android:textSize="11sp" />
 
             </LinearLayout>
 
-            <!-- Type -->
+            <!-- Type VALUE -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -213,16 +199,16 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvConguCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="STB"
                     android:textColor="@color/colorBlack000000"
                     android:textSize="11sp" />
 
             </LinearLayout>
 
-            <!-- CSS -->
+            <!-- CSS VALUE -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -231,16 +217,16 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <TextView
+                    android:id="@+id/tvRoundCSSStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="72"
                     android:textColor="@color/colorBlack000000"
                     android:textSize="11sp" />
 
             </LinearLayout>
 
-            <!-- Score -->
+            <!-- Score VALUE -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -249,16 +235,16 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvAdjGrossScoreStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="32"
                     android:textColor="@color/colorBlack000000"
                     android:textSize="11sp" />
 
             </LinearLayout>
 
-            <!-- NDB -->
+            <!-- NDB VALUE -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -267,29 +253,11 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <TextView
+                    android:id="@+id/tvNdbAdjStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:textColor="@color/colorBlack000000"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-            <!-- RD. -->
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="20"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rd"
-                    android:textColor="@color/colorBDB6AE"
                     android:textSize="11sp" />
 
             </LinearLayout>
@@ -307,7 +275,7 @@
             android:orientation="horizontal"
             android:weightSum="100">
 
-            <!-- RD. -->
+            <!-- GDiff -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -316,7 +284,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvGDiff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="GDiff"
@@ -325,7 +294,7 @@
 
             </LinearLayout>
 
-            <!-- Type -->
+            <!-- NDiff -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -334,7 +303,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvNDiff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NDiff"
@@ -343,7 +313,7 @@
 
             </LinearLayout>
 
-            <!-- CSS -->
+            <!-- H’Cap +/- -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -352,7 +322,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvHCap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="H’Cap +/-"
@@ -361,7 +332,7 @@
 
             </LinearLayout>
 
-            <!-- Score -->
+            <!-- New Exact -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -370,7 +341,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvNewExact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="New Exact"
@@ -379,7 +351,7 @@
 
             </LinearLayout>
 
-            <!-- NDB -->
+            <!-- Play -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -388,7 +360,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvPlay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Play"
@@ -396,25 +369,6 @@
                     android:textSize="11sp" />
 
             </LinearLayout>
-
-            <!-- RD. -->
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="20"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rd"
-                    android:textColor="@color/colorBDB6AE"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
 
         </LinearLayout>
 
@@ -426,7 +380,7 @@
             android:orientation="horizontal"
             android:weightSum="100">
 
-            <!-- RD. -->
+            <!-- GDiff VALUE -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -435,16 +389,16 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <TextView
+                    android:id="@+id/tvGrossDiffStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="22"
                     android:textColor="@color/colorBlack000000"
                     android:textSize="11sp" />
 
             </LinearLayout>
 
-            <!-- Type -->
+            <!-- NDiff VALUE -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -453,16 +407,16 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <TextView
+                    android:id="@+id/tvNettDiffStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12"
                     android:textColor="@color/colorBlack000000"
                     android:textSize="11sp" />
 
             </LinearLayout>
 
-            <!-- CSS -->
+            <!-- H’Cap +/- VALUE -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -471,16 +425,16 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <TextView
+                    android:id="@+id/tvHCapAdjStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+0.1"
                     android:textColor="@color/colorBlack000000"
                     android:textSize="11sp" />
 
             </LinearLayout>
 
-            <!-- Score -->
+            <!-- New Exact -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -489,16 +443,16 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                <TextView
+                    android:id="@+id/tvNewExactHCapOnlyStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="11.2"
                     android:textColor="@color/colorBlack000000"
                     android:textSize="11sp" />
 
             </LinearLayout>
 
-            <!-- NDB -->
+            <!-- Play -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -507,29 +461,11 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <TextView
+                    android:id="@+id/tvNewPlayHCapOnlyStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="11c"
                     android:textColor="@color/colorBlack000000"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-            <!-- RD. -->
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="20"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rd"
-                    android:textColor="@color/colorBDB6AE"
                     android:textSize="11sp" />
 
             </LinearLayout>

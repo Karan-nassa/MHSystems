@@ -1,4 +1,4 @@
-package com.mh.systems.sunningdale.adapter.RecyclerAdapter;
+package com.mh.systems.demoapp.adapter.RecyclerAdapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.mh.systems.sunningdale.R;
-import com.mh.systems.sunningdale.models.HCapHistory.HCapHistoryData;
+import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryData;
 
 import java.util.ArrayList;
 

@@ -33,21 +33,21 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mh.systems.demoapp.activites.HandicapHistoryActivity;
-import com.mh.systems.demoapp.activites.YourAccountActivity;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.BaseActivity;
+import com.mh.systems.demoapp.activites.HCapHistoryActivity;
 import com.mh.systems.demoapp.activites.ShowCertificateWebview;
+import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.models.HCapRecords;
-import com.mh.systems.demoapp.util.MyMarkerView;
 import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.mh.systems.demoapp.models.AJsonParamsHandicap;
+import com.mh.systems.demoapp.models.HCapRecords;
 import com.mh.systems.demoapp.models.HandicapAPI;
 import com.mh.systems.demoapp.models.HandicapData;
 import com.mh.systems.demoapp.models.HandicapResultItems;
+import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.util.MyMarkerView;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      *******************************/
     View viewRootFragment;
     TextView tvHandicapExact, tvHandicapPlaying;// tvHandicapType;
-    Button btShowCertificate, btDetailHacp;
+    Button btShowCertificate;
     ImageView ivNextYearGraph, ivPreviousYearGraph;
     TextView tvDateOfPlayedStr, tvTitleOfPlayStr, tvTypeOfPlayStr;
     TextView tvSelectGraphYear, tvLatestGraphYear;
@@ -112,6 +112,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     LineDataSet set1;
     public static MyMarkerView mv;
 
+    Button btDetailHacp;
     Intent intent;
 
 
@@ -186,7 +187,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         btDetailHacp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(getActivity(), HandicapHistoryActivity.class);
+                intent = new Intent(getActivity(), HCapHistoryActivity.class);
                 startActivity(intent);
             }
         });
@@ -204,8 +205,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser /*&& isClassVisible*/) {
-            ((YourAccountActivity) getActivity()).updateFilterIcon(8);
             callHandicapWebService();
+            ((YourAccountActivity) getActivity()).updateFilterIcon(8);
         }
     }
 
@@ -227,12 +228,13 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
                 llHandicapGroup.setVisibility(View.GONE);
             }
-        } catch (Exception exp) {
+        }catch (Exception exp){
         }
     }
 
     /**
-     * Implement a method to hit HANDICAP web service to get response.
+     * Implement a method to hit HANDICAP
+     * web service to get response.
      */
     public void requestCompetitionsEvents() {
 

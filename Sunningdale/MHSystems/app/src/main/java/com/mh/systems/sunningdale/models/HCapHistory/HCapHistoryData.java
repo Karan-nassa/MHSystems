@@ -1,5 +1,5 @@
 
-package com.mh.systems.sunningdale.models.HandicapHistory;
+package com.mh.systems.sunningdale.models.HCapHistory;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

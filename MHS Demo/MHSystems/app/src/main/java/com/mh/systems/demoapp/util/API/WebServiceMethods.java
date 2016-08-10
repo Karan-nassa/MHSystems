@@ -12,6 +12,7 @@ import com.mh.systems.demoapp.models.CourseDiaryAPI;
 import com.mh.systems.demoapp.models.DashboardAPI;
 import com.mh.systems.demoapp.models.Friends.RemoveFriendAPI;
 import com.mh.systems.demoapp.models.FriendsAPI;
+import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.demoapp.models.HandicapAPI;
 import com.mh.systems.demoapp.models.MembersAPI;
 import com.mh.systems.demoapp.models.MembersDetailAPI;
@@ -226,5 +227,16 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void updateClubNews(@Body ClubNewsDetailAPI clubNewsDetailAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of HANDICAP HISTORY web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param hCapHistoryAPI
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void getHCapHistory(@Body HCapHistoryAPI hCapHistoryAPI, Callback<JsonObject> response);
 }
 

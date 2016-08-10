@@ -13,7 +13,7 @@ import com.mh.systems.sunningdale.models.DashboardAPI;
 import com.mh.systems.sunningdale.models.Friends.RemoveFriendAPI;
 import com.mh.systems.sunningdale.models.FriendsAPI;
 import com.mh.systems.sunningdale.models.HandicapAPI;
-import com.mh.systems.sunningdale.models.HandicapHistory.HCapHistoryAPI;
+import com.mh.systems.sunningdale.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.sunningdale.models.MembersAPI;
 import com.mh.systems.sunningdale.models.MembersDetailAPI;
 import com.mh.systems.sunningdale.models.FinanceAPI;
