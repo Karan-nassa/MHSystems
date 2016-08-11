@@ -2,7 +2,8 @@
 
     <!-- Base application theme. -->
     <style name="AppThemeMaterial" parent="MyMaterialTheme.Base">
-
+        <item name="android:itemBackground">#FAFAFA</item>
+        <item name="android:textColor">@color/colorBlack000000</item>
     </style>
 
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">

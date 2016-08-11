@@ -12,16 +12,14 @@
 
         <!-- TOOL BAR WITH BACK ARROW AND DELETE -->
 
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/tbMyDetailEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color4B4B49"
-                android:minHeight="?android:attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:title="Edit details"/>
-
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbMyDetailEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49"
+            android:minHeight="?android:attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="Edit details" />
 
 
         <ScrollView
@@ -56,9 +54,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:paddingLeft="3dp"
-                    android:textAllCaps="false"
                     android:backgroundTint="@color/colorE8E2DD"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:paddingLeft="3dp"
+                    android:singleLine="true"
+                    android:textAllCaps="false"
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
                 <!-- EMAIL EDIT TEXT END -->
@@ -79,8 +80,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:paddingLeft="3dp"
                     android:backgroundTint="@color/colorE8E2DD"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingLeft="3dp"
+                    android:singleLine="true"
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
                 <!-- MOBILE EDIT TEXT END -->
@@ -101,8 +105,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:paddingLeft="3dp"
                     android:backgroundTint="@color/colorE8E2DD"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingLeft="3dp"
+                    android:singleLine="true"
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
                 <!-- WORK EDIT TEXT END -->
@@ -124,6 +131,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:backgroundTint="@color/colorE8E2DD"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
                 <!-- HOME EDIT TEXT END -->
@@ -151,8 +161,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:paddingLeft="0dp"
                     android:backgroundTint="@color/colorE8E2DD"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="0dp"
+                    android:singleLine="true"
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 
@@ -169,8 +182,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:paddingLeft="3dp"
                     android:backgroundTint="@color/colorE8E2DD"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="3dp"
+                    android:singleLine="true"
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 
@@ -188,8 +204,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:paddingLeft="3dp"
                     android:backgroundTint="@color/colorE8E2DD"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="3dp"
+                    android:singleLine="true"
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 
@@ -207,8 +226,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:paddingLeft="3dp"
                     android:backgroundTint="@color/colorE8E2DD"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingLeft="3dp"
+                    android:singleLine="true"
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 
@@ -226,8 +248,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:paddingLeft="3dp"
                     android:backgroundTint="@color/colorE8E2DD"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:maxLines="1"
+                    android:paddingLeft="3dp"
+                    android:singleLine="true"
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 

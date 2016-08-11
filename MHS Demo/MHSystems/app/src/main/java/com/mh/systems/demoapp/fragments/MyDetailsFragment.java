@@ -1,6 +1,7 @@
 package com.mh.systems.demoapp.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.demoapp.activites.MyDetailsEditActivity;
 import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
@@ -43,7 +45,7 @@ public class MyDetailsFragment extends Fragment {
      *******************************/
     public static final String LOG_TAG = MyDetailsFragment.class.getSimpleName();
     private String strUsernameOfPerson, strStreetOfPerson, strEmailOfPerson,
-            strMobileContactOfPerson, strTypeOfPerson, strNameOfPerson;
+            strMobileContactOfPerson, strTypeOfPerson, strNameOfPerson, strTelHome, strTelWork;
 
     String strTitileValues[];
 
@@ -53,12 +55,12 @@ public class MyDetailsFragment extends Fragment {
      * INSTANCES OF CLASSES
      *******************************/
     private TextView tvUsernameOfPerson, tvStreetOfPerson, tvEmailOfPerson,
-            tvMobileContactOfPerson, tvTypeOfPerson, tvNameOfPerson;
+            tvMobileContactOfPerson, tvTypeOfPerson, tvNameOfPerson, tvWorkContactOfPerson, tvHomeContactOfPerson;
 
-    private TextView tvEmailVisibilty, tvAddressVisibilty, tvMobileVisibilty;
+    private TextView tvEmailVisibilty, tvAddressVisibilty, tvMobileVisibilty, tvWorkVisibilty, tvHomeVisibilty;
 
     private LinearLayout llUsernameOfPerson, llStreetOfPerson, llEmailOfPerson,
-            llMobileContactOfPerson, llTypeOfPerson, llNameOfPerson;
+            llMobileContactOfPerson, llTypeOfPerson, llNameOfPerson, llWorkContactOfPerson, llHomeContactOfPerson;
 
     LinearLayout llMyDetailGroup;
 
@@ -124,7 +126,7 @@ public class MyDetailsFragment extends Fragment {
                         ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
                     }
                 }
-            },5000);
+            }, 5000);
         }
     }
 
@@ -270,6 +272,18 @@ public class MyDetailsFragment extends Fragment {
         tvMobileVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getTelNoMobPrivacy());
         tvAddressVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getAddress1Privacy());
 
+       /*++++++++++++++++++++++++  START OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
+
+        tvHomeVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getTelNoHomePrivacy());
+        tvWorkVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getTelNoWorkPrivacy());
+
+        strTelHome = membersDetailItems.getData().getContactDetails().getTelNoHome();
+        strTelWork = membersDetailItems.getData().getContactDetails().getTelNoWork();
+
+        tvHomeContactOfPerson.setText(strTelHome);
+        tvWorkContactOfPerson.setText(strTelWork);
+        /*++++++++++++++++++++++++  END OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
+
         tvEmailOfPerson.setText(strEmailOfPerson);
         tvMobileContactOfPerson.setText(strMobileContactOfPerson);
         tvStreetOfPerson.setText(strStreetOfPerson);
@@ -292,6 +306,15 @@ public class MyDetailsFragment extends Fragment {
         tvEmailVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvEmailVisibilty);
         tvAddressVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvAddressVisibilty);
         tvMobileVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvMobileVisibilty);
+
+        /*++++++++++++++++++++++++  START OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
+
+        tvWorkContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvWorkContactOfPerson);
+        tvHomeContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvHomeContactOfPerson);
+        tvWorkVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvWorkVisibilty);
+        tvHomeVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvHomeVisibilty);
+
+        /*++++++++++++++++++++++++  END OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
 
         llNameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llNameOfPerson);
         llTypeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llTypeOfPerson);

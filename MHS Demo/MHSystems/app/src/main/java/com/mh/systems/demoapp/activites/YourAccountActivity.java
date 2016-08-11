@@ -78,7 +78,7 @@ public class YourAccountActivity extends BaseActivity {
      * Declares the click event handling FIELD to set categories
      * of Your Account Finance {@link Fragment}.
      */
-    private PopupMenu.OnMenuItemClickListener mCourseTypeListener =
+    public PopupMenu.OnMenuItemClickListener mCourseTypeListener =
             new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -115,6 +115,7 @@ public class YourAccountActivity extends BaseActivity {
                         case R.id.item_toggle_mode:
                             intent = new Intent(YourAccountActivity.this, EditToggleDetailActivity.class);
                             startActivity(intent);
+
                             break;
 
                         case R.id.item_edit_mode:
@@ -197,7 +198,7 @@ public class YourAccountActivity extends BaseActivity {
         if (fragmentObj instanceof FinanceFragment) {
             ivFilter.setImageResource(R.mipmap.ic_event);
             popupMenu.inflate(R.menu.finance_menu);
-        }else{
+        } else {
             ivFilter.setImageResource(R.mipmap.ic_mode_edit);
             popupMenu.inflate(R.menu.my_details_menu);
         }
