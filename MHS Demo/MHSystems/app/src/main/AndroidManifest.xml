@@ -129,7 +129,7 @@
         <!-- MY DETAILS EDIT SCREEN -->
 
         <activity
-            android:name=".activites.MyDetailsEditActivity"
+            android:name=".activites.EditDetailsActivity"
             android:screenOrientation="portrait" />
 
         <!-- HANDICAP HISTORY -->

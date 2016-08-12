@@ -17,7 +17,6 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.fragments.FinanceFragment;
 import com.mh.systems.demoapp.fragments.MyAccountTabFragment;
-import com.mh.systems.demoapp.fragments.MyDetailsFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -119,7 +118,7 @@ public class YourAccountActivity extends BaseActivity {
                             break;
 
                         case R.id.item_edit_mode:
-                            intent = new Intent(YourAccountActivity.this, MyDetailsEditActivity.class);
+                            intent = new Intent(YourAccountActivity.this, EditDetailsActivity.class);
                             startActivity(intent);
                             break;
                     }

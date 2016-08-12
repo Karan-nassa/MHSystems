@@ -33,7 +33,7 @@
                 android:layout_marginRight="20dp"
                 android:orientation="vertical">
 
-                <!-- MOBILE/CONTACT PRIVACY -->
+                <!-- MOBILE CONTACT PRIVACY -->
 
                 <LinearLayout
                     android:id="@+id/llMobilePrivacy"
@@ -57,36 +57,154 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:weightSum="99"
                         android:layout_marginTop="15dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="99">
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Public"
-                            android:textAllCaps="false"
+                            android:layout_weight="33"
                             android:background="@color/colorC0995B"
-                            android:textColor="@color/colorWhiteffffff"
-                            android:layout_weight="33"/>
+                            android:text="Members"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhiteffffff" />
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
                             android:text="Friends"
                             android:textAllCaps="false"
-                            android:background="@color/colorE8E2DD"
-                            android:textColor="@color/colorBlack000000"
-                            android:layout_weight="33"/>
+                            android:textColor="@color/colorBlack000000" />
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
                             android:text="Private"
                             android:textAllCaps="false"
+                            android:textColor="@color/colorBlack000000" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- WORK CONTACT PRIVACY -->
+
+                <LinearLayout
+                    android:id="@+id/llWorkPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/title_text_work" />
+
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                        android:id="@+id/tvWorkPrivacy"
+                        style="@style/MyDetailValues"
+                        android:text="07561048644" />
+
+                    <!-- BUTTONS TOGGLE SELECTOR -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:weightSum="99">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorC0995B"
+                            android:text="Members"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhiteffffff" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
                             android:background="@color/colorE8E2DD"
-                            android:textColor="@color/colorBlack000000"
-                            android:layout_weight="33"/>
+                            android:text="Friends"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorBlack000000" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Private"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorBlack000000" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- HOME CONTACT PRIVACY -->
+
+                <LinearLayout
+                    android:id="@+id/llHomePrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/title_text_home" />
+
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                        android:id="@+id/tvHomePrivacy"
+                        style="@style/MyDetailValues"
+                        android:text="07561048644" />
+
+                    <!-- BUTTONS TOGGLE SELECTOR -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:weightSum="99">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorC0995B"
+                            android:text="Members"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhiteffffff" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Friends"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorBlack000000" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Private"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorBlack000000" />
 
                     </LinearLayout>
 
@@ -116,36 +234,36 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:weightSum="99"
                         android:layout_marginTop="15dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="99">
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Public"
-                            android:textAllCaps="false"
+                            android:layout_weight="33"
                             android:background="@color/colorE8E2DD"
-                            android:textColor="@color/colorBlack000000"
-                            android:layout_weight="33"/>
+                            android:text="Members"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorBlack000000" />
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorC0995B"
                             android:text="Friends"
                             android:textAllCaps="false"
-                            android:background="@color/colorC0995B"
-                            android:textColor="@color/colorWhiteffffff"
-                            android:layout_weight="33"/>
+                            android:textColor="@color/colorWhiteffffff" />
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
                             android:text="Private"
                             android:textAllCaps="false"
-                            android:background="@color/colorE8E2DD"
-                            android:textColor="@color/colorBlack000000"
-                            android:layout_weight="33"/>
+                            android:textColor="@color/colorBlack000000" />
 
                     </LinearLayout>
 
@@ -175,38 +293,44 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:weightSum="99"
                         android:layout_marginTop="15dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="99">
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Public"
-                            android:textAllCaps="false"
+                            android:layout_weight="33"
                             android:background="@color/colorE8E2DD"
-                            android:textColor="@color/colorBlack000000"
-                            android:layout_weight="33"/>
+                            android:text="Members"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorBlack000000" />
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
                             android:text="Friends"
                             android:textAllCaps="false"
-                            android:background="@color/colorE8E2DD"
-                            android:textColor="@color/colorBlack000000"
-                            android:layout_weight="33"/>
+                            android:textColor="@color/colorBlack000000" />
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorC0995B"
                             android:text="Private"
                             android:textAllCaps="false"
-                            android:background="@color/colorC0995B"
-                            android:textColor="@color/colorWhiteffffff"
-                            android:layout_weight="33"/>
+                            android:textColor="@color/colorWhiteffffff" />
 
                     </LinearLayout>
+
+                    <!-- SPACE AT BOTTOM -->
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp" />
 
                 </LinearLayout>
             </LinearLayout>

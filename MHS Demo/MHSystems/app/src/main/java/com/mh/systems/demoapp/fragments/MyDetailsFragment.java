@@ -1,7 +1,6 @@
 package com.mh.systems.demoapp.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.demoapp.activites.MyDetailsEditActivity;
 import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
@@ -35,7 +33,7 @@ import retrofit.RetrofitError;
  * The {@link MyDetailsFragment} used to display the detail of LOGIN
  * MEMBER by passing MemberId.
  *
- * @author {@link karan@mh.co.in}
+ * @author {@link karan@ucreate.co.in}
  * @version 1.0
  * @since 17 May, 2016
  */
@@ -101,34 +99,55 @@ public class MyDetailsFragment extends Fragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
+    public void onResume() {
+        super.onResume();
+        ((YourAccountActivity) getActivity()).updateFilterIcon(0);
 
-        if (isVisibleToUser /*&& isClassVisible*/) {
+        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
-            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
-
-            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    /**
-                     *  Check internet connection before hitting server request.
-                     */
-                    if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                        ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-                        llMyDetailGroup.setVisibility(View.VISIBLE);
-                        requestMemberDetailService();
-                    } else {
-                        ((BaseActivity) getActivity()).hideProgress();
-                        llMyDetailGroup.setVisibility(View.GONE);
-                        ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-                    }
-                }
-            }, 5000);
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+            llMyDetailGroup.setVisibility(View.VISIBLE);
+            requestMemberDetailService();
+        } else {
+            ((BaseActivity) getActivity()).hideProgress();
+            llMyDetailGroup.setVisibility(View.GONE);
+            ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
         }
     }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//
+//        if (isVisibleToUser /*&& isClassVisible*/) {
+//
+//            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
+//
+//            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+//
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    /**
+//                     *  Check internet connection before hitting server request.
+//                     */
+//                    if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+//                        ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+//                        llMyDetailGroup.setVisibility(View.VISIBLE);
+//                        requestMemberDetailService();
+//                    } else {
+//                        ((BaseActivity) getActivity()).hideProgress();
+//                        llMyDetailGroup.setVisibility(View.GONE);
+//                        ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+//                    }
+//                }
+//            }, 5000);
+//        }
+//    }
 
 //   private void callWebService() {
 //            /**

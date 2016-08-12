@@ -10,6 +10,7 @@ import com.mh.systems.demoapp.models.CompetitionUnjoinAPI;
 import com.mh.systems.demoapp.models.CompetitionsAPI;
 import com.mh.systems.demoapp.models.CourseDiaryAPI;
 import com.mh.systems.demoapp.models.DashboardAPI;
+import com.mh.systems.demoapp.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.demoapp.models.Friends.RemoveFriendAPI;
 import com.mh.systems.demoapp.models.FriendsAPI;
 import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryAPI;
@@ -18,6 +19,7 @@ import com.mh.systems.demoapp.models.MembersAPI;
 import com.mh.systems.demoapp.models.MembersDetailAPI;
 import com.mh.systems.demoapp.models.FinanceAPI;
 import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
+import com.mh.systems.demoapp.models.TogglePrivacy.TogglePrivacyAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -238,5 +240,27 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void getHCapHistory(@Body HCapHistoryAPI hCapHistoryAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Update Members detail service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param editDetailModeAPI
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void updateMemberDetails(@Body EditDetailModeAPI editDetailModeAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Update Members detail service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param togglePrivacyAPI
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
 }
 

@@ -10,13 +10,13 @@ public class AJsonParamsToggle {
 
     @SerializedName("version")
     @Expose
-    private String version;
+    private int version;
     @SerializedName("callid")
     @Expose
     private String callid;
     @SerializedName("MemberId")
     @Expose
-    private Integer MemberId;
+    private String MemberId;
     @SerializedName("TelNoHomePrivacy")
     @Expose
     private String TelNoHomePrivacy;
@@ -38,7 +38,7 @@ public class AJsonParamsToggle {
      * @return
      *     The version
      */
-    public String getVersion() {
+    public int getVersion() {
         return version;
     }
 
@@ -47,7 +47,7 @@ public class AJsonParamsToggle {
      * @param version
      *     The version
      */
-    public void setVersion(String version) {
+    public void setVersion(int version) {
         this.version = version;
     }
 
@@ -74,7 +74,7 @@ public class AJsonParamsToggle {
      * @return
      *     The MemberId
      */
-    public Integer getMemberId() {
+    public String getMemberId() {
         return MemberId;
     }
 
@@ -83,7 +83,7 @@ public class AJsonParamsToggle {
      * @param MemberId
      *     The MemberId
      */
-    public void setMemberId(Integer MemberId) {
+    public void setMemberId(String MemberId) {
         this.MemberId = MemberId;
     }
 

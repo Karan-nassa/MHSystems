@@ -194,6 +194,30 @@
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="18dp"
                     android:paddingLeft="3dp"
+                    android:text="Address Line 3"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <!-- ADDRESS LINE 3 -->
+
+                <EditText
+                    android:id="@+id/etEditAddress3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="0dp"
+                    android:singleLine="true"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    style="@style/MyDetailHeading"
+                    android:layout_marginTop="18dp"
+                    android:paddingLeft="3dp"
                     android:text="Town"
                     android:textAllCaps="false"
                     android:textColor="@color/fifty_four_of_black"
@@ -201,6 +225,28 @@
 
                 <EditText
                     android:id="@+id/etEditTown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="@color/colorE8E2DD"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="3dp"
+                    android:singleLine="true"
+                    android:textColor="@color/eighty_seven_of_black"
+                    android:textSize="16sp" />
+
+                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    style="@style/MyDetailHeading"
+                    android:layout_marginTop="18dp"
+                    android:paddingLeft="3dp"
+                    android:text="County"
+                    android:textAllCaps="false"
+                    android:textColor="@color/fifty_four_of_black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/etCounty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
