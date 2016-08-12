@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mh.systems.demoapp.models.CoursesData;
+import com.mh.systems.demoapp.models.MembersDetailsData;
 import com.newrelic.com.google.gson.Gson;
 import com.rollbar.android.Rollbar;
 import com.mh.systems.demoapp.R;
@@ -302,8 +303,7 @@ public class BaseActivity extends AppCompatActivity {
      * Gson form.
      */
     @SuppressWarnings("static-access")
-    public void savePreferenceList(String key,
-                                   String json) {
+    public void savePreferenceList(String key, String json) {
         sharedpreferences = getSharedPreferences(
                 ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -325,6 +325,23 @@ public class BaseActivity extends AppCompatActivity {
         } else
             return null;
         return (ArrayList) arrayList;
+    }
+
+    public MembersDetailsData loadPreferencesJson(String strKeyValue) {
+//        List arrayList = null;
+        MembersDetailsData membersDetailsData;
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        if (sharedpreferences.contains(strKeyValue)) {
+            String jsonFavorites = sharedpreferences.getString(strKeyValue, null);
+            Gson gson = new Gson();
+            membersDetailsData = gson.fromJson(jsonFavorites, MembersDetailsData.class);
+//            CoursesData[] favoriteItems = gson.fromJson(jsonFavorites, CoursesData[].class);
+//            arrayList = Arrays.asList(favoriteItems);
+//            arrayList = new ArrayList(arrayList);
+        } else
+            return null;
+        return membersDetailsData;
     }
 
     /**

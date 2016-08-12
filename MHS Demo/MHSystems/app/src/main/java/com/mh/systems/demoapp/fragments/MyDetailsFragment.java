@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.activites.YourAccountActivity;
+import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.BaseActivity;
@@ -306,6 +307,16 @@ public class MyDetailsFragment extends Fragment {
         tvEmailOfPerson.setText(strEmailOfPerson);
         tvMobileContactOfPerson.setText(strMobileContactOfPerson);
         tvStreetOfPerson.setText(strStreetOfPerson);
+
+        SaveUserInfoToPreference();
+    }
+
+    /**
+     * Implements this method to save user information to {@link android.content.SharedPreferences} so that
+     * it can retrieve later for update.
+     */
+    private void SaveUserInfoToPreference() {
+        ((YourAccountActivity)getActivity()).savePreferenceList("YOUR_DETAILS_DATA", new Gson().toJson(membersDetailItems.getData()));
     }
 
     /**

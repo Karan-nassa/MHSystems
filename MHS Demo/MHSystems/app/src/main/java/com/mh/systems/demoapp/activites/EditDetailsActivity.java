@@ -1,9 +1,12 @@
 package com.mh.systems.demoapp.activites;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
@@ -23,12 +27,15 @@ import com.mh.systems.demoapp.models.EditDetailMode.EditDetailModeResponse;
 import com.mh.systems.demoapp.models.HCapHistory.AJsonParamsHcapHistory;
 import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryResult;
+import com.mh.systems.demoapp.models.MembersDetailsData;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -38,10 +45,16 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
 
     private final String LOG_TAG = EditDetailsActivity.class.getSimpleName();
 
+    private String strEmailOfPerson, strMobileContactOfPerson, strTelWork, strTelHome, strAddressLine1, strAddressLine2, strAddressLine3,
+            strTown, strCounty, strPostalCode, strCountry;
+    boolean isUpdateToSave = false;
+    String strErrorMessage = "";
+
     Toolbar tbMyDetailEdit;
 
     EditText etEditEmail, etEditMobile, etEditWork, etEditHome,
             etEditAddress1, etEditAddress2, etEditAddress3, etEditTown, etCounty, etEditPostCode, etEditCountry;
+
     Typeface tfRobotoRegular;
 
     CountryPicker countryPicker;
@@ -51,7 +64,17 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
 
     EditDetailModeResponse editDetailModeResponse;
 
+    MembersDetailsData membersDetailsData;
+
     Intent intent;
+
+    private View.OnFocusChangeListener mFocusListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+
+            isUpdateToSave = true;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +101,18 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
         });
 
         etEditCountry.setOnClickListener(this);
+
+        etEditEmail.setOnFocusChangeListener(mFocusListener);
+        etEditMobile.setOnFocusChangeListener(mFocusListener);
+        etEditWork.setOnFocusChangeListener(mFocusListener);
+        etEditHome.setOnFocusChangeListener(mFocusListener);
+        etEditAddress1.setOnFocusChangeListener(mFocusListener);
+        etEditAddress2.setOnFocusChangeListener(mFocusListener);
+        etEditAddress3.setOnFocusChangeListener(mFocusListener);
+        etEditTown.setOnFocusChangeListener(mFocusListener);
+        etCounty.setOnFocusChangeListener(mFocusListener);
+        etEditPostCode.setOnFocusChangeListener(mFocusListener);
+        etEditCountry.setOnFocusChangeListener(mFocusListener);
     }
 
     @Override
@@ -91,28 +126,28 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                if (isUpdateToSave) {
+                    showAlertSave();
+                } else {
+                    finish();
+                }
                 break;
 
             case R.id.action_save:
-                /**
-                 *  Check internet connection before hitting server request.
-                 */
-                if (isOnline(this)) {
-                    updateMemberDetails();
-                } else {
-                    showAlertMessage(getResources().getString(R.string.error_no_internet));
-                    hideProgress();
-                }
+                callUpdateWebService();
                 break;
 
             case R.id.item_edit_mode:
                 break;
 
             case R.id.item_toggle_mode:
-                intent = new Intent(EditDetailsActivity.this, EditToggleDetailActivity.class);
-                startActivity(intent);
-                finish();
+                if (isUpdateToSave) {
+                    showAlertSave();
+                } else {
+                    intent = new Intent(EditDetailsActivity.this, EditToggleDetailActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
 
             default:
@@ -133,7 +168,34 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (isUpdateToSave) {
+            showAlertSave();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     /*************************** START OF SAVE AND UPDATE MEMBER DETAIL SERVICE ***************************/
+
+    /**
+     * Implements this method to check Internet Connection and hit web service
+     * if connection exists.
+     */
+    private void callUpdateWebService() {
+
+            if (isValidInput()) {
+                if (isOnline(this)) {
+                    updateMemberDetails();
+                } else {
+                    showAlertMessage(getResources().getString(R.string.error_no_internet));
+                    hideProgress();
+                }
+            } else {
+                showAlertMessage(strErrorMessage);
+            }
+    }
 
     /**
      * Implements a method to hit update members detail service.
@@ -146,17 +208,17 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
         aJsonParamsEditDetailMode.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsEditDetailMode.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsEditDetailMode.setMemberId(getMemberId());
-        aJsonParamsEditDetailMode.setTelNoHome("01727 798481");
-        aJsonParamsEditDetailMode.setTelNoWork("");
-        aJsonParamsEditDetailMode.setTelNoMob("07884 572612");
-        aJsonParamsEditDetailMode.setEMail("halmstadt@btinternet.com");
-        aJsonParamsEditDetailMode.setLine1("6 Campion Road");
-        aJsonParamsEditDetailMode.setLine2("");
-        aJsonParamsEditDetailMode.setLine3("");
-        aJsonParamsEditDetailMode.setTown("Herts");
-        aJsonParamsEditDetailMode.setCounty("Herts");
-        aJsonParamsEditDetailMode.setPostCode("EN6 1NZ");
-        aJsonParamsEditDetailMode.setCountry("");
+        aJsonParamsEditDetailMode.setTelNoHome(strTelHome);
+        aJsonParamsEditDetailMode.setTelNoWork(strTelWork);
+        aJsonParamsEditDetailMode.setTelNoMob(strMobileContactOfPerson);
+        aJsonParamsEditDetailMode.setEMail(strEmailOfPerson);
+        aJsonParamsEditDetailMode.setLine1(strAddressLine1);
+        aJsonParamsEditDetailMode.setLine2(strAddressLine2);
+        aJsonParamsEditDetailMode.setLine3(strAddressLine3);
+        aJsonParamsEditDetailMode.setTown(strTown);
+        aJsonParamsEditDetailMode.setCounty(strCounty);
+        aJsonParamsEditDetailMode.setPostCode(strPostalCode);
+        aJsonParamsEditDetailMode.setCountry(strCountry);
 
         editDetailModeAPI = new EditDetailModeAPI(getClientId(), "UPDATEMEMBERCONTACTDETAILS", aJsonParamsEditDetailMode, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
@@ -204,7 +266,10 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
              */
             if (editDetailModeResponse.getMessage().equalsIgnoreCase("Success")) {
 
-                showAlertMessage(editDetailModeResponse.getData());
+                //Set False after save value.
+                isUpdateToSave = false;
+
+                showAlertUpdateResult(editDetailModeResponse.getData());
             } else {
                 //If web service not respond in any case.
                 showAlertMessage(editDetailModeResponse.getMessage());
@@ -252,6 +317,12 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
         etEditCountry = (EditText) findViewById(R.id.etEditCountry);
 
         setTypeFace();
+
+        /**
+         * Get Members detail data from SharedPreference.
+         **/
+        membersDetailsData = loadPreferencesJson("YOUR_DETAILS_DATA");
+        updateUI();
     }
 
     /**
@@ -271,8 +342,139 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
         etEditCountry.setTypeface(tfRobotoRegular);
     }
 
-    /*************************** START OF WEB SERVICE IMPLEMENTATION TO GET MEMBER DETAIL AND SET IN INPUT FIELDS ***************************/
+    /**
+     * Implements to display message from Web Service.
+     */
+    public void showAlertUpdateResult(String strAlertMessage) {
 
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            finish();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    }
 
-    /*************************** END OF WEB SERVICE IMPLEMENTATION TO GET MEMBER DETAIL AND SET IN INPUT FIELDS ***************************/
+    /**
+     * Implements this method to Save information if anything updated.
+     */
+    private void showAlertSave() {
+        // Create custom dialog object
+        final Dialog dialog = new Dialog(this);
+        // Include dialog.xml file
+        dialog.setContentView(R.layout.alert_edit_detail);
+        // Set dialog title
+        dialog.setTitle("Custom Dialog");
+
+        // set values for custom dialog components - text, image and button
+        TextView tvCancel = (TextView) dialog.findViewById(R.id.tvCancel);
+        TextView tvSaveNow = (TextView) dialog.findViewById(R.id.tvSaveNow);
+
+        dialog.show();
+
+        // if decline button is clicked, close the custom dialog
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Close dialog
+                dialog.dismiss();
+            }
+        });
+
+        tvSaveNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                callUpdateWebService();
+            }
+        });
+    }
+
+    /**
+     * Implements a method to get data and store to
+     * local instance.
+     */
+    private void updateUI() {
+        strEmailOfPerson = membersDetailsData.getContactDetails().getEMail();
+        strMobileContactOfPerson = membersDetailsData.getContactDetails().getTelNoMob();
+        strTelWork = membersDetailsData.getContactDetails().getTelNoWork();
+        strTelHome = membersDetailsData.getContactDetails().getTelNoHome();
+
+        //ADDRESS
+        strAddressLine1 = membersDetailsData.getContactDetails().getAddress().getLine1();
+        strAddressLine2 = membersDetailsData.getContactDetails().getAddress().getLine2();
+        strAddressLine3 = membersDetailsData.getContactDetails().getAddress().getLine3();
+
+        strTown = membersDetailsData.getContactDetails().getAddress().getTown();
+        strCounty = membersDetailsData.getContactDetails().getAddress().getCounty();
+        strPostalCode = membersDetailsData.getContactDetails().getAddress().getPostCode();
+        strCountry = membersDetailsData.getContactDetails().getAddress().getCountry();
+
+        /////////////////  SET DATA TO INPUT FIELDS PROGRAMMATICALLY  /////////////////
+
+        etEditEmail.setText(strEmailOfPerson);
+        etEditMobile.setText(strMobileContactOfPerson);
+        etEditWork.setText(strTelWork);
+        etEditHome.setText(strTelHome);
+        etEditAddress1.setText(strAddressLine1);
+        etEditAddress2.setText(strAddressLine2);
+        etEditAddress3.setText(strAddressLine3);
+        etEditTown.setText(strTown);
+        etCounty.setText(strCounty);
+        etEditPostCode.setText(strPostalCode);
+        etEditCountry.setText(strCountry);
+    }
+
+    /**
+     * validate Email Address format.
+     * Ex-akhi@mani.com 
+     */
+    public boolean emailValidator(String email) {
+        Pattern pattern;
+        Matcher matcher;
+
+        final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    /**
+     * Check whether input is valid or not.
+     *
+     * @return TRUE if valid, otherwise FALSE.
+     */
+    public boolean isValidInput() {
+
+        strEmailOfPerson = etEditEmail.getText().toString();
+        strMobileContactOfPerson = etEditMobile.getText().toString();
+        strTelWork = etEditWork.getText().toString();
+        strTelHome = etEditHome.getText().toString();
+
+        strAddressLine1 = etEditAddress1.getText().toString();
+        strAddressLine2 = etEditAddress2.getText().toString();
+        strAddressLine3 = etEditAddress3.getText().toString();
+
+        strTown = etEditTown.getText().toString();
+        strCounty = etCounty.getText().toString();
+        strCountry = etEditCountry.getText().toString();
+        strPostalCode = etEditPostCode.getText().toString();
+
+        if (strEmailOfPerson.length() > 0) {
+            if (emailValidator(strEmailOfPerson)) {
+                return true;
+            } else {
+                strErrorMessage = getResources().getString(R.string.error_valid_email);
+                return false;
+            }
+        }
+            return true;
+    }
 }
