@@ -21,6 +21,7 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.fragments.MyDetailsFragment;
 import com.mh.systems.demoapp.models.EditDetailMode.AJsonParamsEditDetailMode;
 import com.mh.systems.demoapp.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.demoapp.models.EditDetailMode.EditDetailModeResponse;
@@ -86,6 +87,9 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
             setSupportActionBar(tbMyDetailEdit);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        //Refresh tab data when go back from this screen.
+        MyDetailsFragment.shouldRefresh = true;
 
         initializeViews();
 
@@ -185,16 +189,16 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
      */
     private void callUpdateWebService() {
 
-            if (isValidInput()) {
-                if (isOnline(this)) {
-                    updateMemberDetails();
-                } else {
-                    showAlertMessage(getResources().getString(R.string.error_no_internet));
-                    hideProgress();
-                }
+        if (isValidInput()) {
+            if (isOnline(this)) {
+                updateMemberDetails();
             } else {
-                showAlertMessage(strErrorMessage);
+                showAlertMessage(getResources().getString(R.string.error_no_internet));
+                hideProgress();
             }
+        } else {
+            showAlertMessage(strErrorMessage);
+        }
     }
 
     /**
@@ -475,6 +479,6 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
                 return false;
             }
         }
-            return true;
+        return true;
     }
 }

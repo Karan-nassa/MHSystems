@@ -16,7 +16,9 @@ import android.widget.TextView;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.fragments.FinanceFragment;
+import com.mh.systems.demoapp.fragments.HandicapFragment;
 import com.mh.systems.demoapp.fragments.MyAccountTabFragment;
+import com.mh.systems.demoapp.fragments.MyDetailsFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,6 +31,8 @@ public class YourAccountActivity extends BaseActivity {
     public final String LOG_TAG = YourAccountActivity.class.getSimpleName();
 
     private boolean isFilterOpen;
+
+    private int iTabPosition;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -194,13 +198,24 @@ public class YourAccountActivity extends BaseActivity {
          * Step 2: Inflate the menu resource. Here the menu resource is
          * defined in the res/menu project folder
          */
-        if (fragmentObj instanceof FinanceFragment) {
-            ivFilter.setImageResource(R.mipmap.ic_event);
-            popupMenu.inflate(R.menu.finance_menu);
-        } else {
-            ivFilter.setImageResource(R.mipmap.ic_mode_edit);
-            popupMenu.inflate(R.menu.my_details_menu);
+        switch (getWhichTab()) {
+            case 2:
+                ivFilter.setImageResource(R.mipmap.ic_event);
+                popupMenu.inflate(R.menu.finance_menu);
+                break;
+
+            case 0:
+            case 1:
+                ivFilter.setImageResource(R.mipmap.ic_mode_edit);
+                popupMenu.inflate(R.menu.my_details_menu);
+                break;
         }
+
+       /* if (getWhichTab() instanceof FinanceFragment) {
+
+        } else {
+
+        }*/
 
         popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
 
@@ -268,6 +283,20 @@ public class YourAccountActivity extends BaseActivity {
      */
     public void setFragmentInstance(Fragment fragmentObj) {
         this.fragmentObj = fragmentObj;
+    }
+
+    public void setWhichTab(int iTabPosition) {
+        this.iTabPosition = iTabPosition;
+
+        if (iTabPosition == 0 || iTabPosition == 2) {
+            updateFilterIcon(View.VISIBLE);
+        } else {
+            updateFilterIcon(View.GONE);
+        }
+    }
+
+    private int getWhichTab() {
+        return this.iTabPosition;
     }
 
     public void updateFilterIcon(int iVisibleType) {

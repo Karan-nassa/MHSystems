@@ -102,8 +102,10 @@ public class FinanceFragment extends Fragment {
             if (myAccountItems.getMyAccountData().get(0).getCurrentBills().size() > 0) {
                 getCurrentInvoiceData();
 
-                *//**
-     *  Navigate to Detail Invoice Screen.
+                */
+
+    /**
+     * Navigate to Detail Invoice Screen.
      *//*
                 mIntent = new Intent(getActivity(), DetailInvoiceActivity.class);
                 mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TITLE, strInvoiceTitle);
@@ -122,7 +124,6 @@ public class FinanceFragment extends Fragment {
             }
         }
     };*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
@@ -144,7 +145,7 @@ public class FinanceFragment extends Fragment {
 
     /**
      * Implements a method to show Filter view.
-     */
+     **/
     public void updateFilterControl(int iFilterType) {
         this.iFilterType = iFilterType;
         callFinanceWebService();
@@ -296,10 +297,9 @@ public class FinanceFragment extends Fragment {
 
     /**
      * Implements a method to set Transaction filter type.
-     *
      */
     private void setTransactionListTitle() {
-        switch (iFilterType){
+        switch (iFilterType) {
             case 0:
                 tvDateHeading.setText("Today");
                 break;

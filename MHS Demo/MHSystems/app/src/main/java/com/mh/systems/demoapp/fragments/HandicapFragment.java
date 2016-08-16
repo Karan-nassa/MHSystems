@@ -207,6 +207,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         if (isVisibleToUser /*&& isClassVisible*/) {
             callHandicapWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(8);
+           // ((YourAccountActivity) getActivity()).setFragmentInstance(new HandicapFragment());
         }
     }
 

@@ -34,7 +34,7 @@ public class MyAccountTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static int iLastTabPosition;
+    public int iLastTabPosition;
 
     /**
      * Declare three bool instances to call api
@@ -49,6 +49,8 @@ public class MyAccountTabFragment extends Fragment {
             setTabVisibleStatus(tab.getPosition());
 
             iLastTabPosition = tab.getPosition();
+
+            ((YourAccountActivity)getActivity()).setWhichTab(tab.getPosition());
         }
 
         @Override
@@ -89,6 +91,7 @@ public class MyAccountTabFragment extends Fragment {
         viewPager.setAdapter(pageAdapter);
 
         iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
+        ((YourAccountActivity)getActivity()).setWhichTab(iLastTabPosition);
         viewPager.setCurrentItem(iLastTabPosition);
         iLastTabPosition = 0;
 

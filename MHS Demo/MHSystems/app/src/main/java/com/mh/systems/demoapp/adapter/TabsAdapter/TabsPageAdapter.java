@@ -159,7 +159,6 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 fragment = new FinanceFragment();
                 break;
         }
-
         ((YourAccountActivity) context).setFragmentInstance(fragment);
         return fragment;
     }
