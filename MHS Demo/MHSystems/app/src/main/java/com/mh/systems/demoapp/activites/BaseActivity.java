@@ -328,6 +328,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public MembersDetailsData loadPreferencesJson(String strKeyValue) {
+//        List arrayList = null;
         MembersDetailsData membersDetailsData;
         sharedpreferences = getSharedPreferences(
                 ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
@@ -335,6 +336,9 @@ public class BaseActivity extends AppCompatActivity {
             String jsonFavorites = sharedpreferences.getString(strKeyValue, null);
             Gson gson = new Gson();
             membersDetailsData = gson.fromJson(jsonFavorites, MembersDetailsData.class);
+//            CoursesData[] favoriteItems = gson.fromJson(jsonFavorites, CoursesData[].class);
+//            arrayList = Arrays.asList(favoriteItems);
+//            arrayList = new ArrayList(arrayList);
         } else
             return null;
         return membersDetailsData;

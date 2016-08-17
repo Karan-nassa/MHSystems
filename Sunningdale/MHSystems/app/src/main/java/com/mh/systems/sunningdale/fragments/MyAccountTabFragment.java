@@ -1,6 +1,5 @@
 package com.mh.systems.sunningdale.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -21,7 +20,7 @@ public class MyAccountTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public final String LOG_TAG = MyAccountTabFragment.class.getSimpleName();
+    public static final String LOG_TAG = MyAccountTabFragment.class.getSimpleName();
 
 
     /*********************************
@@ -31,12 +30,11 @@ public class MyAccountTabFragment extends Fragment {
     ViewPager viewPager;
     View viewRootFragment;
     TabsPageAdapter pageAdapter;
-    Activity activity;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public int iLastTabPosition;
+    public static int iLastTabPosition;
 
     /**
      * Declare three bool instances to call api
@@ -51,8 +49,6 @@ public class MyAccountTabFragment extends Fragment {
             setTabVisibleStatus(tab.getPosition());
 
             iLastTabPosition = tab.getPosition();
-
-            ((YourAccountActivity)getActivity()).setWhichTab(tab.getPosition());
         }
 
         @Override
@@ -74,7 +70,7 @@ public class MyAccountTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_my_account_tabs, container, false);
-        activity=getActivity();
+
         //Initialize view resources.
         tabLayout = (TabLayout) viewRootFragment.findViewById(R.id.tab_layout);
 
@@ -87,15 +83,14 @@ public class MyAccountTabFragment extends Fragment {
 
         viewPager = (ViewPager) viewRootFragment.findViewById(R.id.pager);
 
-          Log.e("COUNT:",""+tabLayout.getTabCount());
+        //  Log.e("COUNT:",""+tabLayout.getTabCount());
         pageAdapter = new TabsPageAdapter
-                (activity, getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MY_ACCOUNT);
+                (getActivity(), getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MY_ACCOUNT);
         viewPager.setAdapter(pageAdapter);
 
         iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
-        ((YourAccountActivity)getActivity()).setWhichTab(iLastTabPosition);
         viewPager.setCurrentItem(iLastTabPosition);
-        viewPager.setOffscreenPageLimit(2);
+        iLastTabPosition = 0;
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

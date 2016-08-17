@@ -58,200 +58,64 @@
 
             <!-- CONTACT DETAILS -->
 
-            <FrameLayout
+            <LinearLayout
+                android:id="@+id/llMobileContactOfPerson"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/llMobileContactOfPerson"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:orientation="vertical">
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        style="@style/MyDetailHeading"
-                        android:text="@string/title_text_contact" />
-
-                    <!-- PHONE CONTACT OF MEMBER -->
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        android:id="@+id/tvMobileContactOfPerson"
-                        style="@style/MyDetailValues" />
-
-                </LinearLayout>
-
-                <!-- CONTACT VISIBILITY STATUS -->
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                    android:id="@+id/tvMobileVisibilty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="35dp"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color9B9B9B"
-                    android:textSize="14sp" />
+                    style="@style/MyDetailHeading"
+                    android:text="@string/title_text_contact" />
 
-            </FrameLayout>
-
-            <!-- WORK CONTACT -->
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/llWorkContactOfPerson"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:orientation="vertical">
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        style="@style/MyDetailHeading"
-                        android:text="@string/title_text_work" />
-
-                    <!-- WORK PHONE CONTACT OF MEMBER -->
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        android:id="@+id/tvWorkContactOfPerson"
-                        style="@style/MyDetailValues" />
-
-                </LinearLayout>
-
-                <!-- CONTACT VISIBILITY STATUS -->
+                <!-- PHONE CONTACT OF MEMBER -->
 
                 <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                    android:id="@+id/tvWorkVisibilty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="35dp"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color9B9B9B"
-                    android:textSize="14sp" />
-            </FrameLayout>
+                    android:id="@+id/tvMobileContactOfPerson"
+                    style="@style/MyDetailValues" />
 
-            <!-- HOME CONTACT -->
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/llHomeContactOfPerson"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:orientation="vertical">
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        style="@style/MyDetailHeading"
-                        android:text="@string/title_text_home" />
-
-                    <!-- HOME CONTACT OF MEMBER -->
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        android:id="@+id/tvHomeContactOfPerson"
-                        style="@style/MyDetailValues" />
-
-                </LinearLayout>
-
-                <!-- CONTACT VISIBILITY STATUS -->
-
-                <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                    android:id="@+id/tvHomeVisibilty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="35dp"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color9B9B9B"
-                    android:textSize="14sp" />
-            </FrameLayout>
+            </LinearLayout>
 
             <!--  EMAIL -->
 
-            <FrameLayout
+            <LinearLayout
+                android:id="@+id/llEmailOfPerson"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/llEmailOfPerson"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        style="@style/MyDetailHeading"
-                        android:text="@string/title_text_email" />
-
-                    <!-- EMAIL OF MEMBER -->
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        android:id="@+id/tvEmailOfPerson"
-                        style="@style/MyDetailValues" />
-
-                </LinearLayout>
-
-                <!-- EMAIL VISIBILITY STATUS -->
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                    android:id="@+id/tvEmailVisibilty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="35dp"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color9B9B9B"
-                    android:textSize="14sp" />
+                    style="@style/MyDetailHeading"
+                    android:text="@string/title_text_email" />
 
-            </FrameLayout>
+                <!-- EMAIL OF MEMBER -->
+
+                <com.mh.systems.sunningdale.customfonts.RobotoTextView
+                    android:id="@+id/tvEmailOfPerson"
+                    style="@style/MyDetailValues" />
+
+            </LinearLayout>
 
             <!--  ADDRESS -->
 
-            <FrameLayout
+            <LinearLayout
+                android:id="@+id/llStreetOfPerson"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/llStreetOfPerson"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        style="@style/MyDetailHeading"
-                        android:text="@string/title_text_address" />
-
-                    <!-- ADDRESS OF MEMBER -->
-
-                    <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                        android:id="@+id/tvStreetOfPerson"
-                        style="@style/MyDetailValues"
-                        android:layout_width="200dp" />
-
-                </LinearLayout>
-
-                <!-- ADDRESS VISIBILITY STATUS -->
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <com.mh.systems.sunningdale.customfonts.RobotoTextView
-                    android:id="@+id/tvAddressVisibilty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="35dp"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color9B9B9B"
-                    android:textSize="14sp" />
+                    style="@style/MyDetailHeading"
+                    android:text="@string/title_text_address" />
 
-            </FrameLayout>
+                <!-- ADDRESS OF MEMBER -->
+
+                <com.mh.systems.sunningdale.customfonts.RobotoTextView
+                    android:id="@+id/tvStreetOfPerson"
+                    style="@style/MyDetailValues"
+                    android:layout_width="200dp" />
+
+            </LinearLayout>
 
             <!--  USERNAME -->
 

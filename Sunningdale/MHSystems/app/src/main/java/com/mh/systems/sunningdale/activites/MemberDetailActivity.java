@@ -85,8 +85,8 @@ public class MemberDetailActivity extends BaseActivity {
      * INSTANCES OF CLASSES
      *******************************/
     FloatingActionButton fabFriendInvitation;
-    FrameLayout flEmailGroup, flContactGroup, flAddressGroup, flWorkGroup, flHomeGroup;
-    TextView tvMemberNameDD, tvMobContact, tvWorkContact, tvHomeContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
+    FrameLayout flEmailGroup, flContactGroup, flAddressGroup;
+    TextView tvMemberNameDD, tvMemberContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
     ImageView ivActionMap, ivActionEmail, ivActionCall;
     Toolbar tbMemberDetail;
 
@@ -116,10 +116,10 @@ public class MemberDetailActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            Log.e("CALL NO ", tvMobContact.getText().toString().trim().replaceAll(" ", ""));
+            Log.e("CALL NO ", tvMemberContact.getText().toString().trim().replaceAll(" ", ""));
 
             Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:" + tvMobContact.getText().toString()/*.trim().replaceAll(" ","")*/));
+            callIntent.setData(Uri.parse("tel:" + tvMemberContact.getText().toString()/*.trim().replaceAll(" ","")*/));
             if (ActivityCompat.checkSelfPermission(MemberDetailActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
@@ -233,7 +233,7 @@ public class MemberDetailActivity extends BaseActivity {
                 if (scrollRange + verticalOffset == 0) {
                     collapseMemberDetail.setTitle(strNameOfMember);
                     isShow = true;
-                } else if (isShow) {
+                } else if(isShow) {
                     collapseMemberDetail.setTitle("");
                     isShow = false;
                 }
@@ -266,9 +266,7 @@ public class MemberDetailActivity extends BaseActivity {
 
         tvMemberNameDD = (TextView) findViewById(R.id.tvMemberNameDD);
         tvMemberJoinDate = (TextView) findViewById(R.id.tvMemberJoinDate);
-        tvMobContact = (TextView) findViewById(R.id.tvMobContact);
-        tvWorkContact = (TextView) findViewById(R.id.tvWorkContact);
-        tvHomeContact = (TextView) findViewById(R.id.tvHomeContact);
+        tvMemberContact = (TextView) findViewById(R.id.tvMemberContact);
         tvMemberEmail = (TextView) findViewById(R.id.tvMemberEmail);
         tvMemberAddress = (TextView) findViewById(R.id.tvMemberAddress);
         tvHandicapPlayStr = (TextView) findViewById(R.id.tvHandicapPlayStr);
@@ -280,8 +278,6 @@ public class MemberDetailActivity extends BaseActivity {
 
         flEmailGroup = (FrameLayout) findViewById(R.id.flEmailGroup);
         flContactGroup = (FrameLayout) findViewById(R.id.flContactGroup);
-        flWorkGroup = (FrameLayout) findViewById(R.id.flWorkGroup);
-        flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
         flAddressGroup = (FrameLayout) findViewById(R.id.flAddressGroup);
 
         fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
@@ -345,7 +341,7 @@ public class MemberDetailActivity extends BaseActivity {
     /**
      * Implements a method to PASS 'aCommand' key to ADD and REMOVE
      * friend according choice of user.
-     * <p/>
+     * <p>
      * ADD MEMBER     : ADDLINKTOMEMBER
      * REMOVE MEMBER  : REMOVELINKTOMEMBER
      */
@@ -368,7 +364,7 @@ public class MemberDetailActivity extends BaseActivity {
         aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
         aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsMembersDatail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsMembersDatail.setMemberid("" + iMemberID);
+        aJsonParamsMembersDatail.setMemberid(""+iMemberID);
         aJsonParamsMembersDatail.setLoginMemberId(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
 
         membersDetailAPI = new MembersDetailAPI(getClientId(), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
@@ -607,30 +603,16 @@ public class MemberDetailActivity extends BaseActivity {
         }
 
         /**
-         *  Implements for MOBILE contact empty check.
+         *  Implements check and display contact accordingly.
          */
-        if (strTelNoMob.length() > 0) {
-            tvMobContact.setText(strTelNoMob);
+        if (!strTelNoHome.equalsIgnoreCase("")) {
+            tvMemberContact.setText(strTelNoHome);
+        } else if (!strTelNoWork.equalsIgnoreCase("")) {
+            tvMemberContact.setText(strTelNoWork);
+        } else if (!strTelNoMob.equalsIgnoreCase("")) {
+            tvMemberContact.setText(strTelNoMob);
         } else {
             flContactGroup.setVisibility(View.GONE);
-        }
-
-        /**
-         *  Implements for WORK contact empty check.
-         */
-        if (strTelNoWork.length() > 0) {
-            tvWorkContact.setText(strTelNoWork);
-        } else {
-            flWorkGroup.setVisibility(View.GONE);
-        }
-
-        /**
-         *  Implements for HOME contact empty check.
-         */
-        if (strTelNoHome.length() > 0) {
-            tvHomeContact.setText(strTelNoHome);
-        } else {
-            flHomeGroup.setVisibility(View.GONE);
         }
 
         /**
