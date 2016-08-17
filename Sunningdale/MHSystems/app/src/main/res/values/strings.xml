@@ -19,6 +19,7 @@
     <string name="message_no_date_selected">No date selected.</string>
     <string name="error_no_club_news">No Club News</string>
     <string name="error_wrong_date_selection">You can only view compResultData of current date and future dates.</string>
+    <string name="error_valid_email">Please enter valid Email address.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
     <!-- START OF COMMON MESSAGES THROUGH OUT THE APP -->
@@ -146,6 +147,7 @@
     <!-- HEADING TITLE -->
     <string name="title_text_personal_details">Personal Details</string>
     <string name="title_text_contact">Mobile</string>
+    <string name="title_text_home">Home</string>
     <string name="title_text_address">Address</string>
     <string name="title_text_uname_password">Username &amp; Password</string>
 
@@ -164,6 +166,9 @@
 
     <string name="title_text_username">Username</string>
     <string name="title_text_password">Password</string>
+
+    <string name="title_text_address_line1">ADDRESS LINE 1</string>
+    <string name="title_text_visible">VISIBLE:</string>
     <!-- END OF YOUR DETAIL FRAGMENT -->
 
     <!-- NAVIGATION DRAWER ITEMS -->

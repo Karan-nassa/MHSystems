@@ -1,11 +1,11 @@
 package com.mh.systems.sunningdale.activites;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,18 +30,11 @@ public class YourAccountActivity extends BaseActivity {
 
     private boolean isFilterOpen;
 
+    private int iTabPosition;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    /*@Bind(R.id.llHomeMyAccount)
-    LinearLayout llHomeMyAccount;*/
-
-    /*@Bind(R.id.container)
-    FrameLayout container;*/
-
-   /* @Bind(R.id.tvMyAccountTitle)
-    TextView tvMyAccountTitle;*/
-
     @Bind(R.id.tbMyAccount)
     Toolbar tbMyAccount;
 
@@ -69,13 +62,15 @@ public class YourAccountActivity extends BaseActivity {
     //Pop Menu to show Categories of Course Diary.
     PopupMenu popupMenu;
 
+    Intent intent;
+
      /* -- INTERNET CONNECTION PARAMETERS -- */
 
     /**
      * Declares the click event handling FIELD to set categories
      * of Your Account Finance {@link Fragment}.
      */
-    private PopupMenu.OnMenuItemClickListener mCourseTypeListener =
+    public PopupMenu.OnMenuItemClickListener mCourseTypeListener =
             new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -108,22 +103,21 @@ public class YourAccountActivity extends BaseActivity {
                         case R.id.item_from_start:
                             ((FinanceFragment) getFragmentInstance()).updateFilterControl(6);
                             break;
+
+                        case R.id.item_toggle_mode:
+                            intent = new Intent(YourAccountActivity.this, EditToggleDetailActivity.class);
+                            startActivity(intent);
+
+                            break;
+
+                        case R.id.item_edit_mode:
+                            intent = new Intent(YourAccountActivity.this, EditDetailsActivity.class);
+                            startActivity(intent);
+                            break;
                     }
                     return true;
                 }
             };
-
-
-    /**
-     * Implements HOME icons press
-     * listener.
-     */
-    private View.OnClickListener mHomePressListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onBackPressed();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,13 +135,11 @@ public class YourAccountActivity extends BaseActivity {
             tbMyAccount.setNavigationIcon(R.mipmap.icon_menu);
 
             getSupportActionBar().setTitle("Your Account");
-            //getSupportActionBar().setIcon(R.mipmap.icon_menu);
         }
 
         tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
-        //tvMyAccountTitle.setTypeface(tfRobotoMedium);
 
-        //Load Default fragment of COURSE DIARY.
+        //Load Default fragment.
         updateFragment(new MyAccountTabFragment());
 
         initFianaceCategory();
@@ -155,7 +147,7 @@ public class YourAccountActivity extends BaseActivity {
         ivFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    popupMenu.show();
+                popupMenu.show();
             }
         });
         popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
@@ -189,14 +181,25 @@ public class YourAccountActivity extends BaseActivity {
          * Step 1: Create a new instance of popup menu
          */
         popupMenu = new PopupMenu(this, ivFilter);
+
         /**
          * Step 2: Inflate the menu resource. Here the menu resource is
          * defined in the res/menu project folder
          */
-        popupMenu.inflate(R.menu.finance_menu);
+        switch (getWhichTab()) {
+            case 2:
+                ivFilter.setImageResource(R.mipmap.ic_event);
+                popupMenu.inflate(R.menu.finance_menu);
+                break;
 
-        /*//Initially display title at position 0 of R.menu.course_menu.
-        tvCourseType.setText("" + popupMenu.getMenu().getItem(0));*/
+            case 0:
+            case 1:
+                ivFilter.setImageResource(R.mipmap.ic_mode_edit);
+                popupMenu.inflate(R.menu.my_details_menu);
+                break;
+        }
+
+        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
     }
 
     /**
@@ -261,7 +264,23 @@ public class YourAccountActivity extends BaseActivity {
         this.fragmentObj = fragmentObj;
     }
 
+    public void setWhichTab(int iTabPosition) {
+        this.iTabPosition = iTabPosition;
+
+        if (iTabPosition == 0 || iTabPosition == 2) {
+            updateFilterIcon(View.VISIBLE);
+        } else {
+            updateFilterIcon(View.GONE);
+        }
+    }
+
+    private int getWhichTab() {
+        return this.iTabPosition;
+    }
+
     public void updateFilterIcon(int iVisibleType) {
         ivFilter.setVisibility(iVisibleType);
+
+        initFianaceCategory();
     }
 }

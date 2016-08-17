@@ -52,8 +52,8 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
         this.iFromWhat = iFromWhat;
     }
 
-    public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat) {
-        super(supportFragmentManager);
+    public TabsPageAdapter(Context context, FragmentManager fm, int NumOfTabs, int iFromWhat) {
+        super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.iFromWhat = iFromWhat;
         this.context = context;
@@ -144,23 +144,23 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      */
     private Fragment loadMyAccountTabs(int iPosition) {
 
-        Fragment fragment = null;
-
         switch (iPosition) {
             case 0:
-                fragment = new MyDetailsFragment();
-                break;
+                MyDetailsFragment myDetailsFragment = new MyDetailsFragment();
+                ((YourAccountActivity) context).setFragmentInstance(myDetailsFragment);
+                return myDetailsFragment;
 
             case 1:
-                fragment = new HandicapFragment();
-                break;
+                HandicapFragment handicapFragment = new HandicapFragment();
+                ((YourAccountActivity) context).setFragmentInstance(handicapFragment);
+                return handicapFragment;
 
             case 2:
-                fragment = new FinanceFragment();
-                break;
+                FinanceFragment financeFragment = new FinanceFragment();
+                ((YourAccountActivity) context).setFragmentInstance(financeFragment);
+                return financeFragment;
         }
-        ((YourAccountActivity) context).setFragmentInstance(fragment);
-        return fragment;
+        return null;
     }
 
     /**

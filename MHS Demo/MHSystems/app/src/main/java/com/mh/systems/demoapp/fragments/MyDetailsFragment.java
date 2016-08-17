@@ -106,7 +106,6 @@ public class MyDetailsFragment extends Fragment {
         super.onResume();
 
         if(shouldRefresh) {
-
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
             /**
@@ -181,8 +180,6 @@ public class MyDetailsFragment extends Fragment {
         aJsonParamsMembersDatail.setLoginMemberId(((YourAccountActivity) getActivity()).getMemberId());
 
         membersDetailAPI = new MembersDetailAPI((((YourAccountActivity) getActivity()).getClientId()), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
-
-        Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()

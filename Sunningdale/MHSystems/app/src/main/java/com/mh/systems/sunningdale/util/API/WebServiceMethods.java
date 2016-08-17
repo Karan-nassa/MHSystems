@@ -10,6 +10,7 @@ import com.mh.systems.sunningdale.models.CompetitionUnjoinAPI;
 import com.mh.systems.sunningdale.models.CompetitionsAPI;
 import com.mh.systems.sunningdale.models.CourseDiaryAPI;
 import com.mh.systems.sunningdale.models.DashboardAPI;
+import com.mh.systems.sunningdale.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.sunningdale.models.Friends.RemoveFriendAPI;
 import com.mh.systems.sunningdale.models.FriendsAPI;
 import com.mh.systems.sunningdale.models.HandicapAPI;
@@ -18,6 +19,7 @@ import com.mh.systems.sunningdale.models.MembersAPI;
 import com.mh.systems.sunningdale.models.MembersDetailAPI;
 import com.mh.systems.sunningdale.models.FinanceAPI;
 import com.mh.systems.sunningdale.models.ResetPassword.ResetPasswordAPI;
+import com.mh.systems.sunningdale.models.TogglePrivacy.TogglePrivacyAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -238,5 +240,27 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getHCapHistory(@Body HCapHistoryAPI hCapHistoryAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Update Members detail service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param editDetailModeAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updateMemberDetails(@Body EditDetailModeAPI editDetailModeAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Update Members detail service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param togglePrivacyAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
 }
 
