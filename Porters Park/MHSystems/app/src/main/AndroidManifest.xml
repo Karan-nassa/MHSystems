@@ -69,11 +69,6 @@
             android:name="com.mh.systems.porterspark.activites.YourAccountActivity"
             android:screenOrientation="portrait" />
 
-        <!-- DETAIL INVOICE ACTIVITY -->
-        <activity
-            android:name="com.mh.systems.porterspark.activites.DetailInvoiceActivity"
-            android:screenOrientation="portrait" />
-
         <!-- MEMBERS ACTIVITY -->
         <activity
             android:name="com.mh.systems.porterspark.activites.MembersActivity"
@@ -119,6 +114,25 @@
         <activity
             android:name=".activites.FinanceDetailWebActivity"
             android:screenOrientation="portrait" />
+
+        <!-- MY DETAILS TOGGLE SCREEN -->
+
+        <activity
+            android:name=".activites.EditToggleDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- MY DETAILS EDIT SCREEN -->
+
+        <activity
+            android:name=".activites.EditDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- HANDICAP HISTORY -->
+
+        <activity
+            android:name=".activites.HCapHistoryActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

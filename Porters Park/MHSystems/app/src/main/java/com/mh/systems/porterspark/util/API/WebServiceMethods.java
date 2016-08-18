@@ -11,13 +11,16 @@ import com.mh.systems.porterspark.models.CompetitionsAPI;
 import com.mh.systems.porterspark.models.CourseDiaryAPI;
 import com.mh.systems.porterspark.models.CourseDiaryNames.CourseDiaryNamesAPI;
 import com.mh.systems.porterspark.models.DashboardAPI;
+import com.mh.systems.porterspark.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.porterspark.models.Friends.RemoveFriendAPI;
 import com.mh.systems.porterspark.models.FriendsAPI;
+import com.mh.systems.porterspark.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.porterspark.models.HandicapAPI;
 import com.mh.systems.porterspark.models.MembersAPI;
 import com.mh.systems.porterspark.models.MembersDetailAPI;
 import com.mh.systems.porterspark.models.FinanceAPI;
 import com.mh.systems.porterspark.models.ResetPassword.ResetPasswordAPI;
+import com.mh.systems.porterspark.models.TogglePrivacy.TogglePrivacyAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -238,5 +241,39 @@ public interface WebServiceMethods {
      * @param response
      */
     @POST("/webapi/api/ClubsApp")
-    public void updateClubNews(@Body ClubNewsDetailAPI clubNewsDetailAPI, Callback<JsonObject> response);}
+    public void updateClubNews(@Body ClubNewsDetailAPI clubNewsDetailAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of HANDICAP HISTORY web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param hCapHistoryAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getHCapHistory(@Body HCapHistoryAPI hCapHistoryAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Update Members detail service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param editDetailModeAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updateMemberDetails(@Body EditDetailModeAPI editDetailModeAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Update Members detail service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param togglePrivacyAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
+}
 

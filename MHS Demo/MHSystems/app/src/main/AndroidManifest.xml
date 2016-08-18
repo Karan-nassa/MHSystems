@@ -133,6 +133,7 @@
             android:screenOrientation="portrait" />
 
         <!-- HANDICAP HISTORY -->
+
         <activity
             android:name=".activites.HCapHistoryActivity"
             android:screenOrientation="portrait" />
