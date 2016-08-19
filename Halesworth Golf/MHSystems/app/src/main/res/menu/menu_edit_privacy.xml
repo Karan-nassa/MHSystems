@@ -12,13 +12,19 @@
         android:title=""
         app:showAsAction="always" />
 
-    <!-- MENU BAR ICON OVERFLOW -->
+    <!-- EDIT DETAILS MODE -->
 
     <item
-        android:id="@+id/action_overflow"
-        android:icon="@mipmap/ic_menu_overflow"
-        android:orderInCategory="100"
-        android:title=""
-        app:showAsAction="always" />
+        android:id="@+id/item_edit_mode"
+        android:title="Edit details mode"
+        android:showAsAction="ifRoom"/>
+
+    <!-- TOGGLE EDIT MODE -->
+
+    <item
+        android:id="@+id/item_toggle_mode"
+        android:title="Toggle privacy edit mode"
+        android:showAsAction="ifRoom"/>
+
 
 </menu>

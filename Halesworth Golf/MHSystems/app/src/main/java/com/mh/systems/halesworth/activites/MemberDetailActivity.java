@@ -22,21 +22,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.fragments.FriendsFragment;
-import com.mh.systems.halesworth.fragments.MembersFragment;
-import com.mh.systems.halesworth.models.AJsonParamsAddMember;
-import com.mh.systems.halesworth.models.AJsonParamsMembersDatail;
-import com.mh.systems.halesworth.models.AddRequestResult;
-import com.mh.systems.halesworth.models.MembersDetailAPI;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.halesworth.R;
+import com.mh.systems.halesworth.constants.ApplicationGlobal;
 import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.models.AJsonParamsAddMember;
 import com.mh.systems.halesworth.models.AddMemberAPI;
+import com.mh.systems.halesworth.models.AddRequestResult;
 import com.mh.systems.halesworth.models.Friends.AJsonParamsRemoveFriend;
 import com.mh.systems.halesworth.models.Friends.RemoveFriendAPI;
 import com.mh.systems.halesworth.models.Friends.RemoveFriendItems;
+import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.models.AJsonParamsMembersDatail;
+import com.mh.systems.halesworth.models.MembersDetailAPI;
 import com.mh.systems.halesworth.models.MembersDetailsItems;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
@@ -52,8 +50,8 @@ import retrofit.RetrofitError;
 
 /**
  * The {@link MemberDetailActivity} used to display the detail of selected
- * member from {@link MembersFragment} or
- * {@link FriendsFragment} by passing MemberId.
+ * member from {@link com.mh.systems.halesworth.fragments.MembersFragment} or
+ * {@link com.mh.systems.halesworth.fragments.FriendsFragment} by passing MemberId.
  *
  * @author {@link karan@mh.co.in}
  * @version 1.0
@@ -72,8 +70,8 @@ public class MemberDetailActivity extends BaseActivity {
 
     /**
      * iCallFrom will be
-     * <br> 1, if {@link MembersFragment}
-     * <br> 2, if {@link FriendsFragment}
+     * <br> 1, if {@link com.mh.systems.halesworth.fragments.MembersFragment}
+     * <br> 2, if {@link com.mh.systems.halesworth.fragments.FriendsFragment}
      */
     int iCallFrom;
 
@@ -87,8 +85,8 @@ public class MemberDetailActivity extends BaseActivity {
      * INSTANCES OF CLASSES
      *******************************/
     FloatingActionButton fabFriendInvitation;
-    FrameLayout flEmailGroup, flContactGroup, flAddressGroup;
-    TextView tvMemberNameDD, tvMemberContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
+    FrameLayout flEmailGroup, flContactGroup, flAddressGroup, flWorkGroup, flHomeGroup;
+    TextView tvMemberNameDD, tvMobContact, tvWorkContact, tvHomeContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
     ImageView ivActionMap, ivActionEmail, ivActionCall;
     Toolbar tbMemberDetail;
 
@@ -118,10 +116,10 @@ public class MemberDetailActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            Log.e("CALL NO ", tvMemberContact.getText().toString().trim().replaceAll(" ", ""));
+            Log.e("CALL NO ", tvMobContact.getText().toString().trim().replaceAll(" ", ""));
 
             Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:" + tvMemberContact.getText().toString()/*.trim().replaceAll(" ","")*/));
+            callIntent.setData(Uri.parse("tel:" + tvMobContact.getText().toString()/*.trim().replaceAll(" ","")*/));
             if (ActivityCompat.checkSelfPermission(MemberDetailActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
@@ -268,7 +266,9 @@ public class MemberDetailActivity extends BaseActivity {
 
         tvMemberNameDD = (TextView) findViewById(R.id.tvMemberNameDD);
         tvMemberJoinDate = (TextView) findViewById(R.id.tvMemberJoinDate);
-        tvMemberContact = (TextView) findViewById(R.id.tvMemberContact);
+        tvMobContact = (TextView) findViewById(R.id.tvMobContact);
+        tvWorkContact = (TextView) findViewById(R.id.tvWorkContact);
+        tvHomeContact = (TextView) findViewById(R.id.tvHomeContact);
         tvMemberEmail = (TextView) findViewById(R.id.tvMemberEmail);
         tvMemberAddress = (TextView) findViewById(R.id.tvMemberAddress);
         tvHandicapPlayStr = (TextView) findViewById(R.id.tvHandicapPlayStr);
@@ -280,6 +280,8 @@ public class MemberDetailActivity extends BaseActivity {
 
         flEmailGroup = (FrameLayout) findViewById(R.id.flEmailGroup);
         flContactGroup = (FrameLayout) findViewById(R.id.flContactGroup);
+        flWorkGroup = (FrameLayout) findViewById(R.id.flWorkGroup);
+                flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
         flAddressGroup = (FrameLayout) findViewById(R.id.flAddressGroup);
 
         fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
@@ -531,8 +533,8 @@ public class MemberDetailActivity extends BaseActivity {
 
         /**
          *  iCallFrom will be
-         * <br> 1, if {@link MembersFragment}
-         * <br> 2, if {@link FriendsFragment}
+         * <br> 1, if {@link com.mh.systems.halesworth.fragments.MembersFragment}
+         * <br> 2, if {@link com.mh.systems.halesworth.fragments.FriendsFragment}
          *
          */
         switch (iCallFrom) {
@@ -605,16 +607,30 @@ public class MemberDetailActivity extends BaseActivity {
         }
 
         /**
-         *  Implements check and display contact accordingly.
+         *  Implements for MOBILE contact empty check.
          */
-        if (!strTelNoHome.equalsIgnoreCase("")) {
-            tvMemberContact.setText(strTelNoHome);
-        } else if (!strTelNoWork.equalsIgnoreCase("")) {
-            tvMemberContact.setText(strTelNoWork);
-        } else if (!strTelNoMob.equalsIgnoreCase("")) {
-            tvMemberContact.setText(strTelNoMob);
+        if (strTelNoMob.length() > 0) {
+            tvMobContact.setText(strTelNoMob);
         } else {
             flContactGroup.setVisibility(View.GONE);
+        }
+
+        /**
+         *  Implements for WORK contact empty check.
+         */
+        if (strTelNoWork.length() > 0) {
+            tvWorkContact.setText(strTelNoWork);
+        } else {
+            flWorkGroup.setVisibility(View.GONE);
+        }
+
+        /**
+         *  Implements for HOME contact empty check.
+         */
+        if (strTelNoHome.length() > 0) {
+            tvHomeContact.setText(strTelNoHome);
+        } else {
+            flHomeGroup.setVisibility(View.GONE);
         }
 
         /**

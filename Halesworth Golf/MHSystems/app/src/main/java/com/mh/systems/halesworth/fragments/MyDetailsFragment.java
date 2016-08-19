@@ -13,15 +13,16 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.halesworth.activites.YourAccountActivity;
-import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.models.AJsonParamsMembersDatail;
-import com.mh.systems.halesworth.models.MembersDetailAPI;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.activites.BaseActivity;
+import com.mh.systems.halesworth.constants.ApplicationGlobal;
 import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.models.AJsonParamsMembersDatail;
+import com.mh.systems.halesworth.models.MembersDetailAPI;
 import com.mh.systems.halesworth.models.MembersDetailsItems;
+import com.mh.systems.halesworth.util.API.WebServiceMethods;
 
 import java.lang.reflect.Type;
 
@@ -33,7 +34,7 @@ import retrofit.RetrofitError;
  * The {@link MyDetailsFragment} used to display the detail of LOGIN
  * MEMBER by passing MemberId.
  *
- * @author {@link karan@mh.co.in}
+ * @author {@link karan@ucreate.co.in}
  * @version 1.0
  * @since 17 May, 2016
  */
@@ -43,9 +44,11 @@ public class MyDetailsFragment extends Fragment {
      *******************************/
     public static final String LOG_TAG = MyDetailsFragment.class.getSimpleName();
     private String strUsernameOfPerson, strStreetOfPerson, strEmailOfPerson,
-            strMobileContactOfPerson, strTypeOfPerson, strNameOfPerson;
+            strMobileContactOfPerson, strTypeOfPerson, strNameOfPerson, strTelHome, strTelWork;
 
     String strTitileValues[];
+
+    public static boolean shouldRefresh = false;
 
     //private boolean isClassVisible = false;
 
@@ -53,12 +56,12 @@ public class MyDetailsFragment extends Fragment {
      * INSTANCES OF CLASSES
      *******************************/
     private TextView tvUsernameOfPerson, tvStreetOfPerson, tvEmailOfPerson,
-            tvMobileContactOfPerson, tvTypeOfPerson, tvNameOfPerson;
+            tvMobileContactOfPerson, tvTypeOfPerson, tvNameOfPerson, tvWorkContactOfPerson, tvHomeContactOfPerson;
 
-    private TextView tvEmailVisibilty, tvAddressVisibilty, tvMobileVisibilty;
+    private TextView tvEmailVisibilty, tvAddressVisibilty, tvMobileVisibilty, tvWorkVisibilty, tvHomeVisibilty;
 
     private LinearLayout llUsernameOfPerson, llStreetOfPerson, llEmailOfPerson,
-            llMobileContactOfPerson, llTypeOfPerson, llNameOfPerson;
+            llMobileContactOfPerson, llTypeOfPerson, llNameOfPerson, llWorkContactOfPerson, llHomeContactOfPerson;
 
     LinearLayout llMyDetailGroup;
 
@@ -99,12 +102,34 @@ public class MyDetailsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        if(shouldRefresh) {
+            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+
+            /**
+             *  Check internet connection before hitting server request.
+             */
+            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+                llMyDetailGroup.setVisibility(View.VISIBLE);
+                requestMemberDetailService();
+            } else {
+                ((BaseActivity) getActivity()).hideProgress();
+                llMyDetailGroup.setVisibility(View.GONE);
+                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+            }
+        }
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser /*&& isClassVisible*/) {
 
-            ((YourAccountActivity) getActivity()).updateFilterIcon(8);
+            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
 
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
@@ -124,7 +149,7 @@ public class MyDetailsFragment extends Fragment {
                         ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
                     }
                 }
-            },5000);
+            }, 5000);
         }
     }
 
@@ -155,8 +180,6 @@ public class MyDetailsFragment extends Fragment {
         aJsonParamsMembersDatail.setLoginMemberId(((YourAccountActivity) getActivity()).getMemberId());
 
         membersDetailAPI = new MembersDetailAPI((((YourAccountActivity) getActivity()).getClientId()), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
-
-        Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -195,7 +218,7 @@ public class MyDetailsFragment extends Fragment {
 
         Type type = new TypeToken<MembersDetailsItems>() {
         }.getType();
-        membersDetailItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        membersDetailItems = new Gson().fromJson(jsonObject.toString(), type);
 
         try {
             /**
@@ -270,9 +293,31 @@ public class MyDetailsFragment extends Fragment {
         tvMobileVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getTelNoMobPrivacy());
         tvAddressVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getAddress1Privacy());
 
+       /*++++++++++++++++++++++++  START OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
+
+        tvHomeVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getTelNoHomePrivacy());
+        tvWorkVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getTelNoWorkPrivacy());
+
+        strTelHome = membersDetailItems.getData().getContactDetails().getTelNoHome();
+        strTelWork = membersDetailItems.getData().getContactDetails().getTelNoWork();
+
+        tvHomeContactOfPerson.setText(strTelHome);
+        tvWorkContactOfPerson.setText(strTelWork);
+        /*++++++++++++++++++++++++  END OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
+
         tvEmailOfPerson.setText(strEmailOfPerson);
         tvMobileContactOfPerson.setText(strMobileContactOfPerson);
         tvStreetOfPerson.setText(strStreetOfPerson);
+
+        SaveUserInfoToPreference();
+    }
+
+    /**
+     * Implements this method to save user information to {@link android.content.SharedPreferences} so that
+     * it can retrieve later for update.
+     */
+    private void SaveUserInfoToPreference() {
+        ((YourAccountActivity)getActivity()).savePreferenceList("YOUR_DETAILS_DATA", new Gson().toJson(membersDetailItems.getData()));
     }
 
     /**
@@ -292,6 +337,15 @@ public class MyDetailsFragment extends Fragment {
         tvEmailVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvEmailVisibilty);
         tvAddressVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvAddressVisibilty);
         tvMobileVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvMobileVisibilty);
+
+        /*++++++++++++++++++++++++  START OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
+
+        tvWorkContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvWorkContactOfPerson);
+        tvHomeContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvHomeContactOfPerson);
+        tvWorkVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvWorkVisibilty);
+        tvHomeVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvHomeVisibilty);
+
+        /*++++++++++++++++++++++++  END OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
 
         llNameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llNameOfPerson);
         llTypeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llTypeOfPerson);

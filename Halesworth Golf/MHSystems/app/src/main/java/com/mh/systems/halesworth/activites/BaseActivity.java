@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.mh.systems.halesworth.models.CoursesData;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
+import com.mh.systems.halesworth.models.MembersDetailsData;
 import com.newrelic.com.google.gson.Gson;
 import com.rollbar.android.Rollbar;
 import com.mh.systems.halesworth.R;
@@ -325,6 +326,22 @@ public class BaseActivity extends AppCompatActivity {
         } else
             return null;
         return (ArrayList) arrayList;
+    }
+
+    /**
+     * Implements this to get {@link com.mh.systems.halesworth.models.MembersData}.
+     */
+    public MembersDetailsData loadPreferencesJson(String strKeyValue) {
+        MembersDetailsData membersDetailsData;
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        if (sharedpreferences.contains(strKeyValue)) {
+            String jsonFavorites = sharedpreferences.getString(strKeyValue, null);
+            Gson gson = new Gson();
+            membersDetailsData = gson.fromJson(jsonFavorites, MembersDetailsData.class);
+        } else
+            return null;
+        return membersDetailsData;
     }
 
     /**

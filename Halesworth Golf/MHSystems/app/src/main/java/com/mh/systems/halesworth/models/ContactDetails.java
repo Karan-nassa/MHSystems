@@ -34,29 +34,81 @@ public class ContactDetails {
     @SerializedName("TelNoMobPrivacy")
     @Expose
     private String TelNoMobPrivacy;
+    @SerializedName("TelNoWorkPrivacy")
+    @Expose
+    private String TelNoWorkPrivacy;
+    @SerializedName("TelNoHomePrivacy")
+    @Expose
+    private String TelNoHomePrivacy;
 
+    /**
+     * @return The TelNoWorkPrivacy
+     */
+    public String getTelNoWorkPrivacy() {
+        return TelNoWorkPrivacy;
+    }
+
+    /**
+     * @param TelNoWorkPrivacy The TelNoWorkPrivacy
+     */
+    public void setTelNoWorkPrivacy(String TelNoWorkPrivacy) {
+        TelNoWorkPrivacy = TelNoWorkPrivacy;
+    }
+
+    /**
+     * @return The TelNoHomePrivacy
+     */
+    public String getTelNoHomePrivacy() {
+        return TelNoHomePrivacy;
+    }
+
+    /**
+     * @param TelNoHomePrivacy The TelNoHomePrivacy
+     */
+    public void setTelNoHomePrivacy(String TelNoHomePrivacy) {
+        TelNoHomePrivacy = TelNoHomePrivacy;
+    }
+
+    /**
+     * @return The TelNoMobPrivacy
+     */
     public String getTelNoMobPrivacy() {
         return TelNoMobPrivacy;
     }
 
-    public void setTelNoMobPrivacy(String telNoMobPrivacy) {
-        TelNoMobPrivacy = telNoMobPrivacy;
+    /**
+     * @param TelNoMobPrivacy The TelNoMobPrivacy
+     */
+    public void setTelNoMobPrivacy(String TelNoMobPrivacy) {
+        TelNoMobPrivacy = TelNoMobPrivacy;
     }
 
+    /**
+     * @return The EMailPrivacy
+     */
     public String getEMailPrivacy() {
         return EMailPrivacy;
     }
 
+    /**
+     * @param EMailPrivacy The EMailPrivacy
+     */
     public void setEMailPrivacy(String EMailPrivacy) {
         this.EMailPrivacy = EMailPrivacy;
     }
 
+    /**
+     * @return The Address1Privacy
+     */
     public String getAddress1Privacy() {
         return Address1Privacy;
     }
 
-    public void setAddress1Privacy(String address1Privacy) {
-        Address1Privacy = address1Privacy;
+    /**
+     * @param Address1Privacy The Address1Privacy
+     */
+    public void setAddress1Privacy(String Address1Privacy) {
+        Address1Privacy = Address1Privacy;
     }
 
   /* ++++ EDIT MY DETAILS PRIVACY ++++ */
