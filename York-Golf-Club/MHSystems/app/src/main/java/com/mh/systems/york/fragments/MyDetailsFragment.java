@@ -2,6 +2,7 @@ package com.mh.systems.york.fragments;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.york.activites.YourAccountActivity;
+import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.york.R;
 import com.mh.systems.york.activites.BaseActivity;
@@ -32,7 +34,7 @@ import retrofit.RetrofitError;
  * The {@link MyDetailsFragment} used to display the detail of LOGIN
  * MEMBER by passing MemberId.
  *
- * @author {@link karan@mh.co.in}
+ * @author {@link karan@ucreate.co.in}
  * @version 1.0
  * @since 17 May, 2016
  */
@@ -41,21 +43,25 @@ public class MyDetailsFragment extends Fragment {
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
     public static final String LOG_TAG = MyDetailsFragment.class.getSimpleName();
-    private String strUsernameOfPerson, /*strPostalCodeOfPerson,*/ strStreetOfPerson, /*strCityOfPerson,*/ strEmailOfPerson,
-            /*strWorkContactOfPerson,*/ strMobileContactOfPerson, /*strPhoneContactOfPerson,*/ strTypeOfPerson, strNameOfPerson;
+    private String strUsernameOfPerson, strStreetOfPerson, strEmailOfPerson,
+            strMobileContactOfPerson, strTypeOfPerson, strNameOfPerson, strTelHome, strTelWork;
 
     String strTitileValues[];
 
-    private boolean isClassVisible = false;
+    public static boolean shouldRefresh = false;
+
+    //private boolean isClassVisible = false;
 
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-    private TextView tvUsernameOfPerson, /*tvPostalCodeOfPerson,*/ /*tvCityOfPerson,*/ tvStreetOfPerson, tvEmailOfPerson,
-            /*tvWorkContactOfPerson,*/ tvMobileContactOfPerson, /*tvPhoneContactOfPerson,*/ tvTypeOfPerson, tvNameOfPerson;
+    private TextView tvUsernameOfPerson, tvStreetOfPerson, tvEmailOfPerson,
+            tvMobileContactOfPerson, tvTypeOfPerson, tvNameOfPerson, tvWorkContactOfPerson, tvHomeContactOfPerson;
 
-    private LinearLayout llUsernameOfPerson, /*llPostalCodeOfPerson,*/ llStreetOfPerson,/* llCityOfPerson,*/ llEmailOfPerson,
-            /*llWorkContactOfPerson,*/ llMobileContactOfPerson, /*llPhoneContactOfPerson,*/ llTypeOfPerson, llNameOfPerson;
+    private TextView tvEmailVisibilty, tvAddressVisibilty, tvMobileVisibilty, tvWorkVisibilty, tvHomeVisibilty;
+
+    private LinearLayout llUsernameOfPerson, llStreetOfPerson, llEmailOfPerson,
+            llMobileContactOfPerson, llTypeOfPerson, llNameOfPerson, llWorkContactOfPerson, llHomeContactOfPerson;
 
     LinearLayout llMyDetailGroup;
 
@@ -80,52 +86,93 @@ public class MyDetailsFragment extends Fragment {
         initializeViewResources(mRootFragment);
 
         //Check Internet connection and hit web service only on first time.
-        isClassVisible = true;
+       /* isClassVisible = true;
         if (isClassVisible) {
             callWebService();
-            ((YourAccountActivity) getActivity()).updateFilterIcon(8);
-        }
+            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
+        }*/
 
-        llViewGroup = new View[]{llUsernameOfPerson, /*llPostalCodeOfPerson, llStreetOfPerson,*/ llStreetOfPerson, llEmailOfPerson,
-                /*llWorkContactOfPerson,*/ llMobileContactOfPerson,/* llPhoneContactOfPerson,*/ llTypeOfPerson, llNameOfPerson};
+        llViewGroup = new View[]{llUsernameOfPerson, /*llStreetOfPerson, llEmailOfPerson,*/
+                /*llMobileContactOfPerson,*/ llTypeOfPerson, llNameOfPerson};
 
-        tvTitleLabel = new View[]{tvUsernameOfPerson, /*tvPostalCodeOfPerson, llCityOfPerson,*/ tvStreetOfPerson, tvEmailOfPerson,
-                /*tvWorkContactOfPerson,*/ tvMobileContactOfPerson,/* tvPhoneContactOfPerson,*/ tvTypeOfPerson, tvNameOfPerson};
+        tvTitleLabel = new View[]{tvUsernameOfPerson, /*tvStreetOfPerson, tvEmailOfPerson,*/
+                /*tvMobileContactOfPerson,*/ tvTypeOfPerson, tvNameOfPerson};
 
         return mRootFragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(shouldRefresh) {
+            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+
+            /**
+             *  Check internet connection before hitting server request.
+             */
+            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+                llMyDetailGroup.setVisibility(View.VISIBLE);
+                requestMemberDetailService();
+            } else {
+                ((BaseActivity) getActivity()).hideProgress();
+                llMyDetailGroup.setVisibility(View.GONE);
+                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+            }
+        }
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser && isClassVisible) {
-            callWebService();
-            ((YourAccountActivity) getActivity()).updateFilterIcon(8);
+        if (isVisibleToUser /*&& isClassVisible*/) {
+
+            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
+
+            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                        /**
+                         *  Check internet connection before hitting server request.
+                         */
+                        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                            ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+                            llMyDetailGroup.setVisibility(View.VISIBLE);
+                            requestMemberDetailService();
+                        } else {
+                            ((BaseActivity) getActivity()).hideProgress();
+                            llMyDetailGroup.setVisibility(View.GONE);
+                            ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                        }
+                }
+            }, 5000);
         }
     }
 
-    private void callWebService(){
-        /**
-         *  Check internet connection before hitting server request.
-         */
-        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-            llMyDetailGroup.setVisibility(View.VISIBLE);
-            requestMemberDetailService();
-        } else {
-            llMyDetailGroup.setVisibility(View.GONE);
-            ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-        }
-    }
+//   private void callWebService() {
+//            /**
+//             *  Check internet connection before hitting server request.
+//             */
+//            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+//                ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+//                llMyDetailGroup.setVisibility(View.VISIBLE);
+//                requestMemberDetailService();
+//            } else {
+//                llMyDetailGroup.setVisibility(View.GONE);
+//                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+//        }
+//    }
 
     /**
      * Implement a method to hit Members Detail
      * web service to get response.
      */
     public void requestMemberDetailService() {
-
-        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
         aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
@@ -134,8 +181,6 @@ public class MyDetailsFragment extends Fragment {
         aJsonParamsMembersDatail.setLoginMemberId(((YourAccountActivity) getActivity()).getMemberId());
 
         membersDetailAPI = new MembersDetailAPI((((YourAccountActivity) getActivity()).getClientId()), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
-
-        Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -174,7 +219,7 @@ public class MyDetailsFragment extends Fragment {
 
         Type type = new TypeToken<MembersDetailsItems>() {
         }.getType();
-        membersDetailItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        membersDetailItems = new Gson().fromJson(jsonObject.toString(), type);
 
         try {
             /**
@@ -182,19 +227,14 @@ public class MyDetailsFragment extends Fragment {
              */
             if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
 
-                //  membersDatas.add(membersItems.getCompResultData());
-
                 if (membersDetailItems.getData() != null) {
                     ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
                     displayMembersData();
                 } else {
                     ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-                    //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 }
             } else {
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-                //If web service not respond in any case.
-                //((BaseActivity) getActivity()).showAlertMessage(membersDetailItems.getMessage());
             }
             ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
@@ -221,6 +261,10 @@ public class MyDetailsFragment extends Fragment {
         }
     }
 
+    /**
+     * Implements this method to HIDE/SHOW values according response
+     * from Server.
+     */
     private void checkHideStatus(String strValue, TextView tvTextLabel, LinearLayout llViewGroup) {
         if (strValue.length() == 0) {
             llViewGroup.setVisibility(View.GONE);
@@ -237,17 +281,44 @@ public class MyDetailsFragment extends Fragment {
         strUsernameOfPerson = membersDetailItems.getData().getUserLoginID();
         strNameOfPerson = membersDetailItems.getData().getNameRecord().getFormalName();
         strMobileContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoMob();
-        /*strPostalCodeOfPerson = membersDetailItems.getCompResultData().getContactDetails().getAddress().getPostCode();*/
         strStreetOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getLine2();
-      /*  strCityOfPerson = membersDetailItems.getCompResultData().getContactDetails().getAddress().getCounty();*/
         strEmailOfPerson = membersDetailItems.getData().getContactDetails().getEMail();
-       /* strWorkContactOfPerson = membersDetailItems.getCompResultData().getContactDetails().getTelNoWork();
-        strPhoneContactOfPerson = membersDetailItems.getCompResultData().getContactDetails().getTelNoHome();*/
         strTypeOfPerson = membersDetailItems.getData().getMembershipStatus();
 
         //Store values to array.
-        strTitileValues = new String[]{strUsernameOfPerson, /*strPostalCodeOfPerson,*/ strStreetOfPerson, /*strCityOfPerson,*/ strEmailOfPerson,
-                /*strWorkContactOfPerson,*/ strMobileContactOfPerson, /*strPhoneContactOfPerson,*/ strTypeOfPerson, strNameOfPerson};
+        strTitileValues = new String[]{strUsernameOfPerson, /*strStreetOfPerson, strEmailOfPerson,*/
+                /*strMobileContactOfPerson,*/ strTypeOfPerson, strNameOfPerson};
+
+        //Set visibility status.
+        tvEmailVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getEMailPrivacy());
+        tvMobileVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getTelNoMobPrivacy());
+        tvAddressVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getAddress1Privacy());
+
+       /*++++++++++++++++++++++++  START OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
+
+        tvHomeVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getTelNoHomePrivacy());
+        tvWorkVisibilty.setText(getResources().getString(R.string.title_text_visible) + " " + membersDetailItems.getData().getContactDetails().getTelNoWorkPrivacy());
+
+        strTelHome = membersDetailItems.getData().getContactDetails().getTelNoHome();
+        strTelWork = membersDetailItems.getData().getContactDetails().getTelNoWork();
+
+        tvHomeContactOfPerson.setText(strTelHome);
+        tvWorkContactOfPerson.setText(strTelWork);
+        /*++++++++++++++++++++++++  END OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
+
+        tvEmailOfPerson.setText(strEmailOfPerson);
+        tvMobileContactOfPerson.setText(strMobileContactOfPerson);
+        tvStreetOfPerson.setText(strStreetOfPerson);
+
+        SaveUserInfoToPreference();
+    }
+
+    /**
+     * Implements this method to save user information to {@link android.content.SharedPreferences} so that
+     * it can retrieve later for update.
+     */
+    private void SaveUserInfoToPreference() {
+        ((YourAccountActivity)getActivity()).savePreferenceList("YOUR_DETAILS_DATA", new Gson().toJson(membersDetailItems.getData()));
     }
 
     /**
@@ -259,26 +330,30 @@ public class MyDetailsFragment extends Fragment {
     private void initializeViewResources(View viewRootFragment) {
         tvNameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvNameOfPerson);
         tvTypeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPerson);
-    /*    tvPhoneContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPhoneContactOfPerson);*/
         tvMobileContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvMobileContactOfPerson);
-       /* tvWorkContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvWorkContactOfPerson);*/
         tvEmailOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvEmailOfPerson);
-       /* tvCityOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvCityOfPerson);*/
         tvStreetOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvStreetOfPerson);
-       /* tvPostalCodeOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvPostalCodeOfPerson);*/
         tvUsernameOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvUsernameOfPerson);
+
+        tvEmailVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvEmailVisibilty);
+        tvAddressVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvAddressVisibilty);
+        tvMobileVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvMobileVisibilty);
+
+        /*++++++++++++++++++++++++  START OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
+
+        tvWorkContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvWorkContactOfPerson);
+        tvHomeContactOfPerson = (TextView) viewRootFragment.findViewById(R.id.tvHomeContactOfPerson);
+        tvWorkVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvWorkVisibilty);
+        tvHomeVisibilty = (TextView) viewRootFragment.findViewById(R.id.tvHomeVisibilty);
+
+        /*++++++++++++++++++++++++  END OF ADD HOME AND WORK NEW VIEW RESOURCES  ++++++++++++++++++++++++ */
 
         llNameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llNameOfPerson);
         llTypeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llTypeOfPerson);
-       /* llPhoneContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPhoneContactOfPerson);*/
         llMobileContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llMobileContactOfPerson);
-      /*  llWorkContactOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llWorkContactOfPerson);*/
         llEmailOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llEmailOfPerson);
-       /* llCityOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llCityOfPerson);*/
         llStreetOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llStreetOfPerson);
-       /* llPostalCodeOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llPostalCodeOfPerson);*/
         llUsernameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llUsernameOfPerson);
-
         llMyDetailGroup = (LinearLayout) mRootFragment.findViewById(R.id.llMyDetailGroup);
     }
 }

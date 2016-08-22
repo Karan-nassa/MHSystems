@@ -183,7 +183,7 @@
                         <!-- MEMBER NAME -->
 
                         <com.mh.systems.york.customfonts.RobotoTextView
-                            android:id="@+id/tvMemberContact"
+                            android:id="@+id/tvMobContact"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="left|bottom"
@@ -196,6 +196,108 @@
 
                     <ImageView
                         android:id="@+id/ivActionCall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/ic_action_call"
+                        android:visibility="gone" />
+
+
+                </FrameLayout>
+
+                <!-- WORK -->
+
+                <FrameLayout
+                    android:id="@+id/flWorkGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:orientation="vertical">
+
+                        <!-- TEXT PHONE NUMBER -->
+
+                        <com.mh.systems.york.customfonts.RobotoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_text_work"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorC0995B"
+                            android:textSize="14sp" />
+
+                        <!-- MEMBER NAME -->
+
+                        <com.mh.systems.york.customfonts.RobotoTextView
+                            android:id="@+id/tvWorkContact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="left|bottom"
+                            android:textColor="@color/colorBlack000000"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <!-- MEMBER CALL ICON -->
+
+                    <ImageView
+                        android:id="@+id/ivWorkCall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/ic_action_call"
+                        android:visibility="gone" />
+
+
+                </FrameLayout>
+
+                <!-- HOME -->
+
+                <FrameLayout
+                    android:id="@+id/flHomeGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:orientation="vertical">
+
+                        <!-- TEXT PHONE NUMBER -->
+
+                        <com.mh.systems.york.customfonts.RobotoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_text_home"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorC0995B"
+                            android:textSize="14sp" />
+
+                        <!-- CONTACT HOME TEXT LABEL -->
+
+                        <com.mh.systems.york.customfonts.RobotoTextView
+                            android:id="@+id/tvHomeContact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="left|bottom"
+                            android:textColor="@color/colorBlack000000"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <!-- MEMBER CALL ICON -->
+
+                    <ImageView
+                        android:id="@+id/ivHomeCall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|center"

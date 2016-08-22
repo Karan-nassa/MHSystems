@@ -70,9 +70,6 @@
             android:screenOrientation="portrait" />
 
         <!-- DETAIL INVOICE ACTIVITY -->
-        <activity
-            android:name="com.mh.systems.york.activites.DetailInvoiceActivity"
-            android:screenOrientation="portrait" />
 
         <!-- MEMBERS ACTIVITY -->
         <activity
@@ -118,6 +115,24 @@
         <!-- SEND FEEDBACK SCREEN -->
         <activity
             android:name="com.mh.systems.york.activites.FinanceDetailWebActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- MY DETAILS TOGGLE SCREEN -->
+
+        <activity
+            android:name=".activites.EditToggleDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- MY DETAILS EDIT SCREEN -->
+
+        <activity
+            android:name=".activites.EditDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- HANDICAP HISTORY -->
+
+        <activity
+            android:name=".activites.HCapHistoryActivity"
             android:screenOrientation="portrait" />
     </application>
 
