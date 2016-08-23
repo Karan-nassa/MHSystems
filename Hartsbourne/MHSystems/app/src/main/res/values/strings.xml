@@ -19,6 +19,7 @@
     <string name="message_no_date_selected">No date selected.</string>
     <string name="error_no_club_news">No Club News</string>
     <string name="error_wrong_date_selection">You can only view compResultData of current date and future dates.</string>
+    <string name="error_valid_email">Please enter valid Email address.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
     <!-- START OF COMMON MESSAGES THROUGH OUT THE APP -->
@@ -76,6 +77,7 @@
 
     <!-- START OF HANDICAP GRAPH FRAGMENT -->
     <string name="text_title_show_certificate">SHOW</string>
+    <string name="button_title_hcap_details">HANDICAP DETAILS</string>
     <!-- END OF HANDICAP GRAPH FRAGMENT -->
 
     <!-- START OF MEMBERS DETAIL ACTIVITY -->
@@ -154,6 +156,7 @@
 
     <string name="title_text_phone_number">Phone no</string>
     <string name="title_text_mobile">Mobile</string>
+    <string name="title_text_home">Home</string>
     <string name="title_text_work">Work</string>
     <string name="title_text_email">Email</string>
 
@@ -163,6 +166,9 @@
 
     <string name="title_text_username">Username</string>
     <string name="title_text_password">Password</string>
+
+    <string name="title_text_address_line1">ADDRESS LINE 1</string>
+    <string name="title_text_visible">VISIBLE:</string>
     <!-- END OF YOUR DETAIL FRAGMENT -->
 
     <!-- NAVIGATION DRAWER ITEMS -->

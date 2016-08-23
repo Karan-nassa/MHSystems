@@ -33,20 +33,21 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mh.systems.hartsbourne.activites.YourAccountActivity;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.activites.BaseActivity;
+import com.mh.systems.hartsbourne.activites.HCapHistoryActivity;
 import com.mh.systems.hartsbourne.activites.ShowCertificateWebview;
+import com.mh.systems.hartsbourne.activites.YourAccountActivity;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.models.HCapRecords;
-import com.mh.systems.hartsbourne.util.MyMarkerView;
 import com.mh.systems.hartsbourne.constants.WebAPI;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
 import com.mh.systems.hartsbourne.models.AJsonParamsHandicap;
+import com.mh.systems.hartsbourne.models.HCapRecords;
 import com.mh.systems.hartsbourne.models.HandicapAPI;
 import com.mh.systems.hartsbourne.models.HandicapData;
 import com.mh.systems.hartsbourne.models.HandicapResultItems;
+import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.util.MyMarkerView;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -110,6 +111,9 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     private static LineChart mChart;
     LineDataSet set1;
     public static MyMarkerView mv;
+
+    Button btDetailHacp;
+    Intent intent;
 
 
     /**
@@ -175,7 +179,15 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         btShowCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ShowCertificateWebview.class);
+                intent = new Intent(getActivity(), ShowCertificateWebview.class);
+                startActivity(intent);
+            }
+        });
+
+        btDetailHacp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(getActivity(), HCapHistoryActivity.class);
                 startActivity(intent);
             }
         });
@@ -266,7 +278,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * Implements a method to get CLIENT ID from {@link android.content.SharedPreferences}
      */
     private String getClientId() {
-        return ((YourAccountActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078");
+        return ((YourAccountActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
     /**
@@ -676,6 +688,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         tvLatestGraphYear = (TextView) viewRootFragment.findViewById(R.id.tvLatestGraphYear);
 
         btShowCertificate = (Button) viewRootFragment.findViewById(R.id.btShowCertificate);
+        btDetailHacp = (Button) viewRootFragment.findViewById(R.id.btDetailHacp);
 
         llPreviousYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llPreviousYearGraph);
         llNextYearGraph = (LinearLayout) viewRootFragment.findViewById(R.id.llNextYearGraph);
