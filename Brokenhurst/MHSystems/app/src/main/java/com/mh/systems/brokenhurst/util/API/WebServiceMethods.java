@@ -10,13 +10,16 @@ import com.mh.systems.brokenhurst.models.CompetitionUnjoinAPI;
 import com.mh.systems.brokenhurst.models.CompetitionsAPI;
 import com.mh.systems.brokenhurst.models.CourseDiaryAPI;
 import com.mh.systems.brokenhurst.models.DashboardAPI;
+import com.mh.systems.brokenhurst.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.brokenhurst.models.Friends.RemoveFriendAPI;
 import com.mh.systems.brokenhurst.models.FriendsAPI;
+import com.mh.systems.brokenhurst.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.brokenhurst.models.HandicapAPI;
 import com.mh.systems.brokenhurst.models.MembersAPI;
 import com.mh.systems.brokenhurst.models.MembersDetailAPI;
 import com.mh.systems.brokenhurst.models.FinanceAPI;
 import com.mh.systems.brokenhurst.models.ResetPassword.ResetPasswordAPI;
+import com.mh.systems.brokenhurst.models.TogglePrivacy.TogglePrivacyAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -226,5 +229,38 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void updateClubNews(@Body ClubNewsDetailAPI clubNewsDetailAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of HANDICAP HISTORY web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param hCapHistoryAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getHCapHistory(@Body HCapHistoryAPI hCapHistoryAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Update Members detail service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param editDetailModeAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updateMemberDetails(@Body EditDetailModeAPI editDetailModeAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Update Members detail service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param togglePrivacyAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
 }
 

@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.newrelic.agent.android:agent-gradle-plugin:5.+"
+       // classpath "com.newrelic.agent.android:agent-gradle-plugin:5.+"
     }
 }
 
@@ -15,7 +15,7 @@ repositories {
     mavenCentral()
 }
 
-apply plugin: 'newrelic'
+//apply plugin: 'newrelic'
 
 
 android {
@@ -100,4 +100,7 @@ dependencies {
     compile project(':libValidation')
 
     compile 'com.android.support:multidex:1.0.1'
+
+    //Country Picker Dialog
+    compile 'com.mukesh:countrypicker:1.1.5'
 }
