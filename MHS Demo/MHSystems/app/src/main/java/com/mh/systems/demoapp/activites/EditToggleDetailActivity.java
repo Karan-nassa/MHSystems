@@ -16,9 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
