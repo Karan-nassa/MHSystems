@@ -24,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mh.systems.sunningdale.models.MembersDetailsData;
+import com.newrelic.com.google.gson.Gson;
 import com.pnikosis.materialishprogress.ProgressWheel;
 import com.rollbar.android.Rollbar;
 import com.mh.systems.sunningdale.R;
@@ -291,6 +293,36 @@ public class BaseActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(key, value);
         editor.commit();
+    }
+
+    /**
+     * Save {@link java.util.ArrayList} in {@link SharedPreferences} in
+     * Gson form.
+     */
+    @SuppressWarnings("static-access")
+    public void savePreferenceList(String key, String json) {
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        editor.putString(key, json);
+        editor.commit();
+    }
+
+    /**
+     * Implements this to get {@link com.mh.systems.sunningdale.models.MembersData}.
+     */
+    public MembersDetailsData loadPreferencesJson(String strKeyValue) {
+        MembersDetailsData membersDetailsData;
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        if (sharedpreferences.contains(strKeyValue)) {
+            String jsonFavorites = sharedpreferences.getString(strKeyValue, null);
+            Gson gson = new Gson();
+            membersDetailsData = gson.fromJson(jsonFavorites, MembersDetailsData.class);
+        } else
+            return null;
+        return membersDetailsData;
     }
 
     /**

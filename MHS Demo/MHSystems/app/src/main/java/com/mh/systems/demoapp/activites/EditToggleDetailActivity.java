@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -22,9 +21,6 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.fragments.MyDetailsFragment;
-import com.mh.systems.demoapp.models.EditDetailMode.AJsonParamsEditDetailMode;
-import com.mh.systems.demoapp.models.EditDetailMode.EditDetailModeAPI;
-import com.mh.systems.demoapp.models.EditDetailMode.EditDetailModeResponse;
 import com.mh.systems.demoapp.models.MembersDetailsData;
 import com.mh.systems.demoapp.models.TogglePrivacy.AJsonParamsToggle;
 import com.mh.systems.demoapp.models.TogglePrivacy.TogglePrivacyAPI;
@@ -34,8 +30,6 @@ import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;

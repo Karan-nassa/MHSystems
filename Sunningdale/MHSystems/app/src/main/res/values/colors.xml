@@ -53,10 +53,13 @@
     <color name="colorE8DCC9">#E8DCC9</color>
     <color name="colorC59A5C">#C59A5C</color>
     <color name="color7ED321">#7ED321</color>
+    <color name="color009688">#009688</color>
 
     <color name="twenty_of_black">#33000000</color>
+    <color name="fifty_four_of_black">#7e000000</color>
+    <color name="eighty_seven_of_black">#de000000</color>
 
-    <!-- PROGRESS WHEL COLOR -->
+    <!-- PROGRESS WHEEL COLOR -->
 
     <color name="color5588FF">#5588FF</color>
 

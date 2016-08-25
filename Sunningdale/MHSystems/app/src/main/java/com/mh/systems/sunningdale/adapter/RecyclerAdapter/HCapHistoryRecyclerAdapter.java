@@ -42,7 +42,7 @@ public class HCapHistoryRecyclerAdapter extends RecyclerView.Adapter<HCapHistory
      */
 
     @Override
-    public HCapHistoryRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -57,7 +57,7 @@ public class HCapHistoryRecyclerAdapter extends RecyclerView.Adapter<HCapHistory
      */
 
     @Override
-    public void onBindViewHolder(HCapHistoryRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
         holder.tvDatePlayedStr.setText(handicapDataArrayList.get(position).getDatePlayedStr());
         holder.tvVenueOrAuthoriser.setText(handicapDataArrayList.get(position).getVenueOrAuthoriser());

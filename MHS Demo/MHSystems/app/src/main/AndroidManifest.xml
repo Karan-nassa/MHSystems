@@ -79,9 +79,6 @@
             android:screenOrientation="portrait" />
 
         <!-- DETAIL INVOICE ACTIVITY -->
-        <activity
-            android:name=".activites.DetailInvoiceActivity"
-            android:screenOrientation="portrait" />
 
         <!-- MEMBERS ACTIVITY -->
         <activity

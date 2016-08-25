@@ -70,9 +70,6 @@
             android:screenOrientation="portrait" />
 
         <!-- DETAIL INVOICE ACTIVITY -->
-        <activity
-            android:name=".activites.DetailInvoiceActivity"
-            android:screenOrientation="portrait" />
 
         <!-- MEMBERS ACTIVITY -->
         <activity
@@ -124,6 +121,18 @@
 
         <activity
             android:name=".activites.CourseDiaryWebview"
+            android:screenOrientation="portrait" />
+
+        <!-- MY DETAILS TOGGLE SCREEN -->
+
+        <activity
+            android:name=".activites.EditToggleDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- MY DETAILS EDIT SCREEN -->
+
+        <activity
+            android:name=".activites.EditDetailsActivity"
             android:screenOrientation="portrait" />
 
         <!-- HANDICAP HISTORY -->
