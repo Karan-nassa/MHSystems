@@ -1,5 +1,6 @@
 package com.mh.systems.york.activites;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,7 +80,7 @@ public class MembersActivity extends BaseActivity {
 
     /**
      * Instance of {@link Fragment} used for separate result
-     * of {@link MembersFragment} and {@link com.mh.systems.york.fragments.FriendsFragment} list data.
+     * of {@link MembersFragment} and {@link FriendsFragment} list data.
      */
     Fragment fragmentInstance;
 
@@ -171,6 +173,82 @@ public class MembersActivity extends BaseActivity {
         llHomeMembers.setOnClickListener(mHomePressListener);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        /**
+         *  CANCEL all tasks.
+         */
+        if (MembersFragment.mAdapter != null) {
+            MembersFragment.mAdapter.mAsyncTaskThreadPool.cancelAllTasks(true);
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_members, menu);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search), new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                llPopMenuBar.setVisibility(View.INVISIBLE);
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                //DO SOMETHING WHEN THE SEARCHVIEW IS CLOSING
+                llPopMenuBar.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
+
+//        searchView.setBackground(ContextCompat.getDrawable(MembersActivity.this, R.drawable.ic_search_bar_pressed));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(final String query) {
+                //  Log.e("onQueryTextSubmit", query);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(final String newText) {
+                // Log.e("onQueryTextChange", newText);
+                performSearch(newText);
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                String url = null;
+
+                if (url == null)
+                    return true;
+                final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                startActivity(intent);
+                return true;
+
+            case R.id.action_info:
+                showAlertInfo();
+                return true;
+        }
+        return false;
+    }
+
     /**
      * Implements a method to update UI when 'No Internet connection'
      * when disconnect internet connection.
@@ -251,59 +329,6 @@ public class MembersActivity extends BaseActivity {
         popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        /**
-         *  CANCEL all tasks.
-         */
-        if (MembersFragment.mAdapter != null) {
-            MembersFragment.mAdapter.mAsyncTaskThreadPool.cancelAllTasks(true);
-        }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_members, menu);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
-        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search), new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                llPopMenuBar.setVisibility(View.INVISIBLE);
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                //DO SOMETHING WHEN THE SEARCHVIEW IS CLOSING
-                llPopMenuBar.setVisibility(View.VISIBLE);
-                return true;
-            }
-        });
-
-//        searchView.setBackground(ContextCompat.getDrawable(MembersActivity.this, R.drawable.ic_search_bar_pressed));
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(final String query) {
-                //  Log.e("onQueryTextSubmit", query);
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(final String newText) {
-                // Log.e("onQueryTextChange", newText);
-                performSearch(newText);
-                return true;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
     /**
      * Implements a method to Quick search bar
      * in tool bar.
@@ -319,21 +344,6 @@ public class MembersActivity extends BaseActivity {
             FriendsFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
             FriendsFragment.mAdapter.notifyDataSetChanged();
         }
-
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        String url = null;
-
-        if (url == null)
-            return true;
-        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        startActivity(intent);
-        return true;
     }
 
     /**
@@ -383,4 +393,31 @@ public class MembersActivity extends BaseActivity {
         this.iWhichItem = iWhichItem;
     }
 
+
+    /**
+     * Implements this method Clubs would like an explanation of the 'Friends' function and
+     * an icon to display the explanation for users of the App.
+     */
+    private void showAlertInfo() {
+        // Create custom dialog object
+        final Dialog dialog = new Dialog(this);
+        // Include dialog.xml file
+        dialog.setContentView(R.layout.custom_alert_ok);
+        // Set dialog title
+        dialog.setTitle("Custom Dialog");
+
+        // set values for custom dialog components - text, image and button
+        TextView tvDescription = (TextView) dialog.findViewById(R.id.tvDescription);
+        TextView tvOk = (TextView) dialog.findViewById(R.id.tvOk);
+        dialog.show();
+
+        tvDescription.setMovementMethod(new ScrollingMovementMethod());
+
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
 }
