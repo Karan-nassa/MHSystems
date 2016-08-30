@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- EDIT DETAILS MODE -->
+
+    <item
+        android:id="@+id/item_edit_mode"
+        android:title="Edit details mode" />
+
+    <!-- TOGGLE EDIT MODE -->
+
+    <item
+        android:id="@+id/item_toggle_mode"
+        android:title="Toggle privacy edit mode" />
+
+</menu>

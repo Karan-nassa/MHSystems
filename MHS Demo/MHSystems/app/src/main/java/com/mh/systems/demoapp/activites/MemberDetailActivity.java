@@ -523,7 +523,7 @@ public class MemberDetailActivity extends BaseActivity {
      * then show FRIENDS icon in {@link FloatingActionButton} otherwise
      * show ADD FRIEND icon.
      *
-     * @param isfriend : TRUE, if FRIENDS
+     * @param isFriend : TRUE, if FRIENDS
      */
     private void updateIsFriendUI(boolean isFriend) {
 
