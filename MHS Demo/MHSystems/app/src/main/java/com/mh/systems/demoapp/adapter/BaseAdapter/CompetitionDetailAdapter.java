@@ -16,7 +16,7 @@ import com.mh.systems.demoapp.models.ResultEntries;
 import java.util.ArrayList;
 
 /**
- * Created by karan@mh.co.in to display Competitions Round result
+ * Created by karan@ucreate.co.in to display Competitions Round result
  * on 6/10/2016.
  */
 public class CompetitionDetailAdapter extends BaseAdapter {

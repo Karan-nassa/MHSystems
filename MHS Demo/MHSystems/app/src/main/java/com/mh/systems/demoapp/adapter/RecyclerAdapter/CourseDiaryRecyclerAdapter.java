@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 
 /**
- * Created by  karan@mh.co.in to create Navigation
+ * Created by  karan@ucreate.co.in to create Navigation
  * drawer for FriendsDetailRecyclerAdapter on 15/2/2016.
  */
 public class CourseDiaryRecyclerAdapter extends RecyclerView.Adapter<CourseDiaryRecyclerAdapter.ViewHolder>  {

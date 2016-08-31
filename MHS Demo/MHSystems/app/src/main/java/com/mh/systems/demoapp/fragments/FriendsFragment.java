@@ -52,7 +52,7 @@ import retrofit.RetrofitError;
  * with {@link AlphabaticalListAdapter} indexing and {@link android.support.v7.widget.SearchView}
  * <p/>
  *
- * @author karan@mh.co.in
+ * @author karan@ucreate.co.in
  * @version 1.0
  * @since 12 May, 2016
  */

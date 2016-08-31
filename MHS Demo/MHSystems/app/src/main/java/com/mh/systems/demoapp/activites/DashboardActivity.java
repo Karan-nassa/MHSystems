@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * Logout option. Basically, it will be use as the main screen of application
  * after Login.
  *
- * @author {@link karan@mh.co.in}
+ * @author {@link karan@ucreate.co.in}
  * @version 1.0
  */
 public class DashboardActivity extends BaseActivity {

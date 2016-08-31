@@ -39,8 +39,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by karan@mh.co.in for base
- * of all activities on 19-02-2016.
+ * Created {@link BaseActivity} to handle {@link SharedPreferences}, {@link AlertDialog}
+ * on 19-02-2016.
+ *
+ * @author Karan Nassa
  */
 public class BaseActivity extends AppCompatActivity {
 

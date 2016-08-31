@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by karan@mh.co.in to get JSOn response of
+ * Created by karan@ucreate.co.in to get JSOn response of
  * COURSE DIARY data on 02-03-2016.
  */
 public class CourseDiaryData {

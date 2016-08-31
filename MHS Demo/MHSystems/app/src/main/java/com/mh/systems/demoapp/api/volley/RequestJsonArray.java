@@ -15,7 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
- * Created by karan@mh.co.in to get JSON response
+ * Created by karan@ucreate.co.in to get JSON response
  * from web services on 12/4/2015.
  */
 public class RequestJsonArray extends Request<JSONArray> {

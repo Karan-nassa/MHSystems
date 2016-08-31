@@ -1,7 +1,7 @@
 package com.mh.systems.demoapp.constants;
 
 /**
- * Created by karan@mh.co.in to use
+ * Created by karan@ucreate.co.in to use
  * all type of CONSTANTS used through out
  * the application on 19-02-2016.
  */

@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
- * Created by karan@mh.co.in to create custom
+ * Created by karan@ucreate.co.in to create custom
  * font style of ROBOTO on 07-04-2016.
  *
  * @Ref : http://stackoverflow.com/questions/6746665/accessing-a-font-under-assets-folder-from-xml-file-in-android

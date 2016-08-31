@@ -19,7 +19,7 @@ import com.mh.systems.demoapp.models.CompetitionsData;
 import java.util.ArrayList;
 
 /**
- * Created by  karan@mh.co.in to Create adapter
+ * Created by  karan@ucreate.co.in to Create adapter
  * to display COMPETITIONS on 12/4/2015.
  */
 public class CompetitionsAdapter extends BaseAdapter {

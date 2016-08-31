@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.mh.systems.demoapp.R;
 
 /**
- * Created by karan@mh.co.in on 6/10/2016.
+ * Created by karan@ucreate.co.in on 6/10/2016.
  */
 public class ClubNewsAdapter extends BaseAdapter {
 
