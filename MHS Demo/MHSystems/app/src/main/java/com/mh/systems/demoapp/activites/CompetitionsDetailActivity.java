@@ -1,11 +1,11 @@
 package com.mh.systems.demoapp.activites;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
@@ -18,23 +18,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.demoapp.models.AJsonParamsJoinCompetition;
+import com.mh.systems.demoapp.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.demoapp.models.AJsonParamsUnjoin;
 import com.mh.systems.demoapp.models.AddRequestResult;
 import com.mh.systems.demoapp.models.CompetitionDetailItems;
-import com.mh.systems.demoapp.models.CompetitionResultAPI;
 import com.mh.systems.demoapp.models.CompetitionJoinAPI;
-import com.mh.systems.demoapp.models.ResultEntries;
+import com.mh.systems.demoapp.models.CompetitionResultAPI;
 import com.mh.systems.demoapp.models.CompetitionUnjoinAPI;
+import com.mh.systems.demoapp.models.ResultEntries;
 import com.mh.systems.demoapp.models.UnjoinItems;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.mh.systems.demoapp.util.ScrollRecycleView;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
@@ -171,14 +171,19 @@ public class CompetitionsDetailActivity extends BaseActivity {
                         .setNegativeButton("Stay", dialogClickListener).show();
             } else {
                 if (!IsMemberJoined) {
+
+                    /* +++++++++++++++++++++++++ NOW USER HAVE TO ENTER COMPETITION WITH FRIENDS/MEMBERS +++++++++++++++++++++++++ */
+
+                    startActivity(new Intent(CompetitionsDetailActivity.this, CompetitionEntryActivity.class));
+
                     /**
                      *  Check internet connection before hitting server request.
-                     */
+                     *//*
                     if (isOnline(CompetitionsDetailActivity.this)) {
                         callJoinCompetitionWebService();
                     } else {
                         showAlertMessage(getResources().getString(R.string.error_no_internet));
-                    }
+                    }*/
                 }
             }
         }
