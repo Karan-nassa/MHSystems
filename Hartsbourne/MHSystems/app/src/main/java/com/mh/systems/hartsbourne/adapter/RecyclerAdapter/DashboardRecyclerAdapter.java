@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,9 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
     Context context;
     private static LayoutInflater inflater = null;
+
+    private final int POSITION_NORMAL = 0;
+    private final int POSITION_HANDICAP = 1;
 
     TypedArray gridIcons;
     String gridTitles[];
@@ -67,8 +71,23 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
         LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View itemLayout = layoutInflater.inflate(R.layout.item_grid_row_text, null);
-        return new ViewHolder(itemLayout, viewType, context);
+        Log.e("onCreateViewHolder", "viewType: " + viewType);
+
+        switch (viewType){
+            case POSITION_HANDICAP:
+            View itemLayout = layoutInflater.inflate(R.layout.item_grid_row_text, null);
+            return new ViewHolder(itemLayout, viewType, context);
+
+            case POSITION_NORMAL:
+            View itemLayout2 = layoutInflater.inflate(R.layout.item_grid_row_icon, null);
+            return new ViewHolder(itemLayout2, viewType, context);
+
+            default:
+                return null;
+        }
+
+       /* View itemLayout = layoutInflater.inflate(R.layout.item_grid_row_text, null);
+        return new ViewHolder(itemLayout, viewType, context);*/
     }
 
     /**
@@ -84,12 +103,9 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
         holder.tvGridTitle.setText(gridTitles[position]);
         holder.ivGridLogo.setImageResource(gridIcons.getResourceId(position, -1));
 
-        holder.tvHCapExactStr.setText(hCapExactStr);
-
         if (position == 2) {
             holder.tvHCapExactStr.setVisibility(View.VISIBLE);
-        } else {
-            holder.tvHCapExactStr.setVisibility(View.GONE);
+            holder.tvHCapExactStr.setText(hCapExactStr);
         }
 
         if (position == 4) {
@@ -115,7 +131,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
     @Override
     public int getItemViewType(int position) {
-        return position;
+        return (position == 2) ? POSITION_HANDICAP : POSITION_NORMAL;
     }
 
     /**
@@ -138,27 +154,22 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
             tvGridTitle = (TextView) itemView.findViewById(R.id.tvGridTitle);
             ivGridLogo = (ImageView) itemView.findViewById(R.id.ivGridLogo);
             rlGridMenuItem = (RelativeLayout) itemView.findViewById(R.id.rlGridMenuItem);
+
             flBadgerGroup = (FrameLayout) itemView.findViewById(R.id.flBadgerGroup);
+            tvGridTitle.setTypeface(tfButtlerMedium);
 
-            tvHCapExactStr = (TextView) itemView.findViewById(R.id.tvHCapExactStr);
-
-            setFontTypeFace();
+            if (itemType == POSITION_HANDICAP) {
+                tvHCapExactStr = (TextView) itemView.findViewById(R.id.tvHCapExactStr);
+                tvHCapExactStr.setTypeface(tfRobotoMedium);
+            }
 
             drawerItem.setOnClickListener(this);
-        }
-
-        private void setFontTypeFace() {
-            tvHCapExactStr.setTypeface(tfRobotoMedium);
-            tvGridTitle.setTypeface(tfButtlerMedium);
         }
 
         @Override
         public void onClick(View v) {
             Intent intent = null;
-            /**
-             * Set click event listener of Grid Menu Options to
-             * use functionality.
-             */
+
             switch (getAdapterPosition()) {
                 case 0:
                     intent = new Intent(context, YourAccountActivity.class);

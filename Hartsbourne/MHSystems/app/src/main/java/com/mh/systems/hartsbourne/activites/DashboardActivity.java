@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,11 +13,8 @@ import android.widget.LinearLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mh.systems.hartsbourne.R;
-import com.mh.systems.hartsbourne.adapter.BaseAdapter.DashboardGridAdapter;
 import com.mh.systems.hartsbourne.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
-import com.mh.systems.hartsbourne.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.util.DividerItemDecoration;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
