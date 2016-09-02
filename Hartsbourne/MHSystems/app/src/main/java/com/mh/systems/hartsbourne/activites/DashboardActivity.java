@@ -3,6 +3,9 @@ package com.mh.systems.hartsbourne.activites;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -12,7 +15,10 @@ import android.widget.LinearLayout;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.adapter.BaseAdapter.DashboardGridAdapter;
+import com.mh.systems.hartsbourne.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
+import com.mh.systems.hartsbourne.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
+import com.mh.systems.hartsbourne.util.DividerItemDecoration;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,8 +37,10 @@ public class DashboardActivity extends BaseActivity {
      * INSTANCES OF CLASSES
      *******************************/
 
+   /* @Bind(R.id.gvMenuOptions)
+    GridView gvMenuOptions;*/
     @Bind(R.id.gvMenuOptions)
-    GridView gvMenuOptions;
+    RecyclerView gvMenuOptions;
 
     @Bind(R.id.llLogoutBtn)
     LinearLayout llLogoutBtn;
@@ -44,7 +52,8 @@ public class DashboardActivity extends BaseActivity {
     Button btSendFeedback;
 
     //Instance of Grid Adapter.
-    DashboardGridAdapter mDashboardGridAdapter;
+  //  DashboardGridAdapter mDashboardGridAdapter;
+   DashboardRecyclerAdapter dashboardRecyclerAdapter;
     Intent intent = null;
 
     TypedArray gridIcons;
@@ -130,10 +139,49 @@ public class DashboardActivity extends BaseActivity {
          */
         ButterKnife.bind(DashboardActivity.this);
 
+        // Create a grid layout with two columns
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
+
+        // Create a custom SpanSizeLookup where the first item spans both columns
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return position == 0 || position == 1 ? 3 : 2;
+            }
+        });
+
         setGridMenuOptions();
 
+        // Layout Managers:
+        //gvMenuOptions.setLayoutManager(new LinearLayoutManager(this));
+        gvMenuOptions.setLayoutManager(layoutManager);
+        // Item Decorator:
+      //  gvMenuOptions.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
+
+       /* layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                                             @Override
+                                             public int getSpanSize(int position) {
+                                                 if (dashboardRecyclerAdapter.getItemCount() <= 2) {
+                                                     return 2;
+                                                 } else *//*if (dashboardRecyclerAdapter.getItemCount() == 2) {*//*
+                                                     return 3;
+                                                *//* } else if (dashboardRecyclerAdapter.getItemCount() == 3) {
+                                                     if (position == 0) {
+                                                         return 2;
+                                                     } else {
+                                                         return 1;
+                                                     }
+                                                 } else {
+
+                                                     return 1;
+
+                                                 }*//*
+                                             }});*/
+
+
+
         //Set Menu Options click event handle.
-        gvMenuOptions.setOnItemClickListener(mGridItemListener);
+      //  gvMenuOptions.setOnItemClickListener(mGridItemListener);
 
         //LogOut listener.
         llLogoutBtn.setOnClickListener(mLogoutListener);
@@ -168,8 +216,11 @@ public class DashboardActivity extends BaseActivity {
         gridBackground = getResources().obtainTypedArray(R.array.gridBackgroundColors);
 
         //Set Grid options adapter.
-        mDashboardGridAdapter = new DashboardGridAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
-        gvMenuOptions.setAdapter(mDashboardGridAdapter);
+       // mDashboardGridAdapter = new DashboardGridAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        //gvMenuOptions.setAdapter(mDashboardGridAdapter);
+
+        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
 
         // ScrollRecycleView.getListViewSize(gvMenuOptions);
     }

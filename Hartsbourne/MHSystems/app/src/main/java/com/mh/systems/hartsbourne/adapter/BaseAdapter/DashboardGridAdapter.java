@@ -1,6 +1,7 @@
 package com.mh.systems.hartsbourne.adapter.BaseAdapter;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
