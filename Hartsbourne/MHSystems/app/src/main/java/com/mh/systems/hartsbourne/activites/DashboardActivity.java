@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * Logout option. Basically, it will be use as the main screen of application
  * after Login.
  *
- * @author {@link karan@mh.co.in}
+ * @author {@link karan@ucreate.co.in}
  * @version 1.0
  */
 public class DashboardActivity extends BaseActivity {
@@ -32,9 +32,6 @@ public class DashboardActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-
-   /* @Bind(R.id.gvMenuOptions)
-    GridView gvMenuOptions;*/
     @Bind(R.id.gvMenuOptions)
     RecyclerView gvMenuOptions;
 
@@ -47,9 +44,7 @@ public class DashboardActivity extends BaseActivity {
     @Bind(R.id.btSendFeedback)
     Button btSendFeedback;
 
-    //Instance of Grid Adapter.
-  //  DashboardGridAdapter mDashboardGridAdapter;
-   DashboardRecyclerAdapter dashboardRecyclerAdapter;
+    DashboardRecyclerAdapter dashboardRecyclerAdapter;
     Intent intent = null;
 
     TypedArray gridIcons;
@@ -60,49 +55,6 @@ public class DashboardActivity extends BaseActivity {
      *******************************/
 
     String gridTitles[];
-
-    /**
-     * Set click event listener of Grid Menu Options to
-     * use functionality.
-     */
-    private AdapterView.OnItemClickListener mGridItemListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            switch (position) {
-                case 0:
-                    intent = new Intent(DashboardActivity.this, YourAccountActivity.class);
-                    intent.putExtra("iTabPosition", 1);
-                    break;
-                case 1:
-                    intent = null;
-                    /*intent = new Intent(DashboardActivity.this, CourseDiaryActivity.class);*/
-                    break;
-                case 2:
-                    intent = new Intent(DashboardActivity.this, CompetitionsActivity.class);
-                    break;
-                case 3:
-                    intent = new Intent(DashboardActivity.this, MembersActivity.class);
-                    break;
-
-                case 4:
-                    intent = new Intent(DashboardActivity.this, ClubNewsActivity.class);
-                    break;
-
-                case 5:
-                    intent = new Intent(DashboardActivity.this, YourAccountActivity.class);
-                    intent.putExtra("iTabPosition", 0);
-                    break;
-            }
-
-            //Check if intent not NULL then navigate to that selected screen.
-            if (intent != null) {
-                startActivity(intent);
-                intent = null;
-            }else{
-                showAlertMessage("Course Diary not active");
-            }
-        }
-    };
 
     /**
      * Logout user from app and navigate back to
@@ -149,35 +101,7 @@ public class DashboardActivity extends BaseActivity {
         setGridMenuOptions();
 
         // Layout Managers:
-        //gvMenuOptions.setLayoutManager(new LinearLayoutManager(this));
         gvMenuOptions.setLayoutManager(layoutManager);
-        // Item Decorator:
-      //  gvMenuOptions.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
-
-       /* layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                                             @Override
-                                             public int getSpanSize(int position) {
-                                                 if (dashboardRecyclerAdapter.getItemCount() <= 2) {
-                                                     return 2;
-                                                 } else *//*if (dashboardRecyclerAdapter.getItemCount() == 2) {*//*
-                                                     return 3;
-                                                *//* } else if (dashboardRecyclerAdapter.getItemCount() == 3) {
-                                                     if (position == 0) {
-                                                         return 2;
-                                                     } else {
-                                                         return 1;
-                                                     }
-                                                 } else {
-
-                                                     return 1;
-
-                                                 }*//*
-                                             }});*/
-
-
-
-        //Set Menu Options click event handle.
-      //  gvMenuOptions.setOnItemClickListener(mGridItemListener);
 
         //LogOut listener.
         llLogoutBtn.setOnClickListener(mLogoutListener);
@@ -212,12 +136,9 @@ public class DashboardActivity extends BaseActivity {
         gridBackground = getResources().obtainTypedArray(R.array.gridBackgroundColors);
 
         //Set Grid options adapter.
-       // mDashboardGridAdapter = new DashboardGridAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
-        //gvMenuOptions.setAdapter(mDashboardGridAdapter);
-
         dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
         gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
 
-        // ScrollRecycleView.getListViewSize(gvMenuOptions);
+//         ScrollRecycleView.getListViewSize(gvMenuOptions);
     }
 }

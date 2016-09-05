@@ -1,7 +1,7 @@
 package com.mh.systems.hartsbourne.adapter.TabsAdapter;
 
 /**
- * Created by karan@mh.co.in for Tabs Page
+ * Created by karan@ucreate.co.in for Tabs Page
  * Adapter on 22/12/2015.
  */
 

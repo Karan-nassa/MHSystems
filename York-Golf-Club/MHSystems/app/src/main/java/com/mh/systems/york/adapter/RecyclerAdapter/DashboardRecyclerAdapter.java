@@ -1,4 +1,4 @@
-package com.mh.systems.hartsbourne.adapter.RecyclerAdapter;
+package com.mh.systems.york.adapter.RecyclerAdapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,13 +15,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mh.systems.hartsbourne.R;
-import com.mh.systems.hartsbourne.activites.ClubNewsActivity;
-import com.mh.systems.hartsbourne.activites.CompetitionsActivity;
-import com.mh.systems.hartsbourne.activites.DashboardActivity;
-import com.mh.systems.hartsbourne.activites.MembersActivity;
-import com.mh.systems.hartsbourne.activites.YourAccountActivity;
-import com.mh.systems.hartsbourne.models.HCapHistory.HCapHistoryData;
+import com.mh.systems.york.R;
+import com.mh.systems.york.activites.ClubNewsActivity;
+import com.mh.systems.york.activites.CompetitionsActivity;
+import com.mh.systems.york.activites.DashboardActivity;
+import com.mh.systems.york.activites.MembersActivity;
+import com.mh.systems.york.activites.YourAccountActivity;
+import com.mh.systems.york.models.HCapHistory.HCapHistoryData;
 
 import java.util.ArrayList;
 

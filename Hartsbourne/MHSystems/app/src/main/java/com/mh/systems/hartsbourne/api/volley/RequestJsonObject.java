@@ -15,7 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
- * Created by karan@mh.co.in on 11/26/2015
+ * Created by karan@ucreate.co.in on 11/26/2015
  * to POST user information on server.
  */
 public class RequestJsonObject extends Request<JSONObject> {

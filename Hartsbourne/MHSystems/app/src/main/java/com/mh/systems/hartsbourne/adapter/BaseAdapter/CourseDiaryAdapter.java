@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 /**
- * Created by  karan@mh.co.in to Create adapter
+ * Created by  karan@ucreate.co.in to Create adapter
  * to display COURSE DIARY EVENTS on 12/4/2015.
  */
 public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListener {

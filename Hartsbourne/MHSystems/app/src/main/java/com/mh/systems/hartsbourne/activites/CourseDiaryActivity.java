@@ -52,7 +52,7 @@ import retrofit.RetrofitError;
  * <p/>
  * Also update PREVIOUS, NEXT, TODAY and {@link Calendar} functionality in a top bar below of {@link Toolbar}.
  *
- * @author {@link karan@mh.co.in}
+ * @author {@link karan@ucreate.co.in}
  * @version 1.0
  * @since 12 May, 2016
  */

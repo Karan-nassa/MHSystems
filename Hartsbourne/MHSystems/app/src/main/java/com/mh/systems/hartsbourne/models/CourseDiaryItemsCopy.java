@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by karan@mh.co.in to load
+ * Created by karan@ucreate.co.in to load
  * Course diary events items on 04-03-2016.
  */
 public class CourseDiaryItemsCopy {

@@ -60,7 +60,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
 /**
- * Created by karan@mh.co.in to load and display Graph and
+ * Created by karan@ucreate.co.in to load and display Graph and
  * Certificate of Handicap.
  */
 public class HandicapFragment extends Fragment implements OnChartValueSelectedListener {

@@ -28,7 +28,7 @@ import retrofit.http.POST;
 import retrofit.http.Query;
 
 /**
- * Created by karan@mh.co.in for
+ * Created by karan@ucreate.co.in for
  * all web services on 08-03-2016.
  */
 public interface WebServiceMethods {

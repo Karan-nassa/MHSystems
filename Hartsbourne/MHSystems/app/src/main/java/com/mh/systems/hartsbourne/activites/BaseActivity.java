@@ -36,7 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by karan@mh.co.in for base
+ * Created by karan@ucreate.co.in for base
  * of all activities on 19-02-2016.
  */
 public class BaseActivity extends AppCompatActivity {

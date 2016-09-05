@@ -173,12 +173,11 @@
     <!-- NAVIGATION DRAWER ITEMS -->
     <string-array name="homeGridItems">
 
-        <item>Your Handicap</item>
-        <item>Course Diary</item>
-        <item>Competitions</item>
-        <item>Members</item>
-        <item>Club News</item>
         <item>Your Account</item>
+        <item>Members</item>
+        <item>Your Handicap</item>
+        <item>Competitions</item>
+        <item>Club News</item>
 
     </string-array>
 
@@ -186,12 +185,11 @@
 
     <string-array name="HomeGridIcons">
 
-        <item>@mipmap/ic_handicap_chart</item>
-        <item>@mipmap/ic_home_diary</item>
-        <item>@mipmap/ic_home_competitions</item>
-        <item>@mipmap/ic_home_members</item>
-        <item>@mipmap/ic_home_clubnews</item>
         <item>@mipmap/ic_my_account</item>
+        <item>@mipmap/ic_home_members</item>
+        <item>@mipmap/ic_handicap_chart</item>
+        <item>@mipmap/ic_home_competitions</item>
+        <item>@mipmap/ic_home_clubnews</item>
 
     </string-array>
 

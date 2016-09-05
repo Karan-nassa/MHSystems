@@ -9,7 +9,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
- * Created by karan@mh.co.in to display Recycle
+ * Created by karan@ucreate.co.in to display Recycle
  * or List View in scroll view on 12/23/2015.
  */
 public class ScrollRecycleView {
