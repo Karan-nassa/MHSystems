@@ -1,7 +1,10 @@
 package com.mh.systems.demoapp.adapter.BaseAdapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,32 +74,34 @@ public class CompTimeGridAdapter extends BaseAdapter {
         holder.btTimeSlot.setText(slotsArrayList.get(position).getStrTimeOfEvent());
         holder.btTimeSlot.setTypeface(tfRobotoMedium);
 
-      /*  holder.btTimeSlot.setOnClickListener(new View.OnClickListener() {
+        holder.btTimeSlot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    holder.btTimeSlot.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    holder.btTimeSlot.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
-                }
-                holder.btTimeSlot.setTextColor(Color.parseColor("#ffffff"));
+                if(view != lastSelectedView) {
 
-                slotsArrayList.get(position).setSelected(true);
-
-                if(lastSelectedView!=null){
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                        lastSelectedView.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
+                        holder.btTimeSlot.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
                     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        lastSelectedView.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
+                        holder.btTimeSlot.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
                     }
-                    lastSelectedView.setTextColor(Color.parseColor("#000000"));
-                    slotsArrayList.get(position).setSelected(true);
-                }
+                    holder.btTimeSlot.setTextColor(Color.parseColor("#ffffff"));
 
-                lastSelectedView = holder.btTimeSlot;
+                    slotsArrayList.get(position).setSelected(true);
+
+                    if (lastSelectedView != null) {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                            lastSelectedView.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
+                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            lastSelectedView.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
+                        }
+                        lastSelectedView.setTextColor(Color.parseColor("#000000"));
+                        slotsArrayList.get(position).setSelected(true);
+                    }
+                    lastSelectedView = holder.btTimeSlot;
+                }
             }
-        });*/
+        });
 
         return rowView;
     }

@@ -38,10 +38,24 @@
                     android:id="@+id/tvEventStatusStrDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="60dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="50dp"
+                    android:text="PLANNED"
                     android:textAllCaps="true"
                     android:textColor="@color/colorC0995B"
                     android:textSize="14sp" />
+
+                <com.mh.systems.demoapp.customfonts.ButlerLightTextView
+                    android:id="@+id/tvTitleOfEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Adventure Club Competition"
+                    android:textColor="@color/colorWhiteffffff"
+                    android:textSize="26sp" />
+
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
@@ -111,9 +125,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10:00 - 14:00"
-                        android:visibility="gone"
                         android:textColor="@color/color030303"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -379,9 +393,9 @@
                         android:id="@+id/lvListOfMembers"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="8dp"
+                        android:layout_marginTop="10dp"
                         android:clipToPadding="false"
-                        android:layout_marginTop="10dp" />
+                        android:paddingTop="8dp" />
 
                     <!-- NO DATA FOUND -->
 

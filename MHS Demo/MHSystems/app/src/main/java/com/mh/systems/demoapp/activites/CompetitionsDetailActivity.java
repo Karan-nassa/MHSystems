@@ -79,6 +79,9 @@ public class CompetitionsDetailActivity extends BaseActivity {
     @Bind(R.id.tvNoDataView)
     TextView tvNoDataView;
 
+    @Bind(R.id.tvTitleOfEvent)
+    TextView tvTitleOfEvent;
+
 
     /* ++ TABLE RESULT RESOURCES ++ */
     @Bind(R.id.tvTitleTableResult)
@@ -205,6 +208,9 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
         setSupportActionBar(toolbarComp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbarComp.setTitle("");
+        toolbarComp.setSubtitle("");
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_white);
 
         toolbarComp.setTitleTextColor(0xFFFFFFFF);
@@ -253,7 +259,8 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(strEventTitle);
+       // collapsingToolbar.setTitle(strEventTitle);
+        tvTitleOfEvent.setText(strEventTitle);
 
         /**
          *  FAB ({@link FloatingActionButton}) button should be visible for
