@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
@@ -126,7 +127,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
     boolean isEventJoin, isJoinVisible, IsMemberJoined;
     int iPopItemPos;
 
-    Typeface tpRobotoMedium, tfSFUITextSemibold;
+    Typeface tpRobotoMedium, tfSFUITextSemibold, tfButlerLight;
 
     /**
      * Define Floating action button tap Alert Dialog
@@ -257,10 +258,35 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
         iPopItemPos = getIntent().getExtras().getInt("COMPETITIONS_iPopItemPos");
 
-        CollapsingToolbarLayout collapsingToolbar =
+        final CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-       // collapsingToolbar.setTitle(strEventTitle);
+        // collapsingToolbar.setTitle(strEventTitle);
         tvTitleOfEvent.setText(strEventTitle);
+
+        /**
+         * Display Collapse toolbar title when collapse layout.
+         */
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbar.setTitle(strEventTitle);
+                    collapsingToolbar.setCollapsedTitleTypeface(tfButlerLight);
+                    isShow = true;
+                } else if (isShow) {
+                    collapsingToolbar.setTitle(" ");//careful there should a space between double quote otherwise it wont work
+                    isShow = false;
+                }
+            }
+        });
 
         /**
          *  FAB ({@link FloatingActionButton}) button should be visible for
@@ -270,7 +296,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
             if (isJoinVisible) {
                 fabJoinCompetition.setVisibility(View.VISIBLE);
 
-                switch (iPopItemPos){
+                switch (iPopItemPos) {
                     case 0:
                         if (IsMemberJoined) {
                             fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
@@ -425,6 +451,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
     private void setFontTypeFace() {
         tpRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
         tfSFUITextSemibold = Typeface.createFromAsset(getAssets(), "fonts/SF-UI-Display-Bold.otf");
+        tfButlerLight = Typeface.createFromAsset(getAssets(), "fonts/Butler_Light.otf");
 
         tvDateCourseEvent.setTypeface(tpRobotoMedium);
         tvTimeCourseEvent.setTypeface(tpRobotoMedium);
