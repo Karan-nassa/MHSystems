@@ -150,6 +150,12 @@
             android:name=".activites.CompetitionEntryActivity"
             android:screenOrientation="portrait" />
 
+        <!-- COMPETITION ENTRY -->
+
+        <activity
+            android:name=".activites.MembersBookingActivity"
+            android:screenOrientation="portrait" />
+
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

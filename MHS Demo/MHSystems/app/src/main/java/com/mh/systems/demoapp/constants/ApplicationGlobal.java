@@ -35,6 +35,11 @@ public class ApplicationGlobal {
     public static final int POSITION_ABOUT_CLUB = 5;
     public static final int POSITION_MY_ACCOUNT = 6;
 
+    /**
+     * Use this for COMPETITIONS ENTRY.
+     */
+    public static final int POSITION_MEMBERS_BOOKING = 7;
+
     public static final int POSITION_OLD_COURSE = 1;
     public static final int POSITION_NEW_COURSE = 2;
 

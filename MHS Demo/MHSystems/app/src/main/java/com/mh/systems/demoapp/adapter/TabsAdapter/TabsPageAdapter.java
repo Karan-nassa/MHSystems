@@ -13,8 +13,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.fragments.FinanceFragment;
+import com.mh.systems.demoapp.fragments.FriendsBookingFragment;
 import com.mh.systems.demoapp.fragments.FriendsFragment;
 import com.mh.systems.demoapp.fragments.HandicapFragment;
+import com.mh.systems.demoapp.fragments.MembersBookingFragment;
 import com.mh.systems.demoapp.fragments.MembersFragment;
 import com.mh.systems.demoapp.fragments.MyDetailsFragment;
 
@@ -78,6 +80,9 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
             case ApplicationGlobal.POSITION_MEMBERS:
                 return loadMembersTab(position);
+
+            case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
+                return loadMembersBookingTab(position);
         }
         return null;
     }
@@ -196,6 +201,31 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 return null;
         }*/
         return null;
+    }
+
+    /**
+     * Load MEMBERS BOOKING for Competitions Entry Tabs i.e
+     * <br> 1. {@link MembersBookingFragment}
+     * <br> 2. {@link FriendsBookingFragment}
+     * <p/>
+     *
+     * @param iPosition
+     * @return Fragment
+     */
+    private Fragment loadMembersBookingTab(int iPosition) {
+
+        switch (iPosition) {
+            case 0:
+                MembersBookingFragment membersBookingFragment = new MembersBookingFragment();
+                return membersBookingFragment;
+
+            case 1:
+                FriendsBookingFragment friendsBookingFragment = new FriendsBookingFragment();
+                return friendsBookingFragment;
+
+            default:
+                return null;
+        }
     }
 
     /**

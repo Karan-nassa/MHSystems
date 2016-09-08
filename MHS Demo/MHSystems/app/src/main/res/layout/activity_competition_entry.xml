@@ -60,20 +60,22 @@
                     android:textSize="16sp" />
 
                 <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    android:id="@+id/tvDetailPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="30"
                     android:alpha="0.5"
-                    android:text="2x £5.00"
+                    android:text="1x £5.00"
                     android:textColor="#4B4B49"
                     android:textSize="16sp" />
 
                 <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                    android:id="@+id/tvTotalPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="30"
                     android:gravity="right|end"
-                    android:text="£10.00"
+                    android:text="£5.00"
                     android:textColor="#4B4B49"
                     android:textSize="16sp" />
 
@@ -219,8 +221,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="left"
-                                android:onClick="onAddPlayer"
-                                android:text="Mr Calvin Jennings"
+                                android:text="Add (optionaly)"
                                 android:textColor="#000000"
                                 android:textSize="16sp" />
 
@@ -231,7 +232,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:onClick="onRemovePlayer"
                             android:src="@mipmap/ic_round_cross"
                             android:visibility="invisible" />
 
@@ -282,7 +282,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="left"
-                            android:onClick="onAddPlayer"
                             android:text="Add (optionaly)"
                             android:textColor="#000000"
                             android:textSize="16sp" />
@@ -294,7 +293,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:onClick="onRemovePlayer"
                             android:src="@mipmap/ic_round_cross"
                             android:visibility="invisible" />
 
@@ -345,7 +343,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="left"
-                            android:onClick="onAddPlayer"
                             android:text="Add (optionaly)"
                             android:textColor="#000000"
                             android:textSize="16sp" />
@@ -357,7 +354,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:onClick="onRemovePlayer"
                             android:src="@mipmap/ic_round_cross"
                             android:visibility="invisible" />
 
