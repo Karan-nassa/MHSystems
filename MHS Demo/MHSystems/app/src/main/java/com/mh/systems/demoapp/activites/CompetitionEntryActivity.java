@@ -1,6 +1,7 @@
 package com.mh.systems.demoapp.activites;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,8 +31,25 @@ import butterknife.ButterKnife;
  */
 public class CompetitionEntryActivity extends BaseActivity {
 
+    String strNameOfMember;
+
+    /**
+     * iMemberPosition is used to keep record of which Member position user going to update so that
+     * update name of Member when get back from {@link MembersBookingActivity}.
+     */
+    int iMemberPosition;
+
+    //Holds the No. of players.
+    int iTotalPlayers = 1;
+
     @Bind(R.id.tbBookingDetail)
     Toolbar tbBookingDetail;
+
+    @Bind(R.id.tvDetailPrice)
+    TextView tvDetailPrice;
+
+    @Bind(R.id.tvTotalPrice)
+    TextView tvTotalPrice;
 
     @Bind(R.id.svPlayerContent)
     ScrollView svPlayerContent;
@@ -66,9 +84,82 @@ public class CompetitionEntryActivity extends BaseActivity {
     @Bind(R.id.ivCrossPlayer4)
     ImageView ivCrossPlayer4;
 
+    Intent intent;
+
     CompTimeGridAdapter compTimeGridAdapter;
 
     ArrayList<TimeSlots> modelArrayList = new ArrayList<>();
+
+    /**
+     * Implements this method to call when user tap to Add Member.
+     */
+    private View.OnClickListener mPlayerSelectionListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.tvPlayerName2:
+                case R.id.llPlayerGroup2:
+                    if (tvPlayerName2.getText().toString().equals("Add (optionaly)")) {
+                        iMemberPosition = 2;
+                    } else
+                        return;
+                    break;
+
+                case R.id.tvPlayerName3:
+                case R.id.llPlayerGroup3:
+                    if (tvPlayerName3.getText().toString().equals("Add (optionaly)")) {
+                        iMemberPosition = 3;
+                    } else
+                        return;
+                    break;
+
+                case R.id.tvPlayerName4:
+                case R.id.llPlayerGroup4:
+                    if (tvPlayerName4.getText().toString().equals("Add (optionaly)")) {
+                        iMemberPosition = 4;
+                    } else
+                        return;
+                    break;
+            }
+
+            intent = new Intent(CompetitionEntryActivity.this, MembersBookingActivity.class);
+            startActivityForResult(intent, 1);
+        }
+    };
+
+    /**
+     * Implements this method to call when user tap on Cross button.
+     */
+    private View.OnClickListener mCrossListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.ivCrossPlayer2:
+                    tvPlayerName2.setText("Add (optionaly)");
+                    ivCrossPlayer2.setVisibility(View.INVISIBLE);
+                    showAlertOk();
+                    break;
+
+                case R.id.ivCrossPlayer3:
+                    tvPlayerName3.setText("Add (optionaly)");
+                    ivCrossPlayer3.setVisibility(View.INVISIBLE);
+                    showAlertOk();
+                    break;
+
+                case R.id.ivCrossPlayer4:
+                    tvPlayerName4.setText("Add (optionaly)");
+                    ivCrossPlayer4.setVisibility(View.INVISIBLE);
+                    showAlertOk();
+                    break;
+            }
+
+            if (iTotalPlayers > 1) {
+                iTotalPlayers--;
+            }
+
+            updatePrice();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +185,19 @@ public class CompetitionEntryActivity extends BaseActivity {
             setSupportActionBar(tbBookingDetail);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        llPlayerGroup2.setOnClickListener(mPlayerSelectionListener);
+        tvPlayerName2.setOnClickListener(mPlayerSelectionListener);
+
+        llPlayerGroup3.setOnClickListener(mPlayerSelectionListener);
+        tvPlayerName3.setOnClickListener(mPlayerSelectionListener);
+
+        llPlayerGroup4.setOnClickListener(mPlayerSelectionListener);
+        tvPlayerName4.setOnClickListener(mPlayerSelectionListener);
+
+        ivCrossPlayer2.setOnClickListener(mCrossListener);
+        ivCrossPlayer3.setOnClickListener(mCrossListener);
+        ivCrossPlayer4.setOnClickListener(mCrossListener);
     }
 
     @Override
@@ -120,54 +224,54 @@ public class CompetitionEntryActivity extends BaseActivity {
         return true;
     }
 
-    /**
-     * Implements this method to call when user tap to Add Member.
-     */
-    public void onAddPlayer(View view) {
-        switch (view.getId()) {
-            case R.id.tvPlayerName2:
-            case R.id.llPlayerGroup2:
-                tvPlayerName2.setText("Mr Calvin Jennings");
-                ivCrossPlayer2.setVisibility(View.VISIBLE);
-                break;
-
-            case R.id.tvPlayerName3:
-            case R.id.llPlayerGroup3:
-                tvPlayerName3.setText("Mr Kevin Okrah");
-                ivCrossPlayer3.setVisibility(View.VISIBLE);
-                break;
-
-            case R.id.tvPlayerName4:
-            case R.id.llPlayerGroup4:
-                tvPlayerName4.setText("Mr Grzegorz Hadala");
-                ivCrossPlayer4.setVisibility(View.VISIBLE);
-                break;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+       /* if (requestCode == 1) {*/
+        if (resultCode == RESULT_OK) {
+            //  strNameOfMember = ;
+            updateMemberName(data.getStringExtra("NAME_OF_MEMBER"));
         }
+       /* }*/
     }
 
     /**
-     * Implements this method to call when user tap on Cross button.
+     * Implements this method to update name of Member when user get back from
+     * {@link MembersBookingActivity} after choose Member/Friend.
      */
-    public void onRemovePlayer(View view) {
-        switch (view.getId()) {
-            case R.id.ivCrossPlayer2:
-                tvPlayerName2.setText("Add (optionaly)");
-                ivCrossPlayer2.setVisibility(View.INVISIBLE);
-                showAlertOk();
+    public void updateMemberName(String strNameOfMember) {
+        switch (iMemberPosition) {
+            case 2:
+                iMemberPosition = 2;
+                tvPlayerName2.setText(strNameOfMember);
+                ivCrossPlayer2.setVisibility(View.VISIBLE);
                 break;
 
-            case R.id.ivCrossPlayer3:
-                tvPlayerName3.setText("Add (optionaly)");
-                ivCrossPlayer3.setVisibility(View.INVISIBLE);
-                showAlertOk();
+            case 3:
+                iMemberPosition = 3;
+                tvPlayerName3.setText(strNameOfMember);
+                ivCrossPlayer3.setVisibility(View.VISIBLE);
                 break;
 
-            case R.id.ivCrossPlayer4:
-                tvPlayerName4.setText("Add (optionaly)");
-                ivCrossPlayer4.setVisibility(View.INVISIBLE);
-                showAlertOk();
+            case 4:
+                iMemberPosition = 4;
+                tvPlayerName4.setText(strNameOfMember);
+                ivCrossPlayer4.setVisibility(View.VISIBLE);
                 break;
         }
+
+        if (iTotalPlayers < 4) {
+            iTotalPlayers++;
+        }
+
+        updatePrice();
+    }
+
+    /**
+     * Implements this method to update Price after select or remove Members.
+     */
+    private void updatePrice() {
+        tvDetailPrice.setText("" + iTotalPlayers + "x £5.00");
+        tvTotalPrice.setText("£" + iTotalPlayers * 5 + ".00");
     }
 
     /**
@@ -199,7 +303,7 @@ public class CompetitionEntryActivity extends BaseActivity {
         if (builder == null) {
             builder = new AlertDialog.Builder(this);
             builder.setTitle("Confirmation");
-            builder.setMessage("Your account will be charged for £10.00")
+            builder.setMessage("Your account will be charged for " + tvTotalPrice.getText().toString())
                     .setCancelable(false)
                     .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -207,12 +311,12 @@ public class CompetitionEntryActivity extends BaseActivity {
                             builder = null;
                         }
                     })
-            .setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    //do things
-                    onBackPressed();
-                }
-            });
+                    .setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            onBackPressed();
+                        }
+                    });
             AlertDialog alert = builder.create();
             alert.show();
         }
@@ -224,7 +328,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
         for (int iCounter = 0; iCounter < 10; iCounter++) {
             int jCounter = iCounter + 10;
-            TimeSlots timeSlots = new TimeSlots("10:0" + iCounter, false);
+            TimeSlots timeSlots = new TimeSlots("10:" + jCounter, false);
             modelArrayList.add(timeSlots);
         }
     }
