@@ -68,9 +68,14 @@
             android:name=".activites.CompetitionsActivity"
             android:screenOrientation="portrait" />
 
-        <!-- COMPETITIONS DIARY ACTIVITY -->
+        <!-- COMPLETED COMPETITIONS ACTIVITY -->
         <activity
-            android:name=".activites.CompetitionsDetailActivity"
+            android:name=".activites.CompletedCompDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- COMPETITION DETAIL ACTIVITY -->
+        <activity
+            android:name=".activites.CompetitionDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- MY ACCOUNT ACTIVITY -->

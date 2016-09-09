@@ -13,7 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.activites.CompetitionsDetailActivity;
+import com.mh.systems.demoapp.activites.CompetitionDetailActivity;
+import com.mh.systems.demoapp.activites.CompletedCompDetailActivity;
 import com.mh.systems.demoapp.models.CompetitionsData;
 
 import java.util.ArrayList;
@@ -162,8 +163,14 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.llCompetitionGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = null;
 
-                Intent intent = new Intent(context, CompetitionsDetailActivity.class);
+                if (iPopItemPos <= 1) {
+                    intent = new Intent(context, CompetitionDetailActivity.class);
+                }else{
+                    intent = new Intent(context, CompletedCompDetailActivity.class);
+                }
+
                 intent.putExtra("COMPETITIONS_TITLE", compititionsDatas.get(position).getTitle());
                 intent.putExtra("COMPETITIONS_EVENT_IMAGE", compititionsDatas.get(position).getLogo());
                 intent.putExtra("COMPETITIONS_EVENT_JOIN", compititionsDatas.get(position).getJoinStatus());

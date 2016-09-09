@@ -48,9 +48,9 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class CompetitionsDetailActivity extends BaseActivity {
+public class CompetitionDetailActivity extends BaseActivity {
 
-    private final String LOG_TAG = CompetitionsDetailActivity.class.getSimpleName();
+    private final String LOG_TAG = CompetitionDetailActivity.class.getSimpleName();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -142,7 +142,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
                     /**
                      *  Check internet connection before hitting server request.
                      */
-                    if (isOnline(CompetitionsDetailActivity.this)) {
+                    if (isOnline(CompetitionDetailActivity.this)) {
                         unJoinWebService();
                     } else {
                         showAlertMessage(getResources().getString(R.string.error_no_internet));
@@ -168,7 +168,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
             //Check for Unjoin competition.
             if (iPopItemPos == 1 && IsMemberJoined) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CompetitionsDetailActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(CompetitionDetailActivity.this);
                 builder.setTitle(getResources().getString(R.string.alert_title_unjoin))
                         .setMessage(getResources().getString(R.string.alert_title_unjoin_message))
                         .setPositiveButton("Leave", dialogClickListener)
@@ -178,12 +178,12 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
                     /* +++++++++++++++++++++++++ NOW USER HAVE TO ENTER COMPETITION WITH FRIENDS/MEMBERS +++++++++++++++++++++++++ */
 
-                    startActivity(new Intent(CompetitionsDetailActivity.this, CompetitionEntryActivity.class));
+                    startActivity(new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class));
 
                     /**
                      *  Check internet connection before hitting server request.
                      *//*
-                    if (isOnline(CompetitionsDetailActivity.this)) {
+                    if (isOnline(CompletedCompDetailActivity.this)) {
                         callJoinCompetitionWebService();
                     } else {
                         showAlertMessage(getResources().getString(R.string.error_no_internet));
@@ -241,7 +241,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
     /**
      * Implements a method to Initialize the resources using for
-     * {@link CompetitionsDetailActivity}.
+     * {@link CompetitionDetailActivity}.
      */
     private void initializeResources() {
         strEventTitle = getIntent().getExtras().getString("COMPETITIONS_TITLE");
@@ -535,7 +535,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
                     tvResultDesc.setText(competitionDetailItems.getCompResultData().getResults().get(0).getDescription());
 
-                    competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionsDetailActivity.this, resultEntryArrayList);
+                    competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionDetailActivity.this, resultEntryArrayList);
                     lvListOfMembers.setAdapter(competitionDetailAdapter);
                     ScrollRecycleView.getListViewSize(lvListOfMembers);
 
