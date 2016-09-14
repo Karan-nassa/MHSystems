@@ -75,50 +75,24 @@ public class CompetitionDetailActivity extends BaseActivity {
     TextView tvEventStatusStrDD;
     @Bind(R.id.nsvContent)
     NestedScrollView nsvContent;
-    @Bind(R.id.tvResultDesc)
-    TextView tvResultDesc;
-    @Bind(R.id.tvNoDataView)
-    TextView tvNoDataView;
 
     @Bind(R.id.tvTitleOfEvent)
     TextView tvTitleOfEvent;
-
-
-    /* ++ TABLE RESULT RESOURCES ++ */
-    @Bind(R.id.tvTitleTableResult)
-    TextView tvTitleTableResult;
 
     //Join Competition Button
     @Bind(R.id.fabJoinCompetition)
     FloatingActionButton fabJoinCompetition;
 
+    AddRequestResult addRequestResult;
+
     //List of type books this list will store type Book which is our data model
     CompetitionJoinAPI competitionJoinAPI;
     AJsonParamsJoinCompetition aJsonParamsJoinCompetition;
-
-    //Create instance of Competitions detail API to display ROUND result.
-    CompetitionResultAPI competitionResultAPI;
-    AJsonParamsResultOfCompetition aJsonParamsResultOfCompetition;
-
-    CompetitionDetailItems competitionDetailItems;
 
     //Create instance of Competitions unjoin API.
     CompetitionUnjoinAPI competitionUnjoinAPI;
     AJsonParamsUnjoin aJsonParamsUnjoin;
     UnjoinItems unjoinItems;
-
-    ArrayList<ResultEntries> resultEntryArrayList = new ArrayList<>();
-
-    //Create instance of Model class for display result.
-    AddRequestResult addRequestResult;
-
-    CompetitionDetailAdapter competitionDetailAdapter;
-
-    @Bind(R.id.lvListOfMembers)
-    ListView lvListOfMembers;
-
-    @Bind(R.id.llRankOfMembers)
-    LinearLayout llRankOfMembers;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -178,16 +152,16 @@ public class CompetitionDetailActivity extends BaseActivity {
 
                     /* +++++++++++++++++++++++++ NOW USER HAVE TO ENTER COMPETITION WITH FRIENDS/MEMBERS +++++++++++++++++++++++++ */
 
-                    startActivity(new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class));
+                    //startActivity(new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class));
 
                     /**
                      *  Check internet connection before hitting server request.
-                     *//*
-                    if (isOnline(CompletedCompDetailActivity.this)) {
+                     */
+                    if (isOnline(CompetitionDetailActivity.this)) {
                         callJoinCompetitionWebService();
                     } else {
                         showAlertMessage(getResources().getString(R.string.error_no_internet));
-                    }*/
+                    }
                 }
             }
         }
@@ -292,44 +266,22 @@ public class CompetitionDetailActivity extends BaseActivity {
          *  FAB ({@link FloatingActionButton}) button should be visible for
          *  {@link com.mh.systems.demoapp.fragments.UpcomingFragment} only.
          */
-        if (iPopItemPos < 2) {
-            if (isJoinVisible) {
-                fabJoinCompetition.setVisibility(View.VISIBLE);
+        if (isJoinVisible) {
+            fabJoinCompetition.setVisibility(View.VISIBLE);
 
-                switch (iPopItemPos) {
-                    case 0:
-                        if (IsMemberJoined) {
-                            fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
-                            fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
-                        }
-                        break;
+            switch (iPopItemPos) {
+                case 0:
+                    if (IsMemberJoined) {
+                        fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
+                        fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
+                    }
+                    break;
 
-                    case 1:
-                        fabJoinCompetition.setImageResource(R.mipmap.ic_minus);
-                        fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
-                        break;
-                }
-
-               /* if (IsMemberJoined) {
-                    fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
-                    fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
-                } else {
-                    fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
-                    fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
-                }*/
+                case 1:
+                    fabJoinCompetition.setImageResource(R.mipmap.ic_minus);
+                    fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
+                    break;
             }
-        } else {
-            //Floating Action button should not VISIBLE when user view the detail of COMPLETED COMPETITIONS.
-            fabJoinCompetition.setVisibility(View.GONE);
-            llPriceGroup.setVisibility(View.GONE);
-
-            //Hide Time of Event for Completed competitions for now cause of static data.
-            tvTimeCourseEvent.setVisibility(View.GONE);
-
-            //Display Rank of Members.
-            llRankOfMembers.setVisibility(View.VISIBLE);
-
-            callResultOfCompetitionWebService();
         }
 
         setFontTypeFace();
@@ -368,12 +320,6 @@ public class CompetitionDetailActivity extends BaseActivity {
 
                         updateSuccessResponse(jsonObject);
                     }*/
-
-        //Defining the method
-        /*Log.e("getClientId():", "" + getClientId());
-        Log.e("aJsonParamsJoin:", "" + aJsonParamsJoinCompetition.toString());
-        Log.e("GCLUB_WEBSERVICES:", "" + ApplicationGlobal.TAG_GCLUB_WEBSERVICES);
-        Log.e("GCLUB_MEMBERS:", "" + ApplicationGlobal.TAG_GCLUB_MEMBERS);*/
 
         api.joinCompetitionEventGet(getClientId(), "ADDMEMBERTOEVENT", "{version :" + ApplicationGlobal.TAG_GCLUB_VERSION + ",callid:" + ApplicationGlobal.TAG_GCLUB_CALL_ID + ",MemberId:" + getMemberId() + ",EventId:" + strEventId + "}", ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS, new Callback<JsonObject>() {
             @Override
@@ -456,109 +402,6 @@ public class CompetitionDetailActivity extends BaseActivity {
         tvDateCourseEvent.setTypeface(tpRobotoMedium);
         tvTimeCourseEvent.setTypeface(tpRobotoMedium);
         tvFeeCourseEvent.setTypeface(tpRobotoMedium);
-
-        tvTitleTableResult.setTypeface(tfSFUITextSemibold);
-    }
-
-    /**
-     * Implements a method to JOIN competitions web service if
-     * user not already JOINED.
-     */
-    private void callResultOfCompetitionWebService() {
-
-        String strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
-
-        showPleaseWait("Please wait...");
-
-        aJsonParamsResultOfCompetition = new AJsonParamsResultOfCompetition();
-        aJsonParamsResultOfCompetition.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
-        aJsonParamsResultOfCompetition.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsResultOfCompetition.setMemberId(getMemberId());
-        aJsonParamsResultOfCompetition.setEventId(strEventId);
-
-        competitionResultAPI = new CompetitionResultAPI(getClientId(), "GETCLUBEVENTRESULTS", aJsonParamsResultOfCompetition, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
-
-        //Creating a rest adapter
-        RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(WebAPI.API_BASE_URL)
-                .build();
-
-        //Creating an object of our api interface
-        WebServiceMethods api = adapter.create(WebServiceMethods.class);
-
-        //Defining the method
-        api.resultOfCompetitionEvent(competitionResultAPI, new Callback<JsonObject>() {
-            @Override
-            public void success(JsonObject jsonObject, retrofit.client.Response response) {
-
-                resultOfCompetitionSuccess(jsonObject);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                //you can handle the errors here
-                Log.e(LOG_TAG, "RetrofitError : " + error);
-                hideProgress();
-
-                showAlertMessage("" + error);
-            }
-        });
-
-    }
-
-    /**
-     * Implements a method to update SUCCESS of Competitions Round Result
-     * response of web service.
-     */
-    private void resultOfCompetitionSuccess(JsonObject jsonObject) {
-
-        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
-
-        Type type = new TypeToken<CompetitionDetailItems>() {
-        }.getType();
-        competitionDetailItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
-
-        //Clear array list before inserting items.
-        resultEntryArrayList.clear();
-
-        try {
-            /**
-             *  Check "Result" 1 or 0. If 1, means data received successfully.
-             */
-            if (competitionDetailItems.getMessage().equalsIgnoreCase("Success")) {
-
-                resultEntryArrayList.addAll(competitionDetailItems.getCompResultData().getResults().get(0).getResultEntries());
-
-                if (resultEntryArrayList.size() > 0) {
-
-                    tvNoDataView.setVisibility(View.INVISIBLE);
-
-                    tvResultDesc.setText(competitionDetailItems.getCompResultData().getResults().get(0).getDescription());
-
-                    competitionDetailAdapter = new CompetitionDetailAdapter(CompetitionDetailActivity.this, resultEntryArrayList);
-                    lvListOfMembers.setAdapter(competitionDetailAdapter);
-                    ScrollRecycleView.getListViewSize(lvListOfMembers);
-
-                    //Forcefully scroll UP of screen after loading.
-                    nsvContent.post(new Runnable() {
-                        public void run() {
-                            nsvContent.fullScroll(View.FOCUS_UP);
-                        }
-                    });
-                } else {
-                    tvNoDataView.setVisibility(View.VISIBLE);
-                }
-
-            } else {
-                //If web service not respond in any case.
-                showAlertMessage(competitionDetailItems.getMessage());
-            }
-
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
-        }
-        hideProgress();
     }
 
     /**

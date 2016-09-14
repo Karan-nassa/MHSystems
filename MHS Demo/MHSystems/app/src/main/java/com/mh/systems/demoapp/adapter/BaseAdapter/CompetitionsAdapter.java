@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.CompetitionDetailActivity;
-import com.mh.systems.demoapp.activites.CompletedCompDetailActivity;
+import com.mh.systems.demoapp.activites.CompletedDetailActivity;
 import com.mh.systems.demoapp.models.CompetitionsData;
 
 import java.util.ArrayList;
@@ -168,7 +168,7 @@ public class CompetitionsAdapter extends BaseAdapter {
                 if (iPopItemPos <= 1) {
                     intent = new Intent(context, CompetitionDetailActivity.class);
                 }else{
-                    intent = new Intent(context, CompletedCompDetailActivity.class);
+                    intent = new Intent(context, CompletedDetailActivity.class);
                 }
 
                 intent.putExtra("COMPETITIONS_TITLE", compititionsDatas.get(position).getTitle());

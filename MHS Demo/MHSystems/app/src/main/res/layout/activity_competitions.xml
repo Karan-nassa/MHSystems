@@ -201,8 +201,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:background="@color/colorWhiteffffff"
-            android:cacheColorHint="@color/colorWhiteffffff"
+            android:background="@color/colorF9F8F7"
+            android:cacheColorHint="@color/colorF9F8F7"
             android:divider="@color/colorF9F8F7"
             android:scrollbars="none"
             android:dividerHeight="10dp" />

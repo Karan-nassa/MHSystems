@@ -70,7 +70,7 @@
 
         <!-- COMPLETED COMPETITIONS ACTIVITY -->
         <activity
-            android:name=".activites.CompletedCompDetailActivity"
+            android:name=".activites.CompletedDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- COMPETITION DETAIL ACTIVITY -->

@@ -136,39 +136,6 @@
 
             </LinearLayout>
 
-            <!-- FEE PER PLAYER -->
-
-            <LinearLayout
-                android:id="@+id/llPriceGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <!-- CALENDER ICON -->
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.3"
-                    android:src="@mipmap/ic_fee" />
-
-                <!-- PRIZE OF COURSE EVENT -->
-
-                <TextView
-                    android:id="@+id/tvFeeCourseEvent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="25dp"
-                    android:text="£5 fee per player"
-                    android:textColor="@color/color030303"
-                    android:textSize="17sp" />
-
-            </LinearLayout>
-
             <!-- TYPE OF COMPETITION EVENT -->
 
             <LinearLayout
@@ -466,19 +433,5 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-    <!-- JOIN COMPETITIONS FLOATING ACTION BUTTON -->
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabJoinCompetition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:clickable="true"
-        android:src="@mipmap/ic_plus"
-        android:visibility="invisible"
-        app:backgroundTint="@color/colorC0995B"
-        app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>
