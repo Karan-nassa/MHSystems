@@ -20,6 +20,7 @@ import com.mh.systems.demoapp.models.MembersDetailAPI;
 import com.mh.systems.demoapp.models.FinanceAPI;
 import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.demoapp.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -262,5 +263,17 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of get CLUB EVENT web service to get detail
+     * of COMPETITION event by passing 'eventId'.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getClubEventAPI
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void getClubEvent(@Body GetClubEventAPI getClubEventAPI, Callback<JsonObject> response);
 }
 

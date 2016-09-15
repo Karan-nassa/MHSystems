@@ -15,32 +15,29 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.AJsonParamsJoinCompetition;
-import com.mh.systems.demoapp.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.demoapp.models.AJsonParamsUnjoin;
 import com.mh.systems.demoapp.models.AddRequestResult;
-import com.mh.systems.demoapp.models.CompetitionDetailItems;
 import com.mh.systems.demoapp.models.CompetitionJoinAPI;
-import com.mh.systems.demoapp.models.CompetitionResultAPI;
 import com.mh.systems.demoapp.models.CompetitionUnjoinAPI;
-import com.mh.systems.demoapp.models.ResultEntries;
 import com.mh.systems.demoapp.models.UnjoinItems;
+import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsGetClubEvent;
+import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventAPI;
+import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventData;
+import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventResponse;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
-import com.mh.systems.demoapp.util.ScrollRecycleView;
+import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -93,6 +90,12 @@ public class CompetitionDetailActivity extends BaseActivity {
     CompetitionUnjoinAPI competitionUnjoinAPI;
     AJsonParamsUnjoin aJsonParamsUnjoin;
     UnjoinItems unjoinItems;
+
+    //Create instance of GetClubEventAPI.
+    GetClubEventAPI getClubEventAPI;
+    AJsonParamsGetClubEvent aJsonParamsGetClubEvent;
+    GetClubEventResponse getClubEventResponse;
+    GetClubEventData getClubEventData;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -152,16 +155,20 @@ public class CompetitionDetailActivity extends BaseActivity {
 
                     /* +++++++++++++++++++++++++ NOW USER HAVE TO ENTER COMPETITION WITH FRIENDS/MEMBERS +++++++++++++++++++++++++ */
 
-                    //startActivity(new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class));
+                    Intent intent = new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class);
+                    Gson gson = new Gson();
+                    //Pass Time Slots to Book Tee Time.
+                    intent.putExtra("GET_CLUB_EVENT_RESPONSE", gson.toJson(getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getSlots()));
+                    startActivity(intent);
 
                     /**
                      *  Check internet connection before hitting server request.
                      */
-                    if (isOnline(CompetitionDetailActivity.this)) {
+                   /* if (isOnline(CompetitionDetailActivity.this)) {
                         callJoinCompetitionWebService();
                     } else {
                         showAlertMessage(getResources().getString(R.string.error_no_internet));
-                    }
+                    }*/
                 }
             }
         }
@@ -181,6 +188,15 @@ public class CompetitionDetailActivity extends BaseActivity {
         //Initialize resouces.
         initializeResources();
 
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (isOnline(CompetitionDetailActivity.this)) {
+            getClubEventService();
+        } else {
+            showAlertMessage(getResources().getString(R.string.error_no_internet));
+        }
+
         setSupportActionBar(toolbarComp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -189,13 +205,6 @@ public class CompetitionDetailActivity extends BaseActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_white);
 
         toolbarComp.setTitleTextColor(0xFFFFFFFF);
-
-        tvDateCourseEvent.setText(strEventDate);
-        tvTimeCourseEvent.setText(strEventTime);
-
-        tvFeeCourseEvent.setText(/*"£" + */strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
-        tvDescCourseEvent.setText(strEventDesc);
-        tvEventStatusStrDD.setText(strEventStatus);
 
         fabJoinCompetition.setOnClickListener(mJoinOnClickListener);
     }
@@ -211,6 +220,90 @@ public class CompetitionDetailActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Implements this method to get CLUB EVENT web service to get detail
+     * of COMPETITION event by passing 'eventId'.
+     */
+    private void getClubEventService() {
+
+        String strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
+
+        showPleaseWait("Please wait...");
+
+        aJsonParamsGetClubEvent = new AJsonParamsGetClubEvent();
+        aJsonParamsGetClubEvent.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsGetClubEvent.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsGetClubEvent.setEventId(strEventId);
+
+        getClubEventAPI = new GetClubEventAPI(getClientId(), "GETCLUBEVENT", aJsonParamsGetClubEvent, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getClubEvent(getClubEventAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                getClubEventSuccess(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                showAlertMessage("" + error);
+            }
+        });
+
+    }
+
+    /**
+     * Implements this method to handle success response of
+     * GetClubEvent service.
+     */
+    private void getClubEventSuccess(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<GetClubEventResponse>() {
+        }.getType();
+        getClubEventResponse = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (getClubEventResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                tvEventStatusStrDD.setText(strEventStatus);
+
+                tvDateCourseEvent.setText("" + strEventDate/*getClubEventResponse.getGetClubEventData().getEventDateStr()*/);
+                tvTimeCourseEvent.setText("" + getClubEventResponse.getGetClubEventData().getEventTime());
+                tvFeeCourseEvent.setText("" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
+                tvCombaseOfCompEvent.setText("" + getClubEventResponse.getGetClubEventData().getCompBasis());
+                tvDescCourseEvent.setText("" + getClubEventResponse.getGetClubEventData().getEventDescription());
+
+                tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");
+
+            } else {
+                //If web service not respond in any case.
+                showAlertMessage(unjoinItems.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+        hideProgress();
     }
 
     /**

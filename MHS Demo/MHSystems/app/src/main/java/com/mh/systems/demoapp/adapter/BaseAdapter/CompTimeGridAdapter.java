@@ -13,9 +13,11 @@ import android.widget.Button;
 
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.CompetitionEntryActivity;
+import com.mh.systems.demoapp.models.competitionsEntry.Slot;
 import com.mh.systems.demoapp.models.competitionsEntry.TimeSlots;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by karan@ucreate.co.in for Time slots Grid options.
@@ -28,13 +30,13 @@ public class CompTimeGridAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private Typeface tfRobotoMedium;
 
-    private ArrayList<TimeSlots> slotsArrayList = new ArrayList<>();
+    private List<Slot> slotArrayList = new ArrayList<>();
     private Button lastSelectedView = null;
 
-    public CompTimeGridAdapter(CompetitionEntryActivity mainActivity, ArrayList<TimeSlots> slotsArrayList) {
+    public CompTimeGridAdapter(CompetitionEntryActivity mainActivity, List<Slot> slotArrayList) {
 
         context = mainActivity;
-        this.slotsArrayList = slotsArrayList;
+        this.slotArrayList = slotArrayList;
 
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -43,7 +45,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return slotsArrayList.size();
+        return slotArrayList.size();
     }
 
     @Override
@@ -71,7 +73,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
         rowView = inflater.inflate(R.layout.grid_item_time_view, null);
 
         holder.btTimeSlot = (Button) rowView.findViewById(R.id.btTimeSlot);
-        holder.btTimeSlot.setText(slotsArrayList.get(position).getStrTimeOfEvent());
+        holder.btTimeSlot.setText(""+slotArrayList.get(position).getSlotStartTimeStr());
         holder.btTimeSlot.setTypeface(tfRobotoMedium);
 
         holder.btTimeSlot.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +89,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
                     }
                     holder.btTimeSlot.setTextColor(Color.parseColor("#ffffff"));
 
-                    slotsArrayList.get(position).setSelected(true);
+                    //slotsArrayList.get(position).setSelected(true);
 
                     if (lastSelectedView != null) {
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
@@ -96,7 +98,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
                             lastSelectedView.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
                         }
                         lastSelectedView.setTextColor(Color.parseColor("#000000"));
-                        slotsArrayList.get(position).setSelected(true);
+                      //  slotsArrayList.get(position).setSelected(true);
                     }
                     lastSelectedView = holder.btTimeSlot;
                 }

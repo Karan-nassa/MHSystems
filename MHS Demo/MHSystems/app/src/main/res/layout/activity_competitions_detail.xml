@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dp"
                     android:layout_marginTop="50dp"
-                    android:text="PLANNED"
+                    android:text=""
                     android:textAllCaps="true"
                     android:textColor="@color/colorC0995B"
                     android:textSize="14sp" />
@@ -54,7 +54,7 @@
                     android:layout_marginLeft="60dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="16dp"
-                    android:text="Adventure Club Competition"
+                    android:text=""
                     android:textColor="@color/colorWhiteffffff"
                     android:textSize="26sp" />
 
@@ -115,7 +115,7 @@
                         android:id="@+id/tvDateCourseEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Monday, 29th February 2016"
+                        android:text=""
                         android:textColor="@color/color030303"
                         android:textSize="16sp" />
 
@@ -126,7 +126,7 @@
                         android:id="@+id/tvTimeCourseEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10:00 - 14:00"
+                        android:text=""
                         android:textColor="@color/color030303"
                         android:textSize="16sp"
                         android:visibility="gone" />
@@ -163,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="25dp"
-                    android:text="£5 fee per player"
+                    android:text=""
                     android:textColor="@color/color030303"
                     android:textSize="17sp" />
 
@@ -195,7 +195,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="25dp"
-                    android:text="CONGU(tm), 18 Holes, 1 Round"
+                    android:text=""
                     android:textColor="@color/color030303"
                     android:textSize="17sp" />
 
@@ -228,7 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="25dp"
-                    android:text="Strokeplay"
+                    android:text=""
                     android:textColor="@color/color030303"
                     android:textSize="17sp" />
 
@@ -261,7 +261,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="30dp"
-                    android:text="In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis. In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis."
                     android:textColor="@color/color4A4A4A"
                     android:textSize="14sp" />
 

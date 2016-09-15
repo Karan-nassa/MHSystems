@@ -16,10 +16,14 @@ import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.BaseAdapter.CompTimeGridAdapter;
+import com.mh.systems.demoapp.models.competitionsEntry.Slot;
 import com.mh.systems.demoapp.models.competitionsEntry.TimeSlots;
 import com.mh.systems.demoapp.util.ExpandableHeightGridView;
+import com.newrelic.com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -88,7 +92,8 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     CompTimeGridAdapter compTimeGridAdapter;
 
-    ArrayList<TimeSlots> modelArrayList = new ArrayList<>();
+    //ArrayList<TimeSlots> modelArrayList = new ArrayList<>();
+    List<Slot> slotArrayList = new ArrayList<>();
 
     /**
      * Implements this method to call when user tap to Add Member.
@@ -168,23 +173,15 @@ public class CompetitionEntryActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        addStaticData();
-
-        gvTimeSlots.setExpanded(true);
-        compTimeGridAdapter = new CompTimeGridAdapter(CompetitionEntryActivity.this, modelArrayList);
-        gvTimeSlots.setAdapter(compTimeGridAdapter);
-
-        //Forcefully scroll UP of screen after loading.
-        svPlayerContent.post(new Runnable() {
-            public void run() {
-                svPlayerContent.fullScroll(View.FOCUS_UP);
-            }
-        });
+        //addStaticData();
 
         if (tbBookingDetail != null) {
             setSupportActionBar(tbBookingDetail);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+
+        updateTimeSlots();
 
         llPlayerGroup2.setOnClickListener(mPlayerSelectionListener);
         tvPlayerName2.setOnClickListener(mPlayerSelectionListener);
@@ -198,6 +195,31 @@ public class CompetitionEntryActivity extends BaseActivity {
         ivCrossPlayer2.setOnClickListener(mCrossListener);
         ivCrossPlayer3.setOnClickListener(mCrossListener);
         ivCrossPlayer4.setOnClickListener(mCrossListener);
+    }
+
+    /**
+     * Implements this method to get TEE time slots for book
+     * paid Competitions.
+     */
+    private void updateTimeSlots() {
+        List arrayList = null;
+        String jsonFavorites = getIntent().getExtras().getString("GET_CLUB_EVENT_RESPONSE");
+        Gson gson = new Gson();
+        Slot[] slots = gson.fromJson(jsonFavorites, Slot[].class);
+        arrayList = Arrays.asList(slots);
+        slotArrayList = new ArrayList(arrayList);
+       /* return (ArrayList) arrayList;*/
+
+        gvTimeSlots.setExpanded(true);
+        compTimeGridAdapter = new CompTimeGridAdapter(CompetitionEntryActivity.this, slotArrayList);
+        gvTimeSlots.setAdapter(compTimeGridAdapter);
+
+        //Forcefully scroll UP of screen after loading.
+        svPlayerContent.post(new Runnable() {
+            public void run() {
+                svPlayerContent.fullScroll(View.FOCUS_UP);
+            }
+        });
     }
 
     @Override
@@ -322,7 +344,7 @@ public class CompetitionEntryActivity extends BaseActivity {
         }
     }
 
-    private void addStaticData() {
+   /* private void addStaticData() {
 
         modelArrayList.clear();
 
@@ -331,7 +353,7 @@ public class CompetitionEntryActivity extends BaseActivity {
             TimeSlots timeSlots = new TimeSlots("10:" + jCounter, false);
             modelArrayList.add(timeSlots);
         }
-    }
+    }*/
 
 
 }
