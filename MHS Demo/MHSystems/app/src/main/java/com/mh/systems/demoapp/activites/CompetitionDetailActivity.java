@@ -100,7 +100,7 @@ public class CompetitionDetailActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    String strEventTitle, strEventLogo, strEventDate, strEventTime, strEventPrize, strEventDesc, strEventStatus;
+    String strEventTitle, strEventLogo, strEventDate, strEventTime, strEventPrize, strEventDesc, strEventStatus, strEventId, strMemberName;
     boolean isEventJoin, isJoinVisible, IsMemberJoined;
     int iPopItemPos;
 
@@ -159,6 +159,9 @@ public class CompetitionDetailActivity extends BaseActivity {
                     Gson gson = new Gson();
                     //Pass Time Slots to Book Tee Time.
                     intent.putExtra("GET_CLUB_EVENT_RESPONSE", gson.toJson(getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getSlots()));
+                    intent.putExtra("COMPETITIONS_eventId", strEventId);
+                    intent.putExtra("COMPETITIONS_EVENT_PRIZE", strEventPrize);
+                    intent.putExtra("COMPETITIONS_MEMBER_NAME", strMemberName);
                     startActivity(intent);
 
                     /**
@@ -228,14 +231,13 @@ public class CompetitionDetailActivity extends BaseActivity {
      */
     private void getClubEventService() {
 
-        String strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
-
         showPleaseWait("Please wait...");
 
         aJsonParamsGetClubEvent = new AJsonParamsGetClubEvent();
         aJsonParamsGetClubEvent.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsGetClubEvent.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsGetClubEvent.setEventId(strEventId);
+        aJsonParamsGetClubEvent.setMemberId(getMemberId());
 
         getClubEventAPI = new GetClubEventAPI(getClientId(), "GETCLUBEVENT", aJsonParamsGetClubEvent, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
@@ -293,6 +295,9 @@ public class CompetitionDetailActivity extends BaseActivity {
                 tvCombaseOfCompEvent.setText("" + getClubEventResponse.getGetClubEventData().getCompBasis());
                 tvDescCourseEvent.setText("" + getClubEventResponse.getGetClubEventData().getEventDescription());
 
+                strMemberName = getClubEventResponse.getGetClubEventData().getCompBasis();
+                Log.e("strMemberName", ""+strMemberName);
+
                 tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");
 
             } else {
@@ -319,6 +324,7 @@ public class CompetitionDetailActivity extends BaseActivity {
         strEventTime = getIntent().getExtras().getString("COMPETITIONS_EVENT_TIME");
         strEventDesc = getIntent().getExtras().getString("COMPETITIONS_EVENT_DESCRIPTION");
         strEventStatus = getIntent().getExtras().getString("COMPETITIONS_EventStatusStr");
+        strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
 
         isJoinVisible = getIntent().getExtras().getBoolean("COMPETITIONS_JOIN_STATE");
         IsMemberJoined = getIntent().getExtras().getBoolean("COMPETITIONS_IsMemberJoined");

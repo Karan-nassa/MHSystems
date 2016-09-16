@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -48,8 +49,11 @@ public class ClubNewsDetailActivity extends BaseActivity {
     @Bind(R.id.tvTimeOfNews)
     TextView tvTimeOfNews;
 
-    @Bind(R.id.tvDescOfNews)
-    TextView tvDescOfNews;
+   /* @Bind(R.id.tvDescOfNews)
+    TextView tvDescOfNews;*/
+
+    @Bind(R.id.wvClubNews)
+    WebView wvClubNews;
 
     Typeface tfSFUI_TextRegular;
 
@@ -82,9 +86,13 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
         tvDateOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
         //tvTimeOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
-        tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
+       // tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
         iClubNewsID = getIntent().getExtras().getInt("ClubNewsID");
         isRead = getIntent().getExtras().getBoolean("IsRead");
+
+        //data == html data which you want to load
+        wvClubNews.getSettings().setJavaScriptEnabled(true);
+        wvClubNews.loadDataWithBaseURL("", getIntent().getExtras().getString("Message"), "text/html", "UTF-8", "");
 
         //If user haven't read news then call READ API status.
         if (!isRead) {
@@ -245,7 +253,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
         tvDateOfNews.setTypeface(tfSFUI_TextRegular);
         tvTimeOfNews.setTypeface(tfSFUI_TextRegular);
-        tvDescOfNews.setTypeface(tfSFUI_TextRegular);
+        //tvDescOfNews.setTypeface(tfSFUI_TextRegular);
     }
 
     /**

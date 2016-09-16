@@ -12,21 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.activites.MembersBookingActivity;
 import com.mh.systems.demoapp.adapter.TabsAdapter.TabsPageAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 
 /**
- * {@Link MembersBookingTabFragment} provides {@link MembersFragment} and {@link FriendsFragment}
+ * {@Link EligiblePlayersTabFragment} provides {@link MembersFragment} and {@link FriendsFragment}
  * <br> {@link TabLayout.Tab} to display tabs choose MEMBERS/FRIENDS for COMPETITION entry.
  * <p/>
  */
-public class MembersBookingTabFragment extends Fragment {
+public class EligiblePlayersTabFragment extends Fragment {
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = MembersBookingTabFragment.class.getSimpleName();
+    public static final String LOG_TAG = EligiblePlayersTabFragment.class.getSimpleName();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -71,7 +70,7 @@ public class MembersBookingTabFragment extends Fragment {
     /**
      * Constructor to set dates.
      */
-    public MembersBookingTabFragment() {
+    public EligiblePlayersTabFragment() {
 
     }
 
@@ -84,7 +83,7 @@ public class MembersBookingTabFragment extends Fragment {
      * <br> 3.) MENS        : 2
      */
     @SuppressLint("ValidFragment")
-    public MembersBookingTabFragment(int action) {
+    public EligiblePlayersTabFragment(int action) {
         iMemberType = action;
     }
 

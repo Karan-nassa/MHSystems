@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,13 +16,13 @@ import android.widget.TextView;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.BaseAdapter.CompTimeGridAdapter;
 import com.mh.systems.demoapp.models.competitionsEntry.Slot;
-import com.mh.systems.demoapp.models.competitionsEntry.TimeSlots;
 import com.mh.systems.demoapp.util.ExpandableHeightGridView;
 import com.newrelic.com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,16 +34,16 @@ import butterknife.ButterKnife;
  */
 public class CompetitionEntryActivity extends BaseActivity {
 
-    String strNameOfMember;
-
     /**
      * iMemberPosition is used to keep record of which Member position user going to update so that
-     * update name of Member when get back from {@link MembersBookingActivity}.
+     * update name of Member when get back from {@link EligiblePlayersActivity}.
      */
     int iMemberPosition;
 
     //Holds the No. of players.
     int iTotalPlayers = 1;
+
+    String strEventId, strEventPrize, strMemberName;
 
     @Bind(R.id.tbBookingDetail)
     Toolbar tbBookingDetail;
@@ -60,6 +59,9 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     @Bind(R.id.gvTimeSlots)
     ExpandableHeightGridView gvTimeSlots;
+
+    @Bind(R.id.tvPlayerName1)
+    TextView tvPlayerName1;
 
     @Bind(R.id.llPlayerGroup2)
     LinearLayout llPlayerGroup2;
@@ -87,6 +89,9 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     @Bind(R.id.ivCrossPlayer4)
     ImageView ivCrossPlayer4;
+
+    @Bind(R.id.tvTeeTimeValue)
+    TextView tvTeeTimeValue;
 
     Intent intent;
 
@@ -127,7 +132,8 @@ public class CompetitionEntryActivity extends BaseActivity {
                     break;
             }
 
-            intent = new Intent(CompetitionEntryActivity.this, MembersBookingActivity.class);
+            intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
+            intent.putExtra("COMPETITIONS_eventId", strEventId);
             startActivityForResult(intent, 1);
         }
     };
@@ -162,7 +168,7 @@ public class CompetitionEntryActivity extends BaseActivity {
                 iTotalPlayers--;
             }
 
-            updatePrice();
+            updatePriceUI();
         }
     };
 
@@ -180,7 +186,13 @@ public class CompetitionEntryActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
+        strEventPrize = getIntent().getExtras().getString("COMPETITIONS_EVENT_PRIZE");
+        strMemberName = getIntent().getExtras().getString("COMPETITIONS_MEMBER_NAME");
 
+        tvPlayerName1.setText(strMemberName);
+
+        updatePriceUI();
         updateTimeSlots();
 
         llPlayerGroup2.setOnClickListener(mPlayerSelectionListener);
@@ -208,7 +220,6 @@ public class CompetitionEntryActivity extends BaseActivity {
         Slot[] slots = gson.fromJson(jsonFavorites, Slot[].class);
         arrayList = Arrays.asList(slots);
         slotArrayList = new ArrayList(arrayList);
-       /* return (ArrayList) arrayList;*/
 
         gvTimeSlots.setExpanded(true);
         compTimeGridAdapter = new CompTimeGridAdapter(CompetitionEntryActivity.this, slotArrayList);
@@ -246,6 +257,13 @@ public class CompetitionEntryActivity extends BaseActivity {
         return true;
     }
 
+    /**
+     * Update Tee Time Slot value.
+     */
+    public void updateTeeTimeValue(String SlotStartTimeStr) {
+        tvTeeTimeValue.setText(SlotStartTimeStr);
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
        /* if (requestCode == 1) {*/
@@ -258,7 +276,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     /**
      * Implements this method to update name of Member when user get back from
-     * {@link MembersBookingActivity} after choose Member/Friend.
+     * {@link EligiblePlayersActivity} after choose Member/Friend.
      */
     public void updateMemberName(String strNameOfMember) {
         switch (iMemberPosition) {
@@ -285,15 +303,18 @@ public class CompetitionEntryActivity extends BaseActivity {
             iTotalPlayers++;
         }
 
-        updatePrice();
+        updatePriceUI();
     }
 
     /**
      * Implements this method to update Price after select or remove Members.
      */
-    private void updatePrice() {
-        tvDetailPrice.setText("" + iTotalPlayers + "x £5.00");
-        tvTotalPrice.setText("£" + iTotalPlayers * 5 + ".00");
+    private void updatePriceUI() {
+        Scanner scannerInput = new Scanner(strEventPrize).useDelimiter("[^0-9]+");
+        int iPrizeVal = scannerInput.nextInt();
+
+        tvDetailPrice.setText("" + iTotalPlayers + "x "+ strEventPrize);
+        tvTotalPrice.setText("£" + (iTotalPlayers * iPrizeVal) + ".00");
     }
 
     /**
@@ -343,17 +364,4 @@ public class CompetitionEntryActivity extends BaseActivity {
             alert.show();
         }
     }
-
-   /* private void addStaticData() {
-
-        modelArrayList.clear();
-
-        for (int iCounter = 0; iCounter < 10; iCounter++) {
-            int jCounter = iCounter + 10;
-            TimeSlots timeSlots = new TimeSlots("10:" + jCounter, false);
-            modelArrayList.add(timeSlots);
-        }
-    }*/
-
-
 }

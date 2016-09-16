@@ -14,7 +14,6 @@ import android.widget.Button;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.CompetitionEntryActivity;
 import com.mh.systems.demoapp.models.competitionsEntry.Slot;
-import com.mh.systems.demoapp.models.competitionsEntry.TimeSlots;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,14 +72,14 @@ public class CompTimeGridAdapter extends BaseAdapter {
         rowView = inflater.inflate(R.layout.grid_item_time_view, null);
 
         holder.btTimeSlot = (Button) rowView.findViewById(R.id.btTimeSlot);
-        holder.btTimeSlot.setText(""+slotArrayList.get(position).getSlotStartTimeStr());
+        holder.btTimeSlot.setText("" + slotArrayList.get(position).getSlotStartTimeStr());
         holder.btTimeSlot.setTypeface(tfRobotoMedium);
 
         holder.btTimeSlot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(view != lastSelectedView) {
+                if (view != lastSelectedView) {
 
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                         holder.btTimeSlot.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
@@ -98,10 +97,13 @@ public class CompTimeGridAdapter extends BaseAdapter {
                             lastSelectedView.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
                         }
                         lastSelectedView.setTextColor(Color.parseColor("#000000"));
-                      //  slotsArrayList.get(position).setSelected(true);
+                        //  slotsArrayList.get(position).setSelected(true);
                     }
                     lastSelectedView = holder.btTimeSlot;
                 }
+
+                //Update Tee Time Slot value.
+                ((CompetitionEntryActivity) context).updateTeeTimeValue(holder.btTimeSlot.getText().toString());
             }
         });
 

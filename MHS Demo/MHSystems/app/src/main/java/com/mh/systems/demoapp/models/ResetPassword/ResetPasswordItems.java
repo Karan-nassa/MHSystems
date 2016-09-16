@@ -14,7 +14,7 @@ public class ResetPasswordItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("CompEligiblePlayersData")
     @Expose
     private Object data;
 
@@ -66,7 +66,7 @@ public class ResetPasswordItems {
     /**
      * 
      * @param data
-     *     The Data
+     *     The CompEligiblePlayersData
      */
     public void setData(Object data) {
         this.data = data;

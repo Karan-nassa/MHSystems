@@ -5,12 +5,11 @@ package com.mh.systems.demoapp.models.competitionsEntry;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class AJsonParamsGetClubEvent {
+public class AJsonParamsEligiblePlayers {
 
     @SerializedName("version")
     @Expose
-    private int version;
+    private Integer version;
     @SerializedName("callid")
     @Expose
     private String callid;
@@ -26,7 +25,7 @@ public class AJsonParamsGetClubEvent {
      * @return
      *     The version
      */
-    public int getVersion() {
+    public Integer getVersion() {
         return version;
     }
 
@@ -35,7 +34,7 @@ public class AJsonParamsGetClubEvent {
      * @param version
      *     The version
      */
-    public void setVersion(int version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 
@@ -76,7 +75,7 @@ public class AJsonParamsGetClubEvent {
     }
 
     /**
-     *
+     * 
      * @return
      *     The MemberId
      */
@@ -85,11 +84,12 @@ public class AJsonParamsGetClubEvent {
     }
 
     /**
-     *
+     * 
      * @param MemberId
      *     The MemberId
      */
     public void setMemberId(String MemberId) {
         this.MemberId = MemberId;
     }
+
 }

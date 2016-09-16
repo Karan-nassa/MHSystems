@@ -158,7 +158,7 @@
         <!-- COMPETITION ENTRY -->
 
         <activity
-            android:name=".activites.MembersBookingActivity"
+            android:name=".activites.EligiblePlayersActivity"
             android:screenOrientation="portrait" />
 
         <!-- [START gcm_receiver] -->

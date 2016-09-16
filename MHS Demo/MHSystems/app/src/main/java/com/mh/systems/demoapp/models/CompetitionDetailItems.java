@@ -14,7 +14,7 @@ public class CompetitionDetailItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("CompEligiblePlayersData")
     @Expose
     private CompResultData Data;
 
@@ -57,7 +57,7 @@ public class CompetitionDetailItems {
     /**
      * 
      * @return
-     *     The Data
+     *     The CompEligiblePlayersData
      */
     public CompResultData getCompResultData() {
         return Data;
@@ -66,7 +66,7 @@ public class CompetitionDetailItems {
     /**
      * 
      * @param Data
-     *     The Data
+     *     The CompEligiblePlayersData
      */
     public void setCompResultData(CompResultData Data) {
         this.Data = Data;

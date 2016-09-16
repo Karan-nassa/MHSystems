@@ -55,7 +55,7 @@ public class MyGcmListenerService extends GcmListenerService {
      * Called when message is received.
      *
      * @param from SenderID of the sender.
-     * @param data Data bundle containing message data as key/value pairs.
+     * @param data CompEligiblePlayersData bundle containing message data as key/value pairs.
      *             For Set of keys use data.keySet().
      */
     // [START receive_message]

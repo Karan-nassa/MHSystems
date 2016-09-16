@@ -13,7 +13,7 @@ public class FinanceResultItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("CompEligiblePlayersData")
     @Expose
     private FinanceData Data;
 
@@ -46,14 +46,14 @@ public class FinanceResultItems {
     }
 
     /**
-     * @return The Data
+     * @return The CompEligiblePlayersData
      */
     public FinanceData getData() {
         return Data;
     }
 
     /**
-     * @param Data The Data
+     * @param Data The CompEligiblePlayersData
      */
     public void setData(FinanceData Data) {
         this.Data = Data;

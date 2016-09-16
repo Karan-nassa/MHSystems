@@ -1,12 +1,12 @@
 
-package com.mh.systems.demoapp.models;
+package com.mh.systems.demoapp.models.competitionsEntry;
 
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class UnjoinItems {
+public class CompEligiblePlayersResponse {
 
     @SerializedName("Message")
     @Expose
@@ -14,14 +14,14 @@ public class UnjoinItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("CompEligiblePlayersData")
+    @SerializedName("Data")
     @Expose
-    private String Data;
+    private CompEligiblePlayersData Data;
 
     /**
      * 
      * @return
-     *     The message
+     *     The Message
      */
     public String getMessage() {
         return Message;
@@ -47,7 +47,7 @@ public class UnjoinItems {
 
     /**
      * 
-     * @param result
+     * @param Result
      *     The Result
      */
     public void setResult(Integer result) {
@@ -59,7 +59,7 @@ public class UnjoinItems {
      * @return
      *     The CompEligiblePlayersData
      */
-    public String getData() {
+    public CompEligiblePlayersData getData() {
         return Data;
     }
 
@@ -68,7 +68,7 @@ public class UnjoinItems {
      * @param Data
      *     The CompEligiblePlayersData
      */
-    public void setData(String data) {
+    public void setData(CompEligiblePlayersData data) {
         this.Data = Data;
     }
 

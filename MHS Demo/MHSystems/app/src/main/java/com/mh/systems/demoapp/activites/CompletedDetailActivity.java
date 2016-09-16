@@ -93,7 +93,7 @@ public class CompletedDetailActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    String strEventTitle, strEventLogo, strEventDate, strEventTime, strEventPrize, strEventDesc, strEventStatus;
+    String strEventTitle, strEventLogo, strEventDate, strEventTime, strEventPrize, strEventDesc, strEventStatus, strEventId;
     boolean isEventJoin, isJoinVisible, IsMemberJoined;
     int iPopItemPos;
 
@@ -156,6 +156,7 @@ public class CompletedDetailActivity extends BaseActivity {
         strEventTime = getIntent().getExtras().getString("COMPETITIONS_EVENT_TIME");
         strEventDesc = getIntent().getExtras().getString("COMPETITIONS_EVENT_DESCRIPTION");
         strEventStatus = getIntent().getExtras().getString("COMPETITIONS_EventStatusStr");
+        strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
 
         isJoinVisible = getIntent().getExtras().getBoolean("COMPETITIONS_JOIN_STATE");
         IsMemberJoined = getIntent().getExtras().getBoolean("COMPETITIONS_IsMemberJoined");
@@ -237,8 +238,6 @@ public class CompletedDetailActivity extends BaseActivity {
      * user not already JOINED.
      */
     private void callResultOfCompetitionWebService() {
-
-        String strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
 
         showPleaseWait("Please wait...");
 

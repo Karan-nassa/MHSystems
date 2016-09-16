@@ -16,19 +16,21 @@ import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.fragments.FriendsBookingFragment;
-import com.mh.systems.demoapp.fragments.MembersBookingFragment;
-import com.mh.systems.demoapp.fragments.MembersBookingTabFragment;
+import com.mh.systems.demoapp.fragments.EligibleFriendsFragment;
+import com.mh.systems.demoapp.fragments.EligibleMemberFragment;
+import com.mh.systems.demoapp.fragments.EligiblePlayersTabFragment;
 import com.mh.systems.demoapp.fragments.MembersTabFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Create {@link MembersBookingActivity} is used to display tabs named MEMBERS and FRIENDS
+ * Create {@link EligiblePlayersActivity} is used to display tabs named MEMBERS and FRIENDS
  * for Booking/Entry an Competition called from {@link CompetitionEntryActivity}
  */
-public class MembersBookingActivity extends BaseActivity {
+public class EligiblePlayersActivity extends BaseActivity {
+
+    String strEventId;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -61,7 +63,7 @@ public class MembersBookingActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_members_booking);
+        setContentView(R.layout.activity_eligible_players);
 
         //Initialize view resources.
         ButterKnife.bind(this);
@@ -72,6 +74,9 @@ public class MembersBookingActivity extends BaseActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        //Set Event Id.
+        setStrEventId(getIntent().getExtras().getString("COMPETITIONS_eventId"));
+
         /**
          *  If user back press on any other tab then app should
          *  open first tab by default when opening 'MEMBERS'.
@@ -79,7 +84,7 @@ public class MembersBookingActivity extends BaseActivity {
         MembersTabFragment.iLastTabPosition = 0;
 
         //Load Default fragment of Members Activity.
-        updateFragment(new MembersBookingTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
+        updateFragment(new EligiblePlayersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
     }
 
     @Override
@@ -89,8 +94,8 @@ public class MembersBookingActivity extends BaseActivity {
         /**
          *  CANCEL all tasks.
          */
-        if (MembersBookingFragment.mAdapter != null) {
-            MembersBookingFragment.mAdapter.mAsyncTaskThreadPool.cancelAllTasks(true);
+        if (EligibleMemberFragment.mAdapter != null) {
+            EligibleMemberFragment.mAdapter.mAsyncTaskThreadPool.cancelAllTasks(true);
         }
     }
 
@@ -185,14 +190,14 @@ public class MembersBookingActivity extends BaseActivity {
      */
     public void performSearch(final String queryText) {
 
-        if (getFragmentInstance() instanceof MembersBookingFragment) {
-            MembersBookingFragment.mAdapter.getFilter().filter(queryText);
-            MembersBookingFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
-            MembersBookingFragment.mAdapter.notifyDataSetChanged();
-        } else if (getFragmentInstance() instanceof FriendsBookingFragment) {
-            FriendsBookingFragment.mAdapter.getFilter().filter(queryText);
-            FriendsBookingFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
-            FriendsBookingFragment.mAdapter.notifyDataSetChanged();
+        if (getFragmentInstance() instanceof EligibleMemberFragment) {
+            EligibleMemberFragment.mAdapter.getFilter().filter(queryText);
+            EligibleMemberFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
+            EligibleMemberFragment.mAdapter.notifyDataSetChanged();
+        } else if (getFragmentInstance() instanceof EligibleFriendsFragment) {
+            EligibleFriendsFragment.mAdapter.getFilter().filter(queryText);
+            EligibleFriendsFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
+            EligibleFriendsFragment.mAdapter.notifyDataSetChanged();
         }
     }
 
@@ -217,9 +222,23 @@ public class MembersBookingActivity extends BaseActivity {
      * Send Selected Member name for paid Competition entry.
      */
     public void passMemberName(String strNameOfMember) {
-        Intent intent = new Intent(MembersBookingActivity.this, CompetitionEntryActivity.class);
+        Intent intent = new Intent(EligiblePlayersActivity.this, CompetitionEntryActivity.class);
         intent.putExtra("NAME_OF_MEMBER", strNameOfMember);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    /**
+     * @return The strEventId
+     */
+    public String getStrEventId() {
+        return strEventId;
+    }
+
+    /**
+     * @param strEventId The strEventId
+     */
+    public void setStrEventId(String strEventId) {
+        this.strEventId = strEventId;
     }
 }

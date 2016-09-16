@@ -20,6 +20,7 @@ import com.mh.systems.demoapp.models.MembersDetailAPI;
 import com.mh.systems.demoapp.models.FinanceAPI;
 import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.demoapp.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventAPI;
 
 import retrofit.Callback;
@@ -265,7 +266,7 @@ public interface WebServiceMethods {
     public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
 
     /**
-     * Declaration of get CLUB EVENT web service to get detail
+     * Declaration of GETCLUBEVENT web service to get detail
      * of COMPETITION event by passing 'eventId'.
      * <p/>
      * TYPE : POST
@@ -275,5 +276,17 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void getClubEvent(@Body GetClubEventAPI getClubEventAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of GETCOMPELIGIBLEPLAYERS web service to get eligible players list
+     * of COMPETITION event by passing 'eventId'.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param compEligiblePlayersAPI
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void getEligiblePlayersList(@Body CompEligiblePlayersAPI compEligiblePlayersAPI, Callback<JsonObject> response);
 }
 

@@ -89,6 +89,9 @@ public class GetClubEventData {
     @SerializedName("ClubEventStartSheet")
     @Expose
     private ClubEventStartSheet ClubEventStartSheet;
+    @SerializedName("MemberName")
+    @Expose
+    private String MemberName;
 
     /**
      * 
@@ -576,4 +579,21 @@ public class GetClubEventData {
         this.ClubEventStartSheet = ClubEventStartSheet;
     }
 
+    /**
+     *
+     * @return
+     * The MemberName
+     */
+    public String getMemberName() {
+        return MemberName;
+    }
+
+    /**
+     *
+     * @param memberName
+     * The MemberName
+     */
+    public void setMemberName(String MemberName) {
+        this.MemberName = MemberName;
+    }
 }
