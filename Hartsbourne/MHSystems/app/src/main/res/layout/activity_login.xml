@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGreyf1f1f0">
+    android:background="@drawable/background_hartsbourne_new">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="45"
-            android:background="@mipmap/background_hartsbourne"
+
             android:gravity="center"
             android:orientation="vertical">
 
@@ -52,7 +52,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="55"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorGreyf1f1f0">
 
 
             <!-- PLEASE LOGIN TEXT -->

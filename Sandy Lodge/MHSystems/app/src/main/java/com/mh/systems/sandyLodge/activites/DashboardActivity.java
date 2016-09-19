@@ -3,15 +3,16 @@ package com.mh.systems.sandyLodge.activites;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mh.systems.sandyLodge.R;
-import com.mh.systems.sandyLodge.adapter.BaseAdapter.DashboardGridAdapter;
+import com.mh.systems.sandyLodge.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.sandyLodge.constants.ApplicationGlobal;
 
 import butterknife.Bind;
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
  * Logout option. Basically, it will be use as the main screen of application
  * after Login.
  *
- * @author {@link karan@mh.co.in}
+ * @author {@link karan@ucreate.co.in}
  * @version 1.0
  */
 public class DashboardActivity extends BaseActivity {
@@ -30,9 +31,8 @@ public class DashboardActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-
     @Bind(R.id.gvMenuOptions)
-    GridView gvMenuOptions;
+    RecyclerView gvMenuOptions;
 
     @Bind(R.id.llLogoutBtn)
     LinearLayout llLogoutBtn;
@@ -43,8 +43,7 @@ public class DashboardActivity extends BaseActivity {
     @Bind(R.id.btSendFeedback)
     Button btSendFeedback;
 
-    //Instance of Grid Adapter.
-    DashboardGridAdapter mDashboardGridAdapter;
+    DashboardRecyclerAdapter dashboardRecyclerAdapter;
     Intent intent = null;
 
     TypedArray gridIcons;
@@ -55,46 +54,6 @@ public class DashboardActivity extends BaseActivity {
      *******************************/
 
     String gridTitles[];
-
-    /**
-     * Set click event listener of Grid Menu Options to
-     * use functionality.
-     */
-    private AdapterView.OnItemClickListener mGridItemListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            switch (position) {
-                case 0:
-                    intent = new Intent(DashboardActivity.this, YourAccountActivity.class);
-                    intent.putExtra("iTabPosition", 1);
-                    break;
-                case 1:
-                    intent = new Intent(DashboardActivity.this, CourseDiaryWebview.class);
-                    break;
-                case 2:
-                    intent = new Intent(DashboardActivity.this, CompetitionsActivity.class);
-                    break;
-                case 3:
-                    intent = new Intent(DashboardActivity.this, MembersActivity.class);
-                    break;
-
-                case 4:
-                    intent = new Intent(DashboardActivity.this, ClubNewsActivity.class);
-                    break;
-
-                case 5:
-                    intent = new Intent(DashboardActivity.this, YourAccountActivity.class);
-                    intent.putExtra("iTabPosition", 0);
-                    break;
-            }
-
-            //Check if intent not NULL then navigate to that selected screen.
-            if (intent != null) {
-                startActivity(intent);
-                intent = null;
-            }
-        }
-    };
 
     /**
      * Logout user from app and navigate back to
@@ -127,10 +86,24 @@ public class DashboardActivity extends BaseActivity {
          */
         ButterKnife.bind(DashboardActivity.this);
 
+        // Create a grid layout with two columns
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
+
+        // Create a custom SpanSizeLookup where the first item spans both columns
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return position == 0 || position == 1 ? 3 : 2;
+            }
+        });
+
+        // int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        // gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+
         setGridMenuOptions();
 
-        //Set Menu Options click event handle.
-        gvMenuOptions.setOnItemClickListener(mGridItemListener);
+        // Layout Managers:
+        gvMenuOptions.setLayoutManager(layoutManager);
 
         //LogOut listener.
         llLogoutBtn.setOnClickListener(mLogoutListener);
@@ -165,9 +138,37 @@ public class DashboardActivity extends BaseActivity {
         gridBackground = getResources().obtainTypedArray(R.array.gridBackgroundColors);
 
         //Set Grid options adapter.
-        mDashboardGridAdapter = new DashboardGridAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
-        gvMenuOptions.setAdapter(mDashboardGridAdapter);
+        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
 
-        // ScrollRecycleView.getListViewSize(gvMenuOptions);
+//         ScrollRecycleView.getListViewSize(gvMenuOptions);
     }
+
+    /**
+     *  Create this class to decorate Dashboard Grid items spacing.
+     *  Because above two grid items should be in center of below
+     *  three one.
+     */
+   /* public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+        private int space;
+
+        public SpacesItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view,
+                                   RecyclerView parent, RecyclerView.State state) {
+           // outRect.left = space;
+            //outRect.right = space;
+           // outRect.bottom = space;
+
+            // Add top margin only for the first item to avoid double space between items
+            if (parent.getChildLayoutPosition(view) == 0) {
+                outRect.left = space;
+            } else if (parent.getChildLayoutPosition(view) == 1)  {
+                outRect.right = space;
+            }
+        }
+    }*/
 }

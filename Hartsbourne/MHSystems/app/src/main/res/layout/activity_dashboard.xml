@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@drawable/background_hartsbourne_new">
 
 
     <!-- VIEW GROUP OF ALL RESOURCES -->
@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="55"
-            android:background="@mipmap/background_hartsbourne"
             android:orientation="vertical">
 
         <!-- FOR SETTINGS ICON ON LEFT SIDE VIEW GROUP -->

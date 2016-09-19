@@ -238,6 +238,7 @@ public class CompetitionDetailActivity extends BaseActivity {
         aJsonParamsGetClubEvent.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsGetClubEvent.setEventId(strEventId);
         aJsonParamsGetClubEvent.setMemberId(getMemberId());
+        aJsonParamsGetClubEvent.setLoginMemberId(getMemberId());
 
         getClubEventAPI = new GetClubEventAPI(getClientId(), "GETCLUBEVENT", aJsonParamsGetClubEvent, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 

@@ -20,6 +20,9 @@ public class AJsonParamsGetClubEvent {
     @SerializedName("MemberId")
     @Expose
     private String MemberId;
+    @SerializedName("LoginMemberId")
+    @Expose
+    private String LoginMemberId;
 
     /**
      * 
@@ -91,5 +94,23 @@ public class AJsonParamsGetClubEvent {
      */
     public void setMemberId(String MemberId) {
         this.MemberId = MemberId;
+    }
+
+    /**
+     *
+     * @param LoginMemberId
+     *     The LoginMemberId
+     */
+    public String getLoginMemberId() {
+        return LoginMemberId;
+    }
+
+    /**
+     *
+     * @return
+     *     The LoginMemberId
+     */
+    public void setLoginMemberId(String LoginMemberId) {
+        LoginMemberId = LoginMemberId;
     }
 }
