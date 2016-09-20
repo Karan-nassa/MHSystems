@@ -527,7 +527,7 @@ public class MemberDetailActivity extends BaseActivity {
      * then show FRIENDS icon in {@link FloatingActionButton} otherwise
      * show ADD FRIEND icon.
      *
-     * @param isfriend : TRUE, if FRIENDS
+     * @param isFriend : TRUE, if FRIENDS
      */
     private void updateIsFriendUI(boolean isFriend) {
 
@@ -592,7 +592,7 @@ public class MemberDetailActivity extends BaseActivity {
             tvHandicapPlayStr.setText(strHandCapPlay);
         }
 
-        tvHandicapTypeStr.setText(membersDetailItems.getData().getHCapTypeStr());
+        tvHandicapTypeStr.setText(membersDetailItems.getData().getMembershipStatus());
         tvMemberNameDD.setText(strNameOfMember);
         tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
 

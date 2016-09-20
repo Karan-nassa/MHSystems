@@ -60,7 +60,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
 /**
- * Created by karan@ucreate.co.in to load and display Graph and
+ * Created by karan@mh.co.in to load and display Graph and
  * Certificate of Handicap.
  */
 public class HandicapFragment extends Fragment implements OnChartValueSelectedListener {
@@ -80,7 +80,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      */
     private int mYearIndex;
 
-    private String TAG_DATA = "CompEligiblePlayersData";
+    private String TAG_DATA = "Data";
     private String TAG_HCAP_RECORDS = "HCapRecords";
     private String TAG_DATE_PLAYED_STR = "DatePlayedStr";
     private String TAG_COMPETITION_OR_REASON = "CompetitionOrReason";
@@ -207,7 +207,6 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         if (isVisibleToUser /*&& isClassVisible*/) {
             callHandicapWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(8);
-           // ((YourAccountActivity) getActivity()).setFragmentInstance(new HandicapFragment());
         }
     }
 
@@ -288,7 +287,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      */
     private void updateSuccessResponse(JsonObject jsonObject) {
 
-        //Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
         Type type = new TypeToken<HandicapResultItems>() {
         }.getType();

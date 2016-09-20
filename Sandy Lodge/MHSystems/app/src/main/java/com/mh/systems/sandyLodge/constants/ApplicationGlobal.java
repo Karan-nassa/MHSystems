@@ -112,7 +112,7 @@ public class ApplicationGlobal {
     /**
      * SHARED PREFERENCE KEY COLLECTION.
      */
-    public static final String SHARED_PREF = "MHSystemsPrefs_sunningdale";
+    public static final String SHARED_PREF = "MHSystemsPrefs_sandyLodge";
     public static final String KEY_USER_LOGINID = "UserLoginID";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_CLUB_ID = "ClubID";

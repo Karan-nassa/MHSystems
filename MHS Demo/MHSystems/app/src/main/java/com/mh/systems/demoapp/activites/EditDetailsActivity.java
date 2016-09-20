@@ -383,6 +383,7 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
             public void onClick(View v) {
                 // Close dialog
                 dialog.dismiss();
+                finish();
             }
         });
 

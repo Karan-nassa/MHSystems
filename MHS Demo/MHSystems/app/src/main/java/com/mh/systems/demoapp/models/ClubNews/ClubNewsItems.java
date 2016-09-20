@@ -15,7 +15,7 @@ public class ClubNewsItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("CompEligiblePlayersData")
+    @SerializedName("Data")
     @Expose
     private List<ClubNewsData> Data = new ArrayList<ClubNewsData>();
 
@@ -58,7 +58,7 @@ public class ClubNewsItems {
     /**
      * 
      * @return
-     *     The CompEligiblePlayersData
+     *     The Data
      */
     public List<ClubNewsData> getData() {
         return Data;
@@ -67,7 +67,7 @@ public class ClubNewsItems {
     /**
      * 
      * @param Data
-     *     The CompEligiblePlayersData
+     *     The Data
      */
     public void setData(List<ClubNewsData> Data) {
         this.Data = Data;

@@ -592,7 +592,7 @@ public class MemberDetailActivity extends BaseActivity {
             tvHandicapPlayStr.setText(strHandCapPlay);
         }
 
-        tvHandicapTypeStr.setText(membersDetailItems.getData().getHCapTypeStr());
+        tvHandicapTypeStr.setText(membersDetailItems.getData().getMembershipStatus());
         tvMemberNameDD.setText(strNameOfMember);
         tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
 

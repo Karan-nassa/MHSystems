@@ -330,6 +330,7 @@ public class EditToggleDetailActivity extends BaseActivity {
             public void onClick(View v) {
                 // Close dialog
                 dialog.dismiss();
+                finish();
             }
         });
 

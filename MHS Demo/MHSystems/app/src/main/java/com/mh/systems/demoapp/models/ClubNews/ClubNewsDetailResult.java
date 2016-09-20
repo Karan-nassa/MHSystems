@@ -14,7 +14,7 @@ public class ClubNewsDetailResult {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("CompEligiblePlayersData")
+    @SerializedName("Data")
     @Expose
     private String Data;
 
@@ -57,7 +57,7 @@ public class ClubNewsDetailResult {
     /**
      * 
      * @return
-     *     The CompEligiblePlayersData
+     *     The Data
      */
     public String getData() {
         return Data;
@@ -66,7 +66,7 @@ public class ClubNewsDetailResult {
     /**
      * 
      * @param Data
-     *     The CompEligiblePlayersData
+     *     The Data
      */
     public void setData(String Data) {
         this.Data = Data;

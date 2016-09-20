@@ -14,7 +14,7 @@ public class GetClubEventResponse {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("CompEligiblePlayersData")
+    @SerializedName("Data")
     @Expose
     private GetClubEventData Data;
 
@@ -57,7 +57,7 @@ public class GetClubEventResponse {
     /**
      * 
      * @return
-     *     The CompEligiblePlayersData
+     *     The Data
      */
     public GetClubEventData getGetClubEventData() {
         return Data;
@@ -66,7 +66,7 @@ public class GetClubEventResponse {
     /**
      * 
      * @param Data
-     *     The CompEligiblePlayersData
+     *     The Data
      */
     public void setGetClubEventData(GetClubEventData Data) {
         this.Data = Data;

@@ -283,7 +283,7 @@ public class MyDetailsFragment extends Fragment {
         strUsernameOfPerson = membersDetailItems.getData().getUserLoginID();
         strNameOfPerson = membersDetailItems.getData().getNameRecord().getFormalName();
         strMobileContactOfPerson = membersDetailItems.getData().getContactDetails().getTelNoMob();
-        strStreetOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getLine2();
+        strStreetOfPerson = membersDetailItems.getData().getContactDetails().getAddress().getAsLine();
         strEmailOfPerson = membersDetailItems.getData().getContactDetails().getEMail();
         strTypeOfPerson = membersDetailItems.getData().getMembershipStatus();
 

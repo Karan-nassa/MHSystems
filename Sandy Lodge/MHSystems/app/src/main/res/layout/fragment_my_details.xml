@@ -234,7 +234,8 @@
                     <com.mh.systems.sandyLodge.customfonts.RobotoTextView
                         android:id="@+id/tvStreetOfPerson"
                         style="@style/MyDetailValues"
-                        android:layout_width="200dp" />
+                        android:layout_marginRight="20dp"
+                        android:layout_width="match_parent" />
 
                 </LinearLayout>
 
