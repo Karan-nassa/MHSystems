@@ -19,3 +19,19 @@
 - York: 44132036
 - Halesworth: 44117109
 - Sunningdale: 44118078
+
+###Having Course Diary
+> Here is the list of Golf Clubs having Course Diary functionality on Dashboard.
+- Sunningdale
+- MHS GOLF (DemoApp)
+- Halesworth
+- Porters Park
+
+###Without Course Diary
+> Here is the list of Golf Clubs who haven't Course Diary functionality on Dashboard.
+- Hartsbourne
+- Brokenhurst
+- Sandy Lodge
+- York
+
+

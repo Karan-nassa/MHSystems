@@ -25,7 +25,7 @@ public class EligiblePlayersTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = EligiblePlayersTabFragment.class.getSimpleName();
+    public final String LOG_TAG = EligiblePlayersTabFragment.class.getSimpleName();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -41,7 +41,7 @@ public class EligiblePlayersTabFragment extends Fragment {
     //To Record of which SPINNER item selected "All", "Ladies" or "Gentlemen's".
     public static int iMemberType;
 
-    public static int iLastTabPosition;
+    public int iLastTabPosition;
 
     /**
      * Declare three bool instances to call api

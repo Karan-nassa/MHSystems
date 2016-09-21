@@ -97,15 +97,34 @@
                     android:textColor="#4B4B49"
                     android:textSize="16sp" />
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
-                    android:id="@+id/tvTeeTimeValue"
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="45"
-                    android:gravity="right|end"
-                    android:textColor="#4B4B49"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_weight="45">
+
+                    <com.mh.systems.demoapp.customfonts.RobotoTextFontBold
+                        android:id="@+id/tvTeeTimeValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|end"
+                        android:textColor="#4B4B49"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- SELECT text as hint to select Tee Time Slot -->
+
+                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                        android:id="@+id/tvSelectHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|end"
+                        android:text="Select"
+                        android:textColor="#4B4B49"
+                        android:alpha="0.5"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -274,14 +293,14 @@
                             android:layout_marginRight="30dp">
 
 
-                        <com.mh.systems.demoapp.customfonts.RobotoTextView
-                            android:id="@+id/tvPlayerName3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="left"
-                            android:text="Add (optionaly)"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
+                            <com.mh.systems.demoapp.customfonts.RobotoTextView
+                                android:id="@+id/tvPlayerName3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:text="Add (optionaly)"
+                                android:textColor="#000000"
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -335,14 +354,14 @@
                             android:layout_marginRight="30dp">
 
 
-                        <com.mh.systems.demoapp.customfonts.RobotoTextView
-                            android:id="@+id/tvPlayerName4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="left"
-                            android:text="Add (optionaly)"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
+                            <com.mh.systems.demoapp.customfonts.RobotoTextView
+                                android:id="@+id/tvPlayerName4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:text="Add (optionaly)"
+                                android:textColor="#000000"
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 

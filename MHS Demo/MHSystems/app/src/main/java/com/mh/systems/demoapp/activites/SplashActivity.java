@@ -63,7 +63,7 @@ public class SplashActivity extends BaseActivity {
 
 
 
-        strUserName = loadPreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, "");
+        strUserName = loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "");
 
         /**
          *  SPLASH FUNCTIONALITY.

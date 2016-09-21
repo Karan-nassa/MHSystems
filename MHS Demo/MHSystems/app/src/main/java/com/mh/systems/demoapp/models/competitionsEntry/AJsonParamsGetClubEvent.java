@@ -111,6 +111,6 @@ public class AJsonParamsGetClubEvent {
      *     The LoginMemberId
      */
     public void setLoginMemberId(String LoginMemberId) {
-        LoginMemberId = LoginMemberId;
+        this.LoginMemberId = LoginMemberId;
     }
 }

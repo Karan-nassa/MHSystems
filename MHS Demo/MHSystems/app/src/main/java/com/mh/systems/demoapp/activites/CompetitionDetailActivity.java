@@ -158,10 +158,11 @@ public class CompetitionDetailActivity extends BaseActivity {
                     Intent intent = new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class);
                     Gson gson = new Gson();
                     //Pass Time Slots to Book Tee Time.
-                    intent.putExtra("GET_CLUB_EVENT_RESPONSE", gson.toJson(getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getSlots()));
+                    intent.putExtra("GET_CLUB_EVENT_RESPONSE", gson.toJson(getClubEventResponse.getGetClubEventData().getClubEventStartSheet()));
                     intent.putExtra("COMPETITIONS_eventId", strEventId);
                     intent.putExtra("COMPETITIONS_EVENT_PRIZE", strEventPrize);
                     intent.putExtra("COMPETITIONS_MEMBER_NAME", strMemberName);
+                    intent.putExtra("COMPETITIONS_IsTeeTimeSlotsAllowed", getClubEventResponse.getGetClubEventData().getIsTeeTimeSlotsAllowed());
                     startActivity(intent);
 
                     /**
@@ -191,15 +192,6 @@ public class CompetitionDetailActivity extends BaseActivity {
         //Initialize resouces.
         initializeResources();
 
-        /**
-         *  Check internet connection before hitting server request.
-         */
-        if (isOnline(CompetitionDetailActivity.this)) {
-            getClubEventService();
-        } else {
-            showAlertMessage(getResources().getString(R.string.error_no_internet));
-        }
-
         setSupportActionBar(toolbarComp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -223,6 +215,20 @@ public class CompetitionDetailActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (isOnline(CompetitionDetailActivity.this)) {
+            getClubEventService();
+        } else {
+            showAlertMessage(getResources().getString(R.string.error_no_internet));
+        }
     }
 
     /**
@@ -296,7 +302,7 @@ public class CompetitionDetailActivity extends BaseActivity {
                 tvCombaseOfCompEvent.setText("" + getClubEventResponse.getGetClubEventData().getCompBasis());
                 tvDescCourseEvent.setText("" + getClubEventResponse.getGetClubEventData().getEventDescription());
 
-                strMemberName = getClubEventResponse.getGetClubEventData().getCompBasis();
+                strMemberName = getClubEventResponse.getGetClubEventData().getMemberName();
                 Log.e("strMemberName", ""+strMemberName);
 
                 tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");

@@ -147,7 +147,7 @@ public class CompetitionsAdapter extends BaseAdapter {
             /* EXECUTE FOR COMPLETED */
 
             /**
-             *  For now hiding Player name and position because its static at back-end.
+             *  For now hiding Players name and position because its static at back-end.
              */
 
             viewHolder.tvNameTitle.setText(compititionsDatas.get(position).getPlayerPosition() + " " + compititionsDatas.get(position).getPlayerName());

@@ -22,6 +22,7 @@ import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.demoapp.models.TogglePrivacy.TogglePrivacyAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventAPI;
+import com.mh.systems.demoapp.models.competitionsEntry.UpdateCompEntryAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -288,5 +289,17 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void getEligiblePlayersList(@Body CompEligiblePlayersAPI compEligiblePlayersAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of UPDATECLUBEVENTENTRIES web service to update paid Competition Entry
+     * of COMPETITION.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param updateCompEntryAPI
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void updateCompEntry(@Body UpdateCompEntryAPI updateCompEntryAPI, Callback<JsonObject> response);
 }
 

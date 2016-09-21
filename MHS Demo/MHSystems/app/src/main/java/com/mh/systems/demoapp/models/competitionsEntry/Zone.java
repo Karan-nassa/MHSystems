@@ -37,6 +37,9 @@ public class Zone {
     @SerializedName("Slots")
     @Expose
     private List<Slot> Slots = new ArrayList<Slot>();
+    @SerializedName("Team")
+    @Expose
+    private Team Team;
 
     /**
      * 
@@ -200,4 +203,21 @@ public class Zone {
         this.Slots = Slots;
     }
 
+    /**
+     *
+     * @return
+     *     The Team
+     */
+    public Team getTeam() {
+        return Team;
+    }
+
+    /**
+     *
+     * @param Team
+     *     The Team
+     */
+    public void setTeam(Team Team) {
+        this.Team = Team;
+    }
 }

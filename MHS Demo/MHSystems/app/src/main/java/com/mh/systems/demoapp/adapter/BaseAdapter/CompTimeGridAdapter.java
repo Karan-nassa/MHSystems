@@ -32,6 +32,8 @@ public class CompTimeGridAdapter extends BaseAdapter {
     private List<Slot> slotArrayList = new ArrayList<>();
     private Button lastSelectedView = null;
 
+    private int iLastSelectedTimeSlot;
+
     public CompTimeGridAdapter(CompetitionEntryActivity mainActivity, List<Slot> slotArrayList) {
 
         context = mainActivity;
@@ -103,7 +105,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
                 }
 
                 //Update Tee Time Slot value.
-                ((CompetitionEntryActivity) context).updateTeeTimeValue(holder.btTimeSlot.getText().toString());
+                ((CompetitionEntryActivity) context).updateTeeTimeValue(iLastSelectedTimeSlot);
             }
         });
 
