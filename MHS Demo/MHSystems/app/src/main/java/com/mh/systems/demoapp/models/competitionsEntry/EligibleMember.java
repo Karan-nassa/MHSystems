@@ -41,6 +41,8 @@ public class EligibleMember {
     @Expose
     private String HCapTypeStr;
 
+    boolean isMemberSelected;
+
     /**
      * 
      * @return
@@ -239,4 +241,21 @@ public class EligibleMember {
         this.HCapTypeStr = HCapTypeStr;
     }
 
+    /**
+     *
+     * @return
+     *     The isMemberSelected
+     */
+    public boolean getIsMemberSelected() {
+        return isMemberSelected;
+    }
+
+    /**
+     *
+     * @param isMemberSelected
+     *     The isMemberSelected
+     */
+    public void setIsMemberSelected(boolean isMemberSelected) {
+        this.isMemberSelected = isMemberSelected;
+    }
 }

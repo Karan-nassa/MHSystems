@@ -45,6 +45,21 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+/**
+ * Created {@link CompetitionDetailActivity} to display detail screen of
+ * <br>- <b>UPCOMING COMPETITION</b>
+ * <br>- <b>ENTERED COMPETITION</b>
+ * <p>
+ * First hit 'GETCLUBEVENT' web service to get the detail of selected
+ * COMPETITION. This web service get back with some imp. param like:
+ * <br>- <b>AllowCompEntrySelfEntryModeStr</b>
+ * <br>- <b>AllowCompEntryAdHocSelection</b> : User has ability to add another Members.
+ * <br>- <b>IsEntryAllowed</b> : It describes about entry status OPEN/CLOSE. TRUE means OPEN.
+ * <br>- <b>ZoneID</b> : ZoneID used to UPDATE/SAVE booking entry.
+ * <br>- <b>TeamSize</b> : Size of Team would be added.
+ * <p>
+ * If user already ENTERED for COMPETITION then user can UPDATE only.
+ */
 public class CompetitionDetailActivity extends BaseActivity {
 
     private final String LOG_TAG = CompetitionDetailActivity.class.getSimpleName();
@@ -163,6 +178,7 @@ public class CompetitionDetailActivity extends BaseActivity {
                     intent.putExtra("COMPETITIONS_EVENT_PRIZE", strEventPrize);
                     intent.putExtra("COMPETITIONS_MEMBER_NAME", strMemberName);
                     intent.putExtra("COMPETITIONS_IsTeeTimeSlotsAllowed", getClubEventResponse.getGetClubEventData().getIsTeeTimeSlotsAllowed());
+                    intent.putExtra("COMPETITIONS_TeamSize", getClubEventResponse.getGetClubEventData().getTeamSize());
                     startActivity(intent);
 
                     /**
@@ -303,7 +319,7 @@ public class CompetitionDetailActivity extends BaseActivity {
                 tvDescCourseEvent.setText("" + getClubEventResponse.getGetClubEventData().getEventDescription());
 
                 strMemberName = getClubEventResponse.getGetClubEventData().getMemberName();
-                Log.e("strMemberName", ""+strMemberName);
+                Log.e("strMemberName", "" + strMemberName);
 
                 tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");
 
@@ -378,7 +394,7 @@ public class CompetitionDetailActivity extends BaseActivity {
             switch (iPopItemPos) {
                 case 0:
                     if (IsMemberJoined) {
-                        fabJoinCompetition.setImageResource(R.mipmap.ic_friends);
+                        fabJoinCompetition.setImageResource(R.mipmap.ic_enteredcompetition);
                         fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
                     }
                     break;

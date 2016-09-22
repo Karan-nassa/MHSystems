@@ -26,11 +26,35 @@
 
             <!-- USE COMMON VIEW TO DISPLAY TAB DATA -->
 
-            <include
-                android:id="@+id/container"
-                layout="@layout/include_container_view"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include
+                    android:id="@+id/container"
+                    layout="@layout/include_container_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/llBottomDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorBDB6AE"
+                    android:gravity="center">
+
+                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                        android:id="@+id/tvAddPlayerDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:textColor="@color/colorF9F8F7"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <!-- NO INTERNET CONNECTION VIEW -->
 

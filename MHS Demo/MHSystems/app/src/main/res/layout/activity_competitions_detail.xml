@@ -210,6 +210,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -328,8 +329,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#CCCCCC"
-                        android:src="@mipmap/ic_friend_pending" />
+                        android:src="@mipmap/ic_clock" />
 
                     <!-- List of People -->
 

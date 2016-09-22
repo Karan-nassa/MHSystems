@@ -13,4 +13,13 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 
+    <!-- DONE MEMBER SELECTION -->
+
+    <item
+        android:id="@+id/action_done"
+        android:icon="@mipmap/ic_done"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="always" />
+
 </menu>

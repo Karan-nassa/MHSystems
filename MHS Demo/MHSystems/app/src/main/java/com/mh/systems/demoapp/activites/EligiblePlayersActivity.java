@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ import com.mh.systems.demoapp.fragments.EligibleFriendsFragment;
 import com.mh.systems.demoapp.fragments.EligibleMemberFragment;
 import com.mh.systems.demoapp.fragments.EligiblePlayersTabFragment;
 import com.mh.systems.demoapp.fragments.MembersTabFragment;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,11 +35,26 @@ public class EligiblePlayersActivity extends BaseActivity {
 
     String strEventId;
 
+    /**
+     * iTeamSize is the size of Members that user can select whereas iTotalAddedMembers is the number
+     * of Members that can be selected more.
+     */
+    public static int iTeamSize, iTotalAddedMembers;
+
+    //Used this {@link ArrayList} to record of Selected Member list.
+    ArrayList<Integer> selectedMemberList = new ArrayList<>();
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
     @Bind(R.id.toolBarMembers)
     Toolbar toolBarMembers;
+
+    @Bind(R.id.llBottomDesc)
+    LinearLayout llBottomDesc;
+
+    @Bind(R.id.tvAddPlayerDesc)
+    TextView tvAddPlayerDesc;
 
      /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
@@ -60,6 +78,8 @@ public class EligiblePlayersActivity extends BaseActivity {
      */
     Fragment fragmentInstance;
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +96,10 @@ public class EligiblePlayersActivity extends BaseActivity {
 
         //Set Event Id.
         setStrEventId(getIntent().getExtras().getString("COMPETITIONS_eventId"));
+
+        iTeamSize = getIntent().getExtras().getInt("COMPETITIONS_TeamSize");
+        iTotalAddedMembers = iTeamSize;
+        tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
 
         /**
          *  If user back press on any other tab then app should
@@ -141,12 +165,19 @@ public class EligiblePlayersActivity extends BaseActivity {
                 onBackPressed();
                 break;
 
+            case R.id.action_done:
+                intent = new Intent(EligiblePlayersActivity.this, CompetitionEntryActivity.class);
+                intent.putIntegerArrayListExtra("NAME_OF_MEMBER", selectedMemberList);
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+
             case R.id.action_search:
                 String url = null;
 
                 if (url == null)
                     return true;
-                final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 startActivity(intent);
@@ -240,5 +271,21 @@ public class EligiblePlayersActivity extends BaseActivity {
      */
     public void setStrEventId(String strEventId) {
         this.strEventId = strEventId;
+    }
+
+    /**
+     * Implements this method to Add Member to ArrayList.
+     */
+    public void addMemberToList(int iMemberID) {
+        selectedMemberList.add(iMemberID);
+        tvAddPlayerDesc.setText("You can add " + --iTotalAddedMembers + " more players");
+    }
+
+    /**
+     * Implements this method to Remove Member from ArrayList.
+     */
+    public void removeMemberFromList(int iMemberID) {
+        //selectedMemberList.remove(iMemberID);
+        tvAddPlayerDesc.setText("You can add " + ++iTotalAddedMembers + " more players");
     }
 }

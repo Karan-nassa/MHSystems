@@ -12,6 +12,8 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -87,48 +89,16 @@ public class EligibleFriendsFragment extends Fragment {
 
         phlvFriends = (PinnedHeaderListView) viewRootFragment.findViewById(R.id.phlvFriends);
 
-        return viewRootFragment;
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isVisibleToUser) {
-
-            ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleFriendsFragment());
-
-            callWebService();
-        }
-    }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        //Refresh data after REMOVE friend from detail screen.
-//        // if (MemberDetailActivity.isRefreshData) {
-//        ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
-//        MemberDetailActivity.isRefreshData = false;
-//
-//        callWebService();
-//        // }
-//    }
-
-    /**
-     * Implements a method to call web service after check
-     * INTERNET connection.
-     */
-    public void callWebService() {
-
+        ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleFriendsFragment());
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             ((EligiblePlayersActivity) getActivity()).updateNoInternetUI(true);
-           // MemberDetailActivity.isRefreshData = false;
             //Method to hit Members list API.
             requestFriendService();
         } else {
             ((EligiblePlayersActivity) getActivity()).updateNoInternetUI(false);
         }
+
+        return viewRootFragment;
     }
 
     /**
@@ -143,7 +113,7 @@ public class EligibleFriendsFragment extends Fragment {
         aJsonParamsEligiblePlayers.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsEligiblePlayers.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsEligiblePlayers.setMemberId(((EligiblePlayersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
-        aJsonParamsEligiblePlayers.setEventId(((EligiblePlayersActivity)getActivity()).getStrEventId());
+        aJsonParamsEligiblePlayers.setEventId(((EligiblePlayersActivity) getActivity()).getStrEventId());
 
         compEligiblePlayersAPI = new CompEligiblePlayersAPI(getClientId(), "GETCOMPELIGIBLEPLAYERS", aJsonParamsEligiblePlayers, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
@@ -315,39 +285,55 @@ public class EligibleFriendsFragment extends Fragment {
 
         @Override
         public View getView(final int position, final View convertView, final ViewGroup parent) {
-            final ViewHolder holder;
+            ViewHolder holder;
             final View rootView;
             final EligibleMember contact;
-            if (convertView == null) {
 
-                ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleFriendsFragment());
+            ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleFriendsFragment());
 
-                holder = new ViewHolder();
+            holder = new ViewHolder();
 
-                rootView = mInflater.inflate(R.layout.list_item_alphabets_member, parent, false);
+            rootView = mInflater.inflate(R.layout.list_item_alpha_eligible_member, parent, false);
 
-                holder.friendProfileCircularContactView = (CircularContactView) rootView
-                        .findViewById(R.id.listview_item__friendPhotoImageView);
+            holder.friendProfileCircularContactView = (CircularContactView) rootView.findViewById(R.id.listview_item__friendPhotoImageView);
+            holder.friendProfileCircularContactView.getTextView().setTextColor(0xFFffffff);
 
-                holder.friendProfileCircularContactView.getTextView().setTextColor(0xFFffffff);
+            holder.friendName = (TextView) rootView.findViewById(R.id.listview_item__friendNameTextView);
+            holder.tvPlayHCapStr = (TextView) rootView.findViewById(R.id.tvPlayHCapStr);
+            holder.headerView = (TextView) rootView.findViewById(R.id.header_text);
 
-                holder.friendName = (TextView) rootView
-                        .findViewById(R.id.listview_item__friendNameTextView);
-                holder.tvPlayHCapStr = (TextView) rootView
-                        .findViewById(R.id.tvPlayHCapStr);
+            holder.cbSelectedMember = (CheckBox) rootView.findViewById(R.id.cbSelectedMember);
 
-                holder.headerView = (TextView) rootView.findViewById(R.id.header_text);
+            rootView.setTag(holder);
 
-                rootView.setTag(holder);
-            } else {
-                rootView = convertView;
-                holder = (ViewHolder) rootView.getTag();
-            }
+            holder = (ViewHolder) rootView.getTag();
             contact = getItem(position);
             if (contact != null) {
                 final String displayName = contact.getFullName();
                 holder.friendName.setText(displayName);
                 holder.tvPlayHCapStr.setText(contact.getPlayHCapStr());
+                holder.cbSelectedMember.setChecked(contact.getIsMemberSelected());
+
+                holder.cbSelectedMember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        if (EligiblePlayersActivity.iTotalAddedMembers < EligiblePlayersActivity.iTeamSize) {
+
+                            if (isChecked) {
+                                ((EligiblePlayersActivity) getActivity()).addMemberToList(eligibleMemberArrayList.get(position).getMemberID());
+                                // selectedMemberList.add(eligibleMemberArrayList.get(position).getMemberID());
+                                //displaySelecteMemberList();
+                            } else {
+                                ((EligiblePlayersActivity) getActivity()).removeMemberFromList(eligibleMemberArrayList.get(position).getMemberID());
+                                //selectedMemberList.remove();
+                                //displaySelecteMemberList();
+                            }
+
+                            eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);
+                        }
+                    }
+                });
 
 //            boolean hasPhoto = !TextUtils.isEmpty(contact.getPlayHCapStr());
 //            if (holder.updateTask != null && !holder.updateTask.isCancelled())
@@ -393,14 +379,15 @@ public class EligibleFriendsFragment extends Fragment {
 //            }
                 bindSectionHeader(holder.headerView, null, position);
 
-                rootView.setOnClickListener(new View.OnClickListener() {
+               /* rootView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        ((EligiblePlayersActivity)getActivity()).passMemberName(contact.getFullName());
+                        ((EligiblePlayersActivity) getActivity()).passMemberName(contact.getFullName());
                     }
-                });
+                });*/
             }
+
             return rootView;
         }
 
@@ -424,6 +411,7 @@ public class EligibleFriendsFragment extends Fragment {
         class ViewHolder {
             public CircularContactView friendProfileCircularContactView;
             TextView friendName, headerView, tvPlayHCapStr;
+            CheckBox cbSelectedMember;
             public AsyncTaskEx<Void, Void, Bitmap> updateTask;
         }
     }

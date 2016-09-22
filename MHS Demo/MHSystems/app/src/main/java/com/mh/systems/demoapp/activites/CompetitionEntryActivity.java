@@ -66,7 +66,7 @@ public class CompetitionEntryActivity extends BaseActivity {
     int iTotalPlayers = 1;
 
     String strEventId, strEventPrize, strMemberName;
-    int iZoneId, iSlotNo = -1;
+    int iZoneId, iSlotNo = -1, iTeamSize;
 
     @Bind(R.id.tbBookingDetail)
     Toolbar tbBookingDetail;
@@ -169,6 +169,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
             intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
             intent.putExtra("COMPETITIONS_eventId", strEventId);
+            intent.putExtra("COMPETITIONS_TeamSize", iTeamSize);
             startActivityForResult(intent, 1);
         }
     };
@@ -224,6 +225,7 @@ public class CompetitionEntryActivity extends BaseActivity {
         strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
         strEventPrize = getIntent().getExtras().getString("COMPETITIONS_EVENT_PRIZE");
         strMemberName = getIntent().getExtras().getString("COMPETITIONS_MEMBER_NAME");
+        iTeamSize = getIntent().getExtras().getInt("COMPETITIONS_TeamSize");
 
         tvPlayerName1.setText(strMemberName);
 
@@ -250,7 +252,6 @@ public class CompetitionEntryActivity extends BaseActivity {
      */
     private void updateTimeSlots() {
 
-        List arrayList = null;
         String jsonFavorites = getIntent().getExtras().getString("GET_CLUB_EVENT_RESPONSE");
         Gson gson = new Gson();
         ClubEventStartSheet clubEventStartSheet = gson.fromJson(jsonFavorites, ClubEventStartSheet.class);
@@ -316,7 +317,15 @@ public class CompetitionEntryActivity extends BaseActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            updateMemberName(data.getStringExtra("NAME_OF_MEMBER"));
+            //Add Member Id's of Players List.
+            playersArrayList.add(Integer.parseInt(getMemberId()));
+            playersArrayList.addAll(data.getIntegerArrayListExtra("NAME_OF_MEMBER"));
+
+            for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
+                Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter));
+            }
+
+            // updateMemberName(data.getStringExtra("NAME_OF_MEMBER"));
         }
     }
 
@@ -436,9 +445,6 @@ public class CompetitionEntryActivity extends BaseActivity {
      */
     private void callUpdateEntryService() {
 
-        //Add Member Id's of Players List.
-        playersArrayList.add(Integer.parseInt(getMemberId()));
-
         showPleaseWait("Please wait...");
 
         aJsonParamsUpdateEntry = new AJsonParamsUpdateEntry();
@@ -450,7 +456,7 @@ public class CompetitionEntryActivity extends BaseActivity {
         aJsonParamsUpdateEntry.setSlotNo(iSlotNo);
         aJsonParamsUpdateEntry.setZoneId(iZoneId);
 
-        updateCompEntryAPI = new UpdateCompEntryAPI(getClientId(), "UPDATECLUBEVENTENTRIES", aJsonParamsUpdateEntry, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        updateCompEntryAPI = new UpdateCompEntryAPI(getClientId(), "ADDCLUBEVENTENTRIES", aJsonParamsUpdateEntry, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()

@@ -12,6 +12,8 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -86,29 +88,17 @@ public class EligibleMemberFragment extends Fragment {
 
         mPinnedHeaderListView = (PinnedHeaderListView) viewRootFragment.findViewById(R.id.lvMembersList);
 
-        return viewRootFragment;
-    }
+        ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isVisibleToUser) {
-
-            /**
-             *  Check internet connection before hitting server request.
-             */
-            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                //((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
-
-                //Method to hit Members list API.
-                requestMemberService();
-                ((EligiblePlayersActivity) getActivity()).updateNoInternetUI(true);
-            } else {
-                ((EligiblePlayersActivity) getActivity()).updateNoInternetUI(false);
-                //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
-            }
+        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            //Method to hit Members list API.
+            requestMemberService();
+            ((EligiblePlayersActivity) getActivity()).updateNoInternetUI(true);
+        } else {
+            ((EligiblePlayersActivity) getActivity()).updateNoInternetUI(false);
         }
+
+        return viewRootFragment;
     }
 
     /**
@@ -122,7 +112,7 @@ public class EligibleMemberFragment extends Fragment {
         aJsonParamsEligiblePlayers.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsEligiblePlayers.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsEligiblePlayers.setMemberId(((EligiblePlayersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
-        aJsonParamsEligiblePlayers.setEventId(((EligiblePlayersActivity)getActivity()).getStrEventId());
+        aJsonParamsEligiblePlayers.setEventId(((EligiblePlayersActivity) getActivity()).getStrEventId());
 
         compEligiblePlayersAPI = new CompEligiblePlayersAPI(getClientId(), "GETCOMPELIGIBLEPLAYERS", aJsonParamsEligiblePlayers, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
@@ -201,18 +191,6 @@ public class EligibleMemberFragment extends Fragment {
 
         //Dismiss progress dialog.
         ((BaseActivity) getActivity()).hideProgress();
-
-       /* *//**
-         * Hide alert dialog after 1500Ms.
-         *//*
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Dismiss progress dialog.
-                ((BaseActivity) getActivity()).hideProgress();
-            }
-        }, 1500);*/
-
     }
 
 
@@ -300,38 +278,55 @@ public class EligibleMemberFragment extends Fragment {
 
         @Override
         public View getView(final int position, final View convertView, final ViewGroup parent) {
-            final ViewHolder holder;
+            ViewHolder holder;
             final View rootView;
             final EligibleMember contact;
-            if (convertView == null) {
 
-                ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
 
-                holder = new ViewHolder();
+            ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
 
-                rootView = mInflater.inflate(R.layout.list_item_alphabets_member, parent, false);
+            holder = new ViewHolder();
 
-                holder.friendProfileCircularContactView = (CircularContactView) rootView
-                        .findViewById(R.id.listview_item__friendPhotoImageView);
+            rootView = mInflater.inflate(R.layout.list_item_alpha_eligible_member, parent, false);
 
-                holder.friendProfileCircularContactView.getTextView().setTextColor(0xFFffffff);
+            holder.friendProfileCircularContactView = (CircularContactView) rootView.findViewById(R.id.listview_item__friendPhotoImageView);
+            holder.friendProfileCircularContactView.getTextView().setTextColor(0xFFffffff);
 
-                holder.friendName = (TextView) rootView
-                        .findViewById(R.id.listview_item__friendNameTextView);
-                holder.tvPlayHCapStr = (TextView) rootView
-                        .findViewById(R.id.tvPlayHCapStr);
+            holder.friendName = (TextView) rootView.findViewById(R.id.listview_item__friendNameTextView);
+            holder.tvPlayHCapStr = (TextView) rootView.findViewById(R.id.tvPlayHCapStr);
+            holder.headerView = (TextView) rootView.findViewById(R.id.header_text);
 
-                holder.headerView = (TextView) rootView.findViewById(R.id.header_text);
+            holder.cbSelectedMember = (CheckBox) rootView.findViewById(R.id.cbSelectedMember);
 
-                rootView.setTag(holder);
-            } else {
-                rootView = convertView;
-                holder = (ViewHolder) rootView.getTag();
-            }
+            rootView.setTag(holder);
+
+            holder = (ViewHolder) rootView.getTag();
             contact = getItem(position);
-            final String displayName = contact.getFullName()/*getFullName()*/;
+            final String displayName = contact.getFullName();
             holder.friendName.setText(displayName);
             holder.tvPlayHCapStr.setText(contact.getPlayHCapStr());
+            holder.cbSelectedMember.setChecked(contact.getIsMemberSelected());
+
+            holder.cbSelectedMember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+
+                    if (isChecked) {
+                        if (EligiblePlayersActivity.iTotalAddedMembers > 0) {
+                            ((EligiblePlayersActivity) getActivity()).addMemberToList(eligibleMemberArrayList.get(position).getMemberID());
+                            // selectedMemberList.add(eligibleMemberArrayList.get(position).getMemberID());
+                            //displaySelecteMemberList();
+                        }
+                    } else {
+                            ((EligiblePlayersActivity) getActivity()).removeMemberFromList(eligibleMemberArrayList.get(position).getMemberID());
+                            //selectedMemberList.remove();
+                            //displaySelecteMemberList();
+
+                        eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);
+                    }
+                }
+            });
 
 //            boolean hasPhoto = !TextUtils.isEmpty(contact.getPlayHCapStr());
 //            if (holder.updateTask != null && !holder.updateTask.isCancelled())
@@ -377,13 +372,13 @@ public class EligibleMemberFragment extends Fragment {
 //            }
             bindSectionHeader(holder.headerView, null, position);
 
-            rootView.setOnClickListener(new View.OnClickListener() {
+           /* rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     ((EligiblePlayersActivity) getActivity()).passMemberName(contact.getFullName());
                 }
-            });
+            });*/
             return rootView;
         }
 
@@ -407,6 +402,7 @@ public class EligibleMemberFragment extends Fragment {
         class ViewHolder {
             public CircularContactView friendProfileCircularContactView;
             TextView friendName, headerView, tvPlayHCapStr;
+            CheckBox cbSelectedMember;
             public AsyncTaskEx<Void, Void, Bitmap> updateTask;
         }
     }
