@@ -24,6 +24,7 @@ import com.mh.systems.demoapp.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.demoapp.models.EditDetailMode.EditDetailModeResponse;
 import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsUpdateEntry;
 import com.mh.systems.demoapp.models.competitionsEntry.ClubEventStartSheet;
+import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
 import com.mh.systems.demoapp.models.competitionsEntry.Players;
 import com.mh.systems.demoapp.models.competitionsEntry.Slot;
 import com.mh.systems.demoapp.models.competitionsEntry.Team;
@@ -35,6 +36,7 @@ import com.mh.systems.demoapp.util.ExpandableHeightGridView;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,6 +97,15 @@ public class CompetitionEntryActivity extends BaseActivity {
     @Bind(R.id.llPlayerGroup4)
     LinearLayout llPlayerGroup4;
 
+    @Bind(R.id.llPlayerRow2)
+    LinearLayout llPlayerRow2;
+
+    @Bind(R.id.llPlayerRow3)
+    LinearLayout llPlayerRow3;
+
+    @Bind(R.id.llPlayerRow4)
+    LinearLayout llPlayerRow4;
+
     @Bind(R.id.tvPlayerName2)
     TextView tvPlayerName2;
 
@@ -125,7 +136,8 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     //ArrayList<TimeSlots> modelArrayList = new ArrayList<>();
     List<Slot> slotArrayList = new ArrayList<>();
-    ArrayList<Integer> playersArrayList = new ArrayList<>();
+    ArrayList<EligibleMember> playersArrayList = new ArrayList<>();
+    ArrayList<Integer> selectedMemberIdList = new ArrayList<>();
     ArrayList<Players> nameOfPlayersList = new ArrayList<>();
 
     Team teamInstance;
@@ -170,6 +182,9 @@ public class CompetitionEntryActivity extends BaseActivity {
             intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
             intent.putExtra("COMPETITIONS_eventId", strEventId);
             intent.putExtra("COMPETITIONS_TeamSize", iTeamSize);
+            Bundle informacion = new Bundle();
+            informacion.putSerializable("MEMBER_LIST", playersArrayList);
+            intent.putExtras(informacion);
             startActivityForResult(intent, 1);
         }
     };
@@ -215,8 +230,6 @@ public class CompetitionEntryActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        //addStaticData();
-
         if (tbBookingDetail != null) {
             setSupportActionBar(tbBookingDetail);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -228,9 +241,12 @@ public class CompetitionEntryActivity extends BaseActivity {
         iTeamSize = getIntent().getExtras().getInt("COMPETITIONS_TeamSize");
 
         tvPlayerName1.setText(strMemberName);
+        //Add Member's own Id to Players List.
+        selectedMemberIdList.add(Integer.parseInt(getMemberId()));
 
         updatePriceUI();
         updateTimeSlots();
+        updateMemberUI();
 
         llPlayerGroup2.setOnClickListener(mPlayerSelectionListener);
         tvPlayerName2.setOnClickListener(mPlayerSelectionListener);
@@ -303,6 +319,38 @@ public class CompetitionEntryActivity extends BaseActivity {
     }
 
     /**
+     * Implements this method to set visibility status of players
+     * UI according to iTeamSize.
+     * <p>
+     * For Exp: iTeamSize = 2, means set visibility of PLAYER 2 and PLAYER 3 only.
+     * <p>
+     * NOTE: Maximum TeamSize : 4
+     */
+    private void updateMemberUI() {
+
+        /**
+         * Loop will start from 1 because 0th is position of member itself
+         * who is going to select other members.
+         */
+        for (int iCounter = 2; iCounter <= iTeamSize; iCounter++) {
+            switch (iCounter) {
+                case 2:
+                    llPlayerRow2.setVisibility(View.VISIBLE);
+                    break;
+
+                case 3:
+                    llPlayerRow3.setVisibility(View.VISIBLE);
+                    break;
+
+                case 4:
+                    llPlayerRow4.setVisibility(View.VISIBLE);
+                    break;
+
+            }
+        }
+    }
+
+    /**
      * Update Tee Time Slot value.
      *
      * @param SlotStartTimeStr
@@ -317,12 +365,30 @@ public class CompetitionEntryActivity extends BaseActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            //Add Member Id's of Players List.
-            playersArrayList.add(Integer.parseInt(getMemberId()));
-            playersArrayList.addAll(data.getIntegerArrayListExtra("NAME_OF_MEMBER"));
+
+            playersArrayList = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
 
             for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
-                Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter));
+                Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + "" + playersArrayList.get(iCounter).getFullName());
+                selectedMemberIdList.add(playersArrayList.get(iCounter).getMemberID());
+
+                switch (iCounter) {
+                    case 0:
+                        tvPlayerName2.setText(playersArrayList.get(iCounter).getFullName());
+                        ivCrossPlayer2.setVisibility(View.VISIBLE);
+                        break;
+
+                    case 1:
+                        tvPlayerName3.setText(playersArrayList.get(iCounter).getFullName());
+                        ivCrossPlayer3.setVisibility(View.VISIBLE);
+                        break;
+
+                    case 2:
+                    default:
+                        tvPlayerName4.setText(playersArrayList.get(iCounter).getFullName());
+                        ivCrossPlayer4.setVisibility(View.VISIBLE);
+                        break;
+                }
             }
 
             // updateMemberName(data.getStringExtra("NAME_OF_MEMBER"));
@@ -452,7 +518,7 @@ public class CompetitionEntryActivity extends BaseActivity {
         aJsonParamsUpdateEntry.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsUpdateEntry.setMemberId(getMemberId());
         aJsonParamsUpdateEntry.setEventId(strEventId);
-        aJsonParamsUpdateEntry.setPlayers(playersArrayList);
+        aJsonParamsUpdateEntry.setPlayers(selectedMemberIdList);
         aJsonParamsUpdateEntry.setSlotNo(iSlotNo);
         aJsonParamsUpdateEntry.setZoneId(iZoneId);
 

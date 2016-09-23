@@ -9,7 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <!-- TOOL BAR WITH BACK ARROW AND SAVE -->
 
@@ -204,9 +207,11 @@
                 <!-- PLAYER 2 -->
 
                 <LinearLayout
+                    android:id="@+id/llPlayerRow2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <!-- PLAYER COUNT 2 -->
@@ -264,9 +269,11 @@
                 <!-- PLAYER 3 -->
 
                 <LinearLayout
+                    android:id="@+id/llPlayerRow3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <!-- PLAYER COUNT 3 -->
@@ -325,9 +332,11 @@
                 <!-- PLAYER 4 -->
 
                 <LinearLayout
+                    android:id="@+id/llPlayerRow4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <!-- PLAYER COUNT 4 -->

@@ -3,11 +3,13 @@ package com.mh.systems.demoapp.activites;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -21,8 +23,10 @@ import com.mh.systems.demoapp.fragments.EligibleFriendsFragment;
 import com.mh.systems.demoapp.fragments.EligibleMemberFragment;
 import com.mh.systems.demoapp.fragments.EligiblePlayersTabFragment;
 import com.mh.systems.demoapp.fragments.MembersTabFragment;
+import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,7 +46,8 @@ public class EligiblePlayersActivity extends BaseActivity {
     public static int iTeamSize, iTotalAddedMembers;
 
     //Used this {@link ArrayList} to record of Selected Member list.
-    ArrayList<Integer> selectedMemberList = new ArrayList<>();
+    // ArrayList<Integer> selectedMemberList = new ArrayList<>();
+    ArrayList<EligibleMember> selectedMemberList = new ArrayList<>();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -98,7 +103,12 @@ public class EligiblePlayersActivity extends BaseActivity {
         setStrEventId(getIntent().getExtras().getString("COMPETITIONS_eventId"));
 
         iTeamSize = getIntent().getExtras().getInt("COMPETITIONS_TeamSize");
-        iTotalAddedMembers = iTeamSize;
+        iTotalAddedMembers = (iTeamSize - 1);
+
+        //Get previous Member list if already some member selected.
+        selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("MEMBER_LIST");
+
+        iTotalAddedMembers = Math.abs(selectedMemberList.size() - (iTeamSize - 1));
         tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
 
         /**
@@ -167,7 +177,9 @@ public class EligiblePlayersActivity extends BaseActivity {
 
             case R.id.action_done:
                 intent = new Intent(EligiblePlayersActivity.this, CompetitionEntryActivity.class);
-                intent.putIntegerArrayListExtra("NAME_OF_MEMBER", selectedMemberList);
+                Bundle informacion = new Bundle();
+                informacion.putSerializable("MEMBER_LIST", selectedMemberList);
+                intent.putExtras(informacion);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;
@@ -250,16 +262,6 @@ public class EligiblePlayersActivity extends BaseActivity {
     }
 
     /**
-     * Send Selected Member name for paid Competition entry.
-     */
-    public void passMemberName(String strNameOfMember) {
-        Intent intent = new Intent(EligiblePlayersActivity.this, CompetitionEntryActivity.class);
-        intent.putExtra("NAME_OF_MEMBER", strNameOfMember);
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-    /**
      * @return The strEventId
      */
     public String getStrEventId() {
@@ -275,17 +277,36 @@ public class EligiblePlayersActivity extends BaseActivity {
 
     /**
      * Implements this method to Add Member to ArrayList.
+     *
+     * @param iMemberID
      */
-    public void addMemberToList(int iMemberID) {
-        selectedMemberList.add(iMemberID);
-        tvAddPlayerDesc.setText("You can add " + --iTotalAddedMembers + " more players");
+    public void addMemberToList(EligibleMember eligibleMember) {
+        --iTotalAddedMembers;
+        if (iTotalAddedMembers >= 0) {
+            selectedMemberList.add(eligibleMember);
+        }
+        tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
     }
 
     /**
      * Implements this method to Remove Member from ArrayList.
+     *
+     * @param iMemberID
      */
-    public void removeMemberFromList(int iMemberID) {
-        //selectedMemberList.remove(iMemberID);
-        tvAddPlayerDesc.setText("You can add " + ++iTotalAddedMembers + " more players");
+    public void removeMemberFromList(EligibleMember eligibleMember) {
+
+        ++iTotalAddedMembers;
+
+        if (iTotalAddedMembers < selectedMemberList.size()) {
+
+            int iCounter;
+            for (iCounter = 0; iCounter < selectedMemberList.size(); iCounter++) {
+                if (eligibleMember.getMemberID() == selectedMemberList.get(iCounter).getMemberID()) {
+                    selectedMemberList.remove(iCounter);
+                    break;
+                }
+            }
+        }
+        tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
     }
 }

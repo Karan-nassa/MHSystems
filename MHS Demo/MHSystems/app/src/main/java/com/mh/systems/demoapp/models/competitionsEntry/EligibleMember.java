@@ -5,7 +5,9 @@ package com.mh.systems.demoapp.models.competitionsEntry;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class EligibleMember {
+import java.io.Serializable;
+
+public class EligibleMember implements Serializable {
 
     @SerializedName("ClubID")
     @Expose

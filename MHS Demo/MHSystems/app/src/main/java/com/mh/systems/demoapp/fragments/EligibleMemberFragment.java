@@ -311,24 +311,22 @@ public class EligibleMemberFragment extends Fragment {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-
-                    if (isChecked) {
-                        if (EligiblePlayersActivity.iTotalAddedMembers > 0) {
-                            ((EligiblePlayersActivity) getActivity()).addMemberToList(eligibleMemberArrayList.get(position).getMemberID());
-                            // selectedMemberList.add(eligibleMemberArrayList.get(position).getMemberID());
-                            //displaySelecteMemberList();
-                        }
-                    } else {
-                            ((EligiblePlayersActivity) getActivity()).removeMemberFromList(eligibleMemberArrayList.get(position).getMemberID());
-                            //selectedMemberList.remove();
-                            //displaySelecteMemberList();
-
+                    if (EligiblePlayersActivity.iTotalAddedMembers > 0 && isChecked) {
+                         buttonView.setEnabled(true);
+                        ((EligiblePlayersActivity) getActivity()).addMemberToList(eligibleMemberArrayList.get(position));
                         eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);
+                    } else if (EligiblePlayersActivity.iTotalAddedMembers <= EligiblePlayersActivity.iTeamSize && !isChecked) {
+                        buttonView.setEnabled(true);
+                        ((EligiblePlayersActivity) getActivity()).removeMemberFromList(eligibleMemberArrayList.get(position));
+                        eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);
+                    } else {
+                        buttonView.setChecked(false);
                     }
+
                 }
             });
 
-//            boolean hasPhoto = !TextUtils.isEmpty(contact.getPlayHCapStr());
+            //            boolean hasPhoto = !TextUtils.isEmpty(contact.getPlayHCapStr());
 //            if (holder.updateTask != null && !holder.updateTask.isCancelled())
 //                holder.updateTask.cancel(true);
 //            final Bitmap cachedBitmap = hasPhoto ? ImageCache.INSTANCE.getBitmapFromMemCache(contact.getPlayHCapStr()) : null;

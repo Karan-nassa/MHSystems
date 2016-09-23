@@ -69,6 +69,8 @@ public class EligibleFriendsFragment extends Fragment {
      *******************************/
     View viewRootFragment;
 
+    AlphabaticalListAdapter.ViewHolder holder;
+
     //Create instance of Model class MembersItems.
     CompEligiblePlayersResponse compEligiblePlayersResponse;
 
@@ -285,7 +287,7 @@ public class EligibleFriendsFragment extends Fragment {
 
         @Override
         public View getView(final int position, final View convertView, final ViewGroup parent) {
-            ViewHolder holder;
+
             final View rootView;
             final EligibleMember contact;
 
@@ -318,23 +320,20 @@ public class EligibleFriendsFragment extends Fragment {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                        if (EligiblePlayersActivity.iTotalAddedMembers < EligiblePlayersActivity.iTeamSize) {
-
-                            if (isChecked) {
-                                ((EligiblePlayersActivity) getActivity()).addMemberToList(eligibleMemberArrayList.get(position).getMemberID());
-                                // selectedMemberList.add(eligibleMemberArrayList.get(position).getMemberID());
-                                //displaySelecteMemberList();
-                            } else {
-                                ((EligiblePlayersActivity) getActivity()).removeMemberFromList(eligibleMemberArrayList.get(position).getMemberID());
-                                //selectedMemberList.remove();
-                                //displaySelecteMemberList();
-                            }
-
+                        if (EligiblePlayersActivity.iTotalAddedMembers > 0 && isChecked) {
+                            buttonView.setEnabled(true);
+                            ((EligiblePlayersActivity) getActivity()).addMemberToList(eligibleMemberArrayList.get(position));
                             eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);
+                        } else if (EligiblePlayersActivity.iTotalAddedMembers <= EligiblePlayersActivity.iTeamSize && !isChecked) {
+                            buttonView.setEnabled(true);
+                            ((EligiblePlayersActivity) getActivity()).removeMemberFromList(eligibleMemberArrayList.get(position));
+                            eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);
+                        } else {
+                            buttonView.setChecked(false);
                         }
+
                     }
                 });
-
 //            boolean hasPhoto = !TextUtils.isEmpty(contact.getPlayHCapStr());
 //            if (holder.updateTask != null && !holder.updateTask.isCancelled())
 //                holder.updateTask.cancel(true);
