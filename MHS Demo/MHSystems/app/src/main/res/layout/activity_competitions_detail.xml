@@ -210,7 +210,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
-                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
@@ -244,8 +243,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="horizontal">
 
                 <!-- CALENDER ICON -->
 
@@ -271,8 +269,10 @@
             <!-- +++++++++++ PAID BOOKING STATUS START +++++++++++ -->
 
             <LinearLayout
+                android:id="@+id/llUpdateBookingView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <com.mh.systems.demoapp.customfonts.ButlerMediumTextView
@@ -304,11 +304,11 @@
                     <!-- List of People -->
 
                     <TextView
+                        android:id="@+id/tvPlayingMembers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="25dp"
-                        android:text="Mr Greg Hadala\nMr Calvin Jennings"
                         android:textColor="@color/color030303"
                         android:textSize="17sp" />
 
@@ -321,7 +321,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal">
 
                     <!-- PEOPLE ICON -->
@@ -334,11 +334,11 @@
                     <!-- List of People -->
 
                     <TextView
+                        android:id="@+id/tvSelectedTeeTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="25dp"
-                        android:text="10:00 AM"
                         android:textColor="@color/color030303"
                         android:textSize="17sp" />
 
@@ -348,6 +348,7 @@
             <!-- MANAGE YOUR BOOKING -->
 
             <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                android:id="@+id/tvManageBooking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

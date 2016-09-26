@@ -30,6 +30,9 @@ public class AJsonParamsUpdateEntry {
     @SerializedName("ZoneId")
     @Expose
     private int zoneId;
+    @SerializedName("EntryId")
+    @Expose
+    private int EntryId;
 
     /**
      * 
@@ -157,4 +160,21 @@ public class AJsonParamsUpdateEntry {
         this.zoneId = zoneId;
     }
 
+    /**
+     *
+     * @param EntryId
+     *     The EntryId
+     */
+    public int getEntryId() {
+        return EntryId;
+    }
+
+    /**
+     *
+     * @param EntryId
+     *     The EntryId
+     */
+    public void setEntryId(int EntryId) {
+        this.EntryId = EntryId;
+    }
 }

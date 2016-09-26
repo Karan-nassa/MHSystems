@@ -32,12 +32,13 @@ public class CompTimeGridAdapter extends BaseAdapter {
     private List<Slot> slotArrayList = new ArrayList<>();
     private Button lastSelectedView = null;
 
-    private int iLastSelectedTimeSlot;
+    int iSlotNo;
 
-    public CompTimeGridAdapter(CompetitionEntryActivity mainActivity, List<Slot> slotArrayList) {
+    public CompTimeGridAdapter(CompetitionEntryActivity mainActivity, List<Slot> slotArrayList, int iSlotNo) {
 
         context = mainActivity;
         this.slotArrayList = slotArrayList;
+        this.iSlotNo = iSlotNo;
 
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -77,18 +78,18 @@ public class CompTimeGridAdapter extends BaseAdapter {
         holder.btTimeSlot.setText("" + slotArrayList.get(position).getSlotStartTimeStr());
         holder.btTimeSlot.setTypeface(tfRobotoMedium);
 
+        if (slotArrayList.get(position).getSlotNo() == iSlotNo) {
+            setSlotSelected(holder.btTimeSlot);
+            lastSelectedView = holder.btTimeSlot;
+        }
+
         holder.btTimeSlot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (view != lastSelectedView) {
 
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                        holder.btTimeSlot.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
-                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        holder.btTimeSlot.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
-                    }
-                    holder.btTimeSlot.setTextColor(Color.parseColor("#ffffff"));
+                    setSlotSelected(holder.btTimeSlot);
 
                     //slotsArrayList.get(position).setSelected(true);
 
@@ -105,10 +106,23 @@ public class CompTimeGridAdapter extends BaseAdapter {
                 }
 
                 //Update Tee Time Slot value.
-                ((CompetitionEntryActivity) context).updateTeeTimeValue(iLastSelectedTimeSlot);
+                ((CompetitionEntryActivity) context).updateTeeTimeValue(position);
             }
         });
 
         return rowView;
+    }
+
+    /**
+     * Implements this method set Time slot as
+     * selected.
+     */
+    private void setSlotSelected(Button btTimeSlot) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            btTimeSlot.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            btTimeSlot.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
+        }
+        btTimeSlot.setTextColor(Color.parseColor("#ffffff"));
     }
 }

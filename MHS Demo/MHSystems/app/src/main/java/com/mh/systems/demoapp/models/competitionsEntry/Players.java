@@ -15,16 +15,16 @@ public class Players {
     private String Name;
     @SerializedName("SortName")
     @Expose
-    private String sortName;
+    private String SortName;
     @SerializedName("HCapStr")
     @Expose
-    private String hCapStr;
+    private String HCapStr;
     @SerializedName("IsPayee")
     @Expose
-    private Boolean isPayee;
+    private Boolean IsPayee;
     @SerializedName("RecordID")
     @Expose
-    private Integer recordID;
+    private Integer RecordID;
 
     /**
      *
@@ -65,73 +65,73 @@ public class Players {
     /**
      *
      * @return
-     * The sortName
+     * The SortName
      */
     public String getSortName() {
-        return sortName;
+        return SortName;
     }
 
     /**
      *
-     * @param sortName
+     * @param SortName
      * The SortName
      */
-    public void setSortName(String sortName) {
-        this.sortName = sortName;
+    public void setSortName(String SortName) {
+        this.SortName = SortName;
     }
 
     /**
      *
      * @return
-     * The hCapStr
+     * The HCapStr
      */
     public String getHCapStr() {
-        return hCapStr;
+        return HCapStr;
     }
 
     /**
      *
-     * @param hCapStr
+     * @param HCapStr
      * The HCapStr
      */
     public void setHCapStr(String hCapStr) {
-        this.hCapStr = hCapStr;
+        this.HCapStr = HCapStr;
     }
 
     /**
      *
      * @return
-     * The isPayee
+     * The IsPayee
      */
     public Boolean getIsPayee() {
-        return isPayee;
+        return IsPayee;
     }
 
     /**
      *
-     * @param isPayee
+     * @param IsPayee
      * The IsPayee
      */
     public void setIsPayee(Boolean isPayee) {
-        this.isPayee = isPayee;
+        this.IsPayee = IsPayee;
     }
 
     /**
      *
      * @return
-     * The recordID
+     * The RecordID
      */
     public Integer getRecordID() {
-        return recordID;
+        return RecordID;
     }
 
     /**
      *
-     * @param recordID
+     * @param RecordID
      * The RecordID
      */
     public void setRecordID(Integer recordID) {
-        this.recordID = recordID;
+        this.RecordID = RecordID;
     }
 
 }

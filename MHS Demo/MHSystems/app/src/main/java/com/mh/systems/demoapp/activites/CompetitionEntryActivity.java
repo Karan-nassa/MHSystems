@@ -67,8 +67,14 @@ public class CompetitionEntryActivity extends BaseActivity {
     //Holds the No. of players.
     int iTotalPlayers = 1;
 
+    //It will describes whether member already entered for this competition then update values.
+    int iEntryID = 0;
+
     String strEventId, strEventPrize, strMemberName;
+
     int iZoneId, iSlotNo = -1, iTeamSize;
+
+    boolean isAllowCompEntryAdHocSelection;
 
     @Bind(R.id.tbBookingDetail)
     Toolbar tbBookingDetail;
@@ -129,6 +135,12 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     @Bind(R.id.tvSelectHint)
     TextView tvSelectHint;
+
+    @Bind(R.id.llTimeSlotsGroup)
+    LinearLayout llTimeSlotsGroup;
+
+    @Bind(R.id.llTeeTimeGroup)
+    LinearLayout llTeeTimeGroup;
 
     Intent intent;
 
@@ -238,7 +250,12 @@ public class CompetitionEntryActivity extends BaseActivity {
         strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
         strEventPrize = getIntent().getExtras().getString("COMPETITIONS_EVENT_PRIZE");
         strMemberName = getIntent().getExtras().getString("COMPETITIONS_MEMBER_NAME");
+
         iTeamSize = getIntent().getExtras().getInt("COMPETITIONS_TeamSize");
+        iEntryID = getIntent().getExtras().getInt("COMPETITIONS_iEntryID"); //0 Means no entered for selected competition.
+
+        //If FALSE then user hasn't ability to add another members.
+        isAllowCompEntryAdHocSelection = getIntent().getExtras().getBoolean("COMPETITIONS_AllowCompEntryAdHocSelection");
 
         tvPlayerName1.setText(strMemberName);
         //Add Member's own Id to Players List.
@@ -272,12 +289,57 @@ public class CompetitionEntryActivity extends BaseActivity {
         Gson gson = new Gson();
         ClubEventStartSheet clubEventStartSheet = gson.fromJson(jsonFavorites, ClubEventStartSheet.class);
 
+        iZoneId = clubEventStartSheet.getZones().get(0).getZoneID();
+
+        teamInstance = clubEventStartSheet.getZones().get(0).getTeam();
+        nameOfPlayersList.addAll(teamInstance.getPlayers());
+
+        //Not 0 Means member already entered for selected competition and want to 'MANAGE/UPDATE BOOKING'.
+        if (iEntryID != 0) {
+
+            //UPDATE Tee Time.
+            tvTeeTimeValue.setText(clubEventStartSheet.getZones().get(0).getTeam().getSlotTime());
+            tvSelectHint.setText("");
+
+            iTeamSize = clubEventStartSheet.getZones().get(0).getTeam().getPlayers().size();
+            iSlotNo = clubEventStartSheet.getZones().get(0).getTeam().getSlotNo();
+
+            //Pre-selected Member list for 'MANAGE YOUR BOOKING'.
+            List<Players> playersList = clubEventStartSheet.getZones().get(0).getTeam().getPlayers();
+            for (int iCounter = 1; iCounter < playersList.size(); iCounter++) {
+                switch (iCounter) {
+                    case 1:
+                        llPlayerRow2.setVisibility(View.VISIBLE);
+                        tvPlayerName2.setText(playersList.get(iCounter).getName());
+                        ivCrossPlayer2.setVisibility(View.VISIBLE);
+                        break;
+
+                    case 2:
+                        llPlayerRow3.setVisibility(View.VISIBLE);
+                        tvPlayerName3.setText(playersList.get(iCounter).getName());
+                        ivCrossPlayer3.setVisibility(View.VISIBLE);
+                        break;
+
+                    case 3:
+                        llPlayerRow4.setVisibility(View.VISIBLE);
+                        tvPlayerName4.setText(playersList.get(iCounter).getName());
+                        ivCrossPlayer4.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        }
+
         //Time Slots should be visible if key 'IsTeeTimeSlotsAllowed' TRUE.
         if (getIntent().getExtras().getBoolean("COMPETITIONS_IsTeeTimeSlotsAllowed")) {
+
+            //Timeslots and TeeTime should be visible if allowed according to selected competition.
+            llTimeSlotsGroup.setVisibility(View.VISIBLE);
+            llTeeTimeGroup.setVisibility(View.VISIBLE);
+
             slotArrayList = clubEventStartSheet.getZones().get(0).getSlots();
 
             gvTimeSlots.setExpanded(true);
-            compTimeGridAdapter = new CompTimeGridAdapter(CompetitionEntryActivity.this, slotArrayList);
+            compTimeGridAdapter = new CompTimeGridAdapter(CompetitionEntryActivity.this, slotArrayList, iSlotNo);
             gvTimeSlots.setAdapter(compTimeGridAdapter);
 
             //Forcefully scroll UP of screen after loading.
@@ -286,12 +348,10 @@ public class CompetitionEntryActivity extends BaseActivity {
                     svPlayerContent.fullScroll(View.FOCUS_UP);
                 }
             });
+        } else {
+            llTimeSlotsGroup.setVisibility(View.GONE);
+            llTeeTimeGroup.setVisibility(View.GONE);
         }
-
-        iZoneId = clubEventStartSheet.getZones().get(0).getZoneID();
-
-        teamInstance = clubEventStartSheet.getZones().get(0).getTeam();
-        nameOfPlayersList.addAll(teamInstance.getPlayers());
     }
 
     @Override
@@ -328,24 +388,27 @@ public class CompetitionEntryActivity extends BaseActivity {
      */
     private void updateMemberUI() {
 
-        /**
-         * Loop will start from 1 because 0th is position of member itself
-         * who is going to select other members.
-         */
-        for (int iCounter = 2; iCounter <= iTeamSize; iCounter++) {
-            switch (iCounter) {
-                case 2:
-                    llPlayerRow2.setVisibility(View.VISIBLE);
-                    break;
+        //Memeber has ability to add another member if the below AdHocSelection is TRUE.
+        if (isAllowCompEntryAdHocSelection) {
+            /**
+             * Loop will start from 1 because 0th is position of member itself
+             * who is going to select other members.
+             */
+            for (int iCounter = 2; iCounter <= iTeamSize; iCounter++) {
+                switch (iCounter) {
+                    case 2:
+                        llPlayerRow2.setVisibility(View.VISIBLE);
+                        break;
 
-                case 3:
-                    llPlayerRow3.setVisibility(View.VISIBLE);
-                    break;
+                    case 3:
+                        llPlayerRow3.setVisibility(View.VISIBLE);
+                        break;
 
-                case 4:
-                    llPlayerRow4.setVisibility(View.VISIBLE);
-                    break;
+                    case 4:
+                        llPlayerRow4.setVisibility(View.VISIBLE);
+                        break;
 
+                }
             }
         }
     }
@@ -355,11 +418,11 @@ public class CompetitionEntryActivity extends BaseActivity {
      *
      * @param SlotStartTimeStr
      */
-    public void updateTeeTimeValue(int iSlotTimePos) {
-        tvTeeTimeValue.setText(slotArrayList.get(iSlotTimePos).getSlotStartTimeStr());
+    public void updateTeeTimeValue(int iPosition) {
+        tvTeeTimeValue.setText(slotArrayList.get(iPosition).getSlotStartTimeStr());
         tvSelectHint.setText("");
 
-        iSlotNo = slotArrayList.get(iSlotTimePos).getSlotNo();
+        iSlotNo = slotArrayList.get(iPosition).getSlotNo();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -391,6 +454,10 @@ public class CompetitionEntryActivity extends BaseActivity {
                 }
             }
 
+           iTotalPlayers += playersArrayList.size();
+
+            updatePriceUI();
+
             // updateMemberName(data.getStringExtra("NAME_OF_MEMBER"));
         }
     }
@@ -399,7 +466,7 @@ public class CompetitionEntryActivity extends BaseActivity {
      * Implements this method to update name of Member when user get back from
      * {@link EligiblePlayersActivity} after choose Member/Friend.
      */
-    public void updateMemberName(String strNameOfMember) {
+    /*public void updateMemberName(String strNameOfMember) {
         switch (iMemberPosition) {
             case 2:
                 iMemberPosition = 2;
@@ -425,7 +492,7 @@ public class CompetitionEntryActivity extends BaseActivity {
         }
 
         updatePriceUI();
-    }
+    }*/
 
     /**
      * Implements this method to update Price after select or remove Members.
@@ -522,7 +589,11 @@ public class CompetitionEntryActivity extends BaseActivity {
         aJsonParamsUpdateEntry.setSlotNo(iSlotNo);
         aJsonParamsUpdateEntry.setZoneId(iZoneId);
 
-        updateCompEntryAPI = new UpdateCompEntryAPI(getClientId(), "ADDCLUBEVENTENTRIES", aJsonParamsUpdateEntry, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        if (iEntryID != 0) {
+            aJsonParamsUpdateEntry.setEntryId(iEntryID);
+        }
+
+        updateCompEntryAPI = new UpdateCompEntryAPI(getClientId(), getWhichEventEntry(), aJsonParamsUpdateEntry, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -548,6 +619,20 @@ public class CompetitionEntryActivity extends BaseActivity {
                 showAlertMessage("" + error);
             }
         });
+    }
+
+    /**
+     * Save Entry method calling from two sides are:
+     * <br>
+     * - ADD Club Event Entry [ADDCLUBEVENTENTRIES]: When user Save or Add any new Event.
+     * - UPDATE Club Event Entry [UPDATECLUBEVENTENTRIES]: When user want to 'UPDATE YOUR BOOKING'
+     */
+    private String getWhichEventEntry() {
+        if (iEntryID == 0) {
+            return "ADDCLUBEVENTENTRIES";
+        } else {
+            return "UPDATECLUBEVENTENTRIES";
+        }
     }
 
     /**

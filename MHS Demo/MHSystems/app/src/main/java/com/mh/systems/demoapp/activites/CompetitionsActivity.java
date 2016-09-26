@@ -56,7 +56,7 @@ public class CompetitionsActivity extends BaseActivity {
     /**
      * iPopItemPos describes the position of POP MENU selected item.
      * <br> 0 : UPCOMING
-     * <br> 1 : JOINED
+     * <br> 1 : ENTERED
      * <br> 2 : COMPLETED
      */
     int iPopItemPos = 0;
@@ -474,7 +474,7 @@ public class CompetitionsActivity extends BaseActivity {
 
                         if (iMonth > iCurrentMonth) {
                             setPreviousButton(true);
-                        }else if(iMonth == 12){
+                        } else if (iMonth == 12) {
                             setNextButton(false);
                         }
 

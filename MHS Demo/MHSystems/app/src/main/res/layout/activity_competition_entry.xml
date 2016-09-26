@@ -9,10 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
 
         <!-- TOOL BAR WITH BACK ARROW AND SAVE -->
 
@@ -51,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:weightSum="90">
 
@@ -85,10 +86,10 @@
             <!-- TEE TIME ROW -->
 
             <LinearLayout
+                android:id="@+id/llTeeTimeGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:weightSum="90">
 
@@ -120,10 +121,10 @@
                         android:id="@+id/tvSelectHint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:alpha="0.5"
                         android:gravity="right|end"
                         android:text="Select"
                         android:textColor="#4B4B49"
-                        android:alpha="0.5"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -211,8 +212,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <!-- PLAYER COUNT 2 -->
 
@@ -273,8 +274,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <!-- PLAYER COUNT 3 -->
 
@@ -336,8 +337,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <!-- PLAYER COUNT 4 -->
 
@@ -394,28 +395,37 @@
 
                 <!-- END OF STATIC ROW DATA -->
 
-                <!-- SUMMER LABEL -->
-
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/llTimeSlotsGroup"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:text="SELECT TEE TIME"
-                    android:textColor="#C59A5C"
-                    android:textSize="12sp" />
+                    android:visibility="invisible"
+                    android:orientation="vertical">
 
-                <!-- TIME SLOTS GRID VIEW -->
+                    <!-- SUMMER LABEL -->
 
-                <com.mh.systems.demoapp.util.ExpandableHeightGridView
-                    android:id="@+id/gvTimeSlots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
-                    android:layout_marginTop="15dp"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:isScrollContainer="false"
-                    android:numColumns="3"
-                    android:stretchMode="columnWidth" />
+                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
+                        android:text="SELECT TEE TIME"
+                        android:textColor="#C59A5C"
+                        android:textSize="12sp" />
+
+                    <!-- TIME SLOTS GRID VIEW -->
+
+                    <com.mh.systems.demoapp.util.ExpandableHeightGridView
+                        android:id="@+id/gvTimeSlots"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginTop="15dp"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:isScrollContainer="false"
+                        android:numColumns="3"
+                        android:stretchMode="columnWidth" />
+
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>

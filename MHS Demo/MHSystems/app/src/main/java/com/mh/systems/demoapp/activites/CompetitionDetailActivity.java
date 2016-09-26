@@ -26,11 +26,13 @@ import com.mh.systems.demoapp.models.AJsonParamsUnjoin;
 import com.mh.systems.demoapp.models.AddRequestResult;
 import com.mh.systems.demoapp.models.CompetitionJoinAPI;
 import com.mh.systems.demoapp.models.CompetitionUnjoinAPI;
+import com.mh.systems.demoapp.models.Line;
 import com.mh.systems.demoapp.models.UnjoinItems;
 import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsGetClubEvent;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventResponse;
+import com.mh.systems.demoapp.models.competitionsEntry.Players;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -38,6 +40,8 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -91,6 +95,18 @@ public class CompetitionDetailActivity extends BaseActivity {
     @Bind(R.id.tvTitleOfEvent)
     TextView tvTitleOfEvent;
 
+    @Bind(R.id.tvPlayingMembers)
+    TextView tvPlayingMembers;
+
+    @Bind(R.id.tvSelectedTeeTime)
+    TextView tvSelectedTeeTime;
+
+    @Bind(R.id.tvManageBooking)
+    TextView tvManageBooking;
+
+    @Bind(R.id.llUpdateBookingView)
+    LinearLayout llUpdateBookingView;
+
     //Join Competition Button
     @Bind(R.id.fabJoinCompetition)
     FloatingActionButton fabJoinCompetition;
@@ -117,7 +133,12 @@ public class CompetitionDetailActivity extends BaseActivity {
      *******************************/
     String strEventTitle, strEventLogo, strEventDate, strEventTime, strEventPrize, strEventDesc, strEventStatus, strEventId, strMemberName;
     boolean isEventJoin, isJoinVisible, IsMemberJoined;
+
+    // If its value is 'Occupied' means user JOINED Competition entry. And work same like IsMemberJoined (TRUE).
+    String strStatus;
+
     int iPopItemPos;
+    int iEntryID;
 
     Typeface tpRobotoMedium, tfSFUITextSemibold, tfButlerLight;
 
@@ -166,33 +187,43 @@ public class CompetitionDetailActivity extends BaseActivity {
                         .setPositiveButton("Leave", dialogClickListener)
                         .setNegativeButton("Stay", dialogClickListener).show();
             } else {
-                if (!IsMemberJoined) {
+                //iEntryID == 0 means Not Entered for competition yet.
+                if (!IsMemberJoined && iEntryID == 0) {
 
                     /* +++++++++++++++++++++++++ NOW USER HAVE TO ENTER COMPETITION WITH FRIENDS/MEMBERS +++++++++++++++++++++++++ */
 
-                    Intent intent = new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class);
-                    Gson gson = new Gson();
-                    //Pass Time Slots to Book Tee Time.
-                    intent.putExtra("GET_CLUB_EVENT_RESPONSE", gson.toJson(getClubEventResponse.getGetClubEventData().getClubEventStartSheet()));
-                    intent.putExtra("COMPETITIONS_eventId", strEventId);
-                    intent.putExtra("COMPETITIONS_EVENT_PRIZE", strEventPrize);
-                    intent.putExtra("COMPETITIONS_MEMBER_NAME", strMemberName);
-                    intent.putExtra("COMPETITIONS_IsTeeTimeSlotsAllowed", getClubEventResponse.getGetClubEventData().getIsTeeTimeSlotsAllowed());
-                    intent.putExtra("COMPETITIONS_TeamSize", getClubEventResponse.getGetClubEventData().getTeamSize());
-                    startActivity(intent);
+                    intentToCompetitionEntry();
 
-                    /**
-                     *  Check internet connection before hitting server request.
-                     */
-                   /* if (isOnline(CompetitionDetailActivity.this)) {
-                        callJoinCompetitionWebService();
-                    } else {
-                        showAlertMessage(getResources().getString(R.string.error_no_internet));
-                    }*/
+                    /* ----------------------- NOW USER HAVE TO ENTER COMPETITION WITH FRIENDS/MEMBERS ----------------------- */
                 }
             }
         }
     };
+
+    /**
+     * Call this method from '+' sign or JOIN competitions and from 'MANAGE YOUR BOOKING'.
+     * If its called from 'MANAGE YOUR BOOKING' then 'iEntryID' value would be 0 and used
+     * for UPDATE competition entry.
+     */
+    private void intentToCompetitionEntry() {
+        if (getClubEventResponse.getGetClubEventData().getIsEntryAllowed()) {
+
+            Intent intent = new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class);
+            Gson gson = new Gson();
+            //Pass Time Slots to Book Tee Time.
+            intent.putExtra("GET_CLUB_EVENT_RESPONSE", gson.toJson(getClubEventResponse.getGetClubEventData().getClubEventStartSheet()));
+            intent.putExtra("COMPETITIONS_eventId", strEventId);
+            intent.putExtra("COMPETITIONS_EVENT_PRIZE", strEventPrize);
+            intent.putExtra("COMPETITIONS_MEMBER_NAME", strMemberName);
+            intent.putExtra("COMPETITIONS_IsTeeTimeSlotsAllowed", getClubEventResponse.getGetClubEventData().getIsTeeTimeSlotsAllowed());
+            intent.putExtra("COMPETITIONS_TeamSize", getClubEventResponse.getGetClubEventData().getTeamSize());
+            intent.putExtra("COMPETITIONS_AllowCompEntryAdHocSelection", getClubEventResponse.getGetClubEventData().getAllowCompEntryAdHocSelection());
+            intent.putExtra("COMPETITIONS_iEntryID", iEntryID); //values 0 means not Entered for Competition.
+            startActivity(intent);
+        } else {
+            showAlertMessage("Entry is not open for this Competition yet.");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,6 +249,14 @@ public class CompetitionDetailActivity extends BaseActivity {
         toolbarComp.setTitleTextColor(0xFFFFFFFF);
 
         fabJoinCompetition.setOnClickListener(mJoinOnClickListener);
+
+        //Handle Manage booking view event hanlder here.
+        tvManageBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentToCompetitionEntry();
+            }
+        });
     }
 
     @Override
@@ -319,13 +358,37 @@ public class CompetitionDetailActivity extends BaseActivity {
                 tvDescCourseEvent.setText("" + getClubEventResponse.getGetClubEventData().getEventDescription());
 
                 strMemberName = getClubEventResponse.getGetClubEventData().getMemberName();
-                Log.e("strMemberName", "" + strMemberName);
 
                 tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");
 
+                iEntryID = getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getTeam().getEntryID();
+                Log.e(LOG_TAG, "iEntryID : " + iEntryID);
+                /**
+                 * Implements check for display selected member list.
+                 */
+                if (iEntryID != 0) {
+
+                    llUpdateBookingView.setVisibility(View.VISIBLE);
+
+                    strStatus = getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getTeam().getStatus();
+
+                    if (strStatus.equalsIgnoreCase("Occupied") && iPopItemPos == 0) {
+                        updateJoinIcon();
+                    }
+
+                    List<Players> playersArrayList = getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getTeam().getPlayers();
+
+                    String strPlayersNameList = "";
+                    for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
+                        strPlayersNameList = strPlayersNameList + playersArrayList.get(iCounter).getName() + "\n";
+                        tvPlayingMembers.setText("" + strPlayersNameList);
+                    }
+
+                    tvSelectedTeeTime.setText("" + getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getTeam().getSlotTime());
+                }
             } else {
                 //If web service not respond in any case.
-                showAlertMessage(unjoinItems.getMessage());
+                showAlertMessage(getClubEventResponse.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
@@ -394,8 +457,7 @@ public class CompetitionDetailActivity extends BaseActivity {
             switch (iPopItemPos) {
                 case 0:
                     if (IsMemberJoined) {
-                        fabJoinCompetition.setImageResource(R.mipmap.ic_enteredcompetition);
-                        fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
+                        updateJoinIcon();
                     }
                     break;
 
@@ -407,6 +469,15 @@ public class CompetitionDetailActivity extends BaseActivity {
         }
 
         setFontTypeFace();
+    }
+
+    /**
+     * Implements this method to UPDATE the '+' sign with tick means user ENTERED
+     * the competition successfully.
+     */
+    private void updateJoinIcon() {
+        fabJoinCompetition.setImageResource(R.mipmap.ic_enteredcompetition);
+        fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
     }
 
     /**

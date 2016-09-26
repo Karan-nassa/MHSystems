@@ -29,6 +29,9 @@ public class Team {
     @SerializedName("Players")
     @Expose
     private List<Players> Players = new ArrayList<Players>();
+    @SerializedName("SlotTime")
+    @Expose
+    private String SlotTime;
 
     /**
      *
@@ -156,4 +159,21 @@ public class Team {
         this.Players = Players;
     }
 
+    /**
+     *
+     * @return
+     * The SlotTime
+     */
+    public String getSlotTime() {
+        return SlotTime;
+    }
+
+    /**
+     *
+     * @param SlotTime
+     * The SlotTime
+     */
+    public void setSlotTime(String slotTime) {
+        this.SlotTime = slotTime;
+    }
 }
