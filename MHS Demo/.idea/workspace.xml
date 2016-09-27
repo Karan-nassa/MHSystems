@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f88745a0-163d-4953-a330-3173dc9d04c6" name="Default" comment="" />
+    <list default="true" id="f88745a0-163d-4953-a330-3173dc9d04c6" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Sunningdale/MHSystems/.idea/dictionaries/admin.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Sunningdale/MHSystems/.idea/inspectionProfiles/Project_Default.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Sunningdale/MHSystems/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Sunningdale/MHSystems/.idea/vcs.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MHSystems/.idea/misc.xml" afterPath="$PROJECT_DIR$/MHSystems/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MHSystems/app/build.gradle" afterPath="$PROJECT_DIR$/MHSystems/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MHSystems/app/src/main/java/com/mh/systems/demoapp/activites/CompetitionDetailActivity.java" afterPath="$PROJECT_DIR$/MHSystems/app/src/main/java/com/mh/systems/demoapp/activites/CompetitionDetailActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MHSystems/build.gradle" afterPath="$PROJECT_DIR$/MHSystems/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MHSystems/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/MHSystems/gradle/wrapper/gradle-wrapper.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MHSystems/library/build.gradle" afterPath="$PROJECT_DIR$/MHSystems/library/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Sunningdale/MHSystems/.idea/misc.xml" afterPath="$PROJECT_DIR$/../Sunningdale/MHSystems/.idea/misc.xml" />
+    </list>
     <ignored path="MHS Demo.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -59,6 +72,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -69,6 +84,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="AndroidView">
+        <subPane />
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -78,11 +96,6 @@
             </PATH_ELEMENT>
           </PATH>
         </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView">
-        <subPane />
       </pane>
     </panes>
   </component>

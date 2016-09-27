@@ -187,13 +187,13 @@ public class EligibleFriendsFragment extends Fragment {
             } else {
                 ((EligiblePlayersActivity) getActivity()).updateNoDataUI(false);
             }
+
+            //Dismiss progress dialog.
+            ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
-
-        //Dismiss progress dialog.
-        ((BaseActivity) getActivity()).hideProgress();
     }
 
 

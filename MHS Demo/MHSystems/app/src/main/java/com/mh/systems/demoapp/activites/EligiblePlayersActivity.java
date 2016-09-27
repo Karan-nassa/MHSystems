@@ -45,6 +45,8 @@ public class EligiblePlayersActivity extends BaseActivity {
      */
     public static int iTeamSize, iTotalAddedMembers;
 
+    private int iPendingMembers;
+
     //Used this {@link ArrayList} to record of Selected Member list.
     // ArrayList<Integer> selectedMemberList = new ArrayList<>();
     ArrayList<EligibleMember> selectedMemberList = new ArrayList<>();
@@ -103,12 +105,14 @@ public class EligiblePlayersActivity extends BaseActivity {
         setStrEventId(getIntent().getExtras().getString("COMPETITIONS_eventId"));
 
         iTeamSize = getIntent().getExtras().getInt("COMPETITIONS_TeamSize");
-        iTotalAddedMembers = (iTeamSize - 1);
+        iPendingMembers = getIntent().getExtras().getInt("PENDING_MEMBERS");
+        //iTotalAddedMembers = (iTeamSize - 1);
 
         //Get previous Member list if already some member selected.
         selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("MEMBER_LIST");
 
-        iTotalAddedMembers = Math.abs(selectedMemberList.size() - (iTeamSize - 1));
+        //iTotalAddedMembers = Math.abs(selectedMemberList.size() - (iTeamSize - 1));
+        iTotalAddedMembers = Math.abs(iPendingMembers - (iTeamSize - 1));
         tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
 
         /**

@@ -78,6 +78,10 @@ public class CompTimeGridAdapter extends BaseAdapter {
         holder.btTimeSlot.setText("" + slotArrayList.get(position).getSlotStartTimeStr());
         holder.btTimeSlot.setTypeface(tfRobotoMedium);
 
+        if(slotArrayList.get(position).getIsSlotReserved()){
+            holder.btTimeSlot.setAlpha((float) 0.1);
+        }
+
         if (slotArrayList.get(position).getSlotNo() == iSlotNo) {
             setSlotSelected(holder.btTimeSlot);
             lastSelectedView = holder.btTimeSlot;
@@ -87,26 +91,28 @@ public class CompTimeGridAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                if (view != lastSelectedView) {
+                if (!slotArrayList.get(position).getIsSlotReserved()) {
+                    if (view != lastSelectedView) {
 
-                    setSlotSelected(holder.btTimeSlot);
+                        setSlotSelected(holder.btTimeSlot);
 
-                    //slotsArrayList.get(position).setSelected(true);
+                        //slotsArrayList.get(position).setSelected(true);
 
-                    if (lastSelectedView != null) {
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                            lastSelectedView.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
-                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            lastSelectedView.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
+                        if (lastSelectedView != null) {
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                                lastSelectedView.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
+                            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                lastSelectedView.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
+                            }
+                            lastSelectedView.setTextColor(Color.parseColor("#000000"));
+                            //  slotsArrayList.get(position).setSelected(true);
                         }
-                        lastSelectedView.setTextColor(Color.parseColor("#000000"));
-                        //  slotsArrayList.get(position).setSelected(true);
+                        lastSelectedView = holder.btTimeSlot;
                     }
-                    lastSelectedView = holder.btTimeSlot;
-                }
 
-                //Update Tee Time Slot value.
-                ((CompetitionEntryActivity) context).updateTeeTimeValue(position);
+                    //Update Tee Time Slot value.
+                    ((CompetitionEntryActivity) context).updateTeeTimeValue(position);
+                }
             }
         });
 

@@ -1,29 +1,26 @@
-package com.mh.systems.brokenhurst.adapter.RecyclerAdapter;
+package com.mh.systems.sunningdale.adapter.RecyclerAdapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mh.systems.brokenhurst.R;
-import com.mh.systems.brokenhurst.activites.ClubNewsActivity;
-import com.mh.systems.brokenhurst.activites.CompetitionsActivity;
-import com.mh.systems.brokenhurst.activites.DashboardActivity;
-import com.mh.systems.brokenhurst.activites.MembersActivity;
-import com.mh.systems.brokenhurst.activites.YourAccountActivity;
-import com.mh.systems.brokenhurst.models.HCapHistory.HCapHistoryData;
-
-import java.util.ArrayList;
+import com.mh.systems.sunningdale.R;
+import com.mh.systems.sunningdale.activites.ClubNewsActivity;
+import com.mh.systems.sunningdale.activites.CompetitionsActivity;
+import com.mh.systems.sunningdale.activites.CourseDiaryActivity;
+import com.mh.systems.sunningdale.activites.CourseDiaryWebview;
+import com.mh.systems.sunningdale.activites.DashboardActivity;
+import com.mh.systems.sunningdale.activites.MembersActivity;
+import com.mh.systems.sunningdale.activites.YourAccountActivity;
 
 
 /**
@@ -36,8 +33,8 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     Context context;
     private LayoutInflater inflater = null;
 
-    private final int POSITION_NORMAL = 0;
-    private final int POSITION_HANDICAP = 1;
+    private final int POSITION_NORMAL = 1;
+    private final int POSITION_HANDICAP = 0;
 
     TypedArray gridIcons;
     String gridTitles[];
@@ -71,14 +68,14 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
         LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        switch (viewType){
+        switch (viewType) {
             case POSITION_HANDICAP:
-            View itemLayout = layoutInflater.inflate(R.layout.item_grid_row_text, null);
-            return new ViewHolder(itemLayout, viewType, context);
+                View itemLayout = layoutInflater.inflate(R.layout.item_grid_row_text, null);
+                return new ViewHolder(itemLayout, viewType, context);
 
             case POSITION_NORMAL:
-            View itemLayout2 = layoutInflater.inflate(R.layout.item_grid_row_icon, null);
-            return new ViewHolder(itemLayout2, viewType, context);
+                View itemLayout2 = layoutInflater.inflate(R.layout.item_grid_row_icon, null);
+                return new ViewHolder(itemLayout2, viewType, context);
 
             default:
                 return null;
@@ -101,11 +98,14 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
         holder.tvGridTitle.setText(gridTitles[position]);
         holder.ivGridLogo.setImageResource(gridIcons.getResourceId(position, -1));
 
-        if (position == 2) {
+        if (position == 0) {
             holder.tvHCapExactStr.setVisibility(View.VISIBLE);
             holder.tvHCapExactStr.setText(hCapExactStr);
         }
 
+        /**
+         * For Club News badger icon.
+         */
         if (position == 4) {
             holder.flBadgerGroup.setVisibility(View.VISIBLE);
         }
@@ -129,7 +129,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
     @Override
     public int getItemViewType(int position) {
-        return (position == 2) ? POSITION_HANDICAP : POSITION_NORMAL;
+        return (position == 0) ? POSITION_HANDICAP : POSITION_NORMAL;
     }
 
     /**
@@ -171,27 +171,29 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
             switch (getAdapterPosition()) {
                 case 0:
                     intent = new Intent(context, YourAccountActivity.class);
-                    intent.putExtra("iTabPosition", 0);
-                    break;
-               /* case 1:
-                    intent = null;
-                    *//*intent = new Intent(DashboardActivity.this, CourseDiaryActivity.class);*//*
-                    break;*/
-                case 1:
-                    intent = new Intent(context, MembersActivity.class);
-                    break;
-                case 2:
-                    intent = new Intent(context, YourAccountActivity.class);
                     intent.putExtra("iTabPosition", 1);
                     break;
 
+                case 1:
+                    intent = new Intent(context, CourseDiaryWebview.class);
+                    break;
+
+                case 2:
+                    intent = new Intent(context, MembersActivity.class);
+                    break;
+
                 case 3:
+                    intent = new Intent(context, YourAccountActivity.class);
+                    intent.putExtra("iTabPosition", 2);
+                    break;
+
+                /*case 3:
                     intent = new Intent(context, CompetitionsActivity.class);
                     break;
 
                 case 4:
                     intent = new Intent(context, ClubNewsActivity.class);
-                    break;
+                    break;*/
             }
 
             //Check if intent not NULL then navigate to that selected screen.

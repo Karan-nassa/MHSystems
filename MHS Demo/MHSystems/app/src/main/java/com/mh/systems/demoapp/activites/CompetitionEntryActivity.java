@@ -74,7 +74,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     int iZoneId, iSlotNo = -1, iTeamSize;
 
-    boolean isAllowCompEntryAdHocSelection;
+    boolean isAllowCompEntryAdHocSelection, IsTeeTimeSlotsAllowed;
 
     @Bind(R.id.tbBookingDetail)
     Toolbar tbBookingDetail;
@@ -194,6 +194,7 @@ public class CompetitionEntryActivity extends BaseActivity {
             intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
             intent.putExtra("COMPETITIONS_eventId", strEventId);
             intent.putExtra("COMPETITIONS_TeamSize", iTeamSize);
+            intent.putExtra("PENDING_MEMBERS", (selectedMemberIdList.size()-1));
             Bundle informacion = new Bundle();
             informacion.putSerializable("MEMBER_LIST", playersArrayList);
             intent.putExtras(informacion);
@@ -207,25 +208,34 @@ public class CompetitionEntryActivity extends BaseActivity {
     private View.OnClickListener mCrossListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+            //Position to delete member.
+            int iPosition = 0;
+
             switch (view.getId()) {
                 case R.id.ivCrossPlayer2:
                     tvPlayerName2.setText("Add (optionaly)");
                     ivCrossPlayer2.setVisibility(View.INVISIBLE);
+                    iPosition = 2;
                     showAlertOk();
                     break;
 
                 case R.id.ivCrossPlayer3:
                     tvPlayerName3.setText("Add (optionaly)");
                     ivCrossPlayer3.setVisibility(View.INVISIBLE);
+                    iPosition = 3;
                     showAlertOk();
                     break;
 
                 case R.id.ivCrossPlayer4:
                     tvPlayerName4.setText("Add (optionaly)");
                     ivCrossPlayer4.setVisibility(View.INVISIBLE);
+                    iPosition = 4;
                     showAlertOk();
                     break;
             }
+
+            removeMemberFromList(iPosition);
 
             if (iTotalPlayers > 1) {
                 iTotalPlayers--;
@@ -256,6 +266,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
         //If FALSE then user hasn't ability to add another members.
         isAllowCompEntryAdHocSelection = getIntent().getExtras().getBoolean("COMPETITIONS_AllowCompEntryAdHocSelection");
+        IsTeeTimeSlotsAllowed = getIntent().getExtras().getBoolean("COMPETITIONS_IsTeeTimeSlotsAllowed");
 
         tvPlayerName1.setText(strMemberName);
         //Add Member's own Id to Players List.
@@ -330,7 +341,7 @@ public class CompetitionEntryActivity extends BaseActivity {
         }
 
         //Time Slots should be visible if key 'IsTeeTimeSlotsAllowed' TRUE.
-        if (getIntent().getExtras().getBoolean("COMPETITIONS_IsTeeTimeSlotsAllowed")) {
+        if (IsTeeTimeSlotsAllowed) {
 
             //Timeslots and TeeTime should be visible if allowed according to selected competition.
             llTimeSlotsGroup.setVisibility(View.VISIBLE);
@@ -351,6 +362,8 @@ public class CompetitionEntryActivity extends BaseActivity {
         } else {
             llTimeSlotsGroup.setVisibility(View.GONE);
             llTeeTimeGroup.setVisibility(View.GONE);
+
+            iSlotNo = 0; //iSlot will be 0 if time slots not Allowed.
         }
     }
 
@@ -369,12 +382,22 @@ public class CompetitionEntryActivity extends BaseActivity {
                 break;
 
             case R.id.action_save:
-                showAlertConfirm();
+
+                if (IsTeeTimeSlotsAllowed) {
+                    if (iSlotNo == -1) {
+                        showAlertMessage("Please select any Tee time slot.");
+                    } else {
+                        showAlertConfirm();
+                    }
+                } else {
+                    showAlertConfirm();
+                }
                 break;
 
             default:
                 break;
         }
+
         return true;
     }
 
@@ -429,10 +452,11 @@ public class CompetitionEntryActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
 
+            playersArrayList.clear();
             playersArrayList = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
 
             for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
-                Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + "" + playersArrayList.get(iCounter).getFullName());
+                Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getFullName());
                 selectedMemberIdList.add(playersArrayList.get(iCounter).getMemberID());
 
                 switch (iCounter) {
@@ -454,7 +478,7 @@ public class CompetitionEntryActivity extends BaseActivity {
                 }
             }
 
-           iTotalPlayers += playersArrayList.size();
+            iTotalPlayers += playersArrayList.size();
 
             updatePriceUI();
 
@@ -560,17 +584,12 @@ public class CompetitionEntryActivity extends BaseActivity {
      */
     private void updateCompEntryService() {
 
-        if (iSlotNo != -1) {
-            if (isOnline(this)) {
-                callUpdateEntryService();
-            } else {
-                showAlertMessage(getResources().getString(R.string.error_no_internet));
-                hideProgress();
-            }
+        if (isOnline(this)) {
+            callUpdateEntryService();
         } else {
-            showAlertMessage("Please select any Tee time slot.");
+            showAlertMessage(getResources().getString(R.string.error_no_internet));
+            hideProgress();
         }
-
     }
 
     /**
@@ -652,7 +671,7 @@ public class CompetitionEntryActivity extends BaseActivity {
              */
             if (updateCompEntryResponse.getResult() == 1) {
 
-                showAlertMessage(updateCompEntryResponse.getData());
+                showAlertOk(updateCompEntryResponse.getData());
             } else {
                 //If web service not respond in any case.
                 showAlertMessage(updateCompEntryResponse.getMessage());
@@ -677,5 +696,37 @@ public class CompetitionEntryActivity extends BaseActivity {
      */
     public String getClientId() {
         return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+    }
+
+    /**
+     * Implements this method to Remove Member from ArrayList.
+     *
+     * @param iMemberID
+     */
+    public void removeMemberFromList(int iMemberPosition) {
+
+        if (iMemberPosition > 1 && iMemberPosition <= iTeamSize) {
+            selectedMemberIdList.remove(iMemberPosition);
+            //playersArrayList.get(--iMemberPosition);
+        }
+    }
+
+    /**
+     * Implement a method to display Alert Dialog message
+     * after unJoin Competitions.
+     */
+    public void showAlertOk(String strAlertMessage) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(strAlertMessage)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                        onBackPressed();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

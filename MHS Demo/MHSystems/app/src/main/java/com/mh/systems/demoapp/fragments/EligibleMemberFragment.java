@@ -184,13 +184,12 @@ public class EligibleMemberFragment extends Fragment {
                 //If web service not respond in any case.
                 // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
             }
+            //Dismiss progress dialog.
+            ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
-
-        //Dismiss progress dialog.
-        ((BaseActivity) getActivity()).hideProgress();
     }
 
 
@@ -312,7 +311,7 @@ public class EligibleMemberFragment extends Fragment {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                     if (EligiblePlayersActivity.iTotalAddedMembers > 0 && isChecked) {
-                         buttonView.setEnabled(true);
+                        buttonView.setEnabled(true);
                         ((EligiblePlayersActivity) getActivity()).addMemberToList(eligibleMemberArrayList.get(position));
                         eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);
                     } else if (EligiblePlayersActivity.iTotalAddedMembers <= EligiblePlayersActivity.iTeamSize && !isChecked) {
