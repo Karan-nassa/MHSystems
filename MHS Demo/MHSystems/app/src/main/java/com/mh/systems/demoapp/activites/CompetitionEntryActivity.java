@@ -65,7 +65,7 @@ public class CompetitionEntryActivity extends BaseActivity {
     int iMemberPosition;
 
     //Holds the No. of players.
-    int iTotalPlayers = 1;
+//    int iTotalPlayers = 1;
 
     //It will describes whether member already entered for this competition then update values.
     int iEntryID = 0;
@@ -149,7 +149,7 @@ public class CompetitionEntryActivity extends BaseActivity {
     //ArrayList<TimeSlots> modelArrayList = new ArrayList<>();
     List<Slot> slotArrayList = new ArrayList<>();
     ArrayList<EligibleMember> playersArrayList = new ArrayList<>();
-    ArrayList<Integer> selectedMemberIdList = new ArrayList<>();
+    //ArrayList<Integer> selectedMemberIdList = new ArrayList<>();
     ArrayList<Players> nameOfPlayersList = new ArrayList<>();
 
     Team teamInstance;
@@ -194,7 +194,7 @@ public class CompetitionEntryActivity extends BaseActivity {
             intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
             intent.putExtra("COMPETITIONS_eventId", strEventId);
             intent.putExtra("COMPETITIONS_TeamSize", iTeamSize);
-            intent.putExtra("PENDING_MEMBERS", (selectedMemberIdList.size()-1));
+            //intent.putExtra("PENDING_MEMBERS", (selectedMemberIdList.size() - 1));
             Bundle informacion = new Bundle();
             informacion.putSerializable("MEMBER_LIST", playersArrayList);
             intent.putExtras(informacion);
@@ -211,35 +211,39 @@ public class CompetitionEntryActivity extends BaseActivity {
 
             //Position to delete member.
             int iPosition = 0;
+            String strNameOfMember = "";
 
             switch (view.getId()) {
                 case R.id.ivCrossPlayer2:
+                    strNameOfMember = tvPlayerName2.getText().toString();
+                    iPosition = 1;
                     tvPlayerName2.setText("Add (optionaly)");
                     ivCrossPlayer2.setVisibility(View.INVISIBLE);
-                    iPosition = 2;
                     showAlertOk();
                     break;
 
                 case R.id.ivCrossPlayer3:
+                    strNameOfMember = tvPlayerName3.getText().toString();
+                    iPosition = 2;
                     tvPlayerName3.setText("Add (optionaly)");
                     ivCrossPlayer3.setVisibility(View.INVISIBLE);
-                    iPosition = 3;
                     showAlertOk();
                     break;
 
                 case R.id.ivCrossPlayer4:
+                    strNameOfMember = tvPlayerName4.getText().toString();
+                    iPosition = 3;
                     tvPlayerName4.setText("Add (optionaly)");
                     ivCrossPlayer4.setVisibility(View.INVISIBLE);
-                    iPosition = 4;
                     showAlertOk();
                     break;
             }
 
-            removeMemberFromList(iPosition);
+            removeMemberFromList(iPosition, strNameOfMember);
 
-            if (iTotalPlayers > 1) {
+            /*if (iTotalPlayers > 1) {
                 iTotalPlayers--;
-            }
+            }*/
 
             updatePriceUI();
         }
@@ -270,11 +274,11 @@ public class CompetitionEntryActivity extends BaseActivity {
 
         tvPlayerName1.setText(strMemberName);
         //Add Member's own Id to Players List.
-        selectedMemberIdList.add(Integer.parseInt(getMemberId()));
+        //selectedMemberIdList.add(Integer.parseInt(getMemberId()));
 
-        updatePriceUI();
         updateTimeSlots();
         updateMemberUI();
+        updatePriceUI();
 
         llPlayerGroup2.setOnClickListener(mPlayerSelectionListener);
         tvPlayerName2.setOnClickListener(mPlayerSelectionListener);
@@ -317,7 +321,10 @@ public class CompetitionEntryActivity extends BaseActivity {
 
             //Pre-selected Member list for 'MANAGE YOUR BOOKING'.
             List<Players> playersList = clubEventStartSheet.getZones().get(0).getTeam().getPlayers();
-            for (int iCounter = 1; iCounter < playersList.size(); iCounter++) {
+            for (int iCounter = 0; iCounter < playersList.size(); iCounter++) {
+
+                playersArrayList.add(new EligibleMember(playersList.get(iCounter).getRecordID(), playersList.get(iCounter).getName()));
+
                 switch (iCounter) {
                     case 1:
                         llPlayerRow2.setVisibility(View.VISIBLE);
@@ -457,7 +464,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
             for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
                 Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getFullName());
-                selectedMemberIdList.add(playersArrayList.get(iCounter).getMemberID());
+                //selectedMemberIdList.add(playersArrayList.get(iCounter).getMemberID());
 
                 switch (iCounter) {
                     case 0:
@@ -478,7 +485,7 @@ public class CompetitionEntryActivity extends BaseActivity {
                 }
             }
 
-            iTotalPlayers += playersArrayList.size();
+            //iTotalPlayers += playersArrayList.size();
 
             updatePriceUI();
 
@@ -525,8 +532,8 @@ public class CompetitionEntryActivity extends BaseActivity {
         Scanner scannerInput = new Scanner(strEventPrize).useDelimiter("[^0-9]+");
         int iPrizeVal = scannerInput.nextInt();
 
-        tvDetailPrice.setText("" + iTotalPlayers + "x " + strEventPrize);
-        tvTotalPrice.setText("£" + (iTotalPlayers * iPrizeVal) + ".00");
+        tvDetailPrice.setText("" + (playersArrayList.size()+1) + "x " + strEventPrize);
+        tvTotalPrice.setText("£" + ((playersArrayList.size()+1) * iPrizeVal) + ".00");
     }
 
     /**
@@ -596,6 +603,12 @@ public class CompetitionEntryActivity extends BaseActivity {
      * Implements a method to hit update members detail service.
      */
     private void callUpdateEntryService() {
+
+        List<Integer> selectedMemberIdList = new ArrayList<>();
+        selectedMemberIdList.add(Integer.parseInt(getMemberId()));
+        for (int iCount = 0; iCount < playersArrayList.size(); iCount++) {
+            selectedMemberIdList.add(playersArrayList.get(iCount).getMemberID()); //Add selected Members IDs
+        }
 
         showPleaseWait("Please wait...");
 
@@ -702,13 +715,25 @@ public class CompetitionEntryActivity extends BaseActivity {
      * Implements this method to Remove Member from ArrayList.
      *
      * @param iMemberID
+     * @param tag
      */
-    public void removeMemberFromList(int iMemberPosition) {
+    public void removeMemberFromList(int iMemberPosition, String strMemberName) {
 
-        if (iMemberPosition > 1 && iMemberPosition <= iTeamSize) {
-            selectedMemberIdList.remove(iMemberPosition);
-            //playersArrayList.get(--iMemberPosition);
+        //selectedMemberIdList.remove(iMemberPosition);
+        //playersArrayList.get(--iMemberPosition);
+
+        int iCounter;
+        for (iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
+
+            if (strMemberName.equals(playersArrayList.get(iCounter).getFullName())) {
+                playersArrayList.remove(iCounter);
+                break;
+            }
         }
+        /*if (iEntryID != 0) {
+            nameOfPlayersList.remove(iMemberPosition);
+            Log.e(LOG_TAG, nameOfPlayersList.toString());
+        }*/
     }
 
     /**

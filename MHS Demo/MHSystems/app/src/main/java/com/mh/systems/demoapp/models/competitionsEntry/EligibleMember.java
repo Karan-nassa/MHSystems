@@ -45,6 +45,11 @@ public class EligibleMember implements Serializable {
 
     boolean isMemberSelected;
 
+    public EligibleMember(int MemberID, String FullName ){
+        this.MemberID = MemberID;
+        this.FullName = FullName;
+    }
+
     /**
      * 
      * @return

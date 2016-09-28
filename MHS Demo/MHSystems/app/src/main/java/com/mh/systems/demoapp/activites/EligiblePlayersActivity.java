@@ -105,14 +105,14 @@ public class EligiblePlayersActivity extends BaseActivity {
         setStrEventId(getIntent().getExtras().getString("COMPETITIONS_eventId"));
 
         iTeamSize = getIntent().getExtras().getInt("COMPETITIONS_TeamSize");
-        iPendingMembers = getIntent().getExtras().getInt("PENDING_MEMBERS");
+        //iPendingMembers = getIntent().getExtras().getInt("PENDING_MEMBERS");
         //iTotalAddedMembers = (iTeamSize - 1);
 
         //Get previous Member list if already some member selected.
         selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("MEMBER_LIST");
 
-        //iTotalAddedMembers = Math.abs(selectedMemberList.size() - (iTeamSize - 1));
-        iTotalAddedMembers = Math.abs(iPendingMembers - (iTeamSize - 1));
+        iTotalAddedMembers = Math.abs(selectedMemberList.size() - (iTeamSize - 1));
+        //iTotalAddedMembers = Math.abs(iPendingMembers - (iTeamSize - 1));
         tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
 
         /**
@@ -301,16 +301,16 @@ public class EligiblePlayersActivity extends BaseActivity {
 
         ++iTotalAddedMembers;
 
-        if (iTotalAddedMembers < selectedMemberList.size()) {
+        //if (iTotalAddedMembers < i) {
 
-            int iCounter;
-            for (iCounter = 0; iCounter < selectedMemberList.size(); iCounter++) {
-                if (eligibleMember.getMemberID() == selectedMemberList.get(iCounter).getMemberID()) {
-                    selectedMemberList.remove(iCounter);
-                    break;
-                }
+        int iCounter;
+        for (iCounter = 0; iCounter < selectedMemberList.size(); iCounter++) {
+            if (eligibleMember.getMemberID() == selectedMemberList.get(iCounter).getMemberID()) {
+                selectedMemberList.remove(iCounter);
+                break;
             }
         }
+        // }
         tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
     }
 }
