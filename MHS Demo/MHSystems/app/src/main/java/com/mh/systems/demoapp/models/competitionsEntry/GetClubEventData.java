@@ -92,6 +92,9 @@ public class GetClubEventData {
     @SerializedName("MemberName")
     @Expose
     private String MemberName;
+    @SerializedName("Entry")
+    @Expose
+    private Entry Entry;
 
     /**
      * 
@@ -595,5 +598,23 @@ public class GetClubEventData {
      */
     public void setMemberName(String MemberName) {
         this.MemberName = MemberName;
+    }
+
+    /**
+     *
+     * @return
+     * The Entry
+     */
+    public Entry getEntry() {
+        return Entry;
+    }
+
+    /**
+     *
+     * @param Entry
+     * The Entry
+     */
+    public void setEntry(Entry Entry) {
+        this.Entry = Entry;
     }
 }

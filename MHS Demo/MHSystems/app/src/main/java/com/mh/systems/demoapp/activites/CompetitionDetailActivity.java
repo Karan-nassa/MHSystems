@@ -26,13 +26,12 @@ import com.mh.systems.demoapp.models.AJsonParamsUnjoin;
 import com.mh.systems.demoapp.models.AddRequestResult;
 import com.mh.systems.demoapp.models.CompetitionJoinAPI;
 import com.mh.systems.demoapp.models.CompetitionUnjoinAPI;
-import com.mh.systems.demoapp.models.Line;
 import com.mh.systems.demoapp.models.UnjoinItems;
 import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsGetClubEvent;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventResponse;
-import com.mh.systems.demoapp.models.competitionsEntry.Players;
+import com.mh.systems.demoapp.models.competitionsEntry.Player;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -135,7 +134,7 @@ public class CompetitionDetailActivity extends BaseActivity {
     boolean isEventJoin, isJoinVisible, IsMemberJoined;
 
     // If its value is 'Occupied' means user JOINED Competition entry. And work same like IsMemberJoined (TRUE).
-    String strStatus;
+    //String strStatus;
 
     int iPopItemPos;
     int iEntryID;
@@ -211,14 +210,10 @@ public class CompetitionDetailActivity extends BaseActivity {
             Intent intent = new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class);
             Gson gson = new Gson();
             //Pass Time Slots to Book Tee Time.
-            intent.putExtra("GET_CLUB_EVENT_RESPONSE", gson.toJson(getClubEventResponse.getGetClubEventData().getClubEventStartSheet()));
+            intent.putExtra("RESPONSE_GET_CLUB_EVENT_DATA", gson.toJson(getClubEventResponse.getGetClubEventData()));
             intent.putExtra("COMPETITIONS_eventId", strEventId);
             intent.putExtra("COMPETITIONS_EVENT_PRIZE", strEventPrize);
             intent.putExtra("COMPETITIONS_MEMBER_NAME", strMemberName);
-            intent.putExtra("COMPETITIONS_IsTeeTimeSlotsAllowed", getClubEventResponse.getGetClubEventData().getIsTeeTimeSlotsAllowed());
-            intent.putExtra("COMPETITIONS_TeamSize", getClubEventResponse.getGetClubEventData().getTeamSize());
-            intent.putExtra("COMPETITIONS_AllowCompEntryAdHocSelection", getClubEventResponse.getGetClubEventData().getAllowCompEntryAdHocSelection());
-            intent.putExtra("COMPETITIONS_iEntryID", iEntryID); //values 0 means not Entered for Competition.
             startActivity(intent);
         } else {
             showAlertMessage("Entry is not open for this Competition yet.");
@@ -361,7 +356,7 @@ public class CompetitionDetailActivity extends BaseActivity {
 
                 tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");
 
-                iEntryID = getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getTeam().getEntryID();
+                iEntryID = getClubEventResponse.getGetClubEventData().getEntry().getEntryID();
                 Log.e(LOG_TAG, "iEntryID : " + iEntryID);
                 /**
                  * Implements check for display selected member list.
@@ -370,21 +365,20 @@ public class CompetitionDetailActivity extends BaseActivity {
 
                     llUpdateBookingView.setVisibility(View.VISIBLE);
 
-                    strStatus = getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getTeam().getStatus();
-
-                    if (strStatus.equalsIgnoreCase("Occupied") && iPopItemPos == 0) {
+                    if (getClubEventResponse.getGetClubEventData().getEntry().getPlayers() != null && iPopItemPos == 0) {
                         updateJoinIcon();
                     }
 
-                    List<Players> playersArrayList = getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getTeam().getPlayers();
+                    List<Player> playersArrayList = getClubEventResponse.getGetClubEventData().getEntry().getPlayers();
 
                     String strPlayersNameList = "";
                     for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
-                        strPlayersNameList = strPlayersNameList + playersArrayList.get(iCounter).getName() + "\n";
+                        strPlayersNameList = strPlayersNameList + playersArrayList.get(iCounter).getPlayerName() + "\n";
                         tvPlayingMembers.setText("" + strPlayersNameList);
                     }
 
-                    tvSelectedTeeTime.setText("" + getClubEventResponse.getGetClubEventData().getClubEventStartSheet().getZones().get(0).getTeam().getSlotTime());
+                    String strReservedSlotTime = getClubEventResponse.getGetClubEventData().getEntry().getReservedSlotTime();
+                    tvSelectedTeeTime.setText(strReservedSlotTime != null ? strReservedSlotTime : "N/A");
                 }
             } else {
                 //If web service not respond in any case.
