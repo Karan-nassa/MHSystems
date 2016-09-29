@@ -126,7 +126,7 @@ public class FriendsFragment extends Fragment {
 
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             ((MembersActivity) getActivity()).updateNoInternetUI(true);
-           // MemberDetailActivity.isRefreshData = false;
+            // MemberDetailActivity.isRefreshData = false;
             //Method to hit Members list API.
             requestFriendService();
         } else {
@@ -217,13 +217,12 @@ public class FriendsFragment extends Fragment {
             } else {
                 ((MembersActivity) getActivity()).updateNoDataUI(false);
             }
+            //Dismiss progress dialog.
+            ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
-
-        //Dismiss progress dialog.
-        ((BaseActivity) getActivity()).hideProgress();
     }
 
 

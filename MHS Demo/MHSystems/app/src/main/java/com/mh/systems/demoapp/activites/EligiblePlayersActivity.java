@@ -3,13 +3,11 @@ package com.mh.systems.demoapp.activites;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -26,7 +24,6 @@ import com.mh.systems.demoapp.fragments.MembersTabFragment;
 import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,10 +42,8 @@ public class EligiblePlayersActivity extends BaseActivity {
      */
     public static int iTeamSize, iTotalAddedMembers;
 
-    private int iPendingMembers;
+    private int iEntryID = 0;
 
-    //Used this {@link ArrayList} to record of Selected Member list.
-    // ArrayList<Integer> selectedMemberList = new ArrayList<>();
     ArrayList<EligibleMember> selectedMemberList = new ArrayList<>();
 
     /*********************************
@@ -105,14 +100,18 @@ public class EligiblePlayersActivity extends BaseActivity {
         setStrEventId(getIntent().getExtras().getString("COMPETITIONS_eventId"));
 
         iTeamSize = getIntent().getExtras().getInt("COMPETITIONS_TeamSize");
-        //iPendingMembers = getIntent().getExtras().getInt("PENDING_MEMBERS");
-        //iTotalAddedMembers = (iTeamSize - 1);
+        iEntryID = getIntent().getExtras().getInt("COMPETITIONS_iEntryID");
 
         //Get previous Member list if already some member selected.
         selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("MEMBER_LIST");
 
-        iTotalAddedMembers = Math.abs(selectedMemberList.size() - (iTeamSize - 1));
-        //iTotalAddedMembers = Math.abs(iPendingMembers - (iTeamSize - 1));
+        //iEntryID 0 means first time Entry.
+        if (iEntryID == 0) {
+            iTotalAddedMembers = Math.abs(selectedMemberList.size() - (iTeamSize - 1));
+        } else {
+            iTotalAddedMembers = iTeamSize - selectedMemberList.size();
+        }
+
         tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
 
         /**
@@ -280,6 +279,20 @@ public class EligiblePlayersActivity extends BaseActivity {
     }
 
     /**
+     * @return The selectedMemberList
+     */
+    public ArrayList<EligibleMember> getSelectedMemberList() {
+        return this.selectedMemberList;
+    }
+
+    /**
+     * @param selectedMemberList The selectedMemberList
+     */
+    public void setSelectedMemberList(ArrayList<EligibleMember> selectedMemberList) {
+        this.selectedMemberList = selectedMemberList;
+    }
+
+    /**
      * Implements this method to Add Member to ArrayList.
      *
      * @param iMemberID
@@ -301,8 +314,6 @@ public class EligiblePlayersActivity extends BaseActivity {
 
         ++iTotalAddedMembers;
 
-        //if (iTotalAddedMembers < i) {
-
         int iCounter;
         for (iCounter = 0; iCounter < selectedMemberList.size(); iCounter++) {
             if (eligibleMember.getMemberID() == selectedMemberList.get(iCounter).getMemberID()) {
@@ -310,7 +321,6 @@ public class EligiblePlayersActivity extends BaseActivity {
                 break;
             }
         }
-        // }
         tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
     }
 }

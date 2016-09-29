@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
@@ -17,7 +18,7 @@ import com.mh.systems.sunningdale.constants.WebAPI;
 public class CourseDiaryWebview extends BaseActivity {
 
     /* ++ LOCAL DATA TYPE INSTANCE DECLARATION ++ */
-    String strURL = "http://mhsserver3.com/clubs/members/coursediary/44118078";
+    String strURL = "http://mhsserver3.com/clubs/members/coursediary/";
 
     /* ++ INSTANCES OF CLASSES ++ */
     WebView wvWebView;
@@ -45,7 +46,7 @@ public class CourseDiaryWebview extends BaseActivity {
             wvWebView.getSettings().setSupportZoom(true);
             wvWebView.setFocusableInTouchMode(false);
             wvWebView.setFocusable(false);
-            wvWebView.loadUrl(strURL);
+            wvWebView.loadUrl(strURL + ApplicationGlobal.TAG_CLIENT_ID);
         } else {
             progressWebView.setVisibility(View.GONE);
             showAlertMessage(getResources().getString(R.string.error_please_retry));

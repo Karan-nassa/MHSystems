@@ -23,6 +23,7 @@ import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsUpdateEntry;
 import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
 import com.mh.systems.demoapp.models.competitionsEntry.Entry;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventData;
+import com.mh.systems.demoapp.models.competitionsEntry.NameRecord;
 import com.mh.systems.demoapp.models.competitionsEntry.Player;
 import com.mh.systems.demoapp.models.competitionsEntry.Slot;
 import com.mh.systems.demoapp.models.competitionsEntry.UpdateCompEntryAPI;
@@ -63,7 +64,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     String strEventId, strEventPrize, strMemberName;
 
-    int iSlotNo = -1, iTeamSize, iTotalAddedMember;
+    int iSlotNo = -1, iTeamSize;
 
     boolean isAllowCompEntryAdHocSelection, IsTeeTimeSlotsAllowed;
 
@@ -184,6 +185,7 @@ public class CompetitionEntryActivity extends BaseActivity {
             intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
             intent.putExtra("COMPETITIONS_eventId", strEventId);
             intent.putExtra("COMPETITIONS_TeamSize", iTeamSize);
+            intent.putExtra("COMPETITIONS_iEntryID", iEntryID);
             Bundle informacion = new Bundle();
             informacion.putSerializable("MEMBER_LIST", playersArrayList);
             intent.putExtras(informacion);
@@ -198,14 +200,11 @@ public class CompetitionEntryActivity extends BaseActivity {
         @Override
         public void onClick(View view) {
 
-            //Position to delete member.
-            int iPosition = 0;
             String strNameOfMember = "";
 
             switch (view.getId()) {
                 case R.id.ivCrossPlayer2:
                     strNameOfMember = tvPlayerName2.getText().toString();
-                    iPosition = 1;
                     tvPlayerName2.setText("Add (optionaly)");
                     ivCrossPlayer2.setVisibility(View.INVISIBLE);
                     showAlertOk();
@@ -213,7 +212,6 @@ public class CompetitionEntryActivity extends BaseActivity {
 
                 case R.id.ivCrossPlayer3:
                     strNameOfMember = tvPlayerName3.getText().toString();
-                    iPosition = 2;
                     tvPlayerName3.setText("Add (optionaly)");
                     ivCrossPlayer3.setVisibility(View.INVISIBLE);
                     showAlertOk();
@@ -221,7 +219,6 @@ public class CompetitionEntryActivity extends BaseActivity {
 
                 case R.id.ivCrossPlayer4:
                     strNameOfMember = tvPlayerName4.getText().toString();
-                    iPosition = 3;
                     tvPlayerName4.setText("Add (optionaly)");
                     ivCrossPlayer4.setVisibility(View.INVISIBLE);
                     showAlertOk();
@@ -262,7 +259,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
         updateMemberUI();
         updateTimeSlots();
-       // updatePriceUI();
+        // updatePriceUI();
 
         llPlayerGroup2.setOnClickListener(mPlayerSelectionListener);
         tvPlayerName2.setOnClickListener(mPlayerSelectionListener);
@@ -358,6 +355,27 @@ public class CompetitionEntryActivity extends BaseActivity {
         //Memeber has ability to add another member if the below AdHocSelection is TRUE.
         if (isAllowCompEntryAdHocSelection) {
 
+            /**
+             * Loop will start from 1 because 0th is position of member itself
+             * who is going to select other members.
+             */
+            for (int iCounter = 2; iCounter <= iTeamSize; iCounter++) {
+                switch (iCounter) {
+                    case 2:
+                        llPlayerRow2.setVisibility(View.VISIBLE);
+                        break;
+
+                    case 3:
+                        llPlayerRow3.setVisibility(View.VISIBLE);
+                        break;
+
+                    case 4:
+                        llPlayerRow4.setVisibility(View.VISIBLE);
+                        break;
+
+                }
+            }
+
             //Get instance of Member entry.
             entryInstance = getClubEventData.getEntry();
 
@@ -375,62 +393,41 @@ public class CompetitionEntryActivity extends BaseActivity {
 
                 //Pre-selected Member list for 'MANAGE YOUR BOOKING'.
                 List<Player> playersList = entryInstance.getPlayers();
-                for (int iCounter = 1; iCounter < playersList.size(); iCounter++) {
+                for (int iCounter = 0; iCounter < playersList.size(); iCounter++) {
 
-                    playersArrayList.add(new EligibleMember(playersList.get(iCounter).getRecordID(), playersList.get(iCounter).getPlayerName()));
+                    /**
+                     * After remove Member, RecordID and PlayerName values will be 0 from API. If its
+                     * 0 or empty then don't update UI and not need to add in local array.
+                     */
+                    if (playersList.get(iCounter).getRecordID() != 0) {
 
-                    switch (iCounter) {
-                        case 1:
-                            llPlayerRow2.setVisibility(View.VISIBLE);
-                            tvPlayerName2.setText(playersList.get(iCounter).getPlayerName());
-                            ivCrossPlayer2.setVisibility(View.VISIBLE);
-                            break;
+                        playersArrayList.add(new EligibleMember(playersList.get(iCounter).getRecordID(), new NameRecord(playersList.get(iCounter).getPlayerName())));
 
-                        case 2:
-                            llPlayerRow3.setVisibility(View.VISIBLE);
-                            tvPlayerName3.setText(playersList.get(iCounter).getPlayerName());
-                            ivCrossPlayer3.setVisibility(View.VISIBLE);
-                            break;
+                        switch (iCounter) {
+                            case 1:
+//                            llPlayerRow2.setVisibility(View.VISIBLE);
+                                tvPlayerName2.setText(playersList.get(iCounter).getPlayerName());
+                                ivCrossPlayer2.setVisibility(View.VISIBLE);
+                                break;
 
-                        case 3:
-                            llPlayerRow4.setVisibility(View.VISIBLE);
-                            tvPlayerName4.setText(playersList.get(iCounter).getPlayerName());
-                            ivCrossPlayer4.setVisibility(View.VISIBLE);
-                            break;
+                            case 2:
+//                            llPlayerRow3.setVisibility(View.VISIBLE);
+                                tvPlayerName3.setText(playersList.get(iCounter).getPlayerName());
+                                ivCrossPlayer3.setVisibility(View.VISIBLE);
+                                break;
+
+                            case 3:
+//                            llPlayerRow4.setVisibility(View.VISIBLE);
+                                tvPlayerName4.setText(playersList.get(iCounter).getPlayerName());
+                                ivCrossPlayer4.setVisibility(View.VISIBLE);
+                                break;
+                        }
                     }
                 }
-
-                Scanner scannerInput = new Scanner(strEventPrize).useDelimiter("[^0-9]+");
-                int iPrizeVal = scannerInput.nextInt();
-                //Will not increment playerArraylist.size() because its already have 0th member from web service.
-                tvDetailPrice.setText("" + playersArrayList.size() + "x " + strEventPrize);
-                tvTotalPrice.setText("£" + (playersArrayList.size() * iPrizeVal) + ".00");
-
-            } else {
-                /**
-                 * Loop will start from 1 because 0th is position of member itself
-                 * who is going to select other members.
-                 */
-                for (int iCounter = 2; iCounter <= iTeamSize; iCounter++) {
-                    switch (iCounter) {
-                        case 2:
-                            llPlayerRow2.setVisibility(View.VISIBLE);
-                            break;
-
-                        case 3:
-                            llPlayerRow3.setVisibility(View.VISIBLE);
-                            break;
-
-                        case 4:
-                            llPlayerRow4.setVisibility(View.VISIBLE);
-                            break;
-
-                    }
-                }
-
-                updatePriceUI();
             }
         }
+
+        updatePriceUI();
     }
 
     /**
@@ -452,33 +449,102 @@ public class CompetitionEntryActivity extends BaseActivity {
             playersArrayList.clear();
             playersArrayList = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
 
-            for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
-                Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getFullName());
-
-                switch (iCounter) {
-                    case 0:
-                        tvPlayerName2.setText(playersArrayList.get(iCounter).getFullName());
-                        ivCrossPlayer2.setVisibility(View.VISIBLE);
-                        break;
-
-                    case 1:
-                        tvPlayerName3.setText(playersArrayList.get(iCounter).getFullName());
-                        ivCrossPlayer3.setVisibility(View.VISIBLE);
-                        break;
-
-                    case 2:
-                    default:
-                        tvPlayerName4.setText(playersArrayList.get(iCounter).getFullName());
-                        ivCrossPlayer4.setVisibility(View.VISIBLE);
-                        break;
-                }
+            if (iEntryID == 0) {
+                updateNoEntryIdMemberUI();
+            } else {
+                updateWithEntryIdMemberUI();
             }
 
+          /*  } else {
+                for (int iCounter = 1; iCounter < playersArrayList.size(); iCounter++) {
+
+                    Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getFullName());
+
+                    switch (iCounter) {
+
+                        case 1:
+                            tvPlayerName2.setText(playersArrayList.get(iCounter).getFullName());
+                            ivCrossPlayer2.setVisibility(View.VISIBLE);
+                            break;
+
+                        case 2:
+                            tvPlayerName3.setText(playersArrayList.get(iCounter).getFullName());
+                            ivCrossPlayer3.setVisibility(View.VISIBLE);
+                            break;
+
+                        case 3:
+                        default:
+                            tvPlayerName4.setText(playersArrayList.get(iCounter).getFullName());
+                            ivCrossPlayer4.setVisibility(View.VISIBLE);
+                            break;
+                    }
+                }*/
             //iTotalPlayers += playersArrayList.size();
 
             updatePriceUI();
 
             // updateMemberName(data.getStringExtra("NAME_OF_MEMBER"));
+        }
+    }
+
+    /**
+     * Implements this method to UPDATE members name UI section when user
+     * get back from MEMBER/FRIEND tabs with No Entry ID means iEntryID = 0.
+     */
+    private void updateNoEntryIdMemberUI() {
+        for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
+
+            Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+
+            switch (iCounter) {
+
+                case 0:
+                    tvPlayerName2.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    ivCrossPlayer2.setVisibility(View.VISIBLE);
+                    break;
+
+                case 1:
+                    tvPlayerName3.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    ivCrossPlayer3.setVisibility(View.VISIBLE);
+                    break;
+
+                case 2:
+                default:
+                    tvPlayerName4.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    ivCrossPlayer4.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Implements this method to UPDATE members name UI section when
+     * user get back from MEMBER/FRIEND tabs with Entry ID means
+     * iEntryID = [ANY INTEGER VALUE].
+     */
+    private void updateWithEntryIdMemberUI() {
+        for (int iCounter = 1; iCounter < playersArrayList.size(); iCounter++) {
+
+            Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+
+            switch (iCounter) {
+
+                case 1:
+                    tvPlayerName2.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    ivCrossPlayer2.setVisibility(View.VISIBLE);
+                    break;
+
+                case 2:
+                    tvPlayerName3.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    ivCrossPlayer3.setVisibility(View.VISIBLE);
+                    break;
+
+                case 3:
+                default:
+                    tvPlayerName4.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    ivCrossPlayer4.setVisibility(View.VISIBLE);
+                    break;
+            }
         }
     }
 
@@ -521,10 +587,14 @@ public class CompetitionEntryActivity extends BaseActivity {
         Scanner scannerInput = new Scanner(strEventPrize).useDelimiter("[^0-9]+");
         int iPrizeVal = scannerInput.nextInt();
 
-        // int iAddedMembers = Math.abs(((playersArrayList.size() + 1) - iTeamSize));
-
-        tvDetailPrice.setText("" + (playersArrayList.size() + 1) + "x " + strEventPrize);
-        tvTotalPrice.setText("£" + ((playersArrayList.size() + 1) * iPrizeVal) + ".00");
+        if (iEntryID != 0) {
+            //Will not increment playerArraylist.size() because its already have 0th member from web service.
+            tvDetailPrice.setText("" + playersArrayList.size() + "x " + strEventPrize);
+            tvTotalPrice.setText("£" + (playersArrayList.size() * iPrizeVal) + ".00");
+        } else {
+            tvDetailPrice.setText("" + (playersArrayList.size() + 1) + "x " + strEventPrize);
+            tvTotalPrice.setText("£" + ((playersArrayList.size() + 1) * iPrizeVal) + ".00");
+        }
     }
 
     /**
@@ -596,7 +666,15 @@ public class CompetitionEntryActivity extends BaseActivity {
     private void callUpdateEntryService() {
 
         List<Integer> selectedMemberIdList = new ArrayList<>();
-        selectedMemberIdList.add(Integer.parseInt(getMemberId()));
+
+        /**
+         * Add Member itself if First time Entry competition. And during UPDATE, member
+         * ID already added via API.
+         */
+        if (iEntryID == 0) {
+            selectedMemberIdList.add(Integer.parseInt(getMemberId()));
+        }
+
         for (int iCount = 0; iCount < playersArrayList.size(); iCount++) {
             selectedMemberIdList.add(playersArrayList.get(iCount).getMemberID()); //Add selected Members IDs
         }
@@ -713,7 +791,7 @@ public class CompetitionEntryActivity extends BaseActivity {
         int iCounter;
         for (iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
 
-            if (strMemberName.equals(playersArrayList.get(iCounter).getFullName())) {
+            if (strMemberName.equals(playersArrayList.get(iCounter).getNameRecord().getDisplayName())) {
                 playersArrayList.remove(iCounter);
                 updatePriceUI();
                 break;

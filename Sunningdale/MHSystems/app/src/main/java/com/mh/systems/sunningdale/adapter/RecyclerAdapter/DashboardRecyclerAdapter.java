@@ -14,13 +14,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mh.systems.sunningdale.R;
-import com.mh.systems.sunningdale.activites.ClubNewsActivity;
-import com.mh.systems.sunningdale.activites.CompetitionsActivity;
-import com.mh.systems.sunningdale.activites.CourseDiaryActivity;
 import com.mh.systems.sunningdale.activites.CourseDiaryWebview;
 import com.mh.systems.sunningdale.activites.DashboardActivity;
 import com.mh.systems.sunningdale.activites.MembersActivity;
 import com.mh.systems.sunningdale.activites.YourAccountActivity;
+import com.mh.systems.sunningdale.fragments.MyDetailsFragment;
 
 
 /**
@@ -184,7 +182,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
                 case 3:
                     intent = new Intent(context, YourAccountActivity.class);
-                    intent.putExtra("iTabPosition", 2);
+                    intent.putExtra("iTabPosition", 0);
                     break;
 
                 /*case 3:

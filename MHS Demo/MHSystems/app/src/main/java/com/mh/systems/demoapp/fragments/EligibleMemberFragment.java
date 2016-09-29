@@ -177,6 +177,19 @@ public class EligibleMemberFragment extends Fragment {
                     // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
                     ((EligiblePlayersActivity) getActivity()).updateNoDataUI(true);
+
+                    //Update Member checkboxes by default.
+                    List<EligibleMember> selectedEligibleMemberList = ((EligiblePlayersActivity) getActivity()).getSelectedMemberList();
+                    for (int iCounter = 0; iCounter < eligibleMemberArrayList.size(); iCounter++) {
+
+                        for (int jCounter = 0; jCounter < selectedEligibleMemberList.size(); jCounter++) {
+
+                            if (selectedEligibleMemberList.get(jCounter).getMemberID() == eligibleMemberArrayList.get(iCounter).getMemberID()) {
+                                //If Pre-selected member is selected then set value TRUE for 'isMemberSelected' key.
+                                eligibleMemberArrayList.get(iCounter).setIsMemberSelected(true);
+                            }
+                        }
+                    }
                     setMembersListAdapter(eligibleMemberArrayList);
                 }
             } else {
@@ -203,11 +216,11 @@ public class EligibleMemberFragment extends Fragment {
         Collections.sort(eligibleMemberArrayList, new Comparator<EligibleMember>() {
             @Override
             public int compare(EligibleMember lhs, EligibleMember rhs) {
-                char lhsFirstLetter = TextUtils.isEmpty(lhs.getFullName()) ? ' ' : lhs.getFullName().charAt(0);
-                char rhsFirstLetter = TextUtils.isEmpty(rhs.getFullName()) ? ' ' : rhs.getFullName().charAt(0);
+                char lhsFirstLetter = TextUtils.isEmpty(lhs.getNameRecord().getDisplayName()) ? ' ' : lhs.getNameRecord().getDisplayName().charAt(0);
+                char rhsFirstLetter = TextUtils.isEmpty(rhs.getNameRecord().getDisplayName()) ? ' ' : rhs.getNameRecord().getDisplayName().charAt(0);
                 int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
                 if (firstLetterComparison == 0)
-                    return lhs.getFullName().compareTo(rhs.getFullName());
+                    return lhs.getNameRecord().getDisplayName().compareTo(rhs.getNameRecord().getDisplayName());
                 return firstLetterComparison;
             }
         });
@@ -271,7 +284,7 @@ public class EligibleMemberFragment extends Fragment {
             final ArrayList<String> contactNames = new ArrayList<String>();
             if (contacts != null)
                 for (final EligibleMember contactEntity : contacts)
-                    contactNames.add(contactEntity.getFullName()/*getFullName()*/);
+                    contactNames.add(contactEntity.getNameRecord().getDisplayName()/*getFullName()*/);
             return contactNames.toArray(new String[contactNames.size()]);
         }
 
@@ -280,7 +293,6 @@ public class EligibleMemberFragment extends Fragment {
             ViewHolder holder;
             final View rootView;
             final EligibleMember contact;
-
 
             ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
 
@@ -301,7 +313,7 @@ public class EligibleMemberFragment extends Fragment {
 
             holder = (ViewHolder) rootView.getTag();
             contact = getItem(position);
-            final String displayName = contact.getFullName();
+            final String displayName = contact.getNameRecord().getDisplayName();
             holder.friendName.setText(displayName);
             holder.tvPlayHCapStr.setText(contact.getPlayHCapStr());
             holder.cbSelectedMember.setChecked(contact.getIsMemberSelected());
@@ -325,57 +337,8 @@ public class EligibleMemberFragment extends Fragment {
                 }
             });
 
-            //            boolean hasPhoto = !TextUtils.isEmpty(contact.getPlayHCapStr());
-//            if (holder.updateTask != null && !holder.updateTask.isCancelled())
-//                holder.updateTask.cancel(true);
-//            final Bitmap cachedBitmap = hasPhoto ? ImageCache.INSTANCE.getBitmapFromMemCache(contact.getPlayHCapStr()) : null;
-//            if (cachedBitmap != null)
-//                holder.friendProfileCircularContactView.setImageBitmap(cachedBitmap);
-//            else {
-//                final int backgroundColorToUse = PHOTO_TEXT_BACKGROUND_COLORS[position
-//                        % PHOTO_TEXT_BACKGROUND_COLORS.length];
-//                if (TextUtils.isEmpty(displayName))
-//                    holder.friendProfileCircularContactView.setImageResource(R.drawable.background_pressed_c0995b,
-//                            backgroundColorToUse);
-//                else {
-//                    final String characterToShow = TextUtils.isEmpty(displayName) ? "" : displayName.substring(0, 1).toUpperCase(Locale.getDefault());
-//                    holder.friendProfileCircularContactView.setTextAndBackgroundColor(contact.getPlayHCapStr(), backgroundColorToUse);
-//                }
-//                if (hasPhoto) {
-//                    holder.updateTask = new AsyncTaskEx<Void, Void, Bitmap>() {
-//
-//                        @Override
-//                        public Bitmap doInBackground(final Void... params) {
-//                            if (isCancelled())
-//                                return null;
-//                            final Bitmap b = ContactImageUtil.loadContactPhotoThumbnail(getActivity(), contact.getFullName(), CONTACT_PHOTO_IMAGE_SIZE);
-//                            if (b != null)
-//                                return ThumbnailUtils.extractThumbnail(b, CONTACT_PHOTO_IMAGE_SIZE,
-//                                        CONTACT_PHOTO_IMAGE_SIZE);
-//                            return null;
-//                        }
-//
-//                        @Override
-//                        public void onPostExecute(final Bitmap result) {
-//                            super.onPostExecute(result);
-//                            if (result == null)
-//                                return;
-//                            ImageCache.INSTANCE.addBitmapToCache(contact.getPlayHCapStr(), result);
-//                            holder.friendProfileCircularContactView.setImageBitmap(result);
-//                        }
-//                    };
-//                    mAsyncTaskThreadPool.executeAsyncTask(holder.updateTask);
-//                }
-//            }
             bindSectionHeader(holder.headerView, null, position);
 
-           /* rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    ((EligiblePlayersActivity) getActivity()).passMemberName(contact.getFullName());
-                }
-            });*/
             return rootView;
         }
 
@@ -383,7 +346,7 @@ public class EligibleMemberFragment extends Fragment {
         public boolean doFilter(final EligibleMember item, final CharSequence constraint) {
             if (TextUtils.isEmpty(constraint))
                 return true;
-            final String displayName = item.getFullName()/*getFullName()*/;
+            final String displayName = item.getNameRecord().getDisplayName();
             return !TextUtils.isEmpty(displayName) && displayName.toLowerCase(Locale.getDefault())
                     .contains(constraint.toString().toLowerCase(Locale.getDefault()));
         }
