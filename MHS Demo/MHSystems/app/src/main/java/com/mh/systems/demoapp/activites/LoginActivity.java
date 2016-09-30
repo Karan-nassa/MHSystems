@@ -2,9 +2,11 @@ package com.mh.systems.demoapp.activites;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +67,9 @@ public class LoginActivity extends BaseActivity {
     @Bind(R.id.tvCopyRight)
     TextView tvCopyRight;
 
+    @Bind(R.id.tvForgotPWD)
+    TextView tvForgotPWD;
+
     Typeface tfRobotoRegular, tfRobotoLight, getTfRobotoMedium;
 
     //List of type books this list will store type Book which is our data model
@@ -73,6 +78,8 @@ public class LoginActivity extends BaseActivity {
 
     LoginItems dashboardItems;
     LoginData dashboardData;
+
+    Intent intent;
 
     /**
      * Define a constant field called when user press on LOGIN
@@ -86,11 +93,14 @@ public class LoginActivity extends BaseActivity {
             strUserName = etUserName.getText().toString();
             strPassword = etPassword.getText().toString();
 
-            if (isValid()) {
+            Intent intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
+            startActivity(intent);
+
+            /*if (isValid()) {
                 //Call LOGIN API if UserName & Password correctly filled.
-                /**
+                *//**
                  *  Check internet connection before hitting server request.
-                 */
+                 *//*
                 if (isOnline(LoginActivity.this)) {
                     //Method to hit Squads API.
                     requestLoginService();
@@ -100,7 +110,19 @@ public class LoginActivity extends BaseActivity {
 
             } else {
                 showAlertMessage(strErrorMessage);
-            }
+            }*/
+        }
+    };
+
+    /**
+     * Implements this method to invoke when user tap on Forgot Password
+     * text to recover Password on regitered EMAIL.
+     */
+    private View.OnClickListener mForgotPwdListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(intent);
         }
     };
 
@@ -108,7 +130,6 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         //Initialize Butter knife.
         ButterKnife.bind(this);
@@ -117,6 +138,8 @@ public class LoginActivity extends BaseActivity {
 //        etPassword.setText("WINCHESTER1952");
 
         btLogin.setOnClickListener(mLoginListener);
+
+        tvForgotPWD.setOnClickListener(mForgotPwdListener);
     }
 
     /**
@@ -173,7 +196,7 @@ public class LoginActivity extends BaseActivity {
 
                 //you can handle the errors here
                 hideProgress();
-                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                showAlertMessage("" + error/*getResources().getString(R.string.error_please_retry)*/);
             }
         });
     }

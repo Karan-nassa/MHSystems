@@ -161,6 +161,18 @@
             android:name=".activites.EligiblePlayersActivity"
             android:screenOrientation="portrait" />
 
+        <!-- UPDATE Password Activity -->
+
+        <activity
+            android:name=".activites.UpdatePasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- FORGOT Password Activity -->
+
+        <activity
+            android:name=".activites.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

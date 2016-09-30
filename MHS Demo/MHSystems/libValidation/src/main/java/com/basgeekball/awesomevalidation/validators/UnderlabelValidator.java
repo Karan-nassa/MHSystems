@@ -2,6 +2,7 @@ package com.basgeekball.awesomevalidation.validators;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -68,6 +69,7 @@ public class UnderlabelValidator extends Validator {
         TextView textView = new TextView(mContext);
         textView.setText(validationHolder.getErrMsg());
         textView.setTextColor(mColor);
+        textView.setGravity(Gravity.CENTER);
         textView.setPadding(editText.getPaddingLeft(), 0, editText.getPaddingRight(), 0);
         textView.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
         parent.removeView(editText);

@@ -142,6 +142,18 @@
     <string name="error_incorrect_current_pwd">Incorrect current password</string>
     <string name="error_pwd_no_match">New passwords did not match</string>
 
+    <!-- FORGOT PASSWORD -->
+    <string name="edit_title_forgot_pwd">Forgot Password</string>
+    <string name="edit_email_hint">Example@domain.com</string>
+    <string name="button_send_pwd">Send Password</string>
+
+    <!-- UPDATE PASSWORD -->
+    <string name="text_title_update_pwd">UPDATE YOUR LOGIN CREDENTIALS</string>
+    <string name="edit_hint_username">Choose username</string>
+    <string name="edit_title_confirm_password">Confirm password</string>
+    <string name="buton_update">Update</string>
+    <string name="error_no_match_pwd">Password doesn’t match</string>
+
     <!-- START OF YOUR DETAIL FRAGMENT -->
 
     <!-- HEADING TITLE -->

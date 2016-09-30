@@ -11,6 +11,7 @@ import com.mh.systems.demoapp.models.CompetitionsAPI;
 import com.mh.systems.demoapp.models.CourseDiaryAPI;
 import com.mh.systems.demoapp.models.DashboardAPI;
 import com.mh.systems.demoapp.models.EditDetailMode.EditDetailModeAPI;
+import com.mh.systems.demoapp.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.demoapp.models.Friends.RemoveFriendAPI;
 import com.mh.systems.demoapp.models.FriendsAPI;
 import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryAPI;
@@ -301,5 +302,16 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void updateCompEntry(@Body UpdateCompEntryAPI updateCompEntryAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Forgot Password web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param forgotPasswordAPI
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void forgotPassword(@Body ForgotPasswordAPI forgotPasswordAPI, Callback<JsonObject> response);
 }
 
