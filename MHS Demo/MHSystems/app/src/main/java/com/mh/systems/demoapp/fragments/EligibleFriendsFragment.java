@@ -189,7 +189,7 @@ public class EligibleFriendsFragment extends Fragment {
 
                         for (int jCounter = 0; jCounter < selectedEligibleMemberList.size(); jCounter++) {
 
-                            if (selectedEligibleMemberList.get(jCounter).getMemberID() == eligibleMemberArrayList.get(iCounter).getMemberID()) {
+                            if (selectedEligibleMemberList.get(jCounter).getMemberID().equals(eligibleMemberArrayList.get(iCounter).getMemberID())) {
                                 //If Pre-selected member is selected then set value TRUE for 'isMemberSelected' key.
                                 eligibleMemberArrayList.get(iCounter).setIsMemberSelected(true);
                             }

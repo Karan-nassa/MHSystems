@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
     private List<Slot> slotArrayList = new ArrayList<>();
     private Button lastSelectedView = null;
 
-    int iSlotNo;
+    int iSlotNo, iPosition;
 
     public CompTimeGridAdapter(CompetitionEntryActivity mainActivity, List<Slot> slotArrayList, int iSlotNo) {
 
@@ -82,9 +83,10 @@ public class CompTimeGridAdapter extends BaseAdapter {
             holder.btTimeSlot.setAlpha((float) 0.1);
         }
 
-        if (slotArrayList.get(position).getSlotNo() == iSlotNo) {
+        if (slotArrayList.get(position).getSlotNo() == iSlotNo ) {
             setSlotSelected(holder.btTimeSlot);
             lastSelectedView = holder.btTimeSlot;
+            iPosition = position;
         }
 
         holder.btTimeSlot.setOnClickListener(new View.OnClickListener() {
@@ -92,23 +94,8 @@ public class CompTimeGridAdapter extends BaseAdapter {
             public void onClick(View view) {
 
                 if (!slotArrayList.get(position).getIsSlotReserved()) {
-                    if (view != lastSelectedView) {
-
-                        setSlotSelected(holder.btTimeSlot);
-
-                        //slotsArrayList.get(position).setSelected(true);
-
-                        if (lastSelectedView != null) {
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                                lastSelectedView.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
-                            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                lastSelectedView.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
-                            }
-                            lastSelectedView.setTextColor(Color.parseColor("#000000"));
-                            //  slotsArrayList.get(position).setSelected(true);
-                        }
-                        lastSelectedView = holder.btTimeSlot;
-                    }
+                    iSlotNo = (position+1);
+                    notifyDataSetChanged();
 
                     //Update Tee Time Slot value.
                     ((CompetitionEntryActivity) context).updateTeeTimeValue(position);

@@ -259,7 +259,6 @@ public class CompetitionEntryActivity extends BaseActivity {
 
         updateMemberUI();
         updateTimeSlots();
-        // updatePriceUI();
 
         llPlayerGroup2.setOnClickListener(mPlayerSelectionListener);
         tvPlayerName2.setOnClickListener(mPlayerSelectionListener);
@@ -322,18 +321,22 @@ public class CompetitionEntryActivity extends BaseActivity {
             llTimeSlotsGroup.setVisibility(View.VISIBLE);
             llTeeTimeGroup.setVisibility(View.VISIBLE);
 
-            slotArrayList = getClubEventData.getClubEventStartSheet().getZones().get(0).getSlots();
+            try {
+                slotArrayList = getClubEventData.getClubEventStartSheet().getZones().get(0).getSlots();
 
-            gvTimeSlots.setExpanded(true);
-            compTimeGridAdapter = new CompTimeGridAdapter(CompetitionEntryActivity.this, slotArrayList, iSlotNo);
-            gvTimeSlots.setAdapter(compTimeGridAdapter);
+                gvTimeSlots.setExpanded(true);
+                compTimeGridAdapter = new CompTimeGridAdapter(CompetitionEntryActivity.this, slotArrayList, iSlotNo);
+                gvTimeSlots.setAdapter(compTimeGridAdapter);
 
-            //Forcefully scroll UP of screen after loading.
-            svPlayerContent.post(new Runnable() {
-                public void run() {
-                    svPlayerContent.fullScroll(View.FOCUS_UP);
-                }
-            });
+                //Forcefully scroll UP of screen after loading.
+                svPlayerContent.post(new Runnable() {
+                    public void run() {
+                        svPlayerContent.fullScroll(View.FOCUS_UP);
+                    }
+                });
+            } catch (Exception exp) {
+                Log.e(LOG_TAG, "Exception " + exp.toString());
+            }
         } else {
             llTimeSlotsGroup.setVisibility(View.GONE);
             llTeeTimeGroup.setVisibility(View.GONE);
@@ -352,7 +355,7 @@ public class CompetitionEntryActivity extends BaseActivity {
      */
     private void updateMemberUI() {
 
-        //Memeber has ability to add another member if the below AdHocSelection is TRUE.
+        //Member has ability to add another member if the below AdHocSelection is TRUE.
         if (isAllowCompEntryAdHocSelection) {
 
             /**
@@ -405,19 +408,16 @@ public class CompetitionEntryActivity extends BaseActivity {
 
                         switch (iCounter) {
                             case 1:
-//                            llPlayerRow2.setVisibility(View.VISIBLE);
                                 tvPlayerName2.setText(playersList.get(iCounter).getPlayerName());
                                 ivCrossPlayer2.setVisibility(View.VISIBLE);
                                 break;
 
                             case 2:
-//                            llPlayerRow3.setVisibility(View.VISIBLE);
                                 tvPlayerName3.setText(playersList.get(iCounter).getPlayerName());
                                 ivCrossPlayer3.setVisibility(View.VISIBLE);
                                 break;
 
                             case 3:
-//                            llPlayerRow4.setVisibility(View.VISIBLE);
                                 tvPlayerName4.setText(playersList.get(iCounter).getPlayerName());
                                 ivCrossPlayer4.setVisibility(View.VISIBLE);
                                 break;
@@ -433,7 +433,7 @@ public class CompetitionEntryActivity extends BaseActivity {
     /**
      * Update Tee Time Slot value.
      *
-     * @param SlotStartTimeStr
+     * @param iPosition
      */
     public void updateTeeTimeValue(int iPosition) {
         tvTeeTimeValue.setText(slotArrayList.get(iPosition).getSlotStartTimeStr());
@@ -455,35 +455,7 @@ public class CompetitionEntryActivity extends BaseActivity {
                 updateWithEntryIdMemberUI();
             }
 
-          /*  } else {
-                for (int iCounter = 1; iCounter < playersArrayList.size(); iCounter++) {
-
-                    Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getFullName());
-
-                    switch (iCounter) {
-
-                        case 1:
-                            tvPlayerName2.setText(playersArrayList.get(iCounter).getFullName());
-                            ivCrossPlayer2.setVisibility(View.VISIBLE);
-                            break;
-
-                        case 2:
-                            tvPlayerName3.setText(playersArrayList.get(iCounter).getFullName());
-                            ivCrossPlayer3.setVisibility(View.VISIBLE);
-                            break;
-
-                        case 3:
-                        default:
-                            tvPlayerName4.setText(playersArrayList.get(iCounter).getFullName());
-                            ivCrossPlayer4.setVisibility(View.VISIBLE);
-                            break;
-                    }
-                }*/
-            //iTotalPlayers += playersArrayList.size();
-
             updatePriceUI();
-
-            // updateMemberName(data.getStringExtra("NAME_OF_MEMBER"));
         }
     }
 
@@ -493,8 +465,6 @@ public class CompetitionEntryActivity extends BaseActivity {
      */
     private void updateNoEntryIdMemberUI() {
         for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
-
-            Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getNameRecord().getDisplayName());
 
             switch (iCounter) {
 
@@ -525,7 +495,7 @@ public class CompetitionEntryActivity extends BaseActivity {
     private void updateWithEntryIdMemberUI() {
         for (int iCounter = 1; iCounter < playersArrayList.size(); iCounter++) {
 
-            Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+            // Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getNameRecord().getDisplayName());
 
             switch (iCounter) {
 
@@ -549,38 +519,6 @@ public class CompetitionEntryActivity extends BaseActivity {
     }
 
     /**
-     * Implements this method to update name of Member when user get back from
-     * {@link EligiblePlayersActivity} after choose Member/Friend.
-     */
-    /*public void updateMemberName(String strNameOfMember) {
-        switch (iMemberPosition) {
-            case 2:
-                iMemberPosition = 2;
-                tvPlayerName2.setText(strNameOfMember);
-                ivCrossPlayer2.setVisibility(View.VISIBLE);
-                break;
-
-            case 3:
-                iMemberPosition = 3;
-                tvPlayerName3.setText(strNameOfMember);
-                ivCrossPlayer3.setVisibility(View.VISIBLE);
-                break;
-
-            case 4:
-                iMemberPosition = 4;
-                tvPlayerName4.setText(strNameOfMember);
-                ivCrossPlayer4.setVisibility(View.VISIBLE);
-                break;
-        }
-
-        if (iTotalPlayers < 4) {
-            iTotalPlayers++;
-        }
-
-        updatePriceUI();
-    }*/
-
-    /**
      * Implements this method to update Price after select or remove Members.
      */
     private void updatePriceUI() {
@@ -594,55 +532,6 @@ public class CompetitionEntryActivity extends BaseActivity {
         } else {
             tvDetailPrice.setText("" + (playersArrayList.size() + 1) + "x " + strEventPrize);
             tvTotalPrice.setText("£" + ((playersArrayList.size() + 1) * iPrizeVal) + ".00");
-        }
-    }
-
-    /**
-     * Implements this method to display {@link AlertDialog} with
-     * OK button.
-     */
-    private void showAlertOk() {
-        if (builder == null) {
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle("Changes");
-            builder.setMessage("Your account will be adjusted accordingly")
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //do things
-                            builder = null;
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
-    }
-
-    /**
-     * Implements this method to display {@link AlertDialog} with
-     * CANCEL and CONFIRM button.
-     */
-    private void showAlertConfirm() {
-        if (builder == null) {
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle("Confirmation");
-            builder.setMessage("Your account will be charged for " + tvTotalPrice.getText().toString())
-                    .setCancelable(false)
-                    .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //do things
-                            builder = null;
-                        }
-                    })
-                    .setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            builder = null;
-                            //do things
-                            updateCompEntryService();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
         }
     }
 
@@ -797,10 +686,6 @@ public class CompetitionEntryActivity extends BaseActivity {
                 break;
             }
         }
-        /*if (iEntryID != 0) {
-            nameOfPlayersList.remove(iMemberPosition);
-            Log.e(LOG_TAG, nameOfPlayersList.toString());
-        }*/
     }
 
     /**
@@ -820,5 +705,54 @@ public class CompetitionEntryActivity extends BaseActivity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    /**
+     * Implements this method to display {@link AlertDialog} with
+     * OK button.
+     */
+    private void showAlertOk() {
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setTitle("Changes");
+            builder.setMessage("Your account will be adjusted accordingly")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    }
+
+    /**
+     * Implements this method to display {@link AlertDialog} with
+     * CANCEL and CONFIRM button.
+     */
+    private void showAlertConfirm() {
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setTitle("Confirmation");
+            builder.setMessage("Your account will be charged for " + tvTotalPrice.getText().toString())
+                    .setCancelable(false)
+                    .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                        }
+                    })
+                    .setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            builder = null;
+                            //do things
+                            updateCompEntryService();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

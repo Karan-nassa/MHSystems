@@ -93,14 +93,14 @@ public class LoginActivity extends BaseActivity {
             strUserName = etUserName.getText().toString();
             strPassword = etPassword.getText().toString();
 
-            Intent intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
+            startActivity(intent);*/
 
-            /*if (isValid()) {
+            if (isValid()) {
                 //Call LOGIN API if UserName & Password correctly filled.
-                *//**
+               /* *
                  *  Check internet connection before hitting server request.
-                 *//*
+                 */
                 if (isOnline(LoginActivity.this)) {
                     //Method to hit Squads API.
                     requestLoginService();
@@ -110,7 +110,7 @@ public class LoginActivity extends BaseActivity {
 
             } else {
                 showAlertMessage(strErrorMessage);
-            }*/
+            }
         }
     };
 
