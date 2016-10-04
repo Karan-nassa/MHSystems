@@ -30,12 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <include
-                    android:id="@+id/container"
-                    layout="@layout/include_container_view"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
-
                 <LinearLayout
                     android:id="@+id/llBottomDesc"
                     android:layout_width="match_parent"
@@ -53,6 +47,13 @@
                         android:textSize="16sp" />
 
                 </LinearLayout>
+
+                <include
+                    android:id="@+id/container"
+                    layout="@layout/include_container_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/llBottomDesc" />
 
             </RelativeLayout>
 

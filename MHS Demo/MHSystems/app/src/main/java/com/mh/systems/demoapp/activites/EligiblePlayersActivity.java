@@ -8,6 +8,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -15,24 +16,38 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
+import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.fragments.EligibleFriendsFragment;
 import com.mh.systems.demoapp.fragments.EligibleMemberFragment;
 import com.mh.systems.demoapp.fragments.EligiblePlayersTabFragment;
 import com.mh.systems.demoapp.fragments.MembersTabFragment;
+import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsEligiblePlayers;
+import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersAPI;
+import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
+import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 
 /**
  * Create {@link EligiblePlayersActivity} is used to display tabs named MEMBERS and FRIENDS
  * for Booking/Entry an Competition called from {@link CompetitionEntryActivity}
  */
 public class EligiblePlayersActivity extends BaseActivity {
+
+    private final String LOG_TAG = EligiblePlayersActivity.class.getSimpleName();
 
     String strEventId;
 
@@ -45,6 +60,7 @@ public class EligiblePlayersActivity extends BaseActivity {
     private int iEntryID = 0;
 
     ArrayList<EligibleMember> selectedMemberList = new ArrayList<>();
+    public ArrayList<Integer> iselectedMemberList = new ArrayList<>();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -82,6 +98,15 @@ public class EligiblePlayersActivity extends BaseActivity {
 
     Intent intent;
 
+    //Create instance of Model class MembersItems.
+    CompEligiblePlayersResponse compEligiblePlayersResponse;
+
+    //List of type books this list will store type Book which is our data model
+    private CompEligiblePlayersAPI compEligiblePlayersAPI;
+    AJsonParamsEligiblePlayers aJsonParamsEligiblePlayers;
+
+    ArrayList<EligibleMember> eligibleMemberArrayList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +130,10 @@ public class EligiblePlayersActivity extends BaseActivity {
         //Get previous Member list if already some member selected.
         selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("MEMBER_LIST");
 
+        for(int iCount = 0 ; iCount < selectedMemberList.size(); iCount++){
+            iselectedMemberList.add(selectedMemberList.get(iCount).getMemberID());
+        }
+
         //iEntryID 0 means first time Entry.
         if (iEntryID == 0) {
             iTotalAddedMembers = Math.abs(selectedMemberList.size() - (iTeamSize - 1));
@@ -121,7 +150,13 @@ public class EligiblePlayersActivity extends BaseActivity {
         MembersTabFragment.iLastTabPosition = 0;
 
         //Load Default fragment of Members Activity.
-        updateFragment(new EligiblePlayersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
+        if (isOnline(EligiblePlayersActivity.this)) {
+            //Method to hit Members list API.
+            requestEligibleMemberService();
+            updateNoInternetUI(true);
+        } else {
+            updateNoInternetUI(false);
+        }
     }
 
     @Override
@@ -298,9 +333,10 @@ public class EligiblePlayersActivity extends BaseActivity {
      * @param iMemberID
      */
     public void addMemberToList(EligibleMember eligibleMember) {
-        --iTotalAddedMembers;
         if (iTotalAddedMembers >= 0) {
             selectedMemberList.add(eligibleMember);
+            iselectedMemberList.add(eligibleMember.getMemberID());
+            --iTotalAddedMembers;
         }
         tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
     }
@@ -308,19 +344,179 @@ public class EligiblePlayersActivity extends BaseActivity {
     /**
      * Implements this method to Remove Member from ArrayList.
      *
-     * @param iMemberID
+     * @param eligibleMember
      */
     public void removeMemberFromList(EligibleMember eligibleMember) {
 
-        ++iTotalAddedMembers;
-
         int iCounter;
         for (iCounter = 0; iCounter < selectedMemberList.size(); iCounter++) {
-            if (eligibleMember.getMemberID() == selectedMemberList.get(iCounter).getMemberID()) {
+            Log.e("EligibleMemberId", "" + eligibleMember.getMemberID());
+            Log.e("selectedMemberList Id", "" + selectedMemberList.get(iCounter).getMemberID());
+
+            int selectedMemberId = eligibleMember.getMemberID();
+            int jCounteMemberID = selectedMemberList.get(iCounter).getMemberID();
+
+            if (selectedMemberId == jCounteMemberID) {
+                Log.e(LOG_TAG, "Before Remove : " + selectedMemberList.size());
                 selectedMemberList.remove(iCounter);
+                iselectedMemberList.remove(iCounter);
+                ++iTotalAddedMembers;
+                Log.e(LOG_TAG, "After Remove : " + selectedMemberList.size());
                 break;
             }
         }
         tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
+    }
+
+
+    /* ++++++++++++++++++++++++ START OF GET ELIGIBLE PLAYER WEB SERVICE ++++++++++++++++++++++++ */
+
+    /**
+     * Implement a method to hit Members web service to get response.
+     */
+    public void requestEligibleMemberService() {
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsEligiblePlayers = new AJsonParamsEligiblePlayers();
+        aJsonParamsEligiblePlayers.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsEligiblePlayers.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsEligiblePlayers.setMemberId(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
+        aJsonParamsEligiblePlayers.setEventId(getStrEventId());
+
+        compEligiblePlayersAPI = new CompEligiblePlayersAPI(getClientId(), "GETCOMPELIGIBLEPLAYERS", aJsonParamsEligiblePlayers, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getEligiblePlayersList(compEligiblePlayersAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<CompEligiblePlayersResponse>() {
+        }.getType();
+        compEligiblePlayersResponse = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        //Clear array list before inserting items.
+        eligibleMemberArrayList.clear();
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (compEligiblePlayersResponse.getMessage().equalsIgnoreCase("Success")) {
+                eligibleMemberArrayList.addAll(compEligiblePlayersResponse.getData().getEligibleMembers());
+
+                if (eligibleMemberArrayList.size() == 0) {
+                    updateNoDataUI(false);
+                    // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                } else {
+                    updateNoDataUI(true);
+
+                    updateFragment(new EligiblePlayersTabFragment());
+
+                   /* //Update Member checkboxes by default.
+                    List<EligibleMember> selectedEligibleMemberList = ((EligiblePlayersActivity) getActivity()).getSelectedMemberList();
+                    for (int iCounter = 0; iCounter < eligibleMemberArrayList.size(); iCounter++) {
+
+                        for (int jCounter = 0; jCounter < selectedEligibleMemberList.size(); jCounter++) {
+
+                            if (selectedEligibleMemberList.get(jCounter).getMemberID() == eligibleMemberArrayList.get(iCounter).getMemberID()) {
+                                //If Pre-selected member is selected then set value TRUE for 'isMemberSelected' key.
+                                eligibleMemberArrayList.get(iCounter).setIsMemberSelected(true);
+                            }
+                        }
+                    }*/
+                    // setMembersListAdapter(eligibleMemberArrayList);
+                }
+            } else {
+                updateNoDataUI(false);
+                //If web service not respond in any case.
+                // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
+            }
+            //Dismiss progress dialog.
+            // hideProgress();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /* ++++++++++++++++++++++++ END OF GET ELIGIBLE PLAYER WEB SERVICE ++++++++++++++++++++++++ */
+
+    /**
+     * Implements method to GET-ELIGIBLE Members and Players and pass
+     * to the selected tab according to position.
+     *
+     * @param iPos : 0 means Members tab and 1 for Friends tab
+     */
+    public ArrayList<EligibleMember> getEligibleMemberList(int iPos) {
+
+        ArrayList<EligibleMember> eligibleMemberArrayList = new ArrayList<>();
+        eligibleMemberArrayList.clear();
+
+        switch (iPos) {
+            case 0:
+                eligibleMemberArrayList.addAll(compEligiblePlayersResponse.getData().getEligibleMembers());
+                break;
+
+            case 1:
+                eligibleMemberArrayList.addAll(compEligiblePlayersResponse.getData().getEligibleFriends());
+                break;
+        }
+
+        /*for (int iCounter = 0; iCounter < eligibleMemberArrayList.size(); iCounter++) {
+
+            for (int jCounter = 0; jCounter < selectedMemberList.size(); jCounter++) {
+
+                int iMemberId = eligibleMemberArrayList.get(iCounter).getMemberID();
+                int jSelectedMemberID = selectedMemberList.get(jCounter).getMemberID();
+
+                Log.e(LOG_TAG, "iMemberId : " + iMemberId + " , jSelectedMemberID : " + jSelectedMemberID);
+
+                if (jSelectedMemberID == iMemberId) {
+                    //If Pre-selected member is selected then set value TRUE for 'isMemberSelected' key.
+                    eligibleMemberArrayList.get(iCounter).setIsMemberSelected(true);
+                } else {
+                    eligibleMemberArrayList.get(iCounter).setIsMemberSelected(false);
+                }
+            }
+        }*/
+        return eligibleMemberArrayList;
     }
 }

@@ -10,17 +10,17 @@ public class CompEligiblePlayersData {
 
     @SerializedName("EligibleMembers")
     @Expose
-    private List<EligibleMember> EligibleMembers = new ArrayList<EligibleMember>();
+    private ArrayList<EligibleMember> EligibleMembers = new ArrayList<EligibleMember>();
     @SerializedName("EligibleFriends")
     @Expose
-    private List<EligibleMember> EligibleFriends = new ArrayList<EligibleMember>();
+    private ArrayList<EligibleMember> EligibleFriends = new ArrayList<EligibleMember>();
 
     /**
      * 
      * @return
      *     The EligibleMembers
      */
-    public List<EligibleMember> getEligibleMembers() {
+    public ArrayList<EligibleMember> getEligibleMembers() {
         return EligibleMembers;
     }
 
@@ -29,7 +29,7 @@ public class CompEligiblePlayersData {
      * @param EligibleMembers
      *     The EligibleMembers
      */
-    public void setEligibleMembers(List<EligibleMember> EligibleMembers) {
+    public void setEligibleMembers(ArrayList<EligibleMember> EligibleMembers) {
         this.EligibleMembers = EligibleMembers;
     }
 
@@ -38,7 +38,7 @@ public class CompEligiblePlayersData {
      * @return
      *     The EligibleFriends
      */
-    public List<EligibleMember> getEligibleFriends() {
+    public ArrayList<EligibleMember> getEligibleFriends() {
         return EligibleFriends;
     }
 
@@ -47,7 +47,7 @@ public class CompEligiblePlayersData {
      * @param EligibleFriends
      *     The EligibleFriends
      */
-    public void setEligibleFriends(List<EligibleMember> EligibleMember) {
+    public void setEligibleFriends(ArrayList<EligibleMember> EligibleMember) {
         this.EligibleFriends = EligibleMember;
     }
 

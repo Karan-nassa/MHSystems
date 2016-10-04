@@ -62,6 +62,8 @@ public class EligibleFriendsFragment extends Fragment {
     public final String LOG_TAG = EligibleFriendsFragment.class.getSimpleName();
     ArrayList<EligibleMember> eligibleMemberArrayList = new ArrayList<>();
 
+    private int isTabVisibile = 0;
+
     private boolean isSwipeVisible = false;
 
     /*********************************
@@ -90,17 +92,35 @@ public class EligibleFriendsFragment extends Fragment {
         viewRootFragment = inflater.inflate(R.layout.fragment_friends, container, false);
 
         phlvFriends = (PinnedHeaderListView) viewRootFragment.findViewById(R.id.phlvFriends);
-
         ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleFriendsFragment());
-        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+       /* if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             ((EligiblePlayersActivity) getActivity()).updateNoInternetUI(true);
             //Method to hit Members list API.
             requestFriendService();
         } else {
             ((EligiblePlayersActivity) getActivity()).updateNoInternetUI(false);
-        }
+        }*/
+
+        isTabVisibile = 1;
+
+        ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
+        eligibleMemberArrayList.clear();
+        eligibleMemberArrayList = ((EligiblePlayersActivity) getActivity()).getEligibleMemberList(1);
+        setMembersListAdapter(eligibleMemberArrayList);
 
         return viewRootFragment;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser && isTabVisibile == 1) {
+            ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleFriendsFragment());
+            eligibleMemberArrayList.clear();
+            eligibleMemberArrayList = ((EligiblePlayersActivity) getActivity()).getEligibleMemberList(1);
+            setMembersListAdapter(eligibleMemberArrayList);
+        }
     }
 
     /**
@@ -202,7 +222,7 @@ public class EligibleFriendsFragment extends Fragment {
             }
 
             //Dismiss progress dialog.
-            ((BaseActivity) getActivity()).hideProgress();
+            //((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
@@ -240,6 +260,8 @@ public class EligibleFriendsFragment extends Fragment {
         phlvFriends.setOnScrollListener(mAdapter);
         phlvFriends.setEnableHeaderTransparencyChanges(false);
         mAdapter.notifyDataSetChanged();
+
+        ((EligiblePlayersActivity) getActivity()).hideProgress();
     }
 
 
@@ -327,7 +349,12 @@ public class EligibleFriendsFragment extends Fragment {
                 final String displayName = contact.getNameRecord().getDisplayName();
                 holder.friendName.setText(displayName);
                 holder.tvPlayHCapStr.setText(contact.getHCapTypeStr());
-                holder.cbSelectedMember.setChecked(contact.getIsMemberSelected());
+                //holder.cbSelectedMember.setChecked(contact.getIsMemberSelected());
+                if(((EligiblePlayersActivity)getActivity()).iselectedMemberList.contains(contact.getMemberID())){
+                    holder.cbSelectedMember.setChecked(true);
+                }else{
+                    holder.cbSelectedMember.setChecked(false);
+                }
 
                 holder.cbSelectedMember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override

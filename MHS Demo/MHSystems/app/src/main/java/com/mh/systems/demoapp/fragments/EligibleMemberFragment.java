@@ -80,6 +80,8 @@ public class EligibleMemberFragment extends Fragment {
     public static AlphabaticalListAdapter mAdapter = null;
     public LayoutInflater mInflater;
 
+    private int iEligibleTabPos = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mInflater = LayoutInflater.from(getActivity());
@@ -87,18 +89,34 @@ public class EligibleMemberFragment extends Fragment {
         viewRootFragment = inflater.inflate(R.layout.fragment_members, container, false);
 
         mPinnedHeaderListView = (PinnedHeaderListView) viewRootFragment.findViewById(R.id.lvMembersList);
-
         ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
-
-        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+       /* if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             //Method to hit Members list API.
             requestMemberService();
             ((EligiblePlayersActivity) getActivity()).updateNoInternetUI(true);
         } else {
             ((EligiblePlayersActivity) getActivity()).updateNoInternetUI(false);
-        }
+        }*/
+        iEligibleTabPos = 1;
+
+        ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
+        eligibleMemberArrayList.clear();
+        eligibleMemberArrayList = ((EligiblePlayersActivity)getActivity()).getEligibleMemberList(0);
+        setMembersListAdapter(eligibleMemberArrayList);
 
         return viewRootFragment;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(isVisibleToUser && iEligibleTabPos == 1){
+            ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
+            eligibleMemberArrayList.clear();
+            eligibleMemberArrayList = ((EligiblePlayersActivity)getActivity()).getEligibleMemberList(0);
+            setMembersListAdapter(eligibleMemberArrayList);
+        }
     }
 
     /**
@@ -198,7 +216,7 @@ public class EligibleMemberFragment extends Fragment {
                 // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
             }
             //Dismiss progress dialog.
-            ((BaseActivity) getActivity()).hideProgress();
+            // ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
@@ -234,6 +252,8 @@ public class EligibleMemberFragment extends Fragment {
         mPinnedHeaderListView.setAdapter(mAdapter);
         mPinnedHeaderListView.setOnScrollListener(mAdapter);
         mPinnedHeaderListView.setEnableHeaderTransparencyChanges(false);
+
+        ((EligiblePlayersActivity) getActivity()).hideProgress();
     }
 
 
@@ -316,7 +336,12 @@ public class EligibleMemberFragment extends Fragment {
             final String displayName = contact.getNameRecord().getDisplayName();
             holder.friendName.setText(displayName);
             holder.tvPlayHCapStr.setText(contact.getPlayHCapStr());
-            holder.cbSelectedMember.setChecked(contact.getIsMemberSelected());
+            //holder.cbSelectedMember.setChecked(contact.getIsMemberSelected());
+            if(((EligiblePlayersActivity)getActivity()).iselectedMemberList.contains(contact.getMemberID())){
+                holder.cbSelectedMember.setChecked(true);
+            }else{
+                holder.cbSelectedMember.setChecked(false);
+            }
 
             holder.cbSelectedMember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
