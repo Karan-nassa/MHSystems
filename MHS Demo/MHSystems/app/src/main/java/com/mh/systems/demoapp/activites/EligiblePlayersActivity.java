@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -95,6 +96,7 @@ public class EligiblePlayersActivity extends BaseActivity {
      * of {@link MembersFragment} and {@link FriendsFragment} list data.
      */
     Fragment fragmentInstance;
+    EligiblePlayersTabFragment eligiblePlayersTabFragment = null;
 
     Intent intent;
 
@@ -121,6 +123,8 @@ public class EligiblePlayersActivity extends BaseActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        eligiblePlayersTabFragment = new EligiblePlayersTabFragment();
+
         //Set Event Id.
         setStrEventId(getIntent().getExtras().getString("COMPETITIONS_eventId"));
 
@@ -130,7 +134,7 @@ public class EligiblePlayersActivity extends BaseActivity {
         //Get previous Member list if already some member selected.
         selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("MEMBER_LIST");
 
-        for(int iCount = 0 ; iCount < selectedMemberList.size(); iCount++){
+        for (int iCount = 0; iCount < selectedMemberList.size(); iCount++) {
             iselectedMemberList.add(selectedMemberList.get(iCount).getMemberID());
         }
 
@@ -275,6 +279,15 @@ public class EligiblePlayersActivity extends BaseActivity {
             EligibleMemberFragment.mAdapter.getFilter().filter(queryText);
             EligibleMemberFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
             EligibleMemberFragment.mAdapter.notifyDataSetChanged();
+           // Log.e(LOG_TAG, "mAdapter : " + EligibleMemberFragment.mAdapter);
+
+            /*FragmentManager fm = getSupportFragmentManager();
+
+            //if you added fragment via layout xml
+            EligiblePlayersTabFragment fragment = (EligiblePlayersTabFragment) fm.findFragmentById(R.id.containerView);
+            fragment.fragVisible();
+            Log.e(LOG_TAG, "fragment : " + fragment);*/
+
         } else if (getFragmentInstance() instanceof EligibleFriendsFragment) {
             EligibleFriendsFragment.mAdapter.getFilter().filter(queryText);
             EligibleFriendsFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
@@ -287,9 +300,9 @@ public class EligiblePlayersActivity extends BaseActivity {
      *
      * @param fragmentInstance
      */
-
     public void setFragmentInstance(Fragment fragmentInstance) {
         this.fragmentInstance = fragmentInstance;
+        Log.e(LOG_TAG, "fragmentInstance : " + fragmentInstance);
     }
 
     /**
@@ -350,18 +363,14 @@ public class EligiblePlayersActivity extends BaseActivity {
 
         int iCounter;
         for (iCounter = 0; iCounter < selectedMemberList.size(); iCounter++) {
-            Log.e("EligibleMemberId", "" + eligibleMember.getMemberID());
-            Log.e("selectedMemberList Id", "" + selectedMemberList.get(iCounter).getMemberID());
 
             int selectedMemberId = eligibleMember.getMemberID();
             int jCounteMemberID = selectedMemberList.get(iCounter).getMemberID();
 
             if (selectedMemberId == jCounteMemberID) {
-                Log.e(LOG_TAG, "Before Remove : " + selectedMemberList.size());
                 selectedMemberList.remove(iCounter);
                 iselectedMemberList.remove(iCounter);
                 ++iTotalAddedMembers;
-                Log.e(LOG_TAG, "After Remove : " + selectedMemberList.size());
                 break;
             }
         }
@@ -448,21 +457,7 @@ public class EligiblePlayersActivity extends BaseActivity {
                 } else {
                     updateNoDataUI(true);
 
-                    updateFragment(new EligiblePlayersTabFragment());
-
-                   /* //Update Member checkboxes by default.
-                    List<EligibleMember> selectedEligibleMemberList = ((EligiblePlayersActivity) getActivity()).getSelectedMemberList();
-                    for (int iCounter = 0; iCounter < eligibleMemberArrayList.size(); iCounter++) {
-
-                        for (int jCounter = 0; jCounter < selectedEligibleMemberList.size(); jCounter++) {
-
-                            if (selectedEligibleMemberList.get(jCounter).getMemberID() == eligibleMemberArrayList.get(iCounter).getMemberID()) {
-                                //If Pre-selected member is selected then set value TRUE for 'isMemberSelected' key.
-                                eligibleMemberArrayList.get(iCounter).setIsMemberSelected(true);
-                            }
-                        }
-                    }*/
-                    // setMembersListAdapter(eligibleMemberArrayList);
+                    updateFragment(eligiblePlayersTabFragment);
                 }
             } else {
                 updateNoDataUI(false);
@@ -499,24 +494,6 @@ public class EligiblePlayersActivity extends BaseActivity {
                 eligibleMemberArrayList.addAll(compEligiblePlayersResponse.getData().getEligibleFriends());
                 break;
         }
-
-        /*for (int iCounter = 0; iCounter < eligibleMemberArrayList.size(); iCounter++) {
-
-            for (int jCounter = 0; jCounter < selectedMemberList.size(); jCounter++) {
-
-                int iMemberId = eligibleMemberArrayList.get(iCounter).getMemberID();
-                int jSelectedMemberID = selectedMemberList.get(jCounter).getMemberID();
-
-                Log.e(LOG_TAG, "iMemberId : " + iMemberId + " , jSelectedMemberID : " + jSelectedMemberID);
-
-                if (jSelectedMemberID == iMemberId) {
-                    //If Pre-selected member is selected then set value TRUE for 'isMemberSelected' key.
-                    eligibleMemberArrayList.get(iCounter).setIsMemberSelected(true);
-                } else {
-                    eligibleMemberArrayList.get(iCounter).setIsMemberSelected(false);
-                }
-            }
-        }*/
         return eligibleMemberArrayList;
     }
 }

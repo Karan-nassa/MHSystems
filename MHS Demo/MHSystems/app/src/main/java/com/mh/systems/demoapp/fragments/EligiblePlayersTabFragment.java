@@ -106,6 +106,7 @@ public class EligiblePlayersTabFragment extends Fragment {
         pageAdapter = new TabsPageAdapter
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MEMBERS_BOOKING);
         viewPager.setAdapter(pageAdapter);
+
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         viewPager.setCurrentItem(iLastTabPosition);
@@ -114,6 +115,10 @@ public class EligiblePlayersTabFragment extends Fragment {
         tabLayout.setOnTabSelectedListener(mCourseTabListener);
 
         return viewRootFragment;
+    }
+
+    public void fragVisible() {
+        Log.e("visible", "" + viewPager.getCurrentItem());
     }
 
     /**

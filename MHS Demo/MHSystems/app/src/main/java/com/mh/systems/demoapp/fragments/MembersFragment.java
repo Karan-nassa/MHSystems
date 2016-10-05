@@ -205,7 +205,7 @@ public class MembersFragment extends Fragment {
 
                 if (membersDatas.size() == 0) {
                     ((MembersActivity) getActivity()).updateNoDataUI(false);
-                   // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
                     ((MembersActivity) getActivity()).updateNoDataUI(true);
                     setMembersListAdapter(membersDatas.get(0).getMembersList());
@@ -213,7 +213,7 @@ public class MembersFragment extends Fragment {
             } else {
                 ((MembersActivity) getActivity()).updateNoDataUI(false);
                 //If web service not respond in any case.
-               // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
+                // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
