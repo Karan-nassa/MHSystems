@@ -93,9 +93,6 @@ public class LoginActivity extends BaseActivity {
             strUserName = etUserName.getText().toString();
             strPassword = etPassword.getText().toString();
 
-            /*Intent intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
-            startActivity(intent);*/
-
             if (isValid()) {
                 //Call LOGIN API if UserName & Password correctly filled.
                /* *
@@ -168,10 +165,10 @@ public class LoginActivity extends BaseActivity {
         aJsonParamsDashboard = new AJsonParamsDashboard();
         aJsonParamsDashboard.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsDashboard.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsDashboard.setUserID(strUserName/*"NABECASIS"*/);
-        aJsonParamsDashboard.setPassword(strPassword/*"BILLABONG1"*/);
+        aJsonParamsDashboard.setUserID(strUserName);
+        aJsonParamsDashboard.setPassword(strPassword);
 
-        dashboardAPI = new DashboardAPI(44071043, "AuthenticateMember", aJsonParamsDashboard, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        dashboardAPI = new DashboardAPI(44071043, "AUTHENTICATEMEMBER", aJsonParamsDashboard, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -227,20 +224,28 @@ public class LoginActivity extends BaseActivity {
                 if (dashboardData == null) {
                     showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-                    savePreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "" + dashboardData.getClubID());
+
                     savePreferenceValue(ApplicationGlobal.KEY_MEMBERID, "" + dashboardData.getMemberID());
-                    savePreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, dashboardData.getUserLoginID());
-                    savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);
-                    savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
-                    savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
+                    savePreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, dashboardData.getFirstTimeLogin());
 
-                    Gson gson = new Gson();
+                    if (dashboardData.getFirstTimeLogin()) {
+                        Intent intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
+                        startActivity(intent);
+                    } else {
+                        savePreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "" + dashboardData.getClubID());
+                        savePreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, dashboardData.getUserLoginID());
+                        savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);
+                        savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
+                        savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
 
-                    //Save Courses ArrayList in Shared-preference.
-                    savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
+                        Gson gson = new Gson();
 
-                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
-                    this.finish();
+//                        Save Courses ArrayList in Shared-preference.
+                        savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
+
+                        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                        this.finish();
+                    }
                 }
             } else {
                 //If web service not respond in any case.

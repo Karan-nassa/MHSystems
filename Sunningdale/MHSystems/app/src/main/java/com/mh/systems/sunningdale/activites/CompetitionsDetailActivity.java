@@ -350,7 +350,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
 
@@ -461,7 +461,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
 
@@ -562,7 +562,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
 

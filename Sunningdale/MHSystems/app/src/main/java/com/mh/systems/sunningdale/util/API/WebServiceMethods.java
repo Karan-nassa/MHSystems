@@ -11,6 +11,7 @@ import com.mh.systems.sunningdale.models.CompetitionsAPI;
 import com.mh.systems.sunningdale.models.CourseDiaryAPI;
 import com.mh.systems.sunningdale.models.DashboardAPI;
 import com.mh.systems.sunningdale.models.EditDetailMode.EditDetailModeAPI;
+import com.mh.systems.sunningdale.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.sunningdale.models.Friends.RemoveFriendAPI;
 import com.mh.systems.sunningdale.models.FriendsAPI;
 import com.mh.systems.sunningdale.models.HandicapAPI;
@@ -20,6 +21,7 @@ import com.mh.systems.sunningdale.models.MembersDetailAPI;
 import com.mh.systems.sunningdale.models.FinanceAPI;
 import com.mh.systems.sunningdale.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.sunningdale.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.sunningdale.models.UpdatePassword.UpdatePassswordAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -262,5 +264,27 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Forgot Password web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param forgotPasswordAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void forgotPassword(@Body ForgotPasswordAPI forgotPasswordAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of UPDATE temporary Password web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param updatePassswordAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updatePassword(@Body UpdatePassswordAPI updatePassswordAPI, Callback<JsonObject> response);
 }
 

@@ -56,22 +56,6 @@ public class ApplicationGlobal {
     public static final String TAG_CALL_FROM = "callFrom";
 
     /**
-     * Declares the KEY used to pass some of the
-     * data on DETAIL screen of MY ACCOUNT INVOICE.
-     */
-    public static final String KEY_INVOICE_TITLE = "INVOICE_TAX_TITLE";
-    public static final String KEY_INVOICE_NUMBER = "INVOICE_NUMBER";
-    public static final String KEY_INVOICE_VALUE = "INVOICE_VALUE";
-    public static final String KEY_INVOICE_TAX = "INVOICE_TAX";
-    public static final String KEY_INVOICE_TOTAL_PAYABLE = "INVOICE_TAX_PAYABLE";
-    public static final String KEY_INVOICE_DATE = "INVOICE_DATE";
-    public static final String KEY_INVOICE_DESCRIPTION = "INVOICE_DESCRIPTION";
-    public static final String KEY_INVOICE_BILL_FROM = "INVOICE_BILL_FROM";
-    public static final String KEY_INVOICE_BILL_TO = "INVOICE_BILL_TO";
-    public static final String KEY_INVOICE_STATUS_STR = "INVOICE_STATUS_STR";
-
-
-    /**
      * Used during tap on SPINNER/DROPDOWN selectable items to sent on
      * {@link com.mh.systems.sunningdale.fragments.MembersTabFragment} for update MEMBERS list accordingly.
      */
@@ -112,7 +96,7 @@ public class ApplicationGlobal {
     /**
      * SHARED PREFERENCE KEY COLLECTION.
      */
-    public static final String SHARED_PREF = "MHSystemsPrefs_sunningdale";
+    public static final String SHARED_PREF = "MHS_sunningdale";
     public static final String KEY_USER_LOGINID = "UserLoginID";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_CLUB_ID = "ClubID";
@@ -120,7 +104,7 @@ public class ApplicationGlobal {
     public static final String KEY_HCAP_TYPE_STR = "HCapTypeStr";
     public static final String KEY_HCAP_EXACT_STR = "HCapExactStr";
     public static final String KEY_HCAP_PLAY_STR = "HCapPlayStr";
-
+    public static final String KEY_FIRST_TIME_LOGIN = "FirstTimeLogin";
 }
 
 

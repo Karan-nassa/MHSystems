@@ -140,6 +140,18 @@
         <activity
             android:name=".activites.HCapHistoryActivity"
             android:screenOrientation="portrait" />
+
+        <!-- UPDATE Password Activity -->
+
+        <activity
+            android:name=".activites.UpdatePasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- FORGOT Password Activity -->
+
+        <activity
+            android:name=".activites.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

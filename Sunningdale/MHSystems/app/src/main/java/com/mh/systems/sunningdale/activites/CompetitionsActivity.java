@@ -324,7 +324,7 @@ public class CompetitionsActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + getResources().getString(R.string.error_server_problem));
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }

@@ -28,6 +28,9 @@ public class LoginData {
     @SerializedName("Courses")
     @Expose
     private List<CoursesData> Courses = new ArrayList<CoursesData>();
+    @SerializedName("FirstTimeLogin")
+    @Expose
+    private boolean FirstTimeLogin;
 
     /**
      * @return The courses
@@ -111,5 +114,19 @@ public class LoginData {
      */
     public void setHCapExactStr(String HCapExactStr) {
         this.HCapExactStr = HCapExactStr;
+    }
+
+    /**
+     * @return The FirstTimeLogin
+     */
+    public boolean getFirstTimeLogin() {
+        return FirstTimeLogin;
+    }
+
+    /**
+     * @param FirstTimeLogin The FirstTimeLogin
+     */
+    public void setFirstTimeLogin(boolean firstTimeLogin) {
+        FirstTimeLogin = firstTimeLogin;
     }
 }

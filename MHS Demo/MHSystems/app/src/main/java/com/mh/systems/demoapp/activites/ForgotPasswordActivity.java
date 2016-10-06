@@ -223,7 +223,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
              */
             if (forgotPasswordResponse.getMessage().equalsIgnoreCase("Success")) {
 
-                btForgotPwd.setVisibility(View.GONE);
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, true);
                 clearAllFields();
             } else {
                 mAwesomeValidation.addValidation(etEmailAddress, "regex", forgotPasswordResponse.getMessage());

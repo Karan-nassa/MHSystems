@@ -22,6 +22,10 @@ public class LoginData {
     @SerializedName("HCapExactStr")
     @Expose
     private String HCapExactStr;
+    @SerializedName("FirstTimeLogin")
+    @Expose
+    private boolean FirstTimeLogin;
+
 
     /**
      * @return The ClubID
@@ -93,5 +97,17 @@ public class LoginData {
         this.HCapExactStr = HCapExactStr;
     }
 
+    /**
+     * @return The FirstTimeLogin
+     */
+    public boolean getFirstTimeLogin() {
+        return FirstTimeLogin;
+    }
 
+    /**
+     * @param FirstTimeLogin The FirstTimeLogin
+     */
+    public void setFirstTimeLogin(boolean firstTimeLogin) {
+        FirstTimeLogin = firstTimeLogin;
+    }
 }

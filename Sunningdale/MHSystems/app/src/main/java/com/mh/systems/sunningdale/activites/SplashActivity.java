@@ -3,6 +3,7 @@ package com.mh.systems.sunningdale.activites;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
@@ -19,18 +20,21 @@ public class SplashActivity extends BaseActivity {
 
     private final int SPLASH_TIME_OUT = 1500;
 
-    String strUserName;
+    String strMemberID;
+    boolean isFirstTimeLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        strUserName = loadPreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, "");
+        strMemberID = loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "");
+        isFirstTimeLogin = loadPreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, true);
 
         /**
-         *  SPLASH FUNCTIONALITY.
-         */
+         *  If we already have MemberID and FirstLogin bool value means user already
+         *  Logged-in
+         * */
         new Handler().postDelayed(new Runnable() {
             /*
                 * Showing splash screen with a timer. This will be useful when you
@@ -38,7 +42,7 @@ public class SplashActivity extends BaseActivity {
                 */
             @Override
             public void run() {
-                if (strUserName.equalsIgnoreCase("")) {
+                if (strMemberID.equalsIgnoreCase("") && isFirstTimeLogin) {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 } else {

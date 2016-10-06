@@ -28,7 +28,7 @@ public class SplashActivity extends BaseActivity {
 
     private final int SPLASH_TIME_OUT = 1500;
 
-    String strUserName;
+    String strMemberID;
 
     BroadcastReceiver mRegistrationBroadcastReceiver;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -62,20 +62,19 @@ public class SplashActivity extends BaseActivity {
         }
 
 
-
-        strUserName = loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "");
+        strMemberID = loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "");
 
         /**
          *  SPLASH FUNCTIONALITY.
          */
         new Handler().postDelayed(new Runnable() {
-            /*
+              /**
                 * Showing splash screen with a timer. This will be useful when you
                 * want to show case your app logo / company
                 */
             @Override
             public void run() {
-                if (strUserName.equalsIgnoreCase("")) {
+                if (strMemberID.equalsIgnoreCase("")) {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 } else {

@@ -4,71 +4,41 @@
     android:layout_height="match_parent"
     android:background="@color/colorGreyf1f1f0">
 
-    <!-- COPYRIGHT TEXT -->
-
-    <TextView
-        android:id="@+id/tvCopyRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="60dp"
-        android:alpha="0.3"
-        android:text="@string/text_title_copyright"
-        android:textColor="@color/colorBlack000000"
-        android:textSize="17sp" />
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <!-- LOGO -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="40"
+            android:background="@color/colorWhiteffffff">
 
-            <LinearLayout
+            <!-- GOLF CLUB LOGO -->
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhiteffffff"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_home_golfclub" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp" />
 
-                <!-- GOLF CLUB LOGO -->
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_home_golfclub" />
+        </LinearLayout>
 
-                <!--&lt;!&ndash; GOLF CLUB NAME &ndash;&gt;
+        <!-- LOGIN AND PASSWORD -->
 
-                <mhstems.customfonts.BaskervilleTextFont
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.5"
-                    android:text="@string/title_golf_club_name"
-                    android:textColor="@color/colorC0995B"
-                    android:textSize="12sp" />-->
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="50sp" />
-
-            </LinearLayout>
-
-            <!-- EMAIL &amp; PASSWORD -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="53">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
 
                 <!-- PLEASE LOGIN TEXT -->
 
@@ -145,15 +115,16 @@
                     <!-- FORGOT PASSWORD -->
 
                     <com.mh.systems.sunningdale.customfonts.RobotoTextView
+                        android:id="@+id/tvForgotPWD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="15dp"
-                        android:alpha="0.4"
+                        android:layout_marginTop="12dp"
+                        android:padding="7dp"
                         android:text="@string/text_title_forgot_password"
-                        android:textColor="@color/colorBlack000000"
+                        android:textColor="@color/color4b9dfa"
                         android:textSize="12sp"
-                        android:visibility="invisible" />
+                        android:visibility="visible" />
 
                 </LinearLayout>
 
@@ -161,7 +132,19 @@
 
         </LinearLayout>
 
-    </ScrollView>
+        <!-- COPYRIGHT TEXT -->
 
+        <TextView
+            android:id="@+id/tvCopyRight"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:alpha="0.3"
+            android:gravity="center"
+            android:text="@string/text_title_copyright"
+            android:textColor="@color/colorBlack000000"
+            android:textSize="17sp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

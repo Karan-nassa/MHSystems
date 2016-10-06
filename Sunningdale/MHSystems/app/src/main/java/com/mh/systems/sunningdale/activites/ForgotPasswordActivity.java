@@ -1,27 +1,31 @@
-package com.mh.systems.demoapp.activites;
+package com.mh.systems.sunningdale.activites;
 
 
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.google.common.collect.Range;
 import com.google.gson.JsonObject;
-import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.models.ResetPassword.AJsonParamsResetPwd;
-import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
-import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordItems;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.R;
+import com.mh.systems.sunningdale.constants.ApplicationGlobal;
+import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.models.ForgotPassword.AJsonParamsForgotPassword;
+import com.mh.systems.sunningdale.models.ForgotPassword.ForgotPasswordAPI;
+import com.mh.systems.sunningdale.models.ForgotPassword.ForgotPasswordResponse;
+import com.mh.systems.sunningdale.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -34,35 +38,32 @@ import retrofit.RetrofitError;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.UNDERLABEL;
 
-public class UpdatePasswordActivity extends BaseActivity implements View.OnClickListener {
+public class ForgotPasswordActivity extends BaseActivity implements View.OnClickListener {
 
-    private final String LOG_TAG = UpdatePasswordActivity.class.getSimpleName();
+    private final String LOG_TAG = ForgotPasswordActivity.class.getSimpleName();
 
     private AwesomeValidation mAwesomeValidation;
 
-    @Bind(R.id.etUserName)
-    EditText etUserName;
+    @Bind(R.id.tbForgotPwd)
+    Toolbar tbForgotPwd;
 
-    @Bind(R.id.etNewPassword)
-    EditText etNewPassword;
+    @Bind(R.id.etEmailAddress)
+    EditText etEmailAddress;
 
-    @Bind(R.id.etConfirmPassword)
-    EditText etConfirmPassword;
-
-    @Bind(R.id.btUpdatePassword)
-    Button btUpdatePassword;
+    @Bind(R.id.btForgotPwd)
+    Button btForgotPwd;
 
     //List of type ResetPassword will store type Book which is our data model
-    private ResetPasswordAPI resetPasswordAPI;
-    AJsonParamsResetPwd aJsonParamsResetPwd;
-    ResetPasswordItems resetPasswordItems;
+    private ForgotPasswordAPI forgotPasswordAPI;
+    AJsonParamsForgotPassword aJsonParamsForgotPassword;
+    ForgotPasswordResponse forgotPasswordResponse;
 
     Typeface tfRobotoRegular, tfRobotoMedium;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    String strUserName = "", strNewPassword = "", strConfirmPassword = "";
+    String strMemberId = ""; //UserId or MemberId both are same.
 
     private TextWatcher mTextChangeListener = new TextWatcher() {
 
@@ -76,12 +77,12 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
         public void onTextChanged(CharSequence s, int start,
                                   int before, int count) {
 
-            if (etUserName.getText().toString().length() == 0 || etNewPassword.getText().toString().length() == 0 || etConfirmPassword.getText().toString().length() == 0) {
-                btUpdatePassword.setEnabled(false);
-                btUpdatePassword.setBackground(ContextCompat.getDrawable(UpdatePasswordActivity.this, R.drawable.background_button_e8dcc9));
+            if (etEmailAddress.getText().toString().length() == 0) {
+                btForgotPwd.setEnabled(false);
+                btForgotPwd.setBackground(ContextCompat.getDrawable(ForgotPasswordActivity.this, R.drawable.background_button_e8dcc9));
             } else {
-                btUpdatePassword.setEnabled(true);
-                btUpdatePassword.setBackground(ContextCompat.getDrawable(UpdatePasswordActivity.this, R.drawable.button_login_shape_c0995b));
+                btForgotPwd.setEnabled(true);
+                btForgotPwd.setBackground(ContextCompat.getDrawable(ForgotPasswordActivity.this, R.drawable.button_login_shape_c0995b));
             }
         }
     };
@@ -89,58 +90,50 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_password);
+        setContentView(R.layout.activity_forgot_password);
 
-        ButterKnife.bind(UpdatePasswordActivity.this);
+        ButterKnife.bind(ForgotPasswordActivity.this);
 
         // Step 1: designate a style
         mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
         mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
-        mAwesomeValidation.addValidation(this, R.id.etConfirmPassword, Range.closed(strNewPassword, strConfirmPassword), R.string.error_no_match_pwd);
+        //mAwesomeValidation.addValidation(this, R.id.etConfirmPassword, Range.closed(strNewPassword, strConfirmPassword), R.string.error_pwd_no_match);
 
-        btUpdatePassword.setEnabled(false);
+        // show soft keyboard
+        etEmailAddress.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        setSupportActionBar(tbForgotPwd);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(getResources().getString(R.string.edit_title_forgot_pwd));
+
+        btForgotPwd.setEnabled(false);
 
         //Set Custom font style.
         setFontTypeFace();
 
-        etNewPassword.addTextChangedListener(mTextChangeListener);
-        etConfirmPassword.addTextChangedListener(mTextChangeListener);
-        etUserName.addTextChangedListener(mTextChangeListener);
+        etEmailAddress.addTextChangedListener(mTextChangeListener);
 
         //Set Click listener event.
-        btUpdatePassword.setOnClickListener(this);
+        btForgotPwd.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.btUpdatePassword:
-
-                strUserName = etUserName.getText().toString();
-                strNewPassword = etNewPassword.getText().toString();
-                strConfirmPassword = etConfirmPassword.getText().toString();
-
-                if (strNewPassword.equals(strConfirmPassword)) {
-                    /**
-                     *  Check internet connection before hitting server request.
-                     */
-                    if (isOnline(UpdatePasswordActivity.this)) {
-                        //requestMemberDetailService();
-                        showAlertMessage("Under process...");
-                        clearAllFields();
-                    } else {
-                        showAlertMessage(getString(R.string.error_no_connection));
-                    }
+            case R.id.btForgotPwd:
+                /**
+                 *  Check internet connection before hitting server request.
+                 */
+                if (isOnline(ForgotPasswordActivity.this)) {
+                    requestMemberDetailService();
                 } else {
-                    // Step 2: add validations
-                    // support regex string, java.util.regex.Pattern and Guava#Range
-                    // you can pass resource or string
-                    mAwesomeValidation.validate();
+                    showAlertMessage(getString(R.string.error_no_connection));
                 }
                 break;
         }
-
     }
 
     @Override
@@ -168,14 +161,12 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
 
         showPleaseWait("Loading...");
 
-        aJsonParamsResetPwd = new AJsonParamsResetPwd();
-        aJsonParamsResetPwd.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
-        aJsonParamsResetPwd.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsResetPwd.setMemberId(getMemberId());
-        //aJsonParamsResetPwd.setPassword(strCurrentPassword);
-        aJsonParamsResetPwd.setNewPassword(strNewPassword);
+        aJsonParamsForgotPassword = new AJsonParamsForgotPassword();
+        aJsonParamsForgotPassword.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsForgotPassword.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsForgotPassword.setUserId(etEmailAddress.getText().toString());
 
-        resetPasswordAPI = new ResetPasswordAPI(getClientId(), "RESETPASSWORD", aJsonParamsResetPwd, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        forgotPasswordAPI = new ForgotPasswordAPI(getClientId(), "FORGOTPASSWORD", aJsonParamsForgotPassword, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -186,7 +177,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
         WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
         //Defining the method
-        api.resetPassword(resetPasswordAPI, new Callback<JsonObject>() {
+        api.forgotPassword(forgotPasswordAPI, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
@@ -225,20 +216,22 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
 
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
-        Type type = new TypeToken<ResetPasswordItems>() {
+        Type type = new TypeToken<ForgotPasswordResponse>() {
         }.getType();
-        resetPasswordItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        forgotPasswordResponse = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         try {
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
-            if (resetPasswordItems.getMessage().equalsIgnoreCase("Success")) {
-                savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERID, false);
+            if (forgotPasswordResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                showAlertOk("" + forgotPasswordResponse.getData());
                 clearAllFields();
             } else {
-                mAwesomeValidation.addValidation(etUserName, "regex", resetPasswordItems.getMessage());
-                mAwesomeValidation.validate();
+//                mAwesomeValidation.addValidation(etEmailAddress, "regex", forgotPasswordResponse.getMessage());
+//                mAwesomeValidation.validate();
+                showAlertMessage("" + forgotPasswordResponse.getMessage());
             }
             hideProgress();
         } catch (Exception e) {
@@ -252,9 +245,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
      * Implements the method to clear the fields.
      */
     private void clearAllFields() {
-        etConfirmPassword.setText("");
-        etNewPassword.setText("");
-        etNewPassword.requestFocus();
+        etEmailAddress.setText("");
         mAwesomeValidation.clear();
     }
 
@@ -267,9 +258,30 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
         tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
         tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
 
-        etNewPassword.setTypeface(tfRobotoRegular);
-        etConfirmPassword.setTypeface(tfRobotoRegular);
+        etEmailAddress.setTypeface(tfRobotoRegular);
 
-        btUpdatePassword.setTypeface(tfRobotoMedium);
+        btForgotPwd.setTypeface(tfRobotoMedium);
+    }
+
+    /**
+     * Implement a method to display {@link AlertDialog} with OK button. When user tap
+     * on OK then go back to LOGIN screen.
+     */
+    public void showAlertOk(String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                            onBackPressed();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }
