@@ -1,20 +1,22 @@
 package com.mh.systems.demoapp.activites;
 
 
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.google.common.collect.Range;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
@@ -22,9 +24,6 @@ import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.ForgotPassword.AJsonParamsForgotPassword;
 import com.mh.systems.demoapp.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.demoapp.models.ForgotPassword.ForgotPasswordResponse;
-import com.mh.systems.demoapp.models.ResetPassword.AJsonParamsResetPwd;
-import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
-import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordItems;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -99,6 +98,10 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
         mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
         //mAwesomeValidation.addValidation(this, R.id.etConfirmPassword, Range.closed(strNewPassword, strConfirmPassword), R.string.error_pwd_no_match);
 
+        // show soft keyboard
+        etEmailAddress.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         setSupportActionBar(tbForgotPwd);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -124,8 +127,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
                  *  Check internet connection before hitting server request.
                  */
                 if (isOnline(ForgotPasswordActivity.this)) {
-                    //requestMemberDetailService();
-                    showAlertMessage("Under process...");
+                    requestMemberDetailService();
                 } else {
                     showAlertMessage(getString(R.string.error_no_connection));
                 }
@@ -161,7 +163,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
         aJsonParamsForgotPassword = new AJsonParamsForgotPassword();
         aJsonParamsForgotPassword.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsForgotPassword.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsForgotPassword.setUserId(strMemberId);
+        aJsonParamsForgotPassword.setUserId(etEmailAddress.getText().toString());
 
         forgotPasswordAPI = new ForgotPasswordAPI(getClientId(), "FORGOTPASSWORD", aJsonParamsForgotPassword, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
@@ -223,11 +225,12 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
              */
             if (forgotPasswordResponse.getMessage().equalsIgnoreCase("Success")) {
 
-                savePreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, true);
+                showAlertOk("" + forgotPasswordResponse.getData());
                 clearAllFields();
             } else {
-                mAwesomeValidation.addValidation(etEmailAddress, "regex", forgotPasswordResponse.getMessage());
-                mAwesomeValidation.validate();
+//                mAwesomeValidation.addValidation(etEmailAddress, "regex", forgotPasswordResponse.getMessage());
+//                mAwesomeValidation.validate();
+                showAlertMessage("" + forgotPasswordResponse.getMessage());
             }
             hideProgress();
         } catch (Exception e) {
@@ -257,5 +260,27 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
         etEmailAddress.setTypeface(tfRobotoRegular);
 
         btForgotPwd.setTypeface(tfRobotoMedium);
+    }
+
+    /**
+     * Implement a method to display {@link AlertDialog} with OK button. When user tap
+     * on OK then go back to LOGIN screen.
+     */
+    public void showAlertOk(String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                            onBackPressed();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

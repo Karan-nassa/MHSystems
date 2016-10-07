@@ -42,7 +42,7 @@ public class SplashActivity extends BaseActivity {
                 */
             @Override
             public void run() {
-                if (strMemberID.equalsIgnoreCase("") && isFirstTimeLogin) {
+                if (strMemberID.equalsIgnoreCase("") || isFirstTimeLogin) {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 } else {

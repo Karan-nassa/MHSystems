@@ -2,19 +2,14 @@ package com.mh.systems.demoapp.activites;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
@@ -23,6 +18,8 @@ import com.mh.systems.demoapp.models.DashboardAPI;
 import com.mh.systems.demoapp.models.LoginData;
 import com.mh.systems.demoapp.models.LoginItems;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
@@ -118,6 +115,9 @@ public class LoginActivity extends BaseActivity {
     private View.OnClickListener mForgotPwdListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            etPassword.setText("");
+
             intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
         }
@@ -130,9 +130,6 @@ public class LoginActivity extends BaseActivity {
 
         //Initialize Butter knife.
         ButterKnife.bind(this);
-
-//        etUserName.setText("TONYP1952");
-//        etPassword.setText("WINCHESTER1952");
 
         btLogin.setOnClickListener(mLoginListener);
 
@@ -226,12 +223,16 @@ public class LoginActivity extends BaseActivity {
                 } else {
 
                     savePreferenceValue(ApplicationGlobal.KEY_MEMBERID, "" + dashboardData.getMemberID());
-                    savePreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, dashboardData.getFirstTimeLogin());
+
+                    etPassword.setText("");
+                    etUserName.setText("");
 
                     if (dashboardData.getFirstTimeLogin()) {
-                        Intent intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
+                        intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
                         startActivity(intent);
                     } else {
+
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, dashboardData.getFirstTimeLogin());
                         savePreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "" + dashboardData.getClubID());
                         savePreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, dashboardData.getUserLoginID());
                         savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);
@@ -240,10 +241,11 @@ public class LoginActivity extends BaseActivity {
 
                         Gson gson = new Gson();
 
-//                        Save Courses ArrayList in Shared-preference.
+                        //Save Courses ArrayList in Shared-preference.
                         savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
 
-                        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                        intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                        startActivity(intent);
                         this.finish();
                     }
                 }

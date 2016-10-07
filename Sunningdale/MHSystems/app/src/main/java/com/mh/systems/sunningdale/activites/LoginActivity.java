@@ -91,7 +91,7 @@ public class LoginActivity extends BaseActivity {
 
             if (isValid()) {
                 //Call LOGIN API if UserName & Password correctly filled.
-               /**
+                /**
                  *  Check internet connection before hitting server request.
                  */
                 if (isOnline(LoginActivity.this)) {
@@ -114,6 +114,9 @@ public class LoginActivity extends BaseActivity {
     private View.OnClickListener mForgotPwdListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            etPassword.setText("");
+
             intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
         }
@@ -227,12 +230,12 @@ public class LoginActivity extends BaseActivity {
                     etPassword.setText("");
                     etUserName.setText("");
 
-                    if(dashboardData.getFirstTimeLogin()){
+                    if (dashboardData.getFirstTimeLogin()) {
                         intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
                         startActivity(intent);
-                    }else {
+                    } else {
 
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_USER_LOGINID, dashboardData.getFirstTimeLogin());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, dashboardData.getFirstTimeLogin());
                         savePreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "" + dashboardData.getClubID());
                         savePreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, dashboardData.getUserLoginID());
                         savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);

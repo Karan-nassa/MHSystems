@@ -60,21 +60,6 @@ public class ApplicationGlobal {
     public static final String TAG_POPUP_THEME = "colorTheme";
     public static final String TAG_CALL_FROM = "callFrom";
 
-    /**
-     * Declares the KEY used to pass some of the
-     * data on DETAIL screen of MY ACCOUNT INVOICE.
-     */
-    public static final String KEY_INVOICE_TITLE = "INVOICE_TAX_TITLE";
-    public static final String KEY_INVOICE_NUMBER = "INVOICE_NUMBER";
-    public static final String KEY_INVOICE_VALUE = "INVOICE_VALUE";
-    public static final String KEY_INVOICE_TAX = "INVOICE_TAX";
-    public static final String KEY_INVOICE_TOTAL_PAYABLE = "INVOICE_TAX_PAYABLE";
-    public static final String KEY_INVOICE_DATE = "INVOICE_DATE";
-    public static final String KEY_INVOICE_DESCRIPTION = "INVOICE_DESCRIPTION";
-    public static final String KEY_INVOICE_BILL_FROM = "INVOICE_BILL_FROM";
-    public static final String KEY_INVOICE_BILL_TO = "INVOICE_BILL_TO";
-    public static final String KEY_INVOICE_STATUS_STR = "INVOICE_STATUS_STR";
-
 
     /**
      * Used during tap on SPINNER/DROPDOWN selectable items to sent on

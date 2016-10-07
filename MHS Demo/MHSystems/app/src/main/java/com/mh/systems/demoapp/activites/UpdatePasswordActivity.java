@@ -1,16 +1,20 @@
 package com.mh.systems.demoapp.activites;
 
 
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.common.collect.Range;
@@ -21,6 +25,9 @@ import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.ResetPassword.AJsonParamsResetPwd;
 import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordItems;
+import com.mh.systems.demoapp.models.UpdatePassword.AJsonParamsUpdatePassword;
+import com.mh.systems.demoapp.models.UpdatePassword.UpdatePassswordAPI;
+import com.mh.systems.demoapp.models.UpdatePassword.UpdatePasswordResponse;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -52,10 +59,13 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     @Bind(R.id.btUpdatePassword)
     Button btUpdatePassword;
 
+    @Bind(R.id.tvUpdatePwdTitle)
+    TextView tvUpdatePwdTitle;
+
     //List of type ResetPassword will store type Book which is our data model
-    private ResetPasswordAPI resetPasswordAPI;
-    AJsonParamsResetPwd aJsonParamsResetPwd;
-    ResetPasswordItems resetPasswordItems;
+    private UpdatePassswordAPI updatePassswordAPI;
+    private AJsonParamsUpdatePassword aJsonParamsUpdatePassword;
+    private UpdatePasswordResponse updatePasswordResponse;
 
     Typeface tfRobotoRegular, tfRobotoMedium;
 
@@ -103,6 +113,10 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
         //Set Custom font style.
         setFontTypeFace();
 
+        // show soft keyboard
+        etUserName.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         etNewPassword.addTextChangedListener(mTextChangeListener);
         etConfirmPassword.addTextChangedListener(mTextChangeListener);
         etUserName.addTextChangedListener(mTextChangeListener);
@@ -126,9 +140,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
                      *  Check internet connection before hitting server request.
                      */
                     if (isOnline(UpdatePasswordActivity.this)) {
-                        //requestMemberDetailService();
-                        showAlertMessage("Under process...");
-                        clearAllFields();
+                        requestUpdatePasswordService();
                     } else {
                         showAlertMessage(getString(R.string.error_no_connection));
                     }
@@ -161,21 +173,21 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     }
 
     /**
-     * Implement a method to hit Members Detail
-     * web service to get response.
+     * Implements method to UPDATE temporary password
+     * web service.
      */
-    public void requestMemberDetailService() {
+    private void requestUpdatePasswordService() {
 
         showPleaseWait("Loading...");
 
-        aJsonParamsResetPwd = new AJsonParamsResetPwd();
-        aJsonParamsResetPwd.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
-        aJsonParamsResetPwd.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsResetPwd.setMemberId(getMemberId());
-        //aJsonParamsResetPwd.setPassword(strCurrentPassword);
-        aJsonParamsResetPwd.setNewPassword(strNewPassword);
+        aJsonParamsUpdatePassword = new AJsonParamsUpdatePassword();
+        aJsonParamsUpdatePassword.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsUpdatePassword.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsUpdatePassword.setMemberId(getMemberId());
+        aJsonParamsUpdatePassword.setUserID(strUserName);
+        aJsonParamsUpdatePassword.setPassword(strNewPassword);
 
-        resetPasswordAPI = new ResetPasswordAPI(getClientId(), "RESETPASSWORD", aJsonParamsResetPwd, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        updatePassswordAPI = new UpdatePassswordAPI(getClientId(), "UPDATEMEMBERUSERNAMEPWD", aJsonParamsUpdatePassword, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -186,7 +198,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
         WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
         //Defining the method
-        api.resetPassword(resetPasswordAPI, new Callback<JsonObject>() {
+        api.updatePassword(updatePassswordAPI, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
@@ -204,6 +216,65 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     }
 
     /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<UpdatePasswordResponse>() {
+        }.getType();
+        updatePasswordResponse = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (updatePasswordResponse.getMessage().equalsIgnoreCase("Success")) {
+                clearAllFields();
+                showAlertOk("" + updatePasswordResponse.getData());
+            } else {
+                /*mAwesomeValidation.addValidation(etUserName, "regex", updatePasswordResponse.getMessage());
+                mAwesomeValidation.validate();*/
+                showAlertMessage("" + updatePasswordResponse.getMessage());
+            }
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Implements the method to clear the fields.
+     */
+    private void clearAllFields() {
+        etUserName.setText("");
+        etNewPassword.setText("");
+        etConfirmPassword.setText("");
+        mAwesomeValidation.clear();
+    }
+
+
+    /**
+     * Implements a method to set FONT style using .ttf by putting
+     * in main\assets\fonts directory of current project.
+     */
+    private void setFontTypeFace() {
+        tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
+        tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+
+        etUserName.setTypeface(tfRobotoRegular);
+        etNewPassword.setTypeface(tfRobotoRegular);
+        etConfirmPassword.setTypeface(tfRobotoRegular);
+
+        btUpdatePassword.setTypeface(tfRobotoMedium);
+        tvUpdatePwdTitle.setTypeface(tfRobotoMedium);
+    }
+
+    /**
      * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
      */
     public String getMemberId() {
@@ -218,58 +289,24 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     }
 
     /**
-     * Implements a method to update SUCCESS
-     * response of web service.
+     * Implement a method to display {@link AlertDialog} with OK button. When user tap
+     * on OK then go back to LOGIN screen.
      */
-    private void updateSuccessResponse(JsonObject jsonObject) {
+    public void showAlertOk(String strAlertMessage) {
 
-        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
-
-        Type type = new TypeToken<ResetPasswordItems>() {
-        }.getType();
-        resetPasswordItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
-
-        try {
-            /**
-             *  Check "Result" 1 or 0. If 1, means data received successfully.
-             */
-            if (resetPasswordItems.getMessage().equalsIgnoreCase("Success")) {
-                savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERID, false);
-                clearAllFields();
-            } else {
-                mAwesomeValidation.addValidation(etUserName, "regex", resetPasswordItems.getMessage());
-                mAwesomeValidation.validate();
-            }
-            hideProgress();
-        } catch (Exception e) {
-            hideProgress();
-            Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                            onBackPressed();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
-    }
-
-    /**
-     * Implements the method to clear the fields.
-     */
-    private void clearAllFields() {
-        etConfirmPassword.setText("");
-        etNewPassword.setText("");
-        etNewPassword.requestFocus();
-        mAwesomeValidation.clear();
-    }
-
-
-    /**
-     * Implements a method to set FONT style using .ttf by putting
-     * in main\assets\fonts directory of current project.
-     */
-    private void setFontTypeFace() {
-        tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
-        tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
-
-        etNewPassword.setTypeface(tfRobotoRegular);
-        etConfirmPassword.setTypeface(tfRobotoRegular);
-
-        btUpdatePassword.setTypeface(tfRobotoMedium);
     }
 }

@@ -21,6 +21,7 @@ import com.mh.systems.demoapp.models.MembersDetailAPI;
 import com.mh.systems.demoapp.models.FinanceAPI;
 import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.demoapp.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.demoapp.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.UpdateCompEntryAPI;
@@ -313,5 +314,16 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void forgotPassword(@Body ForgotPasswordAPI forgotPasswordAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of UPDATE temporary Password web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param updatePassswordAPI
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void updatePassword(@Body UpdatePassswordAPI updatePassswordAPI, Callback<JsonObject> response);
 }
 
