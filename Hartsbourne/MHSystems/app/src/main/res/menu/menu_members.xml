@@ -13,11 +13,13 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 
+    <!-- INFO -->
+
     <item
         android:id="@+id/action_info"
         android:icon="@mipmap/ic_menu_info"
         android:orderInCategory="100"
         android:title=""
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
 </menu>

@@ -125,7 +125,7 @@ public class FriendsFragment extends Fragment {
 
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             ((MembersActivity) getActivity()).updateNoInternetUI(true);
-           // MemberDetailActivity.isRefreshData = false;
+            // MemberDetailActivity.isRefreshData = false;
             //Method to hit Members list API.
             requestFriendService();
         } else {
@@ -170,7 +170,7 @@ public class FriendsFragment extends Fragment {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
 
-                ((BaseActivity) getActivity()).showAlertMessage("" + error);
+                ((BaseActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
 
@@ -207,22 +207,21 @@ public class FriendsFragment extends Fragment {
                 friendsDataArrayList.addAll(friendsItems.getData());
 
                 if (friendsDataArrayList.size() == 0) {
-                    ((MembersActivity) getActivity()).updateNoDataUI(false);
+                    ((MembersActivity) getActivity()).updateNoDataUI(false, 1);
                     //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-                    ((MembersActivity) getActivity()).updateNoDataUI(true);
+                    ((MembersActivity) getActivity()).updateNoDataUI(true, 1);
                     setMembersListAdapter(friendsDataArrayList);
                 }
             } else {
-                ((MembersActivity) getActivity()).updateNoDataUI(false);
+                ((MembersActivity) getActivity()).updateNoDataUI(false, 1);
             }
+            //Dismiss progress dialog.
+            ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
-
-        //Dismiss progress dialog.
-        ((BaseActivity) getActivity()).hideProgress();
     }
 
 
@@ -350,48 +349,6 @@ public class FriendsFragment extends Fragment {
                 holder.friendName.setText(displayName);
                 holder.tvPlayHCapStr.setText(contact.getHCapPlayStr());
 
-//            boolean hasPhoto = !TextUtils.isEmpty(contact.getPlayHCapStr());
-//            if (holder.updateTask != null && !holder.updateTask.isCancelled())
-//                holder.updateTask.cancel(true);
-//            final Bitmap cachedBitmap = hasPhoto ? ImageCache.INSTANCE.getBitmapFromMemCache(contact.getPlayHCapStr()) : null;
-//            if (cachedBitmap != null)
-//                holder.friendProfileCircularContactView.setImageBitmap(cachedBitmap);
-//            else {
-//                final int backgroundColorToUse = PHOTO_TEXT_BACKGROUND_COLORS[position
-//                        % PHOTO_TEXT_BACKGROUND_COLORS.length];
-//                if (TextUtils.isEmpty(displayName))
-//                    holder.friendProfileCircularContactView.setImageResource(R.drawable.background_pressed_c0995b,
-//                            backgroundColorToUse);
-//                else {
-//                    final String characterToShow = TextUtils.isEmpty(displayName) ? "" : displayName.substring(0, 1).toUpperCase(Locale.getDefault());
-//                    holder.friendProfileCircularContactView.setTextAndBackgroundColor(contact.getPlayHCapStr(), backgroundColorToUse);
-//                }
-//                if (hasPhoto) {
-//                    holder.updateTask = new AsyncTaskEx<Void, Void, Bitmap>() {
-//
-//                        @Override
-//                        public Bitmap doInBackground(final Void... params) {
-//                            if (isCancelled())
-//                                return null;
-//                            final Bitmap b = ContactImageUtil.loadContactPhotoThumbnail(getActivity(), contact.getFullName(), CONTACT_PHOTO_IMAGE_SIZE);
-//                            if (b != null)
-//                                return ThumbnailUtils.extractThumbnail(b, CONTACT_PHOTO_IMAGE_SIZE,
-//                                        CONTACT_PHOTO_IMAGE_SIZE);
-//                            return null;
-//                        }
-//
-//                        @Override
-//                        public void onPostExecute(final Bitmap result) {
-//                            super.onPostExecute(result);
-//                            if (result == null)
-//                                return;
-//                            ImageCache.INSTANCE.addBitmapToCache(contact.getPlayHCapStr(), result);
-//                            holder.friendProfileCircularContactView.setImageBitmap(result);
-//                        }
-//                    };
-//                    mAsyncTaskThreadPool.executeAsyncTask(holder.updateTask);
-//                }
-//            }
                 bindSectionHeader(holder.headerView, null, position);
 
                 rootView.setOnClickListener(new View.OnClickListener() {
@@ -399,7 +356,6 @@ public class FriendsFragment extends Fragment {
                     public void onClick(View v) {
 
                         Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
-                        // intent.putExtra("A_COMMAND", "REMOVELINKTOMEMBER");
                         intent.putExtra("PASS_FROM", 2); // 1 means from Member Fragment and 2 for Friends Fragment.
                         intent.putExtra("SPINNER_ITEM", ((MembersActivity) getActivity()).getiWhichSpinnerItem());
                         intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());

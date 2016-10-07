@@ -1,8 +1,10 @@
 package com.mh.systems.hartsbourne.adapter.RecyclerAdapter;
 
 import android.content.Context;
+
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.activites.ClubNewsActivity;
 import com.mh.systems.hartsbourne.activites.ClubNewsDetailActivity;

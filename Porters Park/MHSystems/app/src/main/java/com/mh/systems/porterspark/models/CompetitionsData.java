@@ -70,60 +70,77 @@ public class CompetitionsData {
     private String PlayerTotal;
 
     /**
-     * @return The PlayerPosition
+     *
+     * @return
+     * The PlayerPosition
      */
     public String getPlayerPosition() {
         return PlayerPosition;
     }
 
     /**
-     * @param PlayerPosition The PlayerPosition
+     *
+     * @param PlayerPosition
+     * The PlayerPosition
      */
     public void setPlayerPosition(String PlayerPosition) {
         this.PlayerPosition = PlayerPosition;
     }
 
     /**
-     * @return The PlayerName
+     *
+     * @return
+     * The PlayerName
      */
     public String getPlayerName() {
         return PlayerName;
     }
 
     /**
-     * @param PlayerName The PlayerName
+     *
+     * @param PlayerName
+     * The PlayerName
      */
     public void setPlayerName(String PlayerName) {
         this.PlayerName = PlayerName;
     }
 
     /**
-     * @return The PlayerHandicapped
+     *
+     * @return
+     * The PlayerHandicapped
      */
     public String getPlayerHandicapped() {
         return PlayerHandicapped;
     }
 
     /**
-     * @param PlayerHandicapped The PlayerHandicapped
+     *
+     * @param PlayerHandicapped
+     * The PlayerHandicapped
      */
     public void setPlayerHandicapped(String PlayerHandicapped) {
         this.PlayerHandicapped = PlayerHandicapped;
     }
 
     /**
-     * @return The playerTotal
+     *
+     * @return
+     * The playerTotal
      */
     public String getPlayerTotal() {
         return PlayerTotal;
     }
 
     /**
-     * @param PlayerTotal The PlayerTotal
+     *
+     * @param PlayerTotal
+     * The PlayerTotal
      */
     public void setPlayerTotal(String PlayerTotal) {
         this.PlayerTotal = PlayerTotal;
     }
+
     /****************************************************************
      * END:
      * New four fields added to make Competitions fees dynamically.
@@ -333,7 +350,7 @@ public class CompetitionsData {
     }
 
     /**
-     * @param IsMemberJoined The IsMemberJoined
+     * @param isMemberJoined The isMemberJoined
      */
     public void setIsMemberJoined(boolean isMemberJoined) {
         IsMemberJoined = isMemberJoined;

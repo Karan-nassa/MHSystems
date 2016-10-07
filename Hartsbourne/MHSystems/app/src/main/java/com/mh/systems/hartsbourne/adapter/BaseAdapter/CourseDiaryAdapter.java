@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.hartsbourne.R;
-import com.mh.systems.hartsbourne.activites.CourseDiaryDetailActivity;
 import com.mh.systems.hartsbourne.activites.CustomAlertDialogActivity;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
 import com.mh.systems.hartsbourne.models.CourseDiaryData;
@@ -204,15 +203,19 @@ public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListe
                     viewHolder.tvStartOfEvent.setText(CourseDiaryData.get(position).getStartTime24Format());
                 }
 
-                rowView.setOnClickListener(new View.OnClickListener() {
+                /**
+                 *  Stop click of Course Diary detail screen.
+                 */
+
+               /* rowView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /**
-                         *  Handle NULL @Exception.
-                         */
+                        *//**
+                 *  Handle NULL @Exception.
+                 *//*
                         if (CourseDiaryData.get(position) != null) {
 
-                            if (CourseDiaryData.get(position).getSlotType() == 3) {
+                        *//*    if (CourseDiaryData.get(position).getSlotType() == 3) {*//*
 
                                 Intent intent = new Intent(context, CourseDiaryDetailActivity.class);
                                 intent.putExtra("COURSE_TITLE", CourseDiaryData.get(position).getTitle());
@@ -225,9 +228,9 @@ public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListe
                                 intent.putExtra("COURSE_EVENT_TIME", CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
                                 context.startActivity(intent);
                             }
-                        }
+                      *//*  }*//*
                     }
-                });
+                });*/
 
                 //Set Font Style Typeface
                 setEventTypeFace(viewHolder);

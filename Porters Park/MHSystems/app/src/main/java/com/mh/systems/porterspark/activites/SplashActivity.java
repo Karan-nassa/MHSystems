@@ -19,26 +19,29 @@ public class SplashActivity extends BaseActivity {
 
     private final int SPLASH_TIME_OUT = 1500;
 
-    String strUserName;
+    String strMemberID;
+    boolean isFirstTimeLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        strUserName = loadPreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, "");
+        strMemberID = loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "");
+        isFirstTimeLogin = loadPreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, true);
 
         /**
-         *  SPLASH FUNCTIONALITY.
-         */
+         *  If we already have MemberID and FirstLogin bool value means user already
+         *  Logged-in
+         * */
         new Handler().postDelayed(new Runnable() {
-            /*
+               /**
                 * Showing splash screen with a timer. This will be useful when you
                 * want to show case your app logo / company
                 */
             @Override
             public void run() {
-                if (strUserName.equalsIgnoreCase("")) {
+                if (strMemberID.equals("") || isFirstTimeLogin) {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 } else {

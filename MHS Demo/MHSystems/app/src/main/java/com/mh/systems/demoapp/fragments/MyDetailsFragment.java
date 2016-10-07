@@ -212,7 +212,7 @@ public class MyDetailsFragment extends Fragment {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
-                showErrorMessage("" + error);
+                showErrorMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }

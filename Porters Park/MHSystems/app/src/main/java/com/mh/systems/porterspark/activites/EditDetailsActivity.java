@@ -4,10 +4,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,16 +16,12 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
-import com.mh.systems.porterspark.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
 import com.mh.systems.porterspark.constants.WebAPI;
 import com.mh.systems.porterspark.fragments.MyDetailsFragment;
 import com.mh.systems.porterspark.models.EditDetailMode.AJsonParamsEditDetailMode;
 import com.mh.systems.porterspark.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.porterspark.models.EditDetailMode.EditDetailModeResponse;
-import com.mh.systems.porterspark.models.HCapHistory.AJsonParamsHcapHistory;
-import com.mh.systems.porterspark.models.HCapHistory.HCapHistoryAPI;
-import com.mh.systems.porterspark.models.HCapHistory.HCapHistoryResult;
 import com.mh.systems.porterspark.models.MembersDetailsData;
 import com.mh.systems.porterspark.util.API.WebServiceMethods;
 import com.mukesh.countrypicker.fragments.CountryPicker;
@@ -247,7 +241,7 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }

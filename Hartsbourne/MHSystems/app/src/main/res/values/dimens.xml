@@ -9,6 +9,4 @@
 
     <!-- MEMBER INDEXING ALPHABET FILTER -->
     <dimen name="list_item__contact_imageview_size">45dp</dimen>
-
-    <dimen name="spacing">50dp</dimen>
 </resources>

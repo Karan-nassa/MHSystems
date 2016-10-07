@@ -39,8 +39,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by karan@mh.co.in for base
- * of all activities on 19-02-2016.
+ * Created {@link BaseActivity} to handle {@link SharedPreferences}, {@link AlertDialog}
+ * on 19-02-2016.
+ *
+ * @author Karan Nassa
  */
 public class BaseActivity extends AppCompatActivity {
 
@@ -61,7 +63,7 @@ public class BaseActivity extends AppCompatActivity {
 
         if (ApplicationGlobal.isRollMessageDisplay) {
             //Initialize Roll bar.
-            Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_TESTING, "TEST");
+            Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_TESTING, "TESTING");
         }
     }
 
@@ -150,15 +152,20 @@ public class BaseActivity extends AppCompatActivity {
      * @param tvMessageTitle   :  View to set Text title of message.
      * @param tvMessageDesc    :  View to set detail Text description of message.
      * @param hasData          :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     * @param iTabPositon      :  if iTabPosition 0 means 'No Member found' otherwise 'No Friend found'
      */
-    public void showNoMemberView(RelativeLayout inc_message_view, ImageView ivMessageSymbol, TextView tvMessageTitle, TextView tvMessageDesc, boolean hasData) {
+    public void showNoMemberView(RelativeLayout inc_message_view, ImageView ivMessageSymbol, TextView tvMessageTitle, TextView tvMessageDesc, boolean hasData, int iTabPositon) {
 
         if (hasData) {
             inc_message_view.setVisibility(View.GONE);
         } else {
             inc_message_view.setVisibility(View.VISIBLE);
             ivMessageSymbol.setImageResource(R.mipmap.ic_home_members);
-            tvMessageTitle.setText(getResources().getString(R.string.error_no_member));
+            if(iTabPositon==0) {
+                tvMessageTitle.setText(getResources().getString(R.string.error_no_member));
+            }else{
+                tvMessageTitle.setText(getResources().getString(R.string.error_no_friend));
+            }
             tvMessageDesc.setText(getResources().getString(R.string.error_try_again));
         }
     }
@@ -260,7 +267,7 @@ public class BaseActivity extends AppCompatActivity {
      * @return strDate  : MMM [NOV]
      */
     public static String getFormateMonth(String strDate) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMM");
 
         try {
@@ -286,6 +293,33 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
+     * Load Preference any Boolean value
+     *
+     * @paramContext - Context of class
+     * @paramKey - To get value corresponding to KEY_VALUE
+     */
+    public boolean loadPreferenceBooleanValue(
+            String key, boolean defValue) {
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        return sharedpreferences.getBoolean(key, defValue);
+    }
+
+    /**
+     * Save boolean value in Preference for future use.
+     */
+    @SuppressWarnings("static-access")
+    public void savePreferenceBooleanValue(String key,
+                                           boolean value) {
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
+
+    /**
      * Save Preference for future use.
      */
     @SuppressWarnings("static-access")
@@ -299,12 +333,11 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Save {@link ArrayList} in {@link SharedPreferences} in
+     * Save {@link java.util.ArrayList} in {@link SharedPreferences} in
      * Gson form.
      */
     @SuppressWarnings("static-access")
-    public void savePreferenceList(String key,
-                                   String json) {
+    public void savePreferenceList(String key, String json) {
         sharedpreferences = getSharedPreferences(
                 ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();

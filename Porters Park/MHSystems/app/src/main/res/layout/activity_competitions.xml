@@ -200,10 +200,11 @@
             android:id="@+id/lvCompetitions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@color/colorWhiteffffff"
-            android:cacheColorHint="@color/colorWhiteffffff"
-            android:divider="@color/colorFFEFEFF4"
+            android:padding="8dp"
+            android:background="@color/colorF9F8F7"
+            android:cacheColorHint="@color/colorF9F8F7"
+            android:divider="@color/colorF9F8F7"
+            android:scrollbars="none"
             android:dividerHeight="10dp" />
 
     </LinearLayout>

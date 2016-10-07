@@ -107,30 +107,37 @@ public class EligibleFriendsFragment extends Fragment {
      */
     private void setMembersListAdapter(ArrayList<EligibleMember> eligibleMemberArrayList) {
 
-        //Members list demo.
-        Collections.sort(eligibleMemberArrayList, new Comparator<EligibleMember>() {
-            @Override
-            public int compare(EligibleMember lhs, EligibleMember rhs) {
-                char lhsFirstLetter = TextUtils.isEmpty(lhs.getNameRecord().getDisplayName()) ? ' ' : lhs.getNameRecord().getDisplayName().charAt(0);
-                char rhsFirstLetter = TextUtils.isEmpty(rhs.getNameRecord().getDisplayName()) ? ' ' : rhs.getNameRecord().getDisplayName().charAt(0);
-                int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
-                if (firstLetterComparison == 0)
-                    return lhs.getNameRecord().getDisplayName().compareTo(rhs.getNameRecord().getDisplayName());
-                return firstLetterComparison;
-            }
-        });
-
-        mAdapter = new EligibleMembersAdapter(eligibleMemberArrayList, getActivity(), mInflater, 1);
-
-        //int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(), android.R.attr.colorBackground)));
-        mAdapter.setPinnedHeaderBackgroundColor(Color.parseColor("#F9F8F7")/*pinnedHeaderBackgroundColor*/);
-        mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.color9B9B9B));
-        mPinnedHeaderListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mPinnedHeaderListView, false));
-        mPinnedHeaderListView.setAdapter(mAdapter);
-        mPinnedHeaderListView.setOnScrollListener(mAdapter);
-        mPinnedHeaderListView.setEnableHeaderTransparencyChanges(false);
-        mAdapter.notifyDataSetChanged();
-
         ((EligiblePlayersActivity) getActivity()).hideProgress();
+        if (eligibleMemberArrayList.size() == 0) {
+            //((EligiblePlayersActivity) getActivity()).updateNoDataUI(false, 1);
+            ((EligiblePlayersActivity)getActivity()).showAlertMessage(getString(R.string.error_no_friend));
+        } else {
+
+            //((EligiblePlayersActivity) getActivity()).updateNoDataUI(true, 1);
+
+            //Members list demo.
+            Collections.sort(eligibleMemberArrayList, new Comparator<EligibleMember>() {
+                @Override
+                public int compare(EligibleMember lhs, EligibleMember rhs) {
+                    char lhsFirstLetter = TextUtils.isEmpty(lhs.getNameRecord().getDisplayName()) ? ' ' : lhs.getNameRecord().getDisplayName().charAt(0);
+                    char rhsFirstLetter = TextUtils.isEmpty(rhs.getNameRecord().getDisplayName()) ? ' ' : rhs.getNameRecord().getDisplayName().charAt(0);
+                    int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
+                    if (firstLetterComparison == 0)
+                        return lhs.getNameRecord().getDisplayName().compareTo(rhs.getNameRecord().getDisplayName());
+                    return firstLetterComparison;
+                }
+            });
+
+            mAdapter = new EligibleMembersAdapter(eligibleMemberArrayList, getActivity(), mInflater, 1);
+
+            //int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(), android.R.attr.colorBackground)));
+            mAdapter.setPinnedHeaderBackgroundColor(Color.parseColor("#F9F8F7")/*pinnedHeaderBackgroundColor*/);
+            mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.color9B9B9B));
+            mPinnedHeaderListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mPinnedHeaderListView, false));
+            mPinnedHeaderListView.setAdapter(mAdapter);
+            mPinnedHeaderListView.setOnScrollListener(mAdapter);
+            mPinnedHeaderListView.setEnableHeaderTransparencyChanges(false);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

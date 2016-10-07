@@ -13,8 +13,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.mh.systems.hartsbourne.activites.YourAccountActivity;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
 import com.mh.systems.hartsbourne.fragments.FinanceFragment;
+import com.mh.systems.hartsbourne.fragments.EligibleFriendsFragment;
 import com.mh.systems.hartsbourne.fragments.FriendsFragment;
 import com.mh.systems.hartsbourne.fragments.HandicapFragment;
+import com.mh.systems.hartsbourne.fragments.EligibleMemberFragment;
 import com.mh.systems.hartsbourne.fragments.MembersFragment;
 import com.mh.systems.hartsbourne.fragments.MyDetailsFragment;
 
@@ -52,8 +54,8 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
         this.iFromWhat = iFromWhat;
     }
 
-    public TabsPageAdapter(Context context, FragmentManager fm, int NumOfTabs, int iFromWhat) {
-        super(fm);
+    public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat) {
+        super(supportFragmentManager);
         this.mNumOfTabs = NumOfTabs;
         this.iFromWhat = iFromWhat;
         this.context = context;
@@ -78,6 +80,9 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
             case ApplicationGlobal.POSITION_MEMBERS:
                 return loadMembersTab(position);
+
+            case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
+                return loadMembersBookingTab(position);
         }
         return null;
     }
@@ -144,23 +149,23 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      */
     private Fragment loadMyAccountTabs(int iPosition) {
 
+        Fragment fragment = null;
+
         switch (iPosition) {
             case 0:
-                MyDetailsFragment myDetailsFragment = new MyDetailsFragment();
-                ((YourAccountActivity) context).setFragmentInstance(myDetailsFragment);
-                return myDetailsFragment;
+                fragment = new MyDetailsFragment();
+                break;
 
             case 1:
-                HandicapFragment handicapFragment = new HandicapFragment();
-                ((YourAccountActivity) context).setFragmentInstance(handicapFragment);
-                return handicapFragment;
+                fragment = new HandicapFragment();
+                break;
 
             case 2:
-                FinanceFragment financeFragment = new FinanceFragment();
-                ((YourAccountActivity) context).setFragmentInstance(financeFragment);
-                return financeFragment;
+                fragment = new FinanceFragment();
+                break;
         }
-        return null;
+        ((YourAccountActivity) context).setFragmentInstance(fragment);
+        return fragment;
     }
 
     /**
@@ -196,6 +201,31 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 return null;
         }*/
         return null;
+    }
+
+    /**
+     * Load MEMBERS BOOKING for Competitions Entry Tabs i.e
+     * <br> 1. {@link EligibleMemberFragment}
+     * <br> 2. {@link EligibleFriendsFragment}
+     * <p/>
+     *
+     * @param iPosition
+     * @return Fragment
+     */
+    private Fragment loadMembersBookingTab(int iPosition) {
+
+        switch (iPosition) {
+            case 0:
+                EligibleMemberFragment eligibleMemberFragment = new EligibleMemberFragment();
+                return eligibleMemberFragment;
+
+            case 1:
+                EligibleFriendsFragment eligibleFriendsFragment = new EligibleFriendsFragment();
+                return eligibleFriendsFragment;
+
+            default:
+                return null;
+        }
     }
 
     /**

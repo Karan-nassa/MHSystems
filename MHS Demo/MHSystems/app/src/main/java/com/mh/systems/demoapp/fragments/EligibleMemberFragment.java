@@ -127,18 +127,27 @@ public class EligibleMemberFragment extends Fragment {
      * @param eligibleMemberArrayList
      */
     private void setMembersListAdapter(ArrayList<EligibleMember> eligibleMemberArrayList) {
-        //Members list demo.
-        Collections.sort(eligibleMemberArrayList, new Comparator<EligibleMember>() {
-            @Override
-            public int compare(EligibleMember lhs, EligibleMember rhs) {
-                char lhsFirstLetter = TextUtils.isEmpty(lhs.getNameRecord().getDisplayName()) ? ' ' : lhs.getNameRecord().getDisplayName().charAt(0);
-                char rhsFirstLetter = TextUtils.isEmpty(rhs.getNameRecord().getDisplayName()) ? ' ' : rhs.getNameRecord().getDisplayName().charAt(0);
-                int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
-                if (firstLetterComparison == 0)
-                    return lhs.getNameRecord().getDisplayName().compareTo(rhs.getNameRecord().getDisplayName());
-                return firstLetterComparison;
-            }
-        });
+
+        ((EligiblePlayersActivity) getActivity()).hideProgress();
+        if (eligibleMemberArrayList.size() == 0) {
+            //((EligiblePlayersActivity) getActivity()).updateNoDataUI(false, 0);
+            ((EligiblePlayersActivity) getActivity()).showAlertMessage(getString(R.string.error_no_member));
+        } else {
+
+            //((EligiblePlayersActivity) getActivity()).updateNoDataUI(true, 0);
+
+            //Members list demo.
+            Collections.sort(eligibleMemberArrayList, new Comparator<EligibleMember>() {
+                @Override
+                public int compare(EligibleMember lhs, EligibleMember rhs) {
+                    char lhsFirstLetter = TextUtils.isEmpty(lhs.getNameRecord().getDisplayName()) ? ' ' : lhs.getNameRecord().getDisplayName().charAt(0);
+                    char rhsFirstLetter = TextUtils.isEmpty(rhs.getNameRecord().getDisplayName()) ? ' ' : rhs.getNameRecord().getDisplayName().charAt(0);
+                    int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
+                    if (firstLetterComparison == 0)
+                        return lhs.getNameRecord().getDisplayName().compareTo(rhs.getNameRecord().getDisplayName());
+                    return firstLetterComparison;
+                }
+            });
 
         /*mAdapter = new EligibleMembersAdapter(eligibleMemberArrayList, getActivity(), mInflater, 0);
 
@@ -150,12 +159,13 @@ public class EligibleMemberFragment extends Fragment {
         mPinnedHeaderListView.setOnScrollListener(mAdapter);
         mPinnedHeaderListView.setEnableHeaderTransparencyChanges(false);*/
 
-        mAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
 
-        ((EligiblePlayersActivity) getActivity()).hideProgress();
+        }
+
     }
 
-    public void updateSearchQuery(String strSearchText){
+    public void updateSearchQuery(String strSearchText) {
         mAdapter.getFilter().filter(strSearchText);
         mAdapter.setHeaderViewVisible(TextUtils.isEmpty(strSearchText));
         mAdapter.notifyDataSetChanged();

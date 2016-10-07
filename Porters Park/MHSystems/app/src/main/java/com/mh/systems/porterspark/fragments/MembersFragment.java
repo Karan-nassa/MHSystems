@@ -54,7 +54,7 @@ import retrofit.RetrofitError;
  * with {@link AlphabaticalListAdapter} indexing and {@link android.support.v7.widget.SearchView}
  * <p>
  *
- * @author karan@mh.co.in
+ * @author karan@ucreate.co.in
  * @version 1.0
  * @since 1 May, 2016
  */
@@ -178,7 +178,7 @@ public class MembersFragment extends Fragment {
      * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
      */
     public String getClientId() {
-        return ((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID,  ApplicationGlobal.TAG_CLIENT_ID);
+        return ((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
     /**
@@ -204,16 +204,16 @@ public class MembersFragment extends Fragment {
                 membersDatas.add(membersItems.getData());
 
                 if (membersDatas.size() == 0) {
-                    ((MembersActivity) getActivity()).updateNoDataUI(false);
-                   // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    ((MembersActivity) getActivity()).updateNoDataUI(false, 0);
+                    // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-                    ((MembersActivity) getActivity()).updateNoDataUI(true);
+                    ((MembersActivity) getActivity()).updateNoDataUI(true, 0);
                     setMembersListAdapter(membersDatas.get(0).getMembersList());
                 }
             } else {
-                ((MembersActivity) getActivity()).updateNoDataUI(false);
+                ((MembersActivity) getActivity()).updateNoDataUI(false, 0);
                 //If web service not respond in any case.
-               // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
+                // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());

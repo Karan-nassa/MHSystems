@@ -56,7 +56,7 @@ public class CompetitionsActivity extends BaseActivity {
     /**
      * iPopItemPos describes the position of POP MENU selected item.
      * <br> 0 : UPCOMING
-     * <br> 1 : JOINED
+     * <br> 1 : ENTERED
      * <br> 2 : COMPLETED
      */
     int iPopItemPos = 0;
@@ -324,7 +324,7 @@ public class CompetitionsActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_server_problem));
             }
         });
     }
@@ -474,7 +474,7 @@ public class CompetitionsActivity extends BaseActivity {
 
                         if (iMonth > iCurrentMonth) {
                             setPreviousButton(true);
-                        }else if(iMonth == 12){
+                        } else if (iMonth == 12) {
                             setNextButton(false);
                         }
 
@@ -735,7 +735,7 @@ public class CompetitionsActivity extends BaseActivity {
      * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
      */
     public String getClientId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID,  ApplicationGlobal.TAG_CLIENT_ID);
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
     /**

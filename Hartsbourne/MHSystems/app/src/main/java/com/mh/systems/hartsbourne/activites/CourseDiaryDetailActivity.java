@@ -39,6 +39,8 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
     TextView tvFeeCourseEvent;
     @Bind(R.id.tvDescCourseEvent)
     TextView tvDescCourseEvent;
+    @Bind(R.id.llDescGroup)
+    LinearLayout llDescGroup;
     @Bind(R.id.llPriceGroup)
     LinearLayout llPriceGroup;
 
@@ -85,7 +87,11 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
         tvTimeCourseEvent.setText(strCourseTime);
 
         //tvFeeCourseEvent.setText(strCoursePrize);
-        tvDescCourseEvent.setText(strCourseDesc);
+        if(strCourseDesc.length()>0) {
+            tvDescCourseEvent.setText(strCourseDesc);
+        }else{
+            llDescGroup.setVisibility(View.GONE);
+        }
 
         fabJoinCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +100,7 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
 
                 if (!isDialogVisible) {
                     //Yes button clicked
-                    fabJoinCourse.setImageResource(R.mipmap.ic_friend_pending);
+                    fabJoinCourse.setImageResource(R.mipmap.ic_clock);
                     fabJoinCourse.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
 
                     Intent mIntent = new Intent(CourseDiaryDetailActivity.this, CustomAlertDialogActivity.class);

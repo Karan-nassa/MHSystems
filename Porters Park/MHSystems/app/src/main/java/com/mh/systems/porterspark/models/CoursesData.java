@@ -22,7 +22,7 @@ public class CoursesData {
     }
 
     /**
-     * @param description The Description
+     * @param Description The Description
      */
     public void setDescription(String description) {
         Description = description;
@@ -36,7 +36,7 @@ public class CoursesData {
     }
 
     /**
-     * @param key The Key
+     * @param Key The Key
      */
     public void setKey(String key) {
         Key = key;

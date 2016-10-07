@@ -350,7 +350,7 @@ public class CompetitionsData {
     }
 
     /**
-     * @param IsMemberJoined The IsMemberJoined
+     * @param isMemberJoined The isMemberJoined
      */
     public void setIsMemberJoined(boolean isMemberJoined) {
         IsMemberJoined = isMemberJoined;

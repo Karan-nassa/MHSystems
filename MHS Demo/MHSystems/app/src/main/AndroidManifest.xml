@@ -73,11 +73,6 @@
             android:name=".activites.CompletedDetailActivity"
             android:screenOrientation="portrait" />
 
-        <!-- COMPETITION DETAIL ACTIVITY -->
-        <activity
-            android:name=".activites.CompetitionDetailActivity"
-            android:screenOrientation="portrait" />
-
         <!-- MY ACCOUNT ACTIVITY -->
         <activity
             android:name=".activites.YourAccountActivity"
@@ -149,6 +144,12 @@
             android:name=".activites.HCapHistoryActivity"
             android:screenOrientation="portrait" />
 
+        <!-- COMPETITION DETAIL ACTIVITY -->
+
+        <activity
+            android:name=".activites.CompetitionDetailActivity"
+            android:screenOrientation="portrait" />
+
         <!-- COMPETITIONS ENTRY -->
 
         <activity
@@ -159,18 +160,6 @@
 
         <activity
             android:name=".activites.EligiblePlayersActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- UPDATE Password Activity -->
-
-        <activity
-            android:name=".activites.UpdatePasswordActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- FORGOT Password Activity -->
-
-        <activity
-            android:name=".activites.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
 
         <!-- UPDATE Password Activity -->

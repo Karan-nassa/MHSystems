@@ -190,7 +190,7 @@ public class LoginActivity extends BaseActivity {
 
                 //you can handle the errors here
                 hideProgress();
-                showAlertMessage("" + error/*getResources().getString(R.string.error_please_retry)*/);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }

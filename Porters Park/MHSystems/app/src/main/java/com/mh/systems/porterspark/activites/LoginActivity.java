@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
 import com.mh.systems.porterspark.constants.WebAPI;
@@ -20,6 +18,8 @@ import com.mh.systems.porterspark.models.DashboardAPI;
 import com.mh.systems.porterspark.models.LoginData;
 import com.mh.systems.porterspark.models.LoginItems;
 import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
@@ -64,6 +64,9 @@ public class LoginActivity extends BaseActivity {
     @Bind(R.id.tvCopyRight)
     TextView tvCopyRight;
 
+    @Bind(R.id.tvForgotPWD)
+    TextView tvForgotPWD;
+
     Typeface tfRobotoRegular, tfRobotoLight, getTfRobotoMedium;
 
     //List of type books this list will store type Book which is our data model
@@ -72,6 +75,8 @@ public class LoginActivity extends BaseActivity {
 
     LoginItems dashboardItems;
     LoginData dashboardData;
+
+    Intent intent;
 
     /**
      * Define a constant field called when user press on LOGIN
@@ -87,7 +92,7 @@ public class LoginActivity extends BaseActivity {
 
             if (isValid()) {
                 //Call LOGIN API if UserName & Password correctly filled.
-                /**
+               /* *
                  *  Check internet connection before hitting server request.
                  */
                 if (isOnline(LoginActivity.this)) {
@@ -103,6 +108,21 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
+    /**
+     * Implements this method to invoke when user tap on Forgot Password
+     * text to recover Password on regitered EMAIL.
+     */
+    private View.OnClickListener mForgotPwdListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            etPassword.setText("");
+
+            intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(intent);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,10 +131,9 @@ public class LoginActivity extends BaseActivity {
         //Initialize Butter knife.
         ButterKnife.bind(this);
 
-//        etUserName.setText("TONYP1952");
-//        etPassword.setText("WINCHESTER1952");
-
         btLogin.setOnClickListener(mLoginListener);
+
+        tvForgotPWD.setOnClickListener(mForgotPwdListener);
     }
 
     /**
@@ -143,10 +162,10 @@ public class LoginActivity extends BaseActivity {
         aJsonParamsDashboard = new AJsonParamsDashboard();
         aJsonParamsDashboard.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsDashboard.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsDashboard.setUserID(strUserName/*"NABECASIS"*/);
-        aJsonParamsDashboard.setPassword(strPassword/*"BILLABONG1"*/);
+        aJsonParamsDashboard.setUserID(strUserName);
+        aJsonParamsDashboard.setPassword(strPassword);
 
-        dashboardAPI = new DashboardAPI(44071043, "AuthenticateMember", aJsonParamsDashboard, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        dashboardAPI = new DashboardAPI(44071043, "AUTHENTICATEMEMBER", aJsonParamsDashboard, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -186,7 +205,7 @@ public class LoginActivity extends BaseActivity {
 
         Type type = new TypeToken<LoginItems>() {
         }.getType();
-        dashboardItems = new Gson().fromJson(jsonObject.toString(), type);
+        dashboardItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         //Clear the Dashboard data.
         dashboardData = null;
@@ -202,20 +221,33 @@ public class LoginActivity extends BaseActivity {
                 if (dashboardData == null) {
                     showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-                    savePreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "" + dashboardData.getClubID());
+
                     savePreferenceValue(ApplicationGlobal.KEY_MEMBERID, "" + dashboardData.getMemberID());
-                    savePreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, dashboardData.getUserLoginID());
-                    savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);
-                    savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
-                    savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
 
-                   /* Gson gson = new Gson();
+                    etPassword.setText("");
+                    etUserName.setText("");
 
-                    //Save Courses ArrayList in Shared-preference.
-                    savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));*/
+                    if (dashboardData.getFirstTimeLogin()) {
+                        intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
+                        startActivity(intent);
+                    } else {
 
-                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
-                    this.finish();
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, dashboardData.getFirstTimeLogin());
+                        savePreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "" + dashboardData.getClubID());
+                        savePreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, dashboardData.getUserLoginID());
+                        savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);
+                        savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
+                        savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
+
+                        Gson gson = new Gson();
+
+                        //Save Courses ArrayList in Shared-preference.
+                        savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
+
+                        intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                        startActivity(intent);
+                        this.finish();
+                    }
                 }
             } else {
                 //If web service not respond in any case.

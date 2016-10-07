@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
  * The {@link SettingsActivity} used to RESET password for now. Rest functionality
  * implement when come.
  *
- * @author {@link karan@mh.co.in}
+ * @author {@link karan@ucreate.co.in}
  * @version 1.0
  * @since 24 JUNE, 2016
  */

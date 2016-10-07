@@ -16,7 +16,8 @@
         <item name="colorPrimary">@color/colorBlack000000</item>
         <item name="colorPrimaryDark">@color/colorBlack000000</item>
         <item name="colorAccent">@color/colorC0995B</item>
-
+        <item name="android:itemBackground">#FAFAFA</item>
+        <item name="android:textColor">@color/colorBlack000000</item>
         <!-- &lt;!&ndash; ORANGE COLOR FOCUSABLE EDIT TEXT &ndash;&gt;
         <item name="colorControlNormal">@color/colorTheme</item>
         <item name="colorControlActivated">@color/colorTheme</item>

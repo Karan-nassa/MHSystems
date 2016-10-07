@@ -9,9 +9,9 @@ import com.mh.systems.porterspark.models.CompetitionJoinAPI;
 import com.mh.systems.porterspark.models.CompetitionUnjoinAPI;
 import com.mh.systems.porterspark.models.CompetitionsAPI;
 import com.mh.systems.porterspark.models.CourseDiaryAPI;
-import com.mh.systems.porterspark.models.CourseDiaryNames.CourseDiaryNamesAPI;
 import com.mh.systems.porterspark.models.DashboardAPI;
 import com.mh.systems.porterspark.models.EditDetailMode.EditDetailModeAPI;
+import com.mh.systems.porterspark.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.porterspark.models.Friends.RemoveFriendAPI;
 import com.mh.systems.porterspark.models.FriendsAPI;
 import com.mh.systems.porterspark.models.HCapHistory.HCapHistoryAPI;
@@ -21,6 +21,10 @@ import com.mh.systems.porterspark.models.MembersDetailAPI;
 import com.mh.systems.porterspark.models.FinanceAPI;
 import com.mh.systems.porterspark.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.porterspark.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.porterspark.models.UpdatePassword.UpdatePassswordAPI;
+import com.mh.systems.porterspark.models.competitionsEntry.CompEligiblePlayersAPI;
+import com.mh.systems.porterspark.models.competitionsEntry.GetClubEventAPI;
+import com.mh.systems.porterspark.models.competitionsEntry.UpdateCompEntryAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -29,7 +33,7 @@ import retrofit.http.POST;
 import retrofit.http.Query;
 
 /**
- * Created by karan@mh.co.in for
+ * Created by karan@ucreate.co.in for
  * all web services on 08-03-2016.
  */
 public interface WebServiceMethods {
@@ -73,7 +77,7 @@ public interface WebServiceMethods {
     public void getCompetitionsEvents(@Body CompetitionsAPI jsonElements, Callback<JsonObject> response);
 
 
-    @GET("/webapi/api/ClubsApp/RpcRequest")
+    @GET("/api/ClubsApp/RpcRequest")
     void joinCompetitionEventGet(@Query("aClientId") String aClientId, @Query("aCommand") String aCommand,
                                  @Query("aJsonParams") String aJsonParams,
                                  @Query("aModuleId") String aModuleId,
@@ -140,7 +144,7 @@ public interface WebServiceMethods {
      * @param membersAPI
      * @param response
      */
-    @POST("/webapi/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getMembers(@Body MembersAPI membersAPI, Callback<JsonObject> response);
 
     /**
@@ -210,18 +214,6 @@ public interface WebServiceMethods {
     public void unjoinCompetition(@Body CompetitionUnjoinAPI competitionUnjoinAPI, Callback<JsonObject> response);
 
     /**
-     * Declaration of get COURSE DIARY names
-     * web service method.
-     * <p/>
-     * TYPE : POST
-     * <p/>
-     * USAGE :-
-     * # courseDiaryNamesAPI
-     */
-    @POST("/webapi/api/ClubsApp")
-    public void getCourseDiaryNames(@Body CourseDiaryNamesAPI courseDiaryNamesAPI, Callback<JsonObject> response);
-
-    /**
      * Declaration of Club News web service method.
      * <p/>
      * TYPE : POST
@@ -275,5 +267,63 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of GETCLUBEVENT web service to get detail
+     * of COMPETITION event by passing 'eventId'.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getClubEventAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getClubEvent(@Body GetClubEventAPI getClubEventAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of GETCOMPELIGIBLEPLAYERS web service to get eligible players list
+     * of COMPETITION event by passing 'eventId'.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param compEligiblePlayersAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getEligiblePlayersList(@Body CompEligiblePlayersAPI compEligiblePlayersAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of UPDATECLUBEVENTENTRIES web service to update paid Competition Entry
+     * of COMPETITION.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param updateCompEntryAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updateCompEntry(@Body UpdateCompEntryAPI updateCompEntryAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Forgot Password web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param forgotPasswordAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void forgotPassword(@Body ForgotPasswordAPI forgotPasswordAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of UPDATE temporary Password web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param updatePassswordAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updatePassword(@Body UpdatePassswordAPI updatePassswordAPI, Callback<JsonObject> response);
 }
 

@@ -37,7 +37,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
 /**
- * Created by karan@mh.co.in to load and FINANCE
+ * Created by karan@ucreate.co.in to load and FINANCE
  * tab content on 12/23/2015.
  */
 public class FinanceFragment extends Fragment {
@@ -51,6 +51,9 @@ public class FinanceFragment extends Fragment {
     int iFilterType = 2; //By Default Today will be selected.
 
     private boolean isClassVisible = false;
+
+    private boolean isToday, isWeek, isOneMonth, isThreeMonths, isSixMonths, isOneYear, isFromStart;
+    private boolean isFilterOpen;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -88,6 +91,39 @@ public class FinanceFragment extends Fragment {
         }
     };
 
+    /**
+     * Declares the constant fields to display
+     * INVOICE detail screen.
+     */
+   /* private View.OnClickListener mInvoiceDetailListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (myAccountItems.getMyAccountData().get(0).getCurrentBills().size() > 0) {
+                getCurrentInvoiceData();
+
+                */
+
+    /**
+     * Navigate to Detail Invoice Screen.
+     *//*
+                mIntent = new Intent(getActivity(), DetailInvoiceActivity.class);
+                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TITLE, strInvoiceTitle);
+                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_NUMBER, strInvoiceNo);
+                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_VALUE, strInvoiceValue);
+                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TAX, strInvoiceTax);
+                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TOTAL_PAYABLE, strInvoiceTotalPayable);
+                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_DATE, strInvoiceDate);
+                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_DESCRIPTION, strInvoiceDesc);
+                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_BILL_FROM, *//*formatDate(*//*strInvoiceBillFrom)*//*.replaceAll("/", "-"))*//*;
+                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_BILL_TO, *//*formatDate(*//*strInvoiceBillTo)*//*.replaceAll("/", "-"))*//*;
+                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_STATUS_STR, strInvoiceStatus);
+                startActivity(mIntent);
+            } else {
+                ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+            }
+        }
+    };*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
@@ -95,6 +131,12 @@ public class FinanceFragment extends Fragment {
         initViewResources();
 
         setFontTypeface();
+
+        /*isClassVisible = true;
+        if (isClassVisible) {
+            callFinanceWebService();
+            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
+        }*/
 
         lvTransactionList.setOnItemClickListener(mFinanceListListener);
 
@@ -113,11 +155,22 @@ public class FinanceFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser) {
+        if (isVisibleToUser /*&& isClassVisible*/) {
             callFinanceWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
         }
     }
+
+   /* @Override
+    public void onResume() {
+        super.onResume();
+
+        //Check Internet connection and hit web service only on first time.
+        isClassVisible = true;
+        if (isClassVisible) {
+            requestFinanceService();
+        }
+    }*/
 
     /**
      * Implements this method to initialize all
@@ -188,7 +241,7 @@ public class FinanceFragment extends Fragment {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
-                //((BaseActivity) getActivity()).showAlertMessage("" + error);
+                //((BaseActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }
@@ -277,6 +330,25 @@ public class FinanceFragment extends Fragment {
         }
 
     }
+
+   /* *//**
+     * Implements a method to get all CURRENT INVOICE data
+     * to pass for DetailInvoiceActivity.
+     *//*
+    private void getCurrentInvoiceData() {
+
+        strInvoiceNo = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo();
+        strInvoiceDate = *//*formatDate(*//*myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getStrInvoiceDate()*//*).replaceAll("/", "-")*//*;
+        strInvoiceStatus = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceStatusStr();
+        strInvoiceTotalPayable = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable();
+
+        strInvoiceBillFrom = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getStrBilledFrom();
+        strInvoiceBillTo = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getStrBilledTo();
+        strInvoiceDesc = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getDescription();
+        strInvoiceValue = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getValueX();
+        strInvoiceTax = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getTax();
+    }
+*/
 
     /**
      * Implements a method to set Font style.

@@ -1,7 +1,7 @@
 package com.mh.systems.porterspark.models;
 
 /**
- * Created by karan@mh.co.in on 23-06-2016.
+ * Created by karan@ucreate.co.in on 23-06-2016.
  */
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

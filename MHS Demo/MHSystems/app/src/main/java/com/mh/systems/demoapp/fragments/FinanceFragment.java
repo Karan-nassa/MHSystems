@@ -241,7 +241,7 @@ public class FinanceFragment extends Fragment {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
-                //((BaseActivity) getActivity()).showAlertMessage("" + error);
+                //((BaseActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }

@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.porterspark.R;
-import com.mh.systems.porterspark.activites.CourseDiaryDetailActivity;
 import com.mh.systems.porterspark.activites.CustomAlertDialogActivity;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
 import com.mh.systems.porterspark.models.CourseDiaryData;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 /**
- * Created by  karan@mh.co.in to Create adapter
+ * Created by  karan@ucreate.co.in to Create adapter
  * to display COURSE DIARY EVENTS on 12/4/2015.
  */
 public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListener {
@@ -208,15 +207,15 @@ public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListe
                  *  Stop click of Course Diary detail screen.
                  */
 
-                /*rowView.setOnClickListener(new View.OnClickListener() {
+               /* rowView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         *//**
-                         *  Handle NULL @Exception.
-                         *//*
+                 *  Handle NULL @Exception.
+                 *//*
                         if (CourseDiaryData.get(position) != null) {
 
-                            if (CourseDiaryData.get(position).getSlotType() == 3) {
+                        *//*    if (CourseDiaryData.get(position).getSlotType() == 3) {*//*
 
                                 Intent intent = new Intent(context, CourseDiaryDetailActivity.class);
                                 intent.putExtra("COURSE_TITLE", CourseDiaryData.get(position).getTitle());
@@ -229,7 +228,7 @@ public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListe
                                 intent.putExtra("COURSE_EVENT_TIME", CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
                                 context.startActivity(intent);
                             }
-                        }
+                      *//*  }*//*
                     }
                 });*/
 
@@ -275,7 +274,7 @@ public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-//Show alert dialog.
+        //Show alert dialog.
         Intent mIntent = new Intent(context, CustomAlertDialogActivity.class);
         //Pass theme green color.
         mIntent.putExtra(ApplicationGlobal.TAG_POPUP_THEME, "#AFD9A1");

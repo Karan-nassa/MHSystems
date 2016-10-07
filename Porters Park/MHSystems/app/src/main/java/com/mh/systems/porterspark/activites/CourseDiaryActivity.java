@@ -47,10 +47,10 @@ import retrofit.RetrofitError;
 /**
  * The {@link CourseDiaryActivity} used to display the Course Diary events by months. First of all current month events
  * will be loaded and when user scroll down then some events of next months will be loaded and so on...
- * <p/>
+ * <p>
  * After redesign Course Diary, remove the OLD and NEW COURSE {@link android.support.v4.app.Fragment} and implements this
  * functionality in {@link PopupMenu}.
- * <p/>
+ * <p>
  * Also update PREVIOUS, NEXT, TODAY and {@link Calendar} functionality in a top bar below of {@link Toolbar}.
  *
  * @author {@link karan@ucreate.co.in}
@@ -240,18 +240,16 @@ public class CourseDiaryActivity extends BaseActivity {
 
                     tvCourseType.setText(item.getTitle());
 
-                    strCourseType = coursesDataArrayList.get(item.getOrder()).getKey();
-
-                  /*  switch (item.getOrder()) {
-                        case 0*//*R.id.item_tonbridge*//*:
+                    switch (item.getItemId()) {
+                        case R.id.item_tonbridge:
                             strCourseType = "1.1";
                             break;
 
-                        case 1*//*R.id.item_pembury*//*:
+                        case R.id.item_pembury:
                             strCourseType = "1.2";
                             break;
                     }
-*/
+
                     resetArrayData();
 
                     //Show progress dialog during call web service.
@@ -322,13 +320,7 @@ public class CourseDiaryActivity extends BaseActivity {
          * Step 2: Inflate the menu resource. Here the menu resource is
          * defined in the res/menu project folder
          */
-        // popupMenu.inflate(R.menu.course_menu);
-
-        coursesDataArrayList = loadPreferencesList(CourseDiaryActivity.this);
-
-        for (int iCounter = 0; iCounter < coursesDataArrayList.size(); iCounter++) {
-            popupMenu.getMenu().add(Menu.NONE, 1, iCounter, coursesDataArrayList.get(iCounter).getDescription());
-        }
+        popupMenu.inflate(R.menu.course_menu);
 
         //Initially display title at position 0 of R.menu.course_menu.
         tvCourseType.setText("" + popupMenu.getMenu().getItem(0));
@@ -536,7 +528,7 @@ public class CourseDiaryActivity extends BaseActivity {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
 

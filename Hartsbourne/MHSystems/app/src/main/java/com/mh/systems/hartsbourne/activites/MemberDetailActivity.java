@@ -53,7 +53,7 @@ import retrofit.RetrofitError;
  * member from {@link com.mh.systems.hartsbourne.fragments.MembersFragment} or
  * {@link com.mh.systems.hartsbourne.fragments.FriendsFragment} by passing MemberId.
  *
- * @author {@link karan@ucreate.co.in}
+ * @author {@link karan@mh.co.in}
  * @version 1.0
  * @since 12 May, 2016
  */

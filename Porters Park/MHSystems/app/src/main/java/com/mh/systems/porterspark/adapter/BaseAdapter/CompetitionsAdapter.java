@@ -13,13 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.porterspark.R;
-import com.mh.systems.porterspark.activites.CompetitionsDetailActivity;
+import com.mh.systems.porterspark.activites.CompetitionDetailActivity;
+import com.mh.systems.porterspark.activites.CompletedDetailActivity;
 import com.mh.systems.porterspark.models.CompetitionsData;
 
 import java.util.ArrayList;
 
 /**
- * Created by  karan@mh.co.in to Create adapter
+ * Created by  karan@ucreate.co.in to Create adapter
  * to display COMPETITIONS on 12/4/2015.
  */
 public class CompetitionsAdapter extends BaseAdapter {
@@ -39,7 +40,7 @@ public class CompetitionsAdapter extends BaseAdapter {
      *
      * @param context:        To hold context.
      * @param CourseDiaryData : Used for Videos data.
-     * @param isJoinVisible   : JOIN will be visible only for {@link UpcomingFragment}
+     * @param isJoinVisible   : JOIN will be visible
      */
     public CompetitionsAdapter(Activity context, ArrayList<CompetitionsData> CourseDiaryData, boolean isJoinVisible, int iPopItemPos) {
 
@@ -116,6 +117,7 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.ivStatOfEvent = (ImageView) rowView.findViewById(R.id.ivStatOfEvent);
 
         viewHolder.llCompetitionGroup = (LinearLayout) rowView.findViewById(R.id.llCompetitionGroup);
+
         viewHolder.llPriceGroup = (LinearLayout) rowView.findViewById(R.id.llPriceGroup);
 
         viewHolder.tvPosOfPerson = (TextView) rowView.findViewById(R.id.tvPosOfPerson);
@@ -138,12 +140,14 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.tvEventStatusStr.setText(compititionsDatas.get(position).getEventStatusStr());
 
         if (iPopItemPos < 2) {
-            /* EXECUTE ONLY FOR UPCOMING and JOINED */
+           /* EXECUTE ONLY FOR UPCOMING and JOINED */
             viewHolder.tvNameTitle.setText(/*"£" + */compititionsDatas.get(position).getPricePerGuest() + " " + context.getResources().getString(R.string.title_competitions_prize));
             viewHolder.ivStatOfEvent.setVisibility(View.VISIBLE);
         } else {
+            /* EXECUTE FOR COMPLETED */
+
             /**
-             *  For now hiding Player name and position because its static at back-end.
+             *  For now hiding Players name and position because its static at back-end.
              */
 
             viewHolder.tvNameTitle.setText(compititionsDatas.get(position).getPlayerPosition() + " " + compititionsDatas.get(position).getPlayerName());
@@ -159,8 +163,14 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.llCompetitionGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = null;
 
-                Intent intent = new Intent(context, CompetitionsDetailActivity.class);
+                if (iPopItemPos <= 1) {
+                    intent = new Intent(context, CompetitionDetailActivity.class);
+                }else{
+                    intent = new Intent(context, CompletedDetailActivity.class);
+                }
+
                 intent.putExtra("COMPETITIONS_TITLE", compititionsDatas.get(position).getTitle());
                 intent.putExtra("COMPETITIONS_EVENT_IMAGE", compititionsDatas.get(position).getLogo());
                 intent.putExtra("COMPETITIONS_EVENT_JOIN", compititionsDatas.get(position).getJoinStatus());
@@ -195,6 +205,7 @@ public class CompetitionsAdapter extends BaseAdapter {
         return "";
     }
 
+
     /**
      * Implements a method to set ROBOTO normal
      * font for NO EVENTS row.
@@ -209,8 +220,6 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.tvEventStatusStr.setTypeface(tpRobotoMedium, Typeface.NORMAL);
         viewHolder.tvCompDesc.setTypeface(tpRobotoMedium, Typeface.NORMAL);
     }
-
-
 
     /**
      * View_Holder to create competitions to

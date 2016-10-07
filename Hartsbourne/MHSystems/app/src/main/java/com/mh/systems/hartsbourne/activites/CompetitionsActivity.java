@@ -3,7 +3,6 @@ package com.mh.systems.hartsbourne.activites;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,19 +15,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.hartsbourne.constants.WebAPI;
-import com.mh.systems.hartsbourne.util.API.RestClient;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.adapter.BaseAdapter.CompetitionsAdapter;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-
+import com.mh.systems.hartsbourne.constants.WebAPI;
 import com.mh.systems.hartsbourne.models.CompetitionsAPI;
 import com.mh.systems.hartsbourne.models.CompetitionsData;
 import com.mh.systems.hartsbourne.models.CompetitionsJsonParams;
 import com.mh.systems.hartsbourne.models.CompetitionsResultItems;
-
+import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
@@ -36,15 +32,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
-import retrofit.client.OkClient;
-import retrofit.client.Response;
-
 
 public class CompetitionsActivity extends BaseActivity {
 
@@ -64,7 +56,7 @@ public class CompetitionsActivity extends BaseActivity {
     /**
      * iPopItemPos describes the position of POP MENU selected item.
      * <br> 0 : UPCOMING
-     * <br> 1 : JOINED
+     * <br> 1 : ENTERED
      * <br> 2 : COMPLETED
      */
     int iPopItemPos = 0;
@@ -307,36 +299,10 @@ public class CompetitionsActivity extends BaseActivity {
         competitionsJsonParams.setPageNo("0");
         competitionsJsonParams.setPageSize("10");
         competitionsJsonParams.setAscendingDateOrder(true);
+
         competitionsAPI = new CompetitionsAPI(getClientId(), "GETCLUBEVENTLIST", competitionsJsonParams, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
-       /* RestClient.get().getCompetitionsEvents(competitionsAPI, new Callback<JsonObject>() {
-            @Override
-            public void success(JsonObject jsonObject, Response response) {
 
-                updateSuccessResponse(jsonObject);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                //you can handle the errors here
-                Log.e(LOG_TAG, "RetrofitError : " + error);
-                hideProgress();
-
-                showAlertMessage("" + getResources().getString(R.string.error_server_problem));
-            }
-        });*/
-
-     /* OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.setReadTimeout(60 * 2000, TimeUnit.MILLISECONDS);
-
-        RestAdapter.Builder builder = new RestAdapter.Builder()
-                .setEndpoint(WebAPI.API_BASE_URL)
-                .setClient(new OkClient(okHttpClient));
-        builder.setLogLevel(RestAdapter.LogLevel.FULL);
-        RestAdapter restAdapter = builder.build();*/
-
-
-
-      //Creating a rest adapter
+        //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(WebAPI.API_BASE_URL)
                 .build();

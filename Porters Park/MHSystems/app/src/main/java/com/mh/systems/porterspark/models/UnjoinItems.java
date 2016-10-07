@@ -14,7 +14,7 @@ public class UnjoinItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("CompEligiblePlayersData")
     @Expose
     private String Data;
 
@@ -57,7 +57,7 @@ public class UnjoinItems {
     /**
      * 
      * @return
-     *     The Data
+     *     The CompEligiblePlayersData
      */
     public String getData() {
         return Data;
@@ -66,7 +66,7 @@ public class UnjoinItems {
     /**
      * 
      * @param Data
-     *     The Data
+     *     The CompEligiblePlayersData
      */
     public void setData(String data) {
         this.Data = Data;

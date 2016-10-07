@@ -204,14 +204,14 @@ public class MembersFragment extends Fragment {
                 membersDatas.add(membersItems.getData());
 
                 if (membersDatas.size() == 0) {
-                    ((MembersActivity) getActivity()).updateNoDataUI(false);
+                    ((MembersActivity) getActivity()).updateNoDataUI(false, 0);
                     // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-                    ((MembersActivity) getActivity()).updateNoDataUI(true);
+                    ((MembersActivity) getActivity()).updateNoDataUI(true, 0);
                     setMembersListAdapter(membersDatas.get(0).getMembersList());
                 }
             } else {
-                ((MembersActivity) getActivity()).updateNoDataUI(false);
+                ((MembersActivity) getActivity()).updateNoDataUI(false, 0);
                 //If web service not respond in any case.
                 // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
             }

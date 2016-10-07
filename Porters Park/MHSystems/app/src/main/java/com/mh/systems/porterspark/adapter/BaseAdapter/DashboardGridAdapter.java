@@ -17,7 +17,7 @@ import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.activites.DashboardActivity;
 
 /**
- * Created by karan@mh.co.in
+ * Created by karan@ucreate.co.in
  * for Home Grid options on 14-03-2016.
  */
 public class DashboardGridAdapter extends BaseAdapter {

@@ -261,11 +261,11 @@ public class EligiblePlayersActivity extends BaseActivity {
      *
      * @param hasData : True means more than 1 data.
      */
-    public void updateNoDataUI(boolean hasData) {
+    public void updateNoDataUI(boolean hasData, int iTabPosition) {
         if (hasData) {
-            showNoMemberView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            showNoMemberView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true, iTabPosition);
         } else {
-            showNoMemberView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            showNoMemberView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false, iTabPosition);
         }
     }
 
@@ -452,15 +452,15 @@ public class EligiblePlayersActivity extends BaseActivity {
                 eligibleMemberArrayList.addAll(compEligiblePlayersResponse.getData().getEligibleMembers());
 
                 if (eligibleMemberArrayList.size() == 0) {
-                    updateNoDataUI(false);
+                    updateNoDataUI(false, 0);
                     // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-                    updateNoDataUI(true);
+                    updateNoDataUI(true, 0);
 
                     updateFragment(eligiblePlayersTabFragment);
                 }
             } else {
-                updateNoDataUI(false);
+                updateNoDataUI(false, 0);
                 //If web service not respond in any case.
                 // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
             }

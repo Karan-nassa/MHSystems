@@ -15,7 +15,7 @@ public class HCapHistoryResult {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("CompEligiblePlayersData")
     @Expose
     private List<HCapHistoryData> Data = new ArrayList<HCapHistoryData>();
 
@@ -48,14 +48,14 @@ public class HCapHistoryResult {
     }
 
     /**
-     * @return The Data
+     * @return The CompEligiblePlayersData
      */
     public List<HCapHistoryData> getData() {
         return Data;
     }
 
     /**
-     * @param Data The Data
+     * @param Data The CompEligiblePlayersData
      */
     public void setData(List<HCapHistoryData> Data) {
         this.Data = Data;
