@@ -94,7 +94,6 @@ public class EligibleFriendsFragment extends Fragment {
      */
     private void setMembersListAdapter(ArrayList<EligibleMember> eligibleMemberArrayList) {
 
-        ((EligiblePlayersActivity) getActivity()).hideProgress();
         if (eligibleMemberArrayList.size() == 0) {
             //((EligiblePlayersActivity) getActivity()).updateNoDataUI(false, 1);
             ((EligiblePlayersActivity)getActivity()).showAlertMessage(getString(R.string.error_no_friend));
@@ -126,5 +125,7 @@ public class EligibleFriendsFragment extends Fragment {
             mPinnedHeaderListView.setEnableHeaderTransparencyChanges(false);
             mAdapter.notifyDataSetChanged();
         }
+
+        ((EligiblePlayersActivity) getActivity()).hideProgress();
     }
 }

@@ -2,6 +2,7 @@ package com.mh.systems.hartsbourne.activites;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -299,7 +300,14 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
                         public void onClick(DialogInterface dialog, int id) {
                             //do things
                             builder = null;
-                            onBackPressed();
+
+                            Intent intent = new Intent(UpdatePasswordActivity.this, LoginActivity.class);
+                            Bundle informacion = new Bundle();
+                            informacion.putString("USERNAME", "" + etUserName.getText().toString());
+                            intent.putExtras(informacion);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                            // onBackPressed();
                         }
                     });
             AlertDialog alert = builder.create();

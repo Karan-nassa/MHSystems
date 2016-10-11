@@ -60,6 +60,7 @@
                 android:elevation="0dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
+                android:visibility="gone"
                 android:text="Send Feedback"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack000000"

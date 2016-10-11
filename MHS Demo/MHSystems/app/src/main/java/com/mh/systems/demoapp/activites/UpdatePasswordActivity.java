@@ -2,8 +2,10 @@ package com.mh.systems.demoapp.activites;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -233,6 +235,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
              */
             if (updatePasswordResponse.getMessage().equalsIgnoreCase("Success")) {
                 clearAllFields();
+
                 showAlertOk("" + updatePasswordResponse.getData());
             } else {
                 /*mAwesomeValidation.addValidation(etUserName, "regex", updatePasswordResponse.getMessage());
@@ -302,7 +305,14 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
                         public void onClick(DialogInterface dialog, int id) {
                             //do things
                             builder = null;
-                            onBackPressed();
+
+                            Intent intent = new Intent(UpdatePasswordActivity.this, LoginActivity.class);
+                            Bundle informacion = new Bundle();
+                            informacion.putString("USERNAME", "" + etUserName.getText().toString());
+                            intent.putExtras(informacion);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                            // onBackPressed();
                         }
                     });
             AlertDialog alert = builder.create();

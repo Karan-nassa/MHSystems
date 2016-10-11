@@ -20,7 +20,6 @@ import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.BaseActivity;
 import com.mh.systems.demoapp.activites.EligiblePlayersActivity;
-import com.mh.systems.demoapp.adapter.pinnedHeaderListAdapter.EligibleMembersAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsEligiblePlayers;
@@ -69,10 +68,17 @@ public class EligibleMemberFragment extends Fragment {
      *******************************/
     View viewRootFragment;
 
+    //Create instance of Model class MembersItems.
+    CompEligiblePlayersResponse compEligiblePlayersResponse;
+
+    //List of type books this list will store type Book which is our data model
+    private CompEligiblePlayersAPI compEligiblePlayersAPI;
+    AJsonParamsEligiblePlayers aJsonParamsEligiblePlayers;
+
     //Members list demo.
     private PinnedHeaderListView mPinnedHeaderListView;
-    public static EligibleMembersAdapter mAdapter = null;
-    static private LayoutInflater mInflater;
+    public static AlphabaticalListAdapter mAdapter = null;
+    public LayoutInflater mInflater;
 
     private int iEligibleTabPos = 0;
 
@@ -90,18 +96,6 @@ public class EligibleMemberFragment extends Fragment {
         ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
         eligibleMemberArrayList.clear();
         eligibleMemberArrayList = ((EligiblePlayersActivity) getActivity()).getEligibleMemberList(0);
-
-        mAdapter = new EligibleMembersAdapter(eligibleMemberArrayList, getActivity(), mInflater, 0);
-
-        //int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(),  android.R.attr.colorBackground)));
-        mAdapter.setPinnedHeaderBackgroundColor(Color.parseColor("#F9F8F7")/*pinnedHeaderBackgroundColor*/);
-        mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.color9B9B9B));
-        mPinnedHeaderListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mPinnedHeaderListView, false));
-        mPinnedHeaderListView.setAdapter(mAdapter);
-        mPinnedHeaderListView.setOnScrollListener(mAdapter);
-        mPinnedHeaderListView.setEnableHeaderTransparencyChanges(false);
-        Log.e(LOG_TAG, "Eligible Member mAdapter : " + mAdapter);
-
         setMembersListAdapter(eligibleMemberArrayList);
 
         return viewRootFragment;
@@ -112,12 +106,18 @@ public class EligibleMemberFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser && iEligibleTabPos == 1) {
-            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
             ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
             eligibleMemberArrayList.clear();
             eligibleMemberArrayList = ((EligiblePlayersActivity) getActivity()).getEligibleMemberList(0);
             setMembersListAdapter(eligibleMemberArrayList);
         }
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return ((EligiblePlayersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
 
@@ -127,15 +127,10 @@ public class EligibleMemberFragment extends Fragment {
      * @param eligibleMemberArrayList
      */
     private void setMembersListAdapter(ArrayList<EligibleMember> eligibleMemberArrayList) {
-
-        ((EligiblePlayersActivity) getActivity()).hideProgress();
         if (eligibleMemberArrayList.size() == 0) {
-            //((EligiblePlayersActivity) getActivity()).updateNoDataUI(false, 0);
+            //((EligiblePlayersActivity) getActivity()).updateNoDataUI(false, 1);
             ((EligiblePlayersActivity) getActivity()).showAlertMessage(getString(R.string.error_no_member));
         } else {
-
-            //((EligiblePlayersActivity) getActivity()).updateNoDataUI(true, 0);
-
             //Members list demo.
             Collections.sort(eligibleMemberArrayList, new Comparator<EligibleMember>() {
                 @Override
@@ -149,25 +144,152 @@ public class EligibleMemberFragment extends Fragment {
                 }
             });
 
-        /*mAdapter = new EligibleMembersAdapter(eligibleMemberArrayList, getActivity(), mInflater, 0);
+            mAdapter = new AlphabaticalListAdapter(eligibleMemberArrayList);
 
-        //int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(),  android.R.attr.colorBackground)));
-        mAdapter.setPinnedHeaderBackgroundColor(Color.parseColor("#F9F8F7")*//*pinnedHeaderBackgroundColor*//*);
-        mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.color9B9B9B));
-        mPinnedHeaderListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mPinnedHeaderListView, false));
-        mPinnedHeaderListView.setAdapter(mAdapter);
-        mPinnedHeaderListView.setOnScrollListener(mAdapter);
-        mPinnedHeaderListView.setEnableHeaderTransparencyChanges(false);*/
-
-            mAdapter.notifyDataSetChanged();
-
+            //int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(),  android.R.attr.colorBackground)));
+            mAdapter.setPinnedHeaderBackgroundColor(Color.parseColor("#F9F8F7")/*pinnedHeaderBackgroundColor*/);
+            mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.color9B9B9B));
+            mPinnedHeaderListView.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, mPinnedHeaderListView, false));
+            mPinnedHeaderListView.setAdapter(mAdapter);
+            mPinnedHeaderListView.setOnScrollListener(mAdapter);
+            mPinnedHeaderListView.setEnableHeaderTransparencyChanges(false);
         }
-
+        ((EligiblePlayersActivity) getActivity()).hideProgress();
     }
 
-    public void updateSearchQuery(String strSearchText) {
-        mAdapter.getFilter().filter(strSearchText);
-        mAdapter.setHeaderViewVisible(TextUtils.isEmpty(strSearchText));
-        mAdapter.notifyDataSetChanged();
+
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Implements a method to get Background theme color
+     * to set same on Listview.
+     */
+    public static int getResIdFromAttribute(final Activity activity, final int attr) {
+        if (attr == 0)
+            return 0;
+        final TypedValue typedValue = new TypedValue();
+        activity.getTheme().resolveAttribute(attr, typedValue, true);
+        return typedValue.resourceId;
+    }
+
+    ////////////////////////////
+    // AlphabaticalListAdapter /
+    // /////////////////////////
+    public class AlphabaticalListAdapter extends SearchablePinnedHeaderListViewAdapter<EligibleMember> {
+        private ArrayList<EligibleMember> mContacts;
+        private final int CONTACT_PHOTO_IMAGE_SIZE;
+        private final int[] PHOTO_TEXT_BACKGROUND_COLORS;
+        public final AsyncTaskThreadPool mAsyncTaskThreadPool = new AsyncTaskThreadPool(1, 2, 10);
+
+
+        @Override
+        public CharSequence getSectionTitle(int sectionIndex) {
+            return ((StringArrayAlphabetIndexer.AlphaBetSection) getSections()[sectionIndex]).getName();
+        }
+
+        public AlphabaticalListAdapter(final ArrayList<EligibleMember> contacts) {
+            setData(contacts);
+
+            PHOTO_TEXT_BACKGROUND_COLORS = getResources().getIntArray(R.array.contacts_text_background_colors);
+            CONTACT_PHOTO_IMAGE_SIZE = getResources().getDimensionPixelSize(
+                    R.dimen.list_item__contact_imageview_size);
+        }
+
+        public void setData(final ArrayList<EligibleMember> contacts) {
+            this.mContacts = contacts;
+            final String[] generatedContactNames = generateContactNames(contacts);
+            setSectionIndexer(new StringArrayAlphabetIndexer(generatedContactNames, true));
+        }
+
+        private String[] generateContactNames(final List<EligibleMember> contacts) {
+            final ArrayList<String> contactNames = new ArrayList<String>();
+            if (contacts != null)
+                for (final EligibleMember contactEntity : contacts)
+                    contactNames.add(contactEntity.getNameRecord().getDisplayName()/*getFullName()*/);
+            return contactNames.toArray(new String[contactNames.size()]);
+        }
+
+        @Override
+        public View getView(final int position, final View convertView, final ViewGroup parent) {
+            ViewHolder holder;
+            final View rootView;
+            final EligibleMember contact;
+
+            ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
+
+            holder = new ViewHolder();
+
+            rootView = mInflater.inflate(R.layout.list_item_alpha_eligible_member, parent, false);
+
+            holder.friendProfileCircularContactView = (CircularContactView) rootView.findViewById(R.id.listview_item__friendPhotoImageView);
+            holder.friendProfileCircularContactView.getTextView().setTextColor(0xFFffffff);
+
+            holder.friendName = (TextView) rootView.findViewById(R.id.listview_item__friendNameTextView);
+            holder.tvPlayHCapStr = (TextView) rootView.findViewById(R.id.tvPlayHCapStr);
+            holder.headerView = (TextView) rootView.findViewById(R.id.header_text);
+
+            holder.cbSelectedMember = (CheckBox) rootView.findViewById(R.id.cbSelectedMember);
+
+            rootView.setTag(holder);
+
+            holder = (ViewHolder) rootView.getTag();
+            contact = getItem(position);
+            final String displayName = contact.getNameRecord().getDisplayName();
+            holder.friendName.setText(displayName);
+            holder.tvPlayHCapStr.setText(contact.getPlayHCapStr());
+            //holder.cbSelectedMember.setChecked(contact.getIsMemberSelected());
+            if (((EligiblePlayersActivity) getActivity()).iselectedMemberList.contains(contact.getMemberID())) {
+                holder.cbSelectedMember.setChecked(true);
+            } else {
+                holder.cbSelectedMember.setChecked(false);
+            }
+
+            holder.cbSelectedMember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    if (EligiblePlayersActivity.iTotalAddedMembers > 0 && isChecked) {
+                        buttonView.setEnabled(true);
+                        ((EligiblePlayersActivity) getActivity()).addMemberToList(eligibleMemberArrayList.get(position));
+                        eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);
+                    } else if (EligiblePlayersActivity.iTotalAddedMembers <= EligiblePlayersActivity.iTeamSize && !isChecked) {
+                        buttonView.setEnabled(true);
+                        ((EligiblePlayersActivity) getActivity()).removeMemberFromList(eligibleMemberArrayList.get(position));
+                        eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);
+                    } else {
+                        buttonView.setChecked(false);
+                    }
+
+                }
+            });
+
+            bindSectionHeader(holder.headerView, null, position);
+
+            return rootView;
+        }
+
+        @Override
+        public boolean doFilter(final EligibleMember item, final CharSequence constraint) {
+            if (TextUtils.isEmpty(constraint))
+                return true;
+            final String displayName = item.getNameRecord().getDisplayName();
+            return !TextUtils.isEmpty(displayName) && displayName.toLowerCase(Locale.getDefault())
+                    .contains(constraint.toString().toLowerCase(Locale.getDefault()));
+        }
+
+        @Override
+        public ArrayList<EligibleMember> getOriginalList() {
+            return mContacts;
+        }
+
+        // /////////////
+        // ViewHolder //
+        // /////////////
+        class ViewHolder {
+            public CircularContactView friendProfileCircularContactView;
+            TextView friendName, headerView, tvPlayHCapStr;
+            CheckBox cbSelectedMember;
+            public AsyncTaskEx<Void, Void, Bitmap> updateTask;
+        }
     }
 }

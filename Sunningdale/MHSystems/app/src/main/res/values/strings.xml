@@ -148,7 +148,7 @@
     <string name="button_send_pwd">Send Password</string>
 
     <!-- UPDATE PASSWORD -->
-    <string name="text_title_update_pwd">UPDATE YOUR LOGIN CREDENTIALS</string>
+    <string name="text_title_update_pwd">Please create your own Username &amp; Password below</string>
     <string name="edit_hint_username">Username</string>
     <string name="edit_title_confirm_password">Confirm password</string>
     <string name="buton_update">Update</string>

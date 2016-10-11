@@ -131,6 +131,8 @@ public class LoginActivity extends BaseActivity {
         //Initialize Butter knife.
         ButterKnife.bind(this);
 
+        setFontTypeFace();
+
         btLogin.setOnClickListener(mLoginListener);
 
         tvForgotPWD.setOnClickListener(mForgotPwdListener);
@@ -229,7 +231,7 @@ public class LoginActivity extends BaseActivity {
 
                     if (dashboardData.getFirstTimeLogin()) {
                         intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
-                        startActivity(intent);
+                        startActivityForResult(intent, 1);
                     } else {
 
                         savePreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, dashboardData.getFirstTimeLogin());
@@ -278,5 +280,12 @@ public class LoginActivity extends BaseActivity {
         btLogin.setTypeface(getTfRobotoMedium);
 
         tvCopyRight.setTypeface(tfRobotoLight);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            etUserName.setText("" + data.getStringExtra("USERNAME"));
+        }
     }
 }
