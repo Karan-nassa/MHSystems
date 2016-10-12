@@ -1,7 +1,7 @@
 package com.mh.systems.brokenhurst.constants;
 
 /**
- * Created by karan@mh.co.in to use
+ * Created by karan@ucreate.co.in to use
  * all type of CONSTANTS used through out
  * the application on 19-02-2016.
  */
@@ -10,7 +10,7 @@ public class ApplicationGlobal {
     /**
      * Declares the ROLL BAR key for PRODUCTION ENVIRONMENT.
      */
-    public static final String KEY_ROLLBAR_CLIENT_PRODUCTION = "4a927eeda0724fc69e83acbb6b3a7443";
+    public static final String KEY_ROLLBAR_CLIENT_PRODUCTION = "1c1f812307674ad199de9fc464511911";
 
     /**
      * Declares the ROLL BAR key for TEST ENVIRONMENT.
@@ -35,6 +35,11 @@ public class ApplicationGlobal {
     public static final int POSITION_ABOUT_CLUB = 5;
     public static final int POSITION_MY_ACCOUNT = 6;
 
+    /**
+     * Use this for COMPETITIONS ENTRY.
+     */
+    public static final int POSITION_MEMBERS_BOOKING = 7;
+
     public static final int POSITION_OLD_COURSE = 1;
     public static final int POSITION_NEW_COURSE = 2;
 
@@ -54,21 +59,6 @@ public class ApplicationGlobal {
      */
     public static final String TAG_POPUP_THEME = "colorTheme";
     public static final String TAG_CALL_FROM = "callFrom";
-
-    /**
-     * Declares the KEY used to pass some of the
-     * data on DETAIL screen of MY ACCOUNT INVOICE.
-     */
-    public static final String KEY_INVOICE_TITLE = "INVOICE_TAX_TITLE";
-    public static final String KEY_INVOICE_NUMBER = "INVOICE_NUMBER";
-    public static final String KEY_INVOICE_VALUE = "INVOICE_VALUE";
-    public static final String KEY_INVOICE_TAX = "INVOICE_TAX";
-    public static final String KEY_INVOICE_TOTAL_PAYABLE = "INVOICE_TAX_PAYABLE";
-    public static final String KEY_INVOICE_DATE = "INVOICE_DATE";
-    public static final String KEY_INVOICE_DESCRIPTION = "INVOICE_DESCRIPTION";
-    public static final String KEY_INVOICE_BILL_FROM = "INVOICE_BILL_FROM";
-    public static final String KEY_INVOICE_BILL_TO = "INVOICE_BILL_TO";
-    public static final String KEY_INVOICE_STATUS_STR = "INVOICE_STATUS_STR";
 
 
     /**
@@ -112,7 +102,7 @@ public class ApplicationGlobal {
     /**
      * SHARED PREFERENCE KEY COLLECTION.
      */
-    public static final String SHARED_PREF = "MHSystemsPrefs_Brokenhurst";
+    public static final String SHARED_PREF = "MHS_brokenhurst";
     public static final String KEY_USER_LOGINID = "UserLoginID";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_CLUB_ID = "ClubID";
@@ -120,7 +110,8 @@ public class ApplicationGlobal {
     public static final String KEY_HCAP_TYPE_STR = "HCapTypeStr";
     public static final String KEY_HCAP_EXACT_STR = "HCapExactStr";
     public static final String KEY_HCAP_PLAY_STR = "HCapPlayStr";
-
+    public static final String KEY_COURSES = "Courses";
+    public static final String KEY_FIRST_TIME_LOGIN = "FirstTimeLogin";
 }
 
 

@@ -35,6 +35,15 @@ public class YourAccountActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
+    /*@Bind(R.id.llHomeMyAccount)
+    LinearLayout llHomeMyAccount;*/
+
+    /*@Bind(R.id.container)
+    FrameLayout container;*/
+
+   /* @Bind(R.id.tvMyAccountTitle)
+    TextView tvMyAccountTitle;*/
+
     @Bind(R.id.tbMyAccount)
     Toolbar tbMyAccount;
 
@@ -138,8 +147,9 @@ public class YourAccountActivity extends BaseActivity {
         }
 
         tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        //tvMyAccountTitle.setTypeface(tfRobotoMedium);
 
-        //Load Default fragment.
+        //Load Default fragment of COURSE DIARY.
         updateFragment(new MyAccountTabFragment());
 
         initFianaceCategory();
@@ -199,7 +209,16 @@ public class YourAccountActivity extends BaseActivity {
                 break;
         }
 
+       /* if (getWhichTab() instanceof FinanceFragment) {
+
+        } else {
+
+        }*/
+
         popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
+
+        /*//Initially display title at position 0 of R.menu.course_menu.
+        tvCourseType.setText("" + popupMenu.getMenu().getItem(0));*/
     }
 
     /**

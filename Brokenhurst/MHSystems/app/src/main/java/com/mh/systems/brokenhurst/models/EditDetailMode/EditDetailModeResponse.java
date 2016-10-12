@@ -14,7 +14,7 @@ public class EditDetailModeResponse {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("CompEligiblePlayersData")
     @Expose
     private String Data;
 
@@ -47,14 +47,14 @@ public class EditDetailModeResponse {
     }
 
     /**
-     * @return The Data
+     * @return The CompEligiblePlayersData
      */
     public String getData() {
         return Data;
     }
 
     /**
-     * @param Data The Data
+     * @param Data The CompEligiblePlayersData
      */
     public void setData(String Data) {
         this.Data = Data;

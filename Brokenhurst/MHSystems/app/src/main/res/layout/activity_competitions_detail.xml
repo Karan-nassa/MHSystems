@@ -14,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail_backdrop_height"
         android:background="@mipmap/bg_competitiondetail"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:collapsedTitleTextAppearance="@style/CompetitionsToolCollapse"
+        app:theme="@style/CompetitionsTheme.Toolbar">
 
         <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -38,10 +40,24 @@
                     android:id="@+id/tvEventStatusStrDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="60dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="50dp"
+                    android:text=""
                     android:textAllCaps="true"
                     android:textColor="@color/colorC0995B"
                     android:textSize="14sp" />
+
+                <com.mh.systems.brokenhurst.customfonts.ButlerLightTextView
+                    android:id="@+id/tvTitleOfEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="16dp"
+                    android:text=""
+                    android:textColor="@color/colorWhiteffffff"
+                    android:textSize="26sp" />
+
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
@@ -99,7 +115,7 @@
                         android:id="@+id/tvDateCourseEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Monday, 29th February 2016"
+                        android:text=""
                         android:textColor="@color/color030303"
                         android:textSize="16sp" />
 
@@ -110,10 +126,10 @@
                         android:id="@+id/tvTimeCourseEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10:00 - 14:00"
-                        android:visibility="gone"
+                        android:text=""
                         android:textColor="@color/color030303"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -147,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="25dp"
-                    android:text="£5 fee per player"
+                    android:text=""
                     android:textColor="@color/color030303"
                     android:textSize="17sp" />
 
@@ -179,7 +195,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="25dp"
-                    android:text="CONGU(tm), 18 Holes, 1 Round"
+                    android:text=""
                     android:textColor="@color/color030303"
                     android:textSize="17sp" />
 
@@ -212,7 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="25dp"
-                    android:text="Strokeplay"
+                    android:text=""
                     android:textColor="@color/color030303"
                     android:textSize="17sp" />
 
@@ -245,79 +261,60 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="30dp"
-                    android:text="In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis. In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis."
                     android:textColor="@color/color4A4A4A"
                     android:textSize="14sp" />
 
             </LinearLayout>
 
-            <!-- MEMBERS POSITION WITH THEIR RANKS -->
+            <!-- +++++++++++ PAID BOOKING STATUS START +++++++++++ -->
 
             <LinearLayout
-                android:id="@+id/llRankOfMembers"
+                android:id="@+id/llUpdateBookingView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="25dp"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <com.mh.systems.brokenhurst.customfonts.ButlerMediumTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:text="YOUR BOOKING"
+                    android:textColor="@color/colorC59A5C"
+                    android:textSize="12sp" />
+
+                <!-- LIST OF SELECTED PLAYERS -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
 
+                    <!-- PEOPLE ICON -->
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="30"
-                        android:alpha="0.5"
-                        android:background="@color/color1E1E1C" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <ImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="40"
-                        android:orientation="vertical">
+                        android:src="@mipmap/ic_people" />
 
-                        <TextView
-                            android:id="@+id/tvTitleTableResult"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:alpha="0.3"
-                            android:text="TABLE OF RESULTS"
-                            android:textColor="@color/color1E1E1C"
-                            android:textSize="10sp" />
+                    <!-- List of People -->
 
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="30"
-                        android:alpha="0.5"
-                        android:background="@color/color1E1E1C" />
-
+                    <TextView
+                        android:id="@+id/tvPlayingMembers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="25dp"
+                        android:textColor="@color/color030303"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
-                <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvResultDesc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="15dp"
-                    android:textColor="@color/colorC0995B"
-                    android:textSize="17sp" />
-
-                <!-- VIEW GROUP FOR RESULT TITLE -->
+                <!-- BOOKING TIME OF EVENT -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -325,142 +322,62 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
+                    android:orientation="horizontal">
 
-                    <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                    <!-- PEOPLE ICON -->
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_clock" />
+
+                    <!-- List of People -->
+
+                    <TextView
+                        android:id="@+id/tvSelectedTeeTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="15"
-                        android:gravity="center_vertical"
-                        android:text="Pos"
-                        android:textColor="@color/color1E1E1C"
-                        android:textSize="15sp" />
+                        android:layout_marginLeft="25dp"
+                        android:textColor="@color/color030303"
+                        android:textSize="17sp" />
 
-                    <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="50"
-                        android:gravity="center_vertical"
-                        android:text="Player"
-                        android:textColor="@color/color1E1E1C"
-                        android:textSize="15sp" />
-
-                    <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="20"
-                        android:gravity="center"
-                        android:text="Handicap"
-                        android:textColor="@color/color1E1E1C"
-                        android:textSize="15sp" />
-
-                    <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="15"
-                        android:gravity="end"
-                        android:text="Total"
-                        android:textColor="@color/color1E1E1C"
-                        android:textSize="15sp" />
                 </LinearLayout>
 
-                <!-- RANK LIST and 'NO DATA FOUND' VIEW GROUP -->
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <!-- MANAGE YOUR BOOKING -->
 
-                    <!-- RANK LIST -->
+            <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
+                android:id="@+id/tvManageBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="MANAGE YOUR BOOKING"
+                android:textColor="@color/colorC59A5C"
+                android:textSize="14sp" />
 
-                    <ListView
-                        android:id="@+id/lvListOfMembers"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp" />
-
-                    <!-- NO DATA FOUND -->
-
-                    <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
-                        android:id="@+id/tvNoDataView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:text="@string/error_no_data_found"
-                        android:textColor="@color/color1E1E1C"
-                        android:textSize="18sp"
-                        android:visibility="gone" />
-
-                </FrameLayout>
-
-                <!--   <LinearLayout
-                       android:id="@+id/llRankGroupRow"
-                       android:layout_width="match_parent"
-                       android:layout_height="40dp"
-                       android:background="@color/colorC0995B"
-                       android:paddingLeft="20dp"
-                       android:paddingRight="20dp">
-
-                       <mhstems.customfonts.RobotoTextView
-                           android:layout_width="0dp"
-                           android:layout_height="match_parent"
-                           android:layout_gravity="center"
-                           android:layout_weight="1"
-                           android:gravity="center_vertical"
-                           android:text="12"
-                           android:textColor="@color/color1E1E1C"
-                           android:textSize="15sp" />
-
-                       <mhstems.customfonts.RobotoTextView
-                           android:layout_width="0dp"
-                           android:layout_height="match_parent"
-                           android:layout_gravity="center"
-                           android:layout_weight="2"
-                           android:gravity="center_vertical"
-                           android:text="Greg Hadala"
-                           android:textColor="@color/color1E1E1C"
-                           android:textSize="15sp" />
-
-                       <mhstems.customfonts.RobotoTextView
-                           android:layout_width="0dp"
-                           android:layout_height="match_parent"
-                           android:layout_gravity="center"
-                           android:layout_weight="1"
-                           android:gravity="center"
-                           android:text="70"
-                           android:textColor="@color/color1E1E1C"
-                           android:textSize="15sp" />
-
-                       <mhstems.customfonts.RobotoTextView
-                           android:layout_width="0dp"
-                           android:layout_height="match_parent"
-                           android:layout_gravity="center"
-                           android:layout_weight="1"
-                           android:gravity="end|center"
-                           android:text="70"
-                           android:textColor="@color/color1E1E1C"
-                           android:textSize="15sp" />
-                   </LinearLayout>-->
-            </LinearLayout>
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+        <!-- +++++++++++ PAID BOOKING STATUS END +++++++++++ -->
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
 
     <!-- JOIN COMPETITIONS FLOATING ACTION BUTTON -->
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabJoinCompetition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:clickable="true"
-        android:src="@mipmap/ic_plus"
-        android:visibility="invisible"
-        app:backgroundTint="@color/colorC0995B"
-        app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|right|end" />
+<android.support.design.widget.FloatingActionButton
+android:id="@+id/fabJoinCompetition"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_margin="@dimen/fab_margin"
+android:clickable="true"
+android:src="@mipmap/ic_plus"
+android:visibility="invisible"
+app:backgroundTint="@color/colorC0995B"
+app:layout_anchor="@id/appbar"
+app:layout_anchorGravity="bottom|right|end" />
 
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>

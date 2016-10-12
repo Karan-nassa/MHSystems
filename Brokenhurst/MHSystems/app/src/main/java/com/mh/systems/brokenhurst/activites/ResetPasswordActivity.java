@@ -247,7 +247,7 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
      * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
      */
     public String getClientId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078");
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
     /**

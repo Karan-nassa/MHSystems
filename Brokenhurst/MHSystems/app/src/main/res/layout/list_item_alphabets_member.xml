@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:background="@color/colorF9F8F7"
+    android:orientation="horizontal"
     tools:ignore="UnusedAttribute">
 
     <!--just a background view for the header, so that it won't interfere with the headers changes and row-clicking-->
     <FrameLayout
         android:layout_width="50dp"
-        android:layout_height="match_parent"
-       >
+        android:layout_height="match_parent">
 
         <include layout="@layout/pinned_header_listview_side_header" />
     </FrameLayout>

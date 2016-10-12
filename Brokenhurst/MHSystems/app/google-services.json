@@ -1,64 +1,20 @@
 {
   "project_info": {
-    "project_number": "861942922847",
-    "project_id": "mhs-golf"
+    "project_number": "441828749886",
+    "project_id": "mhs-golf-141407"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:861942922847:android:81379da17f09c39a",
-        "android_client_info": {
-          "package_name": "com.mh.systems.brokenhurst.activites"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "861942922847-jub1r59og7iunq97a0buperdfgjf6emp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.mh.systems.brokenhurst.activites",
-            "certificate_hash": "F00355CCA8ED8682A5C1470424D83BED6328CC8A"
-          }
-        },
-        {
-          "client_id": "861942922847-m0c245cnpu1ripglkj9thcci7sacqo7m.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD__2AurSK8Hrv2DGAcngUBJXIgc3POc6M"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 1
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:861942922847:android:714845c7c685667c",
+        "mobilesdk_app_id": "1:441828749886:android:714845c7c685667c",
         "android_client_info": {
           "package_name": "com.mh.systems.brokenhurst"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "861942922847-m0c245cnpu1ripglkj9thcci7sacqo7m.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD__2AurSK8Hrv2DGAcngUBJXIgc3POc6M"
+          "current_key": "AIzaSyDOrtI9-Py69sVXD2jKgbI4wxj4er6mVF0"
         }
       ],
       "services": {

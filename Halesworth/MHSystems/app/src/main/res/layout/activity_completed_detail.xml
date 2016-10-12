@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7"
+    android:fitsSystemWindows="true">
+
+    <!-- COMPETITIONS TITLE WITH CROSS ARROW IN TOOL BAR -->
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/detail_backdrop_height"
+        android:background="@mipmap/bg_competitiondetail"
+        android:fitsSystemWindows="true"
+        app:collapsedTitleTextAppearance="@style/CompetitionsToolCollapse"
+        app:theme="@style/CompetitionsTheme.Toolbar">
+
+        <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedTitleTextAppearance="@style/CompetitionsToolCollapse"
+            app:expandedTitleTextAppearance="@style/CompetitionsToolExpand"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp" />
+
+                <com.mh.systems.halesworth.customfonts.RobotoMediumTextView
+                    android:id="@+id/tvEventStatusStrDD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="50dp"
+                    android:text="PLANNED"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorC0995B"
+                    android:textSize="14sp" />
+
+                <com.mh.systems.halesworth.customfonts.ButlerLightTextView
+                    android:id="@+id/tvTitleOfEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Adventure Club Competition"
+                    android:textColor="@color/colorWhiteffffff"
+                    android:textSize="26sp" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarComp"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/App_Theme"
+                app:theme="@style/CompetitionsTheme.Toolbar" />
+
+
+        </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsvContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <!-- BOTTOM DESCRIPTION OF COURSE EVENT DETAIL -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_today" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:orientation="vertical">
+
+                    <!-- DATE OF COURSE EVENT -->
+
+                    <TextView
+                        android:id="@+id/tvDateCourseEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monday, 29th February 2016"
+                        android:textColor="@color/color030303"
+                        android:textSize="16sp" />
+
+
+                    <!-- DATE OF COURSE EVENT -->
+
+                    <TextView
+                        android:id="@+id/tvTimeCourseEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10:00 - 14:00"
+                        android:textColor="@color/color030303"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <!-- TYPE OF COMPETITION EVENT -->
+
+            <LinearLayout
+                android:id="@+id/llTypeGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_competition_type" />
+
+                <!-- PRIZE OF COURSE EVENT -->
+
+                <com.mh.systems.halesworth.customfonts.RobotoTextView
+                    android:id="@+id/tvTypeOfCompEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:text="CONGU(tm), 18 Holes, 1 Round"
+                    android:textColor="@color/color030303"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+            <!-- TYPE OF COMPETITION EVENT -->
+
+            <LinearLayout
+                android:id="@+id/llCombaseCompGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:src="@mipmap/ic_competition_compbase" />
+
+                <!-- PRIZE OF COURSE EVENT -->
+
+                <TextView
+                    android:id="@+id/tvCombaseOfCompEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:text="Strokeplay"
+                    android:textColor="@color/color030303"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+            <!-- DETAIL DESCRIPTION OF COMPETITION EVENT -->
+
+            <LinearLayout
+                android:id="@+id/llDescGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:src="@mipmap/ic_description" />
+
+                <!-- DESCRIPTION OF COMPETITION EVENTS -->
+
+                <com.mh.systems.halesworth.customfonts.RobotoTextView
+                    android:id="@+id/tvDescCourseEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis. In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis."
+                    android:textColor="@color/color4A4A4A"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- MEMBERS POSITION WITH THEIR RANKS -->
+
+            <LinearLayout
+                android:id="@+id/llRankOfMembers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="30"
+                        android:alpha="0.5"
+                        android:background="@color/color1E1E1C" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvTitleTableResult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:alpha="0.3"
+                            android:text="TABLE OF RESULTS"
+                            android:textColor="@color/color1E1E1C"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="30"
+                        android:alpha="0.5"
+                        android:background="@color/color1E1E1C" />
+
+
+                </LinearLayout>
+
+                <com.mh.systems.halesworth.customfonts.RobotoMediumTextView
+                    android:id="@+id/tvResultDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/colorC0995B"
+                    android:textSize="17sp" />
+
+                <!-- VIEW GROUP FOR RESULT TITLE -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <com.mh.systems.halesworth.customfonts.RobotoMediumTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="15"
+                        android:gravity="center_vertical"
+                        android:text="Pos"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="15sp" />
+
+                    <com.mh.systems.halesworth.customfonts.RobotoMediumTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="50"
+                        android:gravity="center_vertical"
+                        android:text="Player"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="15sp" />
+
+                    <com.mh.systems.halesworth.customfonts.RobotoMediumTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20"
+                        android:gravity="center"
+                        android:text="Handicap"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="15sp" />
+
+                    <com.mh.systems.halesworth.customfonts.RobotoMediumTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="15"
+                        android:gravity="end"
+                        android:text="Total"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <!-- RANK LIST and 'NO DATA FOUND' VIEW GROUP -->
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- RANK LIST -->
+
+                    <ListView
+                        android:id="@+id/lvListOfMembers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:clipToPadding="false"
+                        android:paddingTop="8dp" />
+
+                    <!-- NO DATA FOUND -->
+
+                    <com.mh.systems.halesworth.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvNoDataView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:text="@string/error_no_data_found"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+                <!--   <LinearLayout
+                       android:id="@+id/llRankGroupRow"
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:background="@color/colorC0995B"
+                       android:paddingLeft="20dp"
+                       android:paddingRight="20dp">
+
+                       <mhstems.customfonts.RobotoTextView
+                           android:layout_width="0dp"
+                           android:layout_height="match_parent"
+                           android:layout_gravity="center"
+                           android:layout_weight="1"
+                           android:gravity="center_vertical"
+                           android:text="12"
+                           android:textColor="@color/color1E1E1C"
+                           android:textSize="15sp" />
+
+                       <mhstems.customfonts.RobotoTextView
+                           android:layout_width="0dp"
+                           android:layout_height="match_parent"
+                           android:layout_gravity="center"
+                           android:layout_weight="2"
+                           android:gravity="center_vertical"
+                           android:text="Greg Hadala"
+                           android:textColor="@color/color1E1E1C"
+                           android:textSize="15sp" />
+
+                       <mhstems.customfonts.RobotoTextView
+                           android:layout_width="0dp"
+                           android:layout_height="match_parent"
+                           android:layout_gravity="center"
+                           android:layout_weight="1"
+                           android:gravity="center"
+                           android:text="70"
+                           android:textColor="@color/color1E1E1C"
+                           android:textSize="15sp" />
+
+                       <mhstems.customfonts.RobotoTextView
+                           android:layout_width="0dp"
+                           android:layout_height="match_parent"
+                           android:layout_gravity="center"
+                           android:layout_weight="1"
+                           android:gravity="end|center"
+                           android:text="70"
+                           android:textColor="@color/color1E1E1C"
+                           android:textSize="15sp" />
+                   </LinearLayout>-->
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

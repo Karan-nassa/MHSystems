@@ -16,7 +16,7 @@ import com.mh.systems.brokenhurst.models.TransactionListData;
 import java.util.ArrayList;
 
 /**
- * Created by  karan@mh.co.in to used to create adapter
+ * Created by  karan@ucreate.co.in to used to create adapter
  * to display FINANCE list items on 30/6/2016.
  */
 public class FinanceAdapter extends BaseAdapter {

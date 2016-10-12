@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "441828749886",
+    "project_id": "mhs-golf-141407"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441828749886:android:714845c7c685667c",
+        "android_client_info": {
+          "package_name": "com.mh.systems.halesworth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOrtI9-Py69sVXD2jKgbI4wxj4er6mVF0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

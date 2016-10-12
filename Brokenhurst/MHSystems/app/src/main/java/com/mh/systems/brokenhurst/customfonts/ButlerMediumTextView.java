@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
- * Created by karan@mh.co.in to create custom
+ * Created by karan@ucreate.co.in to create custom
  * font style on 15-03-2016.
  */
 public class ButlerMediumTextView extends TextView {

@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.brokenhurst.R;
-import com.mh.systems.brokenhurst.activites.CourseDiaryDetailActivity;
 import com.mh.systems.brokenhurst.activites.CustomAlertDialogActivity;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
 import com.mh.systems.brokenhurst.models.CourseDiaryData;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 /**
- * Created by  karan@mh.co.in to Create adapter
+ * Created by  karan@ucreate.co.in to Create adapter
  * to display COURSE DIARY EVENTS on 12/4/2015.
  */
 public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListener {
@@ -204,15 +203,19 @@ public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListe
                     viewHolder.tvStartOfEvent.setText(CourseDiaryData.get(position).getStartTime24Format());
                 }
 
-                rowView.setOnClickListener(new View.OnClickListener() {
+                /**
+                 *  Stop click of Course Diary detail screen.
+                 */
+
+               /* rowView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /**
-                         *  Handle NULL @Exception.
-                         */
+                        *//**
+                 *  Handle NULL @Exception.
+                 *//*
                         if (CourseDiaryData.get(position) != null) {
 
-                            if (CourseDiaryData.get(position).getSlotType() == 3) {
+                        *//*    if (CourseDiaryData.get(position).getSlotType() == 3) {*//*
 
                                 Intent intent = new Intent(context, CourseDiaryDetailActivity.class);
                                 intent.putExtra("COURSE_TITLE", CourseDiaryData.get(position).getTitle());
@@ -225,9 +228,9 @@ public class CourseDiaryAdapter extends BaseAdapter implements View.OnClickListe
                                 intent.putExtra("COURSE_EVENT_TIME", CourseDiaryData.get(position).getStartTime() + " - " + CourseDiaryData.get(position).getEndTime());
                                 context.startActivity(intent);
                             }
-                        }
+                      *//*  }*//*
                     }
-                });
+                });*/
 
                 //Set Font Style Typeface
                 setEventTypeFace(viewHolder);

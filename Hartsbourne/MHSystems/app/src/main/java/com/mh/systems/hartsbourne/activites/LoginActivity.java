@@ -131,6 +131,8 @@ public class LoginActivity extends BaseActivity {
         //Initialize Butter knife.
         ButterKnife.bind(this);
 
+        setFontTypeFace();
+
         btLogin.setOnClickListener(mLoginListener);
 
         tvForgotPWD.setOnClickListener(mForgotPwdListener);
@@ -279,6 +281,7 @@ public class LoginActivity extends BaseActivity {
 
         tvCopyRight.setTypeface(tfRobotoLight);
     }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

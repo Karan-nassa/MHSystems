@@ -268,13 +268,14 @@ public class MembersActivity extends BaseActivity {
     /**
      * Implements a method to update UI when 'No Competitions'.
      *
-     * @param hasData : True means more than 1 data.
+     * @param hasData      : True means more than 1 data.
+     * @param iTabPosition : Which tab Members or Friends
      */
-    public void updateNoDataUI(boolean hasData) {
+    public void updateNoDataUI(boolean hasData, int iTabPosition) {
         if (hasData) {
-            showNoMemberView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            showNoMemberView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true, iTabPosition);
         } else {
-            showNoMemberView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            showNoMemberView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false, iTabPosition);
         }
     }
 

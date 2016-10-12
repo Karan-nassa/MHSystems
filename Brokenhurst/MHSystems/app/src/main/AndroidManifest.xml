@@ -9,6 +9,15 @@
     <!-- PERMISSION FOR PHONE CALL_PHONE -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
+    <!-- [START gcm_permission] -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <permission
+        android:name="com.mh.systems.brokenhurst.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.mh.systems.demoapp.permission.C2D_MESSAGE" />
+    <!-- [END gcm_permission] -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -59,9 +68,9 @@
             android:name="com.mh.systems.brokenhurst.activites.CompetitionsActivity"
             android:screenOrientation="portrait" />
 
-        <!-- COMPETITIONS DIARY ACTIVITY -->
+        <!-- COMPLETED COMPETITIONS ACTIVITY -->
         <activity
-            android:name="com.mh.systems.brokenhurst.activites.CompetitionsDetailActivity"
+            android:name="com.mh.systems.brokenhurst.activites.CompletedDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- MY ACCOUNT ACTIVITY -->
@@ -120,20 +129,91 @@
         <!-- MY DETAILS TOGGLE SCREEN -->
 
         <activity
-            android:name=".activites.EditToggleDetailActivity"
+            android:name="com.mh.systems.brokenhurst.activites.EditToggleDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- MY DETAILS EDIT SCREEN -->
 
         <activity
-            android:name=".activites.EditDetailsActivity"
+            android:name="com.mh.systems.brokenhurst.activites.EditDetailsActivity"
             android:screenOrientation="portrait" />
 
         <!-- HANDICAP HISTORY -->
 
         <activity
-            android:name=".activites.HCapHistoryActivity"
+            android:name="com.mh.systems.brokenhurst.activites.HCapHistoryActivity"
             android:screenOrientation="portrait" />
+
+        <!-- COMPETITION DETAIL ACTIVITY -->
+
+        <activity
+            android:name="com.mh.systems.brokenhurst.activites.CompetitionDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- COMPETITIONS ENTRY -->
+
+        <activity
+            android:name="com.mh.systems.brokenhurst.activites.CompetitionEntryActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- COMPETITION ENTRY -->
+
+        <activity
+            android:name="com.mh.systems.brokenhurst.activites.EligiblePlayersActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- UPDATE Password Activity -->
+
+        <activity
+            android:name="com.mh.systems.brokenhurst.activites.UpdatePasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- FORGOT Password Activity -->
+
+        <activity
+            android:name="com.mh.systems.brokenhurst.activites.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- [START gcm_receiver] -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="gcm.play.android.samples.com.gcmquickstart" />
+            </intent-filter>
+        </receiver>
+        <!-- [END gcm_receiver] -->
+
+        <!-- [START gcm_listener] -->
+        <service
+            android:name="com.mh.systems.brokenhurst.push.MyGcmListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <!-- [END gcm_listener] -->
+        <!-- [START instanceId_listener] -->
+        <service
+            android:name="com.mh.systems.brokenhurst.push.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <!-- [END instanceId_listener] -->
+        <service
+            android:name="com.mh.systems.brokenhurst.push.RegistrationIntentService"
+            android:exported="false" />
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

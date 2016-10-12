@@ -1,21 +1,22 @@
 <resources>
     <string name="app_name">Brokenhurst</string>
 
-    <string name="text_hello_hartsbourne">Hello Brokenhurst!</string>
+    <string name="text_hello_mhsystems">Hello brokenhurst!</string>
 
     <!-- START OF SNACK BAR MESSAGES -->
-    <string name="error_no_internet">Please check your internet connection</string>
+    <string name="error_no_internet">Please check your internet connection.</string>
     <string name="error_server_problem">There was a problem connecting to the server. Please try again later.</string>
-    <string name="error_no_connection">No Internet Connection</string>
+    <string name="error_no_connection">No Internet Connection found.</string>
     <string name="error_try_again">Try again later</string>
     <string name="error_no_competitions">No competitions</string>
     <string name="error_no_course">No Course</string>
     <string name="error_no_data_found">No Data Found</string>
+    <string name="error_no_member">No Members found</string>
+    <string name="error_no_friend">No Friends found</string>
     <string name="error_select_different_month">Select different month</string>
     <string name="error_check_internet">Please check your internet connectivity and try again</string>
-    <string name="error_no_data">No compResultData found</string>
-    <string name="error_no_member">No Member found</string>
-    <string name="error_please_retry">Bad internet connection. please try again later.</string>
+    <string name="error_no_data">No Data found</string>
+    <string name="error_please_retry">Something went wrong with internet connection. Please try again.</string>
     <string name="message_no_date_selected">No date selected.</string>
     <string name="error_no_club_news">No Club News</string>
     <string name="error_wrong_date_selection">You can only view compResultData of current date and future dates.</string>
@@ -42,12 +43,12 @@
     <string name="text_password">Password</string>
     <string name="button_text_login">Login</string>
     <string name="text_title_forgot_password"><u>Forgot your password?</u></string>
-    <string name="error_all_required">All fields are required.</string>
+    <string name="error_all_required">Please enter your username and password.</string>
     <string name="text_title_copyright">© 2016 Gemini Media Network</string>
     <!-- END OF LOGIN ACTIVITY -->
 
     <!-- START OF DASHBOARD ACTIVITY -->
-    <string name="title_golf_club_name">SUNNINGDALE GOLF CLUB</string>
+    <string name="title_golf_club_name">Brokenhurst GOLF CLUB</string>
     <string name="title_home_message">“Kindness is the language which the deaf can hear and the blind can see.”</string>
     <string name="title_home_message_author">Mark Twain</string>
     <!-- END OF DASHBOARD ACTIVITY -->
@@ -86,9 +87,9 @@
     <string name="text_member_no_address">Address not found.</string>
     <string name="alert_title_friend_invitation">Friend Invitation</string>
     <string name="alert_title_friend_invite_message">Do you wish to add this member to your Friend list?</string>
+    <string name="alert_title_friend_remove">Remove Friend</string>
     <string name="alert_title_unjoin">Unjoin Competition</string>
     <string name="alert_title_unjoin_message">Are you sure you want to leave this competition?</string>
-    <string name="alert_title_friend_remove">Remove Friend</string>
     <string name="alert_title_friend_remove_message">Do you wish to remove this member from your Friend list?</string>
     <!-- START OF MEMBERS DETAIL ACTIVITY -->
 
@@ -142,6 +143,20 @@
     <string name="error_incorrect_current_pwd">Incorrect current password</string>
     <string name="error_pwd_no_match">New passwords did not match</string>
 
+    <!-- FORGOT PASSWORD -->
+    <string name="edit_title_forgot_pwd">Forgot Password</string>
+    <string name="edit_email_hint">Example@domain.com</string>
+    <string name="button_send_pwd">Send Password</string>
+
+    <!-- UPDATE PASSWORD -->
+    <string name="text_title_update_pwd">Please create your own Username &amp; Password below</string>
+    <string name="edit_hint_username">Username</string>
+    <string name="edit_title_confirm_password">Confirm password</string>
+    <string name="buton_update">Update</string>
+    <string name="error_no_match_pwd">Password doesn’t match</string>
+
+    <!-- START OF YOUR DETAIL FRAGMENT -->
+
     <!-- START OF YOUR DETAIL FRAGMENT -->
 
     <!-- HEADING TITLE -->
@@ -168,6 +183,7 @@
     <string name="title_text_password">Password</string>
 
     <string name="title_text_address_line1">ADDRESS LINE 1</string>
+
     <string name="title_text_visible">VISIBLE:</string>
     <!-- END OF YOUR DETAIL FRAGMENT -->
 
@@ -198,14 +214,15 @@
 
     <string-array name="gridBackgroundColors">
 
-        <item>@drawable/background_pressed_f6b98c</item>
-        <item>@drawable/background_pressed_afd9a1</item>
-        <item>@drawable/background_pressed_f6ea8c</item>
-        <item>@drawable/background_pressed_colora1b7e0</item>
-        <item>@drawable/background_pressed_c0995b</item>
-        <item>@drawable/background_pressed_b2e6d9</item>
+    <item>@drawable/background_pressed_f6b98c</item>
+    <item>@drawable/background_pressed_afd9a1</item>
+    <item>@drawable/background_pressed_f6ea8c</item>
+    <item>@drawable/background_pressed_colora1b7e0</item>
+    <item>@drawable/background_pressed_c0995b</item>
+    <item>@drawable/background_pressed_b2e6d9</item>
 
     </string-array>
+
     <string name="title_activity_member_detail">MemberDetailActivity</string>
 
     <!-- ~~ NAVIGATION DRAWER ICONS ~~ -->

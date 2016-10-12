@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7"
+    android:orientation="horizontal"
+    tools:ignore="UnusedAttribute">
+
+    <!--just a background view for the header, so that it won't interfere with the headers changes and row-clicking-->
+    <FrameLayout
+        android:layout_width="50dp"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/pinned_header_listview_side_header" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingEnd="6dp"
+        android:paddingRight="6dp"
+        android:paddingTop="6dp">
+
+        <!-- CIRCLE VIEW TEXT AT LEFT SIDE -->
+
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <!-- CIRCLE IMAGE AS A BACKGROUND -->
+
+            <com.mh.systems.brokenhurst.utils.CircularContactView
+                android:id="@+id/listview_item__friendPhotoImageView"
+                android:layout_width="@dimen/list_item__contact_imageview_size"
+                android:layout_height="@dimen/list_item__contact_imageview_size"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
+            <!-- CIRCLE IMAGE AS A BACKGROUND -->
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                app:placeholderImage="@color/colorF1F1F0"
+                app:roundAsCircle="true" />
+
+            <!-- VIEW TO DISPLAY 'PlayHCapStr' OF EACH MEMBER -->
+
+            <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
+                android:id="@+id/tvPlayHCapStr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="8c(A)"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="14sp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <!-- DISPLAY NAME -->
+
+            <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+                android:id="@+id/listview_item__friendNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="15dp"
+                android:ellipsize="end"
+                android:text="Calvin Jennings"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText,NewApi" />
+
+            <CheckBox
+                android:id="@+id/cbSelectedMember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="30dp"
+                android:gravity="right|center" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

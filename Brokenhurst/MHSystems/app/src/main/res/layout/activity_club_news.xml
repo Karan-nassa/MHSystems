@@ -38,7 +38,7 @@
 
             <!-- CLUB NEWS TITLE -->
 
-            <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+            <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
