@@ -13,7 +13,7 @@ public class TogglePrivacyResponse {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("CompEligiblePlayersData")
     @Expose
     private String Data;
 
@@ -56,7 +56,7 @@ public class TogglePrivacyResponse {
     /**
      * 
      * @return
-     *     The Data
+     *     The CompEligiblePlayersData
      */
     public String getData() {
         return Data;
@@ -65,7 +65,7 @@ public class TogglePrivacyResponse {
     /**
      * 
      * @param Data
-     *     The Data
+     *     The CompEligiblePlayersData
      */
     public void setData(String Data) {
         this.Data = Data;

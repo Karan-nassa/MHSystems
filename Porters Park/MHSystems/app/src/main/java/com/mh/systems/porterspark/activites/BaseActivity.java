@@ -267,7 +267,7 @@ public class BaseActivity extends AppCompatActivity {
      * @return strDate  : MMM [NOV]
      */
     public static String getFormateMonth(String strDate) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy");
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMM");
 
         try {

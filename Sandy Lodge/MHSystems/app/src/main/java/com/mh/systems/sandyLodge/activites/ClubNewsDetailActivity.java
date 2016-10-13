@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.mh.systems.sandyLodge.R;
 import com.mh.systems.sandyLodge.constants.ApplicationGlobal;
 import com.mh.systems.sandyLodge.constants.WebAPI;
 import com.mh.systems.sandyLodge.models.ClubNews.AJsonParamsClubNewsDetail;
@@ -27,8 +28,6 @@ import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
-
-import com.mh.systems.sandyLodge.R;
 
 public class ClubNewsDetailActivity extends BaseActivity {
 

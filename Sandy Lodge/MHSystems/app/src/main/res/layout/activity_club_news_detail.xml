@@ -58,13 +58,13 @@
 
                 <!-- CLUB NEWS DETAIL DESCRIPTION -->
 
-                <!-- <TextView
-                     android:id="@+id/tvDescOfNews"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:textSize="15dp"
-                     android:text="@string/text_club_news_detail"
-                     android:textColor="#A8000000" />-->
+               <!-- <TextView
+                    android:id="@+id/tvDescOfNews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="@string/text_club_news_detail"
+                    android:textColor="#A8000000" />-->
 
                 <WebView
                     android:id="@+id/wvClubNews"

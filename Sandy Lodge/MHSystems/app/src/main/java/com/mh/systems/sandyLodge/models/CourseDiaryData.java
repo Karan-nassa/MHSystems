@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by karan@mh.co.in to get JSOn response of
+ * Created by karan@ucreate.co.in to get JSOn response of
  * COURSE DIARY data on 02-03-2016.
  */
 public class CourseDiaryData {
@@ -13,7 +13,7 @@ public class CourseDiaryData {
     String courseEventDate;
     String courseEventTime;
     String courseKey;
-    String courseName;
+    String CourseName;
     String dayName;
     String desc;
     String endTime;
@@ -176,17 +176,17 @@ public class CourseDiaryData {
     }
 
     /**
-     * @return The courseName
+     * @return The CourseName
      */
     public String getCourseName() {
-        return courseName;
+        return CourseName;
     }
 
     /**
-     * @param courseName The courseName
+     * @param CourseName The CourseName
      */
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setCourseName(String CourseName) {
+        this.CourseName = CourseName;
     }
 
     /**

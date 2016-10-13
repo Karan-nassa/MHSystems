@@ -15,7 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by karan@mh.co.in to display
+ * Created by karan@ucreate.co.in to display
  * alert dialog of COURSE DIARY and COMPETITIONS
  * on tap of JOIN on 16-03-2016.
  */

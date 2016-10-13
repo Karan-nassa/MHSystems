@@ -100,7 +100,7 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
 
                 if (!isDialogVisible) {
                     //Yes button clicked
-                    fabJoinCourse.setImageResource(R.mipmap.ic_friend_pending);
+                    fabJoinCourse.setImageResource(R.mipmap.ic_clock);
                     fabJoinCourse.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
 
                     Intent mIntent = new Intent(CourseDiaryDetailActivity.this, CustomAlertDialogActivity.class);

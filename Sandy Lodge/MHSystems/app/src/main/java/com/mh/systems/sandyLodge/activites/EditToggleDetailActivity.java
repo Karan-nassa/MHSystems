@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import com.google.gson.JsonObject;
 import com.mh.systems.sandyLodge.R;
 import com.mh.systems.sandyLodge.constants.ApplicationGlobal;
@@ -229,7 +230,7 @@ public class EditToggleDetailActivity extends BaseActivity {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }

@@ -28,8 +28,8 @@ import com.mh.systems.sandyLodge.models.ClubNews.ClubNewsItems;
 import com.mh.systems.sandyLodge.util.API.WebServiceMethods;
 import com.mh.systems.sandyLodge.util.DividerItemDecoration;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.lang.reflect.Type;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -171,7 +171,7 @@ public class ClubNewsActivity extends BaseActivity {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
-                showAlertMessage("" + error);
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }
@@ -187,7 +187,7 @@ public class ClubNewsActivity extends BaseActivity {
      * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
      */
     public String getMemberId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "44118078");
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "44071043");
     }
 
     /**

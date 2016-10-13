@@ -1,9 +1,11 @@
 package com.mh.systems.sandyLodge.fragments;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +52,9 @@ public class MyDetailsFragment extends Fragment {
 
     public static boolean shouldRefresh = false;
 
+    //This bool is used to stop on Edit Detail and Privacy screen to handle crash.
+    private boolean isError = false;
+
     //private boolean isClassVisible = false;
 
     /*********************************
@@ -78,6 +83,8 @@ public class MyDetailsFragment extends Fragment {
     AJsonParamsMembersDatail aJsonParamsMembersDatail;
     MembersDetailsItems membersDetailItems;
 
+    private AlertDialog.Builder builder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootFragment = inflater.inflate(R.layout.fragment_my_details, container, false);
@@ -105,7 +112,8 @@ public class MyDetailsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if(shouldRefresh) {
+        if (shouldRefresh) {
+
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
             /**
@@ -181,6 +189,8 @@ public class MyDetailsFragment extends Fragment {
 
         membersDetailAPI = new MembersDetailAPI((((YourAccountActivity) getActivity()).getClientId()), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
+        Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
+
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(WebAPI.API_BASE_URL)
@@ -202,8 +212,7 @@ public class MyDetailsFragment extends Fragment {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
-
-                ((BaseActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                showErrorMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }
@@ -218,7 +227,7 @@ public class MyDetailsFragment extends Fragment {
 
         Type type = new TypeToken<MembersDetailsItems>() {
         }.getType();
-        membersDetailItems = new Gson().fromJson(jsonObject.toString(), type);
+        membersDetailItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         try {
             /**
@@ -317,7 +326,7 @@ public class MyDetailsFragment extends Fragment {
      * it can retrieve later for update.
      */
     private void SaveUserInfoToPreference() {
-        ((YourAccountActivity)getActivity()).savePreferenceList("YOUR_DETAILS_DATA", new Gson().toJson(membersDetailItems.getData()));
+        ((YourAccountActivity) getActivity()).savePreferenceList("YOUR_DETAILS_DATA", new Gson().toJson(membersDetailItems.getData()));
     }
 
     /**
@@ -354,5 +363,27 @@ public class MyDetailsFragment extends Fragment {
         llStreetOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llStreetOfPerson);
         llUsernameOfPerson = (LinearLayout) viewRootFragment.findViewById(R.id.llUsernameOfPerson);
         llMyDetailGroup = (LinearLayout) mRootFragment.findViewById(R.id.llMyDetailGroup);
+    }
+
+    /**
+     * Implement a method to show Error message
+     * Alert Dialog.
+     */
+    public void showErrorMessage(String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                            ((YourAccountActivity) getActivity()).finish();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

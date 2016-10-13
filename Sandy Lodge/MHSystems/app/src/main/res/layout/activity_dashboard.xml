@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@color/colorWhiteffffff">
 
 
     <!-- VIEW GROUP OF ALL RESOURCES -->
@@ -22,70 +22,70 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="55"
-            android:background="@color/colorWhiteffffff"
             android:orientation="vertical">
 
-            <!-- FOR SETTINGS ICON ON LEFT SIDE VIEW GROUP -->
+        <!-- FOR SETTINGS ICON ON LEFT SIDE VIEW GROUP -->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="10"
-                android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="horizontal">
 
-                <!-- SETTINGS ICON -->
+            <!-- SETTINGS ICON -->
 
-                <LinearLayout
-                    android:id="@+id/llSettings"
+            <LinearLayout
+                android:id="@+id/llSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:orientation="vertical">
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:orientation="vertical">
+                    android:layout_margin="10dp"
+                    android:src="@mipmap/ic_home_settings" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:src="@mipmap/ic_home_settings" />
+            </LinearLayout>
 
-                </LinearLayout>
+            <!-- SEND FEEDBACK BUTTON -->
 
-                <!-- SEND FEEDBACK BUTTON -->
-
-                <Button
-                    android:id="@+id/btSendFeedback"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/button_shape_feedback"
-                    android:elevation="0dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:text="Send Feedback"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="17sp" />
+            <Button
+                android:id="@+id/btSendFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_shape_feedback"
+                android:elevation="0dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:visibility="gone"
+                android:text="Send Feedback"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="17sp" />
 
 
-                <!-- LOGOUT BUTTON -->
+            <!-- LOGOUT BUTTON -->
 
-                <LinearLayout
-                    android:id="@+id/llLogoutBtn"
+            <LinearLayout
+                android:id="@+id/llLogoutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true">
+                    android:layout_margin="10dp"
+                    android:src="@mipmap/ic_home_logout" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:src="@mipmap/ic_home_logout" />
+            </LinearLayout>
 
-                </LinearLayout>
+        </RelativeLayout>
 
-            </RelativeLayout>
-
-            <!-- VIEW GROUP FOR GOLF CLUB NAME AND TREE ICON -->
+        <!-- VIEW GROUP FOR GOLF CLUB NAME AND TREE ICON -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@
 
                 <!-- GOLF CLUB NAME -->
 
-               <!--   <com.mh.systems.sandyLodge.customfonts.BaskervilleTextFont
+                <!--  <mhstems.customfonts.BaskervilleTextFont
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:alpha="0.5"
@@ -127,14 +127,14 @@
 
             <!-- GRID VIEW FOR MENU OPTIONS -->
 
-            <!--  <GridView
-                  android:id="@+id/gvMenuOptions"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="center"
-                  android:cacheColorHint="@color/color4B4B49"
-                  android:gravity="center"
-                  android:numColumns="3" />-->
+          <!--  <GridView
+                android:id="@+id/gvMenuOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:cacheColorHint="@color/color4B4B49"
+                android:gravity="center"
+                android:numColumns="3" />-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/gvMenuOptions"

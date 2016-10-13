@@ -11,15 +11,20 @@ import com.mh.systems.sandyLodge.models.CompetitionsAPI;
 import com.mh.systems.sandyLodge.models.CourseDiaryAPI;
 import com.mh.systems.sandyLodge.models.DashboardAPI;
 import com.mh.systems.sandyLodge.models.EditDetailMode.EditDetailModeAPI;
+import com.mh.systems.sandyLodge.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.sandyLodge.models.Friends.RemoveFriendAPI;
 import com.mh.systems.sandyLodge.models.FriendsAPI;
-import com.mh.systems.sandyLodge.models.HandicapAPI;
 import com.mh.systems.sandyLodge.models.HCapHistory.HCapHistoryAPI;
+import com.mh.systems.sandyLodge.models.HandicapAPI;
 import com.mh.systems.sandyLodge.models.MembersAPI;
 import com.mh.systems.sandyLodge.models.MembersDetailAPI;
 import com.mh.systems.sandyLodge.models.FinanceAPI;
 import com.mh.systems.sandyLodge.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.sandyLodge.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.sandyLodge.models.UpdatePassword.UpdatePassswordAPI;
+import com.mh.systems.sandyLodge.models.competitionsEntry.CompEligiblePlayersAPI;
+import com.mh.systems.sandyLodge.models.competitionsEntry.GetClubEventAPI;
+import com.mh.systems.sandyLodge.models.competitionsEntry.UpdateCompEntryAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -28,7 +33,7 @@ import retrofit.http.POST;
 import retrofit.http.Query;
 
 /**
- * Created by karan@mh.co.in for
+ * Created by karan@ucreate.co.in for
  * all web services on 08-03-2016.
  */
 public interface WebServiceMethods {
@@ -72,7 +77,7 @@ public interface WebServiceMethods {
     public void getCompetitionsEvents(@Body CompetitionsAPI jsonElements, Callback<JsonObject> response);
 
 
-    @GET("/webapi/api/ClubsApp/RpcRequest")
+    @GET("/api/ClubsApp/RpcRequest")
     void joinCompetitionEventGet(@Query("aClientId") String aClientId, @Query("aCommand") String aCommand,
                                  @Query("aJsonParams") String aJsonParams,
                                  @Query("aModuleId") String aModuleId,
@@ -262,5 +267,63 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of GETCLUBEVENT web service to get detail
+     * of COMPETITION event by passing 'eventId'.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getClubEventAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getClubEvent(@Body GetClubEventAPI getClubEventAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of GETCOMPELIGIBLEPLAYERS web service to get eligible players list
+     * of COMPETITION event by passing 'eventId'.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param compEligiblePlayersAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getEligiblePlayersList(@Body CompEligiblePlayersAPI compEligiblePlayersAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of UPDATECLUBEVENTENTRIES web service to update paid Competition Entry
+     * of COMPETITION.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param updateCompEntryAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updateCompEntry(@Body UpdateCompEntryAPI updateCompEntryAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Forgot Password web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param forgotPasswordAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void forgotPassword(@Body ForgotPasswordAPI forgotPasswordAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of UPDATE temporary Password web service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param updatePassswordAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updatePassword(@Body UpdatePassswordAPI updatePassswordAPI, Callback<JsonObject> response);
 }
 

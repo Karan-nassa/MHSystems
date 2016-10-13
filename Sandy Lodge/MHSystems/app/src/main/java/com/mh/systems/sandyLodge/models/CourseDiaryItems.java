@@ -3,7 +3,7 @@ package com.mh.systems.sandyLodge.models;
 import java.util.ArrayList;
 
 /**
- * Created by karan@mh.co.in to load
+ * Created by karan@ucreate.co.in to load
  * Course diary events items on 04-03-2016.
  */
 public class CourseDiaryItems {

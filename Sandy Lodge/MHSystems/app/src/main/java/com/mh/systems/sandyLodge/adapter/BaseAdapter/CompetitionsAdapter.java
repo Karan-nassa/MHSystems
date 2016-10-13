@@ -13,13 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.sandyLodge.R;
-import com.mh.systems.sandyLodge.activites.CompetitionsDetailActivity;
+import com.mh.systems.sandyLodge.activites.CompetitionDetailActivity;
+import com.mh.systems.sandyLodge.activites.CompletedDetailActivity;
 import com.mh.systems.sandyLodge.models.CompetitionsData;
 
 import java.util.ArrayList;
 
 /**
- * Created by  karan@mh.co.in to Create adapter
+ * Created by  karan@ucreate.co.in to Create adapter
  * to display COMPETITIONS on 12/4/2015.
  */
 public class CompetitionsAdapter extends BaseAdapter {
@@ -146,7 +147,7 @@ public class CompetitionsAdapter extends BaseAdapter {
             /* EXECUTE FOR COMPLETED */
 
             /**
-             *  For now hiding Player name and position because its static at back-end.
+             *  For now hiding Players name and position because its static at back-end.
              */
 
             viewHolder.tvNameTitle.setText(compititionsDatas.get(position).getPlayerPosition() + " " + compititionsDatas.get(position).getPlayerName());
@@ -162,8 +163,14 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.llCompetitionGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = null;
 
-                Intent intent = new Intent(context, CompetitionsDetailActivity.class);
+                if (iPopItemPos <= 1) {
+                    intent = new Intent(context, CompetitionDetailActivity.class);
+                }else{
+                    intent = new Intent(context, CompletedDetailActivity.class);
+                }
+
                 intent.putExtra("COMPETITIONS_TITLE", compititionsDatas.get(position).getTitle());
                 intent.putExtra("COMPETITIONS_EVENT_IMAGE", compititionsDatas.get(position).getLogo());
                 intent.putExtra("COMPETITIONS_EVENT_JOIN", compititionsDatas.get(position).getJoinStatus());

@@ -3,32 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGreyf1f1f0">
+    android:background="@color/colorWhiteffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:weightSum="100"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhiteffffff"
+            android:layout_height="0dp"
+            android:layout_weight="40"
             android:gravity="center"
             android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="80dp" />
 
             <!-- GOLF CLUB LOGO -->
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:src="@mipmap/ic_home_golfclub" />
 
             <!--&lt;!&ndash; GOLF CLUB NAME &ndash;&gt;
-
             <mhstems.customfonts.BaskervilleTextFont
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,10 +34,6 @@
                 android:textColor="@color/colorC0995B"
                 android:textSize="12sp" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="50sp"/>
 
         </LinearLayout>
 
@@ -48,8 +41,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="53"
+            android:orientation="vertical"
+            android:background="@color/colorGreyf1f1f0">
 
 
             <!-- PLEASE LOGIN TEXT -->
@@ -127,35 +122,41 @@
                 <!-- FORGOT PASSWORD -->
 
                 <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                    android:id="@+id/tvForgotPWD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:alpha="0.4"
-                    android:visibility="invisible"
+                    android:layout_marginTop="10dp"
+                    android:padding="7dp"
                     android:text="@string/text_title_forgot_password"
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="12sp" />
+                    android:textColor="@color/color4b9dfa"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
 
             </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:background="@color/colorGreyf1f1f0"
+            android:orientation="vertical">
+
+            <!-- COPYRIGHT TEXT -->
+
+            <TextView
+                android:id="@+id/tvCopyRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|bottom"
+                android:alpha="0.3"
+                android:text="@string/text_title_copyright"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
     </LinearLayout>
-
-    <!-- COPYRIGHT TEXT -->
-
-    <TextView
-        android:id="@+id/tvCopyRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:alpha="0.3"
-        android:text="@string/text_title_copyright"
-        android:textColor="@color/colorBlack000000"
-        android:textSize="17sp" />
-
-
 </RelativeLayout>

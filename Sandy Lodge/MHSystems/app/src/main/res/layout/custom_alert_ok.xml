@@ -42,7 +42,7 @@
             android:gravity="right"
             android:text="OK"
             android:textColor="@color/color009688"
-            android:textSize="14sp"  />
+            android:textSize="14sp" />
 
     </LinearLayout>
 

@@ -3,11 +3,11 @@
 
 
     <item
-        android:id="@+id/item_old_course"
-        android:title="Old Course" />
+        android:id="@+id/item_tonbridge"
+        android:title="Tonbridge Course" />
 
     <item
-        android:id="@+id/item_new_course"
-        android:title="New Course" />
+        android:id="@+id/item_pembury"
+        android:title="Pembury Course" />
 
 </menu>

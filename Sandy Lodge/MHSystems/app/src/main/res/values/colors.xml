@@ -59,9 +59,11 @@
     <color name="fifty_four_of_black">#7e000000</color>
     <color name="eighty_seven_of_black">#de000000</color>
 
-    <!-- PROGRESS WHEEL COLOR -->
+    <!-- PROGRESS WHEL COLOR -->
 
     <color name="color5588FF">#5588FF</color>
+
+    <color name="color4b9dfa">#4b9dfa</color>
 
     <!-- START OF COLORS THAT ARE USING AT HOME MENU GRID VIEW -->
 

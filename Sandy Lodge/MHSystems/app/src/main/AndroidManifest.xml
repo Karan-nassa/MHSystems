@@ -9,6 +9,15 @@
     <!-- PERMISSION FOR PHONE CALL_PHONE -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
+    <!-- [START gcm_permission] -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <permission
+        android:name="com.mh.systems.sandyLodge.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.mh.systems.demoapp.permission.C2D_MESSAGE" />
+    <!-- [END gcm_permission] -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -59,9 +68,9 @@
             android:name="com.mh.systems.sandyLodge.activites.CompetitionsActivity"
             android:screenOrientation="portrait" />
 
-        <!-- COMPETITIONS DIARY ACTIVITY -->
+        <!-- COMPLETED COMPETITIONS ACTIVITY -->
         <activity
-            android:name="com.mh.systems.sandyLodge.activites.CompetitionsDetailActivity"
+            android:name="com.mh.systems.sandyLodge.activites.CompletedDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- MY ACCOUNT ACTIVITY -->
@@ -117,12 +126,6 @@
             android:name="com.mh.systems.sandyLodge.activites.FinanceDetailWebActivity"
             android:screenOrientation="portrait" />
 
-        <!-- COURSE DIARY WEB-VIEW -->
-
-        <activity
-            android:name="com.mh.systems.sandyLodge.activites.CourseDiaryWebview"
-            android:screenOrientation="portrait" />
-
         <!-- MY DETAILS TOGGLE SCREEN -->
 
         <activity
@@ -140,6 +143,77 @@
         <activity
             android:name="com.mh.systems.sandyLodge.activites.HCapHistoryActivity"
             android:screenOrientation="portrait" />
+
+        <!-- COMPETITION DETAIL ACTIVITY -->
+
+        <activity
+            android:name="com.mh.systems.sandyLodge.activites.CompetitionDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- COMPETITIONS ENTRY -->
+
+        <activity
+            android:name="com.mh.systems.sandyLodge.activites.CompetitionEntryActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- COMPETITION ENTRY -->
+
+        <activity
+            android:name="com.mh.systems.sandyLodge.activites.EligiblePlayersActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- UPDATE Password Activity -->
+
+        <activity
+            android:name="com.mh.systems.sandyLodge.activites.UpdatePasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- FORGOT Password Activity -->
+
+        <activity
+            android:name="com.mh.systems.sandyLodge.activites.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- [START gcm_receiver] -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="gcm.play.android.samples.com.gcmquickstart" />
+            </intent-filter>
+        </receiver>
+        <!-- [END gcm_receiver] -->
+
+        <!-- [START gcm_listener] -->
+        <service
+            android:name="com.mh.systems.sandyLodge.push.MyGcmListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <!-- [END gcm_listener] -->
+        <!-- [START instanceId_listener] -->
+        <service
+            android:name="com.mh.systems.sandyLodge.push.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <!-- [END instanceId_listener] -->
+        <service
+            android:name="com.mh.systems.sandyLodge.push.RegistrationIntentService"
+            android:exported="false" />
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

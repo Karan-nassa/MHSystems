@@ -4,6 +4,9 @@ package com.mh.systems.sandyLodge.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class LoginData {
 
@@ -22,6 +25,26 @@ public class LoginData {
     @SerializedName("HCapExactStr")
     @Expose
     private String HCapExactStr;
+    @SerializedName("Courses")
+    @Expose
+    private List<CoursesData> Courses = new ArrayList<CoursesData>();
+    @SerializedName("FirstTimeLogin")
+    @Expose
+    private boolean FirstTimeLogin;
+
+    /**
+     * @return The courses
+     */
+    public List<CoursesData> getCourses() {
+        return Courses;
+    }
+
+    /**
+     * @param courses The courses
+     */
+    public void setCourses(List<CoursesData> courses) {
+        Courses = courses;
+    }
 
     /**
      * @return The ClubID
@@ -93,5 +116,17 @@ public class LoginData {
         this.HCapExactStr = HCapExactStr;
     }
 
+    /**
+     * @return The FirstTimeLogin
+     */
+    public boolean getFirstTimeLogin() {
+        return FirstTimeLogin;
+    }
 
+    /**
+     * @param FirstTimeLogin The FirstTimeLogin
+     */
+    public void setFirstTimeLogin(boolean firstTimeLogin) {
+        FirstTimeLogin = firstTimeLogin;
+    }
 }
