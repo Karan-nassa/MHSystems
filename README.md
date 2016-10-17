@@ -20,6 +20,7 @@
 - Halesworth: 44117109
 - Sunningdale: 44118078
 - Sandy Lodge: 44071048
+- Chester Le Street: 44061006
 
 ###Having Course Diary
 > Here is the list of Golf Clubs having Course Diary functionality on Dashboard.
