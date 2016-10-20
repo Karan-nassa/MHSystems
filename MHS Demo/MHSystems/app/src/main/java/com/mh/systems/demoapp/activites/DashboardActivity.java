@@ -3,6 +3,8 @@ package com.mh.systems.demoapp.activites;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -12,7 +14,10 @@ import android.widget.LinearLayout;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.BaseAdapter.DashboardGridAdapter;
+import com.mh.systems.demoapp.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,7 +37,7 @@ public class DashboardActivity extends BaseActivity {
      *******************************/
 
     @Bind(R.id.gvMenuOptions)
-    GridView gvMenuOptions;
+    RecyclerView gvMenuOptions;
 
     @Bind(R.id.llLogoutBtn)
     LinearLayout llLogoutBtn;
@@ -44,57 +49,15 @@ public class DashboardActivity extends BaseActivity {
     Button btSendFeedback;
 
     //Instance of Grid Adapter.
-    DashboardGridAdapter mDashboardGridAdapter;
+    DashboardRecyclerAdapter dashboardRecyclerAdapter;
     Intent intent = null;
 
-    TypedArray gridIcons;
     TypedArray gridBackground;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-
-    String gridTitles[];
-
-    /**
-     * Set click event listener of Grid Menu Options to
-     * use functionality.
-     */
-    private AdapterView.OnItemClickListener mGridItemListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            switch (position) {
-                case 0:
-                    intent = new Intent(DashboardActivity.this, YourAccountActivity.class);
-                    intent.putExtra("iTabPosition", 1);
-                    break;
-                case 1:
-                    intent = new Intent(DashboardActivity.this, CourseDiaryActivity.class);
-                    break;
-                case 2:
-                    intent = new Intent(DashboardActivity.this, CompetitionsActivity.class);
-                    break;
-                case 3:
-                    intent = new Intent(DashboardActivity.this, MembersActivity.class);
-                    break;
-
-                case 4:
-                    intent = new Intent(DashboardActivity.this, ClubNewsActivity.class);
-                    break;
-
-                case 5:
-                    intent = new Intent(DashboardActivity.this, YourAccountActivity.class);
-                    intent.putExtra("iTabPosition", 0);
-                    break;
-            }
-
-            //Check if intent not NULL then navigate to that selected screen.
-            if (intent != null) {
-                startActivity(intent);
-                intent = null;
-            }
-        }
-    };
+    ArrayList<DashboardItems> dashboardItemsArrayList = new ArrayList<>();
 
     /**
      * Logout user from app and navigate back to
@@ -127,10 +90,27 @@ public class DashboardActivity extends BaseActivity {
          */
         ButterKnife.bind(DashboardActivity.this);
 
+        // Create a grid layout with two columns
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
+
+        // Create a custom SpanSizeLookup where the first item spans both columns
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return 2;
+            }
+        });
+
+        // int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        // gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+
         setGridMenuOptions();
 
-        //Set Menu Options click event handle.
-        gvMenuOptions.setOnItemClickListener(mGridItemListener);
+        // Layout Managers:
+        gvMenuOptions.setLayoutManager(layoutManager);
+
+        //LogOut listener.
+        llLogoutBtn.setOnClickListener(mLogoutListener);
 
         //LogOut listener.
         llLogoutBtn.setOnClickListener(mLogoutListener);
@@ -159,15 +139,124 @@ public class DashboardActivity extends BaseActivity {
      */
     private void setGridMenuOptions() {
 
+        //Add Handicap.
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false)) {
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_handicap_chart,
+                    "Your Handicap",
+                    "com.mh.systems.demoapp.activites.YourAccountActivity"));
+        }
+
+        //Add Course Diary.
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, false)) {
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_diary,
+                    "Course Diary",
+                    "com.mh.systems.demoapp.activites.CourseDiaryActivity"));
+        }
+
+        //Add Competitions
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_competitions,
+                    "Competitions",
+                    "com.mh.systems.demoapp.activites.CompetitionsActivity"));
+        }
+
+        //Add Members
+        dashboardItemsArrayList.add(new DashboardItems(
+                R.mipmap.ic_home_members,
+                "Members",
+                "com.mh.systems.demoapp.activites.MembersActivity"));
+
+        //Add Club News
+        dashboardItemsArrayList.add(new DashboardItems(
+                R.mipmap.ic_home_clubnews,
+                "Club News",
+                "com.mh.systems.demoapp.activites.ClubNewsActivity"));
+
+        //Add Finance/Your Details
+        dashboardItemsArrayList.add(new DashboardItems(
+                R.mipmap.ic_my_account,
+                "Your Account",
+                "com.mh.systems.demoapp.activites.YourAccountActivity"));
+
         //Setup Titles and Icons of Navigation Drawer
-        gridTitles = getResources().getStringArray(R.array.homeGridItems);
-        gridIcons = getResources().obtainTypedArray(R.array.HomeGridIcons);
-        gridBackground = getResources().obtainTypedArray(R.array.gridBackgroundColors);
+        //gridTitles = getResources().getStringArray(R.array.homeGridItems);
+        // gridIcons = getResources().obtainTypedArray(R.array.HomeGridIcons);
+        //gridBackground = getResources().obtainTypedArray(R.array.gridBackgroundColors);
 
         //Set Grid options adapter.
-        mDashboardGridAdapter = new DashboardGridAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
-        gvMenuOptions.setAdapter(mDashboardGridAdapter);
+        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this, dashboardItemsArrayList, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
 
         // ScrollRecycleView.getListViewSize(gvMenuOptions);
+    }
+
+    /**
+     * Create this class to decorate Dashboard Grid items spacing.
+     * Because above two grid items should be in center of below
+     * three one.
+     */
+   /* public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+        private int space;
+
+        public SpacesItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view,
+                                   RecyclerView parent, RecyclerView.State state) {
+           // outRect.left = space;
+            //outRect.right = space;
+           // outRect.bottom = space;
+
+            // Add top margin only for the first item to avoid double space between items
+            if (parent.getChildLayoutPosition(view) == 0) {
+                outRect.left = space;
+            } else if (parent.getChildLayoutPosition(view) == 1)  {
+                outRect.right = space;
+            }
+        }
+    }*/
+
+    public class DashboardItems {
+        int iGridIcon;
+        String strTitleOfGrid;
+        String strTagOfGrid;
+
+        public DashboardItems(int iGridIcon, String strTitleOfGrid, String strTagOfGrid) {
+            this.iGridIcon = iGridIcon;
+            this.strTitleOfGrid = strTitleOfGrid;
+            this.strTagOfGrid = strTagOfGrid;
+        }
+
+        public String getStrTagOfGrid() {
+            return strTagOfGrid;
+        }
+
+        public void setStrTagOfGrid(String strTagOfGrid) {
+            this.strTagOfGrid = strTagOfGrid;
+        }
+
+        public int getiGridIcon() {
+            return iGridIcon;
+        }
+
+        public void setiGridIcon(int iGridIcon) {
+            this.iGridIcon = iGridIcon;
+        }
+
+        public String getStrTitleOfGrid() {
+            return strTitleOfGrid;
+        }
+
+        public void setStrTitleOfGrid(String strTitleOfGrid) {
+            this.strTitleOfGrid = strTitleOfGrid;
+        }
     }
 }

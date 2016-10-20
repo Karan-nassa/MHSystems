@@ -32,6 +32,16 @@ public class LoginData {
     @Expose
     private boolean FirstTimeLogin;
 
+    @SerializedName("CourseDiaryFeatures")
+    @Expose
+    private boolean CourseDiaryFeatures;
+    @SerializedName("CompetitionsFeature")
+    @Expose
+    private boolean CompetitionsFeature;
+    @SerializedName("HandicapFeature")
+    @Expose
+    private boolean HandicapFeature;
+
     /**
      * @return The courses
      */
@@ -128,5 +138,47 @@ public class LoginData {
      */
     public void setFirstTimeLogin(boolean firstTimeLogin) {
         FirstTimeLogin = firstTimeLogin;
+    }
+
+    /**
+     * @return The HandicapFeature
+     */
+    public boolean isHandicapFeature() {
+        return HandicapFeature;
+    }
+
+    /**
+     * @param HandicapFeature The HandicapFeature
+     */
+    public void setHandicapFeature(boolean HandicapFeature) {
+        this.HandicapFeature = HandicapFeature;
+    }
+
+    /**
+     * @return The CourseDiaryFeatures
+     */
+    public boolean isCourseDiaryFeatures() {
+        return CourseDiaryFeatures;
+    }
+
+    /**
+     * @param CourseDiaryFeatures The CourseDiaryFeatures
+     */
+    public void setCourseDiaryFeatures(boolean CourseDiaryFeatures) {
+        this.CourseDiaryFeatures = CourseDiaryFeatures;
+    }
+
+    /**
+     * @return The CompetitionsFeature
+     */
+    public boolean isCompetitionsFeature() {
+        return CompetitionsFeature;
+    }
+
+    /**
+     * @param CompetitionsFeature The CompetitionsFeature
+     */
+    public void setCompetitionsFeature(boolean CompetitionsFeature) {
+        this.CompetitionsFeature = CompetitionsFeature;
     }
 }
