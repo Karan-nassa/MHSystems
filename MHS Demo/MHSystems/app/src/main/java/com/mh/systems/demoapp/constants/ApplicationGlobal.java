@@ -112,9 +112,13 @@ public class ApplicationGlobal {
     public static final String KEY_HCAP_PLAY_STR = "HCapPlayStr";
     public static final String KEY_COURSES = "Courses";
     public static final String KEY_FIRST_TIME_LOGIN = "FirstTimeLogin";
+
     public static final String KEY_COURSE_DIARY_FEATURE = "CourseDiaryFeatures";
     public static final String KEY_COMPETITIONS_FEATURE = "CompetitionsFeature";
     public static final String KEY_HANDICAP_FEATURE = "HandicapFeature";
+    public static final String KEY_MEMBERS_FEATURE = "MembersFeature";
+    public static final String KEY_CLUB_NEWS_FEATURE = "ClubNewsFeature";
+    public static final String KEY_YOUR_ACCOUNT_FEATURE = "YourAccountFeature";
 }
 
 

@@ -32,6 +32,9 @@ public class LoginData {
     @Expose
     private boolean FirstTimeLogin;
 
+    /**
+     * For make dashboard dynamically.
+     */
     @SerializedName("CourseDiaryFeatures")
     @Expose
     private boolean CourseDiaryFeatures;
@@ -41,6 +44,15 @@ public class LoginData {
     @SerializedName("HandicapFeature")
     @Expose
     private boolean HandicapFeature;
+    @SerializedName("ClubNewsFeature")
+    @Expose
+    private boolean ClubNewsFeature;
+    @SerializedName("MembersFeature")
+    @Expose
+    private boolean MembersFeature;
+    @SerializedName("YourAccountFeature")
+    @Expose
+    private boolean YourAccountFeature;
 
     /**
      * @return The courses
@@ -180,5 +192,47 @@ public class LoginData {
      */
     public void setCompetitionsFeature(boolean CompetitionsFeature) {
         this.CompetitionsFeature = CompetitionsFeature;
+    }
+
+    /**
+     * @return The YourAccountFeature
+     */
+    public boolean isYourAccountFeature() {
+        return YourAccountFeature;
+    }
+
+    /**
+     * @param courses The YourAccountFeature
+     */
+    public void setYourAccountFeature(boolean yourAccountFeature) {
+        this.YourAccountFeature = yourAccountFeature;
+    }
+
+    /**
+     * @return The ClubNewsFeature
+     */
+    public boolean isClubNewsFeature() {
+        return ClubNewsFeature;
+    }
+
+    /**
+     * @param ClubNewsFeature The ClubNewsFeature
+     */
+    public void setClubNewsFeature(boolean clubNewsFeature) {
+        this.ClubNewsFeature = clubNewsFeature;
+    }
+
+    /**
+     * @return The MembersFeature
+     */
+    public boolean isMembersFeature() {
+        return MembersFeature;
+    }
+
+    /**
+     * @param MembersFeature The MembersFeature
+     */
+    public void setMembersFeature(boolean membersFeature) {
+        this.MembersFeature = membersFeature;
     }
 }

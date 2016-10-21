@@ -247,6 +247,9 @@ public class LoginActivity extends BaseActivity {
                         savePreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, dashboardData.isCourseDiaryFeatures());
                         savePreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, dashboardData.isCompetitionsFeature());
                         savePreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, dashboardData.isHandicapFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, dashboardData.isMembersFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, dashboardData.isClubNewsFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, dashboardData.isYourAccountFeature());
 
                         Gson gson = new Gson();
 

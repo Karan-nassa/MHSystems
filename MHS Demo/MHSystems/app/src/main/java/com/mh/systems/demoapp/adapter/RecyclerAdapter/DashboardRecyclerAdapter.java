@@ -40,18 +40,19 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     //int iGridIcons[];
     //String gridTitles[];
     String hCapExactStr;
-   // TypedArray gridBackground;
+    int iHandicapPosition;
 
     Typeface tfButtlerMedium, tfRobotoMedium;
 
     ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList;
 
     // The default constructor to receive titles,icons and context from DashboardActivity.
-    public DashboardRecyclerAdapter(DashboardActivity mainActivity, ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList, String hCapExactStr) {
+    public DashboardRecyclerAdapter(DashboardActivity mainActivity, ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList, int iHandicapPosition, String hCapExactStr) {
 
         context = mainActivity;
         this.dashboardItemsArrayList = dashboardItemsArrayList;
         //this.gridTitles = gridTitles;
+        this.iHandicapPosition = iHandicapPosition;
         this.hCapExactStr = hCapExactStr;
         //this.iGridIcons = iGridIcons;
         //this.gridBackground = gridBackground;
@@ -102,7 +103,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
         holder.tvGridTitle.setText(dashboardItemsArrayList.get(position).getStrTitleOfGrid());
         holder.ivGridLogo.setImageResource(dashboardItemsArrayList.get(position).getiGridIcon());
 
-        if (position == 0) {
+        if (position == iHandicapPosition) {
             holder.tvHCapExactStr.setVisibility(View.VISIBLE);
             holder.tvHCapExactStr.setText(hCapExactStr);
         }
@@ -130,7 +131,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
     @Override
     public int getItemViewType(int position) {
-        return (position == 0) ? POSITION_HANDICAP : POSITION_NORMAL;
+        return (position == iHandicapPosition) ? POSITION_HANDICAP : POSITION_NORMAL;
     }
 
     /**
@@ -171,11 +172,11 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
             int iPosition = 0;
 
             Class<?> destClassName = null;
-            if(dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid() != null) {
+            if (dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid() != null) {
                 try {
                     destClassName = Class.forName(dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid());
 
-                    if(dashboardItemsArrayList.get(getAdapterPosition()).getiGridIcon() == R.mipmap.ic_handicap_chart){
+                    if (dashboardItemsArrayList.get(getAdapterPosition()).getiGridIcon() == R.mipmap.ic_handicap_chart) {
                         iPosition = 1;
                     }
 
