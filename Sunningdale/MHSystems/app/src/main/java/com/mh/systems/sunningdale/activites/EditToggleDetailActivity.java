@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -322,10 +323,11 @@ public class EditToggleDetailActivity extends BaseActivity {
     private void showAlertSave() {
         // Create custom dialog object
         final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Include dialog.xml file
         dialog.setContentView(R.layout.alert_edit_detail);
         // Set dialog title
-        dialog.setTitle("Custom Dialog");
+        dialog.setTitle("");
 
         // set values for custom dialog components - text, image and button
         TextView tvCancel = (TextView) dialog.findViewById(R.id.tvCancel);
