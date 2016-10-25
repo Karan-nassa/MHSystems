@@ -1,7 +1,7 @@
 package com.mh.systems.sunningdale.adapter.TabsAdapter;
 
 /**
- * Created by karan@mh.co.in for Tabs Page
+ * Created by karan@ucreate.co.in for Tabs Page
  * Adapter on 22/12/2015.
  */
 
@@ -35,6 +35,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * # 2. Competitions Tabs Fragment
      */
     private int iFromWhat;
+    private boolean isHandicapAvailable;
 
     Context context;
 
@@ -52,11 +53,19 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
         this.iFromWhat = iFromWhat;
     }
 
-    public TabsPageAdapter(Context context, FragmentManager fm, int NumOfTabs, int iFromWhat) {
-        super(fm);
+    public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat) {
+        super(supportFragmentManager);
         this.mNumOfTabs = NumOfTabs;
         this.iFromWhat = iFromWhat;
         this.context = context;
+    }
+
+    public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat, boolean isHandicapAvailable) {
+        super(supportFragmentManager);
+        this.mNumOfTabs = NumOfTabs;
+        this.iFromWhat = iFromWhat;
+        this.context = context;
+        this.isHandicapAvailable = isHandicapAvailable;
     }
 
     /**
@@ -74,10 +83,17 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 return loadCompetitionsEvent(position);
 
             case ApplicationGlobal.POSITION_MY_ACCOUNT:
-                return loadMyAccountTabs(position);
+                if(isHandicapAvailable){
+                    return loadMyAccountTabsWithHCap(position);
+                }else {
+                    return loadMyAccountTabsWithoutHCap(position);
+                }
 
             case ApplicationGlobal.POSITION_MEMBERS:
                 return loadMembersTab(position);
+
+           /* case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
+                return loadMembersBookingTab(position);*/
         }
         return null;
     }
@@ -142,25 +158,51 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * @param iPosition
      * @return Fragment
      */
-    private Fragment loadMyAccountTabs(int iPosition) {
+    private Fragment loadMyAccountTabsWithHCap(int iPosition) {
+
+        Fragment fragment = null;
 
         switch (iPosition) {
             case 0:
-                MyDetailsFragment myDetailsFragment = new MyDetailsFragment();
-                ((YourAccountActivity) context).setFragmentInstance(myDetailsFragment);
-                return myDetailsFragment;
+                fragment = new MyDetailsFragment();
+                break;
 
             case 1:
-                HandicapFragment handicapFragment = new HandicapFragment();
-                ((YourAccountActivity) context).setFragmentInstance(handicapFragment);
-                return handicapFragment;
+                fragment = new HandicapFragment();
+                break;
 
             case 2:
-                FinanceFragment financeFragment = new FinanceFragment();
-                ((YourAccountActivity) context).setFragmentInstance(financeFragment);
-                return financeFragment;
+                fragment = new FinanceFragment();
+                break;
         }
-        return null;
+        ((YourAccountActivity) context).setFragmentInstance(fragment);
+        return fragment;
+    }
+
+    /**
+     * Load My Account tabs i.e
+     * <br> 1. My Details
+     * <br> 2. Finances
+     * <p/>
+     *
+     * @param iPosition
+     * @return Fragment
+     */
+    private Fragment loadMyAccountTabsWithoutHCap(int iPosition) {
+
+        Fragment fragment = null;
+
+        switch (iPosition) {
+            case 0:
+                fragment = new MyDetailsFragment();
+                break;
+
+            case 1:
+                fragment = new FinanceFragment();
+                break;
+        }
+        ((YourAccountActivity) context).setFragmentInstance(fragment);
+        return fragment;
     }
 
     /**
@@ -197,6 +239,31 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
         }*/
         return null;
     }
+
+    /**
+     * Load MEMBERS BOOKING for Competitions Entry Tabs i.e
+     * <br> 1. {@link EligibleMemberFragment}
+     * <br> 2. {@link EligibleFriendsFragment}
+     * <p/>
+     *
+     * @param iPosition
+     * @return Fragment
+     */
+//    private Fragment loadMembersBookingTab(int iPosition) {
+//
+//        switch (iPosition) {
+//            case 0:
+//                EligibleMemberFragment eligibleMemberFragment = new EligibleMemberFragment();
+//                return eligibleMemberFragment;
+//
+//            case 1:
+//                EligibleFriendsFragment eligibleFriendsFragment = new EligibleFriendsFragment();
+//                return eligibleFriendsFragment;
+//
+//            default:
+//                return null;
+//        }
+//    }
 
     /**
      * @return Total number of Tabs.

@@ -182,24 +182,47 @@ public class YourAccountActivity extends BaseActivity {
          */
         popupMenu = new PopupMenu(this, ivFilter);
 
-        /**
-         * Step 2: Inflate the menu resource. Here the menu resource is
-         * defined in the res/menu project folder
-         */
-        switch (getWhichTab()) {
-            case 2:
-                ivFilter.setImageResource(R.mipmap.ic_event);
-                popupMenu.inflate(R.menu.finance_menu);
-                break;
+        boolean isHandicapFeature = loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false);
 
-            case 0:
-            case 1:
-                ivFilter.setImageResource(R.mipmap.ic_mode_edit);
-                popupMenu.inflate(R.menu.my_details_menu);
-                break;
+        if(isHandicapFeature){
+            /**
+             * Step 2: Inflate the menu resource. Here the menu resource is
+             * defined in the res/menu project folder
+             */
+            switch (getWhichTab()) {
+                case 2:
+                    ivFilter.setImageResource(R.mipmap.ic_event);
+                    popupMenu.inflate(R.menu.finance_menu);
+                    break;
+
+                case 0:
+                case 1:
+                    ivFilter.setImageResource(R.mipmap.ic_mode_edit);
+                    popupMenu.inflate(R.menu.my_details_menu);
+                    break;
+            }
+        }else{
+            /**
+             * Step 2: Inflate the menu resource. Here the menu resource is
+             * defined in the res/menu project folder
+             */
+            switch (getWhichTab()) {
+                case 1:
+                    ivFilter.setImageResource(R.mipmap.ic_event);
+                    popupMenu.inflate(R.menu.finance_menu);
+                    break;
+
+                case 0:
+                    ivFilter.setImageResource(R.mipmap.ic_mode_edit);
+                    popupMenu.inflate(R.menu.my_details_menu);
+                    break;
+            }
         }
 
         popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
+
+        /*//Initially display title at position 0 of R.menu.course_menu.
+        tvCourseType.setText("" + popupMenu.getMenu().getItem(0));*/
     }
 
     /**

@@ -241,6 +241,14 @@ public class LoginActivity extends BaseActivity {
                         savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
                         savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
 
+                        //Make Dashboard dynamic according these bool values.
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, dashboardData.isCourseDiaryFeatures());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, dashboardData.isCompetitionsFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, dashboardData.isHandicapFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, dashboardData.isMembersFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, dashboardData.isClubNewsFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, dashboardData.isYourAccountFeature());
+
                         Gson gson = new Gson();
 
                         //Save Courses ArrayList in Shared-preference.

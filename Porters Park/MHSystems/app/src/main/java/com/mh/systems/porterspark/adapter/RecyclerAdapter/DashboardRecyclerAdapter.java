@@ -1,4 +1,4 @@
-package com.mh.systems.sandyLodge.adapter.RecyclerAdapter;
+package com.mh.systems.porterspark.adapter.RecyclerAdapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mh.systems.sandyLodge.R;
-import com.mh.systems.sandyLodge.activites.DashboardActivity;
+import com.mh.systems.porterspark.R;
+import com.mh.systems.porterspark.activites.DashboardActivity;
 
 import java.util.ArrayList;
 

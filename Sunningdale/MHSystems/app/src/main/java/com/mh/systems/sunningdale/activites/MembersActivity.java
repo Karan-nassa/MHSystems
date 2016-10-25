@@ -14,6 +14,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -401,10 +402,11 @@ public class MembersActivity extends BaseActivity {
     private void showAlertInfo() {
         // Create custom dialog object
         final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Include dialog.xml file
         dialog.setContentView(R.layout.custom_alert_ok);
         // Set dialog title
-        dialog.setTitle("Custom Dialog");
+        dialog.setTitle("");
 
         // set values for custom dialog components - text, image and button
         TextView tvDescription = (TextView) dialog.findViewById(R.id.tvDescription);

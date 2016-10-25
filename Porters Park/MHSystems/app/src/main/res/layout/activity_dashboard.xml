@@ -119,14 +119,22 @@
 
             <!-- GRID VIEW FOR MENU OPTIONS -->
 
-            <GridView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/gvMenuOptions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="@color/colorF9F8F7"
+                android:divider="@color/colorE8E2DD"
+                android:dividerHeight="1dp" />
+
+          <!--  <GridView
                 android:id="@+id/gvMenuOptions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:cacheColorHint="@color/color4B4B49"
                 android:gravity="center"
-                android:numColumns="3" />
+                android:numColumns="3" />-->
 
         </LinearLayout>
 

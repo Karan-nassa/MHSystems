@@ -35,6 +35,11 @@ public class ApplicationGlobal {
     public static final int POSITION_ABOUT_CLUB = 5;
     public static final int POSITION_MY_ACCOUNT = 6;
 
+    /**
+     * Use this for COMPETITIONS ENTRY.
+     */
+    public static final int POSITION_MEMBERS_BOOKING = 7;
+
     public static final int POSITION_OLD_COURSE = 1;
     public static final int POSITION_NEW_COURSE = 2;
 
@@ -105,6 +110,13 @@ public class ApplicationGlobal {
     public static final String KEY_HCAP_EXACT_STR = "HCapExactStr";
     public static final String KEY_HCAP_PLAY_STR = "HCapPlayStr";
     public static final String KEY_FIRST_TIME_LOGIN = "FirstTimeLogin";
+
+    public static final String KEY_COURSE_DIARY_FEATURE = "CourseDiaryFeatures";
+    public static final String KEY_COMPETITIONS_FEATURE = "CompetitionsFeature";
+    public static final String KEY_HANDICAP_FEATURE = "HandicapFeature";
+    public static final String KEY_MEMBERS_FEATURE = "MembersFeature";
+    public static final String KEY_CLUB_NEWS_FEATURE = "ClubNewsFeature";
+    public static final String KEY_YOUR_ACCOUNT_FEATURE = "YourAccountFeature";
 }
 
 

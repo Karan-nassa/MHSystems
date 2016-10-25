@@ -36,6 +36,8 @@ public class MyAccountTabFragment extends Fragment {
      *******************************/
     public int iLastTabPosition;
 
+    private boolean isHandicapFeature;
+
     /**
      * Declare three bool instances to call api
      * on visible to user.
@@ -77,7 +79,13 @@ public class MyAccountTabFragment extends Fragment {
         tabLayout = (TabLayout) viewRootFragment.findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_your_details)));
-        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_handicap)));
+
+        //Check is Handicap available or not!
+        isHandicapFeature = ((YourAccountActivity) getActivity()).loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false);
+        if (isHandicapFeature) {
+            tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_handicap)));
+        }
+
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_finances)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -87,7 +95,10 @@ public class MyAccountTabFragment extends Fragment {
 
         //  Log.e("COUNT:",""+tabLayout.getTabCount());
         pageAdapter = new TabsPageAdapter
-                (getActivity(), getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MY_ACCOUNT);
+                (getActivity(), getActivity().getSupportFragmentManager(),
+                        tabLayout.getTabCount(),
+                        ApplicationGlobal.POSITION_MY_ACCOUNT,
+                        isHandicapFeature);
         viewPager.setAdapter(pageAdapter);
 
         iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");

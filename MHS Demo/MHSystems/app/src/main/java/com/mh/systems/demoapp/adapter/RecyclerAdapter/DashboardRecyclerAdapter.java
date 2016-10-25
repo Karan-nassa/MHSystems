@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.activites.ClubNewsActivity;
-import com.mh.systems.demoapp.activites.CompetitionsActivity;
-import com.mh.systems.demoapp.activites.CourseDiaryActivity;
 import com.mh.systems.demoapp.activites.DashboardActivity;
-import com.mh.systems.demoapp.activites.MembersActivity;
-import com.mh.systems.demoapp.activites.YourAccountActivity;
 
 import java.util.ArrayList;
 

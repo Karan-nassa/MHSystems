@@ -36,7 +36,7 @@ public class MyAccountTabFragment extends Fragment {
      *******************************/
     public int iLastTabPosition;
 
-    private boolean isHandicapFeature = false;
+    private boolean isHandicapFeature;
 
     /**
      * Declare three bool instances to call api

@@ -2,7 +2,6 @@ package com.mh.systems.sunningdale.adapter.RecyclerAdapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,41 +13,39 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mh.systems.sunningdale.R;
-import com.mh.systems.sunningdale.activites.CourseDiaryWebview;
 import com.mh.systems.sunningdale.activites.DashboardActivity;
-import com.mh.systems.sunningdale.activites.MembersActivity;
-import com.mh.systems.sunningdale.activites.YourAccountActivity;
-import com.mh.systems.sunningdale.fragments.MyDetailsFragment;
+
+import java.util.ArrayList;
 
 
 /**
- * Created by  karan@ucreate.co.in to create Handicap History
+ * Created by  karan@ucreate.co.in to create Dashboard Grid
  * data.
  */
 public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecyclerAdapter.ViewHolder> {
 
 
     Context context;
-    private LayoutInflater inflater = null;
+    private static LayoutInflater inflater = null;
 
-    private final int POSITION_NORMAL = 1;
-    private final int POSITION_HANDICAP = 0;
+    private final int POSITION_NORMAL = 0;
+    private final int POSITION_HANDICAP = 1;
 
-    TypedArray gridIcons;
-    String gridTitles[];
     String hCapExactStr;
-    TypedArray gridBackground;
+    int iHandicapPosition;
 
     Typeface tfButtlerMedium, tfRobotoMedium;
 
+    ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList;
+
     // The default constructor to receive titles,icons and context from DashboardActivity.
-    public DashboardRecyclerAdapter(DashboardActivity mainActivity, String gridTitles[], TypedArray gridIcons, TypedArray gridBackground, String hCapExactStr) {
+    public DashboardRecyclerAdapter(DashboardActivity mainActivity, ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList, int iHandicapPosition, String hCapExactStr) {
 
         context = mainActivity;
-        this.gridTitles = gridTitles;
+        this.dashboardItemsArrayList = dashboardItemsArrayList;
+        this.iHandicapPosition = iHandicapPosition;
         this.hCapExactStr = hCapExactStr;
-        this.gridIcons = gridIcons;
-        this.gridBackground = gridBackground;
+
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -78,9 +75,6 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
             default:
                 return null;
         }
-
-       /* View itemLayout = layoutInflater.inflate(R.layout.item_grid_row_text, null);
-        return new ViewHolder(itemLayout, viewType, context);*/
     }
 
     /**
@@ -93,17 +87,14 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         //Set View data according position.
-        holder.tvGridTitle.setText(gridTitles[position]);
-        holder.ivGridLogo.setImageResource(gridIcons.getResourceId(position, -1));
+        holder.tvGridTitle.setText(dashboardItemsArrayList.get(position).getStrTitleOfGrid());
+        holder.ivGridLogo.setImageResource(dashboardItemsArrayList.get(position).getiGridIcon());
 
-        if (position == 0) {
+        if (position == iHandicapPosition) {
             holder.tvHCapExactStr.setVisibility(View.VISIBLE);
             holder.tvHCapExactStr.setText(hCapExactStr);
         }
 
-        /**
-         * For Club News badger icon.
-         */
         if (position == 4) {
             holder.flBadgerGroup.setVisibility(View.VISIBLE);
         }
@@ -116,7 +107,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
      */
     @Override
     public int getItemCount() {
-        return gridTitles.length;
+        return dashboardItemsArrayList.size();
     }
 
     /**
@@ -127,7 +118,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
     @Override
     public int getItemViewType(int position) {
-        return (position == 0) ? POSITION_HANDICAP : POSITION_NORMAL;
+        return (position == iHandicapPosition) ? POSITION_HANDICAP : POSITION_NORMAL;
     }
 
     /**
@@ -164,38 +155,26 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
         @Override
         public void onClick(View v) {
-            Intent intent = null;
 
-            switch (getAdapterPosition()) {
-                case 0:
-                    intent = new Intent(context, YourAccountActivity.class);
-                    intent.putExtra("iTabPosition", 1);
-                    break;
+            int iPosition = 0;
 
-                case 1:
-                    intent = new Intent(context, CourseDiaryWebview.class);
-                    break;
+            Class<?> destClassName = null;
+            if (dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid() != null) {
+                try {
+                    destClassName = Class.forName(dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid());
 
-                case 2:
-                    intent = new Intent(context, MembersActivity.class);
-                    break;
+                    if (dashboardItemsArrayList.get(getAdapterPosition()).getiGridIcon() == R.mipmap.ic_handicap_chart) {
+                        iPosition = 1;
+                    }
 
-                case 3:
-                    intent = new Intent(context, YourAccountActivity.class);
-                    intent.putExtra("iTabPosition", 0);
-                    break;
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
 
-                /*case 3:
-                    intent = new Intent(context, CompetitionsActivity.class);
-                    break;
-
-                case 4:
-                    intent = new Intent(context, ClubNewsActivity.class);
-                    break;*/
+                Intent intent = new Intent(context, destClassName);
+                intent.putExtra("iTabPosition", iPosition);
+                context.startActivity(intent);
             }
-
-            //Check if intent not NULL then navigate to that selected screen.
-            context.startActivity(intent);
         }
     }
 }
