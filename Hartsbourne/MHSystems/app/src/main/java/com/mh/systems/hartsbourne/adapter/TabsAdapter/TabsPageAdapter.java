@@ -12,11 +12,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mh.systems.hartsbourne.activites.YourAccountActivity;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.fragments.FinanceFragment;
 import com.mh.systems.hartsbourne.fragments.EligibleFriendsFragment;
+import com.mh.systems.hartsbourne.fragments.EligibleMemberFragment;
+import com.mh.systems.hartsbourne.fragments.FinanceFragment;
 import com.mh.systems.hartsbourne.fragments.FriendsFragment;
 import com.mh.systems.hartsbourne.fragments.HandicapFragment;
-import com.mh.systems.hartsbourne.fragments.EligibleMemberFragment;
 import com.mh.systems.hartsbourne.fragments.MembersFragment;
 import com.mh.systems.hartsbourne.fragments.MyDetailsFragment;
 
@@ -37,6 +37,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * # 2. Competitions Tabs Fragment
      */
     private int iFromWhat;
+    private boolean isHandicapAvailable;
 
     Context context;
 
@@ -61,6 +62,14 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
         this.context = context;
     }
 
+    public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat, boolean isHandicapAvailable) {
+        super(supportFragmentManager);
+        this.mNumOfTabs = NumOfTabs;
+        this.iFromWhat = iFromWhat;
+        this.context = context;
+        this.isHandicapAvailable = isHandicapAvailable;
+    }
+
     /**
      * @param position
      * @return Selected tab.
@@ -76,7 +85,11 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 return loadCompetitionsEvent(position);
 
             case ApplicationGlobal.POSITION_MY_ACCOUNT:
-                return loadMyAccountTabs(position);
+                if(isHandicapAvailable){
+                    return loadMyAccountTabsWithHCap(position);
+                }else {
+                    return loadMyAccountTabsWithoutHCap(position);
+                }
 
             case ApplicationGlobal.POSITION_MEMBERS:
                 return loadMembersTab(position);
@@ -147,7 +160,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * @param iPosition
      * @return Fragment
      */
-    private Fragment loadMyAccountTabs(int iPosition) {
+    private Fragment loadMyAccountTabsWithHCap(int iPosition) {
 
         Fragment fragment = null;
 
@@ -161,6 +174,32 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 break;
 
             case 2:
+                fragment = new FinanceFragment();
+                break;
+        }
+        ((YourAccountActivity) context).setFragmentInstance(fragment);
+        return fragment;
+    }
+
+    /**
+     * Load My Account tabs i.e
+     * <br> 1. My Details
+     * <br> 2. Finances
+     * <p/>
+     *
+     * @param iPosition
+     * @return Fragment
+     */
+    private Fragment loadMyAccountTabsWithoutHCap(int iPosition) {
+
+        Fragment fragment = null;
+
+        switch (iPosition) {
+            case 0:
+                fragment = new MyDetailsFragment();
+                break;
+
+            case 1:
                 fragment = new FinanceFragment();
                 break;
         }

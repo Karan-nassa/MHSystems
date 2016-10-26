@@ -1,7 +1,6 @@
 package com.mh.systems.hartsbourne.activites;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +13,8 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +32,7 @@ public class DashboardActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
+
     @Bind(R.id.gvMenuOptions)
     RecyclerView gvMenuOptions;
 
@@ -43,17 +45,16 @@ public class DashboardActivity extends BaseActivity {
     @Bind(R.id.btSendFeedback)
     Button btSendFeedback;
 
+    //Instance of Grid Adapter.
     DashboardRecyclerAdapter dashboardRecyclerAdapter;
     Intent intent = null;
-
-    TypedArray gridIcons;
-    TypedArray gridBackground;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
+    ArrayList<DashboardItems> dashboardItemsArrayList = new ArrayList<>();
 
-    String gridTitles[];
+    int iHandicapPosition = -1;
 
     /**
      * Logout user from app and navigate back to
@@ -86,24 +87,10 @@ public class DashboardActivity extends BaseActivity {
          */
         ButterKnife.bind(DashboardActivity.this);
 
-        // Create a grid layout with two columns
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
-
-        // Create a custom SpanSizeLookup where the first item spans both columns
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return position == 0 || position == 1 ? 3 : 2;
-            }
-        });
-
-        // int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
-        // gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
-
         setGridMenuOptions();
 
-        // Layout Managers:
-        gvMenuOptions.setLayoutManager(layoutManager);
+        //LogOut listener.
+        llLogoutBtn.setOnClickListener(mLogoutListener);
 
         //LogOut listener.
         llLogoutBtn.setOnClickListener(mLogoutListener);
@@ -128,26 +115,135 @@ public class DashboardActivity extends BaseActivity {
     }
 
     /**
-     * Implements a method to set Grid MENU options.
+     * Implements a method to set Grid MENU options
+     * dynamically.
      */
     private void setGridMenuOptions() {
 
-        //Setup Titles and Icons of Navigation Drawer
-        gridTitles = getResources().getStringArray(R.array.homeGridItems);
-        gridIcons = getResources().obtainTypedArray(R.array.HomeGridIcons);
-        gridBackground = getResources().obtainTypedArray(R.array.gridBackgroundColors);
+        //Add Handicap.
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false)) {
+
+            iHandicapPosition = 0;
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_handicap_chart,
+                    "Your Handicap",
+                    getApplicationContext().getPackageName() + ".activites.YourAccountActivity"));
+        }
+
+        //Add Course Diary.
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, false)) {
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_diary,
+                    "Course Diary",
+                    getApplicationContext().getPackageName() + ".activites.CourseDiaryActivity"));
+        }
+
+        //Add Competitions
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_competitions,
+                    "Competitions",
+                    getApplicationContext().getPackageName() + ".activites.CompetitionsActivity"));
+        }
+
+        //Add Members
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, false)) {
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_members,
+                    "Members",
+                    getApplicationContext().getPackageName() + ".activites.MembersActivity"));
+        }
+
+        //Add Club News
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, false)) {
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_clubnews,
+                    "Club News",
+                    getApplicationContext().getPackageName() + ".activites.ClubNewsActivity"));
+        }
+
+        //Add Finance/Your Details
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, false)) {
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_my_account,
+                    "Your Account",
+                    getApplicationContext().getPackageName() + ".activites.YourAccountActivity"));
+        }
 
         //Set Grid options adapter.
-        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this, gridTitles, gridIcons, gridBackground, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this, dashboardItemsArrayList, iHandicapPosition, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
         gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
 
-//         ScrollRecycleView.getListViewSize(gvMenuOptions);
+        setupGridLayout(dashboardItemsArrayList.size());
+
+        // ScrollRecycleView.getListViewSize(gvMenuOptions);
     }
 
     /**
-     *  Create this class to decorate Dashboard Grid items spacing.
-     *  Because above two grid items should be in center of below
-     *  three one.
+     * Implements this method to set Layout of dashboard
+     * Grid.
+     */
+    private void setupGridLayout(int iGridSize) {
+        // Create a grid layout with two columns
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
+
+        switch (iGridSize) {
+            case 3:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 0 ? 6 : 3;
+                    }
+                });
+                break;
+
+            case 4:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 3;
+                    }
+                });
+                break;
+
+            case 5:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 0 || position == 1 ? 3 : 2;
+                    }
+                });
+                break;
+
+            default:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 2;
+                    }
+                });
+                break;
+        }
+
+
+        // int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        // gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+
+        // Layout Managers:
+        gvMenuOptions.setLayoutManager(layoutManager);
+    }
+
+    /**
+     * Create this class to decorate Dashboard Grid items spacing.
+     * Because above two grid items should be in center of below
+     * three one.
      */
    /* public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private int space;
@@ -171,4 +267,67 @@ public class DashboardActivity extends BaseActivity {
             }
         }
     }*/
+
+    /**
+     * {@link DashboardItems} class is used to create Model of
+     * dashboard items are icon, title and path of class.
+     */
+    public class DashboardItems {
+        int iGridIcon;
+        String strTitleOfGrid;
+        String strTagOfGrid;
+
+        /**
+         * @param iGridIcon      : Grid icon (drawable).
+         * @param strTitleOfGrid : Name or Title of Grid item.
+         * @param strTagOfGrid   : Tag or Path of destination class.
+         */
+        DashboardItems(int iGridIcon, String strTitleOfGrid, String strTagOfGrid) {
+            this.iGridIcon = iGridIcon;
+            this.strTitleOfGrid = strTitleOfGrid;
+            this.strTagOfGrid = strTagOfGrid;
+        }
+
+        /**
+         * @return The strTagOfGrid
+         */
+        public String getStrTagOfGrid() {
+            return strTagOfGrid;
+        }
+
+        /**
+         * @param strTagOfGrid The strTagOfGrid
+         */
+        public void setStrTagOfGrid(String strTagOfGrid) {
+            this.strTagOfGrid = strTagOfGrid;
+        }
+
+        /**
+         * @return The iGridIcon
+         */
+        public int getiGridIcon() {
+            return iGridIcon;
+        }
+
+        /**
+         * @param iGridIcon The iGridIcon
+         */
+        public void setiGridIcon(int iGridIcon) {
+            this.iGridIcon = iGridIcon;
+        }
+
+        /**
+         * @return The strTitleOfGrid
+         */
+        public String getStrTitleOfGrid() {
+            return strTitleOfGrid;
+        }
+
+        /**
+         * @param strTitleOfGrid The strTitleOfGrid
+         */
+        public void setStrTitleOfGrid(String strTitleOfGrid) {
+            this.strTitleOfGrid = strTitleOfGrid;
+        }
+    }
 }

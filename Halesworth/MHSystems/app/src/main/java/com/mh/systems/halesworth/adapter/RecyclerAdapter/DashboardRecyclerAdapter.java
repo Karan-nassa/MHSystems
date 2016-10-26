@@ -1,4 +1,4 @@
-package com.mh.systems.hartsbourne.adapter.RecyclerAdapter;
+package com.mh.systems.halesworth.adapter.RecyclerAdapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mh.systems.hartsbourne.R;
-import com.mh.systems.hartsbourne.activites.DashboardActivity;
+import com.mh.systems.halesworth.R;
+import com.mh.systems.halesworth.activites.DashboardActivity;
 
 import java.util.ArrayList;
 
