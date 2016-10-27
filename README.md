@@ -10,6 +10,9 @@
 - York-Golf-Club
 - Halesworth
 
+###MHS LIVE Records
+https://docs.google.com/spreadsheets/d/1hh1j0A8Cae6K81wxgYD21Ky730QOhrpj-A9GPAeHTtw/edit#gid=0
+
 --------------------------------------------------------
 
 ###club name and id:
@@ -35,5 +38,6 @@
 - Brokenhurst
 - Sandy Lodge
 - York
+- Chester-Le-Street
 
 
