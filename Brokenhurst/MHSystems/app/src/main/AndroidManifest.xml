@@ -15,7 +15,7 @@
     <permission
         android:name="com.mh.systems.brokenhurst.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.mh.systems.demoapp.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.mh.systems.brokenhurst.permission.C2D_MESSAGE" />
     <!-- [END gcm_permission] -->
 
     <application
