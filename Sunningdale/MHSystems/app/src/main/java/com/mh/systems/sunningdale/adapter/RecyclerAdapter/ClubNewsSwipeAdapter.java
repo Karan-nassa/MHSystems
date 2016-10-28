@@ -53,6 +53,8 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
 
         if(clubNewsDataArrayList.get(position).getIsRead()){
             viewHolder.ivReadStatus.setVisibility(View.INVISIBLE);
+        }else {
+            viewHolder.ivReadStatus.setVisibility(View.VISIBLE);
         }
 
         viewHolder.flRemoveGroup.setOnClickListener(new View.OnClickListener() {
