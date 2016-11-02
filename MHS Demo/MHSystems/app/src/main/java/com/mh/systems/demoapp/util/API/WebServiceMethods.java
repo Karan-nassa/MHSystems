@@ -30,6 +30,7 @@ import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -325,5 +326,25 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void updatePassword(@Body UpdatePassswordAPI updatePassswordAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Weather web service method.
+     * <p/>
+     * TYPE : GET
+     *
+     * @param type     : Weather or Forecast
+     * @param mode     : JSON or XML
+     * @param appid    : API key
+     * @param lat      : lat
+     * @param lon      : lon
+     * @param response : Response of API
+     */
+    @GET("/data/2.5/{type}")
+    public void getWeatherState(@Path("type") String type,
+                                @Query("mode") String mode,
+                                @Query("appid") String appid,
+                                @Query("lat") String lat,
+                                @Query("lon") String lon,
+                                Callback<JsonObject> response);
 }
 

@@ -10,4 +10,6 @@ public class WebAPI {
      * <p/>
      */
     public static final String API_BASE_URL = "http://staging.mhsystems.co.uk:8090";
+
+    public static final String API_WEATHER_BASE_URL = "http://api.openweathermap.org/";
 }

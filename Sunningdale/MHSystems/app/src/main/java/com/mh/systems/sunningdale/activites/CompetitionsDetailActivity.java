@@ -337,7 +337,11 @@ public class CompetitionsDetailActivity extends BaseActivity {
         Log.e("GCLUB_WEBSERVICES:", "" + ApplicationGlobal.TAG_GCLUB_WEBSERVICES);
         Log.e("GCLUB_MEMBERS:", "" + ApplicationGlobal.TAG_GCLUB_MEMBERS);*/
 
-        api.joinCompetitionEventGet(getClientId(), "ADDMEMBERTOEVENT", "{version :" + ApplicationGlobal.TAG_GCLUB_VERSION + ",callid:" + ApplicationGlobal.TAG_GCLUB_CALL_ID + ",MemberId:" + getMemberId() + ",EventId:" + strEventId + "}", ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS, new Callback<JsonObject>() {
+        api.joinCompetitionEventGet(getClientId(),
+                "ADDMEMBERTOEVENT", "{version :" + ApplicationGlobal.TAG_GCLUB_VERSION + ",callid:" + ApplicationGlobal.TAG_GCLUB_CALL_ID + ",MemberId:" + getMemberId() + ",EventId:" + strEventId + "}",
+                ApplicationGlobal.TAG_GCLUB_WEBSERVICES,
+                ApplicationGlobal.TAG_GCLUB_MEMBERS,
+                new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
