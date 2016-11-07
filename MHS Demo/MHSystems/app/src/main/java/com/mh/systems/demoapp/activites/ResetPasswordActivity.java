@@ -296,7 +296,7 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
 
     /**
      * Implements a method to set FONT style using .ttf by putting
-     * in main\assets\fonts directory of current project.
+     * in ForecastMain\assets\fonts directory of current project.
      */
     private void setFontTypeFace() {
         tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");

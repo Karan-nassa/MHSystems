@@ -1,7 +1,6 @@
 
 package com.mh.systems.demoapp.models.weather;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,7 +12,7 @@ public class Wind {
     private Double speed;
     @SerializedName("deg")
     @Expose
-    private Double deg;
+    private Integer deg;
 
     /**
      * 
@@ -38,7 +37,7 @@ public class Wind {
      * @return
      *     The deg
      */
-    public Double getDeg() {
+    public Integer getDeg() {
         return deg;
     }
 
@@ -47,7 +46,7 @@ public class Wind {
      * @param deg
      *     The deg
      */
-    public void setDeg(Double deg) {
+    public void setDeg(Integer deg) {
         this.deg = deg;
     }
 

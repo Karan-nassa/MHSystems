@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbWeather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color4B4B49"
+        android:minHeight="?android:attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80"
+        android:background="@color/color65B0DE"
+        android:orientation="vertical">
+
+        <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+            android:id="@+id/robotoMediumTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="10"
+
+            android:gravity="bottom"
+            android:text="Sunningdale, UK"
+            android:textColor="@color/colorWhiteffffff"
+            android:textSize="17sp" />
+
+        <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+            android:id="@+id/tvWeatherDate"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+
+            android:text="Today, Monday, 31st October"
+            android:textColor="@color/color9B9B9B"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/ivWeatherView"
+            android:layout_width="97dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+
+            android:layout_weight="30"
+            android:gravity="center_vertical"
+            android:src="@mipmap/ic_launcher" />
+
+        <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+            android:id="@+id/tvWeatherTime"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="7"
+            android:gravity="center_vertical"
+
+            android:text="14:00"
+            android:textColor="@color/color9B9B9B"
+            android:textSize="13sp" />
+
+        <com.mh.systems.demoapp.customfonts.RobotoLight
+            android:id="@+id/tvCurrentWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="6"
+
+            android:gravity="center_vertical"
+            android:text="22 C"
+            android:textColor="@color/colorWhiteffffff"
+            android:textSize="23sp" />
+
+        <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+            android:id="@+id/tvWeatherType"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="7"
+
+            android:gravity="center_vertical"
+            android:text="Partly cloudy"
+            android:textColor="@color/color9B9B9B"
+            android:textSize="13sp" />
+
+        <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+            android:id="@+id/tvWindPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="10"
+
+            android:drawableLeft="@mipmap/ic_wind"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="3 mph"
+            android:textColor="@color/colorWhiteffffff"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="@color/color4B4B49">
+
+            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="Mon"
+                android:textColor="@color/color9B9B9B"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/ic_launcher" />
+
+            <com.mh.systems.demoapp.customfonts.RobotoLight
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="5dp"
+
+                android:text="22 C"
+
+                android:textColor="@color/colorWhiteffffff"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="@color/color4B4B49">
+
+            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="Tue"
+                android:textColor="@color/color9B9B9B"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/ic_launcher" />
+
+            <com.mh.systems.demoapp.customfonts.RobotoLight
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="5dp"
+
+                android:text="22 C"
+
+                android:textColor="@color/colorWhiteffffff"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="@color/color4B4B49">
+
+            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="Wed"
+                android:textColor="@color/color9B9B9B"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/ic_launcher" />
+
+            <com.mh.systems.demoapp.customfonts.RobotoLight
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="5dp"
+
+                android:text="22 C"
+
+                android:textColor="@color/colorWhiteffffff"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="@color/color4B4B49">
+
+            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="Thu"
+                android:textColor="@color/color9B9B9B"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/ic_launcher" />
+
+            <com.mh.systems.demoapp.customfonts.RobotoLight
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="5dp"
+
+                android:text="22 C"
+
+                android:textColor="@color/colorWhiteffffff"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="@color/color4B4B49">
+
+            <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="Sat"
+                android:textColor="@color/color9B9B9B"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/ic_launcher" />
+
+            <com.mh.systems.demoapp.customfonts.RobotoLight
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="5dp"
+
+                android:text="22 C"
+
+                android:textColor="@color/colorWhiteffffff"
+                android:textSize="14sp" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

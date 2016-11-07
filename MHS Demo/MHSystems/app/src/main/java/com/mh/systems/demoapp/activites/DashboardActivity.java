@@ -1,6 +1,8 @@
 package com.mh.systems.demoapp.activites;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,12 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.common.reflect.ClassPath;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -23,11 +27,14 @@ import com.mh.systems.demoapp.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.weather.GetWeatherResponse;
+import com.mh.systems.demoapp.service.MyService;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,7 +44,7 @@ import retrofit.RetrofitError;
 
 /**
  * The {@link DashboardActivity} used to display {@link GridView}, Settings and
- * Logout option. Basically, it will be use as the main screen of application
+ * Logout option. Basically, it will be use as the ForecastMain screen of application
  * after Login.
  *
  * @author {@link karan@ucreate.co.in}
@@ -76,7 +83,8 @@ public class DashboardActivity extends BaseActivity {
     TextView tvWeatherDesc;
 
     @Bind(R.id.todayIcon)
-    SimpleDraweeView todayIcon;
+    ImageView todayIcon;
+
 
     //Instance of Grid Adapter.
     DashboardRecyclerAdapter dashboardRecyclerAdapter;
@@ -123,6 +131,7 @@ public class DashboardActivity extends BaseActivity {
          */
         ButterKnife.bind(DashboardActivity.this);
 
+
         setGridMenuOptions();
 
         //LogOut listener.
@@ -149,8 +158,33 @@ public class DashboardActivity extends BaseActivity {
             }
         });
 
+        //See the weather of 5 days
+        llWeatherGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(DashboardActivity.this, WeatherActivity.class);
+                startActivity(intent);
+            }
+        });
+        String temp = loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, "");
+        //  if (temp.equals("")){
         callWeatherService();
+        //  }
+//    else{
+//            llWeatherGroup.setVisibility(View.VISIBLE);
+//            tvTodayTemperature.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ""));
+//            tvWeatherDesc.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ""));
+//            //        tvNameOfLocation.setText(getWeatherResponse.getName() + ", " + getWeatherResponse.getSys().getCountry());
+//            tvNameOfLocation.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, ""));
+//        //    todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + getWeatherResponse.getWeather().get(0).getIcon() + ".png"));
+//            Resources res=getResources();
+//            int resID = res.getIdentifier(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ""), "mipmap", getPackageName());
+//            Drawable drawable = res.getDrawable(resID);
+//            todayIcon.setImageDrawable(drawable);
+//
+//        }
     }
+
 
     /**
      * Implements a method to set Grid MENU options
@@ -430,11 +464,21 @@ public class DashboardActivity extends BaseActivity {
 
             //Get Data to local instances.
             String desc = getWeatherResponse.getWeather().get(0).getDescription();
-
+            Log.e("temp", "" + ("" + ((int) (getWeatherResponse.getMain().getTemp() - 273.15f)) + "°C"));
             tvTodayTemperature.setText("" + ((int) (getWeatherResponse.getMain().getTemp() - 273.15f)) + "°C");
-            tvWeatherDesc.setText((desc.substring(0, 1).toUpperCase() + desc.substring(1)));
-            tvNameOfLocation.setText(getWeatherResponse.getName() + ", " + getWeatherResponse.getSys().getCountry());
+            tvWeatherDesc.setText("Today, " + (desc.substring(0, 1).toUpperCase() + desc.substring(1)));
+            //        tvNameOfLocation.setText(getWeatherResponse.getName() + ", " + getWeatherResponse.getSys().getCountry());
+            tvNameOfLocation.setText(getWeatherResponse.getName());
             todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + getWeatherResponse.getWeather().get(0).getIcon() + ".png"));
+            Resources res = getResources();
+            int resID = res.getIdentifier("e" + getWeatherResponse.getWeather().get(0).getIcon(), "mipmap", getPackageName());
+            Drawable drawable = res.getDrawable(resID);
+            todayIcon.setImageDrawable(drawable);
+
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (getWeatherResponse.getMain().getTemp() - 273.15f)) + "°C"));
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, getWeatherResponse.getName());
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+getWeatherResponse.getWeather().get(0).getIcon()));
 
         } else {
             Toast.makeText(DashboardActivity.this, "Oops! Unable to load weather status.", Toast.LENGTH_LONG).show();

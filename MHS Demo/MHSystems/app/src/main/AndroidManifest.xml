@@ -176,6 +176,12 @@
             android:name=".activites.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
 
+        <!-- See the Weather-->
+
+        <activity
+            android:name=".activites.WeatherActivity"
+            android:screenOrientation="portrait" />
+
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -211,6 +217,10 @@
         <service
             android:name=".push.RegistrationIntentService"
             android:exported="false" />
+
+        <!-- WEATHER SERVICE -->
+
+        <service android:name=".service.MyService" />
 
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for

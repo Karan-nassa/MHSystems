@@ -25,6 +25,9 @@ public class GetWeatherResponse {
     @SerializedName("main")
     @Expose
     private Main main;
+    @SerializedName("visibility")
+    @Expose
+    private Integer visibility;
     @SerializedName("wind")
     @Expose
     private Wind wind;
@@ -132,6 +135,24 @@ public class GetWeatherResponse {
      */
     public void setMain(Main main) {
         this.main = main;
+    }
+
+    /**
+     * 
+     * @return
+     *     The visibility
+     */
+    public Integer getVisibility() {
+        return visibility;
+    }
+
+    /**
+     * 
+     * @param visibility
+     *     The visibility
+     */
+    public void setVisibility(Integer visibility) {
+        this.visibility = visibility;
     }
 
     /**

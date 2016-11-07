@@ -79,6 +79,7 @@ public class LoginActivity extends BaseActivity {
     LoginData dashboardData;
 
     Intent intent;
+    Typeface typeface;
 
     /**
      * Define a constant field called when user press on LOGIN
@@ -276,17 +277,20 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * Implements a method to set FONT style using .ttf by putting
-     * in main\assets\fonts directory of current project.
+     * in ForecastMain\assets\fonts directory of current project.
      */
     private void setFontTypeFace() {
-        tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
-        getTfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
-        tfRobotoLight = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+
+
+
+        tfRobotoRegular = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Regular.ttf");
+        getTfRobotoMedium = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Medium.ttf");
+        tfRobotoLight = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Light.ttf");
 
         etUserName.setTypeface(tfRobotoRegular);
         etPassword.setTypeface(tfRobotoRegular);
 
-        tvLoginTitle.setTypeface(getTfRobotoMedium);
+
         btLogin.setTypeface(getTfRobotoMedium);
 
         tvCopyRight.setTypeface(tfRobotoLight);

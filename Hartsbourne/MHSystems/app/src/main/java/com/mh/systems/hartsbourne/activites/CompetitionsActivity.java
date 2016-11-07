@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.newrelic.com.google.gson.reflect.TypeToken;
+import com.google.gson.reflect.TypeToken;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.adapter.BaseAdapter.CompetitionsAdapter;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
@@ -25,6 +25,7 @@ import com.mh.systems.hartsbourne.models.CompetitionsData;
 import com.mh.systems.hartsbourne.models.CompetitionsJsonParams;
 import com.mh.systems.hartsbourne.models.CompetitionsResultItems;
 import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
@@ -128,7 +129,7 @@ public class CompetitionsActivity extends BaseActivity {
      *******************************/
     public String strDate, strCurrentDate;
     public int iMonth, iCurrentMonth;
-    public int iYear, iCurrentYear;
+    public int iYear, iCurrentYear, iCurrentDate;
 
     public int iNumOfDays;
 
@@ -427,6 +428,7 @@ public class CompetitionsActivity extends BaseActivity {
         tvCompType.setText("" + popupMenu.getMenu().getItem(0));
     }
 
+
     /**
      * Declares the quick navigation of top bar icons like Previous/Next Month, Today or
      * Calendar navigation to month randomly.
@@ -448,7 +450,7 @@ public class CompetitionsActivity extends BaseActivity {
                      */
                     if (iPopItemPos == 2) {
 
-                        if (iMonth > 1) {
+                        if (iMonth >= 1) {
                             actionPreviousMonth();
                             createDateForData();
                             //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
@@ -457,18 +459,39 @@ public class CompetitionsActivity extends BaseActivity {
                             setNextButton(true);
                         }
                     } else {
+                        Log.e("yaer", "" + Calendar.YEAR);
                         if (iMonth > iCurrentMonth) {
                             actionPreviousMonth();
                             setNextButton(true);
                             createDateForData();
                             // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
+                        } else {
+                            if (iMonth == 1) {
+                                iMonth = 12;
+                                iYear = (iYear - 1);
+                                Log.e("iYear", "" + iYear);
+                                strDate = "01";
+                                createDateForData();
+                            } else if(iMonth < iCurrentMonth&&iCurrentYear<iYear) {
+                                Log.e("iYear", "" + iYear);
+                                iMonth--;
+                                strDate = "01";
+                                createDateForData();
+                            }
                         }
                     }
                     break;
 
                 case R.id.ivNextMonthComp:
                     if (iMonth == 12) {
+                        iMonth = 1;
+                        iYear = (iYear + 1);
+                        Log.e("iYear", "" + iYear);
+                        strDate = "01";
 
+                        getNumberofDays();
+                        setPreviousButton(true);
+                        createDateForData();
                     } else {
                         iMonth++;
 
@@ -488,16 +511,17 @@ public class CompetitionsActivity extends BaseActivity {
                     break;
 
                 case R.id.tvTodayComp:
-                    mCalendarInstance.set(Calendar.YEAR, iCurrentYear);
-                    mCalendarInstance.set(Calendar.MONTH, (iCurrentMonth - 1));
-                    mCalendarInstance.set(Calendar.DATE, Integer.parseInt(strCurrentDate));
-
-                    //Initialize the dates of CALENDER to display data according dates.
-                    strDate = "" + mCalendarInstance.get(Calendar.DATE);
-                    iNumOfDays = mCalendarInstance.get(Calendar.DATE);
-
-                    //Get MONTH and YEAR.
-                    iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
+                    resetCalendar();
+//                    mCalendarInstance.set(Calendar.YEAR, iCurrentYear);
+//                    mCalendarInstance.set(Calendar.MONTH, (iCurrentMonth - 1));
+//                    mCalendarInstance.set(Calendar.DATE, Integer.parseInt(strCurrentDate));
+//
+//                    //Initialize the dates of CALENDER to display data according dates.
+//                    strDate = "" + mCalendarInstance.get(Calendar.DATE);
+//                    iNumOfDays = mCalendarInstance.get(Calendar.DATE);
+//
+//                    //Get MONTH and YEAR.
+//                    iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
 
                     createDateForData();
                     break;
@@ -548,9 +572,12 @@ public class CompetitionsActivity extends BaseActivity {
 
                 setPreviousButton(false);
             } else {
-
-                iMonth--;
-
+                if (iMonth == 1) {
+                    iMonth = 12;
+                    iYear = (iYear - 1);
+                } else {
+                    iMonth--;
+                }
                 //Do nothing. Just load data according current date.
                 strDate = "01";
 
@@ -569,17 +596,18 @@ public class CompetitionsActivity extends BaseActivity {
                     //Do nothing. Just load data according current date.
                     strDate = strCurrentDate;
                 } else {
+
                     //Do nothing. Just load data according current date.
                     strDate = "01";
                 }
 
                 getNumberofDays();
             } else {
+
                 setPreviousButton(false);
             }
         }
     }
-
     /**
      * Implements a method to update UI when 'No Internet connection'
      * when disconnect internet connection.
@@ -643,8 +671,9 @@ public class CompetitionsActivity extends BaseActivity {
      * EXAMPLE: 06 for JUNE.
      */
     public void setTitleBar(String strNameOfMonth) {
-        tvNameOfMonthComp.setText(strNameOfMonth);
+        tvNameOfMonthComp.setText(strNameOfMonth + " " + iYear);
     }
+
 
     /**
      * Implements this method to reset CALENDAR PREV, NEXT and TODAY icon.
@@ -653,22 +682,22 @@ public class CompetitionsActivity extends BaseActivity {
         /**
          *  To disable or display blur previous icon.
          */
+
         if (iPopItemPos == 2) {
 
-            if (iMonth <= 1) {
+            if (iMonth < 1) {
                 setPreviousButton(false);
             } else {
                 setPreviousButton(true);
             }
         } else {
-            if (iMonth <= iCurrentMonth) {
+            if (iMonth <= iCurrentMonth && iCurrentYear == iYear) {
                 setPreviousButton(false);
             } else {
                 setPreviousButton(true);
             }
         }
     }
-
 
     /**
      * User can navigate back to 1st JAN of current YEAR for COMPLETED tab so reset or navigate
@@ -756,8 +785,57 @@ public class CompetitionsActivity extends BaseActivity {
                                           int monthOfYear, int dayOfMonth) {
 
                         int tMonthofYear = ++monthOfYear;
+                        iYear = year;
+                        iMonth = tMonthofYear;
+                        strDate = "" + dayOfMonth;
+                        //    if (year == iCurrentYear) {
+                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                        if(tvCompType.getText().equals("Completed")){
+                            iYear = year;
+                            iMonth = tMonthofYear;
+                            strDate = "" + dayOfMonth;
 
-                        if (year == iCurrentYear) {
+                            iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                            getNumberofDays();
+                            createDateForData();
+
+                        }else{
+
+                            if (iCurrentYear < iYear) {
+
+                                getNumberofDays();
+                                createDateForData();
+
+                            } else if (iCurrentYear == iYear) {
+
+                                if (iCurrentMonth < iMonth) {
+
+                                    getNumberofDays();
+                                    createDateForData();
+                                } else if (iCurrentMonth== iMonth) {
+
+
+                                    if (Integer.parseInt(strCurrentDate) <= dayOfMonth) {
+
+                                        getNumberofDays();
+                                        createDateForData();
+
+                                    } else {
+                                        resetCalendarPicker();
+                                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                                        return;
+                                    }
+                                }
+                                else{
+                                    resetCalendarPicker();
+                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                                    return;
+                                }
+                            }
+
+
+                            //    if (year == iCurrentYear) {
 
                             if (iPopItemPos == 2) {
 
@@ -773,7 +851,21 @@ public class CompetitionsActivity extends BaseActivity {
 
                             } else {
 
-                                if (tMonthofYear > iCurrentMonth) {
+//                                if (tMonthofYear > iCurrentMonth) {
+//
+//                                    iYear = year;
+//                                    iMonth = tMonthofYear;
+//                                    strDate = "" + dayOfMonth;
+//
+//                                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+//
+//                                    createDateForData();
+
+                                // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+
+                                //  } else if (tMonthofYear == iCurrentMonth) {
+
+                                if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
 
                                     iYear = year;
                                     iMonth = tMonthofYear;
@@ -781,39 +873,37 @@ public class CompetitionsActivity extends BaseActivity {
 
                                     iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
+                                    getNumberofDays();
+
                                     createDateForData();
 
                                     // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
-
-                                } else if (tMonthofYear == iCurrentMonth) {
-
-                                    if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
-
-                                        iYear = year;
-                                        iMonth = tMonthofYear;
-                                        strDate = "" + dayOfMonth;
-
-                                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-                                        getNumberofDays();
-
-                                        createDateForData();
-
-                                        // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
-
-                                    } else {
-                                        resetCalendarPicker();
-                                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
-                                    }
                                 } else {
-                                    resetCalendarPicker();
-                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                                    iYear = year;
+                                    iMonth = tMonthofYear;
+                                    strDate = "" + dayOfMonth;
+
+                                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                                    getNumberofDays();
+
+                                    createDateForData();
+
                                 }
                             }
-                        } else {
-                            resetCalendarPicker();
-                            showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+//                                    } else {
+//                                        resetCalendarPicker();
+//                                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+//                                    }
+//                                } else {
+//                                    resetCalendarPicker();
+//                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+//                                }
                         }
+//                        } else {
+//                            resetCalendarPicker();
+//                            showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+//                        }
                     }
                 }, iYear, --iMonth, Integer.parseInt(strDate));
 

@@ -18,8 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.brokenhurst.models.CoursesData;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
@@ -30,7 +28,9 @@ import com.mh.systems.brokenhurst.models.CourseDiaryData;
 import com.mh.systems.brokenhurst.models.CourseDiaryDataCopy;
 import com.mh.systems.brokenhurst.models.CourseDiaryItems;
 import com.mh.systems.brokenhurst.models.CourseDiaryItemsCopy;
+import com.mh.systems.brokenhurst.models.CoursesData;
 import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
@@ -347,13 +347,18 @@ public class CourseDiaryActivity extends BaseActivity {
                         resetArrayData();
                         callPrevMonthAction();
                     }
+                    else if(iYear>iCurrentYear){
+                        resetArrayData();
+                        callPrevMonthAction();
+                    }
                     break;
 
                 case R.id.ivNextMonth:
-                    if (iMonth < 12) {
+              //      if (iMonth < 12) {
                         resetArrayData();
                         callNextMonthAction();
-                    }
+               //     }
+
                     break;
 
                 case R.id.tvToday:
@@ -405,12 +410,34 @@ public class CourseDiaryActivity extends BaseActivity {
                 //Do nothing. Just load data according current date.
                 strDate = strCurrentDate;
             } else {
+                if (iMonth == 1) {
+                    iMonth = 12;
+                    iYear = (iYear - 1);
+                } else {
+                    iMonth--;
+                }
+
                 //Do nothing. Just load data according current date.
                 strDate = "01";
             }
 
             getNumberofDays();
         }
+        else {
+            if (iMonth == 1) {
+                iMonth = 12;
+                iYear = (iYear - 1);
+            } else {
+                iMonth--;
+            }
+
+            //Do nothing. Just load data according current date.
+            strDate = "01";
+            getNumberofDays();
+        }
+
+
+
 
         createDateForData();
     }
@@ -422,8 +449,13 @@ public class CourseDiaryActivity extends BaseActivity {
      */
     public void callNextMonthAction() {
         if (iMonth == 12) {
+            iMonth = 1;
+            strDate = "01";
+            iYear=(iYear+1);
 
+            getNumberofDays();
         } else {
+
             iMonth++;
 
             if (iMonth > iCurrentMonth) {
@@ -680,7 +712,7 @@ public class CourseDiaryActivity extends BaseActivity {
      * name of MONTH.
      */
     public void setTitleBar(String strNameOfMonth) {
-        tvNameOfMonth.setText(strNameOfMonth);
+        tvNameOfMonth.setText(strNameOfMonth+" "+iYear);
     }
 
     /**
@@ -739,8 +771,12 @@ public class CourseDiaryActivity extends BaseActivity {
             setNextButton(true);
         } else if (iMonth == 12) {
             setPreviousButton(true);
-            setNextButton(false);
-        } else {
+            setNextButton(true);
+        }else if(iYear>iCurrentYear){
+            setPreviousButton(true);
+            setNextButton(true);
+        }
+        else {
             setPreviousButton(true);
             setNextButton(true);
         }
@@ -894,8 +930,86 @@ public class CourseDiaryActivity extends BaseActivity {
         resetMonthsNavigationIcons();
     }
 
+//    /**
+//     * Display CALENDAR view on tap of CALENDAR icon.
+//     */
+//    private void showCalendar() {
+//
+//        iMonthTemp = iMonth;
+//        iYearTemp = iYear;
+//        strDateTemp = strDate;
+//
+//        // Launch Date Picker Dialog
+//        DatePickerDialog dpd = new DatePickerDialog(this,
+//                new DatePickerDialog.OnDateSetListener() {
+//
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year,
+//                                          int monthOfYear, int dayOfMonth) {
+//
+//                        int tMonthofYear = ++monthOfYear;
+//
+//                        if (year == iCurrentYear) {
+//
+//                            if (tMonthofYear > iCurrentMonth) {
+//
+//                                iYear = year;
+//                                iMonth = tMonthofYear;
+//                                strDate = "" + dayOfMonth;
+//
+//                                iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+//
+//                                //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+//                                resetMonthsNavigationIcons();
+//
+//                                // iNumOfDays = Integer.parseInt( strDate);
+//                                callTodayScrollEvents();
+//                            } else if (tMonthofYear == iCurrentMonth) {
+//
+//                                if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
+//
+//                                    iYear = year;
+//                                    iMonth = tMonthofYear;
+//                                    strDate = "" + dayOfMonth;
+//
+//                                    getNumberofDays();
+//
+//                                    //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+//                                    resetMonthsNavigationIcons();
+//
+//                                    // iNumOfDays = Integer.parseInt( strDate);
+//                                    callTodayScrollEvents();
+//                                } else {
+//                                    resetCalendarPicker();
+//                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+//                                }
+//                            } else {
+//                                resetCalendarPicker();
+//                                showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+//                            }
+//                        } else {
+//                            resetCalendarPicker();
+//                            showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+//                        }
+//                    }
+//                }, iYear, --iMonth, Integer.parseInt(strDate));
+//
+//        dpd.setButton(
+//                DialogInterface.BUTTON_NEGATIVE, "Cancel",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (which == DialogInterface.BUTTON_NEGATIVE) {
+//                            resetCalendarPicker();
+//                        }
+//                    }
+//                });
+//        dpd.show();
+//
+//        //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
+//        //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+//    }
     /**
-     * Display CALENDAR view on tap of CALENDAR icon.
+     * Implements a method to display {@link Calendar}.
      */
     private void showCalendar() {
 
@@ -904,7 +1018,7 @@ public class CourseDiaryActivity extends BaseActivity {
         strDateTemp = strDate;
 
         // Launch Date Picker Dialog
-        DatePickerDialog dpd = new DatePickerDialog(this,
+        DatePickerDialog dpd = new DatePickerDialog(CourseDiaryActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
 
                     @Override
@@ -912,10 +1026,76 @@ public class CourseDiaryActivity extends BaseActivity {
                                           int monthOfYear, int dayOfMonth) {
 
                         int tMonthofYear = ++monthOfYear;
+                        iYear = year;
+                        iMonth = tMonthofYear;
+                        strDate = "" + dayOfMonth;
+                        //    if (year == iCurrentYear) {
+                        iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-                        if (year == iCurrentYear) {
+                        if (iCurrentYear < iYear) {
 
-                            if (tMonthofYear > iCurrentMonth) {
+                            getNumberofDays();
+                            createDateForData();
+
+                        } else if (iCurrentYear == iYear) {
+
+                            if (iCurrentMonth < iMonth) {
+
+                                getNumberofDays();
+                                createDateForData();
+                            } else if (iCurrentMonth== iMonth) {
+
+
+                                if (Integer.parseInt(strCurrentDate) <= dayOfMonth) {
+
+                                    getNumberofDays();
+                                    createDateForData();
+
+                                } else {
+                                    resetCalendarPicker();
+                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                                    return;
+                                }
+                            }
+                            else{
+                                resetCalendarPicker();
+                                showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                                return;
+                            }
+                        }
+
+
+                        //    if (year == iCurrentYear) {
+
+                   //     if (iPopItemPos == 2) {
+
+//                            iYear = year;
+//                            iMonth = tMonthofYear;
+//                            strDate = "" + dayOfMonth;
+//
+//                            iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+//
+//                            createDateForData();
+
+                            //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+
+        //                } else {
+
+//                                if (tMonthofYear > iCurrentMonth) {
+//
+//                                    iYear = year;
+//                                    iMonth = tMonthofYear;
+//                                    strDate = "" + dayOfMonth;
+//
+//                                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+//
+//                                    createDateForData();
+
+                            // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+
+                            //  } else if (tMonthofYear == iCurrentMonth) {
+
+                            if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
 
                                 iYear = year;
                                 iMonth = tMonthofYear;
@@ -923,39 +1103,38 @@ public class CourseDiaryActivity extends BaseActivity {
 
                                 iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-                                //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-                                resetMonthsNavigationIcons();
+                                getNumberofDays();
 
-                                // iNumOfDays = Integer.parseInt( strDate);
-                                callTodayScrollEvents();
-                            } else if (tMonthofYear == iCurrentMonth) {
+                                createDateForData();
 
-                                if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
-
-                                    iYear = year;
-                                    iMonth = tMonthofYear;
-                                    strDate = "" + dayOfMonth;
-
-                                    getNumberofDays();
-
-                                    //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-                                    resetMonthsNavigationIcons();
-
-                                    // iNumOfDays = Integer.parseInt( strDate);
-                                    callTodayScrollEvents();
-                                } else {
-                                    resetCalendarPicker();
-                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
-                                }
-                            } else {
-                                resetCalendarPicker();
-                                showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                                // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
                             }
-                        } else {
-                            resetCalendarPicker();
-                            showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                            else{
+                                iYear = year;
+                                iMonth = tMonthofYear;
+                                strDate = "" + dayOfMonth;
+
+                                iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                                getNumberofDays();
+
+                                createDateForData();
+
+                            }
+//                                    } else {
+//                                        resetCalendarPicker();
+//                                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+//                                    }
+//                                } else {
+//                                    resetCalendarPicker();
+//                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+//                                }
                         }
-                    }
+//                        } else {
+//                            resetCalendarPicker();
+//                            showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+//                        }
+                //    }
                 }, iYear, --iMonth, Integer.parseInt(strDate));
 
         dpd.setButton(
@@ -967,12 +1146,14 @@ public class CourseDiaryActivity extends BaseActivity {
                         }
                     }
                 });
+
+        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+        resetMonthsNavigationIcons();
         dpd.show();
 
         //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
         //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
     }
-
     /**
      * Implements a method to show 'NO COURSE' view and hide it at least one Course event.
      *

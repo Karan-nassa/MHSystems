@@ -126,7 +126,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="20"
-                android:gravity="center|right"
+                android:gravity="center"
                 android:textColor="@color/colorWhiteffffff"
                 android:textSize="25sp" />
 
@@ -139,7 +139,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.facebook.drawee.view.SimpleDraweeView
+                <ImageView
                     android:id="@+id/todayIcon"
                     android:layout_width="55dp"
                     android:layout_height="55dp" />

@@ -1,12 +1,18 @@
 
 package com.mh.systems.demoapp.models.weather;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
 public class Sys {
 
+    @SerializedName("type")
+    @Expose
+    private Integer type;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
     @SerializedName("message")
     @Expose
     private Double message;
@@ -15,10 +21,46 @@ public class Sys {
     private String country;
     @SerializedName("sunrise")
     @Expose
-    private String sunrise;
+    private Integer sunrise;
     @SerializedName("sunset")
     @Expose
-    private String sunset;
+    private Integer sunset;
+
+    /**
+     * 
+     * @return
+     *     The type
+     */
+    public Integer getType() {
+        return type;
+    }
+
+    /**
+     * 
+     * @param type
+     *     The type
+     */
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    /**
+     * 
+     * @return
+     *     The id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * 
+     * @param id
+     *     The id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     /**
      * 
@@ -61,16 +103,16 @@ public class Sys {
      * @return
      *     The sunrise
      */
-    public String getSunrise() {
+    public Integer getSunrise() {
         return sunrise;
     }
 
     /**
-     *
+     * 
      * @param sunrise
      *     The sunrise
      */
-    public void setSunrise(String sunrise) {
+    public void setSunrise(Integer sunrise) {
         this.sunrise = sunrise;
     }
 
@@ -79,7 +121,7 @@ public class Sys {
      * @return
      *     The sunset
      */
-    public String getSunset() {
+    public Integer getSunset() {
         return sunset;
     }
 
@@ -88,7 +130,7 @@ public class Sys {
      * @param sunset
      *     The sunset
      */
-    public void setSunset(String sunset) {
+    public void setSunset(Integer sunset) {
         this.sunset = sunset;
     }
 
