@@ -15,17 +15,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="80"
+        android:layout_weight="75"
         android:background="@color/color65B0DE"
         android:orientation="vertical">
 
         <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
-            android:id="@+id/robotoMediumTextView"
+            android:id="@+id/tvNameOfLoc"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="10"
-
             android:gravity="bottom"
             android:text="Sunningdale, UK"
             android:textColor="@color/colorWhiteffffff"
@@ -37,19 +36,18 @@
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="4"
+            android:alpha="0.5"
             android:gravity="center_vertical"
-
             android:text="Today, Monday, 31st October"
-            android:textColor="@color/color9B9B9B"
+            android:textColor="@color/colorWhiteffffff"
             android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/ivWeatherView"
-            android:layout_width="97dp"
+            android:layout_width="100dp"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
-
-            android:layout_weight="30"
+            android:layout_weight="23"
             android:gravity="center_vertical"
             android:src="@mipmap/ic_launcher" />
 
@@ -59,10 +57,10 @@
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="7"
+            android:alpha="0.5"
             android:gravity="center_vertical"
-
             android:text="14:00"
-            android:textColor="@color/color9B9B9B"
+            android:textColor="@color/colorWhiteffffff"
             android:textSize="13sp" />
 
         <com.mh.systems.demoapp.customfonts.RobotoLight
@@ -70,12 +68,11 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="6"
-
+            android:layout_weight="8"
             android:gravity="center_vertical"
-            android:text="22 C"
+            android:text="22°C"
             android:textColor="@color/colorWhiteffffff"
-            android:textSize="23sp" />
+            android:textSize="35sp" />
 
         <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
             android:id="@+id/tvWeatherType"
@@ -83,10 +80,10 @@
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="7"
-
+            android:alpha="0.5"
             android:gravity="center_vertical"
             android:text="Partly cloudy"
-            android:textColor="@color/color9B9B9B"
+            android:textColor="@color/colorWhiteffffff"
             android:textSize="13sp" />
 
         <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
@@ -95,7 +92,6 @@
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="10"
-
             android:drawableLeft="@mipmap/ic_wind"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
@@ -107,22 +103,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20">
+        android:layout_weight="25">
 
         <FrameLayout
+            android:id="@+id/flDayGroup1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
-            android:background="@color/color4B4B49">
+            android:background="@color/color313130">
 
             <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Mon"
-                android:textColor="@color/color9B9B9B"
+                android:textColor="@color/colorWhiteffffff"
                 android:textSize="13sp" />
 
             <ImageView
@@ -136,27 +132,25 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="5dp"
-
-                android:text="22 C"
-
+                android:text="22°C"
                 android:textColor="@color/colorWhiteffffff"
-                android:textSize="14sp" />
+                android:textSize="21sp" />
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/flDayGroup2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
-            android:background="@color/color4B4B49">
+            android:background="@color/color242422">
 
             <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Tue"
-                android:textColor="@color/color9B9B9B"
+                android:textColor="@color/colorWhiteffffff"
                 android:textSize="13sp" />
 
             <ImageView
@@ -170,27 +164,25 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="5dp"
-
-                android:text="22 C"
-
+                android:text="22°C"
                 android:textColor="@color/colorWhiteffffff"
-                android:textSize="14sp" />
+                android:textSize="21sp" />
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/flDayGroup3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
-            android:background="@color/color4B4B49">
+            android:background="@color/color242422">
 
             <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Wed"
-                android:textColor="@color/color9B9B9B"
+                android:textColor="@color/colorWhiteffffff"
                 android:textSize="13sp" />
 
             <ImageView
@@ -204,27 +196,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="5dp"
-
-                android:text="22 C"
-
+                android:text="22°C"
                 android:textColor="@color/colorWhiteffffff"
-                android:textSize="14sp" />
+                android:textSize="21sp" />
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/flDayGroup4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
 
-            android:background="@color/color4B4B49">
+            android:background="@color/color242422">
 
             <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Thu"
-                android:textColor="@color/color9B9B9B"
+                android:textColor="@color/colorWhiteffffff"
                 android:textSize="13sp" />
 
             <ImageView
@@ -238,27 +229,25 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="5dp"
-
-                android:text="22 C"
-
+                android:text="22°C"
                 android:textColor="@color/colorWhiteffffff"
-                android:textSize="14sp" />
+                android:textSize="21sp" />
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/flDayGroup5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
-            android:background="@color/color4B4B49">
+            android:background="@color/color242422">
 
             <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Sat"
-                android:textColor="@color/color9B9B9B"
+                android:textColor="@color/colorWhiteffffff"
                 android:textSize="13sp" />
 
             <ImageView
@@ -272,11 +261,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="5dp"
-
+                android:layout_marginTop="10dp"
                 android:text="22 C"
-
                 android:textColor="@color/colorWhiteffffff"
-                android:textSize="14sp" />
+                android:textSize="21sp" />
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

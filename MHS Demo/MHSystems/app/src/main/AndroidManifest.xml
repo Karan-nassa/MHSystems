@@ -179,7 +179,7 @@
         <!-- See the Weather-->
 
         <activity
-            android:name=".activites.WeatherActivity"
+            android:name=".activites.WeatherDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- [START gcm_receiver] -->

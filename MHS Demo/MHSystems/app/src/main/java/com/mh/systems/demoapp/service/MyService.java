@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.models.weather.GetWeatherResponse;
+import com.mh.systems.demoapp.models.weather.WeatherData;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 
 import java.lang.reflect.Type;
@@ -33,7 +33,7 @@ public class MyService extends Service {
     private Looper looper;
     private MyServiceHandler myServiceHandler;
     //Instance of Weather api.
-    GetWeatherResponse getWeatherResponse;
+    WeatherData weatherData;
     final long changeTime = 11000000000L;
 
 
@@ -144,19 +144,19 @@ public class MyService extends Service {
 
         Log.e(TAG, "Weather response : " + jsonObject.toString());
 
-        Type type = new TypeToken<GetWeatherResponse>() {
+        Type type = new TypeToken<WeatherData>() {
         }.getType();
-        getWeatherResponse = new Gson().fromJson(jsonObject.toString(), type);
+        weatherData = new Gson().fromJson(jsonObject.toString(), type);
 
-        if (getWeatherResponse.getCod() == 200) {
-            String desc = getWeatherResponse.getWeather().get(0).getDescription();
+        if (weatherData.getCod() == 200) {
+            String desc = weatherData.getWeather().get(0).getDescription();
             SharedPreferences sharedpreferences = getSharedPreferences(
                     ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (getWeatherResponse.getMain().getTemp() - 273.15f)) + "°C"));
+            editor.putString(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
             editor.putString(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, " + (desc.substring(0, 1).toUpperCase() + desc.substring(1))));
-            editor.putString(ApplicationGlobal.KEY_TEMPKEY_LOCATION, getWeatherResponse.getName());
-            editor.putString(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e" + getWeatherResponse.getWeather().get(0).getIcon()));
+            editor.putString(ApplicationGlobal.KEY_TEMPKEY_LOCATION, weatherData.getName());
+            editor.putString(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e" + weatherData.getWeather().get(0).getIcon()));
             editor.commit();
 
 

@@ -32,7 +32,7 @@ public class List {
     private Sys sys;
     @SerializedName("dt_txt")
     @Expose
-    private String dtTxt;
+    private String dt_txt;
 
     /**
      * 
@@ -163,19 +163,19 @@ public class List {
     /**
      * 
      * @return
-     *     The dtTxt
+     *     The dt_txt
      */
     public String getDtTxt() {
-        return dtTxt;
+        return dt_txt;
     }
 
     /**
      * 
-     * @param dtTxt
+     * @param dt_txt
      *     The dt_txt
      */
-    public void setDtTxt(String dtTxt) {
-        this.dtTxt = dtTxt;
+    public void setDtTxt(String dt_txt) {
+        this.dt_txt = dt_txt;
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GetWeatherResponse {
+public class WeatherData {
 
     @SerializedName("coord")
     @Expose

@@ -17,8 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.common.reflect.ClassPath;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -26,15 +24,11 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.models.weather.GetWeatherResponse;
-import com.mh.systems.demoapp.service.MyService;
+import com.mh.systems.demoapp.models.weather.WeatherApiResponse;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 
 import java.lang.reflect.Type;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -91,7 +85,7 @@ public class DashboardActivity extends BaseActivity {
     Intent intent = null;
 
     //Instance of Weather api.
-    GetWeatherResponse getWeatherResponse;
+    WeatherApiResponse weatherApiResponse;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -162,7 +156,7 @@ public class DashboardActivity extends BaseActivity {
         llWeatherGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(DashboardActivity.this, WeatherActivity.class);
+                intent = new Intent(DashboardActivity.this, WeatherDetailActivity.class);
                 startActivity(intent);
             }
         });
@@ -174,9 +168,9 @@ public class DashboardActivity extends BaseActivity {
 //            llWeatherGroup.setVisibility(View.VISIBLE);
 //            tvTodayTemperature.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ""));
 //            tvWeatherDesc.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ""));
-//            //        tvNameOfLocation.setText(getWeatherResponse.getName() + ", " + getWeatherResponse.getSys().getCountry());
+//            //        tvNameOfLocation.setText(weatherData.getName() + ", " + weatherData.getSys().getCountry());
 //            tvNameOfLocation.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, ""));
-//        //    todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + getWeatherResponse.getWeather().get(0).getIcon() + ".png"));
+//        //    todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherData.getWeather().get(0).getIcon() + ".png"));
 //            Resources res=getResources();
 //            int resID = res.getIdentifier(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ""), "mipmap", getPackageName());
 //            Drawable drawable = res.getDrawable(resID);
@@ -413,19 +407,32 @@ public class DashboardActivity extends BaseActivity {
 
         //showPleaseWait("Loading ");
 
-        String strCityName = "";
-        strCityName = strCityName.length() != 0 ? strCityName : "LONDON,UK";
-
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(WebAPI.API_WEATHER_BASE_URL)
+                .setEndpoint(WebAPI.API_BASE_URL)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
         //Creating an object of our api interface
         WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
-        api.getWeatherState("Weather",
+        api.weatherAPI("Weather",
+                ApplicationGlobal.TAG_CLIENT_ID,
+                new Callback<JsonObject>() {
+                    @Override
+                    public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                        updateSuccessResponse(jsonObject);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        //you can handle the errors here
+                        Log.e(LOG_TAG, "RetrofitError : " + error);
+                    }
+                });
+
+     /*   api.getWeatherState("Weather",
                 "JSON",
                 getResources().getString(R.string.apiKey),
                 "51.388654",
@@ -445,7 +452,7 @@ public class DashboardActivity extends BaseActivity {
 
                         Log.e(LOG_TAG, "ERROR : " + error);
                     }
-                });
+                });*/
     }
 
     private void updateSuccessResponse(JsonObject jsonObject) {
@@ -454,31 +461,31 @@ public class DashboardActivity extends BaseActivity {
 
         Log.e(LOG_TAG, "Weather response : " + jsonObject.toString());
 
-        Type type = new TypeToken<GetWeatherResponse>() {
+        Type type = new TypeToken<WeatherApiResponse>() {
         }.getType();
-        getWeatherResponse = new Gson().fromJson(jsonObject.toString(), type);
+        weatherApiResponse = new Gson().fromJson(jsonObject.toString(), type);
 
-        if (getWeatherResponse.getCod() == 200) {
+        if (weatherApiResponse.getData().getCod() == 200) {
 
             llWeatherGroup.setVisibility(View.VISIBLE);
 
             //Get Data to local instances.
-            String desc = getWeatherResponse.getWeather().get(0).getDescription();
-            Log.e("temp", "" + ("" + ((int) (getWeatherResponse.getMain().getTemp() - 273.15f)) + "°C"));
-            tvTodayTemperature.setText("" + ((int) (getWeatherResponse.getMain().getTemp() - 273.15f)) + "°C");
+            String desc = weatherApiResponse.getData().getWeather().get(0).getDescription();
+            Log.e("temp", "" + ("" + ((int) (weatherApiResponse.getData().getMain().getTemp() - 273.15f)) + "°C"));
+            tvTodayTemperature.setText("" + ((int) (weatherApiResponse.getData().getMain().getTemp() - 273.15f)) + "°C");
             tvWeatherDesc.setText("Today, " + (desc.substring(0, 1).toUpperCase() + desc.substring(1)));
-            //        tvNameOfLocation.setText(getWeatherResponse.getName() + ", " + getWeatherResponse.getSys().getCountry());
-            tvNameOfLocation.setText(getWeatherResponse.getName());
-            todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + getWeatherResponse.getWeather().get(0).getIcon() + ".png"));
+            //        tvNameOfLocation.setText(weatherData.getName() + ", " + weatherData.getSys().getCountry());
+            tvNameOfLocation.setText(weatherApiResponse.getData().getName());
+            todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherApiResponse.getData().getWeather().get(0).getIcon() + ".png"));
             Resources res = getResources();
-            int resID = res.getIdentifier("e" + getWeatherResponse.getWeather().get(0).getIcon(), "mipmap", getPackageName());
+            int resID = res.getIdentifier("e" + weatherApiResponse.getData().getWeather().get(0).getIcon(), "mipmap", getPackageName());
             Drawable drawable = res.getDrawable(resID);
             todayIcon.setImageDrawable(drawable);
 
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (getWeatherResponse.getMain().getTemp() - 273.15f)) + "°C"));
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, getWeatherResponse.getName());
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+getWeatherResponse.getWeather().get(0).getIcon()));
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, weatherData.getName());
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
 
         } else {
             Toast.makeText(DashboardActivity.this, "Oops! Unable to load weather status.", Toast.LENGTH_LONG).show();

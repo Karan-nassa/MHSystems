@@ -23,7 +23,7 @@ public class ForecastMain {
     private Integer cnt;
     @SerializedName("list")
     @Expose
-    private java.util.List<com.mh.systems.demoapp.models.forecast.List> list = new ArrayList<com.mh.systems.demoapp.models.forecast.List>();
+    private java.util.List<List> list = new ArrayList<List>();
 
     /**
      * 

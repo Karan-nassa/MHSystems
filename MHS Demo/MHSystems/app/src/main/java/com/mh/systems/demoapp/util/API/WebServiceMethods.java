@@ -346,5 +346,17 @@ public interface WebServiceMethods {
                                 @Query("lat") String lat,
                                 @Query("lon") String lon,
                                 Callback<JsonObject> response);
+
+    /**
+     * Declaration of WEATHER API status on dashboard.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param type      : WEATHER OR FORCEAST
+     * @param aClientId : Club ID like 44071043 for Demo App.
+     * @param response  : Weather api response in JSON format.
+     */
+    @POST("/ClubAppUse/{type}")
+    public void weatherAPI(@Path("type") String type, @Query("aClientId") String aClientId, Callback<JsonObject> response);
 }
 

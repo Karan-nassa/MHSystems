@@ -12,11 +12,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:orientation="vertical"
-        android:weightSum="100">
+        android:weightSum="100"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <!-- FOR SETTINGS ICON ON LEFT SIDE VIEW GROUP -->
 
@@ -135,7 +135,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="20"
+                android:layout_weight="15"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -150,7 +150,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:paddingLeft="20dp"
-                android:layout_weight="48"
+                android:layout_weight="55"
                 android:orientation="vertical">
 
                 <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
@@ -167,7 +167,8 @@
                     android:layout_height="wrap_content"
                     android:alpha="0.7"
                     android:textColor="@android:color/white"
-                    android:textSize="13sp" />
+                    android:maxLines="1"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -176,7 +177,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
-                android:layout_weight="7"
+                android:layout_weight="5"
                 android:src="@mipmap/ic_arrowright" />
 
 
