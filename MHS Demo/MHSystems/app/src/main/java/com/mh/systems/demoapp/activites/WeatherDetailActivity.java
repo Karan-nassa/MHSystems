@@ -1,10 +1,15 @@
 package com.mh.systems.demoapp.activites;
 
+import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +34,7 @@ import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -39,13 +45,33 @@ import retrofit.RetrofitError;
  * Organization : ucreate.it
  * Email        : karan@ucreate.it
  */
-public class WeatherDetailActivity extends BaseActivity {
+public class WeatherDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private final String LOG_TAG = WeatherDetailActivity.class.getSimpleName();
 
+    @Bind(R.id.tvCurrentWeather)
+    TextView tvCurrentWeather;
+
+    @Bind(R.id.tvNameOfLoc)
+    TextView tvNameOfLoc;
 
     @Bind(R.id.tbWeather)
     Toolbar tbWeather;
+
+    @Bind(R.id.flDayGroup1)
+    FrameLayout flDayGroup1;
+
+    @Bind(R.id.flDayGroup2)
+    FrameLayout flDayGroup2;
+
+    @Bind(R.id.flDayGroup3)
+    FrameLayout flDayGroup3;
+
+    @Bind(R.id.flDayGroup4)
+    FrameLayout flDayGroup4;
+
+    @Bind(R.id.flDayGroup5)
+    FrameLayout flDayGroup5;
 
     @Bind(R.id.tvWeatherDate)
     TextView tvWeatherDate;
@@ -62,6 +88,53 @@ public class WeatherDetailActivity extends BaseActivity {
     @Bind(R.id.tvWindPressure)
     TextView tvWindPressure;
 
+    @Bind(R.id.tvDayName1)
+    TextView tvDayName1;
+
+    @Bind(R.id.tvDayName2)
+    TextView tvDayName2;
+
+    @Bind(R.id.tvDayName3)
+    TextView tvDayName3;
+
+    @Bind(R.id.tvDayName4)
+    TextView tvDayName4;
+
+    @Bind(R.id.tvDayName5)
+    TextView tvDayName5;
+
+    @Bind(R.id.ivWeatherDay1)
+    ImageView ivWeatherDay1;
+
+    @Bind(R.id.ivWeatherDay2)
+    ImageView ivWeatherDay2;
+
+    @Bind(R.id.ivWeatherDay3)
+    ImageView ivWeatherDay3;
+
+    @Bind(R.id.ivWeatherDay4)
+    ImageView ivWeatherDay4;
+
+    @Bind(R.id.ivWeatherDay5)
+    ImageView ivWeatherDay5;
+
+    @Bind(R.id.tvTempDay1)
+    TextView tvTempDay1;
+
+    @Bind(R.id.tvTempDay2)
+    TextView tvTempDay2;
+
+    @Bind(R.id.tvTempDay3)
+    TextView tvTempDay3;
+
+    @Bind(R.id.tvTempDay4)
+    TextView tvTempDay4;
+
+    @Bind(R.id.tvTempDay5)
+    TextView tvTempDay5;
+
+    FrameLayout flLastSelectedView = flDayGroup1;
+
     //Instance of Weather api.
     ForecastApiResponse forecastApiResponse;
 
@@ -69,6 +142,8 @@ public class WeatherDetailActivity extends BaseActivity {
 
     ArrayList<List> listArrayList = new ArrayList<>();
     ArrayList<String> integerArrayList = new ArrayList<>();
+
+    String strNameOfWeatherLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +159,8 @@ public class WeatherDetailActivity extends BaseActivity {
             tbWeather.setNavigationIcon(R.mipmap.icon_menu);
             getSupportActionBar().setTitle("Weather forecast");
         }
+
+        strNameOfWeatherLoc = getIntent().getStringExtra("WEATHER_LOC");
 
         callWeatherService();
     }
@@ -105,6 +182,43 @@ public class WeatherDetailActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick({R.id.flDayGroup1, R.id.flDayGroup2, R.id.flDayGroup3, R.id.flDayGroup4, R.id.flDayGroup5})
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.flDayGroup1:
+                updateDetailUI(0);
+                flDayGroup1.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                break;
+
+            case R.id.flDayGroup2:
+                updateDetailUI(1);
+                flDayGroup2.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                break;
+
+            case R.id.flDayGroup3:
+                updateDetailUI(2);
+                flDayGroup3.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                break;
+
+            case R.id.flDayGroup4:
+                updateDetailUI(3);
+                flDayGroup4.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                break;
+
+            case R.id.flDayGroup5:
+                updateDetailUI(4);
+                flDayGroup5.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                break;
+        }
+
+        if (flLastSelectedView == null) {
+            flLastSelectedView = flDayGroup1;
+        }
+        flLastSelectedView.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color242422));
+        flLastSelectedView = (FrameLayout) v;
+    }
 
     /****************** ++ WEATHER API FEATURE ++ ******************/
 
@@ -125,8 +239,9 @@ public class WeatherDetailActivity extends BaseActivity {
         //Creating an object of our api interface
         WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
-        api.weatherAPI("forecast",
+        api.forcastAPI(
                 ApplicationGlobal.TAG_CLIENT_ID,
+                getCurrentTime(),
                 new Callback<JsonObject>() {
                     @Override
                     public void success(JsonObject jsonObject, retrofit.client.Response response) {
@@ -139,10 +254,15 @@ public class WeatherDetailActivity extends BaseActivity {
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
                         hideProgress();
+                        callWeatherService();
                     }
                 });
     }
 
+    /**
+     * Implements this method to update the
+     * success response.
+     */
     private void updateSuccessResponse(JsonObject jsonObject) {
 
         hideProgress();
@@ -153,42 +273,29 @@ public class WeatherDetailActivity extends BaseActivity {
         }.getType();
         forecastApiResponse = new Gson().fromJson(jsonObject.toString(), type);
 
-        if (forecastApiResponse.getData().getCod().equals("200")) {
+        if (forecastApiResponse.getData() != null) {
 
-            //   llWeatherGroup.setVisibility(View.VISIBLE);
+            updateDetailUI(0);
 
-            //Get Data to local instances.
-            String desc = forecastApiResponse.getData().getList().get(0).getWeather().get(0).getDescription();
+            tvNameOfLoc.setText(strNameOfWeatherLoc + ", " + forecastApiResponse.getData().getCity().getCountry());
 
-            try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-                Calendar cal = Calendar.getInstance(Locale.getDefault());
-                cal.setTimeInMillis(System.currentTimeMillis());
-                String date = DateFormat.format("yyyy-MM-dd HH:MM:ss", cal).toString();
-                Date date1 = formatter.parse(date);
+            tvDayName1.setText(getFormateDayName(forecastApiResponse.getData().getList().get(0).getDtTxt()));
+            tvDayName2.setText(getFormateDayName(forecastApiResponse.getData().getList().get(1).getDtTxt()));
+            tvDayName3.setText(getFormateDayName(forecastApiResponse.getData().getList().get(2).getDtTxt()));
+            tvDayName4.setText(getFormateDayName(forecastApiResponse.getData().getList().get(3).getDtTxt()));
+            tvDayName5.setText(getFormateDayName(forecastApiResponse.getData().getList().get(4).getDtTxt()));
 
-                for (int iCount = 0; iCount < forecastApiResponse.getData().getCnt(); iCount++) {
+            ivWeatherDay1.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(0).getWeather().get(0).getIcon()));
+            ivWeatherDay2.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(1).getWeather().get(0).getIcon()));
+            ivWeatherDay3.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(2).getWeather().get(0).getIcon()));
+            ivWeatherDay4.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(3).getWeather().get(0).getIcon()));
+            ivWeatherDay5.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(4).getWeather().get(0).getIcon()));
 
-                    if(mLastDate == null){
-                        mLastDate = formatter.parse(forecastApiResponse.getData().getList().get(iCount).getDtTxt());
-                    }
-
-                    Date date2 = formatter.parse(forecastApiResponse.getData().getList().get(iCount).getDtTxt());
-
-                    Date dat = formatter1.parse(forecastApiResponse.getData().getList().get(iCount).getDtTxt());
-
-                    if ((!integerArrayList.contains(dat.toString()))) {
-                        listArrayList.add(forecastApiResponse.getData().getList().get(iCount));
-                        integerArrayList.add(dat.toString());
-                    }
-
-                }
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            }
-
-            Log.e(LOG_TAG, "filter array size " + listArrayList.size());
+            tvTempDay1.setText("" + ((int) (forecastApiResponse.getData().getList().get(0).getMain().getTemp() - 273.15f)) + "°C");
+            tvTempDay2.setText("" + ((int) (forecastApiResponse.getData().getList().get(1).getMain().getTemp() - 273.15f)) + "°C");
+            tvTempDay3.setText("" + ((int) (forecastApiResponse.getData().getList().get(2).getMain().getTemp() - 273.15f)) + "°C");
+            tvTempDay4.setText("" + ((int) (forecastApiResponse.getData().getList().get(3).getMain().getTemp() - 273.15f)) + "°C");
+            tvTempDay5.setText("" + ((int) (forecastApiResponse.getData().getList().get(4).getMain().getTemp() - 273.15f)) + "°C");
 
 //            tvTodayTemperature.setText("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C");
 //            tvWeatherDesc.setText("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1)));
@@ -206,8 +313,114 @@ public class WeatherDetailActivity extends BaseActivity {
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
 
         } else {
-            Toast.makeText(WeatherDetailActivity.this, "Oops! Unable to load weather status.", Toast.LENGTH_LONG).show();
+            Toast.makeText(WeatherDetailActivity.this, forecastApiResponse.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    /**
+     * Update UI with selected day weather
+     * data.
+     */
+    private void updateDetailUI(int iPosition) {
+
+        String strDateTime = forecastApiResponse.getData().getList().get(iPosition).getDtTxt();
+
+        if (iPosition == 0) {
+            tvWeatherDate.setText(("Today, " + getFormateDate(strDateTime)));
+        } else {
+            tvWeatherDate.setText(getFormateDate(strDateTime));
+        }
+
+        ivWeatherView.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(iPosition).getWeather().get(0).getIcon()));
+        tvCurrentWeather.setText("" + ((int) (forecastApiResponse.getData().getList().get(iPosition).getMain().getTemp() - 273.15f)) + "°C");
+        tvWeatherTime.setText(getFormateTime(strDateTime));
+        tvWeatherType.setText(forecastApiResponse.getData().getList().get(iPosition).getWeather().get(0).getDescription());
+        tvWindPressure.setText("" + new Double(forecastApiResponse.getData().getList().get(iPosition).getWind().getSpeed()).intValue() + " mph");
+    }
+
+    /**
+     * Generate Weather Icon from string.
+     *
+     * @param strNameOfIcon : Name of String.
+     * @return drawable     : Drawable type icon.
+     */
+    private Drawable getWeatherIcon(String strNameOfIcon) {
+        int resID = getResources().getIdentifier("e" + strNameOfIcon, "mipmap", getPackageName());
+        Drawable drawable = ContextCompat.getDrawable(WeatherDetailActivity.this, resID);
+        return drawable;
+    }
+
+    /**
+     * Implements a method to RETURN the complete date from
+     * specific date format.
+     *
+     * @param strDate : Example => "yyyy-MM-dd HH:mm:ss"
+     * @return strDate  : EEEE, dd MMMM
+     */
+    public static String getFormateDate(String strDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, dd MMMM");
+
+        try {
+            Date date = inputFormat.parse(strDate);
+            strDate = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+        return strDate;
+    }
+
+    /**
+     * Implements a method to RETURN the name of DAY from
+     * specific date format.
+     *
+     * @param strDate : Example => "yyyy-MM-dd HH:mm:ss"
+     * @return strDate  : E [Tue]
+     */
+    public static String getFormateDayName(String strDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("E");
+
+        try {
+            Date date = inputFormat.parse(strDate);
+            strDate = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+        return strDate;
+    }
+
+    /**
+     * Implements a method to RETURN the name of DAY from
+     * specific date format.
+     *
+     * @param strTime : Example => "yyyy-MM-dd HH:mm:ss"
+     * @return strTime  : HH:mm [14:00]
+     */
+    public static String getFormateTime(String strTime) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
+
+        try {
+            Date date = inputFormat.parse(strTime);
+            strTime = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+        return strTime;
+    }
+
+    /**
+     * Implements this method to get current time of
+     * device to get weather status.
+     */
+    public String getCurrentTime() {
+
+        Calendar cal = Calendar.getInstance(Locale.getDefault());
+        cal.setTimeInMillis(System.currentTimeMillis());
+        String strCurrentTime = DateFormat.format("HH", cal).toString();
+
+        return strCurrentTime;
     }
 
     /****************** ~~ WEATHER API FEATURE ~~ ******************/

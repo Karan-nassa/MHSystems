@@ -352,11 +352,26 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
-     * @param type      : WEATHER OR FORCEAST
-     * @param aClientId : Club ID like 44071043 for Demo App.
-     * @param response  : Weather api response in JSON format.
+     * @param type         : WEATHER OR FORCEAST
+     * @param aClientId    : Club ID like 44071043 for Demo App.
+     * @param aCurrentDate : Current date.
+     * @param response     : Weather api response in JSON format.
      */
     @POST("/ClubAppUse/{type}")
-    public void weatherAPI(@Path("type") String type, @Query("aClientId") String aClientId, Callback<JsonObject> response);
+    public void weatherAPI(@Path("type") String type, @Query("aClientId") String aClientId, @Query("aCurrentDate") String aCurrentDate, Callback<JsonObject> response);
+
+    /**
+     * Declaration of FORCAST API status on dashboard.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param type      : WEATHER OR FORCEAST
+     * @param aClientId : Club ID like 44071043 for Demo App.
+     * @param aHour     : Time hour in running device.
+     * @param response  : Weather api response in JSON format.
+     */
+    @POST("/ClubAppUse/forecast")
+    public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
+
 }
 
