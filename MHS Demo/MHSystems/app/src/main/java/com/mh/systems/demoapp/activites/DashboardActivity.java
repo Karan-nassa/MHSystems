@@ -1,9 +1,7 @@
 package com.mh.systems.demoapp.activites;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -31,7 +29,6 @@ import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.Bind;
@@ -166,10 +163,10 @@ public class DashboardActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        String temp = loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, "");
-        //  if (temp.equals("")){
-        callWeatherService();
-        //  }
+//        String temp = loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, "");
+//          if (temp.equals("")){
+//        callWeatherService();
+//          }
 //    else{
 //            llWeatherGroup.setVisibility(View.VISIBLE);
 //            tvTodayTemperature.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ""));
@@ -185,6 +182,15 @@ public class DashboardActivity extends BaseActivity {
 //        }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Call Weather api functionality.
+        if (isOnline(DashboardActivity.this)) {
+            callWeatherService();
+        }
+    }
 
     /**
      * Implements a method to set Grid MENU options
@@ -412,17 +418,6 @@ public class DashboardActivity extends BaseActivity {
     private void callWeatherService() {
 
         String strDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
-        Log.e(LOG_TAG, strDate);
-
-        /*int iYear, iMonth, iDate;
-        String strTodayDate =
-
-        //Initialize CALENDAR instance.
-        Calendar mCalendarInstance = Calendar.getInstance();
-
-        iYear = mCalendarInstance.get(Calendar.YEAR);
-        iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
-        iDate =  mCalendarInstance.get(Calendar.DAY_OF_MONTH);*/
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -470,7 +465,7 @@ public class DashboardActivity extends BaseActivity {
             //Get Data to local instances.
             String desc = weatherApiResponse.getData().getWeather().get(0).getDescription();
             tvTodayTemperature.setText("" + ((int) (weatherApiResponse.getData().getMain().getTemp() - 273.15f)) + "°C");
-            tvWeatherDesc.setText(("Today, " + (desc.substring(0, 1).toUpperCase() + desc.substring(1))));
+            tvWeatherDesc.setText(("Current, " + (desc.substring(0, 1).toUpperCase() + desc.substring(1))));
             tvNameOfLocation.setText(weatherApiResponse.getData().getName());
             //todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherApiResponse.getData().getWeather().get(0).getIcon() + ".png"));
 

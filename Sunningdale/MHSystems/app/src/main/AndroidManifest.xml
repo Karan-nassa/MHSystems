@@ -152,6 +152,12 @@
         <activity
             android:name=".activites.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
+
+        <!-- See the Weather-->
+
+        <activity
+            android:name=".activites.WeatherDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

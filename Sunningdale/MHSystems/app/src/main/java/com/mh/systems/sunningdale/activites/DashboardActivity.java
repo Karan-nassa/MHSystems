@@ -1,23 +1,41 @@
 package com.mh.systems.sunningdale.activites;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
+import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.models.weather.WeatherApiResponse;
+import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 
 /**
  * The {@link DashboardActivity} used to display {@link GridView}, Settings and
@@ -28,6 +46,8 @@ import butterknife.ButterKnife;
  * @version 1.0
  */
 public class DashboardActivity extends BaseActivity {
+
+    private final String LOG_TAG = DashboardActivity.class.getSimpleName();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -42,12 +62,31 @@ public class DashboardActivity extends BaseActivity {
     @Bind(R.id.llSettings)
     LinearLayout llSettings;
 
+    @Bind(R.id.llWeatherGroup)
+    LinearLayout llWeatherGroup;
+
     @Bind(R.id.btSendFeedback)
     Button btSendFeedback;
+
+    @Bind(R.id.tvTodayTemperature)
+    TextView tvTodayTemperature;
+
+    @Bind(R.id.tvNameOfLocation)
+    TextView tvNameOfLocation;
+
+    @Bind(R.id.tvWeatherDesc)
+    TextView tvWeatherDesc;
+
+    @Bind(R.id.todayIcon)
+    ImageView todayIcon;
+
 
     //Instance of Grid Adapter.
     DashboardRecyclerAdapter dashboardRecyclerAdapter;
     Intent intent = null;
+
+    //Instance of Weather api.
+    WeatherApiResponse weatherApiResponse;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -55,6 +94,7 @@ public class DashboardActivity extends BaseActivity {
     ArrayList<DashboardItems> dashboardItemsArrayList = new ArrayList<>();
 
     int iHandicapPosition = -1;
+    String strNameOfWeatherLoc = "";
 
     /**
      * Logout user from app and navigate back to
@@ -112,6 +152,26 @@ public class DashboardActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        //See the weather of 5 days
+        llWeatherGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(DashboardActivity.this, WeatherDetailActivity.class);
+                intent.putExtra("WEATHER_LOC", strNameOfWeatherLoc);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Call Weather api functionality.
+        if (isOnline(DashboardActivity.this)) {
+            callWeatherService();
+        }
     }
 
     /**
@@ -330,4 +390,82 @@ public class DashboardActivity extends BaseActivity {
             this.strTitleOfGrid = strTitleOfGrid;
         }
     }
+
+    /****************** ++ WEATHER API FEATURE ++ ******************/
+
+    /**
+     * Implements this method to hit weather web
+     * service.
+     */
+    private void callWeatherService() {
+
+        String strDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        api.weatherAPI("Weather",
+                ApplicationGlobal.TAG_CLIENT_ID,
+                strDate,
+                new Callback<JsonObject>() {
+                    @Override
+                    public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                        updateSuccessResponse(jsonObject);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        //you can handle the errors here
+                        Log.e(LOG_TAG, "RetrofitError : " + error);
+
+                        callWeatherService();
+                    }
+                });
+    }
+
+    private void updateSuccessResponse(JsonObject jsonObject) {
+
+        //ComonMethods.hideProgress();
+
+        Log.e(LOG_TAG, "Weather response : " + jsonObject.toString());
+
+        Type type = new TypeToken<WeatherApiResponse>() {
+        }.getType();
+        weatherApiResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        if (weatherApiResponse.getData() != null) {
+
+            llWeatherGroup.setVisibility(View.VISIBLE);
+
+            //Get Data to local instances.
+            String desc = weatherApiResponse.getData().getWeather().get(0).getDescription();
+            tvTodayTemperature.setText("" + ((int) (weatherApiResponse.getData().getMain().getTemp() - 273.15f)) + "°C");
+            tvWeatherDesc.setText(("Current, " + (desc.substring(0, 1).toUpperCase() + desc.substring(1))));
+            tvNameOfLocation.setText(weatherApiResponse.getData().getName());
+            //todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherApiResponse.getData().getWeather().get(0).getIcon() + ".png"));
+
+            strNameOfWeatherLoc = weatherApiResponse.getData().getName();
+
+            int resID = getResources().getIdentifier("e" + weatherApiResponse.getData().getWeather().get(0).getIcon(), "mipmap", getPackageName());
+            Drawable drawable = ContextCompat.getDrawable(DashboardActivity.this, resID);
+            todayIcon.setImageDrawable(drawable);
+
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, weatherData.getName());
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
+
+        } else {
+            Toast.makeText(DashboardActivity.this, weatherApiResponse.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /****************** ~~ WEATHER API FEATURE ~~ ******************/
 }

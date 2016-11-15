@@ -1,4 +1,4 @@
-package com.mh.systems.demoapp.activites;
+package com.mh.systems.sunningdale.activites;
 
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
@@ -16,12 +16,12 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.models.forecast.ForecastApiResponse;
-import com.mh.systems.demoapp.models.forecast.List;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.R;
+import com.mh.systems.sunningdale.constants.ApplicationGlobal;
+import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.models.forecast.ForecastApiResponse;
+import com.mh.systems.sunningdale.models.forecast.List;
+import com.mh.systems.sunningdale.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -291,7 +291,7 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
             for (int iCount = 0; iCount < forecastApiResponse.getData().getList().size(); iCount++) {
                 ((TextView) tvDayNameArr[iCount]).setText(getFormateDayName(forecastApiResponse.getData().getList().get(iCount).getDtTxt()));
                 ((ImageView) ivWeatherDayArr[iCount]).setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(iCount).getWeather().get(0).getIcon()));
-                ((TextView) tvTempDayArr[iCount]).setText("" + ((int) (forecastApiResponse.getData().getList().get(iCount).getMain().getTemp() - 273.15f)) + "°C");
+                ((TextView)tvTempDayArr[iCount]).setText("" + ((int) (forecastApiResponse.getData().getList().get(iCount).getMain().getTemp() - 273.15f)) + "°C");
             }
 
 //            tvDayName1.setText(getFormateDayName(forecastApiResponse.getData().getList().get(0).getDtTxt()));
@@ -338,22 +338,19 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
      */
     private void updateDetailUI(int iPosition) {
 
-        if (iPosition < forecastApiResponse.getData().getList().size()) {
+        String strDateTime = forecastApiResponse.getData().getList().get(iPosition).getDtTxt();
 
-            String strDateTime = forecastApiResponse.getData().getList().get(iPosition).getDtTxt();
-
-            if (iPosition == 0) {
-                tvWeatherDate.setText(("Today, " + getFormateDate(strDateTime)));
-            } else {
-                tvWeatherDate.setText(getFormateDate(strDateTime));
-            }
-
-            ivWeatherView.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(iPosition).getWeather().get(0).getIcon()));
-            tvCurrentWeather.setText("" + ((int) (forecastApiResponse.getData().getList().get(iPosition).getMain().getTemp() - 273.15f)) + "°C");
-            tvWeatherTime.setText(getFormateTime(strDateTime));
-            tvWeatherType.setText(forecastApiResponse.getData().getList().get(iPosition).getWeather().get(0).getDescription());
-            tvWindPressure.setText("" + new Double(forecastApiResponse.getData().getList().get(iPosition).getWind().getSpeed()).intValue() + " mph");
+        if (iPosition == 0) {
+            tvWeatherDate.setText(("Today, " + getFormateDate(strDateTime)));
+        } else {
+            tvWeatherDate.setText(getFormateDate(strDateTime));
         }
+
+        ivWeatherView.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(iPosition).getWeather().get(0).getIcon()));
+        tvCurrentWeather.setText("" + ((int) (forecastApiResponse.getData().getList().get(iPosition).getMain().getTemp() - 273.15f)) + "°C");
+        tvWeatherTime.setText(getFormateTime(strDateTime));
+        tvWeatherType.setText(forecastApiResponse.getData().getList().get(iPosition).getWeather().get(0).getDescription());
+        tvWindPressure.setText("" + new Double(forecastApiResponse.getData().getList().get(iPosition).getWind().getSpeed()).intValue() + " mph");
     }
 
     /**
