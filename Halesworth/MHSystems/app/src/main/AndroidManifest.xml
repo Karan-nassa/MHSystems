@@ -168,6 +168,12 @@
             android:name="com.mh.systems.halesworth.activites.UpdatePasswordActivity"
             android:screenOrientation="portrait" />
 
+        <!-- See the Weather-->
+
+        <activity
+            android:name=".activites.WeatherDetailActivity"
+            android:screenOrientation="portrait" />
+
         <!-- FORGOT Password Activity -->
 
         <activity

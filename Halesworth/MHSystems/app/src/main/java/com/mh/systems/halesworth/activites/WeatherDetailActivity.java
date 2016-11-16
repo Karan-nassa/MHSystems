@@ -1,6 +1,5 @@
-package com.mh.systems.sunningdale.activites;
+package com.mh.systems.halesworth.activites;
 
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -16,12 +15,12 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.mh.systems.sunningdale.R;
-import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
-import com.mh.systems.sunningdale.models.forecast.ForecastApiResponse;
-import com.mh.systems.sunningdale.models.forecast.List;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.R;
+import com.mh.systems.halesworth.constants.ApplicationGlobal;
+import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.models.forecast.ForecastApiResponse;
+import com.mh.systems.halesworth.models.forecast.List;
+import com.mh.systems.halesworth.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -194,41 +193,42 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
     @OnClick({R.id.flDayGroup1, R.id.flDayGroup2, R.id.flDayGroup3, R.id.flDayGroup4, R.id.flDayGroup5})
     @Override
     public void onClick(View v) {
-        if (v != flLastSelectedView) {
-            switch (v.getId()) {
-                case R.id.flDayGroup1:
-                    updateDetailUI(0);
-                    flDayGroup1.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                    break;
 
-                case R.id.flDayGroup2:
-                    updateDetailUI(1);
-                    flDayGroup2.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                    break;
+	 if (v != flLastSelectedView) {
+        switch (v.getId()) {
+            case R.id.flDayGroup1:
+                updateDetailUI(0);
+                flDayGroup1.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                break;
 
-                case R.id.flDayGroup3:
-                    updateDetailUI(2);
-                    flDayGroup3.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                    break;
+            case R.id.flDayGroup2:
+                updateDetailUI(1);
+                flDayGroup2.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                break;
 
-                case R.id.flDayGroup4:
-                    updateDetailUI(3);
-                    flDayGroup4.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                    break;
+            case R.id.flDayGroup3:
+                updateDetailUI(2);
+                flDayGroup3.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                break;
 
-                case R.id.flDayGroup5:
-                    updateDetailUI(4);
-                    flDayGroup5.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                    break;
-            }
+            case R.id.flDayGroup4:
+                updateDetailUI(3);
+                flDayGroup4.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                break;
 
-            if (flLastSelectedView == null) {
-                flLastSelectedView = flDayGroup1;
-            }
-            flLastSelectedView.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color242422));
-            flLastSelectedView = (FrameLayout) v;
+            case R.id.flDayGroup5:
+                updateDetailUI(4);
+                flDayGroup5.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                break;
         }
+
+        if (flLastSelectedView == null) {
+            flLastSelectedView = flDayGroup1;
+        }
+        flLastSelectedView.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color242422));
+        flLastSelectedView = (FrameLayout) v;
     }
+	}
 
     /****************** ++ WEATHER API FEATURE ++ ******************/
 
@@ -292,41 +292,8 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
             for (int iCount = 0; iCount < forecastApiResponse.getData().getList().size(); iCount++) {
                 ((TextView) tvDayNameArr[iCount]).setText(getFormateDayName(forecastApiResponse.getData().getList().get(iCount).getDtTxt()));
                 ((ImageView) ivWeatherDayArr[iCount]).setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(iCount).getWeather().get(0).getIcon()));
-                ((TextView) tvTempDayArr[iCount]).setText("" + ((int) (forecastApiResponse.getData().getList().get(iCount).getMain().getTemp() - 273.15f)) + "°C");
+                ((TextView)tvTempDayArr[iCount]).setText("" + ((int) (forecastApiResponse.getData().getList().get(iCount).getMain().getTemp() - 273.15f)) + "°C");
             }
-
-//            tvDayName1.setText(getFormateDayName(forecastApiResponse.getData().getList().get(0).getDtTxt()));
-//            tvDayName2.setText(getFormateDayName(forecastApiResponse.getData().getList().get(1).getDtTxt()));
-//            tvDayName3.setText(getFormateDayName(forecastApiResponse.getData().getList().get(2).getDtTxt()));
-//            tvDayName4.setText(getFormateDayName(forecastApiResponse.getData().getList().get(3).getDtTxt()));
-//            tvDayName5.setText(getFormateDayName(forecastApiResponse.getData().getList().get(4).getDtTxt()));
-//
-//            ivWeatherDay1.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(0).getWeather().get(0).getIcon()));
-//            ivWeatherDay2.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(1).getWeather().get(0).getIcon()));
-//            ivWeatherDay3.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(2).getWeather().get(0).getIcon()));
-//            ivWeatherDay4.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(3).getWeather().get(0).getIcon()));
-//            ivWeatherDay5.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(4).getWeather().get(0).getIcon()));
-//
-//            tvTempDay1.setText("" + ((int) (forecastApiResponse.getData().getList().get(0).getMain().getTemp() - 273.15f)) + "°C");
-//            tvTempDay2.setText("" + ((int) (forecastApiResponse.getData().getList().get(1).getMain().getTemp() - 273.15f)) + "°C");
-//            tvTempDay3.setText("" + ((int) (forecastApiResponse.getData().getList().get(2).getMain().getTemp() - 273.15f)) + "°C");
-//            tvTempDay4.setText("" + ((int) (forecastApiResponse.getData().getList().get(3).getMain().getTemp() - 273.15f)) + "°C");
-//            tvTempDay5.setText("" + ((int) (forecastApiResponse.getData().getList().get(4).getMain().getTemp() - 273.15f)) + "°C");
-
-//            tvTodayTemperature.setText("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C");
-//            tvWeatherDesc.setText("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1)));
-//            //        tvNameOfLocation.setText(weatherData.getName() + ", " + weatherData.getSys().getCountry());
-//            tvNameOfLocation.setText(weatherData.getName());
-//            todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherData.getWeather().get(0).getIcon() + ".png"));
-//            Resources res=getResources();
-//            int resID = res.getIdentifier("e"+weatherData.getWeather().get(0).getIcon(), "mipmap", getPackageName());
-//            Drawable drawable = res.getDrawable(resID);
-//            todayIcon.setImageDrawable(drawable);
-
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, weatherData.getName());
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
 
         } else {
             Toast.makeText(WeatherDetailActivity.this, forecastApiResponse.getMessage(), Toast.LENGTH_LONG).show();

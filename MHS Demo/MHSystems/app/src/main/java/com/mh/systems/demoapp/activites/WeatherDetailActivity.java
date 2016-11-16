@@ -194,39 +194,41 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
     @OnClick({R.id.flDayGroup1, R.id.flDayGroup2, R.id.flDayGroup3, R.id.flDayGroup4, R.id.flDayGroup5})
     @Override
     public void onClick(View v) {
+        if (v != flLastSelectedView) {
 
-        switch (v.getId()) {
-            case R.id.flDayGroup1:
-                updateDetailUI(0);
-                flDayGroup1.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                break;
+            switch (v.getId()) {
+                case R.id.flDayGroup1:
+                    updateDetailUI(0);
+                    flDayGroup1.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                    break;
 
-            case R.id.flDayGroup2:
-                updateDetailUI(1);
-                flDayGroup2.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                break;
+                case R.id.flDayGroup2:
+                    updateDetailUI(1);
+                    flDayGroup2.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                    break;
 
-            case R.id.flDayGroup3:
-                updateDetailUI(2);
-                flDayGroup3.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                break;
+                case R.id.flDayGroup3:
+                    updateDetailUI(2);
+                    flDayGroup3.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                    break;
 
-            case R.id.flDayGroup4:
-                updateDetailUI(3);
-                flDayGroup4.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                break;
+                case R.id.flDayGroup4:
+                    updateDetailUI(3);
+                    flDayGroup4.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                    break;
 
-            case R.id.flDayGroup5:
-                updateDetailUI(4);
-                flDayGroup5.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                break;
+                case R.id.flDayGroup5:
+                    updateDetailUI(4);
+                    flDayGroup5.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
+                    break;
+            }
+
+            if (flLastSelectedView == null) {
+                flLastSelectedView = flDayGroup1;
+            }
+            flLastSelectedView.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color242422));
+            flLastSelectedView = (FrameLayout) v;
         }
-
-        if (flLastSelectedView == null) {
-            flLastSelectedView = flDayGroup1;
-        }
-        flLastSelectedView.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color242422));
-        flLastSelectedView = (FrameLayout) v;
     }
 
     /****************** ++ WEATHER API FEATURE ++ ******************/
