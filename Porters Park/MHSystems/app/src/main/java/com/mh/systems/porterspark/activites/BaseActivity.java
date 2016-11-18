@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mh.systems.porterspark.models.CoursesData;
+import com.mh.systems.porterspark.models.CourseNames.CourseNamesData;
 import com.mh.systems.porterspark.models.MembersDetailsData;
 import com.newrelic.com.google.gson.Gson;
 import com.rollbar.android.Rollbar;
@@ -63,7 +63,7 @@ public class BaseActivity extends AppCompatActivity {
 
         if (ApplicationGlobal.isRollMessageDisplay) {
             //Initialize Roll bar.
-            Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_TESTING, "TESTING");
+            Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_PRODUCTION, "PRODUCTION");
         }
     }
 
@@ -353,7 +353,7 @@ public class BaseActivity extends AppCompatActivity {
         if (sharedpreferences.contains(ApplicationGlobal.KEY_COURSES)) {
             String jsonFavorites = sharedpreferences.getString(ApplicationGlobal.KEY_COURSES, null);
             Gson gson = new Gson();
-            CoursesData[] favoriteItems = gson.fromJson(jsonFavorites, CoursesData[].class);
+            CourseNamesData[] favoriteItems = gson.fromJson(jsonFavorites, CourseNamesData[].class);
             arrayList = Arrays.asList(favoriteItems);
             arrayList = new ArrayList(arrayList);
         } else

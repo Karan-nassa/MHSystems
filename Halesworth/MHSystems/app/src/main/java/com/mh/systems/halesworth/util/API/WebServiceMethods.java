@@ -9,6 +9,7 @@ import com.mh.systems.halesworth.models.CompetitionJoinAPI;
 import com.mh.systems.halesworth.models.CompetitionUnjoinAPI;
 import com.mh.systems.halesworth.models.CompetitionsAPI;
 import com.mh.systems.halesworth.models.CourseDiaryAPI;
+import com.mh.systems.halesworth.models.CourseNames.CourseNamesAPI;
 import com.mh.systems.halesworth.models.DashboardAPI;
 import com.mh.systems.halesworth.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.halesworth.models.ForgotPassword.ForgotPasswordAPI;
@@ -353,5 +354,15 @@ public interface WebServiceMethods {
     @POST("/webapi/ClubAppUse/forecast")
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
 
+    /**
+     * Declaration of Course Diary names from web service.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param courseNamesAPI : Names of course diary.
+     * @param response       : JSON response back from api.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getCourseNames(@Body CourseNamesAPI courseNamesAPI, Callback<JsonObject> response);
 }
 

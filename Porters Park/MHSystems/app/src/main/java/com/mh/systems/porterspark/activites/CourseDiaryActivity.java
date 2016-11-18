@@ -18,7 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.porterspark.models.CoursesData;
+import com.mh.systems.porterspark.models.CourseNames.CourseNamesData;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.adapter.BaseAdapter.CourseDiaryAdapter;
@@ -64,7 +64,7 @@ public class CourseDiaryActivity extends BaseActivity {
      *******************************/
     public final String LOG_TAG = CourseDiaryActivity.class.getSimpleName();
 
-    ArrayList<CoursesData> coursesDataArrayList = new ArrayList<>();
+    ArrayList<CourseNamesData> coursesDataArrayList = new ArrayList<>();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -240,7 +240,7 @@ public class CourseDiaryActivity extends BaseActivity {
 
                     tvCourseType.setText(item.getTitle());
 
-                    switch (item.getItemId()) {
+                    /*switch (item.getItemId()) {
                         case R.id.item_tonbridge:
                             strCourseType = "1.1";
                             break;
@@ -248,7 +248,11 @@ public class CourseDiaryActivity extends BaseActivity {
                         case R.id.item_pembury:
                             strCourseType = "1.2";
                             break;
-                    }
+                    }*/
+
+                    //Pass Course Diary key dynamically.
+                    strCourseType = coursesDataArrayList.get(item.getItemId()).getKey();
+                    Log.e(LOG_TAG, "Course : " + strCourseType);
 
                     resetArrayData();
 
@@ -316,11 +320,19 @@ public class CourseDiaryActivity extends BaseActivity {
          * Step 1: Create a new instance of popup menu
          */
         popupMenu = new PopupMenu(this, tvCourseType);
+
+        coursesDataArrayList = loadPreferencesList(CourseDiaryActivity.this);
+
+        for (int iCount = 0; iCount < coursesDataArrayList.size(); iCount++) {
+            Log.e(LOG_TAG, coursesDataArrayList.get(iCount).getDescription());
+            popupMenu.getMenu().add(Menu.NONE, iCount, Menu.NONE, coursesDataArrayList.get(iCount).getDescription());
+        }
+
         /**
          * Step 2: Inflate the menu resource. Here the menu resource is
          * defined in the res/menu project folder
          */
-        popupMenu.inflate(R.menu.course_menu);
+        // popupMenu.inflate(R.menu.course_menu);
 
         //Initially display title at position 0 of R.menu.course_menu.
         tvCourseType.setText("" + popupMenu.getMenu().getItem(0));

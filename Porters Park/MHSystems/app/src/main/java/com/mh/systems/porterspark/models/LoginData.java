@@ -25,9 +25,6 @@ public class LoginData {
     @SerializedName("HCapExactStr")
     @Expose
     private String HCapExactStr;
-    @SerializedName("Courses")
-    @Expose
-    private List<CoursesData> Courses = new ArrayList<CoursesData>();
     @SerializedName("FirstTimeLogin")
     @Expose
     private boolean FirstTimeLogin;
@@ -53,20 +50,6 @@ public class LoginData {
     @SerializedName("YourAccountFeature")
     @Expose
     private boolean YourAccountFeature;
-
-    /**
-     * @return The courses
-     */
-    public List<CoursesData> getCourses() {
-        return Courses;
-    }
-
-    /**
-     * @param courses The courses
-     */
-    public void setCourses(List<CoursesData> courses) {
-        Courses = courses;
-    }
 
     /**
      * @return The ClubID

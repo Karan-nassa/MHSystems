@@ -9,6 +9,7 @@ import com.mh.systems.porterspark.models.CompetitionJoinAPI;
 import com.mh.systems.porterspark.models.CompetitionUnjoinAPI;
 import com.mh.systems.porterspark.models.CompetitionsAPI;
 import com.mh.systems.porterspark.models.CourseDiaryAPI;
+import com.mh.systems.porterspark.models.CourseNames.CourseNamesAPI;
 import com.mh.systems.porterspark.models.DashboardAPI;
 import com.mh.systems.porterspark.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.porterspark.models.ForgotPassword.ForgotPasswordAPI;
@@ -352,5 +353,16 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/ClubAppUse/forecast")
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Course Diary names from web service.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param courseNamesAPI : Names of course diary.
+     * @param response       : JSON response back from api.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getCourseNames(@Body CourseNamesAPI courseNamesAPI, Callback<JsonObject> response);
 }
 

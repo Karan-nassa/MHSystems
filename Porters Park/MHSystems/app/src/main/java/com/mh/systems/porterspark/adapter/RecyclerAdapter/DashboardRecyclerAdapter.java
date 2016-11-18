@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,25 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
+import com.mh.systems.porterspark.activites.CourseDiaryActivity;
 import com.mh.systems.porterspark.activites.DashboardActivity;
+import com.mh.systems.porterspark.constants.ApplicationGlobal;
+import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.models.CourseNames.AJsonParamsCourseNames;
+import com.mh.systems.porterspark.models.CourseNames.CourseNamesAPI;
+import com.mh.systems.porterspark.models.CourseNames.CourseNamesResponse;
+import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 
 
 /**
@@ -24,6 +40,7 @@ import java.util.ArrayList;
  */
 public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecyclerAdapter.ViewHolder> {
 
+    private final String LOG_TAG = DashboardRecyclerAdapter.class.getSimpleName();
 
     Context context;
     private static LayoutInflater inflater = null;
@@ -37,6 +54,13 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     Typeface tfButtlerMedium, tfRobotoMedium;
 
     ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList;
+
+    //Create instance of classes.
+    CourseNamesAPI courseNamesAPI;
+    AJsonParamsCourseNames aJsonParamsCourseNames;
+
+    CourseNamesResponse courseNamesResponse;
+    Intent intent;
 
     // The default constructor to receive titles,icons and context from DashboardActivity.
     public DashboardRecyclerAdapter(DashboardActivity mainActivity, ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList, int iHandicapPosition, String hCapExactStr) {
@@ -156,25 +180,129 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
         @Override
         public void onClick(View v) {
 
-            int iPosition = 0;
+            /**
+             * If course diary available then get names of Courses online.
+             */
+            if (dashboardItemsArrayList.get(getAdapterPosition()).getStrTitleOfGrid().equals("Course Diary")) {
 
-            Class<?> destClassName = null;
-            if (dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid() != null) {
-                try {
-                    destClassName = Class.forName(dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid());
+                if (((DashboardActivity) context).isOnline(context)) {
+                    updateMemberDetails();
+                } else {
+                    ((DashboardActivity) context).showAlertMessage(context.getResources().getString(R.string.error_no_internet));
+                    ((DashboardActivity) context).hideProgress();
+                }
+            } else {
+                int iPosition = 0;
 
-                    if (dashboardItemsArrayList.get(getAdapterPosition()).getiGridIcon() == R.mipmap.ic_handicap_chart) {
-                        iPosition = 1;
+                Class<?> destClassName = null;
+                if (dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid() != null) {
+                    try {
+                        destClassName = Class.forName(dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid());
+
+                        if (dashboardItemsArrayList.get(getAdapterPosition()).getiGridIcon() == R.mipmap.ic_handicap_chart) {
+                            iPosition = 1;
+                        }
+
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
 
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    intent = new Intent(context, destClassName);
+                    intent.putExtra("iTabPosition", iPosition);
+                    context.startActivity(intent);
                 }
-
-                Intent intent = new Intent(context, destClassName);
-                intent.putExtra("iTabPosition", iPosition);
-                context.startActivity(intent);
             }
         }
+    }
+
+    /**
+     * Implements a method to hit update members detail service.
+     */
+    private void updateMemberDetails() {
+
+        ((DashboardActivity) context).showPleaseWait("Please wait...");
+
+        aJsonParamsCourseNames = new AJsonParamsCourseNames();
+        aJsonParamsCourseNames.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsCourseNames.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+
+        courseNamesAPI = new CourseNamesAPI(getClientId(), "GETCOURSEDIARIES", "COURSEDIARY", ApplicationGlobal.TAG_GCLUB_MEMBERS, aJsonParamsCourseNames);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getCourseNames(courseNamesAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                ((DashboardActivity) context).hideProgress();
+                ((DashboardActivity) context).showAlertMessage("" + context.getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<CourseNamesResponse>() {
+        }.getType();
+        courseNamesResponse = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (courseNamesResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                Gson gson = new Gson();
+
+                //Save Courses ArrayList in Shared-preference.
+                ((DashboardActivity) context).savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(courseNamesResponse.getData()));
+
+                intent = new Intent(context, CourseDiaryActivity.class);
+                context.startActivity(intent);
+
+            } else {
+                //If web service not respond in any case.
+                ((DashboardActivity) context).showAlertMessage(courseNamesResponse.getMessage());
+            }
+
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+        ((DashboardActivity) context).hideProgress();
+    }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    public String getMemberId() {
+        return ((DashboardActivity) context).loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return ((DashboardActivity) context).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 }
