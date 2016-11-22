@@ -1,5 +1,5 @@
 
-package com.mh.systems.demoapp.models.forecast;
+package com.mh.systems.sunningdale.models.forecast;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 
-public class List {
+public class ListOfDay {
 
     @SerializedName("dt")
     @Expose

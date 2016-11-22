@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color65B0DE"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -15,8 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="75"
-        android:background="@color/color65B0DE"
+        android:layout_weight="62"
         android:orientation="vertical">
 
         <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
@@ -42,22 +42,11 @@
 
         <ImageView
             android:id="@+id/ivWeatherView"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="22"
             android:gravity="center_vertical" />
-
-        <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
-            android:id="@+id/tvWeatherTime"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="7"
-            android:alpha="0.5"
-            android:gravity="center_vertical"
-            android:textColor="@color/colorWhiteffffff"
-            android:textSize="13sp" />
 
         <com.mh.systems.demoapp.customfonts.RobotoLight
             android:id="@+id/tvCurrentWeather"
@@ -86,17 +75,31 @@
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="10"
+            android:alpha="0.5"
             android:drawableLeft="@mipmap/ic_wind"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
             android:textColor="@color/colorWhiteffffff"
             android:textSize="13sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"/>
     </LinearLayout>
+
+    <!-- HORIZONTAL RECYCLER VIEW -->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvWeatherList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="28">
+        android:layout_weight="20">
 
         <FrameLayout
             android:id="@+id/flDayGroup1"

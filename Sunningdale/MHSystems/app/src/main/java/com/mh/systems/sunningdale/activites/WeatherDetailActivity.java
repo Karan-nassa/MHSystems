@@ -1,9 +1,10 @@
 package com.mh.systems.sunningdale.activites;
 
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -17,10 +18,12 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
+import com.mh.systems.sunningdale.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
+import com.mh.systems.sunningdale.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.constants.WebAPI;
 import com.mh.systems.sunningdale.models.forecast.ForecastApiResponse;
-import com.mh.systems.sunningdale.models.forecast.List;
+import com.mh.systems.sunningdale.models.forecast.ListOfDay;
 import com.mh.systems.sunningdale.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
@@ -30,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
@@ -78,9 +82,6 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
     @Bind(R.id.ivWeatherView)
     ImageView ivWeatherView;
-
-    @Bind(R.id.tvWeatherTime)
-    TextView tvWeatherTime;
 
     @Bind(R.id.tvWeatherType)
     TextView tvWeatherType;
@@ -137,14 +138,20 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
     View[] ivWeatherDayArr;
     View[] tvTempDayArr;
 
+    @Bind(R.id.rvWeatherList)
+    RecyclerView rvWeatherList;
+
     FrameLayout flLastSelectedView = flDayGroup1;
 
     //Instance of Weather api.
     ForecastApiResponse forecastApiResponse;
 
+    //Instance of Recycler Adapter.
+    ForecastRecyclerAdapter forecastRecyclerAdapter;
+
     private Date mLastDate = null;
 
-    ArrayList<List> listArrayList = new ArrayList<>();
+    List<List<ListOfDay>> listArrayList = new ArrayList<>();
     ArrayList<String> integerArrayList = new ArrayList<>();
 
     String strNameOfWeatherLoc;
@@ -171,6 +178,14 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
         strNameOfWeatherLoc = getIntent().getStringExtra("WEATHER_LOC");
 
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvWeatherList.setLayoutManager(layoutManager);
+
+        //Set Grid options adapter.
+       // forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(0));
+        //rvWeatherList.setAdapter(forecastRecyclerAdapter);
+
         callWeatherService();
     }
 
@@ -195,6 +210,7 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v != flLastSelectedView) {
+
             switch (v.getId()) {
                 case R.id.flDayGroup1:
                     updateDetailUI(0);
@@ -285,43 +301,17 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
         if (forecastApiResponse.getData() != null) {
 
+            listArrayList.addAll(forecastApiResponse.getData().getListOfDay());
+
             updateDetailUI(0);
 
             tvNameOfLoc.setText(strNameOfWeatherLoc + ", " + forecastApiResponse.getData().getCity().getCountry());
 
-            for (int iCount = 0; iCount < forecastApiResponse.getData().getList().size(); iCount++) {
-                ((TextView) tvDayNameArr[iCount]).setText(getFormateDayName(forecastApiResponse.getData().getList().get(iCount).getDtTxt()));
-                ((ImageView) ivWeatherDayArr[iCount]).setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(iCount).getWeather().get(0).getIcon()));
-                ((TextView) tvTempDayArr[iCount]).setText("" + ((int) (forecastApiResponse.getData().getList().get(iCount).getMain().getTemp() - 273.15f)) + "°C");
+            for (int iCount = 0; iCount < forecastApiResponse.getData().getListOfDay().size(); iCount++) {
+                ((TextView) tvDayNameArr[iCount]).setText(getFormateDayName(forecastApiResponse.getData().getListOfDay().get(iCount).get(0).getDtTxt()));
+                ((ImageView) ivWeatherDayArr[iCount]).setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getListOfDay().get(iCount).get(0).getWeather().get(0).getIcon()));
+                ((TextView) tvTempDayArr[iCount]).setText("" + ((int) (forecastApiResponse.getData().getListOfDay().get(iCount).get(0).getMain().getTemp() - 273.15f)) + "°C");
             }
-
-//            tvDayName1.setText(getFormateDayName(forecastApiResponse.getData().getList().get(0).getDtTxt()));
-//            tvDayName2.setText(getFormateDayName(forecastApiResponse.getData().getList().get(1).getDtTxt()));
-//            tvDayName3.setText(getFormateDayName(forecastApiResponse.getData().getList().get(2).getDtTxt()));
-//            tvDayName4.setText(getFormateDayName(forecastApiResponse.getData().getList().get(3).getDtTxt()));
-//            tvDayName5.setText(getFormateDayName(forecastApiResponse.getData().getList().get(4).getDtTxt()));
-//
-//            ivWeatherDay1.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(0).getWeather().get(0).getIcon()));
-//            ivWeatherDay2.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(1).getWeather().get(0).getIcon()));
-//            ivWeatherDay3.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(2).getWeather().get(0).getIcon()));
-//            ivWeatherDay4.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(3).getWeather().get(0).getIcon()));
-//            ivWeatherDay5.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(4).getWeather().get(0).getIcon()));
-//
-//            tvTempDay1.setText("" + ((int) (forecastApiResponse.getData().getList().get(0).getMain().getTemp() - 273.15f)) + "°C");
-//            tvTempDay2.setText("" + ((int) (forecastApiResponse.getData().getList().get(1).getMain().getTemp() - 273.15f)) + "°C");
-//            tvTempDay3.setText("" + ((int) (forecastApiResponse.getData().getList().get(2).getMain().getTemp() - 273.15f)) + "°C");
-//            tvTempDay4.setText("" + ((int) (forecastApiResponse.getData().getList().get(3).getMain().getTemp() - 273.15f)) + "°C");
-//            tvTempDay5.setText("" + ((int) (forecastApiResponse.getData().getList().get(4).getMain().getTemp() - 273.15f)) + "°C");
-
-//            tvTodayTemperature.setText("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C");
-//            tvWeatherDesc.setText("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1)));
-//            //        tvNameOfLocation.setText(weatherData.getName() + ", " + weatherData.getSys().getCountry());
-//            tvNameOfLocation.setText(weatherData.getName());
-//            todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherData.getWeather().get(0).getIcon() + ".png"));
-//            Resources res=getResources();
-//            int resID = res.getIdentifier("e"+weatherData.getWeather().get(0).getIcon(), "mipmap", getPackageName());
-//            Drawable drawable = res.getDrawable(resID);
-//            todayIcon.setImageDrawable(drawable);
 
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));
@@ -339,19 +329,26 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
      */
     private void updateDetailUI(int iPosition) {
 
-        String strDateTime = forecastApiResponse.getData().getList().get(iPosition).getDtTxt();
+        if (iPosition < forecastApiResponse.getData().getListOfDay().size()) {
 
-        if (iPosition == 0) {
-            tvWeatherDate.setText(("Today, " + getFormateDate(strDateTime)));
-        } else {
-            tvWeatherDate.setText(getFormateDate(strDateTime));
+            String strDateTime = forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getDtTxt();
+
+            if (iPosition == 0) {
+                tvWeatherDate.setText(("Today, " + getFormateDate(strDateTime)));
+            } else {
+                tvWeatherDate.setText(getFormateDate(strDateTime));
+            }
+
+            ivWeatherView.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getWeather().get(0).getIcon()));
+            tvCurrentWeather.setText("" + ((int) (forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getMain().getTemp() - 273.15f)) + "°C");
+          //  tvWeatherTime.setText(getFormateTime(strDateTime));
+            tvWeatherType.setText(forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getWeather().get(0).getDescription());
+            tvWindPressure.setText("" + new Double(forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getWind().getSpeed()).intValue() + " mph");
         }
 
-        ivWeatherView.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getList().get(iPosition).getWeather().get(0).getIcon()));
-        tvCurrentWeather.setText("" + ((int) (forecastApiResponse.getData().getList().get(iPosition).getMain().getTemp() - 273.15f)) + "°C");
-        tvWeatherTime.setText(getFormateTime(strDateTime));
-        tvWeatherType.setText(forecastApiResponse.getData().getList().get(iPosition).getWeather().get(0).getDescription());
-        tvWindPressure.setText("" + new Double(forecastApiResponse.getData().getList().get(iPosition).getWind().getSpeed()).intValue() + " mph");
+        forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(iPosition));
+        rvWeatherList.setAdapter(forecastRecyclerAdapter);
+        forecastRecyclerAdapter.notifyDataSetChanged();
     }
 
     /**
