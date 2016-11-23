@@ -38,7 +38,7 @@
 
             <!-- SUMMER LABEL -->
 
-            <com.mh.systems.sandyLodge.customfonts.RobotoMediumTextView
+            <com.mh.systems.sandylodge.customfonts.RobotoMediumTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SUMMARY"
@@ -55,7 +55,7 @@
                 android:orientation="horizontal"
                 android:weightSum="90">
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="30"
@@ -63,7 +63,7 @@
                     android:textColor="#4B4B49"
                     android:textSize="16sp" />
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     android:id="@+id/tvDetailPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                     android:textColor="#4B4B49"
                     android:textSize="16sp" />
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextFontBold
+                <com.mh.systems.sandylodge.customfonts.RobotoTextFontBold
                     android:id="@+id/tvTotalPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                 android:orientation="horizontal"
                 android:weightSum="90">
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="45"
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="45">
 
-                    <com.mh.systems.sandyLodge.customfonts.RobotoTextFontBold
+                    <com.mh.systems.sandylodge.customfonts.RobotoTextFontBold
                         android:id="@+id/tvTeeTimeValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
 
                     <!-- SELECT text as hint to select Tee Time Slot -->
 
-                    <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                    <com.mh.systems.sandylodge.customfonts.RobotoTextView
                         android:id="@+id/tvSelectHint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
 
                 <!-- SELECT PLAYER LABEL -->
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoMediumTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoMediumTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SELECT PLAYERS"
@@ -170,7 +170,7 @@
 
                     <!-- PLAYER COUNT 1 -->
 
-                    <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                    <com.mh.systems.sandylodge.customfonts.RobotoTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.5"
@@ -186,7 +186,7 @@
                         android:orientation="horizontal">
 
 
-                        <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                        <com.mh.systems.sandylodge.customfonts.RobotoTextView
                             android:id="@+id/tvPlayerName1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -217,7 +217,7 @@
 
                     <!-- PLAYER COUNT 2 -->
 
-                    <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                    <com.mh.systems.sandylodge.customfonts.RobotoTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.5"
@@ -238,7 +238,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="30dp">
 
-                            <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                            <com.mh.systems.sandylodge.customfonts.RobotoTextView
                                 android:id="@+id/tvPlayerName2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -279,7 +279,7 @@
 
                     <!-- PLAYER COUNT 3 -->
 
-                    <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                    <com.mh.systems.sandylodge.customfonts.RobotoTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.5"
@@ -301,7 +301,7 @@
                             android:layout_marginRight="30dp">
 
 
-                            <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                            <com.mh.systems.sandylodge.customfonts.RobotoTextView
                                 android:id="@+id/tvPlayerName3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -342,7 +342,7 @@
 
                     <!-- PLAYER COUNT 4 -->
 
-                    <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                    <com.mh.systems.sandylodge.customfonts.RobotoTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.5"
@@ -364,7 +364,7 @@
                             android:layout_marginRight="30dp">
 
 
-                            <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                            <com.mh.systems.sandylodge.customfonts.RobotoTextView
                                 android:id="@+id/tvPlayerName4"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -404,7 +404,7 @@
 
                     <!-- SUMMER LABEL -->
 
-                    <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                    <com.mh.systems.sandylodge.customfonts.RobotoTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="35dp"
@@ -414,7 +414,7 @@
 
                     <!-- TIME SLOTS GRID VIEW -->
 
-                    <com.mh.systems.sandyLodge.util.ExpandableHeightGridView
+                    <com.mh.systems.sandylodge.util.ExpandableHeightGridView
                         android:id="@+id/gvTimeSlots"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

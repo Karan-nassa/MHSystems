@@ -22,7 +22,7 @@ android {
     buildToolsVersion '24.0.2'
 
     defaultConfig {
-        applicationId "com.mh.systems.sandyLodge"
+        applicationId "com.mh.systems.sandylodge"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1

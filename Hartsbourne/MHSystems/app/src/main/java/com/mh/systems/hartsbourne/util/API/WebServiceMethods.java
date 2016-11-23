@@ -30,6 +30,7 @@ import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -325,5 +326,32 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void updatePassword(@Body UpdatePassswordAPI updatePassswordAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of WEATHER API status on dashboard.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param type         : WEATHER OR FORCEAST
+     * @param aClientId    : Club ID like 44071043 for Demo App.
+     * @param aCurrentDate : Current date.
+     * @param response     : Weather api response in JSON format.
+     */
+    @POST("/webapi/ClubAppUse/{type}")
+    public void weatherAPI(@Path("type") String type, @Query("aClientId") String aClientId, @Query("aCurrentDate") String aCurrentDate, Callback<JsonObject> response);
+
+    /**
+     * Declaration of FORCAST API status on dashboard.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param type      : WEATHER OR FORCEAST
+     * @param aClientId : Club ID like 44071043 for Demo App.
+     * @param aHour     : Time hour in running device.
+     * @param response  : Weather api response in JSON format.
+     */
+    @POST("/webapi/ClubAppUse/forecast")
+    public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
+
 }
 

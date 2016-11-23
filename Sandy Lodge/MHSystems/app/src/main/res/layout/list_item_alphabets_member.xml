@@ -34,7 +34,7 @@
 
             <!-- CIRCLE IMAGE AS A BACKGROUND -->
 
-            <com.mh.systems.sandyLodge.utils.CircularContactView
+            <com.mh.systems.sandylodge.utils.CircularContactView
                 android:id="@+id/listview_item__friendPhotoImageView"
                 android:layout_width="@dimen/list_item__contact_imageview_size"
                 android:layout_height="@dimen/list_item__contact_imageview_size"
@@ -52,7 +52,7 @@
 
             <!-- VIEW TO DISPLAY 'PlayHCapStr' OF EACH MEMBER -->
 
-            <com.mh.systems.sandyLodge.customfonts.RobotoMediumTextView
+            <com.mh.systems.sandylodge.customfonts.RobotoMediumTextView
                 android:id="@+id/tvPlayHCapStr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
 
         <!-- DISPLAY NAME -->
 
-        <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+        <com.mh.systems.sandylodge.customfonts.RobotoTextView
             android:id="@+id/listview_item__friendNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

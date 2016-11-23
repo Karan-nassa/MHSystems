@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <!-- TITLE OF ALERT -->
+
+        <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unsaved changes"
+            android:textSize="20sp" />
+
+        <!-- MESSAGE OF ALERT -->
+
+        <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/colorBlack000000"
+            android:alpha="54"
+            android:text="You didn\’t saved your changes."
+            android:textSize="16sp" />
+
+        <!-- BLANK SPACE -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30" />
+
+            <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
+                android:id="@+id/tvCancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:text="CANCEL"
+                android:textColor="@color/color009688" />
+
+            <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
+                android:id="@+id/tvSaveNow"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:text="SAVE NOW"
+                android:textColor="@color/color009688" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

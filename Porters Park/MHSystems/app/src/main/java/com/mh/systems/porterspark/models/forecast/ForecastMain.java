@@ -1,10 +1,11 @@
 
 package com.mh.systems.porterspark.models.forecast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 
 
 public class ForecastMain {
@@ -21,98 +22,83 @@ public class ForecastMain {
     @SerializedName("cnt")
     @Expose
     private Integer cnt;
-    @SerializedName("list")
+    @SerializedName("listOfDay")
     @Expose
-    private java.util.List<List> list = new ArrayList<List>();
+    private List<List<ListOfDay>> listOfDay = new ArrayList<List<ListOfDay>>();
 
     /**
-     * 
-     * @return
-     *     The cod
+     * @return The cod
      */
     public String getCod() {
         return cod;
     }
 
     /**
-     * 
-     * @param cod
-     *     The cod
+     * @param cod The cod
      */
     public void setCod(String cod) {
         this.cod = cod;
     }
 
     /**
-     * 
-     * @return
-     *     The message
+     * @return The message
      */
     public Double getMessage() {
         return message;
     }
 
     /**
-     * 
-     * @param message
-     *     The message
+     * @param message The message
      */
     public void setMessage(Double message) {
         this.message = message;
     }
 
     /**
-     * 
-     * @return
-     *     The city
+     * @return The city
      */
     public City getCity() {
         return city;
     }
 
     /**
-     * 
-     * @param city
-     *     The city
+     * @param city The city
      */
     public void setCity(City city) {
         this.city = city;
     }
 
     /**
-     * 
-     * @return
-     *     The cnt
+     * @return The cnt
      */
     public Integer getCnt() {
         return cnt;
     }
 
     /**
-     * 
-     * @param cnt
-     *     The cnt
+     * @param cnt The cnt
      */
     public void setCnt(Integer cnt) {
         this.cnt = cnt;
     }
 
     /**
-     * 
+     *
      * @return
-     *     The list
+     * The listOfDay
      */
-    public java.util.List<com.mh.systems.porterspark.models.forecast.List> getList() {
-        return list;
+    public List<List<ListOfDay>> getListOfDay() {
+        return listOfDay;
     }
 
     /**
-     * 
-     * @param list
-     *     The list
+     *
+     * @param listOfDay
+     * The listOfDay
      */
-    public void setList(java.util.List<com.mh.systems.porterspark.models.forecast.List> list) {
-        this.list = list;
+    public void setListOfDay(List<List<ListOfDay>> listOfDay) {
+        this.listOfDay = listOfDay;
     }
+
 
 }

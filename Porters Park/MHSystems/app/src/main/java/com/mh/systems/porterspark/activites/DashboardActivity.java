@@ -167,9 +167,9 @@ public class DashboardActivity extends BaseActivity {
         super.onResume();
 
         //Call Weather api functionality.
-        /*if (isOnline(DashboardActivity.this)) {
+        if (isOnline(DashboardActivity.this)) {
             callWeatherService();
-        }*/
+        }
     }
 
     /**

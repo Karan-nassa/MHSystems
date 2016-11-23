@@ -90,11 +90,23 @@
 
     <!-- HORIZONTAL RECYCLER VIEW -->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvWeatherList"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="18"/>
+        android:layout_weight="18"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorWhiteffffff"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvWeatherList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

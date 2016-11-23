@@ -33,14 +33,14 @@
                 android:layout_marginRight="16dp"
                 android:orientation="vertical">
                 <!-- EMAIL EDIT TEXT -->
-                <com.mh.systems.sandyLodge.customfonts.RobotoMediumTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoMediumTextView
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="16dp"
                     android:text="CONTACT DETAILS"
                     android:textColor="@color/colorC59A5C"
                     android:textSize="12sp" />
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="18dp"
                     android:paddingLeft="3dp"
@@ -65,7 +65,7 @@
                 <!-- EMAIL EDIT TEXT END -->
 
                 <!-- MOIL EDIT TEXT -->
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
@@ -90,7 +90,7 @@
                 <!-- MOBILE EDIT TEXT END -->
 
                 <!-- WORK EDIT TEXT -->
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
@@ -115,7 +115,7 @@
                 <!-- WORK EDIT TEXT END -->
 
                 <!-- HOME EDIT TEXT -->
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
@@ -139,7 +139,7 @@
                 <!-- HOME EDIT TEXT END -->
 
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoMediumTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoMediumTextView
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="16dp"
                     android:paddingLeft="3dp"
@@ -147,7 +147,7 @@
                     android:textColor="@color/colorC59A5C"
                     android:textSize="12sp" />
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="18dp"
                     android:paddingLeft="3dp"
@@ -169,7 +169,7 @@
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="18dp"
                     android:text="Address Line 2"
@@ -190,7 +190,7 @@
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="18dp"
                     android:paddingLeft="3dp"
@@ -214,7 +214,7 @@
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="18dp"
                     android:paddingLeft="3dp"
@@ -236,7 +236,7 @@
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="18dp"
                     android:paddingLeft="3dp"
@@ -258,7 +258,7 @@
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="18dp"
                     android:paddingLeft="3dp"
@@ -280,7 +280,7 @@
                     android:textColor="@color/eighty_seven_of_black"
                     android:textSize="16sp" />
 
-                <com.mh.systems.sandyLodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:layout_marginTop="18dp"
                     android:paddingLeft="3dp"
