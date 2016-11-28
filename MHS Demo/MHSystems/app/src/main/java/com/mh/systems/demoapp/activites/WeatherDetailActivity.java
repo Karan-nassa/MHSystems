@@ -3,6 +3,7 @@ package com.mh.systems.demoapp.activites;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -178,12 +179,23 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
         strNameOfWeatherLoc = getIntent().getStringExtra("WEATHER_LOC");
 
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        // Create a grid layout with two columns
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 9, LinearLayoutManager.VERTICAL, false);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return 3;
+            }
+        });
+        // Layout Managers:
         rvWeatherList.setLayoutManager(layoutManager);
 
+//        LinearLayoutManager layoutManager
+//                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        rvWeatherList.setLayoutManager(layoutManager);
+
         //Set Grid options adapter.
-       // forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(0));
+        // forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(0));
         //rvWeatherList.setAdapter(forecastRecyclerAdapter);
 
         callWeatherService();
@@ -341,12 +353,48 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
             ivWeatherView.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getWeather().get(0).getIcon()));
             tvCurrentWeather.setText("" + ((int) (forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getMain().getTemp() - 273.15f)) + "°C");
-          //  tvWeatherTime.setText(getFormateTime(strDateTime));
+            //  tvWeatherTime.setText(getFormateTime(strDateTime));
             tvWeatherType.setText(forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getWeather().get(0).getDescription());
             tvWindPressure.setText("" + new Double(forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getWind().getSpeed()).intValue() + " mph");
         }
 
         forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(iPosition));
+
+        final int iListSize = listArrayList.get(iPosition).size();
+
+        if (iPosition == 0 ||  iListSize <= 4) {
+            // Create a grid layout with two columns
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 9, LinearLayoutManager.VERTICAL, false);
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+
+                    switch (iListSize){
+                        case 1:
+                            return 9;
+
+                        case 2:
+                            return 4;
+
+                        case 3:
+                            return 3;
+
+                        case 4:
+                            return 2;
+
+                    }
+                    return 9;
+                }
+            });
+            // Layout Managers:
+            rvWeatherList.setLayoutManager(layoutManager);
+        } else {
+
+            LinearLayoutManager layoutManager
+                    = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            rvWeatherList.setLayoutManager(layoutManager);
+        }
+
         rvWeatherList.setAdapter(forecastRecyclerAdapter);
         forecastRecyclerAdapter.notifyDataSetChanged();
     }

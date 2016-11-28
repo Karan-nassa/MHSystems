@@ -80,7 +80,6 @@ public class DashboardActivity extends BaseActivity {
     @Bind(R.id.todayIcon)
     ImageView todayIcon;
 
-
     //Instance of Grid Adapter.
     DashboardRecyclerAdapter dashboardRecyclerAdapter;
     Intent intent = null;

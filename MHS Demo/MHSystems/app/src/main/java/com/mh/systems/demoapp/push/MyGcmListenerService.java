@@ -36,11 +36,13 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.activites.DashboardActivity;
 import com.mh.systems.demoapp.activites.SplashActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MyGcmListenerService extends GcmListenerService {
@@ -50,6 +52,8 @@ public class MyGcmListenerService extends GcmListenerService {
     String mStringType, mStringUsername, mStringMessage, mStringCaseId;
     int senderUserId, receiverUserId, CaseId;
     //PrefsManager prefsManager;
+
+    ArrayList<String> notifiyArrList = new ArrayList<>();
 
     /**
      * Called when message is received.
@@ -68,20 +72,17 @@ public class MyGcmListenerService extends GcmListenerService {
             message = data.getString("message");
             Log.e("message:", "" + message);
 
-            try {
+           /* try {
                 mJson_Object = new JSONObject(message);
                 mStringType = mJson_Object.getString("message");
                 Log.e("mStringType:", "" + mStringType);
-
-
 
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Cause " + e.getCause());
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
-
-            sendNotification(mStringType, uniqueId);
-
+*/
+            sendNotification(message, uniqueId);
 
         } catch (Exception e) {
 
@@ -113,9 +114,31 @@ public class MyGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
+        Intent resultIntent = new Intent(this, DashboardActivity.class);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent piResult = PendingIntent.getActivity(this, 0, resultIntent, 0);
+
+        Notification.Builder builder=new Notification.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("contentTitle")
+                .setContentText("contentText")
+                .setContentIntent(piResult);
+
+        Notification notification = new Notification.InboxStyle(builder)
+                .addLine(message)
+                /*.addLine("Second Message")
+                .addLine("Third Message")
+                .addLine("Fourth Message")*/
+                .setBigContentTitle("Here Your Messages")
+                .setSummaryText("+3 more")
+                .build();
+
+        NotificationManager notificationManager2 = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager2.notify(121,notification);
+
         //Bitmap bitmap =  BitmapFactory.decodeResource(this.getResources(),
         // R.drawable.ic_launcher);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+       /* NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setContentTitle(getResources().getString(R.string.app_name))
                 .setContentText(message)
@@ -126,7 +149,7 @@ public class MyGcmListenerService extends GcmListenerService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify((int) number_push /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify((int) number_push *//* ID of notification *//*, notificationBuilder.build());*/
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

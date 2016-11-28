@@ -16,6 +16,10 @@ import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.push.QuickstartPreferences;
 import com.mh.systems.demoapp.push.RegistrationIntentService;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * The {@link SplashActivity} used to load the SPLASH/LOADING
  * screen.
@@ -103,7 +107,7 @@ public class SplashActivity extends BaseActivity {
                 apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
                         .show();
             } else {
-                Log.i("KARAN", "This device is not supported.");
+                Log.i("checkPlayServices", "This device is not supported.");
                 finish();
             }
             return false;
