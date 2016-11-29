@@ -3,6 +3,7 @@ package com.mh.systems.brokenhurst.activites;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -340,15 +341,56 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
             ivWeatherView.setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getWeather().get(0).getIcon()));
             tvCurrentWeather.setText("" + ((int) (forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getMain().getTemp() - 273.15f)) + "°C");
-          //  tvWeatherTime.setText(getFormateTime(strDateTime));
+            //  tvWeatherTime.setText(getFormateTime(strDateTime));
             tvWeatherType.setText(forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getWeather().get(0).getDescription());
             tvWindPressure.setText("" + new Double(forecastApiResponse.getData().getListOfDay().get(iPosition).get(0).getWind().getSpeed()).intValue() + " mph");
         }
 
         forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(iPosition));
+
+        final int iListSize = listArrayList.get(iPosition).size();
+
+        if (iListSize <= 5) {
+            // Create a grid layout with two columns
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 15, LinearLayoutManager.VERTICAL, false);
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+
+                    switch (iListSize) {
+                        case 1:
+                            return 15;
+
+                        case 2:
+                            return (position == 0) ? 8 : 7;
+
+                        case 3:
+                            return 5;
+
+                        case 4:
+                            return (position == 1) ? 3 : 4;
+
+                        case 5:
+                            return 3;
+
+                    }
+                    return 15;
+                }
+            });
+            // Layout Managers:
+            rvWeatherList.setLayoutManager(layoutManager);
+            forecastRecyclerAdapter.notifyDataSetChanged();
+        } else {
+
+            LinearLayoutManager layoutManager
+                    = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            rvWeatherList.setLayoutManager(layoutManager);
+        }
+
         rvWeatherList.setAdapter(forecastRecyclerAdapter);
         forecastRecyclerAdapter.notifyDataSetChanged();
     }
+
 
     /**
      * Generate Weather Icon from string.

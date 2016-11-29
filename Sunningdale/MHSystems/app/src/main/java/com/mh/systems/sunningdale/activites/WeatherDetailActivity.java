@@ -3,6 +3,7 @@ package com.mh.systems.sunningdale.activites;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,17 +16,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
-import com.mh.systems.sunningdale.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.sunningdale.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.constants.WebAPI;
 import com.mh.systems.sunningdale.models.forecast.ForecastApiResponse;
 import com.mh.systems.sunningdale.models.forecast.ListOfDay;
 import com.mh.systems.sunningdale.util.API.WebServiceMethods;
-import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
@@ -347,6 +347,45 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
         }
 
         forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(iPosition));
+
+        final int iListSize = listArrayList.get(iPosition).size();
+
+        if (iListSize <= 5) {
+            // Create a grid layout with two columns
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 15, LinearLayoutManager.VERTICAL, false);
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+
+                    switch (iListSize) {
+                        case 1:
+                            return 15;
+
+                        case 2:
+                            return (position == 0) ? 8 : 7;
+
+                        case 3:
+                            return 5;
+
+                        case 4:
+                            return (position == 1) ? 3 : 4;
+
+                        case 5:
+                            return 3;
+
+                    }
+                    return 15;
+                }
+            });
+            // Layout Managers:
+            rvWeatherList.setLayoutManager(layoutManager);
+        } else {
+
+            LinearLayoutManager layoutManager
+                    = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            rvWeatherList.setLayoutManager(layoutManager);
+        }
+
         rvWeatherList.setAdapter(forecastRecyclerAdapter);
         forecastRecyclerAdapter.notifyDataSetChanged();
     }
