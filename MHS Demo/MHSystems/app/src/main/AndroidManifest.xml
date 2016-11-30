@@ -220,7 +220,7 @@
 
         <!-- WEATHER SERVICE -->
 
-        <service android:name=".service.MyService" />
+        <service android:name=".service.DashboardWeatherService" />
 
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for

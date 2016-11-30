@@ -126,7 +126,6 @@ public class DashboardActivity extends BaseActivity {
          */
         ButterKnife.bind(DashboardActivity.this);
 
-
         setGridMenuOptions();
 
         //LogOut listener.

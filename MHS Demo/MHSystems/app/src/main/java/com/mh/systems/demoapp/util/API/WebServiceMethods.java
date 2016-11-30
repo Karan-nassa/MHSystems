@@ -25,6 +25,7 @@ import com.mh.systems.demoapp.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.UpdateCompEntryAPI;
+import com.mh.systems.demoapp.models.registerToken.RegisterTokenAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -373,5 +374,15 @@ public interface WebServiceMethods {
     @POST("/ClubAppUse/forecast")
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
 
+    /**
+     * Declaration of REGISTRATION TOKEN API in background service.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param registerTokenAPI : Time hour in running device.
+     * @param response         : Weather api response in JSON format.
+     */
+    @POST("/api/ClubsApp")
+    public void registerToken(@Body RegisterTokenAPI registerTokenAPI, Callback<JsonObject> response);
 }
 

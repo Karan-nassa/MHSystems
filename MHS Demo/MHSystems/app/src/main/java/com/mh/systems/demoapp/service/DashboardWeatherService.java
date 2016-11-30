@@ -27,8 +27,8 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-public class MyService extends Service {
-    private static final String TAG = "MyService";
+public class DashboardWeatherService extends Service {
+    private static final String TAG = "DashboardWeatherService";
     private boolean isRunning = false;
     private Looper looper;
     private MyServiceHandler myServiceHandler;
@@ -77,7 +77,7 @@ public class MyService extends Service {
             synchronized (this) {
                 for (int i = 0; ; i++) {
                     try {
-                        Log.i(TAG, "MyService running...");
+                        Log.i(TAG, "DashboardWeatherService running...");
                         callWeatherService();
                         Thread.sleep(changeTime);
                     } catch (Exception e) {
@@ -161,7 +161,7 @@ public class MyService extends Service {
 
 
         } else {
-            Toast.makeText(MyService.this, "Oops! Unable to load weather status.", Toast.LENGTH_LONG).show();
+            Toast.makeText(DashboardWeatherService.this, "Oops! Unable to load weather status.", Toast.LENGTH_LONG).show();
         }
     }
 
