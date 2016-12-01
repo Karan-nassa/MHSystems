@@ -348,49 +348,12 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
         forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(iPosition));
 
-        final int iListSize = listArrayList.get(iPosition).size();
-
-        if (iListSize <= 5) {
-            // Create a grid layout with two columns
-            GridLayoutManager layoutManager = new GridLayoutManager(this, 15, LinearLayoutManager.VERTICAL, false);
-            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-
-                    switch (iListSize) {
-                        case 1:
-                            return 15;
-
-                        case 2:
-                            return (position == 0) ? 8 : 7;
-
-                        case 3:
-                            return 5;
-
-                        case 4:
-                            return (position == 1) ? 3 : 4;
-
-                        case 5:
-                            return 3;
-
-                    }
-                    return 15;
-                }
-            });
-            // Layout Managers:
-            rvWeatherList.setLayoutManager(layoutManager);
-            forecastRecyclerAdapter.notifyDataSetChanged();
-        } else {
-
-            LinearLayoutManager layoutManager
-                    = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            rvWeatherList.setLayoutManager(layoutManager);
-        }
-
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvWeatherList.setLayoutManager(layoutManager);
         rvWeatherList.setAdapter(forecastRecyclerAdapter);
         forecastRecyclerAdapter.notifyDataSetChanged();
     }
-
 
     /**
      * Generate Weather Icon from string.

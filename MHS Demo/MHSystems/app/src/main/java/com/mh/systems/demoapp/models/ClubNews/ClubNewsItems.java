@@ -1,13 +1,15 @@
 
 package com.mh.systems.demoapp.models.ClubNews;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class ClubNewsItems {
+public class ClubNewsItems implements Serializable {
 
     @SerializedName("Message")
     @Expose
@@ -20,54 +22,42 @@ public class ClubNewsItems {
     private List<ClubNewsData> Data = new ArrayList<ClubNewsData>();
 
     /**
-     * 
-     * @return
-     *     The Message
+     * @return The Message
      */
     public String getMessage() {
         return Message;
     }
 
     /**
-     * 
-     * @param Message
-     *     The Message
+     * @param Message The Message
      */
     public void setMessage(String Message) {
         this.Message = Message;
     }
 
     /**
-     * 
-     * @return
-     *     The Result
+     * @return The Result
      */
     public Integer getResult() {
         return Result;
     }
 
     /**
-     * 
-     * @param Result
-     *     The Result
+     * @param Result The Result
      */
     public void setResult(Integer Result) {
         this.Result = Result;
     }
 
     /**
-     * 
-     * @return
-     *     The Data
+     * @return The Data
      */
     public List<ClubNewsData> getData() {
         return Data;
     }
 
     /**
-     * 
-     * @param Data
-     *     The Data
+     * @param Data The Data
      */
     public void setData(List<ClubNewsData> Data) {
         this.Data = Data;

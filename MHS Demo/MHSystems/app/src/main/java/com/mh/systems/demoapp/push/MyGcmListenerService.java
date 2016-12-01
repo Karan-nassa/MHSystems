@@ -72,7 +72,7 @@ public class MyGcmListenerService extends GcmListenerService {
             message = data.getString("message");
             Log.e("message:", "" + message);
 
-           /* try {
+            try {
                 mJson_Object = new JSONObject(message);
                 mStringType = mJson_Object.getString("message");
                 Log.e("mStringType:", "" + mStringType);
@@ -81,15 +81,13 @@ public class MyGcmListenerService extends GcmListenerService {
                 Log.e("JSON Parser", "Cause " + e.getCause());
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
-*/
-            sendNotification(message, uniqueId);
+            sendNotification(mStringType, uniqueId);
 
         } catch (Exception e) {
 
             Log.e("mStringType: ", "" + mStringType);
             //    Rollbar.reportException(e, "critical", "My Gcmlistener services crash");
             //   Rollbar.reportMessage("GCM MessageType: " + mStringType, "--GCM Message:-" + mStringMessage);
-
         }
 
         // [END_EXCLUDE]
@@ -102,39 +100,44 @@ public class MyGcmListenerService extends GcmListenerService {
      * @param message GCM message received.
      */
     private void sendNotification(String message, long number_push) {
-        Log.e("sendNotification: ", "" + message);
+        //Log.e("sendNotification: ", "" + message);
 
-        Intent intent = new Intent(this, SplashActivity.class);
+        //Intent intent = new Intent(this, DashboardActivity.class);
       /*  intent.putExtra("message_username", mStringUsername);
         intent.putExtra("whrlocation", "notification");
         intent.putExtra("userId2", senderUserId);*/
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+       // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+//                PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        Intent resultIntent = new Intent(this, DashboardActivity.class);
-        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent piResult = PendingIntent.getActivity(this, 0, resultIntent, 0);
+        Intent intent = new Intent(this, DashboardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                0);
 
-        Notification.Builder builder=new Notification.Builder(this)
+        Notification.Builder notificationBuilder = new Notification.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("contentTitle")
-                .setContentText("contentText")
-                .setContentIntent(piResult);
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setContentTitle(getResources().getString(R.string.app_name))
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent)
+                .setPriority(Notification.PRIORITY_HIGH);
 
-        Notification notification = new Notification.InboxStyle(builder)
+        Notification notification = new Notification.InboxStyle(notificationBuilder)
                 .addLine(message)
                 /*.addLine("Second Message")
                 .addLine("Third Message")
                 .addLine("Fourth Message")*/
-                .setBigContentTitle("Here Your Messages")
+                .setBigContentTitle(getResources().getString(R.string.app_name))
                 .setSummaryText("+3 more")
                 .build();
 
-        NotificationManager notificationManager2 = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager2.notify(121,notification);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(121, notification);
 
         //Bitmap bitmap =  BitmapFactory.decodeResource(this.getResources(),
         // R.drawable.ic_launcher);

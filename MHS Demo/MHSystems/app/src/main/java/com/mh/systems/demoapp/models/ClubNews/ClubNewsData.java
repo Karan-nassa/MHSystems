@@ -5,8 +5,10 @@ package com.mh.systems.demoapp.models.ClubNews;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 
-public class ClubNewsData {
+
+public class ClubNewsData implements Serializable{
 
     @SerializedName("ClubNewsID")
     @Expose

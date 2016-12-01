@@ -1,6 +1,7 @@
 package com.mh.systems.demoapp.activites;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ import com.mh.systems.demoapp.models.ClubNews.ClubNewsData;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailResult;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsItems;
+import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.mh.systems.demoapp.util.DividerItemDecoration;
 
@@ -111,18 +113,6 @@ public class ClubNewsActivity extends BaseActivity {
         rvClubNewsList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
         // mRecyclerView.setItemAnimator(new FadeInLeftAnimator());
 
-        //Set Adapter.
-        clubNewsSwipeAdapter = new ClubNewsSwipeAdapter(ClubNewsActivity.this, clubNewsDataArrayList);
-        rvClubNewsList.setAdapter(clubNewsSwipeAdapter);
-
-        //Set click listener events declaration.
-        llHomeIcon.setOnClickListener(mHomePressListener);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
         /**
          *  Check internet connection before hitting server request.
          */
@@ -136,7 +126,54 @@ public class ClubNewsActivity extends BaseActivity {
             //showAlertMessage(getResources().getString(R.string.error_no_internet));
             hideProgress();
         }
+
+        clubNewsSwipeAdapter = new ClubNewsSwipeAdapter(ClubNewsActivity.this, clubNewsDataArrayList);
+        rvClubNewsList.setAdapter(clubNewsSwipeAdapter);
+
+        //Set click listener events declaration.
+        llHomeIcon.setOnClickListener(mHomePressListener);
     }
+
+   /* @Override
+    protected void onResume() {
+        super.onResume();
+
+        clubNewsSwipeAdapter.notifyDataSetChanged();
+    }*/
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 111) {
+
+            boolean IsRead = (boolean) data.getSerializableExtra("IsRead");
+            int iPosition = (int) data.getSerializableExtra("iPosition");
+
+            Log.e("onActivityResult", "IsRead : " + IsRead);
+            Log.e("onActivityResult", "iPosition : " + iPosition);
+
+            clubNewsDataArrayList.get(iPosition).setIsRead(IsRead);
+            clubNewsSwipeAdapter.notifyDataSetChanged();
+        }
+    }
+
+    /* @Override
+    protected void onResume() {
+        super.onResume();
+
+        *//**
+     *  Check internet connection before hitting server request.
+     *//*
+        if (isOnline(this)) {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            // inc_message_view.setVisibility(View.GONE);
+            requestClubNews();
+        } else {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            // inc_message_view.setVisibility(View.VISIBLE);
+            //showAlertMessage(getResources().getString(R.string.error_no_internet));
+            hideProgress();
+        }
+    }*/
 
     /**
      * Implement a method to hit News web service to get response.
@@ -220,6 +257,7 @@ public class ClubNewsActivity extends BaseActivity {
                 } else {
                     showNoCourseView(true);
 
+                    //Set Adapter.
                     clubNewsSwipeAdapter.notifyDataSetChanged();
                 }
             } else {

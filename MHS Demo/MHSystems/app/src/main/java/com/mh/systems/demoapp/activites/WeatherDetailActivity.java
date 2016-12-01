@@ -360,9 +360,9 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
         forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(iPosition));
 
-        final int iListSize = listArrayList.get(iPosition).size();
+        //final int iListSize = listArrayList.get(iPosition).size();
 
-        if (iListSize <= 5) {
+        /*if (iListSize <= 5) {
             // Create a grid layout with two columns
             GridLayoutManager layoutManager = new GridLayoutManager(this, 15, LinearLayoutManager.VERTICAL, false);
             layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -390,15 +390,16 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
                 }
             });
             // Layout Managers:
-            rvWeatherList.setLayoutManager(layoutManager);
-            forecastRecyclerAdapter.notifyDataSetChanged();
+           // rvWeatherList.setLayoutManager(layoutManager);
         } else {
 
             LinearLayoutManager layoutManager
                     = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             rvWeatherList.setLayoutManager(layoutManager);
-        }
+        }*/
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvWeatherList.setLayoutManager(layoutManager);
         rvWeatherList.setAdapter(forecastRecyclerAdapter);
         forecastRecyclerAdapter.notifyDataSetChanged();
     }
