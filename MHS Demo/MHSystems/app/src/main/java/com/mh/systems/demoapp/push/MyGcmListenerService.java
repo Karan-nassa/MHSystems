@@ -33,9 +33,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.activites.ClubNewsActivity;
 import com.mh.systems.demoapp.activites.DashboardActivity;
 import com.mh.systems.demoapp.activites.SplashActivity;
 
@@ -84,7 +86,8 @@ public class MyGcmListenerService extends GcmListenerService {
                 Log.e("JSON Parser", "Cause " + e.getCause());
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
-            sendNotification(strMessage, uniqueId);
+            //sendNotification(strMessage, uniqueId);
+            CustomNotification(strMessage, uniqueId);
 
         } catch (Exception e) {
 
@@ -186,6 +189,56 @@ public class MyGcmListenerService extends GcmListenerService {
 
         notificationManager.notify((int) number_push /* ID of notification */, notificationBuilder.build());
         // notificationManager.n
+    }
+
+    /**
+     * Implements custom notification view
+     * for push.
+     */
+    public void CustomNotification(String message, long number_push) {
+        // Using RemoteViews to bind custom layouts into Notification
+        RemoteViews remoteViews = new RemoteViews(getPackageName(),
+                R.layout.custom_notification_view);
+
+        // Set Notification Title
+        //String strtitle = getString(R.string.customnotificationtitle);
+        // Set Notification Text
+        //String strtext = getString(R.string.customnotificationtext);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        // Open NotificationView Class on Notification Click
+        Intent intent = new Intent(this, ClubNewsActivity.class);
+
+        // Open NotificationView.java Activity
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                // Set Icon
+                .setSmallIcon(R.mipmap.ic_launcher)
+                // Set Ticker Message
+                .setTicker("Hello Ticker")
+                // Dismiss Notification
+                .setAutoCancel(true)
+                // Set PendingIntent into Notification
+                .setContentIntent(pIntent)
+                // Set RemoteViews into Notification
+                .setContent(remoteViews)
+                //Set Sound of Notification.
+                .setSound(defaultSoundUri);
+
+        Log.e("CustomNotification", "message: " + message);
+
+        // Locate and set the Text into customnotificationtext.xml TextViews
+        remoteViews.setTextViewText(R.id.tvNotifiTitle, getString(R.string.app_name));
+        remoteViews.setTextViewText(R.id.tvNotfiDesc, message);
+
+        // Create Notification Manager
+        NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        // Build Notification with Notification Manager
+        notificationmanager.notify((int) number_push, builder.build());
+
     }
 
     public Bitmap drawableToBitmap(Drawable drawable) {
