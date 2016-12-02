@@ -26,12 +26,11 @@ import com.mh.systems.demoapp.models.ClubNews.ClubNewsData;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailResult;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsItems;
-import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.mh.systems.demoapp.util.DividerItemDecoration;
 
-import java.util.ArrayList;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

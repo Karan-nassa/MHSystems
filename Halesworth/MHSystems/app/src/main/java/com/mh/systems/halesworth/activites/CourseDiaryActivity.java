@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.halesworth.models.CourseNames.CourseNamesData;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
@@ -28,9 +30,7 @@ import com.mh.systems.halesworth.models.CourseDiaryData;
 import com.mh.systems.halesworth.models.CourseDiaryDataCopy;
 import com.mh.systems.halesworth.models.CourseDiaryItems;
 import com.mh.systems.halesworth.models.CourseDiaryItemsCopy;
-import com.mh.systems.halesworth.models.CoursesData;
 import com.mh.systems.halesworth.util.API.WebServiceMethods;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
@@ -64,7 +64,7 @@ public class CourseDiaryActivity extends BaseActivity {
      *******************************/
     public final String LOG_TAG = CourseDiaryActivity.class.getSimpleName();
 
-    ArrayList<CoursesData> coursesDataArrayList = new ArrayList<>();
+    ArrayList<CourseNamesData> coursesDataArrayList = new ArrayList<>();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -240,7 +240,7 @@ public class CourseDiaryActivity extends BaseActivity {
 
                     tvCourseType.setText(item.getTitle());
 
-                    switch (item.getItemId()) {
+                    /*switch (item.getItemId()) {
                         case R.id.item_tonbridge:
                             strCourseType = "1.1";
                             break;
@@ -248,7 +248,11 @@ public class CourseDiaryActivity extends BaseActivity {
                         case R.id.item_pembury:
                             strCourseType = "1.2";
                             break;
-                    }
+                    }*/
+
+                    //Pass Course Diary key dynamically.
+                    strCourseType = coursesDataArrayList.get(item.getItemId()).getKey();
+                    Log.e(LOG_TAG, "Course : " + strCourseType);
 
                     resetArrayData();
 
@@ -316,15 +320,24 @@ public class CourseDiaryActivity extends BaseActivity {
          * Step 1: Create a new instance of popup menu
          */
         popupMenu = new PopupMenu(this, tvCourseType);
+
+        coursesDataArrayList = loadPreferencesList(CourseDiaryActivity.this);
+
+        for (int iCount = 0; iCount < coursesDataArrayList.size(); iCount++) {
+            Log.e(LOG_TAG, coursesDataArrayList.get(iCount).getDescription());
+            popupMenu.getMenu().add(Menu.NONE, iCount, Menu.NONE, coursesDataArrayList.get(iCount).getDescription());
+        }
+
         /**
          * Step 2: Inflate the menu resource. Here the menu resource is
          * defined in the res/menu project folder
          */
-        popupMenu.inflate(R.menu.course_menu);
+        // popupMenu.inflate(R.menu.course_menu);
 
         //Initially display title at position 0 of R.menu.course_menu.
         tvCourseType.setText("" + popupMenu.getMenu().getItem(0));
     }
+
 
     /**
      * Declares the quick navigation of top bar icons like Previous/Next Month, Today or
@@ -703,6 +716,7 @@ public class CourseDiaryActivity extends BaseActivity {
         return diaryDataArrayList;
     }
 
+
     /**
      * Implements a method to update
      * name of MONTH.
@@ -710,6 +724,7 @@ public class CourseDiaryActivity extends BaseActivity {
     public void setTitleBar(String strNameOfMonth) {
         tvNameOfMonth.setText(strNameOfMonth + " " + iYear);
     }
+
 
     /**
      * Implements Today functionality to display CURRENT date to
@@ -776,6 +791,7 @@ public class CourseDiaryActivity extends BaseActivity {
             setNextButton(true);
         }
     }
+
 
     /**
      * Implements a method to ENABLE/DISABLE previous
@@ -925,84 +941,6 @@ public class CourseDiaryActivity extends BaseActivity {
         resetMonthsNavigationIcons();
     }
 
-//    /**
-//     * Display CALENDAR view on tap of CALENDAR icon.
-//     */
-//    private void showCalendar() {
-//
-//        iMonthTemp = iMonth;
-//        iYearTemp = iYear;
-//        strDateTemp = strDate;
-//
-//        // Launch Date Picker Dialog
-//        DatePickerDialog dpd = new DatePickerDialog(this,
-//                new DatePickerDialog.OnDateSetListener() {
-//
-//                    @Override
-//                    public void onDateSet(DatePicker view, int year,
-//                                          int monthOfYear, int dayOfMonth) {
-//
-//                        int tMonthofYear = ++monthOfYear;
-//
-//                        if (year == iCurrentYear) {
-//
-//                            if (tMonthofYear > iCurrentMonth) {
-//
-//                                iYear = year;
-//                                iMonth = tMonthofYear;
-//                                strDate = "" + dayOfMonth;
-//
-//                                iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-//
-//                                //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-//                                resetMonthsNavigationIcons();
-//
-//                                // iNumOfDays = Integer.parseInt( strDate);
-//                                callTodayScrollEvents();
-//                            } else if (tMonthofYear == iCurrentMonth) {
-//
-//                                if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
-//
-//                                    iYear = year;
-//                                    iMonth = tMonthofYear;
-//                                    strDate = "" + dayOfMonth;
-//
-//                                    getNumberofDays();
-//
-//                                    //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-//                                    resetMonthsNavigationIcons();
-//
-//                                    // iNumOfDays = Integer.parseInt( strDate);
-//                                    callTodayScrollEvents();
-//                                } else {
-//                                    resetCalendarPicker();
-//                                    showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
-//                                }
-//                            } else {
-//                                resetCalendarPicker();
-//                                showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
-//                            }
-//                        } else {
-//                            resetCalendarPicker();
-//                            showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
-//                        }
-//                    }
-//                }, iYear, --iMonth, Integer.parseInt(strDate));
-//
-//        dpd.setButton(
-//                DialogInterface.BUTTON_NEGATIVE, "Cancel",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        if (which == DialogInterface.BUTTON_NEGATIVE) {
-//                            resetCalendarPicker();
-//                        }
-//                    }
-//                });
-//        dpd.show();
-//
-//        //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
-//        //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-//    }
 
     /**
      * Implements a method to display {@link Calendar}.

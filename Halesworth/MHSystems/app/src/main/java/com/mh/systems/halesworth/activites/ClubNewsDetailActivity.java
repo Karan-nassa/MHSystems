@@ -1,6 +1,7 @@
 package com.mh.systems.halesworth.activites;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -16,9 +17,12 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
 import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.models.ClubNews.AJsonParamsClubNews;
 import com.mh.systems.halesworth.models.ClubNews.AJsonParamsClubNewsDetail;
+import com.mh.systems.halesworth.models.ClubNews.ClubNewsAPI;
 import com.mh.systems.halesworth.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.halesworth.models.ClubNews.ClubNewsDetailResult;
+import com.mh.systems.halesworth.models.ClubNews.ClubNewsItems;
 import com.mh.systems.halesworth.util.API.WebServiceMethods;
 
 import java.lang.reflect.Type;
@@ -64,6 +68,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
      *******************************/
     int iClubNewsID;
     private Boolean isDelete, isRead;
+    private int iPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +87,12 @@ public class ClubNewsDetailActivity extends BaseActivity {
         }
 
         tvDateOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
-        //tvTimeOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
-       // tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
+        tvTimeOfNews.setText(getIntent().getExtras().getString("Time"));
+        // tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
         iClubNewsID = getIntent().getExtras().getInt("ClubNewsID");
         isRead = getIntent().getExtras().getBoolean("IsRead");
+
+        iPosition = getIntent().getExtras().getInt("iPosition");
 
         //data == html data which you want to load
         wvClubNews.getSettings().setJavaScriptEnabled(true);
@@ -110,7 +117,8 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                // finish();
+                onBackPressed();
                 break;
 
             case R.id.action_delete:
@@ -123,6 +131,19 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        Intent intent = new Intent(ClubNewsDetailActivity.this, ClubNewsActivity.class);
+        Bundle informacion = new Bundle();
+        informacion.putSerializable("IsRead", isRead);
+        informacion.putSerializable("iPosition", iPosition);
+        intent.putExtras(informacion);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     /**
@@ -219,15 +240,17 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 if (isDelete) {
                     showAlertOk("News deleted successfully.");
                 }
+                isRead = true;
             } else {
                 showAlertOk(clubNewsDetailResult.getMessage());
+                isRead = false;
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
 
-        resetValues();
+        //resetValues();
 
         //Dismiss progress dialog.
         hideProgress();

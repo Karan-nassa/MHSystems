@@ -1,8 +1,11 @@
 package com.mh.systems.sunningdale.adapter.RecyclerAdapter;
 
+import android.app.Activity;
 import android.content.Context;
+
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +16,15 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.activites.ClubNewsActivity;
 import com.mh.systems.sunningdale.activites.ClubNewsDetailActivity;
 import com.mh.systems.sunningdale.models.ClubNews.ClubNewsData;
 
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -51,9 +57,9 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         viewHolder.tvTitleOfNews.setText(clubNewsDataArrayList.get(position).getTitle());
         viewHolder.tvTimeOfNews.setText(clubNewsDataArrayList.get(position).getCreatedDate());
 
-        if(clubNewsDataArrayList.get(position).getIsRead()){
+        if (clubNewsDataArrayList.get(position).getIsRead()) {
             viewHolder.ivReadStatus.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             viewHolder.ivReadStatus.setVisibility(View.VISIBLE);
         }
 
@@ -61,7 +67,7 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             @Override
             public void onClick(View view) {
 
-                ((ClubNewsActivity)mContext).deleteClubNewsService(position, clubNewsDataArrayList.get(position).getClubNewsID());
+                ((ClubNewsActivity) mContext).deleteClubNewsService(position, clubNewsDataArrayList.get(position).getClubNewsID());
 
 //                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
 //                clubNewsDataArrayList.remove(position);
@@ -200,12 +206,17 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
 
         @Override
         public void onClick(View itemView) {
+
             Intent detailNewsIntent = new Intent(mContext, ClubNewsDetailActivity.class);
             detailNewsIntent.putExtra("ClubNewsID", clubNewsDataArrayList.get(getAdapterPosition()).getClubNewsID());
             detailNewsIntent.putExtra("CreatedDate", clubNewsDataArrayList.get(getAdapterPosition()).getCreatedDate());
+            detailNewsIntent.putExtra("Time", clubNewsDataArrayList.get(getAdapterPosition()).getTime());
             detailNewsIntent.putExtra("Message", clubNewsDataArrayList.get(getAdapterPosition()).getMessage());
             detailNewsIntent.putExtra("IsRead", clubNewsDataArrayList.get(getAdapterPosition()).getIsRead());
-            mContext.startActivity(detailNewsIntent);
+            detailNewsIntent.putExtra("iPosition", getAdapterPosition());
+
+            ((ClubNewsActivity) mContext).startActivityForResult(detailNewsIntent, 111);
+            //mContext.startActivity(detailNewsIntent);
         }
     }
 }

@@ -49,7 +49,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
     JSONObject mJson_Object, mJsonObject, mJsonObject_;
-    String mStringType, mStringUsername, mStringMessage, mStringCaseId;
+    String mStringUsername, strMessage, mStringCaseId;
     int senderUserId, receiverUserId, CaseId;
     //PrefsManager prefsManager;
 
@@ -74,18 +74,21 @@ public class MyGcmListenerService extends GcmListenerService {
 
             try {
                 mJson_Object = new JSONObject(message);
-                mStringType = mJson_Object.getString("message");
-                Log.e("mStringType:", "" + mStringType);
+                strMessage = mJson_Object.getString("message");
+
+                notifiyArrList.add(strMessage);
+
+                Log.e("strMessage:", "" + strMessage);
 
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Cause " + e.getCause());
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
-            sendNotification(mStringType, uniqueId);
+            sendNotification(strMessage, uniqueId);
 
         } catch (Exception e) {
 
-            Log.e("mStringType: ", "" + mStringType);
+            Log.e("mStringType: ", "" + strMessage);
             //    Rollbar.reportException(e, "critical", "My Gcmlistener services crash");
             //   Rollbar.reportMessage("GCM MessageType: " + mStringType, "--GCM Message:-" + mStringMessage);
         }
@@ -106,7 +109,7 @@ public class MyGcmListenerService extends GcmListenerService {
       /*  intent.putExtra("message_username", mStringUsername);
         intent.putExtra("whrlocation", "notification");
         intent.putExtra("userId2", senderUserId);*/
-       // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
 //                PendingIntent.FLAG_ONE_SHOT);
 
@@ -137,7 +140,7 @@ public class MyGcmListenerService extends GcmListenerService {
                 .build();
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(121, notification);
+        notificationManager.notify((int) number_push, notification);
 
         //Bitmap bitmap =  BitmapFactory.decodeResource(this.getResources(),
         // R.drawable.ic_launcher);
@@ -172,7 +175,7 @@ public class MyGcmListenerService extends GcmListenerService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setContentTitle(getResources().getString(R.string.app_name))
-                .setContentText(mStringMessage)
+                .setContentText(strMessage)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);

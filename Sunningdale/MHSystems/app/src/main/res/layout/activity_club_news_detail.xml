@@ -30,7 +30,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="25dp"
                 android:orientation="vertical">
 
@@ -58,14 +58,20 @@
 
                 <!-- CLUB NEWS DETAIL DESCRIPTION -->
 
-                <TextView
-                    android:id="@+id/tvDescOfNews"
+                <!-- <TextView
+                     android:id="@+id/tvDescOfNews"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:textSize="15dp"
+                     android:text="@string/text_club_news_detail"
+                     android:textColor="#A8000000" />-->
+
+                <WebView
+                    android:id="@+id/wvClubNews"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:textSize="15dp"
-                    android:text="@string/text_club_news_detail"
-                    android:textColor="#A8000000" />
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="25dp"/>
+
 
                 <!-- SPACE VIEW AT BOTTOM -->
                 <View

@@ -17,12 +17,9 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.models.ClubNews.AJsonParamsClubNews;
 import com.mh.systems.demoapp.models.ClubNews.AJsonParamsClubNewsDetail;
-import com.mh.systems.demoapp.models.ClubNews.ClubNewsAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailResult;
-import com.mh.systems.demoapp.models.ClubNews.ClubNewsItems;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 
 import java.lang.reflect.Type;
@@ -87,7 +84,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
         }
 
         tvDateOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
-        //tvTimeOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
+        tvTimeOfNews.setText(getIntent().getExtras().getString("Time"));
         // tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
         iClubNewsID = getIntent().getExtras().getInt("ClubNewsID");
         isRead = getIntent().getExtras().getBoolean("IsRead");

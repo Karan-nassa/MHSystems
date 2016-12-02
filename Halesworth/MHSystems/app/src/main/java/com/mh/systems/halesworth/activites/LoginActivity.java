@@ -249,10 +249,10 @@ public class LoginActivity extends BaseActivity {
                         savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, dashboardData.isClubNewsFeature());
                         savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, dashboardData.isYourAccountFeature());
 
-                        Gson gson = new Gson();
+                        //Gson gson = new Gson();
 
                         //Save Courses ArrayList in Shared-preference.
-                        savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
+                        //savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
 
                         intent = new Intent(LoginActivity.this, DashboardActivity.class);
                         startActivity(intent);

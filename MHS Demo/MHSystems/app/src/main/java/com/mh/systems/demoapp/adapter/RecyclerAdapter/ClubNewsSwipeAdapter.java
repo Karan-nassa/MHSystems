@@ -210,12 +210,10 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             Intent detailNewsIntent = new Intent(mContext, ClubNewsDetailActivity.class);
             detailNewsIntent.putExtra("ClubNewsID", clubNewsDataArrayList.get(getAdapterPosition()).getClubNewsID());
             detailNewsIntent.putExtra("CreatedDate", clubNewsDataArrayList.get(getAdapterPosition()).getCreatedDate());
+            detailNewsIntent.putExtra("Time", clubNewsDataArrayList.get(getAdapterPosition()).getTime());
             detailNewsIntent.putExtra("Message", clubNewsDataArrayList.get(getAdapterPosition()).getMessage());
             detailNewsIntent.putExtra("IsRead", clubNewsDataArrayList.get(getAdapterPosition()).getIsRead());
             detailNewsIntent.putExtra("iPosition", getAdapterPosition());
-
-            //UPDATE READ status of Club News.
-            //clubNewsDataArrayList.get(getAdapterPosition()).setIsRead(true);
 
             ((ClubNewsActivity) mContext).startActivityForResult(detailNewsIntent, 111);
             //mContext.startActivity(detailNewsIntent);

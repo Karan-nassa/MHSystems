@@ -22,6 +22,9 @@ public class ClubNewsData implements Serializable{
     @SerializedName("DateTimeText")
     @Expose
     private String DateTimeText;
+    @SerializedName("Time")
+    @Expose
+    String Time;
     @SerializedName("IsActive")
     @Expose
     private Boolean IsActive;
@@ -158,4 +161,21 @@ public class ClubNewsData implements Serializable{
         this.IsDeleted = IsDeleted;
     }
 
+    /**
+     *
+     * @return
+     *     The IsDeleted
+     */
+    public String getTime() {
+        return Time;
+    }
+
+    /**
+     *
+     * @param IsDeleted
+     *     The IsDeleted
+     */
+    public void setTime(String time) {
+        this.Time = time;
+    }
 }

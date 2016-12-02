@@ -15,13 +15,18 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.halesworth.R;
+import com.mh.systems.halesworth.activites.CourseDiaryActivity;
 import com.mh.systems.halesworth.activites.DashboardActivity;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
 import com.mh.systems.halesworth.constants.WebAPI;
 import com.mh.systems.halesworth.models.CourseNames.AJsonParamsCourseNames;
 import com.mh.systems.halesworth.models.CourseNames.CourseNamesAPI;
+import com.mh.systems.halesworth.models.CourseNames.CourseNamesResponse;
 import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import retrofit.Callback;
@@ -53,6 +58,9 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     //Create instance of classes.
     CourseNamesAPI courseNamesAPI;
     AJsonParamsCourseNames aJsonParamsCourseNames;
+
+    CourseNamesResponse courseNamesResponse;
+    Intent intent;
 
     // The default constructor to receive titles,icons and context from DashboardActivity.
     public DashboardRecyclerAdapter(DashboardActivity mainActivity, ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList, int iHandicapPosition, String hCapExactStr) {
@@ -175,7 +183,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
             /**
              * If course diary available then get names of Courses online.
              */
-            /*if (dashboardItemsArrayList.get(getAdapterPosition()).getStrTitleOfGrid().equals("Course Diary")) {
+            if (dashboardItemsArrayList.get(getAdapterPosition()).getStrTitleOfGrid().equals("Course Diary")) {
 
                 if (((DashboardActivity) context).isOnline(context)) {
                     updateMemberDetails();
@@ -183,8 +191,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
                     ((DashboardActivity) context).showAlertMessage(context.getResources().getString(R.string.error_no_internet));
                     ((DashboardActivity) context).hideProgress();
                 }
-            } else {*/
-
+            } else {
                 int iPosition = 0;
 
                 Class<?> destClassName = null;
@@ -200,12 +207,12 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
                         e.printStackTrace();
                     }
 
-                    Intent intent = new Intent(context, destClassName);
+                    intent = new Intent(context, destClassName);
                     intent.putExtra("iTabPosition", iPosition);
                     context.startActivity(intent);
                 }
             }
-       /* }*/
+        }
     }
 
     /**
@@ -255,29 +262,33 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
-       /* Type type = new TypeToken<EditDetailModeResponse>() {
+        Type type = new TypeToken<CourseNamesResponse>() {
         }.getType();
-        editDetailModeResponse = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        courseNamesResponse = new Gson().fromJson(jsonObject.toString(), type);
 
         try {
-            *//**
-         *  Check "Result" 1 or 0. If 1, means data received successfully.
-         *//*
-            if (editDetailModeResponse.getMessage().equalsIgnoreCase("Success")) {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (courseNamesResponse.getMessage().equalsIgnoreCase("Success")) {
 
-                //Set False after save value.
-                isUpdateToSave = false;
+                Gson gson = new Gson();
 
-                showAlertUpdateResult(editDetailModeResponse.getData());
+                //Save Courses ArrayList in Shared-preference.
+                ((DashboardActivity) context).savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(courseNamesResponse.getData()));
+
+                intent = new Intent(context, CourseDiaryActivity.class);
+                context.startActivity(intent);
+
             } else {
                 //If web service not respond in any case.
-                showAlertMessage(editDetailModeResponse.getMessage());
+                ((DashboardActivity) context).showAlertMessage(courseNamesResponse.getMessage());
             }
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
-        }*/
+        }
         ((DashboardActivity) context).hideProgress();
     }
 

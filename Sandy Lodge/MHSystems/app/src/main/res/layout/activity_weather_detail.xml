@@ -45,7 +45,7 @@
             android:layout_width="110dp"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="22"
+            android:layout_weight="20"
             android:gravity="center_vertical" />
 
         <com.mh.systems.sandylodge.customfonts.RobotoLight
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="8"
+            android:layout_weight="10"
             android:gravity="center_vertical"
             android:textColor="@color/colorWhiteffffff"
             android:textSize="40sp" />

@@ -1,6 +1,7 @@
 package com.mh.systems.sunningdale.activites;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -45,8 +47,11 @@ public class ClubNewsDetailActivity extends BaseActivity {
     @Bind(R.id.tvTimeOfNews)
     TextView tvTimeOfNews;
 
-    @Bind(R.id.tvDescOfNews)
-    TextView tvDescOfNews;
+   /* @Bind(R.id.tvDescOfNews)
+    TextView tvDescOfNews;*/
+
+    @Bind(R.id.wvClubNews)
+    WebView wvClubNews;
 
     Typeface tfSFUI_TextRegular;
 
@@ -60,6 +65,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
      *******************************/
     int iClubNewsID;
     private Boolean isDelete, isRead;
+    private int iPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +84,16 @@ public class ClubNewsDetailActivity extends BaseActivity {
         }
 
         tvDateOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
-        //tvTimeOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
-        tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
+        tvTimeOfNews.setText(getIntent().getExtras().getString("Time"));
+        // tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
         iClubNewsID = getIntent().getExtras().getInt("ClubNewsID");
         isRead = getIntent().getExtras().getBoolean("IsRead");
+
+        iPosition = getIntent().getExtras().getInt("iPosition");
+
+        //data == html data which you want to load
+        wvClubNews.getSettings().setJavaScriptEnabled(true);
+        wvClubNews.loadDataWithBaseURL("", getIntent().getExtras().getString("Message"), "text/html", "UTF-8", "");
 
         //If user haven't read news then call READ API status.
         if (!isRead) {
@@ -102,7 +114,8 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                // finish();
+                onBackPressed();
                 break;
 
             case R.id.action_delete:
@@ -115,6 +128,19 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        Intent intent = new Intent(ClubNewsDetailActivity.this, ClubNewsActivity.class);
+        Bundle informacion = new Bundle();
+        informacion.putSerializable("IsRead", isRead);
+        informacion.putSerializable("iPosition", iPosition);
+        intent.putExtras(informacion);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     /**
@@ -169,10 +195,11 @@ public class ClubNewsDetailActivity extends BaseActivity {
             @Override
             public void failure(RetrofitError error) {
                 resetValues();
+
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
-                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                showAlertMessage("" + getResources().getString(R.string.error_server_problem));
             }
         });
     }
@@ -188,7 +215,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
      * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
      */
     public String getMemberId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "44118078");
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "44071043");
     }
 
     /**
@@ -210,15 +237,17 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 if (isDelete) {
                     showAlertOk("News deleted successfully.");
                 }
+                isRead = true;
             } else {
                 showAlertOk(clubNewsDetailResult.getMessage());
+                isRead = false;
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
 
-        resetValues();
+        //resetValues();
 
         //Dismiss progress dialog.
         hideProgress();
@@ -241,7 +270,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
         tvDateOfNews.setTypeface(tfSFUI_TextRegular);
         tvTimeOfNews.setTypeface(tfSFUI_TextRegular);
-        tvDescOfNews.setTypeface(tfSFUI_TextRegular);
+        //tvDescOfNews.setTypeface(tfSFUI_TextRegular);
     }
 
     /**

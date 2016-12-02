@@ -280,8 +280,6 @@ public class FinanceFragment extends Fragment {
                 setTransactionListTitle();
                 tvCardBalance.setText(financeResultItems.getData().getClosingBalance());
 
-                financeAdapter.notifyDataSetChanged();
-
             } else {
                 //If web service not respond in any case.
                 ((BaseActivity) getActivity()).showAlertMessage(financeResultItems.getMessage());
