@@ -41,6 +41,7 @@ import com.rollbar.android.Rollbar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class PushNotificationService extends GcmListenerService {
@@ -48,10 +49,12 @@ public class PushNotificationService extends GcmListenerService {
     private static final String LOG_TAG = PushNotificationService.class.getSimpleName();
     String strMessage;
 
-    public static StringBuilder stringBuilderMsg = new StringBuilder();
+    //public static StringBuilder stringBuilderMsg = new StringBuilder();
 
-    NotificationCompat.Builder builder;
+    NotificationCompat.Builder notificationBuilder;
     private JSONObject mJSONObject;
+
+    public static ArrayList<String> strArrList = new ArrayList<>();
 
     /**
      * Called when message is received.
@@ -73,22 +76,21 @@ public class PushNotificationService extends GcmListenerService {
                 mJSONObject = new JSONObject(message);
                 strMessage = mJSONObject.getString("message");
 
-                stringBuilderMsg.append(strMessage + "\n");
-
-                Log.e("strMessage:", "" + strMessage);
+                //stringBuilderMsg.append(strMessage + "\n");
+                strArrList.add(strMessage);
 
             } catch (JSONException e) {
                 Log.e(LOG_TAG, "JSONException Cause " + e.getCause());
                 Log.e(LOG_TAG, "JSONException Error parsing data " + e.toString());
             }
-            //sendNotification(strMessage, uniqueId);
-            CustomNotification(stringBuilderMsg, uniqueId);
+            sendNotification(strArrList, uniqueId);
+            //CustomNotification(stringBuilderMsg, uniqueId);
 
         } catch (Exception e) {
 
             Log.e(LOG_TAG, "Exception : " + e.toString());
             Rollbar.reportException(e, "critical", "My Gcmlistener services crash");
-            Rollbar.reportMessage("GCM String Builder value : " + stringBuilderMsg, "--GCM Message:-" + message);
+            Rollbar.reportMessage("GCM String Builder value : " + strArrList.toString(), "--GCM Message:-" + message);
         }
 
         // [END_EXCLUDE]
@@ -100,45 +102,48 @@ public class PushNotificationService extends GcmListenerService {
      *
      * @param message GCM message received.
      */
-    private void sendNotification(String message, long number_push) {
+    private void sendNotification(ArrayList<String> message, long number_push) {
         //Log.e("sendNotification: ", "" + message);
-
-        //Intent intent = new Intent(this, DashboardActivity.class);
-      /*  intent.putExtra("message_username", mStringUsername);
-        intent.putExtra("whrlocation", "notification");
-        intent.putExtra("userId2", senderUserId);*/
-        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-//                PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        Intent intent = new Intent(this, DashboardActivity.class);
+        Intent intent = new Intent(this, ClubNewsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 0);
 
-        Notification.Builder notificationBuilder = new Notification.Builder(this)
+        notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setContentTitle(getResources().getString(R.string.app_name))
-                .setContentText(message)
+                .setContentText(getUnexpandedContentText(strArrList.size()))
                 .setAutoCancel(true)
+                /*.setNumber(strArrList.size())*/
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
-                .setPriority(Notification.PRIORITY_HIGH);
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setStyle(getExpandedNotificationStyle(strArrList));
 
-        Notification notification = new Notification.InboxStyle(notificationBuilder)
-                .addLine(message)
-                /*.addLine("Second Message")
-                .addLine("Third Message")
-                .addLine("Fourth Message")*/
-                .setBigContentTitle(getResources().getString(R.string.app_name))
-                .setSummaryText("+3 more")
-                .build();
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+        // Moves events into the expanded layout
+        for (int iCount = 0; iCount < strArrList.size(); iCount++) {
+            inboxStyle.addLine(strArrList.get(iCount));
+        }
+
+        // Moves the expanded layout object into the notification object.
+        // notificationBuilder.setStyle(inboxStyle);
+
+//        Notification notification = new Notification.InboxStyle(notificationBuilder)
+//                .addLine(message)
+//                /*.addLine("Second Message")
+//                .addLine("Third Message")
+//                .addLine("Fourth Message")*/
+//                .setBigContentTitle(getResources().getString(R.string.app_name))
+//                .setSummaryText("+3 more")
+//                .build();
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify((int) number_push, notification);
+        notificationManager.notify(0, notificationBuilder.build());
 
         //Bitmap bitmap =  BitmapFactory.decodeResource(this.getResources(),
         // R.drawable.ic_launcher);
@@ -154,6 +159,39 @@ public class PushNotificationService extends GcmListenerService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify((int) number_push *//* ID of notification *//*, notificationBuilder.build());*/
+    }
+
+    /**
+     * Create custom method to display notification like inbox style.
+     */
+    private NotificationCompat.Style getExpandedNotificationStyle(ArrayList<String> names) {
+        NotificationCompat.InboxStyle expandedNotificationStyle = new NotificationCompat.InboxStyle();
+        expandedNotificationStyle.setBigContentTitle(getResources().getString(R.string.app_name));
+
+        /**
+         * There seems to be a bug in the notification display system where, unless you set
+         * summary text, single line expanded inbox state will not expand when the notif
+         * drawer is fully pulled down. However, it still works in the lock-screen.
+         */
+        expandedNotificationStyle.setSummaryText(strArrList.size()+" news received."/*"M H S Group Ltd Sports"*/);
+
+        for (String name : names) {
+            expandedNotificationStyle.addLine(name);
+        }
+        return expandedNotificationStyle;
+    }
+
+    /**
+     * Implements method for unExpanded content area.
+     */
+    private String getUnexpandedContentText(int numOfNotifications) {
+        /*switch (numOfNotifications) {
+            case 0:
+                return "";
+            case 1:
+                return "";
+            default:*/
+        return numOfNotifications + " news received";
     }
 
     /**
@@ -176,7 +214,7 @@ public class PushNotificationService extends GcmListenerService {
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        builder = new NotificationCompat.Builder(this)
+        notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setAutoCancel(true)
@@ -192,7 +230,7 @@ public class PushNotificationService extends GcmListenerService {
         // Create Notification Manager
         NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         // Build Notification with Notification Manager
-        notificationmanager.notify(0/*(int) number_push*/, builder.build());
+        notificationmanager.notify(0/*(int) number_push*/, notificationBuilder.build());
     }
 
     public Bitmap drawableToBitmap(Drawable drawable) {
