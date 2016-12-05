@@ -107,8 +107,8 @@ public class ClubNewsActivity extends BaseActivity {
         //Initialize view resources.
         ButterKnife.bind(this);
 
-        //Clear Push string builder.
-        PushNotificationService.stringBuilderMsg.setLength(0);
+        //Clear Push ArrayList.
+        PushNotificationService.strArrList.clear();
 
         // Layout Managers:
         rvClubNewsList.setLayoutManager(new LinearLayoutManager(this));
@@ -149,7 +149,7 @@ public class ClubNewsActivity extends BaseActivity {
         super.onBackPressed();
 
         Intent intent = new Intent(ClubNewsActivity.this, DashboardActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
