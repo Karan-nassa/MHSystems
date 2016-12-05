@@ -199,7 +199,7 @@
 
         <!-- [START gcm_listener] -->
         <service
-            android:name=".push.MyGcmListenerService"
+            android:name=".push.PushNotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />

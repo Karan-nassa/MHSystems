@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.mh.systems.demoapp.push;
 
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -29,7 +27,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -39,23 +36,22 @@ import com.google.android.gms.gcm.GcmListenerService;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.ClubNewsActivity;
 import com.mh.systems.demoapp.activites.DashboardActivity;
-import com.mh.systems.demoapp.activites.SplashActivity;
+import com.rollbar.android.Rollbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Date;
 
-public class MyGcmListenerService extends GcmListenerService {
+public class PushNotificationService extends GcmListenerService {
 
-    private static final String TAG = "MyGcmListenerService";
-    JSONObject mJson_Object, mJsonObject, mJsonObject_;
-    String mStringUsername, strMessage, mStringCaseId;
-    int senderUserId, receiverUserId, CaseId;
-    //PrefsManager prefsManager;
+    private static final String LOG_TAG = PushNotificationService.class.getSimpleName();
+    String strMessage;
 
-    ArrayList<String> notifiyArrList = new ArrayList<>();
+    public static StringBuilder stringBuilderMsg = new StringBuilder();
+
+    NotificationCompat.Builder builder;
+    private JSONObject mJSONObject;
 
     /**
      * Called when message is received.
@@ -69,31 +65,30 @@ public class MyGcmListenerService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
         Date now = new Date();
         long uniqueId = now.getTime();
-        String message;
+        String message = "";
         try {
             message = data.getString("message");
-            Log.e("message:", "" + message);
 
             try {
-                mJson_Object = new JSONObject(message);
-                strMessage = mJson_Object.getString("message");
+                mJSONObject = new JSONObject(message);
+                strMessage = mJSONObject.getString("message");
 
-                notifiyArrList.add(strMessage);
+                stringBuilderMsg.append(strMessage + "\n");
 
                 Log.e("strMessage:", "" + strMessage);
 
             } catch (JSONException e) {
-                Log.e("JSON Parser", "Cause " + e.getCause());
-                Log.e("JSON Parser", "Error parsing data " + e.toString());
+                Log.e(LOG_TAG, "JSONException Cause " + e.getCause());
+                Log.e(LOG_TAG, "JSONException Error parsing data " + e.toString());
             }
             //sendNotification(strMessage, uniqueId);
-            CustomNotification(strMessage, uniqueId);
+            CustomNotification(stringBuilderMsg, uniqueId);
 
         } catch (Exception e) {
 
-            Log.e("mStringType: ", "" + strMessage);
-            //    Rollbar.reportException(e, "critical", "My Gcmlistener services crash");
-            //   Rollbar.reportMessage("GCM MessageType: " + mStringType, "--GCM Message:-" + mStringMessage);
+            Log.e(LOG_TAG, "Exception : " + e.toString());
+            Rollbar.reportException(e, "critical", "My Gcmlistener services crash");
+            Rollbar.reportMessage("GCM String Builder value : " + stringBuilderMsg, "--GCM Message:-" + message);
         }
 
         // [END_EXCLUDE]
@@ -161,49 +156,16 @@ public class MyGcmListenerService extends GcmListenerService {
         notificationManager.notify((int) number_push *//* ID of notification *//*, notificationBuilder.build());*/
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void send_Notification(String message, long number_push) {
-        Log.e("send_Notification: ", "" + message);
-
-        Intent intent;
-        intent = new Intent(this, SplashActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-        //Bitmap bitmap =  BitmapFactory.decodeResource(this.getResources(),
-        // R.drawable.ic_launcher);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                .setContentTitle(getResources().getString(R.string.app_name))
-                .setContentText(strMessage)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
-        notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify((int) number_push /* ID of notification */, notificationBuilder.build());
-        // notificationManager.n
-    }
-
     /**
      * Implements custom notification view
      * for push.
      */
-    public void CustomNotification(String message, long number_push) {
+    public void CustomNotification(StringBuilder message, long number_push) {
         // Using RemoteViews to bind custom layouts into Notification
         RemoteViews remoteViews = new RemoteViews(getPackageName(),
                 R.layout.custom_notification_view);
 
-        // Set Notification Title
-        //String strtitle = getString(R.string.customnotificationtitle);
-        // Set Notification Text
-        //String strtext = getString(R.string.customnotificationtext);
+        remoteViews.setTextViewText(R.id.tvNotifiTitle, getString(R.string.app_name));
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
@@ -214,31 +176,23 @@ public class MyGcmListenerService extends GcmListenerService {
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                // Set Icon
+        builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                // Set Ticker Message
-                .setTicker("Hello Ticker")
-                // Dismiss Notification
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setAutoCancel(true)
-                // Set PendingIntent into Notification
                 .setContentIntent(pIntent)
-                // Set RemoteViews into Notification
                 .setContent(remoteViews)
-                //Set Sound of Notification.
+                .setContentTitle(getResources().getString(R.string.app_name))
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(message))
                 .setSound(defaultSoundUri);
 
-        Log.e("CustomNotification", "message: " + message);
-
-        // Locate and set the Text into customnotificationtext.xml TextViews
-        remoteViews.setTextViewText(R.id.tvNotifiTitle, getString(R.string.app_name));
         remoteViews.setTextViewText(R.id.tvNotfiDesc, message);
 
         // Create Notification Manager
         NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         // Build Notification with Notification Manager
-        notificationmanager.notify((int) number_push, builder.build());
-
+        notificationmanager.notify(0/*(int) number_push*/, builder.build());
     }
 
     public Bitmap drawableToBitmap(Drawable drawable) {

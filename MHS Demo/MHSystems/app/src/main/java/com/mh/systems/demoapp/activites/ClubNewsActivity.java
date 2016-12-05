@@ -26,6 +26,7 @@ import com.mh.systems.demoapp.models.ClubNews.ClubNewsData;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailResult;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsItems;
+import com.mh.systems.demoapp.push.PushNotificationService;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.mh.systems.demoapp.util.DividerItemDecoration;
 
@@ -106,6 +107,9 @@ public class ClubNewsActivity extends BaseActivity {
         //Initialize view resources.
         ButterKnife.bind(this);
 
+        //Clear Push string builder.
+        PushNotificationService.stringBuilderMsg.setLength(0);
+
         // Layout Managers:
         rvClubNewsList.setLayoutManager(new LinearLayoutManager(this));
         // Item Decorator:
@@ -139,6 +143,16 @@ public class ClubNewsActivity extends BaseActivity {
 
         clubNewsSwipeAdapter.notifyDataSetChanged();
     }*/
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(ClubNewsActivity.this, DashboardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
