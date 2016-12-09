@@ -120,7 +120,7 @@
         <!-- COURSE DIARY WEB-VIEW -->
 
         <activity
-            android:name=".activites.CourseDiaryWebview"
+            android:name=".activites.CourseDiaryWebviewActivity"
             android:screenOrientation="portrait" />
 
         <!-- MY DETAILS TOGGLE SCREEN -->

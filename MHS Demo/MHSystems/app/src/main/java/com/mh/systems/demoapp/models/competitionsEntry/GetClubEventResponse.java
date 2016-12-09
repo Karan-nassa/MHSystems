@@ -14,7 +14,7 @@ public class GetClubEventResponse {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("UnreadNewsCountData")
     @Expose
     private GetClubEventData Data;
 
@@ -57,7 +57,7 @@ public class GetClubEventResponse {
     /**
      * 
      * @return
-     *     The Data
+     *     The UnreadNewsCountData
      */
     public GetClubEventData getGetClubEventData() {
         return Data;
@@ -66,7 +66,7 @@ public class GetClubEventResponse {
     /**
      * 
      * @param Data
-     *     The Data
+     *     The UnreadNewsCountData
      */
     public void setGetClubEventData(GetClubEventData Data) {
         this.Data = Data;

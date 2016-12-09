@@ -75,14 +75,14 @@ public class PushNotificationService extends GcmListenerService {
             try {
                 mJSONObject = new JSONObject(message);
                 strMessage = mJSONObject.getString("message");
-                
+
                 strArrList.add(strMessage);
 
             } catch (JSONException e) {
                 Log.e(LOG_TAG, "JSONException Cause " + e.getCause());
                 Log.e(LOG_TAG, "JSONException Error parsing data " + e.toString());
             }
-            sendNotification(strArrList, uniqueId);
+            sendNotification();
 
         } catch (Exception e) {
 
@@ -94,11 +94,10 @@ public class PushNotificationService extends GcmListenerService {
     // [END receive_message]
 
     /**
-     * Create and show a simple notification containing the received GCM message.
-     *
-     * @param message GCM message received.
+     * Create and show a simple notification containing
+     * the received GCM message.
      */
-    private void sendNotification(ArrayList<String> message, long number_push) {
+    private void sendNotification() {
         //Log.e("sendNotification: ", "" + message);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -141,7 +140,7 @@ public class PushNotificationService extends GcmListenerService {
          * summary text, single line expanded inbox state will not expand when the notif
          * drawer is fully pulled down. However, it still works in the lock-screen.
          */
-        expandedNotificationStyle.setSummaryText(strArrList.size()+" news received."/*"M H S Group Ltd Sports"*/);
+        expandedNotificationStyle.setSummaryText(strArrList.size() + " news received."/*"M H S Group Ltd Sports"*/);
 
         for (String name : names) {
             expandedNotificationStyle.addLine(name);

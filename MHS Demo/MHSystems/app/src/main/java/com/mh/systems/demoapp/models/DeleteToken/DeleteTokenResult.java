@@ -1,11 +1,10 @@
 
-package com.mh.systems.demoapp.models.UpdatePassword;
-
+package com.mh.systems.demoapp.models.DeleteToken;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UpdatePasswordResponse {
+public class DeleteTokenResult {
 
     @SerializedName("Message")
     @Expose
@@ -15,12 +14,12 @@ public class UpdatePasswordResponse {
     private Integer Result;
     @SerializedName("UnreadNewsCountData")
     @Expose
-    private String Data;
+    private Integer Data;
 
     /**
      * 
      * @return
-     *     The Message
+     *     The message
      */
     public String getMessage() {
         return Message;
@@ -58,7 +57,7 @@ public class UpdatePasswordResponse {
      * @return
      *     The UnreadNewsCountData
      */
-    public String getData() {
+    public Integer getData() {
         return Data;
     }
 
@@ -67,7 +66,7 @@ public class UpdatePasswordResponse {
      * @param Data
      *     The UnreadNewsCountData
      */
-    public void setData(String Data) {
+    public void setData(Integer Data) {
         this.Data = Data;
     }
 

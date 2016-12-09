@@ -60,6 +60,8 @@ public class RegistrationIntentService extends IntentService {
     RegisterTokenAPI registerTokenAPI;
     AJsonParamsRegisterToken aJsonParamsRegisterToken;
 
+    String strToken = "";
+
     public RegistrationIntentService() {
         super(TAG);
     }
@@ -79,15 +81,15 @@ public class RegistrationIntentService extends IntentService {
             // R.string.gcm_defaultSenderId (the Sender ID) is typically derived from google-services.json.
             // See https://developers.google.com/cloud-messaging/android/start for details on this file.
             //608811502775
-            String token = instanceID.getToken("441828749886", GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+            strToken = instanceID.getToken("441828749886", GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
             // [END get_token]
-            Log.e(TAG, "GCM Registration Token: " + token);
+            Log.e(TAG, "GCM Registration Token: " + strToken);
 
             /**
              * Sent Token to server if not already sent.
              */
             if (!sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false)) {
-                sendRegistrationToServer(token);
+                sendRegistrationToServer();
             }
 
             // Subscribe to topic channels
@@ -111,7 +113,7 @@ public class RegistrationIntentService extends IntentService {
      *
      * @param token : The new token.
      */
-    private void sendRegistrationToServer(String token) {
+    private void sendRegistrationToServer() {
         // Add custom implementation, as needed.
         aJsonParamsRegisterToken = new AJsonParamsRegisterToken();
         aJsonParamsRegisterToken.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
@@ -119,7 +121,7 @@ public class RegistrationIntentService extends IntentService {
         aJsonParamsRegisterToken.setMemberId(getMemberId());
         aJsonParamsRegisterToken.setDeviceState(1); // 1 for Active state.
         aJsonParamsRegisterToken.setDeviceType(2); // 1 for iOS and 2 for Android.
-        aJsonParamsRegisterToken.setDeviceId(token);
+        aJsonParamsRegisterToken.setDeviceId(strToken);
 
         registerTokenAPI = new RegisterTokenAPI(getClientId(), "MemberDevice", aJsonParamsRegisterToken, "PUSHNOTIFICATION", ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
@@ -161,6 +163,7 @@ public class RegistrationIntentService extends IntentService {
             SharedPreferences sharedpreferences = getSharedPreferences(
                     ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(QuickstartPreferences.TAG_DEVICE_ID, strToken);
             editor.putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true);
             editor.commit();
 

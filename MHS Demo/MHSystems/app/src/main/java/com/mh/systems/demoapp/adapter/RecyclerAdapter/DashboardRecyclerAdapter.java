@@ -28,6 +28,8 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     Context context;
     private static LayoutInflater inflater = null;
 
+    private ViewHolder mInstanceOfClubNews = null;
+
     private final int POSITION_NORMAL = 0;
     private final int POSITION_HANDICAP = 1;
 
@@ -102,9 +104,17 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
             holder.tvHCapExactStr.setText(hCapExactStr);
         }
 
-        if (position == 4) {
-            holder.flBadgerGroup.setVisibility(View.VISIBLE);
+        /**
+         * Assign instance of club news holder on dashboard
+         * that will require to update unread news count.
+         */
+        if (dashboardItemsArrayList.get(position).getStrTitleOfGrid().equals("Club News")) {
+            mInstanceOfClubNews = holder;
         }
+
+       /* if (position == 4) {
+            holder.flBadgerGroup.setVisibility(View.VISIBLE);
+        }*/
     }
 
     /**
@@ -138,6 +148,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
          */
         TextView tvHCapExactStr;
         TextView tvGridTitle;
+        TextView tvBadgerCount;
         ImageView ivGridLogo;
         RelativeLayout rlGridMenuItem;
         FrameLayout flBadgerGroup;
@@ -148,6 +159,8 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
             tvGridTitle = (TextView) itemView.findViewById(R.id.tvGridTitle);
             ivGridLogo = (ImageView) itemView.findViewById(R.id.ivGridLogo);
             rlGridMenuItem = (RelativeLayout) itemView.findViewById(R.id.rlGridMenuItem);
+
+            tvBadgerCount = (TextView) itemView.findViewById(R.id.tvBadgerCount);
 
             flBadgerGroup = (FrameLayout) itemView.findViewById(R.id.flBadgerGroup);
             tvGridTitle.setTypeface(tfButtlerMedium);
@@ -216,5 +229,14 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
                 intent = null;
             }*/
         }
+    }
+
+    /**
+     * Implements this method to update the Club News
+     * badger icon on dashboard.
+     */
+    public void updateBadgerCount(int iUnreadCount) {
+        mInstanceOfClubNews.flBadgerGroup.setVisibility(View.VISIBLE);
+        mInstanceOfClubNews.tvBadgerCount.setText("" + iUnreadCount);
     }
 }

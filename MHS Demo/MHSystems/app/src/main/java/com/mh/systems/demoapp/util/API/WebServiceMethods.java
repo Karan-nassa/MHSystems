@@ -10,6 +10,7 @@ import com.mh.systems.demoapp.models.CompetitionUnjoinAPI;
 import com.mh.systems.demoapp.models.CompetitionsAPI;
 import com.mh.systems.demoapp.models.CourseDiaryAPI;
 import com.mh.systems.demoapp.models.DashboardAPI;
+import com.mh.systems.demoapp.models.DeleteToken.DeleteTokenAPI;
 import com.mh.systems.demoapp.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.demoapp.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.demoapp.models.Friends.RemoveFriendAPI;
@@ -21,6 +22,7 @@ import com.mh.systems.demoapp.models.MembersDetailAPI;
 import com.mh.systems.demoapp.models.FinanceAPI;
 import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.demoapp.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.demoapp.models.UnreadNewsCount.GetUnreadNewsCountAPI;
 import com.mh.systems.demoapp.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventAPI;
@@ -384,5 +386,29 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void registerToken(@Body RegisterTokenAPI registerTokenAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of DELETE TOKEN API which is using for push
+     * notifications.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param deleteTokenAPI : Delete Token which sending at time of Registeration.
+     * @param response       : Weather api response in JSON format.
+     */
+    @POST("/api/ClubsApp")
+    public void deleteToken(@Body DeleteTokenAPI deleteTokenAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of GET UNREAD CLUB NEWS API which will be
+     * display on dashboard at top of Club News icon.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getUnreadNewsCountAPI : Object of unread club news.
+     * @param response              : Weather api response in JSON format.
+     */
+    @POST("/api/ClubsApp")
+    public void getUnreadClubNewsCount(@Body GetUnreadNewsCountAPI getUnreadNewsCountAPI, Callback<JsonObject> response);
 }
 

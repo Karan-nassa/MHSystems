@@ -1,11 +1,10 @@
 
-package com.mh.systems.demoapp.models.UpdatePassword;
-
+package com.mh.systems.demoapp.models.UnreadNewsCount;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UpdatePasswordResponse {
+public class GetUnreadNewsResponse {
 
     @SerializedName("Message")
     @Expose
@@ -13,9 +12,9 @@ public class UpdatePasswordResponse {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("UnreadNewsCountData")
+    @SerializedName("Data")
     @Expose
-    private String Data;
+    private UnreadNewsCountData Data;
 
     /**
      * 
@@ -56,9 +55,9 @@ public class UpdatePasswordResponse {
     /**
      * 
      * @return
-     *     The UnreadNewsCountData
+     *     The Data
      */
-    public String getData() {
+    public UnreadNewsCountData getData() {
         return Data;
     }
 
@@ -67,7 +66,7 @@ public class UpdatePasswordResponse {
      * @param Data
      *     The UnreadNewsCountData
      */
-    public void setData(String Data) {
+    public void setData(UnreadNewsCountData Data) {
         this.Data = Data;
     }
 

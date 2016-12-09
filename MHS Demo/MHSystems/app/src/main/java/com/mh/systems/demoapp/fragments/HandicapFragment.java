@@ -80,7 +80,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      */
     private int mYearIndex;
 
-    private String TAG_DATA = "Data";
+    private String TAG_DATA = "UnreadNewsCountData";
     private String TAG_HCAP_RECORDS = "HCapRecords";
     private String TAG_DATE_PLAYED_STR = "DatePlayedStr";
     private String TAG_COMPETITION_OR_REASON = "CompetitionOrReason";

@@ -17,7 +17,7 @@ public class ClubNewsItems implements Serializable {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("UnreadNewsCountData")
     @Expose
     private List<ClubNewsData> Data = new ArrayList<ClubNewsData>();
 
@@ -50,14 +50,14 @@ public class ClubNewsItems implements Serializable {
     }
 
     /**
-     * @return The Data
+     * @return The UnreadNewsCountData
      */
     public List<ClubNewsData> getData() {
         return Data;
     }
 
     /**
-     * @param Data The Data
+     * @param Data The UnreadNewsCountData
      */
     public void setData(List<ClubNewsData> Data) {
         this.Data = Data;

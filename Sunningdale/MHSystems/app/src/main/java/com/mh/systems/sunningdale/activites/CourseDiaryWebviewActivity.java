@@ -15,7 +15,7 @@ import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.constants.WebAPI;
 
-public class CourseDiaryWebview extends BaseActivity {
+public class CourseDiaryWebviewActivity extends BaseActivity {
 
     /* ++ LOCAL DATA TYPE INSTANCE DECLARATION ++ */
     String strURL = "http://mhsserver3.com/clubs/members/coursediary/";

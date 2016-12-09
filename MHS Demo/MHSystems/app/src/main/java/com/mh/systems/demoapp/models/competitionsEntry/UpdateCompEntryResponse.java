@@ -14,7 +14,7 @@ public class UpdateCompEntryResponse {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("UnreadNewsCountData")
     @Expose
     private String Data;
 
@@ -57,7 +57,7 @@ public class UpdateCompEntryResponse {
     /**
      * 
      * @return
-     *     The Data
+     *     The UnreadNewsCountData
      */
     public String getData() {
         return Data;
@@ -66,7 +66,7 @@ public class UpdateCompEntryResponse {
     /**
      * 
      * @param Data
-     *     The Data
+     *     The UnreadNewsCountData
      */
     public void setData(String Data) {
         this.Data = Data;

@@ -16,7 +16,7 @@ public class WeatherApiResponse {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("UnreadNewsCountData")
     @Expose
     private WeatherData Data;
 
@@ -59,7 +59,7 @@ public class WeatherApiResponse {
     /**
      *
      * @return
-     *     The Data
+     *     The UnreadNewsCountData
      */
     public WeatherData getData() {
         return Data;
@@ -68,7 +68,7 @@ public class WeatherApiResponse {
     /**
      *
      * @param Data
-     *     The Data
+     *     The UnreadNewsCountData
      */
     public void setData(WeatherData Data) {
         this.Data = Data;

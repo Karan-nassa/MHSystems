@@ -23,7 +23,19 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.fragments.MembersTabFragment;
+import com.mh.systems.demoapp.models.AJsonParamsMembers;
+import com.mh.systems.demoapp.models.DeleteToken.AJsonParamsDeleteToken;
+import com.mh.systems.demoapp.models.DeleteToken.DeleteTokenAPI;
+import com.mh.systems.demoapp.models.DeleteToken.DeleteTokenResult;
+import com.mh.systems.demoapp.models.MembersAPI;
+import com.mh.systems.demoapp.models.UnreadNewsCount.AJsonParamsGetUnreadCount;
+import com.mh.systems.demoapp.models.UnreadNewsCount.GetUnreadNewsCountAPI;
+import com.mh.systems.demoapp.models.UnreadNewsCount.GetUnreadNewsResponse;
+import com.mh.systems.demoapp.models.UnreadNewsCount.UnreadNewsCountData;
+import com.mh.systems.demoapp.models.UpdatePassword.UpdatePasswordResponse;
 import com.mh.systems.demoapp.models.weather.WeatherApiResponse;
+import com.mh.systems.demoapp.push.QuickstartPreferences;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 
 import java.lang.reflect.Type;
@@ -87,6 +99,24 @@ public class DashboardActivity extends BaseActivity {
     //Instance of Weather api.
     WeatherApiResponse weatherApiResponse;
 
+    /**
+     * Instances of Delete Token API.
+     */
+    DeleteTokenAPI deleteTokenAPI;
+    AJsonParamsDeleteToken aJsonParamsDeleteToken;
+
+    DeleteTokenResult deleteTokenResult;
+
+    /**
+     * Instances of GET COUNT OF UNREAD
+     * CLUB NEWS API.
+     */
+    GetUnreadNewsCountAPI getUnreadNewsCountAPI;
+    AJsonParamsGetUnreadCount aJsonParamsGetUnreadCount;
+
+    GetUnreadNewsResponse getUnreadNewsResponse;
+    UnreadNewsCountData unreadNewsCountData;
+
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
@@ -103,13 +133,12 @@ public class DashboardActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            /**
-             *  Clear shared-preference memory.
-             */
-            clearAutoPreference();
-
-            startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
-            finish();
+            //Call Weather api functionality.
+            if (isOnline(DashboardActivity.this)) {
+                callLogoutService();
+            } else {
+                showAlertMessage(getString(R.string.error_no_connection));
+            }
         }
     };
 
@@ -187,6 +216,7 @@ public class DashboardActivity extends BaseActivity {
         //Call Weather api functionality.
         if (isOnline(DashboardActivity.this)) {
             callWeatherService();
+            getUnreadNewsCountService();
         }
     }
 
@@ -460,7 +490,7 @@ public class DashboardActivity extends BaseActivity {
 
             llWeatherGroup.setVisibility(View.VISIBLE);
 
-            //Get Data to local instances.
+            //Get UnreadNewsCountData to local instances.
             String desc = weatherApiResponse.getData().getWeather().get(0).getDescription();
             tvTodayTemperature.setText("" + ((int) (weatherApiResponse.getData().getMain().getTemp() - 273.15f)) + "°C");
             tvWeatherDesc.setText(("Current, " + (desc.substring(0, 1).toUpperCase() + desc.substring(1))));
@@ -479,9 +509,187 @@ public class DashboardActivity extends BaseActivity {
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
 
         } else {
-            Toast.makeText(DashboardActivity.this, weatherApiResponse.getMessage(), Toast.LENGTH_LONG).show();
+            //  Toast.makeText(DashboardActivity.this, weatherApiResponse.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e(LOG_TAG, weatherApiResponse.getMessage());
         }
     }
 
     /****************** ~~ WEATHER API FEATURE ~~ ******************/
+
+    /*~~~~~~~~~~~~~~~~~ START OF LOGOUT FEATURE  ~~~~~~~~~~~~~~~~~*/
+
+    /**
+     * Implements this method to call the
+     * Logout web service.
+     */
+    private void callLogoutService() {
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsDeleteToken = new AJsonParamsDeleteToken();
+        aJsonParamsDeleteToken.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsDeleteToken.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsDeleteToken.setDeviceId(loadPreferenceValue(QuickstartPreferences.TAG_DEVICE_ID, "N/A"));
+
+        deleteTokenAPI = new DeleteTokenAPI(getClientId(), "DELETEMEMBERDEVICE", aJsonParamsDeleteToken, "PUSHNOTIFICATION", ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.deleteToken(deleteTokenAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateTokenSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }
+
+    /**
+     * Implements a method which called when token
+     * deleted from web server successfully.
+     */
+    private void updateTokenSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new com.newrelic.com.google.gson.reflect.TypeToken<DeleteTokenResult>() {
+        }.getType();
+        deleteTokenResult = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (deleteTokenResult.getMessage().equalsIgnoreCase("Success") && deleteTokenResult.getData() == 1) {
+                /**
+                 *  Clear shared-preference memory.
+                 */
+                clearAutoPreference();
+
+                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+                finish();
+            } else {
+                /*mAwesomeValidation.addValidation(etUserName, "regex", updatePasswordResponse.getMessage());
+                mAwesomeValidation.validate();*/
+                showAlertMessage("" + deleteTokenResult.getMessage());
+            }
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    public String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+    }
+
+     /*~~~~~~~~~~~~~~~~~ END OF LOGOUT FEATURE  ~~~~~~~~~~~~~~~~~*/
+
+    /****************** ++ GET CLUB NEWS UNREAD COUNT FUNCTIONALITY ++ ******************/
+
+    /**
+     * Implements this method to hit weather web
+     * service get count of UNREAD club news.
+     */
+    private void getUnreadNewsCountService() {
+
+        aJsonParamsGetUnreadCount = new AJsonParamsGetUnreadCount();
+        aJsonParamsGetUnreadCount.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsGetUnreadCount.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsGetUnreadCount.setLoginMemberId(getMemberId());
+
+        getUnreadNewsCountAPI = new GetUnreadNewsCountAPI(getClientId(), "GETUNREADCLUBNEWS", aJsonParamsGetUnreadCount, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getUnreadClubNewsCount(getUnreadNewsCountAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateGetUnreadCountResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                getUnreadNewsCountService();
+            }
+        });
+    }
+
+    /**
+     * Implements a method which called to get count of
+     * UNREAD club news.
+     */
+    private void updateGetUnreadCountResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<GetUnreadNewsResponse>() {
+        }.getType();
+        getUnreadNewsResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (getUnreadNewsResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                int iUnReadCount = getUnreadNewsResponse.getData().getUnRead();
+
+                if (iUnReadCount > 0) {
+                    dashboardRecyclerAdapter.updateBadgerCount(getUnreadNewsResponse.getData().getUnRead());
+                }
+            } else {
+                /*mAwesomeValidation.addValidation(etUserName, "regex", updatePasswordResponse.getMessage());
+                mAwesomeValidation.validate();*/
+                showAlertMessage("" + getUnreadNewsResponse.getMessage());
+            }
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /****************** ++ GET CLUB NEWS UNREAD COUNT FUNCTIONALITY ++ ******************/
 }
