@@ -89,6 +89,9 @@ dependencies {
     //Country Picker Dialog
     compile 'com.mukesh:countrypicker:1.1.5'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
+
+    //Integrate TestFairy tool to send build
+    compile 'testfairy:testfairy-android-sdk:1.4.3@aar'
 }
 
 //apply plugin: 'com.google.gms.google-services'

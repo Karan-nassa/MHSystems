@@ -16,7 +16,7 @@ public class WeatherApiResponse {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("UnreadNewsCountData")
+    @SerializedName("Data")
     @Expose
     private WeatherData Data;
 

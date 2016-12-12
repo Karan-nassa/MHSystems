@@ -30,6 +30,7 @@ import com.newrelic.com.google.gson.Gson;
 import com.rollbar.android.Rollbar;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
+import com.testfairy.TestFairy;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,6 +58,9 @@ public class BaseActivity extends AppCompatActivity {
 
     static Fragment fragmentInstance;
 
+    //TOKEN of TestFairy.
+    private final String KEY_TEST_FAIRY = "607132019102f58e6620f8be506322315fad2aa9";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,7 @@ public class BaseActivity extends AppCompatActivity {
         if (ApplicationGlobal.isRollMessageDisplay) {
             //Initialize Roll bar.
             Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_TESTING, "TEST");
+            TestFairy.begin(this, KEY_TEST_FAIRY);
         }
     }
 
@@ -161,9 +166,9 @@ public class BaseActivity extends AppCompatActivity {
         } else {
             inc_message_view.setVisibility(View.VISIBLE);
             ivMessageSymbol.setImageResource(R.mipmap.ic_home_members);
-            if(iTabPositon==0) {
+            if (iTabPositon == 0) {
                 tvMessageTitle.setText(getResources().getString(R.string.error_no_member));
-            }else{
+            } else {
                 tvMessageTitle.setText(getResources().getString(R.string.error_no_friend));
             }
             tvMessageDesc.setText(getResources().getString(R.string.error_try_again));
