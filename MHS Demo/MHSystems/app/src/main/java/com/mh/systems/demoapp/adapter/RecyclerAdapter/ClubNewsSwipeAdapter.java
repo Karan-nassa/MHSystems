@@ -1,11 +1,10 @@
 package com.mh.systems.demoapp.adapter.RecyclerAdapter;
 
-import android.app.Activity;
 import android.content.Context;
-
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +15,15 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
-
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.ClubNewsActivity;
 import com.mh.systems.demoapp.activites.ClubNewsDetailActivity;
-import com.mh.systems.demoapp.models.ClubNews.ClubNewsData;
+import com.mh.systems.demoapp.constants.ApplicationGlobal;
+import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 
 import java.util.ArrayList;
-
-import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -33,17 +32,36 @@ import static android.app.Activity.RESULT_OK;
 public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdapter.SimpleViewHolder> {
 
     private Context mContext;
-    public ArrayList<ClubNewsData> clubNewsDataArrayList;
+    public ArrayList<ClubNewsThumbnailData> clubNewsDataArrayList;
 
-    public ClubNewsSwipeAdapter(ClubNewsActivity context, ArrayList<ClubNewsData> clubNewsDataArrayList) {
+    String strThumnailURL = "";
+
+    private final int POSITION_THUMBNAIL = 0;
+    private final int POSITION_NO_THUMBNAIL = 1;
+
+    public ClubNewsSwipeAdapter(ClubNewsActivity context, ArrayList<ClubNewsThumbnailData> clubNewsDataArrayList) {
         this.mContext = context;
         this.clubNewsDataArrayList = clubNewsDataArrayList;
     }
 
     @Override
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_club_news, parent, false);
-        return new SimpleViewHolder(view, mContext);
+        View view;
+        switch (viewType) {
+            case POSITION_NO_THUMBNAIL:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_club_news, parent, false);
+                return new SimpleViewHolder(view, mContext, viewType);
+
+            case POSITION_THUMBNAIL:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_club_news_thumb, parent, false);
+                return new SimpleViewHolder(view, mContext, viewType);
+        }
+        return null;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (clubNewsDataArrayList.get(position).getMessage().length() == 0) ? POSITION_NO_THUMBNAIL : POSITION_THUMBNAIL;
     }
 
     @Override
@@ -55,12 +73,23 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         }*/
 
         viewHolder.tvTitleOfNews.setText(clubNewsDataArrayList.get(position).getTitle());
-        viewHolder.tvTimeOfNews.setText(clubNewsDataArrayList.get(position).getCreatedDate());
+        viewHolder.tvTimeOfNews.setText(clubNewsDataArrayList.get(position).getDate());
 
         if (clubNewsDataArrayList.get(position).getIsRead()) {
             viewHolder.ivReadStatus.setVisibility(View.INVISIBLE);
         } else {
             viewHolder.ivReadStatus.setVisibility(View.VISIBLE);
+        }
+
+        strThumnailURL = clubNewsDataArrayList.get(position).getMessage();
+        if (strThumnailURL.length() > 1) {
+            strThumnailURL = WebAPI.API_BASE_URL + strThumnailURL;
+
+            Uri imageUri = Uri.parse(strThumnailURL);
+            Log.e("Thumbnail", strThumnailURL);
+            Log.e("imageUri", "" + imageUri);
+
+            viewHolder.ivNewsThumbnail.setImageURI(imageUri);
         }
 
         viewHolder.flRemoveGroup.setOnClickListener(new View.OnClickListener() {
@@ -186,9 +215,10 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         ImageView ivReadStatus;
         RelativeLayout rlNewsGroup;
         TextView tvTitleOfNews, tvTimeOfNews;
+        SimpleDraweeView ivNewsThumbnail;
         Context mContext;
 
-        public SimpleViewHolder(View itemView, Context context) {
+        public SimpleViewHolder(View itemView, Context context, int viewType) {
             super(itemView);
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
 
@@ -198,6 +228,10 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
 
             tvTitleOfNews = (TextView) itemView.findViewById(R.id.tvTitleOfNews);
             tvTimeOfNews = (TextView) itemView.findViewById(R.id.tvTimeOfNews);
+
+            if (viewType == POSITION_THUMBNAIL) {
+                ivNewsThumbnail = (SimpleDraweeView) itemView.findViewById(R.id.ivNewsThumbnail);
+            }
 
             mContext = context;
 
@@ -209,7 +243,7 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
 
             Intent detailNewsIntent = new Intent(mContext, ClubNewsDetailActivity.class);
             detailNewsIntent.putExtra("ClubNewsID", clubNewsDataArrayList.get(getAdapterPosition()).getClubNewsID());
-            detailNewsIntent.putExtra("CreatedDate", clubNewsDataArrayList.get(getAdapterPosition()).getCreatedDate());
+            detailNewsIntent.putExtra("CreatedDate", clubNewsDataArrayList.get(getAdapterPosition()).getDate());
             detailNewsIntent.putExtra("Time", clubNewsDataArrayList.get(getAdapterPosition()).getTime());
             detailNewsIntent.putExtra("Message", clubNewsDataArrayList.get(getAdapterPosition()).getMessage());
             detailNewsIntent.putExtra("IsRead", clubNewsDataArrayList.get(getAdapterPosition()).getIsRead());

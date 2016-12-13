@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.models.AddMemberAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailAPI;
+import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
 import com.mh.systems.demoapp.models.CompetitionResultAPI;
 import com.mh.systems.demoapp.models.CompetitionJoinAPI;
 import com.mh.systems.demoapp.models.CompetitionUnjoinAPI;
@@ -225,8 +226,8 @@ public interface WebServiceMethods {
      * @param clubNewsAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
-    public void getClubNews(@Body ClubNewsAPI clubNewsAPI, Callback<JsonObject> response);
+//    @POST("/api/ClubsApp")
+//    public void getClubNews(@Body ClubNewsAPI clubNewsAPI, Callback<JsonObject> response);
 
     /**
      * Declaration of update Club News READ/DELETE web service method.
@@ -410,5 +411,17 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void getUnreadClubNewsCount(@Body GetUnreadNewsCountAPI getUnreadNewsCountAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Club News web service method with Thumbnail
+     * of image.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param clubNewsThumbnailAPI :  Club News with Thumbnail.
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void getClubNewsThumbnail(@Body ClubNewsThumbnailAPI clubNewsThumbnailAPI, Callback<JsonObject> response);
 }
 

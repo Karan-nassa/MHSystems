@@ -60,9 +60,7 @@
                 android:id="@+id/rvClubNewsList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:cacheColorHint="@color/colorF9F8F7"
-                android:divider="@color/colorE8E2DD"
-                android:dividerHeight="1dp" />
+                android:cacheColorHint="@color/colorF9F8F7" />
 
 
     </LinearLayout>
