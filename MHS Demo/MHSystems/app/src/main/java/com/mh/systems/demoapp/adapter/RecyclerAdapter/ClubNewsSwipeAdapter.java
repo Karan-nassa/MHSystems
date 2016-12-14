@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.ClubNewsActivity;
 import com.mh.systems.demoapp.activites.ClubNewsDetailActivity;
-import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 
@@ -66,11 +64,6 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
 
     @Override
     public void onBindViewHolder(final SimpleViewHolder viewHolder, final int position) {
-       /* if (position % 2 == 0) {
-            viewHolder.rllayout.setBackgroundColor(Color.WHITE);
-        } else {
-            viewHolder.rllayout.setBackgroundColor(Color.parseColor("#fefaf1"));
-        }*/
 
         viewHolder.tvTitleOfNews.setText(clubNewsDataArrayList.get(position).getTitle());
         viewHolder.tvTimeOfNews.setText(clubNewsDataArrayList.get(position).getDate());
@@ -86,9 +79,6 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             strThumnailURL = WebAPI.API_BASE_URL + strThumnailURL;
 
             Uri imageUri = Uri.parse(strThumnailURL);
-            Log.e("Thumbnail", strThumnailURL);
-            Log.e("imageUri", "" + imageUri);
-
             viewHolder.ivNewsThumbnail.setImageURI(imageUri);
         }
 
@@ -242,15 +232,12 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         public void onClick(View itemView) {
 
             Intent detailNewsIntent = new Intent(mContext, ClubNewsDetailActivity.class);
-            detailNewsIntent.putExtra("ClubNewsID", clubNewsDataArrayList.get(getAdapterPosition()).getClubNewsID());
-            detailNewsIntent.putExtra("CreatedDate", clubNewsDataArrayList.get(getAdapterPosition()).getDate());
-            detailNewsIntent.putExtra("Time", clubNewsDataArrayList.get(getAdapterPosition()).getTime());
-            detailNewsIntent.putExtra("Message", clubNewsDataArrayList.get(getAdapterPosition()).getMessage());
-            detailNewsIntent.putExtra("IsRead", clubNewsDataArrayList.get(getAdapterPosition()).getIsRead());
-            detailNewsIntent.putExtra("iPosition", getAdapterPosition());
+            detailNewsIntent.putExtra("TAG_CLUB_NEWS_ID", clubNewsDataArrayList.get(getAdapterPosition()).getClubNewsID());
+            detailNewsIntent.putExtra("TAG_CLUB_NEWS_POSITION", getAdapterPosition());
+            detailNewsIntent.putExtra("TAG_CLUB_NEWS_IS_READ", clubNewsDataArrayList.get(getAdapterPosition()).getIsRead());
+            detailNewsIntent.putExtra("TAG_CLUB_NEWS_IS_DELETE", clubNewsDataArrayList.get(getAdapterPosition()).getIsDeleted());
 
             ((ClubNewsActivity) mContext).startActivityForResult(detailNewsIntent, 111);
-            //mContext.startActivity(detailNewsIntent);
         }
     }
 }

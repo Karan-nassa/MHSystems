@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Brokenhurst</string>
 
-    <string name="text_hello_mhsystems">Hello brokenhurst!</string>
+    <string name="text_hello_mhsystems">Hello Brokenhurst!</string>
 
     <!-- START OF SNACK BAR MESSAGES -->
     <string name="error_no_internet">Please check your internet connection.</string>

@@ -5,6 +5,7 @@ import com.mh.systems.demoapp.models.AddMemberAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
+import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
 import com.mh.systems.demoapp.models.CompetitionResultAPI;
 import com.mh.systems.demoapp.models.CompetitionJoinAPI;
 import com.mh.systems.demoapp.models.CompetitionUnjoinAPI;
@@ -423,5 +424,17 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void getClubNewsThumbnail(@Body ClubNewsThumbnailAPI clubNewsThumbnailAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Club News detail content of Thumbnail web
+     * service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param clubNewsThumbnailDetailAPI :  Club News detail of Thumbnail.
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void getClubNewsThumbnailDetail(@Body ClubNewsThumbnailDetailAPI clubNewsThumbnailDetailAPI, Callback<JsonObject> response);
 }
 

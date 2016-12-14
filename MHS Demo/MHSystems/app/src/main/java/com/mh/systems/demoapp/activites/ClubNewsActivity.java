@@ -173,11 +173,16 @@ public class ClubNewsActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 111) {
 
-            boolean IsRead = (boolean) data.getSerializableExtra("IsRead");
-            int iPosition = (int) data.getSerializableExtra("iPosition");
+            boolean IsRead = (boolean) data.getSerializableExtra("TAG_CLUB_NEWS_IS_READ");
+            int iPosition = (int) data.getSerializableExtra("TAG_CLUB_NEWS_POSITION");
+            boolean isDelete = (boolean) data.getSerializableExtra("TAG_CLUB_NEWS_IS_DELETE");
 
-            Log.e("onActivityResult", "IsRead : " + IsRead);
-            Log.e("onActivityResult", "iPosition : " + iPosition);
+            if(isDelete){
+                clubNewsThumbnailList.remove(iPosition);
+            }
+
+            Log.e("onActivityResult", "TAG_CLUB_NEWS_IS_READ : " + IsRead);
+            Log.e("onActivityResult", "TAG_CLUB_NEWS_POSITION : " + iPosition);
 
             clubNewsThumbnailList.get(iPosition).setIsRead(IsRead);
             clubNewsSwipeAdapter.notifyDataSetChanged();
@@ -314,7 +319,7 @@ public class ClubNewsActivity extends BaseActivity {
     public void deleteClubNewsService(Integer iDeletePosition, Integer clubNewsID) {
 
 
-        iDeletePosition = iDeletePosition;
+        this.iDeletePosition = iDeletePosition;
 
         /**
          *  Check internet connection before hitting server request.
@@ -387,6 +392,8 @@ public class ClubNewsActivity extends BaseActivity {
          */
             if (clubNewsDetailResult.getMessage().equalsIgnoreCase("Success")) {
                 if (isDelete) {
+
+                    clubNewsSwipeAdapter.notifyDataSetChanged();
                     showAlertOk("News deleted successfully.");
                 }
             } else {

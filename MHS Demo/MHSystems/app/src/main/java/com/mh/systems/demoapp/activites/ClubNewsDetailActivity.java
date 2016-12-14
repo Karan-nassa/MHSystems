@@ -20,7 +20,12 @@ import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailResult;
+import com.mh.systems.demoapp.models.ClubNewsThumbnail.AJsonParamsClubNewsDetailThumbnail;
+import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
+import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailDetailData;
+import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailDetailResponse;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 
@@ -60,6 +65,15 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
     ClubNewsDetailResult clubNewsDetailResult;
 
+    /**
+     * Instances declaration of Club News Thumbnail
+     * detail.
+     */
+    ClubNewsThumbnailDetailAPI clubNewsThumbnailDetailAPI;
+    AJsonParamsClubNewsDetailThumbnail aJsonParamsClubNewsDetailThumbnail;
+
+    ClubNewsThumbnailDetailResponse clubNewsThumbnailDetailResponse;
+
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
@@ -83,23 +97,34 @@ public class ClubNewsDetailActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        tvDateOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
-        tvTimeOfNews.setText(getIntent().getExtras().getString("Time"));
+        //tvDateOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
+        //tvTimeOfNews.setText(getIntent().getExtras().getString("Time"));
         // tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
-        iClubNewsID = getIntent().getExtras().getInt("ClubNewsID");
-        isRead = getIntent().getExtras().getBoolean("IsRead");
 
-        iPosition = getIntent().getExtras().getInt("iPosition");
+        iClubNewsID = getIntent().getExtras().getInt("TAG_CLUB_NEWS_ID");
+        iPosition = getIntent().getExtras().getInt("TAG_CLUB_NEWS_POSITION");
+        isRead = getIntent().getExtras().getBoolean("TAG_CLUB_NEWS_IS_READ");
+        isDelete = getIntent().getExtras().getBoolean("TAG_CLUB_NEWS_IS_DELETE");
 
         //data == html data which you want to load
-        wvClubNews.getSettings().setJavaScriptEnabled(true);
-        wvClubNews.loadDataWithBaseURL("", getIntent().getExtras().getString("Message"), "text/html", "UTF-8", "");
+        //  wvClubNews.getSettings().setJavaScriptEnabled(true);
+        //   wvClubNews.loadDataWithBaseURL("", getIntent().getExtras().getString("Message"), "text/html", "UTF-8", "");
 
         //If user haven't read news then call READ API status.
         if (!isRead) {
             isRead = true;
-            isDelete = false;
+            //isDelete = false;
             updateMemberClubNewsStatus();
+        }
+
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (isOnline(this)) {
+            requestClubNewsDetail();
+        } else {
+            showAlertMessage(getResources().getString(R.string.error_no_internet));
+            hideProgress();
         }
     }
 
@@ -136,8 +161,9 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
         Intent intent = new Intent(ClubNewsDetailActivity.this, ClubNewsActivity.class);
         Bundle informacion = new Bundle();
-        informacion.putSerializable("IsRead", isRead);
-        informacion.putSerializable("iPosition", iPosition);
+        informacion.putSerializable("TAG_CLUB_NEWS_IS_READ", isRead);
+        informacion.putSerializable("TAG_CLUB_NEWS_POSITION", iPosition);
+        informacion.putSerializable("TAG_CLUB_NEWS_IS_DELETE", isDelete);
         intent.putExtras(informacion);
         setResult(RESULT_OK, intent);
         finish();
@@ -205,20 +231,6 @@ public class ClubNewsDetailActivity extends BaseActivity {
     }
 
     /**
-     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
-     */
-    public String getClientId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
-    }
-
-    /**
-     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
-     */
-    public String getMemberId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "44071043");
-    }
-
-    /**
      * Implements this method to UPDATE the data from webservice in
      * COURSE DIARY list if get SUCCESS.
      */
@@ -235,6 +247,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
          */
             if (clubNewsDetailResult.getMessage().equalsIgnoreCase("Success")) {
                 if (isDelete) {
+                    isDelete = true;
                     showAlertOk("News deleted successfully.");
                 }
                 isRead = true;
@@ -293,4 +306,104 @@ public class ClubNewsDetailActivity extends BaseActivity {
             alert.show();
         }
     }
+
+    /******************************   END OF CLUB NEWS SWIPE TO DELETE FUNCTIONALITY   ******************************/
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+    }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    public String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "44071043");
+    }
+
+    /******************************  START OF CLUB NEWS THUMBNAIL DETAIL CONTENT FUNCTIONALITY  ******************************/
+
+    /**
+     * Implement a method to hit News web service to get response.
+     */
+    public void requestClubNewsDetail() {
+
+        showPleaseWait("Please wait...");
+
+        aJsonParamsClubNewsDetailThumbnail = new AJsonParamsClubNewsDetailThumbnail();
+        aJsonParamsClubNewsDetailThumbnail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsClubNewsDetailThumbnail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsClubNewsDetailThumbnail.setLoginMemberId(getMemberId());
+        aJsonParamsClubNewsDetailThumbnail.setClubNewsId("" + iClubNewsID);
+
+        clubNewsThumbnailDetailAPI = new ClubNewsThumbnailDetailAPI(
+                getClientId(),
+                "GETCLUBNEWSBYID",
+                aJsonParamsClubNewsDetailThumbnail,
+                ApplicationGlobal.TAG_GCLUB_WEBSERVICES,
+                ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getClubNewsThumbnailDetail(clubNewsThumbnailDetailAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                successThumbnailDetailResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }
+
+    /**
+     * Implements this method to UPDATE success of club news
+     * detail of Thumbnail response.
+     */
+    private void successThumbnailDetailResponse(JsonObject jsonObject) {
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<ClubNewsThumbnailDetailResponse>() {
+        }.getType();
+        clubNewsThumbnailDetailResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (clubNewsThumbnailDetailResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                wvClubNews.getSettings().setJavaScriptEnabled(true);
+                wvClubNews.loadDataWithBaseURL("", clubNewsThumbnailDetailResponse.getData().getMessage(), "text/html", "UTF-8", "");
+
+                tvDateOfNews.setText(clubNewsThumbnailDetailResponse.getData().getDate());
+                tvTimeOfNews.setText(clubNewsThumbnailDetailResponse.getData().getTime());
+            } else{
+                showAlertOk(clubNewsThumbnailDetailResponse.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        //Dismiss progress dialog.
+        hideProgress();
+    }
+
+    /******************************  END OF OF CLUB NEWS THUMBNAIL DETAIL CONTENT FUNCTIONALITY  ******************************/
 }
