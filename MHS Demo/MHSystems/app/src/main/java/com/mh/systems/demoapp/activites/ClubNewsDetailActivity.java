@@ -46,6 +46,9 @@ public class ClubNewsDetailActivity extends BaseActivity {
     @Bind(R.id.tbClubNewsDetail)
     Toolbar tbClubNewsDetail;
 
+    @Bind(R.id.tvTitleOfNews)
+    TextView tvTitleOfNews;
+
     @Bind(R.id.tvDateOfNews)
     TextView tvDateOfNews;
 
@@ -391,6 +394,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 wvClubNews.getSettings().setJavaScriptEnabled(true);
                 wvClubNews.loadDataWithBaseURL("", clubNewsThumbnailDetailResponse.getData().getMessage(), "text/html", "UTF-8", "");
 
+                tvTitleOfNews.setText(clubNewsThumbnailDetailResponse.getData().getTitle());
                 tvDateOfNews.setText(clubNewsThumbnailDetailResponse.getData().getDate());
                 tvTimeOfNews.setText(clubNewsThumbnailDetailResponse.getData().getTime());
             } else{
