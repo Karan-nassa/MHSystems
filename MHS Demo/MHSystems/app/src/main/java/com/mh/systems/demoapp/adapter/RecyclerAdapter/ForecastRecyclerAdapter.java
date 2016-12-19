@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.activites.WeatherDetailActivity;
-import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryData;
 import com.mh.systems.demoapp.models.forecast.ListOfDay;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +51,7 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
 
         LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View itemLayout = layoutInflater.inflate(R.layout.item_weather_view, null);
+        View itemLayout = layoutInflater.inflate(R.layout.list_item_weather_detail, null);
         return new ViewHolder(itemLayout, viewType, context);
     }
 

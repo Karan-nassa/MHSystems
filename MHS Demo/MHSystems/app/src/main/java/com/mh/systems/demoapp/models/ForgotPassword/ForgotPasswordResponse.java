@@ -13,7 +13,7 @@ public class ForgotPasswordResponse {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("UnreadNewsCountData")
+    @SerializedName("Data")
     @Expose
     private String Data;
 
@@ -56,7 +56,7 @@ public class ForgotPasswordResponse {
     /**
      * 
      * @return
-     *     The UnreadNewsCountData
+     *     The Data
      */
     public String getData() {
         return Data;
@@ -65,7 +65,7 @@ public class ForgotPasswordResponse {
     /**
      * 
      * @param Data
-     *     The UnreadNewsCountData
+     *     The Data
      */
     public void setData(String Data) {
         this.Data = Data;

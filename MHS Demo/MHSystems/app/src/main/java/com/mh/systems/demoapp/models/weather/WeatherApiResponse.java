@@ -59,7 +59,7 @@ public class WeatherApiResponse {
     /**
      *
      * @return
-     *     The UnreadNewsCountData
+     *     The Data
      */
     public WeatherData getData() {
         return Data;
@@ -68,7 +68,7 @@ public class WeatherApiResponse {
     /**
      *
      * @param Data
-     *     The UnreadNewsCountData
+     *     The Data
      */
     public void setData(WeatherData Data) {
         this.Data = Data;

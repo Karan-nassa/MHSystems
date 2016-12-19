@@ -14,7 +14,7 @@ public class RegisterTokenResult {
     @SerializedName("Result")
     @Expose
     private Integer result;
-    @SerializedName("UnreadNewsCountData")
+    @SerializedName("Data")
     @Expose
     private Integer data;
 
@@ -66,7 +66,7 @@ public class RegisterTokenResult {
     /**
      * 
      * @param data
-     *     The UnreadNewsCountData
+     *     The Data
      */
     public void setData(Integer data) {
         this.data = data;

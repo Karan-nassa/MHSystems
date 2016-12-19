@@ -12,7 +12,7 @@ public class DeleteTokenResult {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("UnreadNewsCountData")
+    @SerializedName("Data")
     @Expose
     private Integer Data;
 
@@ -55,7 +55,7 @@ public class DeleteTokenResult {
     /**
      * 
      * @return
-     *     The UnreadNewsCountData
+     *     The Data
      */
     public Integer getData() {
         return Data;
@@ -64,7 +64,7 @@ public class DeleteTokenResult {
     /**
      * 
      * @param Data
-     *     The UnreadNewsCountData
+     *     The Data
      */
     public void setData(Integer Data) {
         this.Data = Data;

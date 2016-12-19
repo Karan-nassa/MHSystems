@@ -55,7 +55,7 @@ public class GetUnreadNewsResponse {
     /**
      * 
      * @return
-     *     The Data
+     *     The UnreadNewsCountData
      */
     public UnreadNewsCountData getData() {
         return Data;
@@ -63,7 +63,7 @@ public class GetUnreadNewsResponse {
 
     /**
      * 
-     * @param Data
+     * @param UnreadNewsCountData
      *     The UnreadNewsCountData
      */
     public void setData(UnreadNewsCountData Data) {

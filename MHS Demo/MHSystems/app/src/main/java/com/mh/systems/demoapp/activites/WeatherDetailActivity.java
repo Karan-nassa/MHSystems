@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
+import com.mh.systems.demoapp.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.forecast.ForecastApiResponse;
@@ -50,7 +51,7 @@ import retrofit.RetrofitError;
  * Organization : ucreate.it
  * Email        : karan@ucreate.it
  */
-public class WeatherDetailActivity extends BaseActivity implements View.OnClickListener {
+public class WeatherDetailActivity extends BaseActivity /*implements View.OnClickListener*/ {
 
     private final String LOG_TAG = WeatherDetailActivity.class.getSimpleName();
 
@@ -62,21 +63,6 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
     @Bind(R.id.tbWeather)
     Toolbar tbWeather;
-
-    @Bind(R.id.flDayGroup1)
-    FrameLayout flDayGroup1;
-
-    @Bind(R.id.flDayGroup2)
-    FrameLayout flDayGroup2;
-
-    @Bind(R.id.flDayGroup3)
-    FrameLayout flDayGroup3;
-
-    @Bind(R.id.flDayGroup4)
-    FrameLayout flDayGroup4;
-
-    @Bind(R.id.flDayGroup5)
-    FrameLayout flDayGroup5;
 
     @Bind(R.id.tvWeatherDate)
     TextView tvWeatherDate;
@@ -90,65 +76,18 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
     @Bind(R.id.tvWindPressure)
     TextView tvWindPressure;
 
-    @Bind(R.id.tvDayName1)
-    TextView tvDayName1;
+    @Bind(R.id.rvWeatherDetail)
+    RecyclerView rvWeatherDetail;
 
-    @Bind(R.id.tvDayName2)
-    TextView tvDayName2;
-
-    @Bind(R.id.tvDayName3)
-    TextView tvDayName3;
-
-    @Bind(R.id.tvDayName4)
-    TextView tvDayName4;
-
-    @Bind(R.id.tvDayName5)
-    TextView tvDayName5;
-
-    @Bind(R.id.ivWeatherDay1)
-    ImageView ivWeatherDay1;
-
-    @Bind(R.id.ivWeatherDay2)
-    ImageView ivWeatherDay2;
-
-    @Bind(R.id.ivWeatherDay3)
-    ImageView ivWeatherDay3;
-
-    @Bind(R.id.ivWeatherDay4)
-    ImageView ivWeatherDay4;
-
-    @Bind(R.id.ivWeatherDay5)
-    ImageView ivWeatherDay5;
-
-    @Bind(R.id.tvTempDay1)
-    TextView tvTempDay1;
-
-    @Bind(R.id.tvTempDay2)
-    TextView tvTempDay2;
-
-    @Bind(R.id.tvTempDay3)
-    TextView tvTempDay3;
-
-    @Bind(R.id.tvTempDay4)
-    TextView tvTempDay4;
-
-    @Bind(R.id.tvTempDay5)
-    TextView tvTempDay5;
-
-    View[] tvDayNameArr;
-    View[] ivWeatherDayArr;
-    View[] tvTempDayArr;
-
-    @Bind(R.id.rvWeatherList)
-    RecyclerView rvWeatherList;
-
-    FrameLayout flLastSelectedView = flDayGroup1;
+    @Bind(R.id.rvWeatherMain)
+    RecyclerView rvWeatherMain;
 
     //Instance of Weather api.
     ForecastApiResponse forecastApiResponse;
 
     //Instance of Recycler Adapter.
     ForecastRecyclerAdapter forecastRecyclerAdapter;
+    WeatherMainRecyclerAdapter weatherMainRecyclerAdapter;
 
     private Date mLastDate = null;
 
@@ -172,33 +111,13 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
             getSupportActionBar().setTitle("Weather forecast");
         }
 
-        //Initialize Array with view.
-        tvDayNameArr = new View[]{tvDayName1, tvDayName2, tvDayName3, tvDayName4, tvDayName5};
-        ivWeatherDayArr = new View[]{ivWeatherDay1, ivWeatherDay2, ivWeatherDay3, ivWeatherDay4, ivWeatherDay5};
-        tvTempDayArr = new View[]{tvTempDay1, tvTempDay2, tvTempDay3, tvTempDay4, tvTempDay5};
-
         strNameOfWeatherLoc = getIntent().getStringExtra("WEATHER_LOC");
 
-        // Create a grid layout with two columns
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 9, LinearLayoutManager.VERTICAL, false);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return 3;
-            }
-        });
-        // Layout Managers:
-        rvWeatherList.setLayoutManager(layoutManager);
-
-//        LinearLayoutManager layoutManager
-//                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        rvWeatherList.setLayoutManager(layoutManager);
-
-        //Set Grid options adapter.
-        // forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(0));
-        //rvWeatherList.setAdapter(forecastRecyclerAdapter);
-
         callWeatherService();
+
+        //Initialize Days Adapter.
+        weatherMainRecyclerAdapter = new WeatherMainRecyclerAdapter(WeatherDetailActivity.this, listArrayList);
+        rvWeatherMain.setAdapter(weatherMainRecyclerAdapter);
     }
 
     @Override
@@ -216,46 +135,6 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @OnClick({R.id.flDayGroup1, R.id.flDayGroup2, R.id.flDayGroup3, R.id.flDayGroup4, R.id.flDayGroup5})
-    @Override
-    public void onClick(View v) {
-        if (v != flLastSelectedView) {
-
-            switch (v.getId()) {
-                case R.id.flDayGroup1:
-                    updateDetailUI(0);
-                    flDayGroup1.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                    break;
-
-                case R.id.flDayGroup2:
-                    updateDetailUI(1);
-                    flDayGroup2.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                    break;
-
-                case R.id.flDayGroup3:
-                    updateDetailUI(2);
-                    flDayGroup3.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                    break;
-
-                case R.id.flDayGroup4:
-                    updateDetailUI(3);
-                    flDayGroup4.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                    break;
-
-                case R.id.flDayGroup5:
-                    updateDetailUI(4);
-                    flDayGroup5.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color313130));
-                    break;
-            }
-
-            if (flLastSelectedView == null) {
-                flLastSelectedView = flDayGroup1;
-            }
-            flLastSelectedView.setBackgroundColor(ContextCompat.getColor(WeatherDetailActivity.this, R.color.color242422));
-            flLastSelectedView = (FrameLayout) v;
-        }
     }
 
     /****************** ++ WEATHER API FEATURE ++ ******************/
@@ -319,11 +198,7 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
             tvNameOfLoc.setText(strNameOfWeatherLoc + ", " + forecastApiResponse.getData().getCity().getCountry());
 
-            for (int iCount = 0; iCount < forecastApiResponse.getData().getListOfDay().size(); iCount++) {
-                ((TextView) tvDayNameArr[iCount]).setText(getFormateDayName(forecastApiResponse.getData().getListOfDay().get(iCount).get(0).getDtTxt()));
-                ((ImageView) ivWeatherDayArr[iCount]).setImageDrawable(getWeatherIcon(forecastApiResponse.getData().getListOfDay().get(iCount).get(0).getWeather().get(0).getIcon()));
-                ((TextView) tvTempDayArr[iCount]).setText("" + ((int) (forecastApiResponse.getData().getListOfDay().get(iCount).get(0).getMain().getTemp() - 273.15f)) + "°C");
-            }
+            updateWeatherDaysUI();
 
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));
@@ -336,10 +211,34 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     /**
+     * Implements this method to update weather main i.e.
+     * weather DAYS UI.
+     */
+    private void updateWeatherDaysUI() {
+
+        final int iWeatherDaySize = forecastApiResponse.getData().getListOfDay().size();
+
+        // Create a grid layout with two columns
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 120, LinearLayoutManager.VERTICAL, false);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+
+                return (120/iWeatherDaySize);
+            }
+        });
+        // Layout Managers:
+        rvWeatherMain.setLayoutManager(layoutManager);
+        weatherMainRecyclerAdapter.notifyDataSetChanged();
+
+        //rvWeatherMain.findViewHolderForAdapterPosition(0).itemView.performClick();
+    }
+
+    /**
      * Update UI with selected day weather
      * data.
      */
-    private void updateDetailUI(int iPosition) {
+    public void updateDetailUI(int iPosition) {
 
         if (iPosition < forecastApiResponse.getData().getListOfDay().size()) {
 
@@ -399,8 +298,8 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
         }*/
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rvWeatherList.setLayoutManager(layoutManager);
-        rvWeatherList.setAdapter(forecastRecyclerAdapter);
+        rvWeatherDetail.setLayoutManager(layoutManager);
+        rvWeatherDetail.setAdapter(forecastRecyclerAdapter);
         forecastRecyclerAdapter.notifyDataSetChanged();
     }
 
@@ -491,4 +390,61 @@ public class WeatherDetailActivity extends BaseActivity implements View.OnClickL
 
     /****************** ~~ WEATHER API FEATURE ~~ ******************/
 
+    /**
+     * Implements this method to set Layout of dashboard
+     * Grid.
+     */
+    private void setupGridLayout(int iGridSize) {
+        // Create a grid layout with two columns
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
+
+        switch (iGridSize) {
+            case 3:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 0 ? 6 : 3;
+                    }
+                });
+                break;
+
+            case 4:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 3;
+                    }
+                });
+                break;
+
+            case 5:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 0 || position == 1 ? 3 : 2;
+                    }
+                });
+                break;
+
+            default:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 2;
+                    }
+                });
+                break;
+        }
+
+
+        // int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        // gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+
+        // Layout Managers:
+        rvWeatherMain.setLayoutManager(layoutManager);
+    }
 }

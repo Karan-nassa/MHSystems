@@ -1,6 +1,8 @@
 
 package com.mh.systems.demoapp.models.DeleteToken;
 
+import android.support.annotation.Size;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

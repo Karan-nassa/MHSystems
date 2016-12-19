@@ -13,7 +13,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
@@ -23,17 +22,13 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.fragments.MembersTabFragment;
-import com.mh.systems.demoapp.models.AJsonParamsMembers;
 import com.mh.systems.demoapp.models.DeleteToken.AJsonParamsDeleteToken;
 import com.mh.systems.demoapp.models.DeleteToken.DeleteTokenAPI;
 import com.mh.systems.demoapp.models.DeleteToken.DeleteTokenResult;
-import com.mh.systems.demoapp.models.MembersAPI;
 import com.mh.systems.demoapp.models.UnreadNewsCount.AJsonParamsGetUnreadCount;
+import com.mh.systems.demoapp.models.UnreadNewsCount.UnreadNewsCountData;
 import com.mh.systems.demoapp.models.UnreadNewsCount.GetUnreadNewsCountAPI;
 import com.mh.systems.demoapp.models.UnreadNewsCount.GetUnreadNewsResponse;
-import com.mh.systems.demoapp.models.UnreadNewsCount.UnreadNewsCountData;
-import com.mh.systems.demoapp.models.UpdatePassword.UpdatePasswordResponse;
 import com.mh.systems.demoapp.models.weather.WeatherApiResponse;
 import com.mh.systems.demoapp.push.QuickstartPreferences;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
@@ -490,7 +485,7 @@ public class DashboardActivity extends BaseActivity {
 
             llWeatherGroup.setVisibility(View.VISIBLE);
 
-            //Get UnreadNewsCountData to local instances.
+            //Get Data to local instances.
             String desc = weatherApiResponse.getData().getWeather().get(0).getDescription();
             tvTodayTemperature.setText("" + ((int) (weatherApiResponse.getData().getMain().getTemp() - 273.15f)) + "°C");
             tvWeatherDesc.setText(("Current, " + (desc.substring(0, 1).toUpperCase() + desc.substring(1))));

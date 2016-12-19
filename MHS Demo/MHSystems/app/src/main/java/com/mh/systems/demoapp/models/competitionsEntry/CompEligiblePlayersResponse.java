@@ -14,7 +14,7 @@ public class CompEligiblePlayersResponse {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("UnreadNewsCountData")
+    @SerializedName("Data")
     @Expose
     private CompEligiblePlayersData Data;
 
