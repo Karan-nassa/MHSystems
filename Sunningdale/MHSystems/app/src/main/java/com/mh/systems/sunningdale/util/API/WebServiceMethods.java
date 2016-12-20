@@ -8,6 +8,7 @@ import com.mh.systems.sunningdale.models.CompetitionResultAPI;
 import com.mh.systems.sunningdale.models.CompetitionJoinAPI;
 import com.mh.systems.sunningdale.models.CompetitionUnjoinAPI;
 import com.mh.systems.sunningdale.models.CompetitionsAPI;
+import com.mh.systems.sunningdale.models.ContactUs.ContactUsAPI;
 import com.mh.systems.sunningdale.models.CourseDiaryAPI;
 import com.mh.systems.sunningdale.models.DashboardAPI;
 import com.mh.systems.sunningdale.models.EditDetailMode.EditDetailModeAPI;
@@ -313,6 +314,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/ClubAppUse/forecast")
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
+
+    /**
+     * Declaration of CONTACT US web service declaration.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param contactUsAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void contactUs(@Body ContactUsAPI contactUsAPI, Callback<JsonObject> response);
 
 }
 

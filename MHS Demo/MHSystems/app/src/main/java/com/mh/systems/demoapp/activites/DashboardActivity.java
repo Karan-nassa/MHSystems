@@ -3,6 +3,7 @@ package com.mh.systems.demoapp.activites;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -466,7 +467,16 @@ public class DashboardActivity extends BaseActivity {
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
 
-                        callWeatherService();
+                        //Call Weather api when 'No record found' from server.
+                        /*new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (isOnline(DashboardActivity.this)) {
+                                    callWeatherService();
+                                }
+                            }
+                        }, 5000);*/
+
                     }
                 });
     }
@@ -506,6 +516,7 @@ public class DashboardActivity extends BaseActivity {
         } else {
             //  Toast.makeText(DashboardActivity.this, weatherApiResponse.getMessage(), Toast.LENGTH_LONG).show();
             Log.e(LOG_TAG, weatherApiResponse.getMessage());
+            //callWeatherService();
         }
     }
 

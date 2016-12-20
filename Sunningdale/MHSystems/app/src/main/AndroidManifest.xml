@@ -71,6 +71,7 @@
 
         <!-- DETAIL INVOICE ACTIVITY -->
 
+
         <!-- MEMBERS ACTIVITY -->
         <activity
             android:name=".activites.MembersActivity"
@@ -153,11 +154,12 @@
             android:name=".activites.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
 
-        <!-- See the Weather-->
+        <!-- See the Weather -->
 
         <activity
             android:name=".activites.WeatherDetailActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activites.ContactUsActivity"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import com.mh.systems.sunningdale.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * The {@link SettingsActivity} used to RESET password for now. Rest functionality
@@ -30,6 +31,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     @Bind(R.id.llResetPassword)
     LinearLayout llResetPassword;
 
+    @Bind(R.id.llContactUs)
+    LinearLayout llContactUs;
+
     Intent intent;
 
     /*********************************
@@ -43,12 +47,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
         //Initialize all view resources.
         ButterKnife.bind(SettingsActivity.this);
-
-        //Set click listener events declaration.
-        llHomeIcon.setOnClickListener(this);
-        llResetPassword.setOnClickListener(this);
     }
 
+    @OnClick({R.id.llHomeIcon, R.id.llResetPassword, R.id.llContactUs})
     @Override
     public void onClick(View view) {
 
@@ -59,6 +60,11 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
             case R.id.llResetPassword:
                 intent = new Intent(SettingsActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.llContactUs:
+                intent = new Intent(SettingsActivity.this, ContactUsActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -42,6 +42,10 @@ android {
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/fonts'] } }
     productFlavors {
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {

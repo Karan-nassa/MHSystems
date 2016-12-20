@@ -232,6 +232,13 @@ public class WeatherDetailActivity extends BaseActivity /*implements View.OnClic
         weatherMainRecyclerAdapter.notifyDataSetChanged();
 
         //rvWeatherMain.findViewHolderForAdapterPosition(0).itemView.performClick();
+        rvWeatherMain.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rvWeatherMain.findViewHolderForAdapterPosition(0).itemView.performClick();
+
+            }
+        },100);
     }
 
     /**
