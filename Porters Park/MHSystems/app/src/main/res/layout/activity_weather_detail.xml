@@ -85,7 +85,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
     </LinearLayout>
 
     <!-- HORIZONTAL RECYCLER VIEW -->
@@ -99,180 +99,26 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorWhiteffffff"/>
+            android:alpha="0.3"
+            android:background="@color/colorWhiteffffff" />
+
+        <!-- 3 HOURS WEATHER STATUS OR WEATHER DETAIL -->
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvWeatherList"
+            android:id="@+id/rvWeatherDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never"/>
+            android:overScrollMode="never" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <!-- 5 DAYS MAIN WEATHER VIEW  -->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvWeatherMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20">
-
-        <FrameLayout
-            android:id="@+id/flDayGroup1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/color313130">
-
-            <com.mh.systems.porterspark.customfonts.RobotoMediumTextView
-                android:id="@+id/tvDayName1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="13sp" />
-
-            <ImageView
-                android:id="@+id/ivWeatherDay1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center" />
-
-            <com.mh.systems.porterspark.customfonts.RobotoLight
-                android:id="@+id/tvTempDay1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="21sp" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/flDayGroup2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/color242422">
-
-            <com.mh.systems.porterspark.customfonts.RobotoMediumTextView
-                android:id="@+id/tvDayName2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="13sp" />
-
-            <ImageView
-                android:id="@+id/ivWeatherDay2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center" />
-
-            <com.mh.systems.porterspark.customfonts.RobotoLight
-                android:id="@+id/tvTempDay2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="21sp" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/flDayGroup3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/color242422">
-
-            <com.mh.systems.porterspark.customfonts.RobotoMediumTextView
-                android:id="@+id/tvDayName3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="13sp" />
-
-            <ImageView
-                android:id="@+id/ivWeatherDay3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center" />
-
-            <com.mh.systems.porterspark.customfonts.RobotoLight
-                android:id="@+id/tvTempDay3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="21sp" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/flDayGroup4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/color242422">
-
-            <ImageView
-                android:id="@+id/ivWeatherDay4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center" />
-
-            <com.mh.systems.porterspark.customfonts.RobotoLight
-                android:id="@+id/tvTempDay4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="21sp" />
-
-            <com.mh.systems.porterspark.customfonts.RobotoMediumTextView
-                android:id="@+id/tvDayName4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="13sp" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/flDayGroup5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/color242422">
-
-            <com.mh.systems.porterspark.customfonts.RobotoMediumTextView
-                android:id="@+id/tvDayName5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="13sp" />
-
-            <ImageView
-                android:id="@+id/ivWeatherDay5"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center" />
-
-            <com.mh.systems.porterspark.customfonts.RobotoLight
-                android:id="@+id/tvTempDay5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="21sp" />
-        </FrameLayout>
-    </LinearLayout>
+        android:layout_weight="20"
+        android:background="@color/color242422"
+        android:overScrollMode="never" />
 </LinearLayout>

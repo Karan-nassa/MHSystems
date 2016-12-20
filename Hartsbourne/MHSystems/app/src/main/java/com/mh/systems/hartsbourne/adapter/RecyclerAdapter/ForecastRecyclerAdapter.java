@@ -12,13 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mh.systems.hartsbourne.R;
-import com.mh.systems.hartsbourne.activites.WeatherDetailActivity;
-import com.mh.systems.hartsbourne.models.HCapHistory.HCapHistoryData;
 import com.mh.systems.hartsbourne.models.forecast.ListOfDay;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,11 +47,11 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
      */
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ForecastRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View itemLayout = layoutInflater.inflate(R.layout.item_weather_view, null);
+        View itemLayout = layoutInflater.inflate(R.layout.list_item_weather_detail, null);
         return new ViewHolder(itemLayout, viewType, context);
     }
 
@@ -65,7 +62,7 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
      */
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ForecastRecyclerAdapter.ViewHolder holder, int position) {
 
         String strDateTime = weatherListOfList.get(position).getDtTxt();
 

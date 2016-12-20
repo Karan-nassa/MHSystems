@@ -168,6 +168,12 @@
             android:name="com.mh.systems.hartsbourne.activites.UpdatePasswordActivity"
             android:screenOrientation="portrait" />
 
+        <!-- See the Weather-->
+
+        <activity
+            android:name=".activites.WeatherDetailActivity"
+            android:screenOrientation="portrait" />
+
         <!-- FORGOT Password Activity -->
 
         <activity
@@ -175,10 +181,6 @@
             android:screenOrientation="portrait" />
 
         <!-- See the Weather-->
-
-        <activity
-            android:name=".activites.WeatherDetailActivity"
-            android:screenOrientation="portrait" />
 
         <!-- [START gcm_receiver] -->
         <receiver
