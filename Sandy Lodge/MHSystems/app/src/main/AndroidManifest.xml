@@ -78,6 +78,12 @@
             android:name="com.mh.systems.sandylodge.activites.YourAccountActivity"
             android:screenOrientation="portrait" />
 
+        <!-- COURSE DIARY WEB-VIEW -->
+
+        <activity
+            android:name=".activites.CourseDiaryWebviewActivity"
+            android:screenOrientation="portrait" />
+
         <!-- DETAIL INVOICE ACTIVITY -->
 
         <!-- MEMBERS ACTIVITY -->

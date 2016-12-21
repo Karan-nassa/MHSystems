@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mh.systems.brokenhurst.R;
+import com.mh.systems.brokenhurst.activites.WeatherDetailActivity;
 import com.mh.systems.brokenhurst.models.forecast.ListOfDay;
 
 import java.text.ParseException;
@@ -24,21 +25,23 @@ import java.util.List;
  * Created by  karan@ucreate.co.in to create Handicap History
  * data.
  */
-public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecyclerAdapter.ViewHolder> {
+public class WeatherMainRecyclerAdapter extends RecyclerView.Adapter<WeatherMainRecyclerAdapter.ViewHolder> {
 
     Context context;
-    List<ListOfDay> weatherListOfList;
+    List<List<ListOfDay>> weatherListOfList;
 
-    Typeface tfRobotoRegular, tfRobotoLight;
+    Typeface tfSfMedium, tfSfLight;
+
+    View mLastSelectedView = null;
 
     // The default constructor to receive titles,icons and context from DashboardActivity.
-    public ForecastRecyclerAdapter(Context context, List<ListOfDay> weatherListOfList) {
+    public WeatherMainRecyclerAdapter(Context context, List<List<ListOfDay>> weatherListOfList) {
 
         this.weatherListOfList = weatherListOfList;
         this.context = context;
 
-        tfRobotoRegular = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
-        tfRobotoLight = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf");
+        tfSfMedium = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Text-Medium.otf");
+        tfSfLight = Typeface.createFromAsset(context.getAssets(), "fonts/SF-UI-Display-Light.otf");
     }
 
     /**
@@ -51,7 +54,7 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
 
         LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View itemLayout = layoutInflater.inflate(R.layout.list_item_weather_detail, null);
+        View itemLayout = layoutInflater.inflate(R.layout.list_item_weather_main, null);
         return new ViewHolder(itemLayout, viewType, context);
     }
 
@@ -64,11 +67,13 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        String strDateTime = weatherListOfList.get(position).getDtTxt();
+        holder.tvDayName.setText(getFormateDayName(weatherListOfList.get(position).get(0).getDtTxt()));
+        holder.tvTempDay.setText(("" + getFormateDayName("" + ((int) (weatherListOfList.get(position).get(0).getMain().getTemp() - 273.15f)) + "°C")));
+        holder.ivWeatherDay.setImageDrawable(getWeatherIcon(weatherListOfList.get(position).get(0).getWeather().get(0).getIcon()));
 
-        holder.tvTimeSlot.setText(getFormateTime(strDateTime));
-        holder.tvTempSlot.setText("" + ((int) (weatherListOfList.get(position).getMain().getTemp() - 273.15f)) + "°C");
-        holder.ivWeatherIcon.setImageDrawable(getWeatherIcon(weatherListOfList.get(position).getWeather().get(0).getIcon()));
+       /* if (position == 0 && mLastSelectedView != null) {
+            mLastSelectedView.setBackgroundColor(ContextCompat.getColor(context, R.color.color313130));
+        }*/
     }
 
     /**
@@ -78,7 +83,7 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
      */
     @Override
     public int getItemCount() {
-        return  weatherListOfList.size();
+        return weatherListOfList.size();
     }
 
     /**
@@ -95,49 +100,52 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
     /**
      * Create custom view and initialize the font style.
      */
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         /**
          * Text Row VIEW INSTANCES DECLARATION
          */
-        TextView tvTimeSlot, tvTempSlot;
-        ImageView ivWeatherIcon;
+        TextView tvDayName, tvTempDay;
+        ImageView ivWeatherDay;
 
         public ViewHolder(View drawerItem, int itemType, Context context) {
             super(drawerItem);
 
-            tvTimeSlot = (TextView) itemView.findViewById(R.id.tvTimeSlot);
-            tvTempSlot = (TextView) itemView.findViewById(R.id.tvTempSlot);
+            tvDayName = (TextView) itemView.findViewById(R.id.tvDayName);
+            tvTempDay = (TextView) itemView.findViewById(R.id.tvTempDay);
 
-            ivWeatherIcon = (ImageView) itemView.findViewById(R.id.ivWeatherIcon);
+            ivWeatherDay = (ImageView) itemView.findViewById(R.id.ivWeatherDay);
 
             setFontTypeFace();
+
+            /*if(getAdapterPosition() == 0){
+                mLastSelectedView = drawerItem;
+                mLastSelectedView.setBackgroundColor(ContextCompat.getColor(context, R.color.color313130));
+            }*/
+
+            drawerItem.setOnClickListener(this);
         }
 
         private void setFontTypeFace() {
-            tvTimeSlot.setTypeface(tfRobotoRegular);
-            tvTempSlot.setTypeface(tfRobotoLight);
+            tvDayName.setTypeface(tfSfMedium);
+            tvTempDay.setTypeface(tfSfLight);
         }
-    }
 
-    /**
-     * Implements a method to RETURN the name of DAY from
-     * specific date format.
-     *
-     * @param strTime : Example => "yyyy-MM-dd HH:mm:ss"
-     * @return strTime  : HH:mm [14:00]
-     */
-    public static String getFormateTime(String strTime) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
+        @Override
+        public void onClick(View view) {
+            if (mLastSelectedView != view) {
+                view.setBackgroundColor(ContextCompat.getColor(context, R.color.color313130));
 
-        try {
-            Date date = inputFormat.parse(strTime);
-            strTime = outputFormat.format(date);
-        } catch (ParseException exp) {
-            exp.printStackTrace();
+                if (mLastSelectedView != null) {
+                    mLastSelectedView.setBackgroundColor(ContextCompat.getColor(context, R.color.color242422));
+                }
+
+                mLastSelectedView = view;
+
+                //Update 3 hours forecast list.
+                ((WeatherDetailActivity) context).updateDetailUI(getAdapterPosition());
+            }
         }
-        return strTime;
     }
 
     /**
@@ -150,5 +158,25 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
         int resID = context.getResources().getIdentifier("e" + strNameOfIcon, "mipmap", context.getPackageName());
         Drawable drawable = ContextCompat.getDrawable(context, resID);
         return drawable;
+    }
+
+    /**
+     * Implements a method to RETURN the name of DAY from
+     * specific date format.
+     *
+     * @param strDate : Example => "yyyy-MM-dd HH:mm:ss"
+     * @return strDate  : E [Tue]
+     */
+    public static String getFormateDayName(String strDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("E");
+
+        try {
+            Date date = inputFormat.parse(strDate);
+            strDate = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+        return strDate;
     }
 }

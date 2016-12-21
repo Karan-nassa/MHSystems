@@ -174,10 +174,10 @@
             android:name="com.mh.systems.brokenhurst.activites.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
 
-        <!-- See the Weather-->
+        <!-- See the Weather Forecast-->
 
         <activity
-            android:name=".activites.WeatherDetailActivity"
+            android:name="com.mh.systems.brokenhurst.activites.WeatherDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- [START gcm_receiver] -->

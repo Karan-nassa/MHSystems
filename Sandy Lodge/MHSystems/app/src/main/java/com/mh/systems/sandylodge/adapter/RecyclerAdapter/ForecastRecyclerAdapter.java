@@ -51,7 +51,7 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
 
         LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View itemLayout = layoutInflater.inflate(R.layout.item_weather_view, null);
+        View itemLayout = layoutInflater.inflate(R.layout.list_item_weather_detail, null);
         return new ViewHolder(itemLayout, viewType, context);
     }
 

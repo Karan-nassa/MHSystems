@@ -88,7 +88,7 @@ public class WeatherDetailActivity extends BaseActivity {
     List<List<ListOfDay>> listArrayList = new ArrayList<>();
 
     String strNameOfWeatherLoc;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
