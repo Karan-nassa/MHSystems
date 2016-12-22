@@ -180,6 +180,12 @@
             android:name=".activites.WeatherDetailActivity"
             android:screenOrientation="portrait" />
 
+        <!-- CONTACT US -->
+
+        <activity
+            android:name=".activites.ContactUsActivity"
+            android:screenOrientation="portrait" />
+
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

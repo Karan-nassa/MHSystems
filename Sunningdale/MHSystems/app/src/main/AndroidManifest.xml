@@ -159,7 +159,12 @@
         <activity
             android:name=".activites.WeatherDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activites.ContactUsActivity"></activity>
+
+        <!-- CONTACT US -->
+
+        <activity
+            android:name=".activites.ContactUsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

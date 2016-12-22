@@ -442,18 +442,22 @@ public class DashboardActivity extends BaseActivity {
 
             llWeatherGroup.setVisibility(View.VISIBLE);
 
-            //Get Data to local instances.
-            String desc = weatherApiResponse.getData().getWeather().get(0).getDescription();
-            tvTodayTemperature.setText("" + ((int) (weatherApiResponse.getData().getMain().getTemp() - 273.15f)) + "°C");
-            tvWeatherDesc.setText(("Current, " + (desc.substring(0, 1).toUpperCase() + desc.substring(1))));
-            tvNameOfLocation.setText(weatherApiResponse.getData().getName());
-            //todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherApiResponse.getData().getWeather().get(0).getIcon() + ".png"));
+            try {
+                //Get Data to local instances.
+                String desc = weatherApiResponse.getData().getWeather().get(0).getDescription();
+                tvTodayTemperature.setText("" + ((int) (weatherApiResponse.getData().getMain().getTemp() - 273.15f)) + "°C");
+                tvWeatherDesc.setText(("Current, " + (desc.substring(0, 1).toUpperCase() + desc.substring(1))));
+                tvNameOfLocation.setText(weatherApiResponse.getData().getName());
+                //todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherApiResponse.getData().getWeather().get(0).getIcon() + ".png"));
 
-            strNameOfWeatherLoc = weatherApiResponse.getData().getName();
+                strNameOfWeatherLoc = weatherApiResponse.getData().getName();
 
-            int resID = getResources().getIdentifier("e" + weatherApiResponse.getData().getWeather().get(0).getIcon(), "mipmap", getPackageName());
-            Drawable drawable = ContextCompat.getDrawable(DashboardActivity.this, resID);
-            todayIcon.setImageDrawable(drawable);
+                int resID = getResources().getIdentifier("e" + weatherApiResponse.getData().getWeather().get(0).getIcon(), "mipmap", getPackageName());
+                Drawable drawable = ContextCompat.getDrawable(DashboardActivity.this, resID);
+                todayIcon.setImageDrawable(drawable);
+            } catch (Exception exp) {
+                exp.printStackTrace();
+            }
 
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));

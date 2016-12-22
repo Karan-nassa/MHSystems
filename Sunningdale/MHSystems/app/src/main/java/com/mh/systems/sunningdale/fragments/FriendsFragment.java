@@ -98,6 +98,8 @@ public class FriendsFragment extends Fragment {
 
         if (isVisibleToUser) {
 
+            ((MembersActivity)getActivity()).setiTabPosition(1);
+
             ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
 
             callWebService();
@@ -207,14 +209,14 @@ public class FriendsFragment extends Fragment {
                 friendsDataArrayList.addAll(friendsItems.getData());
 
                 if (friendsDataArrayList.size() == 0) {
-                    ((MembersActivity) getActivity()).updateNoDataUI(false);
+                    ((MembersActivity) getActivity()).updateNoDataUI(false, 1);
                     //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
-                    ((MembersActivity) getActivity()).updateNoDataUI(true);
+                    ((MembersActivity) getActivity()).updateNoDataUI(true, 1);
                     setMembersListAdapter(friendsDataArrayList);
                 }
             } else {
-                ((MembersActivity) getActivity()).updateNoDataUI(false);
+                ((MembersActivity) getActivity()).updateNoDataUI(false, 1);
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());

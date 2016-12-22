@@ -154,15 +154,20 @@ public class BaseActivity extends AppCompatActivity {
      * @param tvMessageTitle   :  View to set Text title of message.
      * @param tvMessageDesc    :  View to set detail Text description of message.
      * @param hasData          :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     * @param iTabPositon      :  if iTabPosition 0 means 'No Member found' otherwise 'No Friend found'
      */
-    public void showNoMemberView(RelativeLayout inc_message_view, ImageView ivMessageSymbol, TextView tvMessageTitle, TextView tvMessageDesc, boolean hasData) {
+    public void showNoMemberView(RelativeLayout inc_message_view, ImageView ivMessageSymbol, TextView tvMessageTitle, TextView tvMessageDesc, boolean hasData, int iTabPositon) {
 
         if (hasData) {
             inc_message_view.setVisibility(View.GONE);
         } else {
             inc_message_view.setVisibility(View.VISIBLE);
             ivMessageSymbol.setImageResource(R.mipmap.ic_home_members);
-            tvMessageTitle.setText(getResources().getString(R.string.error_no_member));
+            if (iTabPositon == 0) {
+                tvMessageTitle.setText(getResources().getString(R.string.error_no_member));
+            } else {
+                tvMessageTitle.setText(getResources().getString(R.string.error_no_friend));
+            }
             tvMessageDesc.setText(getResources().getString(R.string.error_try_again));
         }
     }

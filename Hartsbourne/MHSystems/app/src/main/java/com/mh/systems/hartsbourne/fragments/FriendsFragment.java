@@ -98,6 +98,8 @@ public class FriendsFragment extends Fragment {
 
         if (isVisibleToUser) {
 
+            ((MembersActivity)getActivity()).setiTabPosition(1);
+
             ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
 
             callWebService();

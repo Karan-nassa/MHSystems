@@ -12,6 +12,7 @@
     <string name="error_no_course">No Course</string>
     <string name="error_no_data_found">No Data Found</string>
     <string name="error_no_member">No Member found</string>
+    <string name="error_no_friend">No Friends found</string>
     <string name="error_select_different_month">Select different month</string>
     <string name="error_check_internet">Please check your internet connectivity and try again</string>
     <string name="error_no_data">No Data found</string>

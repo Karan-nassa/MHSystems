@@ -14,6 +14,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -85,6 +86,12 @@ public class MembersActivity extends BaseActivity {
     Fragment fragmentInstance;
 
     /**
+     * Keep track of tab position to display
+     * info or contact us icon.
+     */
+    private int iTabPosition;
+
+    /**
      * Implements HOME icons press
      * listener.
      */
@@ -152,13 +159,13 @@ public class MembersActivity extends BaseActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        initializeMembersCategory();
-
         /**
          *  If user back press on any other tab then app should
          *  open first tab by default when opening 'MEMBERS'.
          */
         MembersTabFragment.iLastTabPosition = 0;
+
+        initializeMembersCategory();
 
         /**
          *  Setup Tool bar of Members screen with DROP-DOWN [SPINNER]
@@ -188,7 +195,13 @@ public class MembersActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_members, menu);
+
+        if (getiTabPosition() == 0) {
+            getMenuInflater().inflate(R.menu.menu_members, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.menu_friends, menu);
+        }
+
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search), new MenuItemCompat.OnActionExpandListener() {
             @Override
@@ -244,6 +257,10 @@ public class MembersActivity extends BaseActivity {
 
             case R.id.action_info:
                 showAlertInfo();
+                return true;
+
+            case R.id.action_contact_us:
+                startActivity(new Intent(MembersActivity.this, ContactUsActivity.class));
                 return true;
         }
         return false;
@@ -319,7 +336,7 @@ public class MembersActivity extends BaseActivity {
         }
 
         //Initially display title at position 0 of R.menu.course_menu.
-        tvMemberType.setText("" + popupMenu.getMenu().getItem(0));
+        tvMemberType.setText(("" + popupMenu.getMenu().getItem(0)));
 
         llMemberCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -336,14 +353,23 @@ public class MembersActivity extends BaseActivity {
      */
     public void performSearch(final String queryText) {
 
-        if (getFragmentInstance() instanceof MembersFragment) {
-            MembersFragment.mAdapter.getFilter().filter(queryText);
-            MembersFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
-            MembersFragment.mAdapter.notifyDataSetChanged();
-        } else if (getFragmentInstance() instanceof FriendsFragment) {
-            FriendsFragment.mAdapter.getFilter().filter(queryText);
-            FriendsFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
-            FriendsFragment.mAdapter.notifyDataSetChanged();
+        switch (getiTabPosition()) {
+            case 0:
+                if (MembersFragment.mAdapter != null) {
+                    MembersFragment.mAdapter.getFilter().filter(queryText);
+                    MembersFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
+                    MembersFragment.mAdapter.notifyDataSetChanged();
+                }
+                break;
+
+            case 1: {
+                if (FriendsFragment.mAdapter != null) {
+                    FriendsFragment.mAdapter.getFilter().filter(queryText);
+                    FriendsFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
+                    FriendsFragment.mAdapter.notifyDataSetChanged();
+                }
+            }
+            break;
         }
     }
 
@@ -402,10 +428,11 @@ public class MembersActivity extends BaseActivity {
     private void showAlertInfo() {
         // Create custom dialog object
         final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Include dialog.xml file
         dialog.setContentView(R.layout.custom_alert_ok);
         // Set dialog title
-        dialog.setTitle("Custom Dialog");
+        dialog.setTitle("");
 
         // set values for custom dialog components - text, image and button
         TextView tvDescription = (TextView) dialog.findViewById(R.id.tvDescription);
@@ -421,4 +448,18 @@ public class MembersActivity extends BaseActivity {
             }
         });
     }
+
+    /* +++++++++++++++++++++++++ HOLD TAB POSITION FOR CONTACT US & INFO POP-UP  +++++++++++++++++++++++++ */
+
+    public int getiTabPosition() {
+        return iTabPosition;
+    }
+
+    public void setiTabPosition(int iTabPosition) {
+        this.iTabPosition = iTabPosition;
+        invalidateOptionsMenu();
+        llPopMenuBar.setVisibility(View.VISIBLE);
+    }
+
+    /* +++++++++++++++++++++++++ HOLD TAB POSITION FOR CONTACT US & INFO POP-UP  +++++++++++++++++++++++++ */
 }

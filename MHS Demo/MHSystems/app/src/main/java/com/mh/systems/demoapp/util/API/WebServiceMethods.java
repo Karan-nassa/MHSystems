@@ -10,6 +10,7 @@ import com.mh.systems.demoapp.models.CompetitionResultAPI;
 import com.mh.systems.demoapp.models.CompetitionJoinAPI;
 import com.mh.systems.demoapp.models.CompetitionUnjoinAPI;
 import com.mh.systems.demoapp.models.CompetitionsAPI;
+import com.mh.systems.demoapp.models.ContactUs.ContactUsAPI;
 import com.mh.systems.demoapp.models.CourseDiaryAPI;
 import com.mh.systems.demoapp.models.DashboardAPI;
 import com.mh.systems.demoapp.models.DeleteToken.DeleteTokenAPI;
@@ -436,5 +437,16 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void getClubNewsThumbnailDetail(@Body ClubNewsThumbnailDetailAPI clubNewsThumbnailDetailAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of CONTACT US web service declaration.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param contactUsAPI
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void contactUs(@Body ContactUsAPI contactUsAPI, Callback<JsonObject> response);
 }
 

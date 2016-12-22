@@ -44,7 +44,7 @@ public class MembersTabFragment extends Fragment {
     //To Record of which SPINNER item selected "All", "Ladies" or "Gentlemen's".
     public static int iMemberType;
 
-    public static int iLastTabPosition;
+    public static int iLastTabPosition = 0;
 
     /**
      * Declare three bool instances to call api
