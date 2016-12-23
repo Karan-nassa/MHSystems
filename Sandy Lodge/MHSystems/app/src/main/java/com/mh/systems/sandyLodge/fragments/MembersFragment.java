@@ -116,6 +116,8 @@ public class MembersFragment extends Fragment {
 
         if (isVisibleToUser) {
 
+            ((MembersActivity)getActivity()).setiTabPosition(0);
+
             /**
              *  Check internet connection before hitting server request.
              */

@@ -8,6 +8,7 @@ import com.mh.systems.halesworth.models.CompetitionResultAPI;
 import com.mh.systems.halesworth.models.CompetitionJoinAPI;
 import com.mh.systems.halesworth.models.CompetitionUnjoinAPI;
 import com.mh.systems.halesworth.models.CompetitionsAPI;
+import com.mh.systems.halesworth.models.ContactUs.ContactUsAPI;
 import com.mh.systems.halesworth.models.CourseDiaryAPI;
 import com.mh.systems.halesworth.models.CourseNames.CourseNamesAPI;
 import com.mh.systems.halesworth.models.DashboardAPI;
@@ -364,5 +365,16 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getCourseNames(@Body CourseNamesAPI courseNamesAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of CONTACT US web service declaration.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param contactUsAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void contactUs(@Body ContactUsAPI contactUsAPI, Callback<JsonObject> response);
 }
 

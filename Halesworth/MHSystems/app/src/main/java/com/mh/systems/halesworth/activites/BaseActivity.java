@@ -1,10 +1,12 @@
 package com.mh.systems.halesworth.activites;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -12,8 +14,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -45,6 +49,8 @@ import java.util.List;
  * @author Karan Nassa
  */
 public class BaseActivity extends AppCompatActivity {
+
+    public final int PERMISSIONS_REQUEST_CALL_PHONE = 101;
 
     Snackbar snackbar;
     private ProgressDialog mProgress;
@@ -386,6 +392,52 @@ public class BaseActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.clear();
         editor.commit();
+    }
+
+
+	 /* ++++++++++++++++++++ REQUEST PERMISSION FOR MARSHMALLOW PROGRAMMATICALLY ++++++++++++++++++++ */
+
+    /**
+     * Implements this method to get CALL PERMISSION
+     * for marshmallow.
+     */
+    public void requestPermissions() {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(BaseActivity.this,
+                Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(BaseActivity.this,
+                    Manifest.permission.CALL_PHONE)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            }
+
+            //And finally ask for the permission
+            ActivityCompat.requestPermissions(BaseActivity.this,
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    PERMISSIONS_REQUEST_CALL_PHONE);
+        }
+    }
+
+    /**
+     * Implements this method to check if user already granted
+     * for the permission or not?
+     *
+     * @return TRUE : If granted otherwise FALSE.
+     */
+    public boolean isCallPermissionAllowed() {
+        //Getting the permission status
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+
+        //If permission is granted returning true
+        if (result == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        //If permission is not granted returning false
+        return false;
     }
 
 }
