@@ -1,10 +1,12 @@
-##MHSystems [ANDROID]
+##MHSystems_Android
 
-###MHS GOLF (DEMO) Club
->Following information using for MHS GOLF(DEMO) Club App:
-- CLUB ID : 44071043
-- Course Diary (Book Alert Dialog) 123456789  info@mhsystems.co.uk
-- Base URL : http://staging.mhsystems.co.uk:8090
+###FEATURES
+- HANDICAP
+- BRS COURSE DIARY
+- COMPETITIONS
+- MEMBERS
+- CLUB NEWS
+- YOUR ACCOUNT
 
-
-####NOTE: Its just the demo App of GOLF CLUB. For now, its showing the data set of Poters Park. So CLUB ID and all information using of Poters Park of local server.
+###DETAIL FEATURES
+- CONTACT US (26th Dec, 2016)
