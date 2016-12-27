@@ -10,7 +10,7 @@ public class ApplicationGlobal {
     /**
      * Declares the ROLL BAR key for PRODUCTION ENVIRONMENT.
      */
-    public static final String KEY_ROLLBAR_CLIENT_PRODUCTION = "4a927eeda0724fc69e83acbb6b3a7443";
+    public static final String KEY_ROLLBAR_CLIENT_PRODUCTION = "f4494cf9f54846c6ac690aad1e624598";
 
     /**
      * Declares the ROLL BAR key for TEST ENVIRONMENT.
@@ -121,15 +121,13 @@ public class ApplicationGlobal {
     public static final String KEY_YOUR_ACCOUNT_FEATURE = "YourAccountFeature";
 
 
-
-    /*
-    * SharedPrefernce Key for weather store
-    * */
-
-    public static final String KEY_TEMPKEY_TEMPERATURE ="temp";
-    public static final String KEY_TEMPKEY_IMAGE ="image";
-    public static final String KEY_TEMPKEY_LOCATION ="location";
-    public static final String KEY_TEMPKEY_WEATHER ="weather";
+    /**
+     * SharedPrefernce Key for weather store
+     */
+    public static final String KEY_TEMPKEY_TEMPERATURE = "temp";
+    public static final String KEY_TEMPKEY_IMAGE = "image";
+    public static final String KEY_TEMPKEY_LOCATION = "location";
+    public static final String KEY_TEMPKEY_WEATHER = "weather";
 
 }
 

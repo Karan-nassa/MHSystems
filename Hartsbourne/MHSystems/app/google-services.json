@@ -1,12 +1,12 @@
 {
   "project_info": {
-    "project_number": "441828749886",
-    "project_id": "mhs-golf-141407"
+    "project_number": "366376131314",
+    "project_id": "hartsbourne-golf-club"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:441828749886:android:714845c7c685667c",
+        "mobilesdk_app_id": "1:366376131314:android:59d044ca9cc39285",
         "android_client_info": {
           "package_name": "com.mh.systems.hartsbourne"
         }
@@ -14,7 +14,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDOrtI9-Py69sVXD2jKgbI4wxj4er6mVF0"
+          "current_key": "AIzaSyAZKKAyOD51epDvRr_sUW8Od4vD-Vd6NCs"
         }
       ],
       "services": {
