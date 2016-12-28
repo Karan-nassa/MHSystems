@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_top_up"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- MAIN VIEW GROUP -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- TOP BAR [TITLE] -->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbTopUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:title="@string/text_title_topup" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@string/text_title_amount"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="right"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="$20"
+                        android:textColor="@color/colorC0995B"
+                        android:textSize="16sp">
+
+                        <requestFocus />
+                    </EditText>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- DIVIDER LINE -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorE8E2DD" />
+
+            <!-- CARD BALANCE INFO -->
+
+            <com.mh.systems.demoapp.customfonts.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="Your balance will be £27.00"
+                android:textColor="@color/color7C7C7C" />
+
+            <!-- MAKE PAYMENT NOW -->
+
+            <Button
+                android:id="@+id/btMakePayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/button_login_shape_c0995b"
+                android:elevation="0dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:text="@string/button_title_make_payment"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhiteffffff"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

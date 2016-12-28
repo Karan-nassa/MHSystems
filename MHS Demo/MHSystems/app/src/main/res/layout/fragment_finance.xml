@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:background="@color/colorD6D0C9"
             android:orientation="horizontal"
             android:weightSum="100">
@@ -23,7 +23,7 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="50">
+                android:layout_weight="33">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -72,14 +72,14 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50">
+                android:layout_weight="34">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="8dp">
 
                     <!-- CURRENT INVOICE -->
 
@@ -102,6 +102,56 @@
                         android:text="0 Pending"
                         android:textColor="@color/color1E1E1C"
                         android:textSize="19sp" />
+
+                </LinearLayout>
+
+                <!-- DIVIDER LINE  -->
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color8F8E94" />
+            </FrameLayout>
+
+            <!-- CARD BALANCE -->
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingTop="7dp"
+                android:layout_weight="33">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <!-- CURRENT INVOICE -->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.4"
+                        android:text="Card"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="13sp" />
+
+                    <!-- CURRENT INVOICE VALUE -->
+
+                    <Button
+                        android:id="@+id/btTopUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="TOP UP"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/button_shape_d6d0c9"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
             </FrameLayout>

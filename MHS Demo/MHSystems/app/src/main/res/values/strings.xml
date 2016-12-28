@@ -236,4 +236,10 @@
     <string name="text_title_email">EMAIL</string>
     <string name="text_title_address">ADDRESS</string>
 
+    <!-- TOP UP -->
+    <string name="text_title_topup">Top Up</string>
+    <string name="text_title_amount">Amount</string>
+    <string name="text_title_your_balance">Your balance will be </string>
+    <string name="button_title_make_payment">Make Payment Now</string>
+
 </resources>

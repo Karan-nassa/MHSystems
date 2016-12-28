@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.activites.FinanceDetailWebActivity;
+import com.mh.systems.demoapp.activites.MakePaymentWebActivity;
+import com.mh.systems.demoapp.activites.TopUpActivity;
 import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.BaseActivity;
@@ -63,6 +66,7 @@ public class FinanceFragment extends Fragment {
     TextView tvLabelYourInvoice, tvYourInvoice;
     ImageView ivFilter;
     Intent intent;
+    Button btTopUp;
 
     Typeface tpRobotoMedium, tpRobotoRegular;
 
@@ -87,6 +91,15 @@ public class FinanceFragment extends Fragment {
             intent.putExtra("iTransactionId", transactionListDataArrayList.get(position).getTransactionId());
             intent.putExtra("iMemberId", ((YourAccountActivity) getActivity()).getMemberId());
             intent.putExtra("titleOfScreen", transactionListDataArrayList.get(position).getTitle());
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener mTopUpListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            intent = new Intent(getActivity(), TopUpActivity.class);
             startActivity(intent);
         }
     };
@@ -139,6 +152,7 @@ public class FinanceFragment extends Fragment {
         }*/
 
         lvTransactionList.setOnItemClickListener(mFinanceListListener);
+        btTopUp.setOnClickListener(mTopUpListener);
 
         return viewRootFragment;
     }
@@ -187,6 +201,8 @@ public class FinanceFragment extends Fragment {
         ivFilter = (ImageView) viewRootFragment.findViewById(R.id.ivFilter);
 
         lvTransactionList = (ListView) viewRootFragment.findViewById(R.id.lvTransactionList);
+
+        btTopUp = (Button) viewRootFragment.findViewById(R.id.btTopUp);
     }
 
     /**
