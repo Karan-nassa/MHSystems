@@ -88,31 +88,45 @@ public class YourAccountActivity extends BaseActivity {
 
                     switch (item.getItemId()) {
                         case R.id.item_today:
-                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(0);
+                            if(getFragmentInstance() instanceof  FinanceFragment) {
+                                ((FinanceFragment) getFragmentInstance()).updateFilterControl(0);
+                            }
                             break;
 
                         case R.id.item_a_week:
-                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(1);
+                            if(getFragmentInstance() instanceof  FinanceFragment) {
+                                ((FinanceFragment) getFragmentInstance()).updateFilterControl(1);
+                            }
                             break;
 
                         case R.id.item_one_month:
-                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(2);
+                            if(getFragmentInstance() instanceof  FinanceFragment) {
+                                ((FinanceFragment) getFragmentInstance()).updateFilterControl(2);
+                            }
                             break;
 
                         case R.id.item_three_months:
-                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(3);
+                            if(getFragmentInstance() instanceof  FinanceFragment) {
+                                ((FinanceFragment) getFragmentInstance()).updateFilterControl(3);
+                            }
                             break;
 
                         case R.id.item_six_months:
-                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(4);
+                            if(getFragmentInstance() instanceof  FinanceFragment) {
+                                ((FinanceFragment) getFragmentInstance()).updateFilterControl(4);
+                            }
                             break;
 
                         case R.id.item_a_year:
-                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(5);
+                            if(getFragmentInstance() instanceof  FinanceFragment) {
+                                ((FinanceFragment) getFragmentInstance()).updateFilterControl(5);
+                            }
                             break;
 
                         case R.id.item_from_start:
-                            ((FinanceFragment) getFragmentInstance()).updateFilterControl(6);
+                            if(getFragmentInstance() instanceof  FinanceFragment) {
+                                ((FinanceFragment) getFragmentInstance()).updateFilterControl(6);
+                            }
                             break;
 
                         case R.id.item_toggle_mode:

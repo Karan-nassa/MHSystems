@@ -20,7 +20,7 @@ public class MyAccountTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = MyAccountTabFragment.class.getSimpleName();
+    public final String LOG_TAG = MyAccountTabFragment.class.getSimpleName();
 
 
     /*********************************

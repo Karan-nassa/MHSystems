@@ -25,6 +25,7 @@ import com.mh.systems.demoapp.models.MembersDetailAPI;
 import com.mh.systems.demoapp.models.FinanceAPI;
 import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.demoapp.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.demoapp.models.TopUp.TopUpPricesListAPI;
 import com.mh.systems.demoapp.models.UnreadNewsCount.GetUnreadNewsCountAPI;
 import com.mh.systems.demoapp.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersAPI;
@@ -448,5 +449,17 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void contactUs(@Body ContactUsAPI contactUsAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of TOP UP prices list web service declaration.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param aClientId     : Client ID.
+     * @param aMemberId     : Member ID.
+     * @param response      : Top Up Price list.
+     */
+    @GET("/api/ApiStripeGateway/TopUps")
+    public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
 }
 

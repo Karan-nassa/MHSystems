@@ -31,13 +31,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:orientation="vertical">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginRight="16dp"
                     android:orientation="horizontal">
 
                     <com.mh.systems.demoapp.customfonts.RobotoTextView
@@ -47,22 +49,47 @@
                         android:text="@string/text_title_amount"
                         android:textSize="16sp" />
 
-                    <EditText
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="50"
                         android:gravity="right"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text="$20"
                         android:textColor="@color/colorC0995B"
-                        android:textSize="16sp">
+                        android:layout_weight="50">
 
-                        <requestFocus />
-                    </EditText>
+                        <TextView
+                            android:id="@+id/tvCurrencySign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorC0995B"
+                            android:text="£"/>
 
+                        <EditText
+                            android:id="@+id/etInputPrize"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:maxLength="12"
+                            android:maxLines="1"
+                            android:imeOptions="actionDone"
+                            android:singleLine="true"
+                            android:windowSoftInputMode="stateVisible"
+                            android:minWidth="15dp"
+                            android:inputType="number"
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/colorC0995B"
+                            android:textSize="16sp"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvCurrencyList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:overScrollMode="never" />
 
             </LinearLayout>
 
@@ -71,6 +98,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="16dp"
                 android:background="@color/colorE8E2DD" />
 
             <!-- CARD BALANCE INFO -->
