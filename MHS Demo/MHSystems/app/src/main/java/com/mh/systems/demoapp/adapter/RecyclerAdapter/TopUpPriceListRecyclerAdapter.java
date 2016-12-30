@@ -26,12 +26,12 @@ import java.util.ArrayList;
  */
 public class TopUpPriceListRecyclerAdapter extends RecyclerView.Adapter<TopUpPriceListRecyclerAdapter.ViewHolder> {
 
-    Context context;
-    ArrayList<TopupList> topUpPriceListDataList;
+    private Context context;
+    private ArrayList<TopupList> topUpPriceListDataList;
 
-    Typeface tfRobotoMedium;
+    private Typeface tfRobotoMedium;
 
-    Button btLastSelectedPrice;
+    private Button btLastSelectedPrice;
 
     public TopUpPriceListRecyclerAdapter(Context context, ArrayList<TopupList> topUpPriceListDataList) {
 
@@ -132,6 +132,19 @@ public class TopUpPriceListRecyclerAdapter extends RecyclerView.Adapter<TopUpPri
             btPriceView.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             btPriceView.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttone4e4e4));
+        }
+    }
+
+    /**
+     * Implements this method to display as no
+     * selected view.
+     */
+    public void markAsUnselected() {
+
+        if (btLastSelectedPrice != null) {
+            setSlotNotSelected(btLastSelectedPrice);
+            btLastSelectedPrice.setTextColor(ContextCompat.getColor(context, R.color.colorBlack000000));
+            btLastSelectedPrice = null;
         }
     }
 }

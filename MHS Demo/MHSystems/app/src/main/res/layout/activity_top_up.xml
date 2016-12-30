@@ -60,8 +60,7 @@
                             android:id="@+id/tvCurrencySign"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorC0995B"
-                            android:text="£"/>
+                            android:textColor="@color/colorC0995B" />
 
                         <EditText
                             android:id="@+id/etInputPrize"
@@ -88,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
+                    android:paddingLeft="16dp"
                     android:overScrollMode="never" />
 
             </LinearLayout>
@@ -104,11 +103,11 @@
             <!-- CARD BALANCE INFO -->
 
             <com.mh.systems.demoapp.customfonts.RobotoTextView
+                android:id="@+id/tvYourBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:gravity="center"
-                android:text="Your balance will be £27.00"
                 android:textColor="@color/color7C7C7C" />
 
             <!-- MAKE PAYMENT NOW -->

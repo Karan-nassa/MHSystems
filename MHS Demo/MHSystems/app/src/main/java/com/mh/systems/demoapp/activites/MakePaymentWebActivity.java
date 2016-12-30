@@ -3,20 +3,26 @@ package com.mh.systems.demoapp.activites;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.constants.ApplicationGlobal;
 
 public class MakePaymentWebActivity extends BaseActivity {
 
-    String strURL = "https://staging.mhsystems.co.uk//fsipayment/paymentgateway?aClientId=44071043&aMemberId=9137&aAmount=34";
+    private final String LOG_TAG = MakePaymentWebActivity.class.getSimpleName();
+
+    String strURL;
 
     /* ++ INSTANCES OF CLASSES ++ */
     WebView wvPaymentView;
     ProgressBar pbLoading;
+
+    int iTopUpPrize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,15 @@ public class MakePaymentWebActivity extends BaseActivity {
 
         pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
         wvPaymentView = (WebView) findViewById(R.id.wvPaymentView);
+
+        iTopUpPrize = getIntent().getExtras().getInt("iTopUpPrize");
+
+        strURL = "https://staging.mhsystems.co.uk//fsipayment/paymentgateway?aClientId="
+                + getClientId() +
+                "&aMemberId=" + getMemberId()
+                + "&aAmount=" + iTopUpPrize;
+
+        Log.e(LOG_TAG, "URL :" + strURL);
 
         if (strURL.length() > 0) {
             //Load Web View URL.
@@ -63,5 +78,19 @@ public class MakePaymentWebActivity extends BaseActivity {
             super.onPageFinished(view, url);
             pbLoading.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    public String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 }

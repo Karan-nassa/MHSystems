@@ -100,6 +100,7 @@ public class FinanceFragment extends Fragment {
         public void onClick(View v) {
 
             intent = new Intent(getActivity(), TopUpActivity.class);
+            intent.putExtra("strClosingBalance", financeResultItems.getData().getClosingBalance());
             startActivity(intent);
         }
     };

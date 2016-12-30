@@ -2,11 +2,13 @@ package com.mh.systems.demoapp.activites;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -21,11 +23,6 @@ import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.TopUpPriceListRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.models.ContactUs.AJsonParamsContactUs;
-import com.mh.systems.demoapp.models.ContactUs.ContactUsAPI;
-import com.mh.systems.demoapp.models.ContactUs.ContactUsResponse;
-import com.mh.systems.demoapp.models.TopUp.TopUpPriceListData;
 import com.mh.systems.demoapp.models.TopUp.TopUpPriceListResponse;
 import com.mh.systems.demoapp.models.TopUp.TopUpPricesListAPI;
 import com.mh.systems.demoapp.models.TopUp.TopupList;
@@ -68,6 +65,11 @@ public class TopUpActivity extends BaseActivity {
     @Bind(R.id.btMakePayment)
     Button btMakePayment;
 
+    @Bind(R.id.tvYourBalance)
+    TextView tvYourBalance;
+
+    Intent intent;
+
     Typeface tfRobotoRegular;
     LinearLayoutManager linearLayoutManager;
 
@@ -76,12 +78,15 @@ public class TopUpActivity extends BaseActivity {
 
     TopUpPriceListResponse topUpPriceListResponse;
 
-    Intent intent;
-
     ArrayList<TopupList> topUpPriceListDataList = new ArrayList<>();
 
-    String pattern = "##.00";
-    DecimalFormat decimalFormat = new DecimalFormat(pattern);
+    String strOutputPattern = "##.00";
+    DecimalFormat decimalFormat = new DecimalFormat(strOutputPattern);
+
+    int iMaxTopup, iMinTopup, iTopUpPrize = 0;
+    int iCardBalance;
+    String strMinTopup, strMaxTopup;
+    String strClosingBalance;
 
     /**
      * Implements this method to perform the {@link EditorInfo.IME_ACTION_DONE}
@@ -103,8 +108,42 @@ public class TopUpActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
-            startActivity(intent);
+            if (iTopUpPrize >= iMinTopup && iTopUpPrize <= iMaxTopup) {
+                intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
+                intent.putExtra("iTopUpPrize", iTopUpPrize);
+                startActivity(intent);
+            } else {
+                showAlertMessage("Top Up range should remain between " + strMinTopup + " and " + strMaxTopup + ".");
+            }
+        }
+    };
+
+    private TextWatcher mPrizeChangeListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //Log.e(LOG_TAG, "beforeTextChanged : " + s.toString());
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // Log.e(LOG_TAG, "onTextChanged : " + s.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            etInputPrize.removeTextChangedListener(mPrizeChangeListener);
+
+            iTopUpPrize = Float.valueOf(s.toString()).intValue();
+            etInputPrize.setText(decimalFormat.format(iTopUpPrize));
+            etInputPrize.setSelection(etInputPrize.getText().length() - 3);
+
+            //Update price description label.
+            updatePriceDecsription();
+
+            topUpPriceListRecyclerAdapter.markAsUnselected();
+
+            etInputPrize.addTextChangedListener(mPrizeChangeListener);
         }
     };
 
@@ -123,10 +162,18 @@ public class TopUpActivity extends BaseActivity {
         //Set Font style.
         setupFontStyle();
 
+        //Get Closing balance.
+        strClosingBalance = getIntent().getExtras().getString("strClosingBalance");
+        if (strClosingBalance.length() > 0) {
+            tvYourBalance.setText((getString(R.string.text_title_your_balance)
+                    + " " + strClosingBalance + ".00"));
+
+            iCardBalance = Integer.parseInt(strClosingBalance.substring(1, strClosingBalance.length()));
+        }
+
         etInputPrize.setOnEditorActionListener(mInputActionListener);
 
-        linearLayoutManager =
-                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rvCurrencyList.setLayoutManager(linearLayoutManager);
 
         //Initialize top up prices list Adapter.
@@ -134,6 +181,8 @@ public class TopUpActivity extends BaseActivity {
         rvCurrencyList.setAdapter(topUpPriceListRecyclerAdapter);
 
         btMakePayment.setOnClickListener(mMakePaymentListener);
+
+        etInputPrize.addTextChangedListener(mPrizeChangeListener);
     }
 
     @Override
@@ -234,13 +283,32 @@ public class TopUpActivity extends BaseActivity {
              */
             if (topUpPriceListResponse.getMessage().equalsIgnoreCase("Success")) {
 
+                iMinTopup = topUpPriceListResponse.getData().getMinTopup();
+                iMaxTopup = topUpPriceListResponse.getData().getMaxTopup();
+
+                strMinTopup = topUpPriceListResponse.getData().getMinTopupStr();
+                strMaxTopup = topUpPriceListResponse.getData().getMaxTopupStr();
+
+                tvCurrencySign.setText(topUpPriceListResponse.getData().getCrnSym());
+
                 if (topUpPriceListResponse.getData().getTopupList().size() > 0) {
+
+                    rvCurrencyList.setVisibility(View.VISIBLE);
+                    topUpPriceListDataList.clear();
+
                     topUpPriceListDataList.addAll(topUpPriceListResponse.getData().getTopupList());
                     topUpPriceListRecyclerAdapter.notifyDataSetChanged();
-                }
 
+                    rvCurrencyList.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            rvCurrencyList.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.btTimeSlot).performClick();
+                        }
+                    }, 100);
+                }
             } else {
                 showAlertMessage(topUpPriceListResponse.getMessage());
+                rvCurrencyList.setVisibility(View.GONE);//Hide if Topup List empty.
             }
             hideProgress();
         } catch (Exception e) {
@@ -260,9 +328,129 @@ public class TopUpActivity extends BaseActivity {
         etInputPrize.setTypeface(tfRobotoRegular);
     }
 
+    /**
+     * Implements this method to update Top Up
+     * price.
+     */
     public void updatePriceUI(int iPosition) {
 
-        etInputPrize.setText(decimalFormat.format(Integer.parseInt(topUpPriceListDataList.get(iPosition).getValue())));
+        etInputPrize.removeTextChangedListener(mPrizeChangeListener);
+
+        iTopUpPrize = Integer.parseInt(topUpPriceListDataList.get(iPosition).getValue());
+
+        etInputPrize.setText(decimalFormat.format(iTopUpPrize));
         etInputPrize.setSelection(etInputPrize.getText().length());
+
+        //Update price description label.
+        updatePriceDecsription();
+
+        etInputPrize.addTextChangedListener(mPrizeChangeListener);
     }
+
+    /**
+     * Implements this method to update Top
+     * Up price description.
+     */
+    private void updatePriceDecsription() {
+        tvYourBalance.setText((getString(R.string.text_title_your_balance)
+                + " " + tvCurrencySign.getText().toString()
+                + (iCardBalance + iTopUpPrize) + ".00"));
+    }
+
+    /* +++++++++++++++++++++++++++++ DECIMAL FLOAT WATCHER FOR PRICE ++++++++++++++++++++++++++++++*/
+
+   /* public class DecimalTextWatcher implements TextWatcher {
+
+        private final DecimalFormat df;
+        private final DecimalFormat dfnd;
+        private final EditText et;
+        private boolean hasFractionalPart;
+        private int trailingZeroCount;
+
+        private DecimalTextWatcher(EditText editText, String pattern, String strOutputPattern) {
+            df = new DecimalFormat(pattern);
+            df.setDecimalSeparatorAlwaysShown(true);
+            dfnd = new DecimalFormat(strOutputPattern);
+            this.et = editText;
+            hasFractionalPart = false;
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            et.removeTextChangedListener(this);
+
+            if (etInputPrize.getText().length() > 0) {
+                btMakePayment.setEnabled(true);
+                btMakePayment.setBackground(ContextCompat.getDrawable(TopUpActivity.this, R.drawable.button_login_shape_c0995b));
+            } else {
+                btMakePayment.setEnabled(false);
+                btMakePayment.setBackground(ContextCompat.getDrawable(TopUpActivity.this, R.drawable.background_button_e8dcc9));
+            }
+
+            //Update price desciption label.
+            updatePriceDecsription();
+
+//            topUpPriceListRecyclerAdapter.markAsUnselected();
+
+            if (s != null && !s.toString().isEmpty()) {
+                try {
+                    int inilen, endlen;
+                    inilen = et.getText().length();
+                    String v = s.toString().replace(String.valueOf(df.getDecimalFormatSymbols().getGroupingSeparator()), "")*//*.replace("$", "")*//*;
+
+                    iTopUpPrize = Float.valueOf(s.toString()).intValue();
+
+                    Number n = df.parse(v);
+                    int cp = et.getSelectionStart();
+                    if (hasFractionalPart) {
+                        StringBuilder trailingZeros = new StringBuilder();
+                        while (trailingZeroCount-- > 0)
+                            trailingZeros.append('0');
+                        et.setText(df.format(n) + trailingZeros.toString());
+                    } else {
+                        et.setText(dfnd.format(n));
+                    }
+                    et.setText("".concat(et.getText().toString()));
+                    endlen = et.getText().length();
+                    int sel = (cp + (endlen - inilen));
+                    if (sel > 0 && sel < et.getText().length()) {
+                        et.setSelection(sel);
+                    } else if (trailingZeroCount > -1) {
+                        et.setSelection(et.getText().length() - 3);
+                    } else {
+                        et.setSelection(et.getText().length());
+                    }
+                } catch (NumberFormatException | ParseException e) {
+                    e.printStackTrace();
+                } catch (java.text.ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            et.addTextChangedListener(this);
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            int index = s.toString().indexOf(String.valueOf(df.getDecimalFormatSymbols().getDecimalSeparator()));
+            trailingZeroCount = 0;
+
+            if (index > -1) {
+                for (index++; index < s.length(); index++) {
+                    if (s.charAt(index) == '0')
+                        trailingZeroCount++;
+                    else {
+                        trailingZeroCount = 0;
+                    }
+                }
+                hasFractionalPart = true;
+            } else {
+                hasFractionalPart = false;
+            }
+        }
+    }*/
 }

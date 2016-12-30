@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class TopUpPriceListData {
 
+    @SerializedName("CrnSym")
+    @Expose
+    String CrnSym;
     @SerializedName("MinTopup")
     @Expose
     private Integer MinTopup;
@@ -61,6 +64,14 @@ public class TopUpPriceListData {
 
     public void setTopupList(List<TopupList> TopupList) {
         this.TopupList = TopupList;
+    }
+
+    public String getCrnSym() {
+        return CrnSym;
+    }
+
+    public void setCrnSym(String CrnSym) {
+        CrnSym = CrnSym;
     }
 
 }
