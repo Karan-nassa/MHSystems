@@ -1,5 +1,6 @@
 package com.mh.systems.demoapp.activites;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,8 +23,9 @@ public class MakePaymentWebActivity extends BaseActivity {
     WebView wvPaymentView;
     ProgressBar pbLoading;
 
-    int iTopUpPrize;
+    float fTopUpPrize;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +34,12 @@ public class MakePaymentWebActivity extends BaseActivity {
         pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
         wvPaymentView = (WebView) findViewById(R.id.wvPaymentView);
 
-        iTopUpPrize = getIntent().getExtras().getInt("iTopUpPrize");
+        fTopUpPrize = getIntent().getExtras().getFloat("fTopUpPrize");
 
         strURL = "https://staging.mhsystems.co.uk//fsipayment/paymentgateway?aClientId="
                 + getClientId() +
                 "&aMemberId=" + getMemberId()
-                + "&aAmount=" + iTopUpPrize;
+                + "&aAmount=" + fTopUpPrize;
 
         Log.e(LOG_TAG, "URL :" + strURL);
 

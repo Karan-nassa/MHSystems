@@ -582,7 +582,7 @@ public class DashboardActivity extends BaseActivity {
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
-            if (deleteTokenResult.getMessage().equalsIgnoreCase("Success") && deleteTokenResult.getData() == 1) {
+            if (deleteTokenResult.getMessage().equalsIgnoreCase("Success") || deleteTokenResult.getData() == 1) {
                 /**
                  *  Clear shared-preference memory.
                  */

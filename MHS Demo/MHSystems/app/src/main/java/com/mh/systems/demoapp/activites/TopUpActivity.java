@@ -83,8 +83,9 @@ public class TopUpActivity extends BaseActivity {
     String strOutputPattern = "##.00";
     DecimalFormat decimalFormat = new DecimalFormat(strOutputPattern);
 
-    int iMaxTopup, iMinTopup, iTopUpPrize = 0;
-    int iCardBalance;
+    int iMaxTopup = 0, iMinTopup = 0;
+    float fTopUpPrize = 0;
+    float fCardBalance;
     String strMinTopup, strMaxTopup;
     String strClosingBalance;
 
@@ -108,12 +109,17 @@ public class TopUpActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            if (iTopUpPrize >= iMinTopup && iTopUpPrize <= iMaxTopup) {
-                intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
-                intent.putExtra("iTopUpPrize", iTopUpPrize);
-                startActivity(intent);
+            if (isOnline(TopUpActivity.this)) {
+
+                if (fTopUpPrize >= iMinTopup && fTopUpPrize <= iMaxTopup) {
+                    intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
+                    intent.putExtra("fTopUpPrize", fTopUpPrize);
+                    startActivity(intent);
+                } else {
+                    showAlertMessage("Top Up range should remain between " + strMinTopup + " and " + strMaxTopup + ".");
+                }
             } else {
-                showAlertMessage("Top Up range should remain between " + strMinTopup + " and " + strMaxTopup + ".");
+                showAlertMessage(getString(R.string.error_no_connection));
             }
         }
     };
@@ -134,8 +140,8 @@ public class TopUpActivity extends BaseActivity {
 
             etInputPrize.removeTextChangedListener(mPrizeChangeListener);
 
-            iTopUpPrize = Float.valueOf(s.toString()).intValue();
-            etInputPrize.setText(decimalFormat.format(iTopUpPrize));
+            fTopUpPrize = Float.valueOf(s.toString()).intValue();//TODO
+            etInputPrize.setText(decimalFormat.format(fTopUpPrize));
             etInputPrize.setSelection(etInputPrize.getText().length() - 3);
 
             //Update price description label.
@@ -166,9 +172,9 @@ public class TopUpActivity extends BaseActivity {
         strClosingBalance = getIntent().getExtras().getString("strClosingBalance");
         if (strClosingBalance.length() > 0) {
             tvYourBalance.setText((getString(R.string.text_title_your_balance)
-                    + " " + strClosingBalance + ".00"));
+                    + " " + strClosingBalance));
 
-            iCardBalance = Integer.parseInt(strClosingBalance.substring(1, strClosingBalance.length()));
+            fCardBalance = Float.parseFloat(strClosingBalance.substring(1, strClosingBalance.length()));
         }
 
         etInputPrize.setOnEditorActionListener(mInputActionListener);
@@ -302,7 +308,9 @@ public class TopUpActivity extends BaseActivity {
                     rvCurrencyList.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            rvCurrencyList.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.btTimeSlot).performClick();
+                            if(rvCurrencyList.findViewHolderForAdapterPosition(0).itemView != null) {
+                                rvCurrencyList.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.btTimeSlot).performClick();
+                            }
                         }
                     }, 100);
                 }
@@ -336,9 +344,9 @@ public class TopUpActivity extends BaseActivity {
 
         etInputPrize.removeTextChangedListener(mPrizeChangeListener);
 
-        iTopUpPrize = Integer.parseInt(topUpPriceListDataList.get(iPosition).getValue());
+        fTopUpPrize = Float.parseFloat(topUpPriceListDataList.get(iPosition).getValue());//TODO
 
-        etInputPrize.setText(decimalFormat.format(iTopUpPrize));
+        etInputPrize.setText(decimalFormat.format(fTopUpPrize));
         etInputPrize.setSelection(etInputPrize.getText().length());
 
         //Update price description label.
@@ -354,7 +362,7 @@ public class TopUpActivity extends BaseActivity {
     private void updatePriceDecsription() {
         tvYourBalance.setText((getString(R.string.text_title_your_balance)
                 + " " + tvCurrencySign.getText().toString()
-                + (iCardBalance + iTopUpPrize) + ".00"));
+                + (fCardBalance + fTopUpPrize) + ""));
     }
 
     /* +++++++++++++++++++++++++++++ DECIMAL FLOAT WATCHER FOR PRICE ++++++++++++++++++++++++++++++*/

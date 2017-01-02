@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -82,6 +83,8 @@ public class FinanceFragment extends Fragment {
     //Create instance of Model class CourseDiaryItems.
     FinanceResultItems financeResultItems;
 
+    LinearLayout llFinanceGroup;
+
     private AdapterView.OnItemClickListener mFinanceListListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -99,9 +102,13 @@ public class FinanceFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            intent = new Intent(getActivity(), TopUpActivity.class);
-            intent.putExtra("strClosingBalance", financeResultItems.getData().getClosingBalance());
-            startActivity(intent);
+            if (financeResultItems != null) {
+                intent = new Intent(getActivity(), TopUpActivity.class);
+                intent.putExtra("strClosingBalance", financeResultItems.getData().getClosingBalance());
+                startActivity(intent);
+            }else{
+                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+            }
         }
     };
 
@@ -203,6 +210,8 @@ public class FinanceFragment extends Fragment {
 
         lvTransactionList = (ListView) viewRootFragment.findViewById(R.id.lvTransactionList);
 
+        llFinanceGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFinanceGroup);
+
         btTopUp = (Button) viewRootFragment.findViewById(R.id.btTopUp);
     }
 
@@ -217,8 +226,10 @@ public class FinanceFragment extends Fragment {
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             requestFinanceService();
             ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+           // llFinanceGroup.setVisibility(View.VISIBLE);
         } else {
             ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+           // llFinanceGroup.setVisibility(View.GONE);
         }
     }
 
