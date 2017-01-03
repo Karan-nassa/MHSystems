@@ -222,11 +222,11 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
                 requestCompetitionsEvents();
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-                llHandicapGroup.setVisibility(View.VISIBLE);
+               // ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+               // llHandicapGroup.setVisibility(View.VISIBLE);
             } else {
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-                llHandicapGroup.setVisibility(View.GONE);
+                //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+               // llHandicapGroup.setVisibility(View.GONE);
             }
         }catch (Exception exp){
         }

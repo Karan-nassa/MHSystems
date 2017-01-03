@@ -23,6 +23,7 @@
             android:title="@string/text_title_topup" />
 
         <LinearLayout
+            android:id="@+id/llMainGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -130,5 +131,12 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <!-- VIEW TO DISPLAY MESSAGE LIKE NO EVENT FOUND OR INTERNET CONNECTION ERROR -->
+
+    <include
+        android:id="@+id/inc_message_view"
+        layout="@layout/include_display_message"
+        android:visibility="gone" />
 
 </RelativeLayout>

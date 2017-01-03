@@ -122,13 +122,13 @@ public class MembersFragment extends Fragment {
              *  Check internet connection before hitting server request.
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                //((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
+                ((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
 
                 //Method to hit Members list API.
                 requestMemberService();
-                ((MembersActivity) getActivity()).updateNoInternetUI(true);
+             //   ((MembersActivity) getActivity()).updateNoInternetUI(true);
             } else {
-                ((MembersActivity) getActivity()).updateNoInternetUI(false);
+              //  ((MembersActivity) getActivity()).updateNoInternetUI(false);
                 //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
             }
         }

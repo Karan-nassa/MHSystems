@@ -17,6 +17,9 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -68,6 +71,25 @@ public class TopUpActivity extends BaseActivity {
     @Bind(R.id.tvYourBalance)
     TextView tvYourBalance;
 
+    @Bind(R.id.llMainGroup)
+    LinearLayout llMainGroup;
+
+      /* ++ INTERNET CONNECTION PARAMETERS ++ */
+
+    @Bind(R.id.inc_message_view)
+    RelativeLayout inc_message_view;
+
+    @Bind(R.id.ivMessageSymbol)
+    ImageView ivMessageSymbol;
+
+    @Bind(R.id.tvMessageTitle)
+    TextView tvMessageTitle;
+
+    @Bind(R.id.tvMessageDesc)
+    TextView tvMessageDesc;
+
+     /* -- INTERNET CONNECTION PARAMETERS -- */
+
     Intent intent;
 
     Typeface tfRobotoRegular;
@@ -111,6 +133,8 @@ public class TopUpActivity extends BaseActivity {
 
             if (isOnline(TopUpActivity.this)) {
 
+                showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+
                 if (fTopUpPrize >= iMinTopup && fTopUpPrize <= iMaxTopup) {
                     intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
                     intent.putExtra("fTopUpPrize", fTopUpPrize);
@@ -119,7 +143,8 @@ public class TopUpActivity extends BaseActivity {
                     showAlertMessage("Top Up range should remain between " + strMinTopup + " and " + strMaxTopup + ".");
                 }
             } else {
-                showAlertMessage(getString(R.string.error_no_connection));
+                //showAlertMessage(getString(R.string.error_no_connection));
+                showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
             }
         }
     };
@@ -140,7 +165,7 @@ public class TopUpActivity extends BaseActivity {
 
             etInputPrize.removeTextChangedListener(mPrizeChangeListener);
 
-            fTopUpPrize = Float.valueOf(s.toString()).intValue();//TODO
+            fTopUpPrize = Float.valueOf(s.toString()).intValue();
             etInputPrize.setText(decimalFormat.format(fTopUpPrize));
             etInputPrize.setSelection(etInputPrize.getText().length() - 3);
 
@@ -196,13 +221,17 @@ public class TopUpActivity extends BaseActivity {
         super.onResume();
 
         if (isOnline(TopUpActivity.this)) {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            llMainGroup.setVisibility(View.VISIBLE);
             requestTopUpPriceListService();
         } else {
-            showAlertMessage(getString(R.string.error_no_connection));
+            //showAlertMessage(getString(R.string.error_no_connection));
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            llMainGroup.setVisibility(View.GONE);
         }
 
         etInputPrize.requestFocus();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override
@@ -252,7 +281,8 @@ public class TopUpActivity extends BaseActivity {
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
                         hideProgress();
-                        showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                        //showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                        showNoTopUpView(false);
                     }
                 });
     }
@@ -297,9 +327,10 @@ public class TopUpActivity extends BaseActivity {
 
                 tvCurrencySign.setText(topUpPriceListResponse.getData().getCrnSym());
 
+
                 if (topUpPriceListResponse.getData().getTopupList().size() > 0) {
 
-                    rvCurrencyList.setVisibility(View.VISIBLE);
+                    showNoTopUpView(true);
                     topUpPriceListDataList.clear();
 
                     topUpPriceListDataList.addAll(topUpPriceListResponse.getData().getTopupList());
@@ -308,21 +339,22 @@ public class TopUpActivity extends BaseActivity {
                     rvCurrencyList.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if(rvCurrencyList.findViewHolderForAdapterPosition(0).itemView != null) {
+                            if (rvCurrencyList.findViewHolderForAdapterPosition(0).itemView != null) {
                                 rvCurrencyList.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.btTimeSlot).performClick();
                             }
                         }
                     }, 100);
                 }
             } else {
-                showAlertMessage(topUpPriceListResponse.getMessage());
-                rvCurrencyList.setVisibility(View.GONE);//Hide if Topup List empty.
+                //showAlertMessage(topUpPriceListResponse.getMessage());
+                // rvCurrencyList.setVisibility(View.GONE);//Hide if Topup List empty.
+                showNoTopUpView(false);
             }
             hideProgress();
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            showNoTopUpView(false);
         }
     }
 
@@ -344,7 +376,7 @@ public class TopUpActivity extends BaseActivity {
 
         etInputPrize.removeTextChangedListener(mPrizeChangeListener);
 
-        fTopUpPrize = Float.parseFloat(topUpPriceListDataList.get(iPosition).getValue());//TODO
+        fTopUpPrize = Float.parseFloat(topUpPriceListDataList.get(iPosition).getValue());
 
         etInputPrize.setText(decimalFormat.format(fTopUpPrize));
         etInputPrize.setSelection(etInputPrize.getText().length());
@@ -363,6 +395,28 @@ public class TopUpActivity extends BaseActivity {
         tvYourBalance.setText((getString(R.string.text_title_your_balance)
                 + " " + tvCurrencySign.getText().toString()
                 + (fCardBalance + fTopUpPrize) + ""));
+    }
+
+    /**
+     * Implements a method to show hint to user when 'NO TOP UP'
+     * range found.
+     *
+     * @param hasData :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     */
+    public void showNoTopUpView(boolean hasData) {
+        if (hasData) {
+            llMainGroup.setVisibility(View.VISIBLE);
+            inc_message_view.setVisibility(View.GONE);
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        } else {
+            llMainGroup.setVisibility(View.GONE);
+            inc_message_view.setVisibility(View.VISIBLE);
+            ivMessageSymbol.setImageResource(R.mipmap.ic_my_account);
+            tvMessageTitle.setText(getResources().getString(R.string.error_no_top_up));
+            tvMessageDesc.setText(getResources().getString(R.string.error_try_again));
+
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        }
     }
 
     /* +++++++++++++++++++++++++++++ DECIMAL FLOAT WATCHER FOR PRICE ++++++++++++++++++++++++++++++*/

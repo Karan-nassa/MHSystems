@@ -13,6 +13,7 @@
 
 
         <!-- NO INTERNET CONNECTION IMAGE -->
+
         <ImageView
             android:id="@+id/ivMessageSymbol"
             android:layout_width="wrap_content"

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.mh.systems.demoapp.activites.BaseActivity;
 import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.fragments.FinanceFragment;
@@ -19,6 +20,7 @@ import com.mh.systems.demoapp.fragments.HandicapFragment;
 import com.mh.systems.demoapp.fragments.EligibleMemberFragment;
 import com.mh.systems.demoapp.fragments.MembersFragment;
 import com.mh.systems.demoapp.fragments.MyDetailsFragment;
+import com.mh.systems.demoapp.fragments.NoInternetFragment;
 
 
 /**
@@ -49,11 +51,11 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * @param NumOfTabs
      * @param iFromWhat
      */
-    public TabsPageAdapter(FragmentManager fm, int NumOfTabs, int iFromWhat) {
+   /* public TabsPageAdapter(FragmentManager fm, int NumOfTabs, int iFromWhat) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.iFromWhat = iFromWhat;
-    }
+    }*/
 
     public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat) {
         super(supportFragmentManager);
@@ -77,25 +79,30 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        switch (iFromWhat) {
-            case ApplicationGlobal.POSITION_COURSE_DIARY:
-                return loadCourseDiaryTabs(position);
+        if(((BaseActivity)context).isOnline(context)) {
 
-            case ApplicationGlobal.POSITION_COMPETITIONS:
-                return loadCompetitionsEvent(position);
+            switch (iFromWhat) {
+                case ApplicationGlobal.POSITION_COURSE_DIARY:
+                    return loadCourseDiaryTabs(position);
 
-            case ApplicationGlobal.POSITION_MY_ACCOUNT:
-                if(isHandicapAvailable){
-                    return loadMyAccountTabsWithHCap(position);
-                }else {
-                    return loadMyAccountTabsWithoutHCap(position);
-                }
+                case ApplicationGlobal.POSITION_COMPETITIONS:
+                    return loadCompetitionsEvent(position);
 
-            case ApplicationGlobal.POSITION_MEMBERS:
-                return loadMembersTab(position);
+                case ApplicationGlobal.POSITION_MY_ACCOUNT:
+                    if (isHandicapAvailable) {
+                        return loadMyAccountTabsWithHCap(position);
+                    } else {
+                        return loadMyAccountTabsWithoutHCap(position);
+                    }
 
-            case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
-                return loadMembersBookingTab(position);
+                case ApplicationGlobal.POSITION_MEMBERS:
+                    return loadMembersTab(position);
+
+                case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
+                    return loadMembersBookingTab(position);
+            }
+        }else{
+           return new NoInternetFragment();
         }
         return null;
     }

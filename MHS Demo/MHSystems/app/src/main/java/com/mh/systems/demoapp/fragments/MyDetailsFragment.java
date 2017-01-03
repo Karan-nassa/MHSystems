@@ -112,13 +112,13 @@ public class MyDetailsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if (shouldRefresh) {
+       /* if (shouldRefresh) {
 
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
-            /**
+            *//**
              *  Check internet connection before hitting server request.
-             */
+             *//*
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
                 llMyDetailGroup.setVisibility(View.VISIBLE);
@@ -128,7 +128,7 @@ public class MyDetailsFragment extends Fragment {
                 llMyDetailGroup.setVisibility(View.GONE);
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
             }
-        }
+        }*/
     }
 
     @Override
@@ -139,26 +139,27 @@ public class MyDetailsFragment extends Fragment {
 
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
 
-            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+          //  ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
-            new Handler().postDelayed(new Runnable() {
+          /*  new Handler().postDelayed(new Runnable() {
                 @Override
-                public void run() {
+                public void run() {*/
                     /**
                      *  Check internet connection before hitting server request.
                      */
                     if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                        ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-                        llMyDetailGroup.setVisibility(View.VISIBLE);
+                        //((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+                        //llMyDetailGroup.setVisibility(View.VISIBLE);
                         requestMemberDetailService();
                     } else {
-                        ((BaseActivity) getActivity()).hideProgress();
-                        llMyDetailGroup.setVisibility(View.GONE);
-                        ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                        //((BaseActivity) getActivity()).hideProgress();
+                        //llMyDetailGroup.setVisibility(View.GONE);
+                        //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                     //   ((BaseActivity) getActivity()).updateFragment(new NoInternetFragment());
                     }
                 }
-            }, 5000);
-        }
+            /*}, 5000);
+        }*/
     }
 
 //   private void callWebService() {

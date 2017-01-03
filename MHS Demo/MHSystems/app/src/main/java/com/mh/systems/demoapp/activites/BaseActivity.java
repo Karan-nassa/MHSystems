@@ -12,7 +12,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -22,18 +21,17 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.models.CoursesData;
 import com.mh.systems.demoapp.models.MembersDetailsData;
 import com.newrelic.com.google.gson.Gson;
 import com.rollbar.android.Rollbar;
-import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.testfairy.TestFairy;
 
 import java.text.ParseException;

@@ -127,12 +127,12 @@ public class FriendsFragment extends Fragment {
     public void callWebService() {
 
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            ((MembersActivity) getActivity()).updateNoInternetUI(true);
+           // ((MembersActivity) getActivity()).updateNoInternetUI(true);
             // MemberDetailActivity.isRefreshData = false;
             //Method to hit Members list API.
             requestFriendService();
         } else {
-            ((MembersActivity) getActivity()).updateNoInternetUI(false);
+           // ((MembersActivity) getActivity()).updateNoInternetUI(false);
         }
     }
 
