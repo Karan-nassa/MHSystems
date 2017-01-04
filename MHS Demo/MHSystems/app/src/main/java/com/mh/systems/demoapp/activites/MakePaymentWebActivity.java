@@ -49,8 +49,6 @@ public class MakePaymentWebActivity extends BaseActivity {
             wvPaymentView.getSettings().setJavaScriptEnabled(true);
             wvPaymentView.getSettings().setBuiltInZoomControls(true);
             wvPaymentView.getSettings().setSupportZoom(true);
-            wvPaymentView.setFocusableInTouchMode(false);
-            wvPaymentView.setFocusable(false);
             wvPaymentView.loadUrl(strURL);
         } else {
             pbLoading.setVisibility(View.GONE);

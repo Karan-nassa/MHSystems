@@ -205,8 +205,21 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser /*&& isClassVisible*/) {
-            callHandicapWebService();
+//            callHandicapWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(8);
+            ((YourAccountActivity)getActivity()).setiOpenTabPosition(1);
+
+            /**
+             *  Check internet connection before hitting server request.
+             */
+            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                requestCompetitionsEvents();
+                // ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+                // llHandicapGroup.setVisibility(View.VISIBLE);
+            } else {
+                //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                // llHandicapGroup.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -214,23 +227,20 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * Implements a method to call HANDICAP web service to get
      * data from server.
      */
-    private void callHandicapWebService() {
+   /* private void callHandicapWebService() {
 
-        try {
-            /**
-             *  Check internet connection before hitting server request.
-             */
-            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                requestCompetitionsEvents();
-               // ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-               // llHandicapGroup.setVisibility(View.VISIBLE);
-            } else {
-                //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-               // llHandicapGroup.setVisibility(View.GONE);
-            }
-        }catch (Exception exp){
+        *//**
+         *  Check internet connection before hitting server request.
+         *//*
+        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            requestCompetitionsEvents();
+            // ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+            // llHandicapGroup.setVisibility(View.VISIBLE);
+        } else {
+            //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+            // llHandicapGroup.setVisibility(View.GONE);
         }
-    }
+    }*/
 
     /**
      * Implement a method to hit HANDICAP

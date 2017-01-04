@@ -138,6 +138,7 @@ public class MyDetailsFragment extends Fragment {
         if (isVisibleToUser /*&& isClassVisible*/) {
 
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
+            ((YourAccountActivity)getActivity()).setiOpenTabPosition(0);
 
           //  ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
@@ -181,6 +182,8 @@ public class MyDetailsFragment extends Fragment {
      * web service to get response.
      */
     public void requestMemberDetailService() {
+
+        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
         aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
@@ -240,7 +243,7 @@ public class MyDetailsFragment extends Fragment {
                     ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
                     displayMembersData();
                 } else {
-                    ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                   ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
                 }
             } else {
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(false);

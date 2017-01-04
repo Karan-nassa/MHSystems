@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import com.mh.systems.demoapp.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.models.Line;
 import com.mh.systems.demoapp.models.forecast.ForecastApiResponse;
 import com.mh.systems.demoapp.models.forecast.ListOfDay;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
@@ -82,6 +85,12 @@ public class WeatherDetailActivity extends BaseActivity /*implements View.OnClic
     @Bind(R.id.rvWeatherMain)
     RecyclerView rvWeatherMain;
 
+    @Bind(R.id.inc_message_view)
+    RelativeLayout inc_message_view;
+
+    @Bind(R.id.llMainWeatherGroup)
+    LinearLayout llMainWeatherGroup;
+
     //Instance of Weather api.
     ForecastApiResponse forecastApiResponse;
 
@@ -113,7 +122,17 @@ public class WeatherDetailActivity extends BaseActivity /*implements View.OnClic
 
         strNameOfWeatherLoc = getIntent().getStringExtra("WEATHER_LOC");
 
-        callWeatherService();
+        /**
+         * Check Internet and call Weather detail
+         * web service.
+         */
+        if (isOnline(WeatherDetailActivity.this)) {
+            callWeatherService();
+            llMainWeatherGroup.setVisibility(View.VISIBLE);
+        } else {
+            setContentView(R.layout.include_display_message);
+            llMainWeatherGroup.setVisibility(View.GONE);
+        }
 
         //Initialize Days Adapter.
         weatherMainRecyclerAdapter = new WeatherMainRecyclerAdapter(WeatherDetailActivity.this, listArrayList);
@@ -171,7 +190,7 @@ public class WeatherDetailActivity extends BaseActivity /*implements View.OnClic
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
                         hideProgress();
-                        callWeatherService();
+                        //callWeatherService();
                     }
                 });
     }
@@ -224,7 +243,7 @@ public class WeatherDetailActivity extends BaseActivity /*implements View.OnClic
             @Override
             public int getSpanSize(int position) {
 
-                return (120/iWeatherDaySize);
+                return (120 / iWeatherDaySize);
             }
         });
         // Layout Managers:
@@ -238,7 +257,7 @@ public class WeatherDetailActivity extends BaseActivity /*implements View.OnClic
                 rvWeatherMain.findViewHolderForAdapterPosition(0).itemView.performClick();
 
             }
-        },100);
+        }, 100);
     }
 
     /**

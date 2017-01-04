@@ -53,6 +53,7 @@ public class FinanceFragment extends Fragment {
 
     /*++ Filter type for Today, 1 Week, 1 Month, 3 Months, 6 Months, 1 Year or From Start++*/
     int iFilterType = 2; //By Default Today will be selected.
+    String strClosingBalance = "";
 
     private boolean isClassVisible = false;
 
@@ -104,11 +105,11 @@ public class FinanceFragment extends Fragment {
 
             if (financeResultItems != null) {
                 intent = new Intent(getActivity(), TopUpActivity.class);
-                intent.putExtra("strClosingBalance", financeResultItems.getData().getClosingBalance());
+                intent.putExtra("strClosingBalance", strClosingBalance);
                 startActivity(intent);
-            }else{
+            }/*else{
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-            }
+            }*/
         }
     };
 
@@ -180,6 +181,7 @@ public class FinanceFragment extends Fragment {
         if (isVisibleToUser /*&& isClassVisible*/) {
             callFinanceWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
+            ((YourAccountActivity)getActivity()).setiOpenTabPosition(2);
         }
     }
 
@@ -225,10 +227,10 @@ public class FinanceFragment extends Fragment {
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             requestFinanceService();
-            ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+            //((YourAccountActivity) getActivity()).updateHasInternetUI(true);
            // llFinanceGroup.setVisibility(View.VISIBLE);
         } else {
-            ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+            //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
            // llFinanceGroup.setVisibility(View.GONE);
         }
     }
@@ -306,7 +308,9 @@ public class FinanceFragment extends Fragment {
                 }
 
                 setTransactionListTitle();
-                tvCardBalance.setText(financeResultItems.getData().getClosingBalance());
+
+                strClosingBalance = financeResultItems.getData().getClosingBalance();
+                tvCardBalance.setText(strClosingBalance);
 
             } else {
                 //If web service not respond in any case.
