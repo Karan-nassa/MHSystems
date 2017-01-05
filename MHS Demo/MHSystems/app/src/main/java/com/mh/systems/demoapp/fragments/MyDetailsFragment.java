@@ -3,7 +3,6 @@ package com.mh.systems.demoapp.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -117,8 +116,8 @@ public class MyDetailsFragment extends Fragment {
             ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
             *//**
-             *  Check internet connection before hitting server request.
-             *//*
+         *  Check internet connection before hitting server request.
+         *//*
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
                 llMyDetailGroup.setVisibility(View.VISIBLE);
@@ -135,32 +134,25 @@ public class MyDetailsFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser /*&& isClassVisible*/) {
+        if (isVisibleToUser) {
 
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
-            ((YourAccountActivity)getActivity()).setiOpenTabPosition(0);
+            ((YourAccountActivity) getActivity()).setiOpenTabPosition(0);
 
-          //  ((BaseActivity) getActivity()).showPleaseWait("Loading...");
-
-          /*  new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {*/
-                    /**
-                     *  Check internet connection before hitting server request.
-                     */
-                    if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                        //((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-                        //llMyDetailGroup.setVisibility(View.VISIBLE);
-                        requestMemberDetailService();
-                    } else {
-                        //((BaseActivity) getActivity()).hideProgress();
-                        //llMyDetailGroup.setVisibility(View.GONE);
-                        //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-                     //   ((BaseActivity) getActivity()).updateFragment(new NoInternetFragment());
-                    }
-                }
-            /*}, 5000);
-        }*/
+            /**
+             *  Check internet connection before hitting server request.
+             */
+            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                //((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+                //llMyDetailGroup.setVisibility(View.VISIBLE);
+                requestMemberDetailService();
+            } else {
+                //((BaseActivity) getActivity()).hideProgress();
+                //llMyDetailGroup.setVisibility(View.GONE);
+                //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                //   ((BaseActivity) getActivity()).updateFragment(new NoInternetFragment());
+            }
+        }
     }
 
 //   private void callWebService() {
@@ -192,8 +184,6 @@ public class MyDetailsFragment extends Fragment {
         aJsonParamsMembersDatail.setLoginMemberId(((YourAccountActivity) getActivity()).getMemberId());
 
         membersDetailAPI = new MembersDetailAPI((((YourAccountActivity) getActivity()).getClientId()), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
-
-        Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -243,7 +233,7 @@ public class MyDetailsFragment extends Fragment {
                     ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
                     displayMembersData();
                 } else {
-                   ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                    ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
                 }
             } else {
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(false);

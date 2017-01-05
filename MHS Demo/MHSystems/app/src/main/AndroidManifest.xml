@@ -195,6 +195,10 @@
             android:name=".activites.MakePaymentWebActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activites.TopUpActivity"
+            android:screenOrientation="portrait" />
+
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -234,8 +238,6 @@
         <!-- WEATHER SERVICE -->
 
         <service android:name=".service.DashboardWeatherService" />
-
-        <activity android:name=".activites.TopUpActivity"></activity>
     </application>
 
 </manifest>

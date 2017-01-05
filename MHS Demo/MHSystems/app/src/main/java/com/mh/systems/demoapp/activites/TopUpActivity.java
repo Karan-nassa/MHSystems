@@ -133,7 +133,6 @@ public class TopUpActivity extends BaseActivity {
 
             if (isOnline(TopUpActivity.this)) {
 
-                showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
 
                 if (fTopUpPrize >= iMinTopup && fTopUpPrize <= iMaxTopup) {
                     intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
@@ -144,7 +143,7 @@ public class TopUpActivity extends BaseActivity {
                 }
             } else {
                 //showAlertMessage(getString(R.string.error_no_connection));
-                showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+                showAlertMessage(getString(R.string.error_no_internet));
             }
         }
     };

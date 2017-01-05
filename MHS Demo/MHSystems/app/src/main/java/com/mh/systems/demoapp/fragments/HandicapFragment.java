@@ -6,19 +6,16 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -28,7 +25,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -207,21 +203,21 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         if (isVisibleToUser /*&& isClassVisible*/) {
 //            callHandicapWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(8);
-            ((YourAccountActivity)getActivity()).setiOpenTabPosition(1);
+            ((YourAccountActivity) getActivity()).setiOpenTabPosition(1);
 
             /**
              *  Check internet connection before hitting server request.
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                requestCompetitionsEvents();
+                requestHandicapGraph();
                 // ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
                 // llHandicapGroup.setVisibility(View.VISIBLE);
             } else {
-                //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                //((AccountActivity) getActivity()).updateHasInternetUI(false);
                 // llHandicapGroup.setVisibility(View.GONE);
             }
-        }
     }
+}
 
     /**
      * Implements a method to call HANDICAP web service to get
@@ -230,8 +226,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
    /* private void callHandicapWebService() {
 
         *//**
-         *  Check internet connection before hitting server request.
-         *//*
+ *  Check internet connection before hitting server request.
+ *//*
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             requestCompetitionsEvents();
             // ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
@@ -246,7 +242,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * Implement a method to hit HANDICAP
      * web service to get response.
      */
-    public void requestCompetitionsEvents() {
+    public void requestHandicapGraph() {
 
         ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
@@ -317,11 +313,11 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 alHandicapData.add(handicapResultItems.getData());
 
                 if (alHandicapData.get(0).getHCapRecords().size() == 0) {
-                    ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(false);
+                    //((AccountActivity) getActivity()).updateNoCompetitionsUI(false);
                     // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                     llMonthNavigationGroup.setVisibility(View.GONE);
                 } else {
-                    ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(true);
+                    //((AccountActivity) getActivity()).updateNoCompetitionsUI(true);
 
                     tvHandicapExact.setText(alHandicapData.get(0).getHCapExactStr());
                     tvHandicapPlaying.setText(alHandicapData.get(0).getHCapPlayStr());
@@ -378,7 +374,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                     //Log.e(LOG_TAG, "arrayListCourseData : " + hCapRecordsList.size());
                 }
             } else {
-                ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(false);
+                // ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(false);
                 //If web service not respond in any case.
                 // ((BaseActivity) getActivity()).showAlertMessage(handicapResultItems.getMessage());
             }
@@ -602,4 +598,20 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         ivNextYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivNextYearGraph);
     }
 
+    public void updateFragment() {
+        Log.e(LOG_TAG, "updateFragment");
+        ((YourAccountActivity) getActivity()).updateFilterIcon(8);
+        ((YourAccountActivity) getActivity()).setiOpenTabPosition(1);
+
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            requestHandicapGraph();
+        } else {
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.viewpager, new NoInternetFragment());
+            ft.commit();
+        }
+    }
 }

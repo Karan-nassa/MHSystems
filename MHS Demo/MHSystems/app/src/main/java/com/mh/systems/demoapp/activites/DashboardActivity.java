@@ -656,7 +656,7 @@ public class DashboardActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                getUnreadNewsCountService();
+                //getUnreadNewsCountService();
             }
         });
     }

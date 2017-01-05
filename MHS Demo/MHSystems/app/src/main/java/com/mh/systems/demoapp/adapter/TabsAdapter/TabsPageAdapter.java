@@ -13,11 +13,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.mh.systems.demoapp.activites.BaseActivity;
 import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.fragments.FinanceFragment;
 import com.mh.systems.demoapp.fragments.EligibleFriendsFragment;
+import com.mh.systems.demoapp.fragments.EligibleMemberFragment;
+import com.mh.systems.demoapp.fragments.FinanceFragment;
 import com.mh.systems.demoapp.fragments.FriendsFragment;
 import com.mh.systems.demoapp.fragments.HandicapFragment;
-import com.mh.systems.demoapp.fragments.EligibleMemberFragment;
 import com.mh.systems.demoapp.fragments.MembersFragment;
 import com.mh.systems.demoapp.fragments.MyDetailsFragment;
 import com.mh.systems.demoapp.fragments.NoInternetFragment;
@@ -56,7 +56,6 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
         this.mNumOfTabs = NumOfTabs;
         this.iFromWhat = iFromWhat;
     }*/
-
     public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat) {
         super(supportFragmentManager);
         this.mNumOfTabs = NumOfTabs;
@@ -79,7 +78,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        if(((BaseActivity)context).isOnline(context)) {
+        if (((BaseActivity) context).isOnline(context)) {
 
             switch (iFromWhat) {
                 case ApplicationGlobal.POSITION_COURSE_DIARY:
@@ -101,10 +100,8 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
                     return loadMembersBookingTab(position);
             }
-        }else{
-           return new NoInternetFragment();
         }
-        return null;
+        return new NoInternetFragment();
     }
 
     /**
@@ -178,7 +175,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
             case 1:
                 fragment = new HandicapFragment();
-                break;
+               break;
 
             case 2:
                 fragment = new FinanceFragment();

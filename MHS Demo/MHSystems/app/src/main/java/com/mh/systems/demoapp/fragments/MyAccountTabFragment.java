@@ -16,6 +16,7 @@ import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.adapter.TabsAdapter.TabsPageAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 
+@SuppressLint("ValidFragment")
 public class MyAccountTabFragment extends Fragment {
 
     /*********************************

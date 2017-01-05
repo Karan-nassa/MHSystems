@@ -19,11 +19,10 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.activites.FinanceDetailWebActivity;
-import com.mh.systems.demoapp.activites.MakePaymentWebActivity;
 import com.mh.systems.demoapp.activites.TopUpActivity;
-import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.BaseActivity;
+import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
@@ -159,6 +158,9 @@ public class FinanceFragment extends Fragment {
             callFinanceWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
         }*/
+
+        financeAdapter = new FinanceAdapter(getActivity(), transactionListDataArrayList);
+        lvTransactionList.setAdapter(financeAdapter);
 
         lvTransactionList.setOnItemClickListener(mFinanceListListener);
         btTopUp.setOnClickListener(mTopUpListener);
@@ -301,11 +303,13 @@ public class FinanceFragment extends Fragment {
 
                 if (transactionListDataArrayList.size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage("No Transaction Found.");
-                } else {
+                }/* else {
 
                     financeAdapter = new FinanceAdapter(getActivity(), transactionListDataArrayList);
                     lvTransactionList.setAdapter(financeAdapter);
-                }
+                }*/
+
+                financeAdapter.notifyDataSetChanged();
 
                 setTransactionListTitle();
 

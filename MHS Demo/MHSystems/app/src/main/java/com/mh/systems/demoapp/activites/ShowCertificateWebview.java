@@ -1,7 +1,9 @@
 package com.mh.systems.demoapp.activites;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,18 +39,22 @@ public class ShowCertificateWebview extends BaseActivity {
         setSupportActionBar(tbCertificate);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (strURL.length() > 0) {
-            //Load Web View URL.
-            wvWebView.setWebViewClient(new myWebClient());
-            wvWebView.getSettings().setJavaScriptEnabled(true);
-            wvWebView.getSettings().setBuiltInZoomControls(true);
-            wvWebView.getSettings().setSupportZoom(true);
-            wvWebView.setFocusableInTouchMode(false);
-            wvWebView.setFocusable(false);
-            wvWebView.loadUrl(strURL);
-        } else {
-            progressWebView.setVisibility(View.GONE);
-            showAlertMessage(getResources().getString(R.string.error_please_retry));
+        if(isOnline(ShowCertificateWebview.this)) {
+            if (strURL.length() > 0) {
+                //Load Web View URL.
+                wvWebView.setWebViewClient(new myWebClient());
+                wvWebView.getSettings().setJavaScriptEnabled(true);
+                wvWebView.getSettings().setBuiltInZoomControls(true);
+                wvWebView.getSettings().setSupportZoom(true);
+                wvWebView.setFocusableInTouchMode(false);
+                wvWebView.setFocusable(false);
+                wvWebView.loadUrl(strURL);
+            } else {
+                progressWebView.setVisibility(View.GONE);
+                showErrorMessage(getResources().getString(R.string.error_please_retry));
+            }
+        }else{
+            showErrorMessage(getString(R.string.error_no_internet));
         }
     }
 
@@ -91,5 +97,27 @@ public class ShowCertificateWebview extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Implement a method to show Error message
+     * Alert Dialog.
+     */
+    public void showErrorMessage(String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(ShowCertificateWebview.this);
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                            finish();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

@@ -174,7 +174,7 @@ public class YourAccountActivity extends BaseActivity {
             getSupportActionBar().setTitle("Your Account");
         }
 
-        tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+              tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
         //tvMyAccountTitle.setTypeface(tfRobotoMedium);
 
         iOpenTabPosition = getIntent().getExtras().getInt("iTabPosition");
@@ -196,8 +196,6 @@ public class YourAccountActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        //Load Default fragment of My Accounts.
-        //updateFragment(myAccountTabFragment);
         updateFragment(new MyAccountTabFragment(getiOpenTabPosition()));
     }
 
