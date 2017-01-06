@@ -43,6 +43,8 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+import static android.R.id.message;
+
 /**
  * Create {@link TopUpActivity} is used to implements the FSI
  * payment Gateway. Top up balance sheet coming from AWS Server.
@@ -52,6 +54,8 @@ import retrofit.RetrofitError;
 public class TopUpActivity extends BaseActivity {
 
     private final String LOG_TAG = TopUpActivity.class.getSimpleName();
+
+    private final int ACTION_MAKE_PAYMENT = 111;
 
     @Bind(R.id.tbTopUp)
     Toolbar tbTopUp;
@@ -127,17 +131,23 @@ public class TopUpActivity extends BaseActivity {
         }
     };
 
+    /**
+     * Implements this method to pass data to FSI payment gateway
+     * for Top Up balance.
+     */
     private View.OnClickListener mMakePaymentListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
             if (isOnline(TopUpActivity.this)) {
 
-
                 if (fTopUpPrize >= iMinTopup && fTopUpPrize <= iMaxTopup) {
                     intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
                     intent.putExtra("fTopUpPrize", fTopUpPrize);
-                    startActivity(intent);
+                    intent.putExtra("fCardBalance", fCardBalance);
+                    intent.putExtra("strCurrencySign", tvCurrencySign.getText().toString());
+                    startActivity(intent/*, ACTION_MAKE_PAYMENT*/);
+                    finish();
                 } else {
                     showAlertMessage("Top Up range should remain between " + strMinTopup + " and " + strMaxTopup + ".");
                 }
@@ -151,12 +161,10 @@ public class TopUpActivity extends BaseActivity {
     private TextWatcher mPrizeChangeListener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            //Log.e(LOG_TAG, "beforeTextChanged : " + s.toString());
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // Log.e(LOG_TAG, "onTextChanged : " + s.toString());
         }
 
         @Override
@@ -224,13 +232,11 @@ public class TopUpActivity extends BaseActivity {
             llMainGroup.setVisibility(View.VISIBLE);
             requestTopUpPriceListService();
         } else {
-            //showAlertMessage(getString(R.string.error_no_connection));
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
             llMainGroup.setVisibility(View.GONE);
         }
 
         etInputPrize.requestFocus();
-        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override
@@ -243,6 +249,26 @@ public class TopUpActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+  /*  @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        Log.e("requestCode:", "" + requestCode);
+        Log.e("resultCode:", "" + resultCode);
+        Log.e("data:", "" + data);
+        if (resultCode == ACTION_MAKE_PAYMENT) {
+            try {
+                Log.e("data:", "" + data);
+                boolean isPaymentSuccess = data.getExtras().getBoolean("isPaymentSuccess");
+                if (isPaymentSuccess) {
+                    onBackPressed();
+                }
+            } catch (Exception exp) {
+                Log.e(LOG_TAG, "" + exp.toString());
+            }
+        }
+    }*/
 
     /**
      * Implement a method to hit Members Detail
@@ -342,11 +368,9 @@ public class TopUpActivity extends BaseActivity {
                                 rvCurrencyList.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.btTimeSlot).performClick();
                             }
                         }
-                    }, 100);
+                    }, 200);
                 }
             } else {
-                //showAlertMessage(topUpPriceListResponse.getMessage());
-                // rvCurrencyList.setVisibility(View.GONE);//Hide if Topup List empty.
                 showNoTopUpView(false);
             }
             hideProgress();
@@ -417,101 +441,4 @@ public class TopUpActivity extends BaseActivity {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         }
     }
-
-    /* +++++++++++++++++++++++++++++ DECIMAL FLOAT WATCHER FOR PRICE ++++++++++++++++++++++++++++++*/
-
-   /* public class DecimalTextWatcher implements TextWatcher {
-
-        private final DecimalFormat df;
-        private final DecimalFormat dfnd;
-        private final EditText et;
-        private boolean hasFractionalPart;
-        private int trailingZeroCount;
-
-        private DecimalTextWatcher(EditText editText, String pattern, String strOutputPattern) {
-            df = new DecimalFormat(pattern);
-            df.setDecimalSeparatorAlwaysShown(true);
-            dfnd = new DecimalFormat(strOutputPattern);
-            this.et = editText;
-            hasFractionalPart = false;
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            et.removeTextChangedListener(this);
-
-            if (etInputPrize.getText().length() > 0) {
-                btMakePayment.setEnabled(true);
-                btMakePayment.setBackground(ContextCompat.getDrawable(TopUpActivity.this, R.drawable.button_login_shape_c0995b));
-            } else {
-                btMakePayment.setEnabled(false);
-                btMakePayment.setBackground(ContextCompat.getDrawable(TopUpActivity.this, R.drawable.background_button_e8dcc9));
-            }
-
-            //Update price desciption label.
-            updatePriceDecsription();
-
-//            topUpPriceListRecyclerAdapter.markAsUnselected();
-
-            if (s != null && !s.toString().isEmpty()) {
-                try {
-                    int inilen, endlen;
-                    inilen = et.getText().length();
-                    String v = s.toString().replace(String.valueOf(df.getDecimalFormatSymbols().getGroupingSeparator()), "")*//*.replace("$", "")*//*;
-
-                    iTopUpPrize = Float.valueOf(s.toString()).intValue();
-
-                    Number n = df.parse(v);
-                    int cp = et.getSelectionStart();
-                    if (hasFractionalPart) {
-                        StringBuilder trailingZeros = new StringBuilder();
-                        while (trailingZeroCount-- > 0)
-                            trailingZeros.append('0');
-                        et.setText(df.format(n) + trailingZeros.toString());
-                    } else {
-                        et.setText(dfnd.format(n));
-                    }
-                    et.setText("".concat(et.getText().toString()));
-                    endlen = et.getText().length();
-                    int sel = (cp + (endlen - inilen));
-                    if (sel > 0 && sel < et.getText().length()) {
-                        et.setSelection(sel);
-                    } else if (trailingZeroCount > -1) {
-                        et.setSelection(et.getText().length() - 3);
-                    } else {
-                        et.setSelection(et.getText().length());
-                    }
-                } catch (NumberFormatException | ParseException e) {
-                    e.printStackTrace();
-                } catch (java.text.ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            et.addTextChangedListener(this);
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            int index = s.toString().indexOf(String.valueOf(df.getDecimalFormatSymbols().getDecimalSeparator()));
-            trailingZeroCount = 0;
-
-            if (index > -1) {
-                for (index++; index < s.length(); index++) {
-                    if (s.charAt(index) == '0')
-                        trailingZeroCount++;
-                    else {
-                        trailingZeroCount = 0;
-                    }
-                }
-                hasFractionalPart = true;
-            } else {
-                hasFractionalPart = false;
-            }
-        }
-    }*/
 }

@@ -217,13 +217,14 @@ public class MembersFragment extends Fragment {
                 //If web service not respond in any case.
                 // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
             }
+
+            //Dismiss progress dialog.
+            ((BaseActivity) getActivity()).hideProgress();
+
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
-
-        //Dismiss progress dialog.
-        ((BaseActivity) getActivity()).hideProgress();
 
        /* *//**
          * Hide alert dialog after 1500Ms.

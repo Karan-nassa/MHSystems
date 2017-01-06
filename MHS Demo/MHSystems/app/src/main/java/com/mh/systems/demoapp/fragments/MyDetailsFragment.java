@@ -231,18 +231,22 @@ public class MyDetailsFragment extends Fragment {
 
                 if (membersDetailItems.getData() != null) {
                     ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+                    llMyDetailGroup.setVisibility(View.VISIBLE);
                     displayMembersData();
                 } else {
                     ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                    llMyDetailGroup.setVisibility(View.GONE);
                 }
             } else {
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                llMyDetailGroup.setVisibility(View.GONE);
             }
             ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             ((BaseActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
+            llMyDetailGroup.setVisibility(View.GONE);
         }
     }
 

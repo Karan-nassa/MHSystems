@@ -2,12 +2,14 @@ package com.mh.systems.demoapp.activites;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -15,17 +17,32 @@ import android.widget.ProgressBar;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MakePaymentWebActivity extends BaseActivity {
 
-    private final String LOG_TAG = MakePaymentWebActivity.class.getSimpleName();
+    final int ACTION_MAKE_PAYMENT = 111;
+    final String LOG_TAG = MakePaymentWebActivity.class.getSimpleName();
 
-    String strURL;
 
     /* ++ INSTANCES OF CLASSES ++ */
+
+    @Bind(R.id.wvPaymentView)
     WebView wvPaymentView;
+
+    @Bind(R.id.pbLoading)
     ProgressBar pbLoading;
 
+     /* ++ LOCAL INSTANCES DECLARATION ++ */
+
+    String strURL = "";
+    String strCurrencySign = "";
+
     float fTopUpPrize;
+    float fCardBalance;
+
+    boolean isPaymentSuccess = false;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -33,19 +50,18 @@ public class MakePaymentWebActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_payment_web);
 
-        pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
-        wvPaymentView = (WebView) findViewById(R.id.wvPaymentView);
+        ButterKnife.bind(MakePaymentWebActivity.this);
 
         fTopUpPrize = getIntent().getExtras().getFloat("fTopUpPrize");
+        fCardBalance = getIntent().getExtras().getFloat("fCardBalance");
+        strCurrencySign = getIntent().getExtras().getString("strCurrencySign");
 
         strURL = "https://staging.mhsystems.co.uk//fsipayment/paymentgateway?aClientId="
                 + getClientId() +
                 "&aMemberId=" + getMemberId()
                 + "&aAmount=" + fTopUpPrize;
 
-        Log.e(LOG_TAG, "URL :" + strURL);
-
-        if(isOnline(MakePaymentWebActivity.this)) {
+        if (isOnline(MakePaymentWebActivity.this)) {
             if (strURL.length() > 0) {
                 //Load Web View URL.
                 wvPaymentView.setWebViewClient(new myWebClient());
@@ -57,9 +73,14 @@ public class MakePaymentWebActivity extends BaseActivity {
                 pbLoading.setVisibility(View.GONE);
                 showAlertMessage(getResources().getString(R.string.error_please_retry));
             }
-        }else{
-            showErrorMessage(getString(R.string.error_no_internet));
+        } else {
+            showMessage("", getString(R.string.error_no_internet));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     /**
@@ -74,6 +95,22 @@ public class MakePaymentWebActivity extends BaseActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            if (url.contains("failure")) {
+                isPaymentSuccess = false;
+                wvPaymentView.goBack();
+                showMessage(getString(R.string.alert_title_payment_failure),
+                        getString(R.string.error_title_try_again));
+                return false;
+            } else if (url.contains("success")) {
+                isPaymentSuccess = true;
+                wvPaymentView.goBack();
+                showMessage(getString(R.string.alert_title_payment_success),
+                        (getString(R.string.text_title_new_balance) + " "
+                                + strCurrencySign + (fCardBalance + fTopUpPrize)));
+                return false;
+            }
+
             pbLoading.setVisibility(View.VISIBLE);
             view.loadUrl(url);
             return true;
@@ -83,6 +120,18 @@ public class MakePaymentWebActivity extends BaseActivity {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             pbLoading.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            super.onReceivedError(view, request, error);
+
+            wvPaymentView.setVisibility(View.INVISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                showMessage("", error.getDescription().toString());
+            } else {
+                showMessage("", getString(R.string.error_please_retry));
+            }
         }
     }
 
@@ -104,7 +153,7 @@ public class MakePaymentWebActivity extends BaseActivity {
      * Implement a method to show Error message
      * Alert Dialog.
      */
-    public void showErrorMessage(String strAlertMessage) {
+    public void showMessage(String strTitle, String strAlertMessage) {
 
         if (builder == null) {
             builder = new AlertDialog.Builder(MakePaymentWebActivity.this);
@@ -114,9 +163,14 @@ public class MakePaymentWebActivity extends BaseActivity {
                         public void onClick(DialogInterface dialog, int id) {
                             //do things
                             builder = null;
-                            finish();
+                            onBackPressed();
                         }
                     });
+
+            if (strTitle.length() >= 1) {
+                builder.setTitle(strTitle);
+            }
+
             AlertDialog alert = builder.create();
             alert.show();
         }
