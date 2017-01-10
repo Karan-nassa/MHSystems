@@ -93,6 +93,7 @@ public class TopUpPriceListRecyclerAdapter extends RecyclerView.Adapter<TopUpPri
 
         @Override
         public void onClick(View view) {
+
             if (btLastSelectedPrice != view) {
 
                 setSlotSelected(view);
@@ -105,7 +106,7 @@ public class TopUpPriceListRecyclerAdapter extends RecyclerView.Adapter<TopUpPri
 
                 btLastSelectedPrice = (Button) view;
 
-                //Update 3 hours forecast list.
+                //UPDATE price UI changes.
                 ((TopUpActivity) context).updatePriceUI(getAdapterPosition());
             }
         }

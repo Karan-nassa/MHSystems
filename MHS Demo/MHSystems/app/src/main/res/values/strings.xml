@@ -242,6 +242,7 @@
     <string name="text_title_amount">Amount</string>
     <string name="text_title_your_balance">Your balance will be </string>
     <string name="button_title_make_payment">Make Payment Now</string>
+    <string name="error_enter_topup">Please enter top up amount</string>
 
     <!-- MAKE PAYMENT WEB  -->
     <string name="alert_title_payment_success">Payment Successful</string>

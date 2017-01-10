@@ -13,6 +13,11 @@ public class TopupList {
     @Expose
     private String Value;
 
+    public TopupList(String text, String value) {
+        Text = text;
+        Value = value;
+    }
+
     public String getText() {
         return Text;
     }

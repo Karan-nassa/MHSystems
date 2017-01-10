@@ -1,5 +1,7 @@
 package com.mh.systems.demoapp.activites;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -104,6 +107,8 @@ public class TopUpActivity extends BaseActivity {
 
     TopUpPriceListResponse topUpPriceListResponse;
 
+    InputMethodManager inputMethodManager;
+
     ArrayList<TopupList> topUpPriceListDataList = new ArrayList<>();
 
     String strOutputPattern = "##.00";
@@ -139,20 +144,25 @@ public class TopUpActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            if (isOnline(TopUpActivity.this)) {
+            if(etInputPrize.getText().toString().length() > 0) {
 
-                if (fTopUpPrize >= iMinTopup && fTopUpPrize <= iMaxTopup) {
-                    intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
-                    intent.putExtra("fTopUpPrize", fTopUpPrize);
-                    intent.putExtra("fCardBalance", fCardBalance);
-                    intent.putExtra("strCurrencySign", tvCurrencySign.getText().toString());
-                    startActivityForResult(intent, ACTION_MAKE_PAYMENT);
+                if (isOnline(TopUpActivity.this)) {
+
+                    if (fTopUpPrize >= iMinTopup && fTopUpPrize <= iMaxTopup) {
+                        intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
+                        intent.putExtra("fTopUpPrize", fTopUpPrize);
+                        intent.putExtra("fCardBalance", fCardBalance);
+                        intent.putExtra("strCurrencySign", tvCurrencySign.getText().toString());
+                        startActivityForResult(intent, ACTION_MAKE_PAYMENT);
+                    } else {
+                        showAlertMessage("Top Up range should remain between " + strMinTopup + " and " + strMaxTopup + ".");
+                    }
                 } else {
-                    showAlertMessage("Top Up range should remain between " + strMinTopup + " and " + strMaxTopup + ".");
+                    //showAlertMessage(getString(R.string.error_no_connection));
+                    showAlertMessage(getString(R.string.error_no_internet));
                 }
-            } else {
-                //showAlertMessage(getString(R.string.error_no_connection));
-                showAlertMessage(getString(R.string.error_no_internet));
+            }else{
+                showAlertMessage(getString(R.string.error_enter_topup));
             }
         }
     };
@@ -178,7 +188,7 @@ public class TopUpActivity extends BaseActivity {
             //Update price description label.
             updatePriceDecsription();
 
-            topUpPriceListRecyclerAdapter.markAsUnselected();
+            //topUpPriceListRecyclerAdapter.markAsUnselected();
 
             etInputPrize.addTextChangedListener(mPrizeChangeListener);
         }
@@ -198,6 +208,8 @@ public class TopUpActivity extends BaseActivity {
 
         //Set Font style.
         setupFontStyle();
+
+        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         //Get Closing balance.
         strClosingBalance = getIntent().getExtras().getString("strClosingBalance");
@@ -236,6 +248,7 @@ public class TopUpActivity extends BaseActivity {
         }
 
         etInputPrize.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override
@@ -358,16 +371,18 @@ public class TopUpActivity extends BaseActivity {
                     topUpPriceListDataList.clear();
 
                     topUpPriceListDataList.addAll(topUpPriceListResponse.getData().getTopupList());
+                    TopupList topupListOthers = new TopupList("Others", "");
+                    topUpPriceListDataList.add(topupListOthers);
                     topUpPriceListRecyclerAdapter.notifyDataSetChanged();
 
                     rvCurrencyList.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if (rvCurrencyList.findViewHolderForAdapterPosition(0).itemView != null) {
+                            if (rvCurrencyList.findViewHolderForAdapterPosition(0) != null) {
                                 rvCurrencyList.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.btTimeSlot).performClick();
                             }
                         }
-                    }, 200);
+                    }, 100);
                 }
             } else {
                 showNoTopUpView(false);
@@ -396,17 +411,29 @@ public class TopUpActivity extends BaseActivity {
      */
     public void updatePriceUI(int iPosition) {
 
-        etInputPrize.removeTextChangedListener(mPrizeChangeListener);
+        if (iPosition == (topUpPriceListDataList.size() - 1)) {
+            etInputPrize.removeTextChangedListener(mPrizeChangeListener);
+            etInputPrize.setText("");
+            etInputPrize.addTextChangedListener(mPrizeChangeListener);
 
-        fTopUpPrize = Float.parseFloat(topUpPriceListDataList.get(iPosition).getValue());
+            etInputPrize.setEnabled(true);
+            inputMethodManager.showSoftInput(etInputPrize, InputMethodManager.SHOW_IMPLICIT);
+        } else {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(etInputPrize.getWindowToken(), 0);
+            etInputPrize.removeTextChangedListener(mPrizeChangeListener);
 
-        etInputPrize.setText(decimalFormat.format(fTopUpPrize));
-        etInputPrize.setSelection(etInputPrize.getText().length());
+            fTopUpPrize = Float.parseFloat(topUpPriceListDataList.get(iPosition).getValue());
 
-        //Update price description label.
-        updatePriceDecsription();
+            etInputPrize.setText(decimalFormat.format(fTopUpPrize));
+            etInputPrize.setSelection(etInputPrize.getText().length());
 
-        etInputPrize.addTextChangedListener(mPrizeChangeListener);
+            //Update price description label.
+            updatePriceDecsription();
+            etInputPrize.addTextChangedListener(mPrizeChangeListener);
+
+            etInputPrize.setEnabled(false);
+        }
     }
 
     /**

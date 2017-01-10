@@ -69,6 +69,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:maxLength="12"
+                            android:enabled="false"
                             android:maxLines="1"
                             android:imeOptions="actionDone"
                             android:singleLine="true"
