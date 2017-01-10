@@ -146,8 +146,7 @@ public class TopUpActivity extends BaseActivity {
                     intent.putExtra("fTopUpPrize", fTopUpPrize);
                     intent.putExtra("fCardBalance", fCardBalance);
                     intent.putExtra("strCurrencySign", tvCurrencySign.getText().toString());
-                    startActivity(intent/*, ACTION_MAKE_PAYMENT*/);
-                    finish();
+                    startActivityForResult(intent, ACTION_MAKE_PAYMENT);
                 } else {
                     showAlertMessage("Top Up range should remain between " + strMinTopup + " and " + strMaxTopup + ".");
                 }
@@ -250,17 +249,17 @@ public class TopUpActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-  /*  @Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed  here it is 2
-        Log.e("requestCode:", "" + requestCode);
-        Log.e("resultCode:", "" + resultCode);
-        Log.e("data:", "" + data);
+
+        /**
+         * If PAYMENT status SUCCESS then navigate user to {@link com.mh.systems.demoapp.fragments.FinanceFragment}
+         * Otherwise, retain on this screen.
+         */
         if (resultCode == ACTION_MAKE_PAYMENT) {
             try {
-                Log.e("data:", "" + data);
-                boolean isPaymentSuccess = data.getExtras().getBoolean("isPaymentSuccess");
+                boolean isPaymentSuccess = data.getExtras().getBoolean("Is_PAYMENT_SUCCESS");
                 if (isPaymentSuccess) {
                     onBackPressed();
                 }
@@ -268,7 +267,7 @@ public class TopUpActivity extends BaseActivity {
                 Log.e(LOG_TAG, "" + exp.toString());
             }
         }
-    }*/
+    }
 
     /**
      * Implement a method to hit Members Detail

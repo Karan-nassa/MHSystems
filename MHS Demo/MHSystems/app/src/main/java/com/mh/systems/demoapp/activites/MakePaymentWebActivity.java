@@ -80,7 +80,12 @@ public class MakePaymentWebActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        Intent intent = new Intent();
+        intent.putExtra("Is_PAYMENT_SUCCESS", isPaymentSuccess);
+        setResult(111, intent);
+        finish();//finishing activity
+        super.onBackPressed(); //Call this line after pass data.
     }
 
     /**
