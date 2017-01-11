@@ -192,6 +192,7 @@
     <string-array name="homeGridItems">
 
         <item>Your Account</item>
+        <item>Club Diary</item>
         <item>Members</item>
         <item>Your Handicap</item>
         <item>Competitions</item>
@@ -204,6 +205,7 @@
     <string-array name="HomeGridIcons">
 
         <item>@mipmap/ic_my_account</item>
+        <item>@mipmap/ic_home_diary</item>
         <item>@mipmap/ic_home_members</item>
         <item>@mipmap/ic_handicap_chart</item>
         <item>@mipmap/ic_home_competitions</item>
