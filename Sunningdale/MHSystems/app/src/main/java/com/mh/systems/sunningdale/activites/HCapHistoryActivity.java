@@ -1,12 +1,18 @@
 package com.mh.systems.sunningdale.activites;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
@@ -24,6 +30,8 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -32,8 +40,10 @@ public class HCapHistoryActivity extends BaseActivity {
 
     private String LOG_TAG = HCapHistoryActivity.class.getSimpleName();
 
+    @Bind(R.id.tbHcapHistory)
     Toolbar tbHcapHistory;
 
+    @Bind(R.id.rvHcapList)
     RecyclerView rvHcapList;
 
     HCapHistoryAPI hCapHistoryAPI;
@@ -42,6 +52,22 @@ public class HCapHistoryActivity extends BaseActivity {
     HCapHistoryResult hCapHistoryResult;
     HCapHistoryRecyclerAdapter HCapHistoryRecyclerAdapter;
 
+     /* ++ INTERNET CONNECTION PARAMETERS ++ */
+
+    @Bind(R.id.inc_message_view)
+    RelativeLayout inc_message_view;
+
+    @Bind(R.id.ivMessageSymbol)
+    ImageView ivMessageSymbol;
+
+    @Bind(R.id.tvMessageTitle)
+    TextView tvMessageTitle;
+
+    @Bind(R.id.tvMessageDesc)
+    TextView tvMessageDesc;
+
+     /* -- INTERNET CONNECTION PARAMETERS -- */
+
     ArrayList<HCapHistoryData> handicapDataArrayList = new ArrayList<>();
 
     @Override
@@ -49,16 +75,15 @@ public class HCapHistoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hcap_history);
 
-        rvHcapList = (RecyclerView) findViewById(R.id.rvHcapList);
+        ButterKnife.bind(HCapHistoryActivity.this);
 
-        tbHcapHistory = (Toolbar) findViewById(R.id.tbHcapHistory);
         setSupportActionBar(tbHcapHistory);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Layout Managers:
         rvHcapList.setLayoutManager(new LinearLayoutManager(this));
         // Item Decorator:
-        rvHcapList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
+        rvHcapList.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(HCapHistoryActivity.this, R.drawable.divider)));
         // mRecyclerView.setItemAnimator(new FadeInLeftAnimator());
     }
 
@@ -92,13 +117,13 @@ public class HCapHistoryActivity extends BaseActivity {
          *  Check internet connection before hitting server request.
          */
         if (isOnline(this)) {
-            //showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
             // inc_message_view.setVisibility(View.GONE);
             requestHCapHistory();
         } else {
-            // showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
             // inc_message_view.setVisibility(View.VISIBLE);
-            showAlertMessage(getResources().getString(R.string.error_no_internet));
+            // showAlertMessage(getResources().getString(R.string.error_no_internet));
             hideProgress();
         }
     }
@@ -170,7 +195,7 @@ public class HCapHistoryActivity extends BaseActivity {
 
             } else {
                 //If web service not respond in any case.
-                showAlertMessage(hCapHistoryResult.getMessage());
+                showErrorMessage(hCapHistoryResult.getMessage());
             }
 
         } catch (Exception e) {
@@ -192,5 +217,28 @@ public class HCapHistoryActivity extends BaseActivity {
      */
     public String getClientId() {
         return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+    }
+
+    /**
+     * Implement a method to show Error message
+     * Alert Dialog.
+     */
+    public void showErrorMessage(String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(HCapHistoryActivity.this);
+            builder.setTitle("");
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                            finish();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

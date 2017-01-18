@@ -10,16 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.activites.FinanceDetailWebActivity;
-import com.mh.systems.sunningdale.activites.YourAccountActivity;
+import com.mh.systems.sunningdale.activites.TopUpActivity;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.activites.BaseActivity;
+import com.mh.systems.sunningdale.activites.YourAccountActivity;
 import com.mh.systems.sunningdale.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.constants.WebAPI;
@@ -37,7 +40,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
 /**
- * Created by karan@mh.co.in to load and FINANCE
+ * Created by karan@ucreate.co.in to load and FINANCE
  * tab content on 12/23/2015.
  */
 public class FinanceFragment extends Fragment {
@@ -48,9 +51,13 @@ public class FinanceFragment extends Fragment {
     ArrayList<TransactionListData> transactionListDataArrayList = new ArrayList<>();
 
     /*++ Filter type for Today, 1 Week, 1 Month, 3 Months, 6 Months, 1 Year or From Start++*/
-    int iFilterType = 2; //By Default Today will be selected.
+    int iFilterType = 2; //By Default 1 month will be selected.
+    String strClosingBalance = "";
 
     private boolean isClassVisible = false;
+
+    private boolean isToday, isWeek, isOneMonth, isThreeMonths, isSixMonths, isOneYear, isFromStart;
+    private boolean isFilterOpen;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -60,6 +67,7 @@ public class FinanceFragment extends Fragment {
     TextView tvLabelYourInvoice, tvYourInvoice;
     ImageView ivFilter;
     Intent intent;
+    Button btTopUp;
 
     Typeface tpRobotoMedium, tpRobotoRegular;
 
@@ -75,6 +83,8 @@ public class FinanceFragment extends Fragment {
     //Create instance of Model class CourseDiaryItems.
     FinanceResultItems financeResultItems;
 
+    LinearLayout llFinanceGroup;
+
     private AdapterView.OnItemClickListener mFinanceListListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -82,9 +92,21 @@ public class FinanceFragment extends Fragment {
             intent = new Intent(getActivity(), FinanceDetailWebActivity.class);
             intent.putExtra("IsTopup", transactionListDataArrayList.get(position).getIsTopup());
             intent.putExtra("iTransactionId", transactionListDataArrayList.get(position).getTransactionId());
-            intent.putExtra("iMemberId", ((YourAccountActivity) getActivity()).getMemberId());
+            intent.putExtra("strMemberId", ((YourAccountActivity) getActivity()).getMemberId());
             intent.putExtra("titleOfScreen", transactionListDataArrayList.get(position).getTitle());
             startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener mTopUpListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (financeResultItems != null) {
+                intent = new Intent(getActivity(), TopUpActivity.class);
+                intent.putExtra("strClosingBalance", strClosingBalance);
+                startActivity(intent);
+            }
         }
     };
 
@@ -96,7 +118,11 @@ public class FinanceFragment extends Fragment {
 
         setFontTypeface();
 
+        financeAdapter = new FinanceAdapter(getActivity(), transactionListDataArrayList);
+        lvTransactionList.setAdapter(financeAdapter);
+
         lvTransactionList.setOnItemClickListener(mFinanceListListener);
+        btTopUp.setOnClickListener(mTopUpListener);
 
         return viewRootFragment;
     }
@@ -116,6 +142,7 @@ public class FinanceFragment extends Fragment {
         if (isVisibleToUser) {
             callFinanceWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
+            ((YourAccountActivity)getActivity()).setiOpenTabPosition(2);
         }
     }
 
@@ -134,6 +161,10 @@ public class FinanceFragment extends Fragment {
         ivFilter = (ImageView) viewRootFragment.findViewById(R.id.ivFilter);
 
         lvTransactionList = (ListView) viewRootFragment.findViewById(R.id.lvTransactionList);
+
+        llFinanceGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFinanceGroup);
+
+        btTopUp = (Button) viewRootFragment.findViewById(R.id.btTopUp);
     }
 
     /**
@@ -146,9 +177,6 @@ public class FinanceFragment extends Fragment {
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             requestFinanceService();
-            ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-        } else {
-            ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
         }
     }
 
@@ -188,7 +216,6 @@ public class FinanceFragment extends Fragment {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
-                //((BaseActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }
@@ -218,16 +245,14 @@ public class FinanceFragment extends Fragment {
 
                 if (transactionListDataArrayList.size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage("No Transaction Found.");
-                } else {
-
-                    financeAdapter = new FinanceAdapter(getActivity(), transactionListDataArrayList);
-                    lvTransactionList.setAdapter(financeAdapter);
                 }
 
-                setTransactionListTitle();
-                tvCardBalance.setText(financeResultItems.getData().getClosingBalance());
-
                 financeAdapter.notifyDataSetChanged();
+
+                setTransactionListTitle();
+
+                strClosingBalance = financeResultItems.getData().getClosingBalance();
+                tvCardBalance.setText(strClosingBalance);
 
             } else {
                 //If web service not respond in any case.

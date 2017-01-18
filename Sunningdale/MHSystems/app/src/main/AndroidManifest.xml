@@ -165,6 +165,17 @@
         <activity
             android:name=".activites.ContactUsActivity"
             android:screenOrientation="portrait" />
+
+        <!-- TOP UP PAYMENTS -->
+
+        <activity
+            android:name=".activites.MakePaymentWebActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activites.TopUpActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

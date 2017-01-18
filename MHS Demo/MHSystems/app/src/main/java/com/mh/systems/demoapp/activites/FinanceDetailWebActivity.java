@@ -20,7 +20,8 @@ public class FinanceDetailWebActivity extends BaseActivity {
     /* ++ LOCAL DATA TYPE INSTANCE DECLARATION ++ */
     String strURL;
     boolean IsTopup;
-    int iTransactionId, iMemberId;
+    int iTransactionId;
+    String strMemberId;
 
     /* ++ INSTANCES OF CLASSES ++ */
     WebView wvWebView;
@@ -37,9 +38,19 @@ public class FinanceDetailWebActivity extends BaseActivity {
 
         IsTopup = getIntent().getExtras().getBoolean("IsTopup");
         iTransactionId = getIntent().getExtras().getInt("iTransactionId");
-        iMemberId = getIntent().getExtras().getInt("iMemberId");
+        strMemberId = getIntent().getExtras().getString("strMemberId");
 
-        strURL = WebAPI.API_BASE_URL + "/ClubTransDetail?aClientId=" + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID) + "&aCommand=GetAccReceipt&aJsonParams={%22MemberId%22:" + iMemberId + ",%22TranId%22:" + iTransactionId + ",%22IsTopup%22:" + IsTopup + ",IsDemoApp:true}&aModuleId=" + ApplicationGlobal.TAG_GCLUB_WEBSERVICES;
+        strURL = WebAPI.API_BASE_URL
+                + "/ClubTransDetail?aClientId="
+                + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID)
+                + "&aCommand=GetAccReceipt&aJsonParams={%22MemberId%22:"
+                + strMemberId
+                + ",%22TranId%22:"
+                + iTransactionId
+                + ",%22IsTopup%22:"
+                + IsTopup
+                + ",IsDemoApp:true}&aModuleId="
+                + ApplicationGlobal.TAG_GCLUB_WEBSERVICES;
 
         tbFinanceDetail = (Toolbar) findViewById(R.id.tbFinanceDetail);
         setSupportActionBar(tbFinanceDetail);
@@ -65,51 +76,51 @@ public class FinanceDetailWebActivity extends BaseActivity {
         }
     }
 
-        /**
-         * Implements a class to Handle and display progress in
-         * Web View.
-         */
-        public class myWebClient extends WebViewClient {
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                progressWebView.setVisibility(View.VISIBLE);
-                view.loadUrl(url);
-                return true;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                progressWebView.setVisibility(View.GONE);
-            }
+    /**
+     * Implements a class to Handle and display progress in
+     * Web View.
+     */
+    public class myWebClient extends WebViewClient {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
         }
 
         @Override
-        public boolean onOptionsItemSelected (MenuItem item){
-            switch (item.getItemId()) {
-
-                /**
-                 *  Tool bar back arrow handler.
-                 */
-                case android.R.id.home:
-                    finish();
-                    break;
-
-                default:
-                    break;
-            }
-            return super.onOptionsItemSelected(item);
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            progressWebView.setVisibility(View.VISIBLE);
+            view.loadUrl(url);
+            return true;
         }
 
-        /**
-         * Implement a method to show Error message
-         * Alert Dialog.
-         */
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            progressWebView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            /**
+             *  Tool bar back arrow handler.
+             */
+            case android.R.id.home:
+                finish();
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Implement a method to show Error message
+     * Alert Dialog.
+     */
 
     public void showErrorMessage(String strAlertMessage) {
 

@@ -597,21 +597,4 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         ivPreviousYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivPreviousYearGraph);
         ivNextYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivNextYearGraph);
     }
-
-    public void updateFragment() {
-        Log.e(LOG_TAG, "updateFragment");
-        ((YourAccountActivity) getActivity()).updateFilterIcon(8);
-        ((YourAccountActivity) getActivity()).setiOpenTabPosition(1);
-
-        /**
-         *  Check internet connection before hitting server request.
-         */
-        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            requestHandicapGraph();
-        } else {
-            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.viewpager, new NoInternetFragment());
-            ft.commit();
-        }
-    }
 }

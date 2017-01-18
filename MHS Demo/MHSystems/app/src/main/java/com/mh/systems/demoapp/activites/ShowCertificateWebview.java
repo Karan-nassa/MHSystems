@@ -33,13 +33,25 @@ public class ShowCertificateWebview extends BaseActivity {
         progressWebView = (ProgressBar) findViewById(R.id.progressWebView);
         wvWebView = (WebView) findViewById(R.id.wvWebView);
 
-        strURL = WebAPI.API_BASE_URL + "/clubapppdf?aClientId=" + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID) + "&aCommand=GETMEMBERHCAPCERT&aJsonParams={%22version%22:" + ApplicationGlobal.TAG_GCLUB_VERSION + ",%22callid%22:" + ApplicationGlobal.TAG_GCLUB_CALL_ID + ",memberid:" + loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784") + ",IsDemoApp:true}&aModuleId=" + ApplicationGlobal.TAG_GCLUB_WEBSERVICES + "&aUserClass=" + ApplicationGlobal.TAG_GCLUB_MEMBERS;
+        strURL = WebAPI.API_BASE_URL
+                + "/clubapppdf?aClientId="
+                + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID)
+                + "&aCommand=GETMEMBERHCAPCERT&aJsonParams={%22version%22:"
+                + ApplicationGlobal.TAG_GCLUB_VERSION
+                + ",%22callid%22:"
+                + ApplicationGlobal.TAG_GCLUB_CALL_ID
+                + ",memberid:"
+                + loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784")
+                + ",IsDemoApp:true}&aModuleId="
+                + ApplicationGlobal.TAG_GCLUB_WEBSERVICES
+                + "&aUserClass="
+                + ApplicationGlobal.TAG_GCLUB_MEMBERS;
 
         tbCertificate = (Toolbar) findViewById(R.id.tbCertificate);
         setSupportActionBar(tbCertificate);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if(isOnline(ShowCertificateWebview.this)) {
+        if (isOnline(ShowCertificateWebview.this)) {
             if (strURL.length() > 0) {
                 //Load Web View URL.
                 wvWebView.setWebViewClient(new myWebClient());
@@ -53,7 +65,7 @@ public class ShowCertificateWebview extends BaseActivity {
                 progressWebView.setVisibility(View.GONE);
                 showErrorMessage(getResources().getString(R.string.error_please_retry));
             }
-        }else{
+        } else {
             showErrorMessage(getString(R.string.error_no_internet));
         }
     }

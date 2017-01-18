@@ -91,7 +91,6 @@ public class YourAccountActivity extends BaseActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
 
-                    Log.e(LOG_TAG, "Last Tab: "+ iLastTabPosition);
                     iOpenTabPosition = iTabPosition;
 
                     if (isOnline(YourAccountActivity.this)) {

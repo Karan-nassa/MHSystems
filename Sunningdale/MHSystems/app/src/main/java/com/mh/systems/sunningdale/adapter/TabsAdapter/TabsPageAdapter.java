@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.mh.systems.sunningdale.activites.BaseActivity;
 import com.mh.systems.sunningdale.activites.YourAccountActivity;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.fragments.FinanceFragment;
@@ -17,6 +18,7 @@ import com.mh.systems.sunningdale.fragments.FriendsFragment;
 import com.mh.systems.sunningdale.fragments.HandicapFragment;
 import com.mh.systems.sunningdale.fragments.MembersFragment;
 import com.mh.systems.sunningdale.fragments.MyDetailsFragment;
+import com.mh.systems.sunningdale.fragments.NoInternetFragment;
 
 
 /**
@@ -38,20 +40,6 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     private boolean isHandicapAvailable;
 
     Context context;
-
-    /**
-     * Tab Page Adapter initialization.
-     * <p/>
-     *
-     * @param fm
-     * @param NumOfTabs
-     * @param iFromWhat
-     */
-    public TabsPageAdapter(FragmentManager fm, int NumOfTabs, int iFromWhat) {
-        super(fm);
-        this.mNumOfTabs = NumOfTabs;
-        this.iFromWhat = iFromWhat;
-    }
 
     public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat) {
         super(supportFragmentManager);
@@ -75,27 +63,28 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        switch (iFromWhat) {
-            case ApplicationGlobal.POSITION_COURSE_DIARY:
-                return loadCourseDiaryTabs(position);
+        if (((BaseActivity) context).isOnline(context)) {
 
-            case ApplicationGlobal.POSITION_COMPETITIONS:
-                return loadCompetitionsEvent(position);
+            switch (iFromWhat) {
+                case ApplicationGlobal.POSITION_COURSE_DIARY:
+                    return loadCourseDiaryTabs(position);
 
-            case ApplicationGlobal.POSITION_MY_ACCOUNT:
-                if(isHandicapAvailable){
-                    return loadMyAccountTabsWithHCap(position);
-                }else {
-                    return loadMyAccountTabsWithoutHCap(position);
-                }
+                case ApplicationGlobal.POSITION_COMPETITIONS:
+                    return loadCompetitionsEvent(position);
 
-            case ApplicationGlobal.POSITION_MEMBERS:
-                return loadMembersTab(position);
+                case ApplicationGlobal.POSITION_MY_ACCOUNT:
+                    if (isHandicapAvailable) {
+                        return loadMyAccountTabsWithHCap(position);
+                    } else {
+                        return loadMyAccountTabsWithoutHCap(position);
+                    }
 
-           /* case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
-                return loadMembersBookingTab(position);*/
+                case ApplicationGlobal.POSITION_MEMBERS:
+                    return loadMembersTab(position);
+
+            }
         }
-        return null;
+        return new NoInternetFragment();
     }
 
     /**
@@ -169,7 +158,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
             case 1:
                 fragment = new HandicapFragment();
-                break;
+               break;
 
             case 2:
                 fragment = new FinanceFragment();
@@ -239,31 +228,6 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
         }*/
         return null;
     }
-
-    /**
-     * Load MEMBERS BOOKING for Competitions Entry Tabs i.e
-     * <br> 1. {@link EligibleMemberFragment}
-     * <br> 2. {@link EligibleFriendsFragment}
-     * <p/>
-     *
-     * @param iPosition
-     * @return Fragment
-     */
-//    private Fragment loadMembersBookingTab(int iPosition) {
-//
-//        switch (iPosition) {
-//            case 0:
-//                EligibleMemberFragment eligibleMemberFragment = new EligibleMemberFragment();
-//                return eligibleMemberFragment;
-//
-//            case 1:
-//                EligibleFriendsFragment eligibleFriendsFragment = new EligibleFriendsFragment();
-//                return eligibleFriendsFragment;
-//
-//            default:
-//                return null;
-//        }
-//    }
 
     /**
      * @return Total number of Tabs.

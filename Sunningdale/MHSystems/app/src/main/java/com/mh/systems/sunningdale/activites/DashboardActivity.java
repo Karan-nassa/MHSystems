@@ -432,8 +432,6 @@ public class DashboardActivity extends BaseActivity {
 
     private void updateSuccessResponse(JsonObject jsonObject) {
 
-        //ComonMethods.hideProgress();
-
         Log.e(LOG_TAG, "Weather response : " + jsonObject.toString());
 
         Type type = new TypeToken<WeatherApiResponse>() {

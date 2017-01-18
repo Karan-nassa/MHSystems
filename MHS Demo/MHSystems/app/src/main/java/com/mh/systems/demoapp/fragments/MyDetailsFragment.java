@@ -49,8 +49,6 @@ public class MyDetailsFragment extends Fragment {
 
     String strTitileValues[];
 
-    public static boolean shouldRefresh = false;
-
     //This bool is used to stop on Edit Detail and Privacy screen to handle crash.
     private boolean isError = false;
 
@@ -91,13 +89,6 @@ public class MyDetailsFragment extends Fragment {
         //Initialize the view resources.
         initializeViewResources(mRootFragment);
 
-        //Check Internet connection and hit web service only on first time.
-       /* isClassVisible = true;
-        if (isClassVisible) {
-            callWebService();
-            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
-        }*/
-
         llViewGroup = new View[]{llUsernameOfPerson, /*llStreetOfPerson, llEmailOfPerson,*/
                 /*llMobileContactOfPerson,*/ llTypeOfPerson, llNameOfPerson};
 
@@ -105,29 +96,6 @@ public class MyDetailsFragment extends Fragment {
                 /*tvMobileContactOfPerson,*/ tvTypeOfPerson, tvNameOfPerson};
 
         return mRootFragment;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-       /* if (shouldRefresh) {
-
-            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
-
-            *//**
-         *  Check internet connection before hitting server request.
-         *//*
-            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-                llMyDetailGroup.setVisibility(View.VISIBLE);
-                requestMemberDetailService();
-            } else {
-                ((BaseActivity) getActivity()).hideProgress();
-                llMyDetailGroup.setVisibility(View.GONE);
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-            }
-        }*/
     }
 
     @Override
@@ -143,31 +111,11 @@ public class MyDetailsFragment extends Fragment {
              *  Check internet connection before hitting server request.
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                //((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-                //llMyDetailGroup.setVisibility(View.VISIBLE);
+
                 requestMemberDetailService();
-            } else {
-                //((BaseActivity) getActivity()).hideProgress();
-                //llMyDetailGroup.setVisibility(View.GONE);
-                //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-                //   ((BaseActivity) getActivity()).updateFragment(new NoInternetFragment());
             }
         }
     }
-
-//   private void callWebService() {
-//            /**
-//             *  Check internet connection before hitting server request.
-//             */
-//            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-//                ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-//                llMyDetailGroup.setVisibility(View.VISIBLE);
-//                requestMemberDetailService();
-//            } else {
-//                llMyDetailGroup.setVisibility(View.GONE);
-//                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-//        }
-//    }
 
     /**
      * Implement a method to hit Members Detail
@@ -183,7 +131,11 @@ public class MyDetailsFragment extends Fragment {
         aJsonParamsMembersDatail.setMemberid(((YourAccountActivity) getActivity()).getMemberId());
         aJsonParamsMembersDatail.setLoginMemberId(((YourAccountActivity) getActivity()).getMemberId());
 
-        membersDetailAPI = new MembersDetailAPI((((YourAccountActivity) getActivity()).getClientId()), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        membersDetailAPI = new MembersDetailAPI((((YourAccountActivity) getActivity()).getClientId()),
+                "GETMEMBER",
+                aJsonParamsMembersDatail,
+                ApplicationGlobal.TAG_GCLUB_WEBSERVICES,
+                ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -316,16 +268,16 @@ public class MyDetailsFragment extends Fragment {
         tvMobileContactOfPerson.setText(strMobileContactOfPerson);
         tvStreetOfPerson.setText(strStreetOfPerson);
 
-        SaveUserInfoToPreference();
+        //  SaveUserInfoToPreference();
     }
 
     /**
      * Implements this method to save user information to {@link android.content.SharedPreferences} so that
      * it can retrieve later for update.
      */
-    private void SaveUserInfoToPreference() {
+   /* private void SaveUserInfoToPreference() {
         ((YourAccountActivity) getActivity()).savePreferenceList("YOUR_DETAILS_DATA", new Gson().toJson(membersDetailItems.getData()));
-    }
+    }*/
 
     /**
      * Implements a method to initialize the view

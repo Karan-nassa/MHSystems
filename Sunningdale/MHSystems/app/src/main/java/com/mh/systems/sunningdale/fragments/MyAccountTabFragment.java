@@ -1,6 +1,6 @@
 package com.mh.systems.sunningdale.fragments;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -16,6 +16,7 @@ import com.mh.systems.sunningdale.activites.YourAccountActivity;
 import com.mh.systems.sunningdale.adapter.TabsAdapter.TabsPageAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 
+@SuppressLint("ValidFragment")
 public class MyAccountTabFragment extends Fragment {
 
     /*********************************
@@ -31,14 +32,11 @@ public class MyAccountTabFragment extends Fragment {
     ViewPager viewPager;
     View viewRootFragment;
     TabsPageAdapter pageAdapter;
-    Activity activity;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public int iLastTabPosition;
-
-    private boolean isHandicapFeature;
+    public static int iLastTabPosition;
 
     /**
      * Declare three bool instances to call api
@@ -54,7 +52,7 @@ public class MyAccountTabFragment extends Fragment {
 
             iLastTabPosition = tab.getPosition();
 
-            ((YourAccountActivity)getActivity()).setWhichTab(tab.getPosition());
+            ((YourAccountActivity) getActivity()).setWhichTab(tab.getPosition());
         }
 
         @Override
@@ -72,18 +70,24 @@ public class MyAccountTabFragment extends Fragment {
         }
     };
 
+    @SuppressLint("ValidFragment")
+    public MyAccountTabFragment(int iOpenTabPosition) {
+        iLastTabPosition = iOpenTabPosition;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_my_account_tabs, container, false);
-        activity=getActivity();
+
         //Initialize view resources.
         tabLayout = (TabLayout) viewRootFragment.findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_your_details)));
 
         //Check is Handicap available or not!
-        isHandicapFeature = ((YourAccountActivity) getActivity()).loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false);
+        boolean isHandicapFeature = ((YourAccountActivity) getActivity())
+                .loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false);
         if (isHandicapFeature) {
             tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_handicap)));
         }
@@ -103,10 +107,10 @@ public class MyAccountTabFragment extends Fragment {
                         isHandicapFeature);
         viewPager.setAdapter(pageAdapter);
 
-        iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
-        ((YourAccountActivity)getActivity()).setWhichTab(iLastTabPosition);
+       // iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
+        ((YourAccountActivity) getActivity()).setWhichTab(iLastTabPosition);
         viewPager.setCurrentItem(iLastTabPosition);
-        viewPager.setOffscreenPageLimit(2);
+        //iLastTabPosition = 0;
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -120,8 +124,6 @@ public class MyAccountTabFragment extends Fragment {
      * Implements a method to update visibility of tab.
      */
     private void setTabVisibleStatus(int iTabPosition) {
-
-        Log.e(LOG_TAG, "" + iTabPosition);
 
         switch (iTabPosition) {
             case 0:

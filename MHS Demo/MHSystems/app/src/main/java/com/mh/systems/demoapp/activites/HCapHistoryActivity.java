@@ -227,6 +227,7 @@ public class HCapHistoryActivity extends BaseActivity {
 
         if (builder == null) {
             builder = new AlertDialog.Builder(HCapHistoryActivity.this);
+            builder.setTitle("");
             builder.setMessage(strAlertMessage)
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {

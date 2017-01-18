@@ -51,7 +51,7 @@ public class FinanceFragment extends Fragment {
     ArrayList<TransactionListData> transactionListDataArrayList = new ArrayList<>();
 
     /*++ Filter type for Today, 1 Week, 1 Month, 3 Months, 6 Months, 1 Year or From Start++*/
-    int iFilterType = 2; //By Default Today will be selected.
+    int iFilterType = 2; //By Default 1 month will be selected.
     String strClosingBalance = "";
 
     private boolean isClassVisible = false;
@@ -92,7 +92,7 @@ public class FinanceFragment extends Fragment {
             intent = new Intent(getActivity(), FinanceDetailWebActivity.class);
             intent.putExtra("IsTopup", transactionListDataArrayList.get(position).getIsTopup());
             intent.putExtra("iTransactionId", transactionListDataArrayList.get(position).getTransactionId());
-            intent.putExtra("iMemberId", ((YourAccountActivity) getActivity()).getMemberId());
+            intent.putExtra("strMemberId", ((YourAccountActivity) getActivity()).getMemberId());
             intent.putExtra("titleOfScreen", transactionListDataArrayList.get(position).getTitle());
             startActivity(intent);
         }
@@ -106,45 +106,10 @@ public class FinanceFragment extends Fragment {
                 intent = new Intent(getActivity(), TopUpActivity.class);
                 intent.putExtra("strClosingBalance", strClosingBalance);
                 startActivity(intent);
-            }/*else{
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-            }*/
+            }
         }
     };
 
-    /**
-     * Declares the constant fields to display
-     * INVOICE detail screen.
-     */
-   /* private View.OnClickListener mInvoiceDetailListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            if (myAccountItems.getMyAccountData().get(0).getCurrentBills().size() > 0) {
-                getCurrentInvoiceData();
-
-                */
-
-    /**
-     * Navigate to Detail Invoice Screen.
-     *//*
-                mIntent = new Intent(getActivity(), DetailInvoiceActivity.class);
-                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TITLE, strInvoiceTitle);
-                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_NUMBER, strInvoiceNo);
-                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_VALUE, strInvoiceValue);
-                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TAX, strInvoiceTax);
-                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_TOTAL_PAYABLE, strInvoiceTotalPayable);
-                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_DATE, strInvoiceDate);
-                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_DESCRIPTION, strInvoiceDesc);
-                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_BILL_FROM, *//*formatDate(*//*strInvoiceBillFrom)*//*.replaceAll("/", "-"))*//*;
-                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_BILL_TO, *//*formatDate(*//*strInvoiceBillTo)*//*.replaceAll("/", "-"))*//*;
-                mIntent.putExtra(ApplicationGlobal.KEY_INVOICE_STATUS_STR, strInvoiceStatus);
-                startActivity(mIntent);
-            } else {
-                ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
-            }
-        }
-    };*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
@@ -152,12 +117,6 @@ public class FinanceFragment extends Fragment {
         initViewResources();
 
         setFontTypeface();
-
-        /*isClassVisible = true;
-        if (isClassVisible) {
-            callFinanceWebService();
-            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
-        }*/
 
         financeAdapter = new FinanceAdapter(getActivity(), transactionListDataArrayList);
         lvTransactionList.setAdapter(financeAdapter);
@@ -180,23 +139,12 @@ public class FinanceFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser /*&& isClassVisible*/) {
+        if (isVisibleToUser) {
             callFinanceWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
             ((YourAccountActivity)getActivity()).setiOpenTabPosition(2);
         }
     }
-
-   /* @Override
-    public void onResume() {
-        super.onResume();
-
-        //Check Internet connection and hit web service only on first time.
-        isClassVisible = true;
-        if (isClassVisible) {
-            requestFinanceService();
-        }
-    }*/
 
     /**
      * Implements this method to initialize all
@@ -229,11 +177,6 @@ public class FinanceFragment extends Fragment {
          */
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             requestFinanceService();
-            //((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-           // llFinanceGroup.setVisibility(View.VISIBLE);
-        } else {
-            //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-           // llFinanceGroup.setVisibility(View.GONE);
         }
     }
 
@@ -273,7 +216,6 @@ public class FinanceFragment extends Fragment {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 ((BaseActivity) getActivity()).hideProgress();
-                //((BaseActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }
@@ -303,11 +245,7 @@ public class FinanceFragment extends Fragment {
 
                 if (transactionListDataArrayList.size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage("No Transaction Found.");
-                }/* else {
-
-                    financeAdapter = new FinanceAdapter(getActivity(), transactionListDataArrayList);
-                    lvTransactionList.setAdapter(financeAdapter);
-                }*/
+                }
 
                 financeAdapter.notifyDataSetChanged();
 
@@ -364,25 +302,6 @@ public class FinanceFragment extends Fragment {
         }
 
     }
-
-   /* *//**
-     * Implements a method to get all CURRENT INVOICE data
-     * to pass for DetailInvoiceActivity.
-     *//*
-    private void getCurrentInvoiceData() {
-
-        strInvoiceNo = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceNo();
-        strInvoiceDate = *//*formatDate(*//*myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getStrInvoiceDate()*//*).replaceAll("/", "-")*//*;
-        strInvoiceStatus = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getInvoiceStatusStr();
-        strInvoiceTotalPayable = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getTotalPayable();
-
-        strInvoiceBillFrom = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getStrBilledFrom();
-        strInvoiceBillTo = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getStrBilledTo();
-        strInvoiceDesc = myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getDescription();
-        strInvoiceValue = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getValueX();
-        strInvoiceTax = "" + myAccountItems.getMyAccountData().get(0).getCurrentBills().get(0).getBillParts().get(0).getLines().get(0).getTax();
-    }
-*/
 
     /**
      * Implements a method to set Font style.
