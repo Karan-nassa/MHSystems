@@ -34,6 +34,7 @@ public class CourseDiaryWebviewActivity extends BaseActivity {
         tbCourseDiary.setNavigationIcon(R.mipmap.icon_menu);
         setSupportActionBar(tbCourseDiary);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tbCourseDiary.setTitle("Club Diary");
 
         if (strURL.length() > 0) {
             //Load Web View URL.

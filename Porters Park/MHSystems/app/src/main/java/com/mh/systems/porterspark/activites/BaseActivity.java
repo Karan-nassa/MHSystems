@@ -269,11 +269,11 @@ public class BaseActivity extends AppCompatActivity {
      * Implements a method to RETURN the name of MONTH from
      * specific date format.
      *
-     * @param strDate : Example => "2009-11-30T18:30:00Z"
+     * @param strDate : Example => "14/11/2016"
      * @return strDate  : MMM [NOV]
      */
-    public static String getFormateMonth(String strDate) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy");
+    public static String getFormatMonth(String strDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMM");
 
         try {

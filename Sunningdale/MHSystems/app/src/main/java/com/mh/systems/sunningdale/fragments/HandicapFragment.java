@@ -438,7 +438,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < count; i++) {
             // xVals.add((i % 30) + "/" + (i % 12) + "/14");
-            xVals.add(((YourAccountActivity) getActivity()).getFormateMonth(range.get(i).getDatePlayedStr().toString().replace("\"", "")));
+            xVals.add(((YourAccountActivity) getActivity()).getFormatMonth(range.get(i).getDatePlayedStr().toString().replace("\"", "")));
         }
 
         ArrayList<Entry> yVals = new ArrayList<Entry>();
