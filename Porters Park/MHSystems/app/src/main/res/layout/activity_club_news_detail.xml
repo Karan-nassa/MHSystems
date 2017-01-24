@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorF9F8F7">
+    android:background="@color/colorWhiteffffff">
 
     <!-- DETAIL NEWS VIEW GROUP -->
 
@@ -31,7 +31,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="25dp"
                 android:orientation="vertical">
 
                 <!-- DATE OF NEWS -->
@@ -40,6 +39,9 @@
                     android:id="@+id/tvDateOfNews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="15dp"
                     android:alpha="0.5"
                     android:text="@string/text_club_news_date"
                     android:textColor="@color/colorBlack000000"
@@ -51,6 +53,9 @@
                     android:id="@+id/tvTimeOfNews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
                     android:alpha="0.5"
                     android:text="@string/text_club_news_time"
                     android:textColor="@color/colorBlack000000"
@@ -58,19 +63,20 @@
 
                 <!-- CLUB NEWS DETAIL DESCRIPTION -->
 
-               <!-- <TextView
+                <TextView
                     android:id="@+id/tvDescOfNews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
                     android:text="@string/text_club_news_detail"
-                    android:textColor="#A8000000" />-->
+                    android:textColor="#A8000000"
+                    android:textSize="15dp"
+                    android:visibility="gone" />
 
                 <WebView
                     android:id="@+id/wvClubNews"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="25dp"/>
+                    android:visibility="visible" />
 
 
                 <!-- SPACE VIEW AT BOTTOM -->

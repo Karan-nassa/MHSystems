@@ -64,8 +64,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 break;
 
             case R.id.llContactUs:
-                intent = new Intent(SettingsActivity.this, ContactUsActivity.class);
-                startActivity(intent);
+                // intent = new Intent(SettingsActivity.this, ContactUsFragment.class);
+                // startActivity(intent);
                 break;
         }
     }

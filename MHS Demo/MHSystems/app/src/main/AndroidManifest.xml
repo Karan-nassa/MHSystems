@@ -186,7 +186,7 @@
         <!-- CONTACT US -->
 
         <activity
-            android:name=".activites.ContactUsActivity"
+            android:name=".fragments.ContactUsFragment"
             android:screenOrientation="portrait" />
 
         <!-- TOP UP PAYMENTS -->
@@ -197,6 +197,12 @@
 
         <activity
             android:name=".activites.TopUpActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- FRIENDS INFO -->
+
+        <activity
+            android:name=".activites.FriendsInfoActivity"
             android:screenOrientation="portrait" />
 
         <!-- [START gcm_receiver] -->

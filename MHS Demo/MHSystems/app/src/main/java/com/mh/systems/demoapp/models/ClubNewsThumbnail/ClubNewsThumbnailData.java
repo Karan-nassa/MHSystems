@@ -4,7 +4,9 @@ package com.mh.systems.demoapp.models.ClubNewsThumbnail;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ClubNewsThumbnailData {
+import java.io.Serializable;
+
+public class ClubNewsThumbnailData implements Serializable{
 
     @SerializedName("ClubNewsID")
     @Expose

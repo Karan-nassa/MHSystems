@@ -116,13 +116,14 @@
                 android:layout_height="1dp"
                 android:background="#E8E2DD" />
 
-            <!-- RESET PASSWORD -->
+            <!-- CONTACT US -->
 
             <LinearLayout
                 android:id="@+id/llContactUs"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <!-- LOCK ICON -->
 

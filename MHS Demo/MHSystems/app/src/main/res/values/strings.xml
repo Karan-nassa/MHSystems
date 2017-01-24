@@ -75,6 +75,7 @@
     <string name="text_title_members">Members</string>
     <string name="tab_title_memebers">MEMBERS</string>
     <string name="tab_title_friends">FRIENDS</string>
+    <string name="tab_title_contact_us">CONTACT US</string>
     <!-- END OF MEMBERS ACTIVITY -->
 
     <!-- START OF HANDICAP GRAPH FRAGMENT -->
@@ -236,6 +237,36 @@
     <string name="text_title_fax">FAX</string>
     <string name="text_title_email">EMAIL</string>
     <string name="text_title_address">ADDRESS</string>
+    <string name="text_title_department">DEPARTAMENT</string>
+
+    <string name="text_title_member_administration">Membership Administration</string>
+    <string name="text_name_member_administration">Clare Livingston</string>
+    <string name="text_email_member_administration">clarel@sunningdlegolfclub.co.uk</string>
+    <string name="text_contact_member_administration">01344 621681</string>
+
+    <string name="text_title_restaurant_mngr">Restaurant Manager</string>
+    <string name="text_value_restaurant_mngr">Elaine Brace\nelaineb@sunningdalegolfclub.co.uk\n01344 298013</string>
+
+    <string name="text_title_food_mngr">Food &amp; Beverage Manager</string>
+    <string name="text_value_food_mngr">Sherin George\nshering@sunningdalegolfclub.co.uk\n01344 298013</string>
+
+    <string name="text_title_club_shop">Club Shop</string>
+    <string name="text_value_club_shop">Assistant Professionals\nproshop@sunningdalegolfclub.co.uk\n01344 621681</string>
+
+    <string name="text_title_caddie_master">Caddie Master</string>
+    <string name="text_value_caddie_master">Vince Reeves\ncaddiemaster@sunningdalegolfclub.co.uk\n01344 626064</string>
+
+    <string name="text_title_golf_reservations">Golf Reservations</string>
+    <string name="text_value_golf_reservations">Anne Gladman\nanneg@sunningdalegolfclub.co.uk\n01344 298006</string>
+
+    <string name="text_title_golf_op_mngr">Golf Operations Manager</string>
+    <string name="text_value_golf_op_mngr">Christian Foreman\nchristianf@sunningdalegolfclub.co.uk\n01344 298003</string>
+
+    <string name="text_title_general_manager">General Manager</string>
+    <string name="text_value_general_manager">Tristan Hall\ntristanh@sunningdalegolfclub.co.uk\n01344 621681</string>
+
+    <string name="text_title_Secretariat">Secretariat</string>
+    <string name="text_value_Secretariat">General Enquiries\ninfo@sunningdalegolfclub.co.uk\n01344 621681</string>
 
     <!-- TOP UP -->
     <string name="text_title_topup">Top Up</string>
@@ -249,5 +280,8 @@
     <string name="alert_title_payment_failure">Payment Failure</string>
     <string name="text_title_new_balance">Your new balance is </string>
     <string name="error_title_try_again">Please try again</string>
+
+    <!-- FRIENDS INFO ACTIVITY -->
+    <string name="tb_title_frinds_list">Friends List</string>
 
 </resources>

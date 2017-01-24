@@ -20,10 +20,7 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.ClubNewsSwipeAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.models.ClubNews.AJsonParamsClubNews;
 import com.mh.systems.demoapp.models.ClubNews.AJsonParamsClubNewsDetail;
-import com.mh.systems.demoapp.models.ClubNews.ClubNewsAPI;
-import com.mh.systems.demoapp.models.ClubNews.ClubNewsData;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailResult;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsItems;
@@ -33,7 +30,6 @@ import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailResponse;
 import com.mh.systems.demoapp.push.PushNotificationService;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
-import com.mh.systems.demoapp.util.DividerItemDecoration;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -177,7 +173,7 @@ public class ClubNewsActivity extends BaseActivity {
             int iPosition = (int) data.getSerializableExtra("TAG_CLUB_NEWS_POSITION");
             boolean isDelete = (boolean) data.getSerializableExtra("TAG_CLUB_NEWS_IS_DELETE");
 
-            if(isDelete){
+            if (isDelete) {
                 clubNewsThumbnailList.remove(iPosition);
             }
 
@@ -327,7 +323,7 @@ public class ClubNewsActivity extends BaseActivity {
         if (isOnline(this)) {
             requestDeleteNews(clubNewsID);
         } else {
-            showAlertMessage(getResources().getString(R.string.error_no_internet));
+            showAlertOk(getResources().getString(R.string.error_no_internet), false);
             hideProgress();
         }
     }
@@ -370,7 +366,7 @@ public class ClubNewsActivity extends BaseActivity {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
-                showAlertMessage("" + getResources().getString(R.string.error_server_problem));
+                showAlertOk("" + getResources().getString(R.string.error_server_problem), false);
             }
         });
     }
@@ -394,10 +390,10 @@ public class ClubNewsActivity extends BaseActivity {
                 if (isDelete) {
 
                     clubNewsSwipeAdapter.notifyDataSetChanged();
-                    showAlertOk("News deleted successfully.");
+                    showAlertOk("News deleted successfully.", true);
                 }
             } else {
-                showAlertOk(clubNewsDetailResult.getMessage());
+                showAlertOk(clubNewsDetailResult.getMessage(), false);
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
@@ -412,7 +408,7 @@ public class ClubNewsActivity extends BaseActivity {
      * Implements this method to display successfully delete club news
      * or any other message received from server.
      */
-    public void showAlertOk(String strMessage) {
+    public void showAlertOk(String strMessage, final boolean isCallFromDelete) {
 
         if (builder == null) {
             builder = new AlertDialog.Builder(this);
@@ -421,9 +417,12 @@ public class ClubNewsActivity extends BaseActivity {
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             //do things
-
-                            clubNewsThumbnailList.remove(iDeletePosition);
-                            clubNewsSwipeAdapter.notifyDataSetChanged();
+                            if (isCallFromDelete) {
+                                clubNewsThumbnailList.remove(iDeletePosition);
+                                clubNewsSwipeAdapter.notifyDataSetChanged();
+                            }else{
+                                onBackPressed();
+                            }
                         }
                     });
             AlertDialog alert = builder.create();
@@ -489,7 +488,7 @@ public class ClubNewsActivity extends BaseActivity {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
-                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                showAlertOk("" + getResources().getString(R.string.error_please_retry), false);
             }
         });
     }

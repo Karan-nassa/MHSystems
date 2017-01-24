@@ -1,32 +1,31 @@
-package com.mh.systems.demoapp.activites;
+package com.mh.systems.demoapp.fragments;
 
 import android.Manifest;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.activites.MembersActivity;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.ContactUs.AJsonParamsContactUs;
 import com.mh.systems.demoapp.models.ContactUs.ContactUsAPI;
-import com.mh.systems.demoapp.models.ContactUs.ContactUsData;
 import com.mh.systems.demoapp.models.ContactUs.ContactUsResponse;
-import com.mh.systems.demoapp.models.ResetPassword.AJsonParamsResetPwd;
-import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordAPI;
-import com.mh.systems.demoapp.models.ResetPassword.ResetPasswordItems;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.rollbar.android.Rollbar;
@@ -44,12 +43,9 @@ import retrofit.RetrofitError;
  * Create this class to display Contact Us
  * functionality of this Golf Club.
  */
-public class ContactUsActivity extends BaseActivity implements View.OnClickListener {
+public class ContactUsFragment extends Fragment implements View.OnClickListener {
 
-    private final String LOG_TAG = ContactUsActivity.class.getSimpleName();
-
-    @Bind(R.id.tbContactUs)
-    Toolbar tbContactUs;
+    private final String LOG_TAG = ContactUsFragment.class.getSimpleName();
 
     @Bind(R.id.llTelephone)
     LinearLayout llTelephone;
@@ -75,6 +71,12 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
     @Bind(R.id.tvAddress)
     TextView tvAddress;
 
+    @Bind(R.id.llDepartments)
+    LinearLayout llDepartments;
+
+    @Bind(R.id.tvCallAdministration)
+    TextView tvCallAdministration;
+
     Intent callIntent = null;
 
     ContactUsAPI contactUsAPI;
@@ -82,61 +84,59 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
 
     ContactUsResponse contactUsResponse;
 
+    /*********************************
+     * INSTANCES OF CLASSES
+     *******************************/
+    View viewRootFragment;
+
     String strTelephone, strFax, strEmail, strAddress;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_us);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ButterKnife.bind(ContactUsActivity.this);
+        viewRootFragment = inflater.inflate(R.layout.fragment_contact_us, container, false);
 
-        //Set Tool bar.
-        setSupportActionBar(tbContactUs);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.text_title_contact_us));
+        //Initialize butterKnife.
+        ButterKnife.bind(this, viewRootFragment);
 
         /**
          *  Check internet connection before hitting server request.
          */
-        if (isOnline(ContactUsActivity.this)) {
+        if (((MembersActivity) getActivity()).isOnline(getActivity())) {
             requestMemberDetailService();
         } else {
-            showAlertMessage(getString(R.string.error_no_connection));
+            ((MembersActivity) getActivity()).showAlertMessage(getString(R.string.error_no_connection));
         }
+
+        return viewRootFragment;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
 
-            /**
-             *  Tool bar back arrow handler.
-             */
-            case android.R.id.home:
-                finish();
-                break;
+        if (isVisibleToUser) {
 
-            default:
-                break;
+            ((MembersActivity) getActivity()).setiTabPosition(2);
+
+            ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
+
         }
-        return super.onOptionsItemSelected(item);
     }
 
-
-    @OnClick({R.id.tvTelephone, R.id.tvEmail})
+    @OnClick({R.id.tvTelephone, R.id.tvEmail, R.id.tvCallAdministration})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvTelephone:
+            case R.id.tvCallAdministration:
 
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions();
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ((MembersActivity) getActivity()).requestPermissions();
                     return;
                 } else {
                     callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + tvTelephone.getText().toString()));
+                    callIntent.setData(Uri.parse("tel:" + ((TextView) view).getText().toString()/* tvTelephone.getText().toString()*/));
                     startActivity(callIntent);
                 }
                 break;
@@ -151,7 +151,7 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
-            case PERMISSIONS_REQUEST_CALL_PHONE: {
+            case 101: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -175,7 +175,7 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
      */
     public void requestMemberDetailService() {
 
-        showPleaseWait("Loading...");
+        ((MembersActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParamsContactUs = new AJsonParamsContactUs();
         aJsonParamsContactUs.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
@@ -202,8 +202,8 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
             public void failure(RetrofitError error) {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
-                hideProgress();
-                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                ((MembersActivity) getActivity()).hideProgress();
+                ((MembersActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }
@@ -212,14 +212,14 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
      * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
      */
     public String getMemberId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+        return ((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
     }
 
     /**
      * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
      */
     public String getClientId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+        return ((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
     /**
@@ -239,6 +239,8 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
             if (contactUsResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                llDepartments.setVisibility(View.VISIBLE);
 
                 strTelephone = contactUsResponse.getData().getTelephone();
                 strFax = contactUsResponse.getData().getFaxNo();
@@ -274,11 +276,13 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
                 }
 
             } else {
-                showAlertMessage(contactUsResponse.getMessage());
+                llDepartments.setVisibility(View.GONE);
+                ((MembersActivity) getActivity()).showAlertMessage(contactUsResponse.getMessage());
             }
-            hideProgress();
+            ((MembersActivity) getActivity()).hideProgress();
         } catch (Exception e) {
-            hideProgress();
+            llDepartments.setVisibility(View.GONE);
+            ((MembersActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
@@ -304,6 +308,20 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
             startActivity(Intent.createChooser(emailIntent, Html.fromHtml("<B>Choose an Email Client:</B>")));
         } catch (android.content.ActivityNotFoundException ex) {
             Rollbar.reportMessage("There is no email client installed.");
+        }
+    }
+
+    private void actionCallToContact(View view) {
+
+        Log.e(LOG_TAG, "actionCallToContact : " + ((TextView) view).getText().toString());
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ((MembersActivity) getActivity()).requestPermissions();
+            return;
+        } else {
+            callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + ((TextView) view).getText().toString()));
+            startActivity(callIntent);
         }
     }
 }

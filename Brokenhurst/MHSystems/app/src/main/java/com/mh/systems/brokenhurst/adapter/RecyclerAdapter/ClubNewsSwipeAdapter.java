@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -208,13 +209,10 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         public void onClick(View itemView) {
 
             Intent detailNewsIntent = new Intent(mContext, ClubNewsDetailActivity.class);
-            detailNewsIntent.putExtra("ClubNewsID", clubNewsDataArrayList.get(getAdapterPosition()).getClubNewsID());
-            detailNewsIntent.putExtra("CreatedDate", clubNewsDataArrayList.get(getAdapterPosition()).getCreatedDate());
-            detailNewsIntent.putExtra("Time", clubNewsDataArrayList.get(getAdapterPosition()).getTime());
-            detailNewsIntent.putExtra("Message", clubNewsDataArrayList.get(getAdapterPosition()).getMessage());
-            detailNewsIntent.putExtra("IsRead", clubNewsDataArrayList.get(getAdapterPosition()).getIsRead());
-            detailNewsIntent.putExtra("iPosition", getAdapterPosition());
-
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("club_news_content", clubNewsDataArrayList.get(getAdapterPosition()));
+            bundle.putInt("iPosition", getAdapterPosition());
+            detailNewsIntent.putExtras(bundle);
             ((ClubNewsActivity) mContext).startActivityForResult(detailNewsIntent, 111);
             //mContext.startActivity(detailNewsIntent);
         }

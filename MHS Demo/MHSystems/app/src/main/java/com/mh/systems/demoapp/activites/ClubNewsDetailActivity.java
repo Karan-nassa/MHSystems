@@ -21,8 +21,8 @@ import com.mh.systems.demoapp.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.demoapp.models.ClubNews.ClubNewsDetailResult;
 import com.mh.systems.demoapp.models.ClubNewsThumbnail.AJsonParamsClubNewsDetailThumbnail;
+import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
-import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailDetailData;
 import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailDetailResponse;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
@@ -77,6 +77,8 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
     ClubNewsThumbnailDetailResponse clubNewsThumbnailDetailResponse;
 
+    ClubNewsThumbnailData clubNewsThumbnailData;
+
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
@@ -109,9 +111,22 @@ public class ClubNewsDetailActivity extends BaseActivity {
         isRead = getIntent().getExtras().getBoolean("TAG_CLUB_NEWS_IS_READ");
         isDelete = getIntent().getExtras().getBoolean("TAG_CLUB_NEWS_IS_DELETE");
 
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        clubNewsThumbnailData = (ClubNewsThumbnailData) bundle.getSerializable("club_news_content");
+
+        if (clubNewsThumbnailData != null) {
+           // tvDateOfNews.setText(clubNewsThumbnailData.getDate());
+           // tvTimeOfNews.setText(clubNewsThumbnailData.getTime());
+            iClubNewsID = clubNewsThumbnailData.getClubNewsID();
+            isRead = clubNewsThumbnailData.getIsRead();
+            isDelete = clubNewsThumbnailData.getIsDeleted();
+            iPosition = bundle.getInt("iPosition");
+        }
+
         //data == html data which you want to load
-        //  wvClubNews.getSettings().setJavaScriptEnabled(true);
-        //   wvClubNews.loadDataWithBaseURL("", getIntent().getExtras().getString("Message"), "text/html", "UTF-8", "");
+        //wvClubNews.getSettings().setJavaScriptEnabled(true);
+        //wvClubNews.loadDataWithBaseURL("", clubNewsThumbnailData.getMessage(), "text/html", "UTF-8", "");
 
         //If user haven't read news then call READ API status.
         if (!isRead) {
@@ -126,7 +141,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
         if (isOnline(this)) {
             requestClubNewsDetail();
         } else {
-            showAlertMessage(getResources().getString(R.string.error_no_internet));
+            showAlertOk(getResources().getString(R.string.error_no_internet));
             hideProgress();
         }
     }
@@ -185,7 +200,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
         if (isOnline(this)) {
             requestClubNewsService();
         } else {
-            showAlertMessage(getResources().getString(R.string.error_no_internet));
+            showAlertOk(getResources().getString(R.string.error_no_internet));
             hideProgress();
         }
     }
@@ -228,7 +243,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
-                showAlertMessage("" + getResources().getString(R.string.error_server_problem));
+                showAlertOk("" + getResources().getString(R.string.error_server_problem));
             }
         });
     }
@@ -369,7 +384,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
-                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                showAlertOk("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }

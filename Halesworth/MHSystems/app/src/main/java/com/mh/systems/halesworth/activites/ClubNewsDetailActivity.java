@@ -17,12 +17,10 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
 import com.mh.systems.halesworth.constants.WebAPI;
-import com.mh.systems.halesworth.models.ClubNews.AJsonParamsClubNews;
 import com.mh.systems.halesworth.models.ClubNews.AJsonParamsClubNewsDetail;
-import com.mh.systems.halesworth.models.ClubNews.ClubNewsAPI;
+import com.mh.systems.halesworth.models.ClubNews.ClubNewsData;
 import com.mh.systems.halesworth.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.halesworth.models.ClubNews.ClubNewsDetailResult;
-import com.mh.systems.halesworth.models.ClubNews.ClubNewsItems;
 import com.mh.systems.halesworth.util.API.WebServiceMethods;
 
 import java.lang.reflect.Type;
@@ -63,6 +61,8 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
     ClubNewsDetailResult clubNewsDetailResult;
 
+    ClubNewsData clubNewsData;
+
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
@@ -86,17 +86,22 @@ public class ClubNewsDetailActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        tvDateOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
-        tvTimeOfNews.setText(getIntent().getExtras().getString("Time"));
-        // tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
-        iClubNewsID = getIntent().getExtras().getInt("ClubNewsID");
-        isRead = getIntent().getExtras().getBoolean("IsRead");
 
-        iPosition = getIntent().getExtras().getInt("iPosition");
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        clubNewsData = (ClubNewsData) bundle.getSerializable("club_news_content");
+
+        if (clubNewsData != null) {
+            tvDateOfNews.setText(clubNewsData.getCreatedDate());
+            tvTimeOfNews.setText(clubNewsData.getTime());
+            iClubNewsID = clubNewsData.getClubNewsID();
+            isRead = clubNewsData.getIsRead();
+            iPosition = bundle.getInt("iPosition");
+        }
 
         //data == html data which you want to load
         wvClubNews.getSettings().setJavaScriptEnabled(true);
-        wvClubNews.loadDataWithBaseURL("", getIntent().getExtras().getString("Message"), "text/html", "UTF-8", "");
+        wvClubNews.loadDataWithBaseURL("", clubNewsData.getMessage(), "text/html", "UTF-8", "");
 
         //If user haven't read news then call READ API status.
         if (!isRead) {
