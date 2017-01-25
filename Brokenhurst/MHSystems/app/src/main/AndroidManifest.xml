@@ -180,10 +180,10 @@
             android:name="com.mh.systems.brokenhurst.activites.WeatherDetailActivity"
             android:screenOrientation="portrait" />
 
-        <!-- CONTACT US -->
+        <!-- FRIENDS INFO -->
 
         <activity
-            android:name=".activites.ContactUsActivity"
+            android:name=".activites.FriendsInfoActivity"
             android:screenOrientation="portrait" />
 
         <!-- [START gcm_receiver] -->

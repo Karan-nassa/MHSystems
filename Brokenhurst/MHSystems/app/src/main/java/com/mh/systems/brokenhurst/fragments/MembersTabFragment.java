@@ -103,6 +103,7 @@ public class MembersTabFragment extends Fragment {
 
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_memebers)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_friends)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_contact_us)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
