@@ -240,49 +240,49 @@
     <string name="text_title_department">DEPARTAMENT</string>
 
     <string name="text_title_member_administration">Membership Administration</string>
-    <string name="text_name_member_administration">Clare Livingston</string>
-    <string name="text_email_member_administration">clarel@sunningdlegolfclub.co.uk</string>
-    <string name="text_contact_member_administration">01344 621681</string>
+    <string name="text_name_member_administration">MHS Test 1</string>
+    <string name="text_email_member_administration">abc@mhsystems.co.uk</string>
+    <string name="text_contact_member_administration">01344 12345</string>
 
     <string name="text_title_restaurant_mngr">Restaurant Manager</string>
-    <string name="text_name_rst_manager">Elaine Brace</string>
-    <string name="text_email_rst_manager">elaineb@sunningdalegolfclub.co.uk</string>
-    <string name="text_contact_rst_manager">01344 298013</string>
+    <string name="text_name_rst_manager">MHS Test 2</string>
+    <string name="text_email_rst_manager">def@mhsystems.co.uk</string>
+    <string name="text_contact_rst_manager">01344 67890</string>
 
     <string name="text_title_food_mngr">Food &amp; Beverage Manager</string>
-    <string name="text_name_food_mngr">Sherin George</string>
-    <string name="text_email_food_mngr">shering@sunningdalegolfclub.co.uk</string>
-    <string name="text_contact_food_mngr">01344 298013</string>
+    <string name="text_name_food_mngr">MHS Test 3</string>
+    <string name="text_email_food_mngr">ghi@mhsystems.co.uk</string>
+    <string name="text_contact_food_mngr">01344 12345</string>
 
     <string name="text_title_club_shop">Club Shop</string>
-    <string name="text_name_club_shop">Assistant Professionals</string>
-    <string name="text_email_club_shop">proshop@sunningdalegolfclub.co.uk</string>
-    <string name="text_contact_club_shop">01344 621681</string>
+    <string name="text_name_club_shop">MHS Test 4</string>
+    <string name="text_email_club_shop">jkl@mhsystems.co.uk</string>
+    <string name="text_contact_club_shop">01344 67890</string>
 
     <string name="text_title_caddie_master">Caddie Master</string>
-    <string name="text_name_caddie_master">Vince Reeves</string>
-    <string name="text_email_caddie_master">caddiemaster@sunningdalegolfclub.co.uk</string>
-    <string name="text_contact_caddie_master">01344 626064</string>
+    <string name="text_name_caddie_master">MHS Test 5</string>
+    <string name="text_email_caddie_master">mno@mhsystems.co.uk</string>
+    <string name="text_contact_caddie_master">01344 12345</string>
 
     <string name="text_title_golf_reservations">Golf Reservations</string>
-    <string name="text_name_golf_reservations">Anne Gladman</string>
-    <string name="text_email_golf_reservations">anneg@sunningdalegolfclub.co.uk</string>
-    <string name="text_contact_golf_reservations">01344 298006</string>
+    <string name="text_name_golf_reservations">MHS Test 6</string>
+    <string name="text_email_golf_reservations">pqr@mhsystems.co.uk</string>
+    <string name="text_contact_golf_reservations">01344 67890</string>
 
     <string name="text_title_golf_op_mngr">Golf Operations Manager</string>
-    <string name="text_name_golf_op_mngr">Christian Foreman</string>
-    <string name="text_email_golf_op_mngr">christianf@sunningdalegolfclub.co.uk</string>
-    <string name="text_contact_golf_op_mngr">01344 298003</string>
+    <string name="text_name_golf_op_mngr">MHS Test 7</string>
+    <string name="text_email_golf_op_mngr">stu@mhsystems.co.uk</string>
+    <string name="text_contact_golf_op_mngr">01344 12345</string>
 
     <string name="text_title_general_mngr">General Manager</string>
-    <string name="text_name_general_mngr">Tristan Hall</string>
-    <string name="text_email_general_mngr">tristanh@sunningdalegolfclub.co.uk</string>
-    <string name="text_contact_general_mngr">01344 621681</string>
+    <string name="text_name_general_mngr">MHS Test 8</string>
+    <string name="text_email_general_mngr">vwx@mhsystems.co.uk</string>
+    <string name="text_contact_general_mngr">01344 67890</string>
 
     <string name="text_title_Secretariat">Secretariat</string>
-    <string name="text_name_Secretariat">General Enquiries</string>
-    <string name="text_email_Secretariat">info@sunningdalegolfclub.co.uk</string>
-    <string name="text_contact_Secretariat">01344 621681</string>
+    <string name="text_name_Secretariat">MHS Test 9</string>
+    <string name="text_email_Secretariat">info@mhsystems.co.uk</string>
+    <string name="text_contact_Secretariat">01344 12345</string>
 
     <!-- ~~ END CONTACT US ~~ -->
 
