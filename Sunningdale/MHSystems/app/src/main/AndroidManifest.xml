@@ -160,12 +160,6 @@
             android:name=".activites.WeatherDetailActivity"
             android:screenOrientation="portrait" />
 
-        <!-- CONTACT US -->
-
-        <activity
-            android:name=".activites.ContactUsActivity"
-            android:screenOrientation="portrait" />
-
         <!-- TOP UP PAYMENTS -->
 
         <activity
@@ -174,6 +168,12 @@
 
         <activity
             android:name=".activites.TopUpActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- FRIENDS INFO -->
+
+        <activity
+            android:name=".activites.FriendsInfoActivity"
             android:screenOrientation="portrait" />
 
     </application>

@@ -1,7 +1,6 @@
 package com.mh.systems.demoapp.fragments;
 
 import android.Manifest;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -9,12 +8,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,6 +30,7 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.rollbar.android.Rollbar;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,14 +59,8 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
     @Bind(R.id.llAddress)
     LinearLayout llAddress;
 
-    @Bind(R.id.tvTelephone)
-    TextView tvTelephone;
-
     @Bind(R.id.tvFax)
     TextView tvFax;
-
-    @Bind(R.id.tvEmail)
-    TextView tvEmail;
 
     @Bind(R.id.tvAddress)
     TextView tvAddress;
@@ -74,8 +68,16 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
     @Bind(R.id.llDepartments)
     LinearLayout llDepartments;
 
-    @Bind(R.id.tvCallAdministration)
-    TextView tvCallAdministration;
+    @Bind(R.id.ivAppLogo)
+    ImageView ivAppLogo;
+
+    @Bind({R.id.tvEmail, R.id.tvEmailAdministration, R.id.tvEmailRstMngr, R.id.tvEmailFoodMngr, R.id.tvEmailClubShop, R.id.tvEmailCaddieMaster,
+            R.id.tvEmailGolfReservations, R.id.tvEmailGolfOpMngr, R.id.tvEmailGeneralMngr, R.id.tvEmailSecretariat})
+    List<TextView> listOfEmailViews;
+
+    @Bind({R.id.tvTelephone, R.id.tvCallAdministration, R.id.tvCallRstMngr, R.id.tvCallFoodMngr, R.id.tvCallClubShop, R.id.tvCallCaddieMaster,
+            R.id.tvCallGolfReservations, R.id.tvCallGolfOpMngr, R.id.tvCallGeneralMngr, R.id.tvCallSecretariat})
+    List<TextView> listOfContactViews;
 
     Intent callIntent = null;
 
@@ -90,6 +92,7 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
     View viewRootFragment;
 
     String strTelephone, strFax, strEmail, strAddress;
+    String strContactToCall = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,15 +101,6 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
 
         //Initialize butterKnife.
         ButterKnife.bind(this, viewRootFragment);
-
-        /**
-         *  Check internet connection before hitting server request.
-         */
-        if (((MembersActivity) getActivity()).isOnline(getActivity())) {
-            requestMemberDetailService();
-        } else {
-            ((MembersActivity) getActivity()).showAlertMessage(getString(R.string.error_no_connection));
-        }
 
         return viewRootFragment;
     }
@@ -119,19 +113,50 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
 
             ((MembersActivity) getActivity()).setiTabPosition(2);
 
-            ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
+            ((MembersActivity) getActivity()).setFragmentInstance(new ContactUsFragment());
+
+            /**
+             *  Check internet connection before hitting server request.
+             */
+            if (((MembersActivity) getActivity()).isOnline(getActivity())) {
+                requestMemberDetailService();
+
+                //To Hide 'No FRIEND FOUND' message
+                ((MembersActivity) getActivity()).updateNoDataUI(true, 1);
+
+            } else {
+                ((MembersActivity) getActivity()).showAlertMessage(getString(R.string.error_no_connection));
+            }
 
         }
     }
 
-    @OnClick({R.id.tvTelephone, R.id.tvEmail, R.id.tvCallAdministration})
+    @OnClick({R.id.tvTelephone, R.id.tvEmail,
+            R.id.tvEmailAdministration, R.id.tvCallAdministration,
+            R.id.tvEmailRstMngr, R.id.tvCallRstMngr,
+            R.id.tvEmailFoodMngr, R.id.tvCallFoodMngr,
+            R.id.tvEmailClubShop, R.id.tvCallClubShop,
+            R.id.tvEmailCaddieMaster, R.id.tvCallCaddieMaster,
+            R.id.tvEmailGolfReservations, R.id.tvCallGolfReservations,
+            R.id.tvEmailGolfOpMngr, R.id.tvCallGolfOpMngr,
+            R.id.tvEmailGeneralMngr, R.id.tvCallGeneralMngr,
+            R.id.tvEmailSecretariat, R.id.tvCallSecretariat})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvTelephone:
             case R.id.tvCallAdministration:
+            case R.id.tvCallRstMngr:
+            case R.id.tvCallFoodMngr:
+            case R.id.tvCallClubShop:
+            case R.id.tvCallCaddieMaster:
+            case R.id.tvCallGolfReservations:
+            case R.id.tvCallGolfOpMngr:
+            case R.id.tvCallGeneralMngr:
+            case R.id.tvCallSecretariat:
 
                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    strContactToCall = ((TextView) view).getText().toString();
                     ((MembersActivity) getActivity()).requestPermissions();
                     return;
                 } else {
@@ -142,7 +167,16 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
                 break;
 
             case R.id.tvEmail:
-                callSendEmail();
+            case R.id.tvEmailAdministration:
+            case R.id.tvEmailRstMngr:
+            case R.id.tvEmailFoodMngr:
+            case R.id.tvEmailClubShop:
+            case R.id.tvEmailCaddieMaster:
+            case R.id.tvEmailGolfReservations:
+            case R.id.tvEmailGolfOpMngr:
+            case R.id.tvEmailGeneralMngr:
+            case R.id.tvEmailSecretariat:
+                callSendEmail(((TextView) view).getText().toString());
                 break;
         }
     }
@@ -158,7 +192,7 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
 
                     // permission was granted.
                     callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + tvTelephone.getText().toString()));
+                    callIntent.setData(Uri.parse("tel:" + strContactToCall/*tvTelephone.getText().toString()*/));
                     startActivity(callIntent);
                 } else {
 
@@ -247,9 +281,12 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
                 strEmail = contactUsResponse.getData().getEmail();
                 strAddress = contactUsResponse.getData().getAddress();
 
+                //Display Logo of the App.
+                ivAppLogo.setImageResource(R.mipmap.ic_home_golfclub);
+
                 if (strTelephone.length() > 0) {
                     llTelephone.setVisibility(View.VISIBLE);
-                    tvTelephone.setText(strTelephone);
+                    listOfContactViews.get(0).setText(strTelephone);
                 } else {
                     llTelephone.setVisibility(View.GONE);
                 }
@@ -263,7 +300,7 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
 
                 if (strEmail.length() > 0) {
                     llEmail.setVisibility(View.VISIBLE);
-                    tvEmail.setText(strEmail);
+                    listOfEmailViews.get(0).setText(strEmail);
                 } else {
                     llEmail.setVisibility(View.GONE);
                 }
@@ -291,9 +328,11 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
     /**
      * Open Email App when user tap on Email
      * address.
+     *
+     * @param strEmailAddress : EMAIL address which selected to send email.
      */
-    protected void callSendEmail() {
-        String[] TO = {tvEmail.getText().toString()};
+    protected void callSendEmail(String strEmailAddress) {
+        String[] TO = {strEmailAddress/*tvEmail.getText().toString()*/};
         String[] CC = {""};
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
@@ -308,20 +347,6 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
             startActivity(Intent.createChooser(emailIntent, Html.fromHtml("<B>Choose an Email Client:</B>")));
         } catch (android.content.ActivityNotFoundException ex) {
             Rollbar.reportMessage("There is no email client installed.");
-        }
-    }
-
-    private void actionCallToContact(View view) {
-
-        Log.e(LOG_TAG, "actionCallToContact : " + ((TextView) view).getText().toString());
-
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ((MembersActivity) getActivity()).requestPermissions();
-            return;
-        } else {
-            callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:" + ((TextView) view).getText().toString()));
-            startActivity(callIntent);
         }
     }
 }

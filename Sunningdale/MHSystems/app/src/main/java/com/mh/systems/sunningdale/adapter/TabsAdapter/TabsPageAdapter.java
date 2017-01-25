@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.mh.systems.sunningdale.activites.BaseActivity;
 import com.mh.systems.sunningdale.activites.YourAccountActivity;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
+import com.mh.systems.sunningdale.fragments.ContactUsFragment;
 import com.mh.systems.sunningdale.fragments.FinanceFragment;
 import com.mh.systems.sunningdale.fragments.FriendsFragment;
 import com.mh.systems.sunningdale.fragments.HandicapFragment;
@@ -116,6 +117,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * Load MEMBERS Tabs i.e
      * <br> 1. Members
      * <br> 2. Friends
+     * <br> 3. Contact Us
      * <p/>
      *
      * @param iPosition
@@ -132,10 +134,15 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 FriendsFragment friendsFragment = new FriendsFragment();
                 return friendsFragment;
 
+            case 2:
+                ContactUsFragment contactUsFragment = new ContactUsFragment();
+                return contactUsFragment;
+
             default:
                 return null;
         }
     }
+
 
     /**
      * Load My Account tabs i.e
