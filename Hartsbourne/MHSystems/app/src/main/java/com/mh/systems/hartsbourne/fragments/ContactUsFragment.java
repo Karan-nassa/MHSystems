@@ -1,4 +1,4 @@
-package com.mh.systems.hartsbourne.activites;
+package com.mh.systems.hartsbourne.fragments;
 
 import android.Manifest;
 import android.content.Intent;
@@ -7,16 +7,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.hartsbourne.R;
+import com.mh.systems.hartsbourne.activites.MembersActivity;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
 import com.mh.systems.hartsbourne.constants.WebAPI;
 import com.mh.systems.hartsbourne.models.ContactUs.AJsonParamsContactUs;
@@ -27,6 +30,7 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.rollbar.android.Rollbar;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,12 +43,9 @@ import retrofit.RetrofitError;
  * Create this class to display Contact Us
  * functionality of this Golf Club.
  */
-public class ContactUsActivity extends BaseActivity implements View.OnClickListener {
+public class ContactUsFragment extends Fragment implements View.OnClickListener {
 
-    private final String LOG_TAG = ContactUsActivity.class.getSimpleName();
-
-    @Bind(R.id.tbContactUs)
-    Toolbar tbContactUs;
+    private final String LOG_TAG = ContactUsFragment.class.getSimpleName();
 
     @Bind(R.id.llTelephone)
     LinearLayout llTelephone;
@@ -58,17 +59,25 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
     @Bind(R.id.llAddress)
     LinearLayout llAddress;
 
-    @Bind(R.id.tvTelephone)
-    TextView tvTelephone;
-
     @Bind(R.id.tvFax)
     TextView tvFax;
 
-    @Bind(R.id.tvEmail)
-    TextView tvEmail;
-
     @Bind(R.id.tvAddress)
     TextView tvAddress;
+
+    @Bind(R.id.llDepartments)
+    LinearLayout llDepartments;
+
+    @Bind(R.id.ivAppLogo)
+    ImageView ivAppLogo;
+
+    @Bind({R.id.tvEmail, R.id.tvEmailAdministration, R.id.tvEmailRstMngr, R.id.tvEmailFoodMngr, R.id.tvEmailClubShop, R.id.tvEmailCaddieMaster,
+            R.id.tvEmailGolfReservations, R.id.tvEmailGolfOpMngr, R.id.tvEmailGeneralMngr, R.id.tvEmailSecretariat})
+    List<TextView> listOfEmailViews;
+
+    @Bind({R.id.tvTelephone, R.id.tvCallAdministration, R.id.tvCallRstMngr, R.id.tvCallFoodMngr, R.id.tvCallClubShop, R.id.tvCallCaddieMaster,
+            R.id.tvCallGolfReservations, R.id.tvCallGolfOpMngr, R.id.tvCallGeneralMngr, R.id.tvCallSecretariat})
+    List<TextView> listOfContactViews;
 
     Intent callIntent = null;
 
@@ -77,67 +86,97 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
 
     ContactUsResponse contactUsResponse;
 
+    /*********************************
+     * INSTANCES OF CLASSES
+     *******************************/
+    View viewRootFragment;
+
     String strTelephone, strFax, strEmail, strAddress;
+    String strContactToCall = "";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_us);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ButterKnife.bind(ContactUsActivity.this);
+        viewRootFragment = inflater.inflate(R.layout.fragment_contact_us, container, false);
 
-        //Set Tool bar.
-        setSupportActionBar(tbContactUs);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.text_title_contact_us));
+        //Initialize butterKnife.
+        ButterKnife.bind(this, viewRootFragment);
 
-        /**
-         *  Check internet connection before hitting server request.
-         */
-        if (isOnline(ContactUsActivity.this)) {
-            requestMemberDetailService();
-        } else {
-            showAlertMessage(getString(R.string.error_no_connection));
-        }
+        return viewRootFragment;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser) {
+
+            ((MembersActivity) getActivity()).setiTabPosition(2);
+
+            ((MembersActivity) getActivity()).setFragmentInstance(new ContactUsFragment());
 
             /**
-             *  Tool bar back arrow handler.
+             *  Check internet connection before hitting server request.
              */
-            case android.R.id.home:
-                finish();
-                break;
+            if (((MembersActivity) getActivity()).isOnline(getActivity())) {
+                requestMemberDetailService();
 
-            default:
-                break;
+                //To Hide 'No FRIEND FOUND' message
+                ((MembersActivity) getActivity()).updateNoDataUI(true, 1);
+
+            } else {
+                ((MembersActivity) getActivity()).showAlertMessage(getString(R.string.error_no_connection));
+            }
+
         }
-        return super.onOptionsItemSelected(item);
     }
 
-
-    @OnClick({R.id.tvTelephone, R.id.tvEmail})
+    @OnClick({R.id.tvTelephone, R.id.tvEmail,
+            R.id.tvEmailAdministration, R.id.tvCallAdministration,
+            R.id.tvEmailRstMngr, R.id.tvCallRstMngr,
+            R.id.tvEmailFoodMngr, R.id.tvCallFoodMngr,
+            R.id.tvEmailClubShop, R.id.tvCallClubShop,
+            R.id.tvEmailCaddieMaster, R.id.tvCallCaddieMaster,
+            R.id.tvEmailGolfReservations, R.id.tvCallGolfReservations,
+            R.id.tvEmailGolfOpMngr, R.id.tvCallGolfOpMngr,
+            R.id.tvEmailGeneralMngr, R.id.tvCallGeneralMngr,
+            R.id.tvEmailSecretariat, R.id.tvCallSecretariat})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvTelephone:
+            case R.id.tvCallAdministration:
+            case R.id.tvCallRstMngr:
+            case R.id.tvCallFoodMngr:
+            case R.id.tvCallClubShop:
+            case R.id.tvCallCaddieMaster:
+            case R.id.tvCallGolfReservations:
+            case R.id.tvCallGolfOpMngr:
+            case R.id.tvCallGeneralMngr:
+            case R.id.tvCallSecretariat:
 
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions();
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    strContactToCall = ((TextView) view).getText().toString();
+                    ((MembersActivity) getActivity()).requestPermissions();
                     return;
                 } else {
                     callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + tvTelephone.getText().toString()));
+                    callIntent.setData(Uri.parse("tel:" + ((TextView) view).getText().toString()/* tvTelephone.getText().toString()*/));
                     startActivity(callIntent);
                 }
                 break;
 
             case R.id.tvEmail:
-                callSendEmail();
+            case R.id.tvEmailAdministration:
+            case R.id.tvEmailRstMngr:
+            case R.id.tvEmailFoodMngr:
+            case R.id.tvEmailClubShop:
+            case R.id.tvEmailCaddieMaster:
+            case R.id.tvEmailGolfReservations:
+            case R.id.tvEmailGolfOpMngr:
+            case R.id.tvEmailGeneralMngr:
+            case R.id.tvEmailSecretariat:
+                callSendEmail(((TextView) view).getText().toString());
                 break;
         }
     }
@@ -146,14 +185,14 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
-            case PERMISSIONS_REQUEST_CALL_PHONE: {
+            case 101: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     // permission was granted.
                     callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + tvTelephone.getText().toString()));
+                    callIntent.setData(Uri.parse("tel:" + strContactToCall/*tvTelephone.getText().toString()*/));
                     startActivity(callIntent);
                 } else {
 
@@ -170,7 +209,7 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
      */
     public void requestMemberDetailService() {
 
-        showPleaseWait("Loading...");
+        ((MembersActivity) getActivity()).showPleaseWait("Loading...");
 
         aJsonParamsContactUs = new AJsonParamsContactUs();
         aJsonParamsContactUs.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
@@ -197,8 +236,8 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
             public void failure(RetrofitError error) {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
-                hideProgress();
-                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                ((MembersActivity) getActivity()).hideProgress();
+                ((MembersActivity) getActivity()).showAlertMessage("" + getResources().getString(R.string.error_please_retry));
             }
         });
     }
@@ -207,14 +246,14 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
      * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
      */
     public String getMemberId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+        return ((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
     }
 
     /**
      * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
      */
     public String getClientId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+        return ((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
     /**
@@ -235,14 +274,19 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
              */
             if (contactUsResponse.getMessage().equalsIgnoreCase("Success")) {
 
+                llDepartments.setVisibility(View.VISIBLE);
+
                 strTelephone = contactUsResponse.getData().getTelephone();
                 strFax = contactUsResponse.getData().getFaxNo();
                 strEmail = contactUsResponse.getData().getEmail();
                 strAddress = contactUsResponse.getData().getAddress();
 
+                //Display Logo of the App.
+                ivAppLogo.setImageResource(R.mipmap.ic_home_golfclub);
+
                 if (strTelephone.length() > 0) {
                     llTelephone.setVisibility(View.VISIBLE);
-                    tvTelephone.setText(strTelephone);
+                    listOfContactViews.get(0).setText(strTelephone);
                 } else {
                     llTelephone.setVisibility(View.GONE);
                 }
@@ -256,7 +300,7 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
 
                 if (strEmail.length() > 0) {
                     llEmail.setVisibility(View.VISIBLE);
-                    tvEmail.setText(strEmail);
+                    listOfEmailViews.get(0).setText(strEmail);
                 } else {
                     llEmail.setVisibility(View.GONE);
                 }
@@ -269,11 +313,13 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
                 }
 
             } else {
-                showAlertMessage(contactUsResponse.getMessage());
+                llDepartments.setVisibility(View.GONE);
+                ((MembersActivity) getActivity()).showAlertMessage(contactUsResponse.getMessage());
             }
-            hideProgress();
+            ((MembersActivity) getActivity()).hideProgress();
         } catch (Exception e) {
-            hideProgress();
+            llDepartments.setVisibility(View.GONE);
+            ((MembersActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
@@ -282,9 +328,11 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
     /**
      * Open Email App when user tap on Email
      * address.
+     *
+     * @param strEmailAddress : EMAIL address which selected to send email.
      */
-    protected void callSendEmail() {
-        String[] TO = {tvEmail.getText().toString()};
+    protected void callSendEmail(String strEmailAddress) {
+        String[] TO = {strEmailAddress/*tvEmail.getText().toString()*/};
         String[] CC = {""};
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
