@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mh.systems.halesworth.activites.YourAccountActivity;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
+import com.mh.systems.halesworth.fragments.ContactUsFragment;
 import com.mh.systems.halesworth.fragments.EligibleFriendsFragment;
 import com.mh.systems.halesworth.fragments.EligibleMemberFragment;
 import com.mh.systems.halesworth.fragments.FinanceFragment;
@@ -129,6 +130,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * Load MEMBERS Tabs i.e
      * <br> 1. Members
      * <br> 2. Friends
+     * <br> 3. Contact Us
      * <p/>
      *
      * @param iPosition
@@ -144,6 +146,10 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
             case 1:
                 FriendsFragment friendsFragment = new FriendsFragment();
                 return friendsFragment;
+
+            case 2:
+                ContactUsFragment contactUsFragment = new ContactUsFragment();
+                return contactUsFragment;
 
             default:
                 return null;
