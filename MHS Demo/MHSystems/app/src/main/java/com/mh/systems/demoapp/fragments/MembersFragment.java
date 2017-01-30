@@ -116,7 +116,7 @@ public class MembersFragment extends Fragment {
 
         if (isVisibleToUser) {
 
-            ((MembersActivity)getActivity()).setiTabPosition(0);
+            ((MembersActivity) getActivity()).setiTabPosition(0);
 
             /**
              *  Check internet connection before hitting server request.
@@ -126,9 +126,9 @@ public class MembersFragment extends Fragment {
 
                 //Method to hit Members list API.
                 requestMemberService();
-             //   ((MembersActivity) getActivity()).updateNoInternetUI(true);
+                //   ((MembersActivity) getActivity()).updateNoInternetUI(true);
             } else {
-              //  ((MembersActivity) getActivity()).updateNoInternetUI(false);
+                //  ((MembersActivity) getActivity()).updateNoInternetUI(false);
                 //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_internet));
             }
         }

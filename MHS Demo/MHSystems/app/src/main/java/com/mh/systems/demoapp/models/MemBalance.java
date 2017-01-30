@@ -19,54 +19,42 @@ public class MemBalance {
     private String ValueStr;
 
     /**
-     * 
-     * @return
-     *     The NameStr
+     * @return The NameStr
      */
     public String getNameStr() {
         return NameStr;
     }
 
     /**
-     * 
-     * @param NameStr
-     *     The NameStr
+     * @param NameStr The NameStr
      */
     public void setNameStr(String NameStr) {
         this.NameStr = NameStr;
     }
 
     /**
-     * 
-     * @return
-     *     The CrnSymbolStr
+     * @return The CrnSymbolStr
      */
     public String getCrnSymbolStr() {
         return CrnSymbolStr;
     }
 
     /**
-     * 
-     * @param CrnSymbolStr
-     *     The CrnSymbolStr
+     * @param CrnSymbolStr The CrnSymbolStr
      */
     public void setCrnSymbolStr(String CrnSymbolStr) {
         this.CrnSymbolStr = CrnSymbolStr;
     }
 
     /**
-     * 
-     * @return
-     *     The ValueStr
+     * @return The ValueStr
      */
     public String getValueStr() {
         return ValueStr;
     }
 
     /**
-     * 
-     * @param ValueStr
-     *     The ValueStr
+     * @param ValueStr The ValueStr
      */
     public void setValueStr(String ValueStr) {
         this.ValueStr = ValueStr;

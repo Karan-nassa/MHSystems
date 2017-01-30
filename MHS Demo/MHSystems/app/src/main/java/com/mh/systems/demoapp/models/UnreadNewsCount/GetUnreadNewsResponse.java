@@ -17,54 +17,42 @@ public class GetUnreadNewsResponse {
     private UnreadNewsCountData Data;
 
     /**
-     * 
-     * @return
-     *     The Message
+     * @return The Message
      */
     public String getMessage() {
         return Message;
     }
 
     /**
-     * 
-     * @param Message
-     *     The Message
+     * @param Message The Message
      */
     public void setMessage(String Message) {
         this.Message = Message;
     }
 
     /**
-     * 
-     * @return
-     *     The Result
+     * @return The Result
      */
     public Integer getResult() {
         return Result;
     }
 
     /**
-     * 
-     * @param Result
-     *     The Result
+     * @param Result The Result
      */
     public void setResult(Integer Result) {
         this.Result = Result;
     }
 
     /**
-     * 
-     * @return
-     *     The UnreadNewsCountData
+     * @return The UnreadNewsCountData
      */
     public UnreadNewsCountData getData() {
         return Data;
     }
 
     /**
-     * 
-     * @param UnreadNewsCountData
-     *     The UnreadNewsCountData
+     * @param UnreadNewsCountData The UnreadNewsCountData
      */
     public void setData(UnreadNewsCountData Data) {
         this.Data = Data;

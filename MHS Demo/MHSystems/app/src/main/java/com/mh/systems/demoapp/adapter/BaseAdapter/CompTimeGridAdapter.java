@@ -79,11 +79,11 @@ public class CompTimeGridAdapter extends BaseAdapter {
         holder.btTimeSlot.setText("" + slotArrayList.get(position).getSlotStartTimeStr());
         holder.btTimeSlot.setTypeface(tfRobotoMedium);
 
-        if(slotArrayList.get(position).getIsSlotReserved()){
+        if (slotArrayList.get(position).getIsSlotReserved()) {
             holder.btTimeSlot.setAlpha((float) 0.1);
         }
 
-        if (slotArrayList.get(position).getSlotNo() == iSlotNo ) {
+        if (slotArrayList.get(position).getSlotNo() == iSlotNo) {
             setSlotSelected(holder.btTimeSlot);
             lastSelectedView = holder.btTimeSlot;
             iPosition = position;
@@ -94,7 +94,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
             public void onClick(View view) {
 
                 if (!slotArrayList.get(position).getIsSlotReserved()) {
-                    iSlotNo = (position+1);
+                    iSlotNo = (position + 1);
                     notifyDataSetChanged();
 
                     //Update Tee Time Slot value.

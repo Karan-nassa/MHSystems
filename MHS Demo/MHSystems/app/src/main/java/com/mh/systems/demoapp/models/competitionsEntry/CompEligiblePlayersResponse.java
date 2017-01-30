@@ -19,54 +19,42 @@ public class CompEligiblePlayersResponse {
     private CompEligiblePlayersData Data;
 
     /**
-     * 
-     * @return
-     *     The Message
+     * @return The Message
      */
     public String getMessage() {
         return Message;
     }
 
     /**
-     * 
-     * @param Message
-     *     The Message
+     * @param Message The Message
      */
     public void setMessage(String Message) {
         this.Message = Message;
     }
 
     /**
-     * 
-     * @return
-     *     The Result
+     * @return The Result
      */
     public Integer getResult() {
         return Result;
     }
 
     /**
-     * 
-     * @param Result
-     *     The Result
+     * @param Result The Result
      */
     public void setResult(Integer result) {
         this.Result = Result;
     }
 
     /**
-     * 
-     * @return
-     *     The CompEligiblePlayersData
+     * @return The CompEligiblePlayersData
      */
     public CompEligiblePlayersData getData() {
         return Data;
     }
 
     /**
-     * 
-     * @param Data
-     *     The CompEligiblePlayersData
+     * @param Data The CompEligiblePlayersData
      */
     public void setData(CompEligiblePlayersData data) {
         this.Data = Data;

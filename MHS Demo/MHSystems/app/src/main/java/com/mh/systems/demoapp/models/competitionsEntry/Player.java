@@ -13,36 +13,28 @@ public class Player {
     private String PlayerName;
 
     /**
-     *
-     * @return
-     * The RecordID
+     * @return The RecordID
      */
     public Integer getRecordID() {
         return RecordID;
     }
 
     /**
-     *
-     * @param RecordID
-     * The RecordID
+     * @param RecordID The RecordID
      */
     public void setRecordID(Integer recordID) {
         this.RecordID = RecordID;
     }
 
     /**
-     *
-     * @return
-     * The PlayerName
+     * @return The PlayerName
      */
     public String getPlayerName() {
         return PlayerName;
     }
 
     /**
-     *
-     * @param PlayerName
-     * The PlayerName
+     * @param PlayerName The PlayerName
      */
     public void setPlayerName(String PlayerName) {
         this.PlayerName = PlayerName;

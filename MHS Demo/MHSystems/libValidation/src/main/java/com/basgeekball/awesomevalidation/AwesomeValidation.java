@@ -21,7 +21,7 @@ public class AwesomeValidation {
     public AwesomeValidation(ValidationStyle style) {
         switch (style) {
 
-           case BASIC:
+            case BASIC:
                 if (mValidator == null || !(mValidator instanceof BasicValidator)) {
                     mValidator = new BasicValidator();
                 }

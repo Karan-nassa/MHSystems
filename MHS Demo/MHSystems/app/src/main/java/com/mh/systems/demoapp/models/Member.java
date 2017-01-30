@@ -40,180 +40,140 @@ public class Member {
     private String HCapTypeStr;
 
     /**
-     * 
-     * @return
-     *     The ClubID
+     * @return The ClubID
      */
     public Integer getClubID() {
         return ClubID;
     }
 
     /**
-     * 
-     * @param ClubID
-     *     The ClubID
+     * @param ClubID The ClubID
      */
     public void setClubID(Integer ClubID) {
         this.ClubID = ClubID;
     }
 
     /**
-     * 
-     * @return
-     *     The MemberID
+     * @return The MemberID
      */
     public Integer getMemberID() {
         return MemberID;
     }
 
     /**
-     * 
-     * @param MemberID
-     *     The MemberID
+     * @param MemberID The MemberID
      */
     public void setMemberID(Integer MemberID) {
         this.MemberID = MemberID;
     }
 
     /**
-     * 
-     * @return
-     *     The UserLoginID
+     * @return The UserLoginID
      */
     public String getUserLoginID() {
         return UserLoginID;
     }
 
     /**
-     * 
-     * @param UserLoginID
-     *     The UserLoginID
+     * @param UserLoginID The UserLoginID
      */
     public void setUserLoginID(String UserLoginID) {
         this.UserLoginID = UserLoginID;
     }
 
     /**
-     * 
-     * @return
-     *     The IsReadOnly
+     * @return The IsReadOnly
      */
     public Boolean getIsReadOnly() {
         return IsReadOnly;
     }
 
     /**
-     * 
-     * @param IsReadOnly
-     *     The IsReadOnly
+     * @param IsReadOnly The IsReadOnly
      */
     public void setIsReadOnly(Boolean IsReadOnly) {
         this.IsReadOnly = IsReadOnly;
     }
 
     /**
-     * 
-     * @return
-     *     The IsRegistered
+     * @return The IsRegistered
      */
     public Boolean getIsRegistered() {
         return IsRegistered;
     }
 
     /**
-     * 
-     * @param IsRegistered
-     *     The IsRegistered
+     * @param IsRegistered The IsRegistered
      */
     public void setIsRegistered(Boolean IsRegistered) {
         this.IsRegistered = IsRegistered;
     }
 
     /**
-     * 
-     * @return
-     *     The DisplayName
+     * @return The DisplayName
      */
     public String getDisplayName() {
         return DisplayName;
     }
 
     /**
-     * 
-     * @param DisplayName
-     *     The DisplayName
+     * @param DisplayName The DisplayName
      */
     public void setDisplayName(String DisplayName) {
         this.DisplayName = DisplayName;
     }
 
     /**
-     * 
-     * @return
-     *     The PlayHCapStr
+     * @return The PlayHCapStr
      */
     public String getPlayHCapStr() {
         return PlayHCapStr;
     }
 
     /**
-     * 
-     * @param PlayHCapStr
-     *     The PlayHCapStr
+     * @param PlayHCapStr The PlayHCapStr
      */
     public void setPlayHCapStr(String PlayHCapStr) {
         this.PlayHCapStr = PlayHCapStr;
     }
 
     /**
-     * 
-     * @return
-     *     The Gender
+     * @return The Gender
      */
     public Integer getGender() {
         return Gender;
     }
 
     /**
-     * 
-     * @param Gender
-     *     The Gender
+     * @param Gender The Gender
      */
     public void setGender(Integer Gender) {
         this.Gender = Gender;
     }
 
     /**
-     * 
-     * @return
-     *     The GenderStr
+     * @return The GenderStr
      */
     public String getGenderStr() {
         return GenderStr;
     }
 
     /**
-     * 
-     * @param GenderStr
-     *     The GenderStr
+     * @param GenderStr The GenderStr
      */
     public void setGenderStr(String GenderStr) {
         this.GenderStr = GenderStr;
     }
 
     /**
-     * 
-     * @return
-     *     The HCapTypeStr
+     * @return The HCapTypeStr
      */
     public String getHCapTypeStr() {
         return HCapTypeStr;
     }
 
     /**
-     * 
-     * @param HCapTypeStr
-     *     The HCapTypeStr
+     * @param HCapTypeStr The HCapTypeStr
      */
     public void setHCapTypeStr(String HCapTypeStr) {
         this.HCapTypeStr = HCapTypeStr;

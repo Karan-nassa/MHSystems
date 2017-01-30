@@ -27,45 +27,35 @@ public class FinanceAJsonParams {
     }
 
     /**
-     * 
-     * @param DateRange
-     *     The DateRange
+     * @param DateRange The DateRange
      */
     public void setDateRange(Integer DateRange) {
         this.DateRange = DateRange;
     }
 
     /**
-     * 
-     * @return
-     *     The callid
+     * @return The callid
      */
     public String getCallid() {
         return callid;
     }
 
     /**
-     * 
-     * @param callid
-     *     The callid
+     * @param callid The callid
      */
     public void setCallid(String callid) {
         this.callid = callid;
     }
 
     /**
-     * 
-     * @return
-     *     The MemberId
+     * @return The MemberId
      */
     public String getMemberId() {
         return MemberId;
     }
 
     /**
-     * 
-     * @param MemberId
-     *     The MemberId
+     * @param MemberId The MemberId
      */
     public void setMemberId(String MemberId) {
         this.MemberId = MemberId;

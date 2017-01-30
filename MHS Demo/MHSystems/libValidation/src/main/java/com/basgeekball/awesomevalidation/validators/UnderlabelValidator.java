@@ -42,7 +42,7 @@ public class UnderlabelValidator extends Validator {
                     textView.requestFocus();
                     mHasFailed = true;
                 }
-              //  validationHolder.getEditText().getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
+                //  validationHolder.getEditText().getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
             }
         });
     }

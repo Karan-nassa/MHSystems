@@ -33,7 +33,7 @@ public class FinanceAdapter extends BaseAdapter {
     /**
      * Transaction list Adapter constructor to initialize all instances.
      *
-     * @param context:             : To hold context.
+     * @param context:                     : To hold context.
      * @param transactionListDataArrayList : Used for Finance array data.
      */
     public FinanceAdapter(Activity context, ArrayList<TransactionListData> transactionListDataArrayList) {
@@ -93,12 +93,12 @@ public class FinanceAdapter extends BaseAdapter {
 
 
         viewHolder.tvTransTitle.setText(transactionListDataArrayList.get(position).getTitle());
-        viewHolder.tvTimeOfTrans.setText(transactionListDataArrayList.get(position).getDateStr() +" "+ transactionListDataArrayList.get(position).getTimeStr());
+        viewHolder.tvTimeOfTrans.setText(transactionListDataArrayList.get(position).getDateStr() + " " + transactionListDataArrayList.get(position).getTimeStr());
         viewHolder.tvAmountStr.setText(transactionListDataArrayList.get(position).getAmountStr());
 
-        if(transactionListDataArrayList.get(position).getIsTopup()){
+        if (transactionListDataArrayList.get(position).getIsTopup()) {
             viewHolder.tvAmountStr.setTextColor(Color.parseColor("#7ED321"));
-        }else{
+        } else {
             viewHolder.tvAmountStr.setTextColor(Color.parseColor("#EF8176"));
         }
 

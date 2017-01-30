@@ -279,7 +279,7 @@ public class EligiblePlayersActivity extends BaseActivity {
             EligibleMemberFragment.mAdapter.getFilter().filter(queryText);
             EligibleMemberFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
             EligibleMemberFragment.mAdapter.notifyDataSetChanged();
-           // Log.e(LOG_TAG, "mAdapter : " + EligibleMemberFragment.mAdapter);
+            // Log.e(LOG_TAG, "mAdapter : " + EligibleMemberFragment.mAdapter);
 
             /*FragmentManager fm = getSupportFragmentManager();
 

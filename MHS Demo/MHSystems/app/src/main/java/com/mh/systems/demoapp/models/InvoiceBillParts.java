@@ -3,6 +3,7 @@ package com.mh.systems.demoapp.models;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -14,18 +15,14 @@ public class InvoiceBillParts {
     private List<com.mh.systems.demoapp.models.BillParts> billPartses = new ArrayList<com.mh.systems.demoapp.models.BillParts>();
 
     /**
-     * 
-     * @return
-     *     The billPartses
+     * @return The billPartses
      */
     public List<com.mh.systems.demoapp.models.BillParts> getBillPartses() {
         return billPartses;
     }
 
     /**
-     * 
-     * @param billPartses
-     *     The billPartses
+     * @param billPartses The billPartses
      */
     public void setBillPartses(List<com.mh.systems.demoapp.models.BillParts> billPartses) {
         this.billPartses = billPartses;

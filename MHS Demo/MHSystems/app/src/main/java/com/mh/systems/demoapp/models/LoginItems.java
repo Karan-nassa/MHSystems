@@ -19,54 +19,42 @@ public class LoginItems {
     private LoginData Data;
 
     /**
-     * 
-     * @return
-     *     The Message
+     * @return The Message
      */
     public String getMessage() {
         return Message;
     }
 
     /**
-     * 
-     * @param Message
-     *     The Message
+     * @param Message The Message
      */
     public void setMessage(String Message) {
         this.Message = Message;
     }
 
     /**
-     * 
-     * @return
-     *     The Result
+     * @return The Result
      */
     public Integer getResult() {
         return Result;
     }
 
     /**
-     * 
-     * @param Result
-     *     The Result
+     * @param Result The Result
      */
     public void setResult(Integer Result) {
         this.Result = Result;
     }
 
     /**
-     * 
-     * @return
-     *     The CompResultData
+     * @return The CompResultData
      */
     public LoginData getData() {
         return Data;
     }
 
     /**
-     * 
-     * @param Data
-     *     The CompResultData
+     * @param Data The CompResultData
      */
     public void setData(LoginData Data) {
         this.Data = Data;

@@ -3,6 +3,7 @@ package com.mh.systems.demoapp.models;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -44,198 +45,154 @@ public class Address {
     private String AsLine;
 
     /**
-     * 
-     * @return
-     *     The Line1
+     * @return The Line1
      */
     public String getLine1() {
         return Line1;
     }
 
     /**
-     * 
-     * @param Line1
-     *     The Line1
+     * @param Line1 The Line1
      */
     public void setLine1(String Line1) {
         this.Line1 = Line1;
     }
 
     /**
-     * 
-     * @return
-     *     The Line2
+     * @return The Line2
      */
     public String getLine2() {
         return Line2;
     }
 
     /**
-     * 
-     * @param Line2
-     *     The Line2
+     * @param Line2 The Line2
      */
     public void setLine2(String Line2) {
         this.Line2 = Line2;
     }
 
     /**
-     * 
-     * @return
-     *     The Line3
+     * @return The Line3
      */
     public String getLine3() {
         return Line3;
     }
 
     /**
-     * 
-     * @param Line3
-     *     The Line3
+     * @param Line3 The Line3
      */
     public void setLine3(String Line3) {
         this.Line3 = Line3;
     }
 
     /**
-     * 
-     * @return
-     *     The Town
+     * @return The Town
      */
     public String getTown() {
         return Town;
     }
 
     /**
-     * 
-     * @param Town
-     *     The Town
+     * @param Town The Town
      */
     public void setTown(String Town) {
         this.Town = Town;
     }
 
     /**
-     * 
-     * @return
-     *     The County
+     * @return The County
      */
     public String getCounty() {
         return County;
     }
 
     /**
-     * 
-     * @param County
-     *     The County
+     * @param County The County
      */
     public void setCounty(String County) {
         this.County = County;
     }
 
     /**
-     * 
-     * @return
-     *     The PostCode
+     * @return The PostCode
      */
     public String getPostCode() {
         return PostCode;
     }
 
     /**
-     * 
-     * @param PostCode
-     *     The PostCode
+     * @param PostCode The PostCode
      */
     public void setPostCode(String PostCode) {
         this.PostCode = PostCode;
     }
 
     /**
-     * 
-     * @return
-     *     The Country
+     * @return The Country
      */
     public String getCountry() {
         return Country;
     }
 
     /**
-     * 
-     * @param Country
-     *     The Country
+     * @param Country The Country
      */
     public void setCountry(String Country) {
         this.Country = Country;
     }
 
     /**
-     * 
-     * @return
-     *     The LineCount
+     * @return The LineCount
      */
     public Integer getLineCount() {
         return LineCount;
     }
 
     /**
-     * 
-     * @param LineCount
-     *     The LineCount
+     * @param LineCount The LineCount
      */
     public void setLineCount(Integer LineCount) {
         this.LineCount = LineCount;
     }
 
     /**
-     * 
-     * @return
-     *     The AsBlock
+     * @return The AsBlock
      */
     public List<String> getAsBlock() {
         return AsBlock;
     }
 
     /**
-     * 
-     * @param AsBlock
-     *     The AsBlock
+     * @param AsBlock The AsBlock
      */
     public void setAsBlock(List<String> AsBlock) {
         this.AsBlock = AsBlock;
     }
 
     /**
-     * 
-     * @return
-     *     The AsText
+     * @return The AsText
      */
     public String getAsText() {
         return AsText;
     }
 
     /**
-     * 
-     * @param AsText
-     *     The AsText
+     * @param AsText The AsText
      */
     public void setAsText(String AsText) {
         this.AsText = AsText;
     }
 
     /**
-     * 
-     * @return
-     *     The AsLine
+     * @return The AsLine
      */
     public String getAsLine() {
         return AsLine;
     }
 
     /**
-     * 
-     * @param AsLine
-     *     The AsLine
+     * @param AsLine The AsLine
      */
     public void setAsLine(String AsLine) {
         this.AsLine = AsLine;

@@ -33,72 +33,56 @@ public class CourseDiaryAPI {
 
 
     /**
-     * 
-     * @return
-     *     The aJsonParams
+     * @return The aJsonParams
      */
     public AJsonParamsCourse getAJsonParams() {
         return aJsonParams;
     }
 
     /**
-     * 
-     * @param aJsonParams
-     *     The aJsonParams
+     * @param aJsonParams The aJsonParams
      */
     public void setAJsonParams(AJsonParamsCourse aJsonParams) {
         this.aJsonParams = aJsonParams;
     }
 
     /**
-     * 
-     * @return
-     *     The aModuleId
+     * @return The aModuleId
      */
     public String getAModuleId() {
         return aModuleId;
     }
 
     /**
-     * 
-     * @param aModuleId
-     *     The aModuleId
+     * @param aModuleId The aModuleId
      */
     public void setAModuleId(String aModuleId) {
         this.aModuleId = aModuleId;
     }
 
     /**
-     * 
-     * @return
-     *     The aClientId
+     * @return The aClientId
      */
     public String getAClientId() {
         return aClientId;
     }
 
     /**
-     * 
-     * @param aClientId
-     *     The aClientId
+     * @param aClientId The aClientId
      */
     public void setAClientId(String aClientId) {
         this.aClientId = aClientId;
     }
 
     /**
-     * 
-     * @return
-     *     The aCommand
+     * @return The aCommand
      */
     public String getACommand() {
         return aCommand;
     }
 
     /**
-     * 
-     * @param aCommand
-     *     The aCommand
+     * @param aCommand The aCommand
      */
     public void setACommand(String aCommand) {
         this.aCommand = aCommand;

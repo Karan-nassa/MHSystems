@@ -116,8 +116,8 @@ public class ClubNewsDetailActivity extends BaseActivity {
         clubNewsThumbnailData = (ClubNewsThumbnailData) bundle.getSerializable("club_news_content");
 
         if (clubNewsThumbnailData != null) {
-           // tvDateOfNews.setText(clubNewsThumbnailData.getDate());
-           // tvTimeOfNews.setText(clubNewsThumbnailData.getTime());
+            // tvDateOfNews.setText(clubNewsThumbnailData.getDate());
+            // tvTimeOfNews.setText(clubNewsThumbnailData.getTime());
             iClubNewsID = clubNewsThumbnailData.getClubNewsID();
             isRead = clubNewsThumbnailData.getIsRead();
             isDelete = clubNewsThumbnailData.getIsDeleted();
@@ -412,7 +412,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 tvTitleOfNews.setText(clubNewsThumbnailDetailResponse.getData().getTitle());
                 tvDateOfNews.setText(clubNewsThumbnailDetailResponse.getData().getDate());
                 tvTimeOfNews.setText(clubNewsThumbnailDetailResponse.getData().getTime());
-            } else{
+            } else {
                 showAlertOk(clubNewsThumbnailDetailResponse.getMessage());
             }
         } catch (Exception e) {

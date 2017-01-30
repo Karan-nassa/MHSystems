@@ -3,6 +3,7 @@ package com.mh.systems.demoapp.models.competitionsEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -17,36 +18,28 @@ public class ClubEventStartSheet {
     private List<Zone> Zones = new ArrayList<Zone>();
 
     /**
-     * 
-     * @return
-     *     The Capacity
+     * @return The Capacity
      */
     public Integer getCapacity() {
         return Capacity;
     }
 
     /**
-     * 
-     * @param Capacity
-     *     The Capacity
+     * @param Capacity The Capacity
      */
     public void setCapacity(Integer Capacity) {
         this.Capacity = Capacity;
     }
 
     /**
-     * 
-     * @return
-     *     The Zones
+     * @return The Zones
      */
     public List<Zone> getZones() {
         return Zones;
     }
 
     /**
-     * 
-     * @param Zones
-     *     The Zones
+     * @param Zones The Zones
      */
     public void setZones(List<Zone> zones) {
         this.Zones = Zones;

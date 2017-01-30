@@ -24,13 +24,11 @@ public class ClubNewsThumbnailDetailAPI {
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public ClubNewsThumbnailDetailAPI() {
     }
 
     /**
-     * 
      * @param aJsonParams
      * @param aModuleId
      * @param aUserClass
@@ -47,90 +45,70 @@ public class ClubNewsThumbnailDetailAPI {
     }
 
     /**
-     * 
-     * @return
-     *     The aClientId
+     * @return The aClientId
      */
     public String getAClientId() {
         return aClientId;
     }
 
     /**
-     * 
-     * @param aClientId
-     *     The aClientId
+     * @param aClientId The aClientId
      */
     public void setAClientId(String aClientId) {
         this.aClientId = aClientId;
     }
 
     /**
-     * 
-     * @return
-     *     The aCommand
+     * @return The aCommand
      */
     public String getACommand() {
         return aCommand;
     }
 
     /**
-     * 
-     * @param aCommand
-     *     The aCommand
+     * @param aCommand The aCommand
      */
     public void setACommand(String aCommand) {
         this.aCommand = aCommand;
     }
 
     /**
-     * 
-     * @return
-     *     The aJsonParams
+     * @return The aJsonParams
      */
     public AJsonParamsClubNewsDetailThumbnail getAJsonParams() {
         return aJsonParams;
     }
 
     /**
-     * 
-     * @param aJsonParams
-     *     The aJsonParams
+     * @param aJsonParams The aJsonParams
      */
     public void setAJsonParams(AJsonParamsClubNewsDetailThumbnail aJsonParams) {
         this.aJsonParams = aJsonParams;
     }
 
     /**
-     * 
-     * @return
-     *     The aModuleId
+     * @return The aModuleId
      */
     public String getAModuleId() {
         return aModuleId;
     }
 
     /**
-     * 
-     * @param aModuleId
-     *     The aModuleId
+     * @param aModuleId The aModuleId
      */
     public void setAModuleId(String aModuleId) {
         this.aModuleId = aModuleId;
     }
 
     /**
-     * 
-     * @return
-     *     The aUserClass
+     * @return The aUserClass
      */
     public String getAUserClass() {
         return aUserClass;
     }
 
     /**
-     * 
-     * @param aUserClass
-     *     The aUserClass
+     * @param aUserClass The aUserClass
      */
     public void setAUserClass(String aUserClass) {
         this.aUserClass = aUserClass;

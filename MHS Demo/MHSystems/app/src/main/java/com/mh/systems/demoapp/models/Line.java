@@ -13,13 +13,13 @@ public class Line {
     @SerializedName("Description")
     @Expose
     private String Description;
-//    @SerializedName("BilledFrom")
+    //    @SerializedName("BilledFrom")
 //    @Expose
 //    private String BilledFrom;
     @SerializedName("strBilledFrom")
     @Expose
     private String strBilledFrom;
-//    @SerializedName("BilledTo")
+    //    @SerializedName("BilledTo")
 //    @Expose
 //    private String BilledTo;
     @SerializedName("strBilledTo")
@@ -36,78 +36,63 @@ public class Line {
     private String BillingPeriodStr;
 
     /**
-     *
-     * @param strBilledFrom
-     *     The strBilledFrom
+     * @param strBilledFrom The strBilledFrom
      */
     public void setStrBilledFrom(String strBilledFrom) {
         this.strBilledFrom = strBilledFrom;
     }
+
     /**
-     *
-     * @return
-     *     The strBilledTo
+     * @return The strBilledTo
      */
     public String getStrBilledTo() {
         return strBilledTo;
     }
 
     /**
-     *
-     * @param strBilledTo
-     *     The strBilledTo
+     * @param strBilledTo The strBilledTo
      */
     public void setStrBilledTo(String strBilledTo) {
         this.strBilledTo = strBilledTo;
     }
 
     /**
-     *
-     * @return
-     *     The strBilledFrom
+     * @return The strBilledFrom
      */
     public String getStrBilledFrom() {
         return strBilledFrom;
     }
 
     /**
-     * 
-     * @return
-     *     The ItemNo
+     * @return The ItemNo
      */
     public Integer getItemNo() {
         return ItemNo;
     }
 
     /**
-     * 
-     * @param ItemNo
-     *     The ItemNo
+     * @param ItemNo The ItemNo
      */
     public void setItemNo(Integer ItemNo) {
         this.ItemNo = ItemNo;
     }
 
     /**
-     * 
-     * @return
-     *     The Description
+     * @return The Description
      */
     public String getDescription() {
         return Description;
     }
 
     /**
-     * 
-     * @param Description
-     *     The Description
+     * @param Description The Description
      */
     public void setDescription(String Description) {
         this.Description = Description;
     }
 
     /**
-     * 
+     *
      * @return
      *     The BilledFrom
      */
@@ -116,7 +101,7 @@ public class Line {
 //    }
 
     /**
-     * 
+     *
      * @param BilledFrom
      *     The BilledFrom
      */
@@ -125,7 +110,7 @@ public class Line {
 //    }
 
     /**
-     * 
+     *
      * @return
      *     The BilledTo
      */
@@ -134,7 +119,7 @@ public class Line {
 //    }
 
     /**
-     * 
+     *
      * @param BilledTo
      *     The BilledTo
      */
@@ -143,54 +128,42 @@ public class Line {
 //    }
 
     /**
-     * 
-     * @return
-     *     The Tax
+     * @return The Tax
      */
     public Integer getTax() {
         return Tax;
     }
 
     /**
-     * 
-     * @param Tax
-     *     The Tax
+     * @param Tax The Tax
      */
     public void setTax(Integer Tax) {
         this.Tax = Tax;
     }
 
     /**
-     * 
-     * @return
-     *     The ValueX
+     * @return The ValueX
      */
     public Integer getValueX() {
         return ValueX;
     }
 
     /**
-     * 
-     * @param ValueX
-     *     The ValueX
+     * @param ValueX The ValueX
      */
     public void setValueX(Integer ValueX) {
         this.ValueX = ValueX;
     }
 
     /**
-     * 
-     * @return
-     *     The BillingPeriodStr
+     * @return The BillingPeriodStr
      */
     public String getBillingPeriodStr() {
         return BillingPeriodStr;
     }
 
     /**
-     * 
-     * @param BillingPeriodStr
-     *     The BillingPeriodStr
+     * @param BillingPeriodStr The BillingPeriodStr
      */
     public void setBillingPeriodStr(String BillingPeriodStr) {
         this.BillingPeriodStr = BillingPeriodStr;

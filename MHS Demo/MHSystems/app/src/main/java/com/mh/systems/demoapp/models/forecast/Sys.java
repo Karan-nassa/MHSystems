@@ -12,18 +12,14 @@ public class Sys {
     private String pod;
 
     /**
-     * 
-     * @return
-     *     The pod
+     * @return The pod
      */
     public String getPod() {
         return pod;
     }
 
     /**
-     * 
-     * @param pod
-     *     The pod
+     * @param pod The pod
      */
     public void setPod(String pod) {
         this.pod = pod;

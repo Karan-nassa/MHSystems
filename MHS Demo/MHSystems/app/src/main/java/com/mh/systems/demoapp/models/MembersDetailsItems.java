@@ -19,36 +19,28 @@ public class MembersDetailsItems {
     private MembersDetailsData Data;
 
     /**
-     * 
-     * @return
-     *     The Message
+     * @return The Message
      */
     public String getMessage() {
         return Message;
     }
 
     /**
-     * 
-     * @param Message
-     *     The Message
+     * @param Message The Message
      */
     public void setMessage(String Message) {
         this.Message = Message;
     }
 
     /**
-     * 
-     * @return
-     *     The Result
+     * @return The Result
      */
     public Integer getResult() {
         return Result;
     }
 
     /**
-     * 
-     * @param Result
-     *     The Result
+     * @param Result The Result
      */
     public void setResult(Integer Result) {
         this.Result = Result;
@@ -56,18 +48,14 @@ public class MembersDetailsItems {
 
 
     /**
-     *
-     * @return
-     * The HandicapData
+     * @return The HandicapData
      */
     public MembersDetailsData getData() {
         return Data;
     }
 
     /**
-     *
-     * @param Data
-     * The HandicapData
+     * @param Data The HandicapData
      */
     public void setData(MembersDetailsData Data) {
         this.Data = Data;

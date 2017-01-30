@@ -470,7 +470,7 @@ public class CompetitionsActivity extends BaseActivity {
                                 Log.e("iYear", "" + iYear);
                                 strDate = "01";
                                 createDateForData();
-                            } else if(iMonth < iCurrentMonth&&iCurrentYear<iYear) {
+                            } else if (iMonth < iCurrentMonth && iCurrentYear < iYear) {
                                 Log.e("iYear", "" + iYear);
                                 iMonth--;
                                 strDate = "01";
@@ -520,10 +520,10 @@ public class CompetitionsActivity extends BaseActivity {
 
                     //Initialize the dates of CALENDER to display data according dates.
                     //strDate = "" + mCalendarInstance.get(Calendar.DATE);
-                   // iNumOfDays = mCalendarInstance.get(Calendar.DATE);
+                    // iNumOfDays = mCalendarInstance.get(Calendar.DATE);
 
                     //Get MONTH and YEAR.
-                   // iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
+                    // iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
 
                     createDateForData();
                     break;
@@ -674,7 +674,7 @@ public class CompetitionsActivity extends BaseActivity {
      * EXAMPLE: 06 for JUNE.
      */
     public void setTitleBar(String strNameOfMonth) {
-        tvNameOfMonthComp.setText(strNameOfMonth+" "+iYear);
+        tvNameOfMonthComp.setText(strNameOfMonth + " " + iYear);
     }
 
 
@@ -701,7 +701,6 @@ public class CompetitionsActivity extends BaseActivity {
             }
         }
     }
-
 
 
     /**
@@ -795,7 +794,7 @@ public class CompetitionsActivity extends BaseActivity {
                         strDate = "" + dayOfMonth;
                         //    if (year == iCurrentYear) {
                         iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-                        if(tvCompType.getText().equals("Completed")){
+                        if (tvCompType.getText().equals("Completed")) {
                             iYear = year;
                             iMonth = tMonthofYear;
                             strDate = "" + dayOfMonth;
@@ -805,56 +804,55 @@ public class CompetitionsActivity extends BaseActivity {
                             getNumberofDays();
                             createDateForData();
 
-                        }else{
+                        } else {
 
-                        if (iCurrentYear < iYear) {
-
-                            getNumberofDays();
-                            createDateForData();
-
-                        } else if (iCurrentYear == iYear) {
-
-                            if (iCurrentMonth < iMonth) {
+                            if (iCurrentYear < iYear) {
 
                                 getNumberofDays();
                                 createDateForData();
-                            } else if (iCurrentMonth== iMonth) {
 
+                            } else if (iCurrentYear == iYear) {
 
-                                if (Integer.parseInt(strCurrentDate) <= dayOfMonth) {
+                                if (iCurrentMonth < iMonth) {
 
                                     getNumberofDays();
                                     createDateForData();
+                                } else if (iCurrentMonth == iMonth) {
 
+
+                                    if (Integer.parseInt(strCurrentDate) <= dayOfMonth) {
+
+                                        getNumberofDays();
+                                        createDateForData();
+
+                                    } else {
+                                        resetCalendarPicker();
+                                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
+                                        return;
+                                    }
                                 } else {
                                     resetCalendarPicker();
                                     showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
                                     return;
                                 }
                             }
-                            else{
-                                resetCalendarPicker();
-                                showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));
-                                return;
-                            }
-                        }
 
 
-                        //    if (year == iCurrentYear) {
+                            //    if (year == iCurrentYear) {
 
-                        if (iPopItemPos == 2) {
+                            if (iPopItemPos == 2) {
 
-                            iYear = year;
-                            iMonth = tMonthofYear;
-                            strDate = "" + dayOfMonth;
+                                iYear = year;
+                                iMonth = tMonthofYear;
+                                strDate = "" + dayOfMonth;
 
-                            iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-                            createDateForData();
+                                createDateForData();
 
-                            //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+                                //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
 
-                        } else {
+                            } else {
 
 //                                if (tMonthofYear > iCurrentMonth) {
 //
@@ -866,36 +864,36 @@ public class CompetitionsActivity extends BaseActivity {
 //
 //                                    createDateForData();
 
-                            // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
-
-                            //  } else if (tMonthofYear == iCurrentMonth) {
-
-                            if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
-
-                                iYear = year;
-                                iMonth = tMonthofYear;
-                                strDate = "" + dayOfMonth;
-
-                                iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-                                getNumberofDays();
-
-                                createDateForData();
-
                                 // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
-                            } else {
-                                iYear = year;
-                                iMonth = tMonthofYear;
-                                strDate = "" + dayOfMonth;
 
-                                iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                //  } else if (tMonthofYear == iCurrentMonth) {
 
-                                getNumberofDays();
+                                if (dayOfMonth >= Integer.parseInt(strCurrentDate)) {
 
-                                createDateForData();
+                                    iYear = year;
+                                    iMonth = tMonthofYear;
+                                    strDate = "" + dayOfMonth;
 
+                                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                                    getNumberofDays();
+
+                                    createDateForData();
+
+                                    // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_CALENDAR));
+                                } else {
+                                    iYear = year;
+                                    iMonth = tMonthofYear;
+                                    strDate = "" + dayOfMonth;
+
+                                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                                    getNumberofDays();
+
+                                    createDateForData();
+
+                                }
                             }
-                        }
 //                                    } else {
 //                                        resetCalendarPicker();
 //                                        showAlertMessage(getResources().getString(R.string.error_wrong_date_selection));

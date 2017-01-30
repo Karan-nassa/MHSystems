@@ -83,18 +83,14 @@ public class ForecastMain {
     }
 
     /**
-     *
-     * @return
-     * The listOfDay
+     * @return The listOfDay
      */
     public List<List<ListOfDay>> getListOfDay() {
         return listOfDay;
     }
 
     /**
-     *
-     * @param listOfDay
-     * The listOfDay
+     * @param listOfDay The listOfDay
      */
     public void setListOfDay(List<List<ListOfDay>> listOfDay) {
         this.listOfDay = listOfDay;

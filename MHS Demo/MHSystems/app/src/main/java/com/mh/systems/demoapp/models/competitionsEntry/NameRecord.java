@@ -19,18 +19,14 @@ public class NameRecord implements Serializable {
     }
 
     /**
-     *
-     * @return
-     *     The DisplayName
+     * @return The DisplayName
      */
     public String getDisplayName() {
         return DisplayName;
     }
 
     /**
-     *
-     * @param DisplayName
-     *     The DisplayName
+     * @param DisplayName The DisplayName
      */
     public void setDisplayName(String DisplayName) {
         this.DisplayName = DisplayName;

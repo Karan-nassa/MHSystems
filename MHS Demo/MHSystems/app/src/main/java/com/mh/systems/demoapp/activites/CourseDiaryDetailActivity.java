@@ -87,9 +87,9 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
         tvTimeCourseEvent.setText(strCourseTime);
 
         //tvFeeCourseEvent.setText(strCoursePrize);
-        if(strCourseDesc.length()>0) {
+        if (strCourseDesc.length() > 0) {
             tvDescCourseEvent.setText(strCourseDesc);
-        }else{
+        } else {
             llDescGroup.setVisibility(View.GONE);
         }
 
@@ -111,7 +111,7 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
                     isDialogVisible = true;
                 } else {
                     //Don't display again if already display Alert dialog.
-                  //  isDialogVisible = false;
+                    //  isDialogVisible = false;
                 }
             }
         });

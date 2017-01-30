@@ -216,8 +216,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 //((AccountActivity) getActivity()).updateHasInternetUI(false);
                 // llHandicapGroup.setVisibility(View.GONE);
             }
+        }
     }
-}
 
     /**
      * Implements a method to call HANDICAP web service to get
@@ -226,8 +226,8 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
    /* private void callHandicapWebService() {
 
         *//**
- *  Check internet connection before hitting server request.
- *//*
+     *  Check internet connection before hitting server request.
+     *//*
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             requestCompetitionsEvents();
             // ((YourAccountActivity) getActivity()).updateHasInternetUI(true);

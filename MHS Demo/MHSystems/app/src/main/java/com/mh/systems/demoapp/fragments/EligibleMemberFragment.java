@@ -162,8 +162,8 @@ public class EligibleMemberFragment extends Fragment {
 
     /**
      * Implements a method to get Background theme color
-     *
-     *
+     * <p>
+     * <p>
      * to set same on Listview.
      */
     public static int getResIdFromAttribute(final Activity activity, final int attr) {

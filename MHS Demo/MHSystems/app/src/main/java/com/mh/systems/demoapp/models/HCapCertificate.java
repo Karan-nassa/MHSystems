@@ -39,180 +39,140 @@ public class HCapCertificate {
     private String SignatureImageUri;
 
     /**
-     * 
-     * @return
-     *     The ClubName
+     * @return The ClubName
      */
     public String getClubName() {
         return ClubName;
     }
 
     /**
-     * 
-     * @param ClubName
-     *     The ClubName
+     * @param ClubName The ClubName
      */
     public void setClubName(String ClubName) {
         this.ClubName = ClubName;
     }
 
     /**
-     * 
-     * @return
-     *     The IssueDate
+     * @return The IssueDate
      */
     public String getIssueDate() {
         return IssueDate;
     }
 
     /**
-     * 
-     * @param IssueDate
-     *     The IssueDate
+     * @param IssueDate The IssueDate
      */
     public void setIssueDate(String IssueDate) {
         this.IssueDate = IssueDate;
     }
 
     /**
-     * 
-     * @return
-     *     The PlayerName
+     * @return The PlayerName
      */
     public String getPlayerName() {
         return PlayerName;
     }
 
     /**
-     * 
-     * @param PlayerName
-     *     The PlayerName
+     * @param PlayerName The PlayerName
      */
     public void setPlayerName(String PlayerName) {
         this.PlayerName = PlayerName;
     }
 
     /**
-     * 
-     * @return
-     *     The CDHID
+     * @return The CDHID
      */
     public String getCDHID() {
         return CDHID;
     }
 
     /**
-     * 
-     * @param CDHID
-     *     The CDHID
+     * @param CDHID The CDHID
      */
     public void setCDHID(String CDHID) {
         this.CDHID = CDHID;
     }
 
     /**
-     * 
-     * @return
-     *     The HisOrHer
+     * @return The HisOrHer
      */
     public String getHisOrHer() {
         return HisOrHer;
     }
 
     /**
-     * 
-     * @param HisOrHer
-     *     The HisOrHer
+     * @param HisOrHer The HisOrHer
      */
     public void setHisOrHer(String HisOrHer) {
         this.HisOrHer = HisOrHer;
     }
 
     /**
-     * 
-     * @return
-     *     The ExactHCap
+     * @return The ExactHCap
      */
     public String getExactHCap() {
         return ExactHCap;
     }
 
     /**
-     * 
-     * @param ExactHCap
-     *     The ExactHCap
+     * @param ExactHCap The ExactHCap
      */
     public void setExactHCap(String ExactHCap) {
         this.ExactHCap = ExactHCap;
     }
 
     /**
-     * 
-     * @return
-     *     The PlayHCap
+     * @return The PlayHCap
      */
     public String getPlayHCap() {
         return PlayHCap;
     }
 
     /**
-     * 
-     * @param PlayHCap
-     *     The PlayHCap
+     * @param PlayHCap The PlayHCap
      */
     public void setPlayHCap(String PlayHCap) {
         this.PlayHCap = PlayHCap;
     }
 
     /**
-     * 
-     * @return
-     *     The SignedBy
+     * @return The SignedBy
      */
     public String getSignedBy() {
         return SignedBy;
     }
 
     /**
-     * 
-     * @param SignedBy
-     *     The SignedBy
+     * @param SignedBy The SignedBy
      */
     public void setSignedBy(String SignedBy) {
         this.SignedBy = SignedBy;
     }
 
     /**
-     * 
-     * @return
-     *     The MHSBanner
+     * @return The MHSBanner
      */
     public String getMHSBanner() {
         return MHSBanner;
     }
 
     /**
-     * 
-     * @param MHSBanner
-     *     The MHSBanner
+     * @param MHSBanner The MHSBanner
      */
     public void setMHSBanner(String MHSBanner) {
         this.MHSBanner = MHSBanner;
     }
 
     /**
-     * 
-     * @return
-     *     The SignatureImageUri
+     * @return The SignatureImageUri
      */
     public String getSignatureImageUri() {
         return SignatureImageUri;
     }
 
     /**
-     * 
-     * @param SignatureImageUri
-     *     The SignatureImageUri
+     * @param SignatureImageUri The SignatureImageUri
      */
     public void setSignatureImageUri(String SignatureImageUri) {
         this.SignatureImageUri = SignatureImageUri;

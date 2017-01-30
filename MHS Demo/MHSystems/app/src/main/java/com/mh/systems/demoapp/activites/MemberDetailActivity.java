@@ -233,7 +233,7 @@ public class MemberDetailActivity extends BaseActivity {
                 if (scrollRange + verticalOffset == 0) {
                     collapseMemberDetail.setTitle(strNameOfMember);
                     isShow = true;
-                } else if(isShow) {
+                } else if (isShow) {
                     collapseMemberDetail.setTitle("");
                     isShow = false;
                 }
@@ -281,7 +281,7 @@ public class MemberDetailActivity extends BaseActivity {
         flEmailGroup = (FrameLayout) findViewById(R.id.flEmailGroup);
         flContactGroup = (FrameLayout) findViewById(R.id.flContactGroup);
         flWorkGroup = (FrameLayout) findViewById(R.id.flWorkGroup);
-                flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
+        flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
         flAddressGroup = (FrameLayout) findViewById(R.id.flAddressGroup);
 
         fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
@@ -368,7 +368,7 @@ public class MemberDetailActivity extends BaseActivity {
         aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
         aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsMembersDatail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsMembersDatail.setMemberid(""+iMemberID);
+        aJsonParamsMembersDatail.setMemberid("" + iMemberID);
         aJsonParamsMembersDatail.setLoginMemberId(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
 
         membersDetailAPI = new MembersDetailAPI(getClientId(), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);

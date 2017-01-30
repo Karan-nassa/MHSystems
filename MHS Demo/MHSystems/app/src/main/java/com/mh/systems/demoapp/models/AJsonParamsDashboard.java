@@ -22,72 +22,56 @@ public class AJsonParamsDashboard {
     private String Password;
 
     /**
-     * 
-     * @return
-     *     The version
+     * @return The version
      */
     public Integer getVersion() {
         return version;
     }
 
     /**
-     * 
-     * @param version
-     *     The version
+     * @param version The version
      */
     public void setVersion(Integer version) {
         this.version = version;
     }
 
     /**
-     * 
-     * @return
-     *     The callid
+     * @return The callid
      */
     public String getCallid() {
         return callid;
     }
 
     /**
-     * 
-     * @param callid
-     *     The callid
+     * @param callid The callid
      */
     public void setCallid(String callid) {
         this.callid = callid;
     }
 
     /**
-     * 
-     * @return
-     *     The UserID
+     * @return The UserID
      */
     public String getUserID() {
         return UserID;
     }
 
     /**
-     * 
-     * @param UserID
-     *     The UserID
+     * @param UserID The UserID
      */
     public void setUserID(String UserID) {
         this.UserID = UserID;
     }
 
     /**
-     * 
-     * @return
-     *     The Password
+     * @return The Password
      */
     public String getPassword() {
         return Password;
     }
 
     /**
-     * 
-     * @param Password
-     *     The Password
+     * @param Password The Password
      */
     public void setPassword(String Password) {
         this.Password = Password;

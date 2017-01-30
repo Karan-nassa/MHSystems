@@ -3,6 +3,7 @@ package com.mh.systems.demoapp.models;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,54 +21,42 @@ public class Result {
     private List<ResultEntries> ResultEntries = new ArrayList<ResultEntries>();
 
     /**
-     * 
-     * @return
-     *     The ResultID
+     * @return The ResultID
      */
     public Integer getResultID() {
         return ResultID;
     }
 
     /**
-     * 
-     * @param ResultID
-     *     The ResultID
+     * @param ResultID The ResultID
      */
     public void setResultID(Integer resultID) {
         this.ResultID = ResultID;
     }
 
     /**
-     * 
-     * @return
-     *     The Description
+     * @return The Description
      */
     public String getDescription() {
         return Description;
     }
 
     /**
-     * 
-     * @param Description
-     *     The Description
+     * @param Description The Description
      */
     public void setDescription(String Description) {
         this.Description = Description;
     }
 
     /**
-     * 
-     * @return
-     *     The ResultEntries
+     * @return The ResultEntries
      */
     public List<ResultEntries> getResultEntries() {
         return ResultEntries;
     }
 
     /**
-     * 
-     * @param ResultEntries
-     *     The ResultEntries
+     * @param ResultEntries The ResultEntries
      */
     public void setResultEntries(List<ResultEntries> ResultEntries) {
         this.ResultEntries = ResultEntries;

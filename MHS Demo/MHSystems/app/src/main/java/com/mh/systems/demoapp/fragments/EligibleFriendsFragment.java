@@ -109,7 +109,7 @@ public class EligibleFriendsFragment extends Fragment {
 
         if (eligibleMemberArrayList.size() == 0) {
             //((EligiblePlayersActivity) getActivity()).updateNoDataUI(false, 1);
-            ((EligiblePlayersActivity)getActivity()).showAlertMessage(getString(R.string.error_no_friend));
+            ((EligiblePlayersActivity) getActivity()).showAlertMessage(getString(R.string.error_no_friend));
         } else {
 
             //((EligiblePlayersActivity) getActivity()).updateNoDataUI(true, 1);

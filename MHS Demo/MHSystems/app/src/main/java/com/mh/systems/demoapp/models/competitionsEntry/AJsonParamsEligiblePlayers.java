@@ -21,72 +21,56 @@ public class AJsonParamsEligiblePlayers {
     private String MemberId;
 
     /**
-     * 
-     * @return
-     *     The version
+     * @return The version
      */
     public Integer getVersion() {
         return version;
     }
 
     /**
-     * 
-     * @param version
-     *     The version
+     * @param version The version
      */
     public void setVersion(Integer version) {
         this.version = version;
     }
 
     /**
-     * 
-     * @return
-     *     The callid
+     * @return The callid
      */
     public String getCallid() {
         return callid;
     }
 
     /**
-     * 
-     * @param callid
-     *     The callid
+     * @param callid The callid
      */
     public void setCallid(String callid) {
         this.callid = callid;
     }
 
     /**
-     * 
-     * @return
-     *     The EventId
+     * @return The EventId
      */
     public String getEventId() {
         return EventId;
     }
 
     /**
-     * 
-     * @param EventId
-     *     The EventId
+     * @param EventId The EventId
      */
     public void setEventId(String EventId) {
         this.EventId = EventId;
     }
 
     /**
-     * 
-     * @return
-     *     The MemberId
+     * @return The MemberId
      */
     public String getMemberId() {
         return MemberId;
     }
 
     /**
-     * 
-     * @param MemberId
-     *     The MemberId
+     * @param MemberId The MemberId
      */
     public void setMemberId(String MemberId) {
         this.MemberId = MemberId;

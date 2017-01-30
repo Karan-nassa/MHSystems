@@ -13,18 +13,14 @@ public class WebConfig {
     private String WebConfigData;
 
     /**
-     * 
-     * @return
-     *     The WebConfigData
+     * @return The WebConfigData
      */
     public String getWebConfigData() {
         return WebConfigData;
     }
 
     /**
-     * 
-     * @param WebConfigData
-     *     The WebConfigData
+     * @param WebConfigData The WebConfigData
      */
     public void setWebConfigData(String WebConfigData) {
         this.WebConfigData = WebConfigData;

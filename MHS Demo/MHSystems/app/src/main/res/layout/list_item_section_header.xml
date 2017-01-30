@@ -27,6 +27,6 @@
         android:alpha=".6"
         android:textStyle="bold"
         android:textColor="@color/color0000ff"
-        android:text="SHOW ALL"/>
+        android:text="SHOW ALL" />
 
 </FrameLayout>

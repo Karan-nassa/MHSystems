@@ -72,7 +72,7 @@ public class CustomAlertDialogActivity extends AppCompatActivity {
         setConentofAlert(iCallFrom);
 
         //Set Theme of Alert Dialog.
-       // flPopupTheme.setBackgroundColor(Color.parseColor(strColorTheme));
+        // flPopupTheme.setBackgroundColor(Color.parseColor(strColorTheme));
     }
 
     /**

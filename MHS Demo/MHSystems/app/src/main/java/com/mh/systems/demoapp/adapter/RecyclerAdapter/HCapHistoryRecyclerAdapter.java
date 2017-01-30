@@ -62,7 +62,7 @@ public class HCapHistoryRecyclerAdapter extends RecyclerView.Adapter<HCapHistory
         holder.tvDatePlayedStr.setText(handicapDataArrayList.get(position).getDatePlayedStr());
         holder.tvVenueOrAuthoriser.setText(handicapDataArrayList.get(position).getVenueOrAuthoriser());
         holder.tvCompetitionOrReason.setText(handicapDataArrayList.get(position).getCompetitionOrReason());
-        holder.tvRoundNo.setText("R"+handicapDataArrayList.get(position).getRoundNoStr());
+        holder.tvRoundNo.setText("R" + handicapDataArrayList.get(position).getRoundNoStr());
 
         holder.tvRoundNoStr.setText(handicapDataArrayList.get(position).getRoundNoStr());
         holder.tvConguCode.setText(handicapDataArrayList.get(position).getConguCode());
@@ -75,7 +75,7 @@ public class HCapHistoryRecyclerAdapter extends RecyclerView.Adapter<HCapHistory
         holder.tvHCapAdjStr.setText(handicapDataArrayList.get(position).getHCapAdjStr());
         holder.tvNewExactHCapOnlyStr.setText(handicapDataArrayList.get(position).getNewExactHCapOnlyStr());
         holder.tvNewPlayHCapOnlyStr.setText(handicapDataArrayList.get(position).getNewPlayHCapOnlyStr()
-           + handicapDataArrayList.get(position).getHCapStatusStr());
+                + handicapDataArrayList.get(position).getHCapStatusStr());
     }
 
     /**

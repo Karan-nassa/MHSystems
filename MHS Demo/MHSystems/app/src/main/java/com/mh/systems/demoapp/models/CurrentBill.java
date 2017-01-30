@@ -34,92 +34,71 @@ public class CurrentBill {
     private List<BillParts> BillParts;
 
     /**
-     *
-     * @return
-     *     The BillParts
+     * @return The BillParts
      */
     public List<BillParts> getBillParts() {
         return BillParts;
     }
 
     /**
-     *
-     * @param billParts
-     *     The BillParts
+     * @param billParts The BillParts
      */
     public void setBillParts(List<BillParts> billParts) {
         BillParts = billParts;
     }
 
     /**
-     *
-     * @return
-     *     The InvoiceStatusStr
+     * @return The InvoiceStatusStr
      */
     public String getInvoiceStatusStr() {
         return InvoiceStatusStr;
     }
 
     /**
-     *
-     * @param invoiceStatusStr
-     *     The invoiceStatusStr
+     * @param invoiceStatusStr The invoiceStatusStr
      */
     public void setInvoiceStatusStr(String invoiceStatusStr) {
         InvoiceStatusStr = invoiceStatusStr;
     }
 
     /**
-     *
-     * @return
-     *     The TotalPayable
+     * @return The TotalPayable
      */
     public int getTotalPayable() {
         return TotalPayable;
     }
 
     /**
-     *
-     * @param totalPayable
-     *     The TotalPayable
+     * @param totalPayable The TotalPayable
      */
     public void setTotalPayable(int totalPayable) {
         TotalPayable = totalPayable;
     }
 
     /**
-     *
-     * @return
-     *     The InvoiceNo
+     * @return The InvoiceNo
      */
     public String getInvoiceNo() {
         return InvoiceNo;
     }
 
     /**
-     *
-     * @param InvoiceNo
-     *     The InvoiceNo
+     * @param InvoiceNo The InvoiceNo
      */
     public void setInvoiceNo(String InvoiceNo) {
         this.InvoiceNo = InvoiceNo;
     }
 
 
-
     /**
-     * 
-     * @return
-     *     The strInvoiceDate
+     * @return The strInvoiceDate
      */
     public String getStrInvoiceDate() {
         return strInvoiceDate;
     }
 
     /**
-     * 
-     * @param strInvoiceDate
-     *     The strInvoiceDate
+     * @param strInvoiceDate The strInvoiceDate
      */
     public void setStrInvoiceDate(String strInvoiceDate) {
         this.strInvoiceDate = strInvoiceDate;

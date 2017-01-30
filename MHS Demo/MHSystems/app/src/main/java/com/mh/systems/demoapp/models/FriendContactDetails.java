@@ -25,90 +25,70 @@ public class FriendContactDetails {
     private com.mh.systems.demoapp.models.Address Address;
 
     /**
-     * 
-     * @return
-     *     The TelNoHome
+     * @return The TelNoHome
      */
     public String getTelNoHome() {
         return TelNoHome;
     }
 
     /**
-     * 
-     * @param TelNoHome
-     *     The TelNoHome
+     * @param TelNoHome The TelNoHome
      */
     public void setTelNoHome(String TelNoHome) {
         this.TelNoHome = TelNoHome;
     }
 
     /**
-     * 
-     * @return
-     *     The TelNoWork
+     * @return The TelNoWork
      */
     public String getTelNoWork() {
         return TelNoWork;
     }
 
     /**
-     * 
-     * @param TelNoWork
-     *     The TelNoWork
+     * @param TelNoWork The TelNoWork
      */
     public void setTelNoWork(String TelNoWork) {
         this.TelNoWork = TelNoWork;
     }
 
     /**
-     * 
-     * @return
-     *     The TelNoMob
+     * @return The TelNoMob
      */
     public String getTelNoMob() {
         return TelNoMob;
     }
 
     /**
-     * 
-     * @param TelNoMob
-     *     The TelNoMob
+     * @param TelNoMob The TelNoMob
      */
     public void setTelNoMob(String TelNoMob) {
         this.TelNoMob = TelNoMob;
     }
 
     /**
-     * 
-     * @return
-     *     The EMail
+     * @return The EMail
      */
     public String getEMail() {
         return EMail;
     }
 
     /**
-     * 
-     * @param EMail
-     *     The EMail
+     * @param EMail The EMail
      */
     public void setEMail(String EMail) {
         this.EMail = EMail;
     }
 
     /**
-     * 
-     * @return
-     *     The Address
+     * @return The Address
      */
     public com.mh.systems.demoapp.models.Address getAddress() {
         return Address;
     }
 
     /**
-     * 
-     * @param Address
-     *     The Address
+     * @param Address The Address
      */
     public void setAddress(com.mh.systems.demoapp.models.Address Address) {
         this.Address = Address;

@@ -24,13 +24,11 @@ public class ContactUsAPI {
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public ContactUsAPI() {
     }
 
     /**
-     * 
      * @param aJsonParams
      * @param aClientId
      * @param aCommand

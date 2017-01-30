@@ -173,7 +173,7 @@ public class YourAccountActivity extends BaseActivity {
             getSupportActionBar().setTitle("Your Account");
         }
 
-              tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
         //tvMyAccountTitle.setTypeface(tfRobotoMedium);
 
         iOpenTabPosition = getIntent().getExtras().getInt("iTabPosition");

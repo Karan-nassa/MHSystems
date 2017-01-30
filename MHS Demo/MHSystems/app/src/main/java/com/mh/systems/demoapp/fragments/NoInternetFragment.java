@@ -48,9 +48,12 @@ import static com.mh.systems.demoapp.R.id.llUsernameOfPerson;
  */
 public class NoInternetFragment extends Fragment {
 
-    @Bind(R.id.ivMessageSymbol) ImageView ivMessageSymbol;
-    @Bind(R.id.tvMessageTitle) TextView tvMessageTitle;
-    @Bind(R.id.tvMessageDesc)  TextView tvMessageDesc;
+    @Bind(R.id.ivMessageSymbol)
+    ImageView ivMessageSymbol;
+    @Bind(R.id.tvMessageTitle)
+    TextView tvMessageTitle;
+    @Bind(R.id.tvMessageDesc)
+    TextView tvMessageDesc;
 
 
     @Override

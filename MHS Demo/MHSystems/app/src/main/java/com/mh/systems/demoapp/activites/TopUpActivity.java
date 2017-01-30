@@ -144,7 +144,7 @@ public class TopUpActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            if(etInputPrize.getText().toString().length() > 0) {
+            if (etInputPrize.getText().toString().length() > 0) {
 
                 if (isOnline(TopUpActivity.this)) {
 
@@ -161,7 +161,7 @@ public class TopUpActivity extends BaseActivity {
                     //showAlertMessage(getString(R.string.error_no_connection));
                     showAlertMessage(getString(R.string.error_no_internet));
                 }
-            }else{
+            } else {
                 showAlertMessage(getString(R.string.error_enter_topup));
             }
         }

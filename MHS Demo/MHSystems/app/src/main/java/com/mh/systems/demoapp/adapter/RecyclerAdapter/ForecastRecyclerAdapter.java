@@ -78,7 +78,7 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
      */
     @Override
     public int getItemCount() {
-        return  weatherListOfList.size();
+        return weatherListOfList.size();
     }
 
     /**

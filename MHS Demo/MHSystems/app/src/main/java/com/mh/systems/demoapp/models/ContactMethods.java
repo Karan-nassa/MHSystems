@@ -22,72 +22,56 @@ public class ContactMethods {
     private Integer MessageNotificationMethod;
 
     /**
-     * 
-     * @return
-     *     The CorrespondenceMethod
+     * @return The CorrespondenceMethod
      */
     public Integer getCorrespondenceMethod() {
         return CorrespondenceMethod;
     }
 
     /**
-     * 
-     * @param CorrespondenceMethod
-     *     The CorrespondenceMethod
+     * @param CorrespondenceMethod The CorrespondenceMethod
      */
     public void setCorrespondenceMethod(Integer CorrespondenceMethod) {
         this.CorrespondenceMethod = CorrespondenceMethod;
     }
 
     /**
-     * 
-     * @return
-     *     The BillingContactMethod
+     * @return The BillingContactMethod
      */
     public Integer getBillingContactMethod() {
         return BillingContactMethod;
     }
 
     /**
-     * 
-     * @param BillingContactMethod
-     *     The BillingContactMethod
+     * @param BillingContactMethod The BillingContactMethod
      */
     public void setBillingContactMethod(Integer BillingContactMethod) {
         this.BillingContactMethod = BillingContactMethod;
     }
 
     /**
-     * 
-     * @return
-     *     The MessageContactMethod
+     * @return The MessageContactMethod
      */
     public Integer getMessageContactMethod() {
         return MessageContactMethod;
     }
 
     /**
-     * 
-     * @param MessageContactMethod
-     *     The MessageContactMethod
+     * @param MessageContactMethod The MessageContactMethod
      */
     public void setMessageContactMethod(Integer MessageContactMethod) {
         this.MessageContactMethod = MessageContactMethod;
     }
 
     /**
-     * 
-     * @return
-     *     The MessageNotificationMethod
+     * @return The MessageNotificationMethod
      */
     public Integer getMessageNotificationMethod() {
         return MessageNotificationMethod;
     }
 
     /**
-     * 
-     * @param MessageNotificationMethod
-     *     The MessageNotificationMethod
+     * @param MessageNotificationMethod The MessageNotificationMethod
      */
     public void setMessageNotificationMethod(Integer MessageNotificationMethod) {
         this.MessageNotificationMethod = MessageNotificationMethod;

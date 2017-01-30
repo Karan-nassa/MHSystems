@@ -43,198 +43,154 @@ public class FriendsData {
     private String LastJoiningDate;
 
     /**
-     * 
-     * @return
-     *     The ClubID
+     * @return The ClubID
      */
     public Integer getClubID() {
         return ClubID;
     }
 
     /**
-     * 
-     * @param ClubID
-     *     The ClubID
+     * @param ClubID The ClubID
      */
     public void setClubID(Integer ClubID) {
         this.ClubID = ClubID;
     }
 
     /**
-     * 
-     * @return
-     *     The MemberID
+     * @return The MemberID
      */
     public Integer getMemberID() {
         return MemberID;
     }
 
     /**
-     * 
-     * @param MemberID
-     *     The MemberID
+     * @param MemberID The MemberID
      */
     public void setMemberID(Integer MemberID) {
         this.MemberID = MemberID;
     }
 
     /**
-     * 
-     * @return
-     *     The UserLoginID
+     * @return The UserLoginID
      */
     public String getUserLoginID() {
         return UserLoginID;
     }
 
     /**
-     * 
-     * @param UserLoginID
-     *     The UserLoginID
+     * @param UserLoginID The UserLoginID
      */
     public void setUserLoginID(String UserLoginID) {
         this.UserLoginID = UserLoginID;
     }
 
     /**
-     * 
-     * @return
-     *     The NameRecord
+     * @return The NameRecord
      */
     public com.mh.systems.demoapp.models.NameRecord getNameRecord() {
         return NameRecord;
     }
 
     /**
-     * 
-     * @param NameRecord
-     *     The NameRecord
+     * @param NameRecord The NameRecord
      */
     public void setNameRecord(com.mh.systems.demoapp.models.NameRecord NameRecord) {
         this.NameRecord = NameRecord;
     }
 
     /**
-     * 
-     * @return
-     *     The MembershipStatus
+     * @return The MembershipStatus
      */
     public String getMembershipStatus() {
         return MembershipStatus;
     }
 
     /**
-     * 
-     * @param MembershipStatus
-     *     The MembershipStatus
+     * @param MembershipStatus The MembershipStatus
      */
     public void setMembershipStatus(String MembershipStatus) {
         this.MembershipStatus = MembershipStatus;
     }
 
     /**
-     * 
-     * @return
-     *     The AgeOrAdult
+     * @return The AgeOrAdult
      */
     public Integer getAgeOrAdult() {
         return AgeOrAdult;
     }
 
     /**
-     * 
-     * @param AgeOrAdult
-     *     The AgeOrAdult
+     * @param AgeOrAdult The AgeOrAdult
      */
     public void setAgeOrAdult(Integer AgeOrAdult) {
         this.AgeOrAdult = AgeOrAdult;
     }
 
     /**
-     * 
-     * @return
-     *     The ContactDetails
+     * @return The ContactDetails
      */
     public com.mh.systems.demoapp.models.ContactDetails getContactDetails() {
         return ContactDetails;
     }
 
     /**
-     * 
-     * @param ContactDetails
-     *     The ContactDetails
+     * @param ContactDetails The ContactDetails
      */
     public void setContactDetails(com.mh.systems.demoapp.models.ContactDetails ContactDetails) {
         this.ContactDetails = ContactDetails;
     }
 
     /**
-     * 
-     * @return
-     *     The HCapTypeStr
+     * @return The HCapTypeStr
      */
     public String getHCapTypeStr() {
         return HCapTypeStr;
     }
 
     /**
-     * 
-     * @param HCapTypeStr
-     *     The HCapTypeStr
+     * @param HCapTypeStr The HCapTypeStr
      */
     public void setHCapTypeStr(String HCapTypeStr) {
         this.HCapTypeStr = HCapTypeStr;
     }
 
     /**
-     * 
-     * @return
-     *     The HCapExactStr
+     * @return The HCapExactStr
      */
     public String getHCapExactStr() {
         return HCapExactStr;
     }
 
     /**
-     * 
-     * @param HCapExactStr
-     *     The HCapExactStr
+     * @param HCapExactStr The HCapExactStr
      */
     public void setHCapExactStr(String HCapExactStr) {
         this.HCapExactStr = HCapExactStr;
     }
 
     /**
-     * 
-     * @return
-     *     The HCapPlayStr
+     * @return The HCapPlayStr
      */
     public String getHCapPlayStr() {
         return HCapPlayStr;
     }
 
     /**
-     * 
-     * @param HCapPlayStr
-     *     The HCapPlayStr
+     * @param HCapPlayStr The HCapPlayStr
      */
     public void setHCapPlayStr(String HCapPlayStr) {
         this.HCapPlayStr = HCapPlayStr;
     }
 
     /**
-     * 
-     * @return
-     *     The LastJoiningDate
+     * @return The LastJoiningDate
      */
     public String getLastJoiningDate() {
         return LastJoiningDate;
     }
 
     /**
-     * 
-     * @param LastJoiningDate
-     *     The LastJoiningDate
+     * @param LastJoiningDate The LastJoiningDate
      */
     public void setLastJoiningDate(String LastJoiningDate) {
         this.LastJoiningDate = LastJoiningDate;

@@ -68,7 +68,7 @@ public class CompetitionDetailAdapter extends BaseAdapter {
             rowViewInstance.llRankGroupRow.setBackgroundColor(ContextCompat.getColor(context, R.color.colorF9F8F7));
         }
 
-        if(position == (resultEntryArrayList.size()-1)){
+        if (position == (resultEntryArrayList.size() - 1)) {
             rowViewInstance.vSpaceView.setVisibility(View.VISIBLE);
         }
 

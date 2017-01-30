@@ -19,54 +19,42 @@ public class RegisterTokenResult {
     private Integer data;
 
     /**
-     * 
-     * @return
-     *     The message
+     * @return The message
      */
     public String getMessage() {
         return message;
     }
 
     /**
-     * 
-     * @param message
-     *     The Message
+     * @param message The Message
      */
     public void setMessage(String message) {
         this.message = message;
     }
 
     /**
-     * 
-     * @return
-     *     The result
+     * @return The result
      */
     public Integer getResult() {
         return result;
     }
 
     /**
-     * 
-     * @param result
-     *     The Result
+     * @param result The Result
      */
     public void setResult(Integer result) {
         this.result = result;
     }
 
     /**
-     * 
-     * @return
-     *     The data
+     * @return The data
      */
     public Integer getData() {
         return data;
     }
 
     /**
-     * 
-     * @param data
-     *     The Data
+     * @param data The Data
      */
     public void setData(Integer data) {
         this.data = data;

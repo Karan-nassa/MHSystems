@@ -13,24 +13,19 @@ public class AJsonParamsClubNews {
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public AJsonParamsClubNews() {
     }
 
     /**
-     * 
-     * @return
-     *     The loginMemberId
+     * @return The loginMemberId
      */
     public String getLoginMemberId() {
         return LoginMemberId;
     }
 
     /**
-     * 
-     * @param LoginMemberId
-     *     The LoginMemberId
+     * @param LoginMemberId The LoginMemberId
      */
     public void setLoginMemberId(String LoginMemberId) {
         this.LoginMemberId = LoginMemberId;

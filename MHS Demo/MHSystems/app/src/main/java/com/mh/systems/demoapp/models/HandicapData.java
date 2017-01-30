@@ -27,90 +27,70 @@ public class HandicapData {
     private HCapCertificate HCapCertificate;
 
     /**
-     * 
-     * @return
-     *     The HCapExactStr
+     * @return The HCapExactStr
      */
     public String getHCapExactStr() {
         return HCapExactStr;
     }
 
     /**
-     * 
-     * @param HCapExactStr
-     *     The HCapExactStr
+     * @param HCapExactStr The HCapExactStr
      */
     public void setHCapExactStr(String HCapExactStr) {
         this.HCapExactStr = HCapExactStr;
     }
 
     /**
-     * 
-     * @return
-     *     The HCapPlayStr
+     * @return The HCapPlayStr
      */
     public String getHCapPlayStr() {
         return HCapPlayStr;
     }
 
     /**
-     * 
-     * @param HCapPlayStr
-     *     The HCapPlayStr
+     * @param HCapPlayStr The HCapPlayStr
      */
     public void setHCapPlayStr(String HCapPlayStr) {
         this.HCapPlayStr = HCapPlayStr;
     }
 
     /**
-     * 
-     * @return
-     *     The HCapTypeStr
+     * @return The HCapTypeStr
      */
     public String getHCapTypeStr() {
         return HCapTypeStr;
     }
 
     /**
-     * 
-     * @param HCapTypeStr
-     *     The HCapTypeStr
+     * @param HCapTypeStr The HCapTypeStr
      */
     public void setHCapTypeStr(String HCapTypeStr) {
         this.HCapTypeStr = HCapTypeStr;
     }
 
-       /**
-          *
-          * @return
-          *     The HCapRecords
-          */
+    /**
+     * @return The HCapRecords
+     */
     public List<HCapRecords> getHCapRecords() {
         return HCapRecords;
     }
 
     /**
-     *
-     * @param HCapRecords
-     *     The HCapRecords
+     * @param HCapRecords The HCapRecords
      */
     public void setHCapRecords(List<HCapRecords> HCapRecords) {
         this.HCapRecords = HCapRecords;
     }
 
     /**
-     * 
-     * @return
-     *     The HCapCertificate
+     * @return The HCapCertificate
      */
     public HCapCertificate getHCapCertificate() {
         return HCapCertificate;
     }
 
     /**
-     * 
-     * @param HCapCertificate
-     *     The HCapCertificate
+     * @param HCapCertificate The HCapCertificate
      */
     public void setHCapCertificate(HCapCertificate HCapCertificate) {
         this.HCapCertificate = HCapCertificate;

@@ -167,7 +167,7 @@ public class CompetitionsAdapter extends BaseAdapter {
 
                 if (iPopItemPos <= 1) {
                     intent = new Intent(context, CompetitionDetailActivity.class);
-                }else{
+                } else {
                     intent = new Intent(context, CompletedDetailActivity.class);
                 }
 

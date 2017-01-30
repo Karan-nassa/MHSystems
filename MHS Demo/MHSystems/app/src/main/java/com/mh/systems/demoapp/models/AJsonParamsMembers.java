@@ -29,9 +29,7 @@ public class AJsonParamsMembers {
     }
 
     /**
-     *
-     * @param genderFilter
-     *     The GenderFilter
+     * @param genderFilter The GenderFilter
      */
     public void setGenderFilter(int genderFilter) {
         GenderFilter = genderFilter;

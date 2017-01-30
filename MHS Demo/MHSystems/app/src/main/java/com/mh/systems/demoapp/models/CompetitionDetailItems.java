@@ -19,54 +19,42 @@ public class CompetitionDetailItems {
     private CompResultData Data;
 
     /**
-     * 
-     * @return
-     *     The Message
+     * @return The Message
      */
     public String getMessage() {
         return Message;
     }
 
     /**
-     * 
-     * @param Message
-     *     The Message
+     * @param Message The Message
      */
     public void setMessage(String message) {
         this.Message = Message;
     }
 
     /**
-     * 
-     * @return
-     *     The Result
+     * @return The Result
      */
     public Integer getResult() {
         return Result;
     }
 
     /**
-     * 
-     * @param Result
-     *     The Result
+     * @param Result The Result
      */
     public void setResult(Integer result) {
         this.Result = Result;
     }
 
     /**
-     * 
-     * @return
-     *     The Data
+     * @return The Data
      */
     public CompResultData getCompResultData() {
         return Data;
     }
 
     /**
-     * 
-     * @param Data
-     *     The Data
+     * @param Data The Data
      */
     public void setCompResultData(CompResultData Data) {
         this.Data = Data;

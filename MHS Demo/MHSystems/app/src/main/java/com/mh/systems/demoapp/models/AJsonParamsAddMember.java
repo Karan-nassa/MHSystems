@@ -22,72 +22,56 @@ public class AJsonParamsAddMember {
     private Integer friendid;
 
     /**
-     * 
-     * @return
-     *     The version
+     * @return The version
      */
     public Integer getVersion() {
         return version;
     }
 
     /**
-     * 
-     * @param version
-     *     The version
+     * @param version The version
      */
     public void setVersion(Integer version) {
         this.version = version;
     }
 
     /**
-     * 
-     * @return
-     *     The callid
+     * @return The callid
      */
     public String getCallid() {
         return callid;
     }
 
     /**
-     * 
-     * @param callid
-     *     The callid
+     * @param callid The callid
      */
     public void setCallid(String callid) {
         this.callid = callid;
     }
 
     /**
-     * 
-     * @return
-     *     The memberid
+     * @return The memberid
      */
     public String getMemberid() {
         return memberid;
     }
 
     /**
-     *
-     * @param memberid
-     *     The memberid
+     * @param memberid The memberid
      */
     public void setMemberid(String memberid) {
         this.memberid = memberid;
     }
 
     /**
-     *
-     * @return
-     *     The friendid
+     * @return The friendid
      */
     public Integer getFriendid() {
         return friendid;
     }
 
     /**
-     *
-     * @param friendid
-     *     The friendid
+     * @param friendid The friendid
      */
     public void setFriendid(Integer friendid) {
         this.friendid = friendid;

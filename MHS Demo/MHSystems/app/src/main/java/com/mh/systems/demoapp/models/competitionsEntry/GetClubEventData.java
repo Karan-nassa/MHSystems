@@ -97,522 +97,406 @@ public class GetClubEventData {
     private Entry Entry;
 
     /**
-     * 
-     * @return
-     *     The ClubID
+     * @return The ClubID
      */
     public Integer getClubID() {
         return ClubID;
     }
 
     /**
-     * 
-     * @param ClubID
-     *     The ClubID
+     * @param ClubID The ClubID
      */
     public void setClubID(Integer ClubID) {
         this.ClubID = ClubID;
     }
 
     /**
-     * 
-     * @return
-     *     The EventID
+     * @return The EventID
      */
     public Integer getEventID() {
         return EventID;
     }
 
     /**
-     * 
-     * @param EventID
-     *     The EventID
+     * @param EventID The EventID
      */
     public void setEventID(Integer EventID) {
         this.EventID = EventID;
     }
 
     /**
-     * 
-     * @return
-     *     The EventStartDate
+     * @return The EventStartDate
      */
     public String getEventStartDate() {
         return EventStartDate;
     }
 
     /**
-     * 
-     * @param EventStartDate
-     *     The EventStartDate
+     * @param EventStartDate The EventStartDate
      */
     public void setEventStartDate(String EventStartDate) {
         this.EventStartDate = EventStartDate;
     }
 
     /**
-     * 
-     * @return
-     *     The eventDateStr
+     * @return The eventDateStr
      */
     public String getEventDateStr() {
         return eventDateStr;
     }
 
     /**
-     * 
-     * @param eventDateStr
-     *     The eventDateStr
+     * @param eventDateStr The eventDateStr
      */
     public void setEventDateStr(String eventDateStr) {
         this.eventDateStr = eventDateStr;
     }
 
     /**
-     * 
-     * @return
-     *     The eventTime
+     * @return The eventTime
      */
     public String getEventTime() {
         return eventTime;
     }
 
     /**
-     * 
-     * @param eventTime
-     *     The eventTime
+     * @param eventTime The eventTime
      */
     public void setEventTime(String eventTime) {
         this.eventTime = eventTime;
     }
 
     /**
-     * 
-     * @return
-     *     The EventName
+     * @return The EventName
      */
     public String getEventName() {
         return EventName;
     }
 
     /**
-     * 
-     * @param EventName
-     *     The EventName
+     * @param EventName The EventName
      */
     public void setEventName(String EventName) {
         this.EventName = EventName;
     }
 
     /**
-     * 
-     * @return
-     *     The EventDescription
+     * @return The EventDescription
      */
     public String getEventDescription() {
         return EventDescription;
     }
 
     /**
-     * 
-     * @param EventDescription
-     *     The EventDescription
+     * @param EventDescription The EventDescription
      */
     public void setEventDescription(String EventDescription) {
         this.EventDescription = EventDescription;
     }
 
     /**
-     * 
-     * @return
-     *     The EventStatus
+     * @return The EventStatus
      */
     public Integer getEventStatus() {
         return EventStatus;
     }
 
     /**
-     * 
-     * @param EventStatus
-     *     The EventStatus
+     * @param EventStatus The EventStatus
      */
     public void setEventStatus(Integer EventStatus) {
         this.EventStatus = EventStatus;
     }
 
     /**
-     * 
-     * @return
-     *     The EventStatusStr
+     * @return The EventStatusStr
      */
     public String getEventStatusStr() {
         return EventStatusStr;
     }
 
     /**
-     * 
-     * @param EventStatusStr
-     *     The EventStatusStr
+     * @param EventStatusStr The EventStatusStr
      */
     public void setEventStatusStr(String EventStatusStr) {
         this.EventStatusStr = EventStatusStr;
     }
 
     /**
-     * 
-     * @return
-     *     The IsPublicEvent
+     * @return The IsPublicEvent
      */
     public Boolean getIsPublicEvent() {
         return IsPublicEvent;
     }
 
     /**
-     * 
-     * @param IsPublicEvent
-     *     The IsPublicEvent
+     * @param IsPublicEvent The IsPublicEvent
      */
     public void setIsPublicEvent(Boolean IsPublicEvent) {
         this.IsPublicEvent = IsPublicEvent;
     }
 
     /**
-     * 
-     * @return
-     *     The Rounds
+     * @return The Rounds
      */
     public Integer getRounds() {
         return Rounds;
     }
 
     /**
-     * 
-     * @param Rounds
-     *     The Rounds
+     * @param Rounds The Rounds
      */
     public void setRounds(Integer Rounds) {
         this.Rounds = Rounds;
     }
 
     /**
-     * 
-     * @return
-     *     The CompBasis
+     * @return The CompBasis
      */
     public String getCompBasis() {
         return CompBasis;
     }
 
     /**
-     * 
-     * @param CompBasis
-     *     The CompBasis
+     * @param CompBasis The CompBasis
      */
     public void setCompBasis(String CompBasis) {
         this.CompBasis = CompBasis;
     }
 
     /**
-     * 
-     * @return
-     *     The EntryFeeValue
+     * @return The EntryFeeValue
      */
     public Double getEntryFeeValue() {
         return EntryFeeValue;
     }
 
     /**
-     * 
-     * @param EntryFeeValue
-     *     The EntryFeeValue
+     * @param EntryFeeValue The EntryFeeValue
      */
     public void setEntryFeeValue(Double EntryFeeValue) {
         this.EntryFeeValue = EntryFeeValue;
     }
 
     /**
-     * 
-     * @return
-     *     The IncludesMember
+     * @return The IncludesMember
      */
     public Boolean getIncludesMember() {
         return IncludesMember;
     }
 
     /**
-     * 
-     * @param IncludesMember
-     *     The IncludesMember
+     * @param IncludesMember The IncludesMember
      */
     public void setIncludesMember(Boolean IncludesMember) {
         this.IncludesMember = IncludesMember;
     }
 
     /**
-     * 
-     * @return
-     *     The AllowCompEntryYearCount
+     * @return The AllowCompEntryYearCount
      */
     public Integer getAllowCompEntryYearCount() {
         return AllowCompEntryYearCount;
     }
 
     /**
-     * 
-     * @param AllowCompEntryYearCount
-     *     The AllowCompEntryYearCount
+     * @param AllowCompEntryYearCount The AllowCompEntryYearCount
      */
     public void setAllowCompEntryYearCount(Integer AllowCompEntryYearCount) {
         this.AllowCompEntryYearCount = AllowCompEntryYearCount;
     }
 
     /**
-     * 
-     * @return
-     *     The AllowCompEntryMonthCount
+     * @return The AllowCompEntryMonthCount
      */
     public Integer getAllowCompEntryMonthCount() {
         return AllowCompEntryMonthCount;
     }
 
     /**
-     * 
-     * @param AllowCompEntryMonthCount
-     *     The AllowCompEntryMonthCount
+     * @param AllowCompEntryMonthCount The AllowCompEntryMonthCount
      */
     public void setAllowCompEntryMonthCount(Integer AllowCompEntryMonthCount) {
         this.AllowCompEntryMonthCount = AllowCompEntryMonthCount;
     }
 
     /**
-     * 
-     * @return
-     *     The AllowCompEntryWeekCount
+     * @return The AllowCompEntryWeekCount
      */
     public Integer getAllowCompEntryWeekCount() {
         return AllowCompEntryWeekCount;
     }
 
     /**
-     * 
-     * @param AllowCompEntryWeekCount
-     *     The AllowCompEntryWeekCount
+     * @param AllowCompEntryWeekCount The AllowCompEntryWeekCount
      */
     public void setAllowCompEntryWeekCount(Integer AllowCompEntryWeekCount) {
         this.AllowCompEntryWeekCount = AllowCompEntryWeekCount;
     }
 
     /**
-     * 
-     * @return
-     *     The AllowCompEntryDayCount
+     * @return The AllowCompEntryDayCount
      */
     public Integer getAllowCompEntryDayCount() {
         return AllowCompEntryDayCount;
     }
 
     /**
-     * 
-     * @param AllowCompEntryDayCount
-     *     The AllowCompEntryDayCount
+     * @param AllowCompEntryDayCount The AllowCompEntryDayCount
      */
     public void setAllowCompEntryDayCount(Integer AllowCompEntryDayCount) {
         this.AllowCompEntryDayCount = AllowCompEntryDayCount;
     }
 
     /**
-     * 
-     * @return
-     *     The AllowCompEntryEventType
+     * @return The AllowCompEntryEventType
      */
     public Integer getAllowCompEntryEventType() {
         return AllowCompEntryEventType;
     }
 
     /**
-     * 
-     * @param AllowCompEntryEventType
-     *     The AllowCompEntryEventType
+     * @param AllowCompEntryEventType The AllowCompEntryEventType
      */
     public void setAllowCompEntryEventType(Integer AllowCompEntryEventType) {
         this.AllowCompEntryEventType = AllowCompEntryEventType;
     }
 
     /**
-     * 
-     * @return
-     *     The AllowCompEntryEventEnabled
+     * @return The AllowCompEntryEventEnabled
      */
     public Boolean getAllowCompEntryEventEnabled() {
         return AllowCompEntryEventEnabled;
     }
 
     /**
-     * 
-     * @param AllowCompEntryEventEnabled
-     *     The AllowCompEntryEventEnabled
+     * @param AllowCompEntryEventEnabled The AllowCompEntryEventEnabled
      */
     public void setAllowCompEntryEventEnabled(Boolean AllowCompEntryEventEnabled) {
         this.AllowCompEntryEventEnabled = AllowCompEntryEventEnabled;
     }
 
     /**
-     * 
-     * @return
-     *     The AllowCompEntrySelfEntryMode
+     * @return The AllowCompEntrySelfEntryMode
      */
     public Integer getAllowCompEntrySelfEntryMode() {
         return AllowCompEntrySelfEntryMode;
     }
 
     /**
-     * 
-     * @param AllowCompEntrySelfEntryMode
-     *     The AllowCompEntrySelfEntryMode
+     * @param AllowCompEntrySelfEntryMode The AllowCompEntrySelfEntryMode
      */
     public void setAllowCompEntrySelfEntryMode(Integer AllowCompEntrySelfEntryMode) {
         this.AllowCompEntrySelfEntryMode = AllowCompEntrySelfEntryMode;
     }
 
     /**
-     * 
-     * @return
-     *     The AllowCompEntrySelfEntryModeStr
+     * @return The AllowCompEntrySelfEntryModeStr
      */
     public String getAllowCompEntrySelfEntryModeStr() {
         return AllowCompEntrySelfEntryModeStr;
     }
 
     /**
-     * 
-     * @param AllowCompEntrySelfEntryModeStr
-     *     The AllowCompEntrySelfEntryModeStr
+     * @param AllowCompEntrySelfEntryModeStr The AllowCompEntrySelfEntryModeStr
      */
     public void setAllowCompEntrySelfEntryModeStr(String AllowCompEntrySelfEntryModeStr) {
         this.AllowCompEntrySelfEntryModeStr = AllowCompEntrySelfEntryModeStr;
     }
 
     /**
-     * 
-     * @return
-     *     The AllowCompEntryAdHocSelection
+     * @return The AllowCompEntryAdHocSelection
      */
     public Boolean getAllowCompEntryAdHocSelection() {
         return AllowCompEntryAdHocSelection;
     }
 
     /**
-     * 
-     * @param AllowCompEntryAdHocSelection
-     *     The AllowCompEntryAdHocSelection
+     * @param AllowCompEntryAdHocSelection The AllowCompEntryAdHocSelection
      */
     public void setAllowCompEntryAdHocSelection(Boolean AllowCompEntryAdHocSelection) {
         this.AllowCompEntryAdHocSelection = AllowCompEntryAdHocSelection;
     }
 
     /**
-     * 
-     * @return
-     *     The TeamSize
+     * @return The TeamSize
      */
     public Integer getTeamSize() {
         return TeamSize;
     }
 
     /**
-     * 
-     * @param TeamSize
-     *     The TeamSize
+     * @param TeamSize The TeamSize
      */
     public void setTeamSize(Integer TeamSize) {
         this.TeamSize = TeamSize;
     }
 
     /**
-     * 
-     * @return
-     *     The IsEntryAllowed
+     * @return The IsEntryAllowed
      */
     public Boolean getIsEntryAllowed() {
         return IsEntryAllowed;
     }
 
     /**
-     * 
-     * @param IsEntryAllowed
-     *     The IsEntryAllowed
+     * @param IsEntryAllowed The IsEntryAllowed
      */
     public void setIsEntryAllowed(Boolean IsEntryAllowed) {
         this.IsEntryAllowed = IsEntryAllowed;
     }
 
     /**
-     * 
-     * @return
-     *     The IsTeeTimeSlotsAllowed
+     * @return The IsTeeTimeSlotsAllowed
      */
     public Boolean getIsTeeTimeSlotsAllowed() {
         return IsTeeTimeSlotsAllowed;
     }
 
     /**
-     * 
-     * @param IsTeeTimeSlotsAllowed
-     *     The IsTeeTimeSlotsAllowed
+     * @param IsTeeTimeSlotsAllowed The IsTeeTimeSlotsAllowed
      */
     public void setIsTeeTimeSlotsAllowed(Boolean IsTeeTimeSlotsAllowed) {
         this.IsTeeTimeSlotsAllowed = IsTeeTimeSlotsAllowed;
     }
 
     /**
-     * 
-     * @return
-     *     The ClubEventStartSheet
+     * @return The ClubEventStartSheet
      */
     public ClubEventStartSheet getClubEventStartSheet() {
         return ClubEventStartSheet;
     }
 
     /**
-     * 
-     * @param ClubEventStartSheet
-     *     The ClubEventStartSheet
+     * @param ClubEventStartSheet The ClubEventStartSheet
      */
     public void setClubEventStartSheet(ClubEventStartSheet ClubEventStartSheet) {
         this.ClubEventStartSheet = ClubEventStartSheet;
     }
 
     /**
-     *
-     * @return
-     * The MemberName
+     * @return The MemberName
      */
     public String getMemberName() {
         return MemberName;
     }
 
     /**
-     *
-     * @param memberName
-     * The MemberName
+     * @param memberName The MemberName
      */
     public void setMemberName(String MemberName) {
         this.MemberName = MemberName;
     }
 
     /**
-     *
-     * @return
-     * The Entry
+     * @return The Entry
      */
     public Entry getEntry() {
         return Entry;
     }
 
     /**
-     *
-     * @param Entry
-     * The Entry
+     * @param Entry The Entry
      */
     public void setEntry(Entry Entry) {
         this.Entry = Entry;

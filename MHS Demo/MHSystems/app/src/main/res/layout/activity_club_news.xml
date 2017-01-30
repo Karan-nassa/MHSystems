@@ -50,17 +50,16 @@
         </LinearLayout>
 
 
+        <!-- VIEW TO DISPLAY MESSAGE LIKE NO EVENT FOUND OR INTERNET CONNECTION ERROR -->
 
-            <!-- VIEW TO DISPLAY MESSAGE LIKE NO EVENT FOUND OR INTERNET CONNECTION ERROR -->
 
+        <!-- CLUB NEWS LIST -->
 
-            <!-- CLUB NEWS LIST -->
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvClubNewsList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:cacheColorHint="@color/colorF9F8F7" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvClubNewsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@color/colorF9F8F7" />
 
 
     </LinearLayout>

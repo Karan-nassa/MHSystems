@@ -3,6 +3,7 @@ package com.mh.systems.demoapp.models;
 /**
  * Created by karan@ucreate.co.in on 23-06-2016.
  */
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -22,72 +23,56 @@ public class ResultEntries {
     private String ExactHCap;
 
     /**
-     *
-     * @return
-     * The PlaceStr
+     * @return The PlaceStr
      */
     public String getPlaceStr() {
         return PlaceStr;
     }
 
     /**
-     *
-     * @param PlaceStr
-     * The PlaceStr
+     * @param PlaceStr The PlaceStr
      */
     public void setPlaceStr(String PlaceStr) {
         this.PlaceStr = PlaceStr;
     }
 
     /**
-     *
-     * @return
-     * The EntryName
+     * @return The EntryName
      */
     public String getEntryName() {
         return EntryName;
     }
 
     /**
-     *
-     * @param EntryName
-     * The EntryName
+     * @param EntryName The EntryName
      */
     public void setEntryName(String EntryName) {
         this.EntryName = EntryName;
     }
 
     /**
-     *
-     * @return
-     * The ScoreSummary
+     * @return The ScoreSummary
      */
     public String getScoreSummary() {
         return ScoreSummary;
     }
 
     /**
-     *
-     * @param ScoreSummary
-     * The ScoreSummary
+     * @param ScoreSummary The ScoreSummary
      */
     public void setScoreSummary(String ScoreSummary) {
         this.ScoreSummary = ScoreSummary;
     }
 
     /**
-     *
-     * @return
-     * The ExactHCap
+     * @return The ExactHCap
      */
     public String getExactHCap() {
         return ExactHCap;
     }
 
     /**
-     *
-     * @param ExactHCap
-     * The ExactHCap
+     * @param ExactHCap The ExactHCap
      */
     public void setExactHCap(String ExactHCap) {
         this.ExactHCap = ExactHCap;

@@ -142,7 +142,7 @@ public class FinanceFragment extends Fragment {
         if (isVisibleToUser) {
             callFinanceWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
-            ((YourAccountActivity)getActivity()).setiOpenTabPosition(2);
+            ((YourAccountActivity) getActivity()).setiOpenTabPosition(2);
         }
     }
 

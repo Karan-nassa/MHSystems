@@ -195,7 +195,7 @@ public class MembersActivity extends BaseActivity {
 
         getMenuInflater().inflate(R.menu.menu_friends, menu);
 
-        switch (getiTabPosition()){
+        switch (getiTabPosition()) {
             case 0:
                 //getMenuInflater().inflate(R.menu.menu_members, menu);
                 menu.getItem(1).setVisible(false);
@@ -265,7 +265,7 @@ public class MembersActivity extends BaseActivity {
                 return true;
 
             case R.id.action_info:
-                Intent infoIntent  = new Intent(MembersActivity.this, FriendsInfoActivity.class);
+                Intent infoIntent = new Intent(MembersActivity.this, FriendsInfoActivity.class);
                 startActivity(infoIntent);
                 //showAlertInfo();
                 return true;
@@ -323,11 +323,11 @@ public class MembersActivity extends BaseActivity {
      */
     public void initializeMembersCategory() {
 
-        if(MembersTabFragment.iLastTabPosition == 2){
+        if (MembersTabFragment.iLastTabPosition == 2) {
 
             llMemberCategory.setVisibility(View.INVISIBLE);
 
-        }else {
+        } else {
 
             llMemberCategory.setVisibility(View.VISIBLE);
 

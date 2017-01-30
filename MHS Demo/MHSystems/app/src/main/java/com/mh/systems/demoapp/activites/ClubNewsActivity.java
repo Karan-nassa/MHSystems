@@ -420,7 +420,7 @@ public class ClubNewsActivity extends BaseActivity {
                             if (isCallFromDelete) {
                                 clubNewsThumbnailList.remove(iDeletePosition);
                                 clubNewsSwipeAdapter.notifyDataSetChanged();
-                            }else{
+                            } else {
                                 onBackPressed();
                             }
                         }

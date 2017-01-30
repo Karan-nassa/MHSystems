@@ -25,90 +25,70 @@ public class AJsonParamsGetClubEvent {
     private String LoginMemberId;
 
     /**
-     * 
-     * @return
-     *     The version
+     * @return The version
      */
     public int getVersion() {
         return version;
     }
 
     /**
-     * 
-     * @param version
-     *     The version
+     * @param version The version
      */
     public void setVersion(int version) {
         this.version = version;
     }
 
     /**
-     * 
-     * @return
-     *     The callid
+     * @return The callid
      */
     public String getCallid() {
         return callid;
     }
 
     /**
-     * 
-     * @param callid
-     *     The callid
+     * @param callid The callid
      */
     public void setCallid(String callid) {
         this.callid = callid;
     }
 
     /**
-     * 
-     * @return
-     *     The EventId
+     * @return The EventId
      */
     public String getEventId() {
         return EventId;
     }
 
     /**
-     * 
-     * @param EventId
-     *     The EventId
+     * @param EventId The EventId
      */
     public void setEventId(String EventId) {
         this.EventId = EventId;
     }
 
     /**
-     *
-     * @return
-     *     The MemberId
+     * @return The MemberId
      */
     public String getMemberId() {
         return MemberId;
     }
 
     /**
-     *
-     * @param MemberId
-     *     The MemberId
+     * @param MemberId The MemberId
      */
     public void setMemberId(String MemberId) {
         this.MemberId = MemberId;
     }
 
     /**
-     *
-     * @param LoginMemberId
-     *     The LoginMemberId
+     * @param LoginMemberId The LoginMemberId
      */
     public String getLoginMemberId() {
         return LoginMemberId;
     }
 
     /**
-     *
-     * @return
-     *     The LoginMemberId
+     * @return The LoginMemberId
      */
     public void setLoginMemberId(String LoginMemberId) {
         this.LoginMemberId = LoginMemberId;

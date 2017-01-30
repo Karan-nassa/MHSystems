@@ -17,54 +17,42 @@ public class AJsonParamsClubNewsThumbnail {
     private String LoginMemberId;
 
     /**
-     * 
-     * @return
-     *     The version
+     * @return The version
      */
     public Integer getVersion() {
         return version;
     }
 
     /**
-     * 
-     * @param version
-     *     The version
+     * @param version The version
      */
     public void setVersion(Integer version) {
         this.version = version;
     }
 
     /**
-     * 
-     * @return
-     *     The callid
+     * @return The callid
      */
     public String getCallid() {
         return callid;
     }
 
     /**
-     * 
-     * @param callid
-     *     The callid
+     * @param callid The callid
      */
     public void setCallid(String callid) {
         this.callid = callid;
     }
 
     /**
-     * 
-     * @return
-     *     The LoginMemberId
+     * @return The LoginMemberId
      */
     public String getLoginMemberId() {
         return LoginMemberId;
     }
 
     /**
-     * 
-     * @param LoginMemberId
-     *     The LoginMemberId
+     * @param LoginMemberId The LoginMemberId
      */
     public void setLoginMemberId(String LoginMemberId) {
         this.LoginMemberId = LoginMemberId;

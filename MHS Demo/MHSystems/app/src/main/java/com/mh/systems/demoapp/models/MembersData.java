@@ -22,36 +22,28 @@ public class MembersData {
     }
 
     /**
-     * 
-     * @return
-     *     The MembersList
+     * @return The MembersList
      */
     public ArrayList<MembersList> getMembersList() {
         return MembersList;
     }
 
     /**
-     * 
-     * @param MembersList
-     *     The MembersList
+     * @param MembersList The MembersList
      */
     public void setMembersList(ArrayList<MembersList> MembersList) {
         this.MembersList = MembersList;
     }
 
     /**
-     * 
-     * @return
-     *     The Member
+     * @return The Member
      */
     public Member getMember() {
         return Member;
     }
 
     /**
-     * 
-     * @param Member
-     *     The Member
+     * @param Member The Member
      */
     public void setMember(Member Member) {
         this.Member = Member;

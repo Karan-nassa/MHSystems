@@ -22,72 +22,56 @@ public class AJsonParamsClubNewsDetail {
     private Boolean IsDelete;
 
     /**
-     * 
-     * @return
-     *     The LoginMemberId
+     * @return The LoginMemberId
      */
     public String getLoginMemberId() {
         return LoginMemberId;
     }
 
     /**
-     * 
-     * @param LoginMemberId
-     *     The LoginMemberId
+     * @param LoginMemberId The LoginMemberId
      */
     public void setLoginMemberId(String LoginMemberId) {
         this.LoginMemberId = LoginMemberId;
     }
 
     /**
-     * 
-     * @return
-     *     The ClubNewsID
+     * @return The ClubNewsID
      */
     public Integer getClubNewsID() {
         return ClubNewsID;
     }
 
     /**
-     * 
-     * @param ClubNewsID
-     *     The ClubNewsID
+     * @param ClubNewsID The ClubNewsID
      */
     public void setClubNewsID(Integer ClubNewsID) {
         this.ClubNewsID = ClubNewsID;
     }
 
     /**
-     * 
-     * @return
-     *     The IsRead
+     * @return The IsRead
      */
     public Boolean getIsRead() {
         return IsRead;
     }
 
     /**
-     * 
-     * @param IsRead
-     *     The IsRead
+     * @param IsRead The IsRead
      */
     public void setIsRead(Boolean IsRead) {
         this.IsRead = IsRead;
     }
 
     /**
-     * 
-     * @return
-     *     The IsDelete
+     * @return The IsDelete
      */
     public Boolean getIsDelete() {
         return IsDelete;
     }
 
     /**
-     * 
-     * @param IsDelete
-     *     The IsDelete
+     * @param IsDelete The IsDelete
      */
     public void setIsDelete(Boolean IsDelete) {
         this.IsDelete = IsDelete;

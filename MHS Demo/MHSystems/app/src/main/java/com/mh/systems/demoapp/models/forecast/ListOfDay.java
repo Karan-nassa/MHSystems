@@ -35,144 +35,112 @@ public class ListOfDay {
     private String dt_txt;
 
     /**
-     * 
-     * @return
-     *     The dt
+     * @return The dt
      */
     public Integer getDt() {
         return dt;
     }
 
     /**
-     * 
-     * @param dt
-     *     The dt
+     * @param dt The dt
      */
     public void setDt(Integer dt) {
         this.dt = dt;
     }
 
     /**
-     * 
-     * @return
-     *     The main
+     * @return The main
      */
     public Main1 getMain() {
         return main;
     }
 
     /**
-     * 
-     * @param main
-     *     The main
+     * @param main The main
      */
     public void setMain(Main1 main) {
         this.main = main;
     }
 
     /**
-     * 
-     * @return
-     *     The weather
+     * @return The weather
      */
     public java.util.List<Weather> getWeather() {
         return weather;
     }
 
     /**
-     * 
-     * @param weather
-     *     The weather
+     * @param weather The weather
      */
     public void setWeather(java.util.List<Weather> weather) {
         this.weather = weather;
     }
 
     /**
-     * 
-     * @return
-     *     The clouds
+     * @return The clouds
      */
     public Clouds getClouds() {
         return clouds;
     }
 
     /**
-     * 
-     * @param clouds
-     *     The clouds
+     * @param clouds The clouds
      */
     public void setClouds(Clouds clouds) {
         this.clouds = clouds;
     }
 
     /**
-     * 
-     * @return
-     *     The wind
+     * @return The wind
      */
     public Wind getWind() {
         return wind;
     }
 
     /**
-     * 
-     * @param wind
-     *     The wind
+     * @param wind The wind
      */
     public void setWind(Wind wind) {
         this.wind = wind;
     }
 
     /**
-     * 
-     * @return
-     *     The rain
+     * @return The rain
      */
     public Rain getRain() {
         return rain;
     }
 
     /**
-     * 
-     * @param rain
-     *     The rain
+     * @param rain The rain
      */
     public void setRain(Rain rain) {
         this.rain = rain;
     }
 
     /**
-     * 
-     * @return
-     *     The sys
+     * @return The sys
      */
     public Sys getSys() {
         return sys;
     }
 
     /**
-     * 
-     * @param sys
-     *     The sys
+     * @param sys The sys
      */
     public void setSys(Sys sys) {
         this.sys = sys;
     }
 
     /**
-     * 
-     * @return
-     *     The dt_txt
+     * @return The dt_txt
      */
     public String getDtTxt() {
         return dt_txt;
     }
 
     /**
-     * 
-     * @param dt_txt
-     *     The dt_txt
+     * @param dt_txt The dt_txt
      */
     public void setDtTxt(String dt_txt) {
         this.dt_txt = dt_txt;

@@ -35,7 +35,7 @@ public class ButlerMediumTextView extends TextView {
     private void setFont() {
 
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/Butler_Medium.otf");
-       // setTypeface(font, Typeface.ITALIC);
+        // setTypeface(font, Typeface.ITALIC);
     }
 
 }

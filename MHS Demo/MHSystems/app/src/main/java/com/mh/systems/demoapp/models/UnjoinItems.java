@@ -19,54 +19,42 @@ public class UnjoinItems {
     private String Data;
 
     /**
-     * 
-     * @return
-     *     The message
+     * @return The message
      */
     public String getMessage() {
         return Message;
     }
 
     /**
-     * 
-     * @param Message
-     *     The Message
+     * @param Message The Message
      */
     public void setMessage(String Message) {
         this.Message = Message;
     }
 
     /**
-     * 
-     * @return
-     *     The Result
+     * @return The Result
      */
     public Integer getResult() {
         return Result;
     }
 
     /**
-     * 
-     * @param result
-     *     The Result
+     * @param result The Result
      */
     public void setResult(Integer result) {
         this.Result = Result;
     }
 
     /**
-     * 
-     * @return
-     *     The CompEligiblePlayersData
+     * @return The CompEligiblePlayersData
      */
     public String getData() {
         return Data;
     }
 
     /**
-     * 
-     * @param Data
-     *     The CompEligiblePlayersData
+     * @param Data The CompEligiblePlayersData
      */
     public void setData(String data) {
         this.Data = Data;

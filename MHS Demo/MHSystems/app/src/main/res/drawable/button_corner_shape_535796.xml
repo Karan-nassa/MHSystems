@@ -2,9 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <corners
-        android:radius="10dp"
-        />
+    <corners android:radius="10dp" />
 
     <!-- GRADIENT -->
 
@@ -13,7 +11,7 @@
         android:type="linear"
         android:startColor="@color/color535796a"
         android:centerColor="@color/color535796a"
-        android:endColor="@color/color535796a"/>
+        android:endColor="@color/color535796a" />
 
 
     <!-- BORDER LINE -->
