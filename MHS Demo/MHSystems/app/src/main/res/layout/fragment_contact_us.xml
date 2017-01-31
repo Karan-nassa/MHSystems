@@ -120,7 +120,7 @@
                     <com.mh.systems.demoapp.customfonts.RobotoTextView
                         android:id="@+id/tvAddress"
                         style="@style/MyDetailValues"
-                        android:layout_width="350dp" />
+                        android:layout_width="250dp" />
 
                 </LinearLayout>
 

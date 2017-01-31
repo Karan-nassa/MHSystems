@@ -22,10 +22,6 @@
                 android:layout_margin="16dp"
                 android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp" />
-
 
                 <!-- GOLF CLUB LOGO -->
 
@@ -34,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="20dp" />
+                   />
 
                 <!-- TITLE TELEPHONE -->
 
@@ -120,7 +116,7 @@
                     <com.mh.systems.hartsbourne.customfonts.RobotoTextView
                         android:id="@+id/tvAddress"
                         style="@style/MyDetailValues"
-                        android:layout_width="350dp" />
+                        android:layout_width="250dp" />
 
                 </LinearLayout>
 
