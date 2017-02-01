@@ -346,7 +346,6 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
-     * @param type      : WEATHER OR FORCEAST
      * @param aClientId : Club ID like 44071043 for Demo App.
      * @param aHour     : Time hour in running device.
      * @param response  : Weather api response in JSON format.
@@ -364,5 +363,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void contactUs(@Body ContactUsAPI contactUsAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of TOP UP prices list web service declaration.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param aClientId     : Client ID.
+     * @param aMemberId     : Member ID.
+     * @param response      : Top Up Price list.
+     */
+    @GET("/api/ApifsiGateway/TopUps")
+    public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
 }
 

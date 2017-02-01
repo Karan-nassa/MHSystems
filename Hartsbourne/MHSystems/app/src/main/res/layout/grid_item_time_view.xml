@@ -9,9 +9,9 @@
         android:layout_height="35dp"
         android:layout_margin="10dp"
         android:layout_weight="33"
+        android:textAllCaps="false"
         android:background="@drawable/ic_time_buttone4e4e4"
-        android:text="10:00 AM"
-        android:textColor="#000"
+        android:textColor="@color/colorBlack000000"
         android:textSize="14sp" />
 
 </LinearLayout>

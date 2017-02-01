@@ -186,6 +186,16 @@
             android:name="com.mh.systems.sandylodge.activites.WeatherDetailActivity"
             android:screenOrientation="portrait" />
 
+        <!-- TOP UP PAYMENTS -->
+
+        <activity
+            android:name=".activites.MakePaymentWebActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activites.TopUpActivity"
+            android:screenOrientation="portrait" />
+
         <!-- FRIENDS INFO -->
 
         <activity

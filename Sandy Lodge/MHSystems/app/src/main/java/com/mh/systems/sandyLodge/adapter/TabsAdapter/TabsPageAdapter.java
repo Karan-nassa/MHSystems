@@ -10,9 +10,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.mh.systems.sandylodge.activites.BaseActivity;
 import com.mh.systems.sandylodge.activites.YourAccountActivity;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.fragments.ContactUsFragment;
 import com.mh.systems.sandylodge.fragments.EligibleFriendsFragment;
 import com.mh.systems.sandylodge.fragments.EligibleMemberFragment;
 import com.mh.systems.sandylodge.fragments.FinanceFragment;
@@ -20,6 +20,7 @@ import com.mh.systems.sandylodge.fragments.FriendsFragment;
 import com.mh.systems.sandylodge.fragments.HandicapFragment;
 import com.mh.systems.sandylodge.fragments.MembersFragment;
 import com.mh.systems.sandylodge.fragments.MyDetailsFragment;
+import com.mh.systems.sandylodge.fragments.NoInternetFragment;
 
 
 /**
@@ -50,12 +51,11 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * @param NumOfTabs
      * @param iFromWhat
      */
-    public TabsPageAdapter(FragmentManager fm, int NumOfTabs, int iFromWhat) {
+   /* public TabsPageAdapter(FragmentManager fm, int NumOfTabs, int iFromWhat) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.iFromWhat = iFromWhat;
-    }
-
+    }*/
     public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat) {
         super(supportFragmentManager);
         this.mNumOfTabs = NumOfTabs;
@@ -78,27 +78,30 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        switch (iFromWhat) {
-            case ApplicationGlobal.POSITION_COURSE_DIARY:
-                return loadCourseDiaryTabs(position);
+        if (((BaseActivity) context).isOnline(context)) {
 
-            case ApplicationGlobal.POSITION_COMPETITIONS:
-                return loadCompetitionsEvent(position);
+            switch (iFromWhat) {
+                case ApplicationGlobal.POSITION_COURSE_DIARY:
+                    return loadCourseDiaryTabs(position);
 
-            case ApplicationGlobal.POSITION_MY_ACCOUNT:
-                if(isHandicapAvailable){
-                    return loadMyAccountTabsWithHCap(position);
-                }else {
-                    return loadMyAccountTabsWithoutHCap(position);
-                }
+                case ApplicationGlobal.POSITION_COMPETITIONS:
+                    return loadCompetitionsEvent(position);
 
-            case ApplicationGlobal.POSITION_MEMBERS:
-                return loadMembersTab(position);
+                case ApplicationGlobal.POSITION_MY_ACCOUNT:
+                    if (isHandicapAvailable) {
+                        return loadMyAccountTabsWithHCap(position);
+                    } else {
+                        return loadMyAccountTabsWithoutHCap(position);
+                    }
 
-            case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
-                return loadMembersBookingTab(position);
+                case ApplicationGlobal.POSITION_MEMBERS:
+                    return loadMembersTab(position);
+
+                case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
+                    return loadMembersBookingTab(position);
+            }
         }
-        return null;
+        return new NoInternetFragment();
     }
 
     /**
@@ -130,7 +133,6 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
      * Load MEMBERS Tabs i.e
      * <br> 1. Members
      * <br> 2. Friends
-     * <br> 3. Contact Us
      * <p/>
      *
      * @param iPosition
@@ -147,15 +149,10 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 FriendsFragment friendsFragment = new FriendsFragment();
                 return friendsFragment;
 
-            case 2:
-                ContactUsFragment contactUsFragment = new ContactUsFragment();
-                return contactUsFragment;
-
             default:
                 return null;
         }
     }
-
 
     /**
      * Load My Account tabs i.e
@@ -178,7 +175,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
             case 1:
                 fragment = new HandicapFragment();
-                break;
+               break;
 
             case 2:
                 fragment = new FinanceFragment();

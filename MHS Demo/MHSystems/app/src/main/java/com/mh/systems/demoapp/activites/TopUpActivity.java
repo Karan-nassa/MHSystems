@@ -311,6 +311,7 @@ public class TopUpActivity extends BaseActivity {
                     public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
                         updateSuccessResponse(jsonObject);
+                        llMainGroup.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -320,6 +321,7 @@ public class TopUpActivity extends BaseActivity {
                         hideProgress();
                         //showAlertMessage("" + getResources().getString(R.string.error_please_retry));
                         showNoTopUpView(false);
+                        llMainGroup.setVisibility(View.INVISIBLE);
                     }
                 });
     }

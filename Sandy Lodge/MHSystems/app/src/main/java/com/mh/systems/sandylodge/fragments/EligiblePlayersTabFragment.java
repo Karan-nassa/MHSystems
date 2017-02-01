@@ -104,7 +104,9 @@ public class EligiblePlayersTabFragment extends Fragment {
 
         viewPager = (ViewPager) viewRootFragment.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
-                (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MEMBERS_BOOKING);
+                (getActivity(),
+                        getActivity().getSupportFragmentManager(),
+                        tabLayout.getTabCount(), ApplicationGlobal.POSITION_MEMBERS_BOOKING);
         viewPager.setAdapter(pageAdapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

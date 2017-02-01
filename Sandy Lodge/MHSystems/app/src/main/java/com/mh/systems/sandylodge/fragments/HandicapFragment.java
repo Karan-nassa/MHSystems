@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -200,38 +201,48 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser /*&& isClassVisible*/) {
-            callHandicapWebService();
+//            callHandicapWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(8);
-        }
+            ((YourAccountActivity) getActivity()).setiOpenTabPosition(1);
+
+            /**
+             *  Check internet connection before hitting server request.
+             */
+            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                requestHandicapGraph();
+                // ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+                // llHandicapGroup.setVisibility(View.VISIBLE);
+            } else {
+                //((AccountActivity) getActivity()).updateHasInternetUI(false);
+                // llHandicapGroup.setVisibility(View.GONE);
+            }
     }
+}
 
     /**
      * Implements a method to call HANDICAP web service to get
      * data from server.
      */
-    private void callHandicapWebService() {
+   /* private void callHandicapWebService() {
 
-        try {
-            /**
-             *  Check internet connection before hitting server request.
-             */
-            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                requestCompetitionsEvents();
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-                llHandicapGroup.setVisibility(View.VISIBLE);
-            } else {
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-                llHandicapGroup.setVisibility(View.GONE);
-            }
-        }catch (Exception exp){
+        *//**
+ *  Check internet connection before hitting server request.
+ *//*
+        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            requestCompetitionsEvents();
+            // ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+            // llHandicapGroup.setVisibility(View.VISIBLE);
+        } else {
+            //((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+            // llHandicapGroup.setVisibility(View.GONE);
         }
-    }
+    }*/
 
     /**
      * Implement a method to hit HANDICAP
      * web service to get response.
      */
-    public void requestCompetitionsEvents() {
+    public void requestHandicapGraph() {
 
         ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
@@ -302,11 +313,11 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 alHandicapData.add(handicapResultItems.getData());
 
                 if (alHandicapData.get(0).getHCapRecords().size() == 0) {
-                    ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(false);
+                    //((AccountActivity) getActivity()).updateNoCompetitionsUI(false);
                     // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                     llMonthNavigationGroup.setVisibility(View.GONE);
                 } else {
-                    ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(true);
+                    //((AccountActivity) getActivity()).updateNoCompetitionsUI(true);
 
                     tvHandicapExact.setText(alHandicapData.get(0).getHCapExactStr());
                     tvHandicapPlaying.setText(alHandicapData.get(0).getHCapPlayStr());
@@ -363,7 +374,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                     //Log.e(LOG_TAG, "arrayListCourseData : " + hCapRecordsList.size());
                 }
             } else {
-                ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(false);
+                // ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(false);
                 //If web service not respond in any case.
                 // ((BaseActivity) getActivity()).showAlertMessage(handicapResultItems.getMessage());
             }
@@ -373,6 +384,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
+            ((BaseActivity) getActivity()).hideProgress();
         }
     }
 
@@ -585,5 +597,4 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         ivPreviousYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivPreviousYearGraph);
         ivNextYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivNextYearGraph);
     }
-
 }

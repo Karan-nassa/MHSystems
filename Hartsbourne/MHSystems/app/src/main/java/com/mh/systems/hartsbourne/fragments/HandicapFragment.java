@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -87,7 +88,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * INSTANCES OF CLASSES
      *******************************/
     View viewRootFragment;
-    TextView tvHandicapExact, tvHandicapPlaying;// tvHandicapType;
+    TextView tvHandicapExact, tvHandicapPlaying;
     Button btShowCertificate;
     ImageView ivNextYearGraph, ivPreviousYearGraph;
     TextView tvDateOfPlayedStr, tvTitleOfPlayStr, tvTypeOfPlayStr;
@@ -164,13 +165,6 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
         setHasOptionsMenu(true);
 
-        //Check Internet connection and hit web service only on first time.
-       /* isClassVisible = true;
-        if (isClassVisible) {
-            callHandicapWebService();
-            ((YourAccountActivity) getActivity()).updateFilterIcon(8);
-        }*/
-
         btShowCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,31 +193,17 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser /*&& isClassVisible*/) {
-            callHandicapWebService();
+        if (isVisibleToUser) {
+
             ((YourAccountActivity) getActivity()).updateFilterIcon(8);
-        }
-    }
+            ((YourAccountActivity) getActivity()).setiOpenTabPosition(1);
 
-    /**
-     * Implements a method to call HANDICAP web service to get
-     * data from server.
-     */
-    private void callHandicapWebService() {
-
-        try {
             /**
              *  Check internet connection before hitting server request.
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                requestCompetitionsEvents();
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-                llHandicapGroup.setVisibility(View.VISIBLE);
-            } else {
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-                llHandicapGroup.setVisibility(View.GONE);
+                requestHandicapGraph();
             }
-        }catch (Exception exp){
         }
     }
 
@@ -231,7 +211,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
      * Implement a method to hit HANDICAP
      * web service to get response.
      */
-    public void requestCompetitionsEvents() {
+    public void requestHandicapGraph() {
 
         ((BaseActivity) getActivity()).showPleaseWait("Loading...");
 
@@ -302,15 +282,12 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
                 alHandicapData.add(handicapResultItems.getData());
 
                 if (alHandicapData.get(0).getHCapRecords().size() == 0) {
-                    ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(false);
-                    // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
                     llMonthNavigationGroup.setVisibility(View.GONE);
                 } else {
-                    ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(true);
+                    //((AccountActivity) getActivity()).updateNoCompetitionsUI(true);
 
                     tvHandicapExact.setText(alHandicapData.get(0).getHCapExactStr());
                     tvHandicapPlaying.setText(alHandicapData.get(0).getHCapPlayStr());
-                    // tvHandicapType.setText(alHandicapData.get(0).getHCapTypeStr());
 
                     //JsonParser parser = new JsonParser();
                     //JsonObject responseObj = parser.parse(String.valueOf(jsonObject)).getAsJsonObject();
@@ -359,13 +336,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
                     //setCompResultData(10, handicapData.get(0).getHCapRecordses());
                     refreshGraph();
-
-                    //Log.e(LOG_TAG, "arrayListCourseData : " + hCapRecordsList.size());
                 }
-            } else {
-                ((YourAccountActivity) getActivity()).updateNoCompetitionsUI(false);
-                //If web service not respond in any case.
-                // ((BaseActivity) getActivity()).showAlertMessage(handicapResultItems.getMessage());
             }
 
             //Dismiss progress dialog.
@@ -373,6 +344,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
+            ((BaseActivity) getActivity()).hideProgress();
         }
     }
 
@@ -391,7 +363,6 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
 
     @Override
     public void onNothingSelected() {
-        // TODO Auto-generated method stub
     }
 
     /**
@@ -442,16 +413,11 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         set1.setLineWidth(2f);
         set1.setCircleRadius(5f);
 
-        //For dot on graph.
-        // set1.setCircleColorHole(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
-
         set1.setColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
         set1.setValueTextColor(Color.TRANSPARENT);
         set1.setCircleColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
 
         set1.setDrawFilled(true);
-//         set1.setFillColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
-//         set1.setCircleColor(ContextCompat.getColor(getActivity(), R.color.colorEF8176));
         Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_graph_shade);
         set1.setFillDrawable(drawable);
 
@@ -486,9 +452,6 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
             // if disabled, scaling can be done on x- and y-axis separately
             mChart.setPinchZoom(false);
 
-            // set an alternative background color
-            // mChart.setBackgroundColor(Color.GRAY);
-
             // create a custom MarkerView (extend MarkerView) and specify the layout
             // to use for it
             mv = new MyMarkerView(getActivity(), R.layout.graph_marker_view, jsonObjectArrayList.get(mYearIndex));
@@ -509,26 +472,12 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
             leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
             leftAxis.setEnabled(true);
             leftAxis.setDrawGridLines(false);
-            // leftAxis.setAxisMaxValue(30);
 
             YAxis rightAxis = mChart.getAxisRight();
             rightAxis.setEnabled(false);
 
             // add data
             set_Data(jsonObjectArrayList.get(mYearIndex).size(), jsonObjectArrayList.get(mYearIndex));
-
-            // // restrain the maximum scale-out factor
-            // mChart.setScaleMinima(3f, 3f);
-            //
-            // // center the view to a specific position inside the chart
-            // mChart.centerViewPort(10, 50);
-
-            // get the legend (only possible after ic_home_settings data)
-            Legend l = mChart.getLegend();
-
-            // modify the legend ...
-//         l.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-//          l.setForm(Legend.LegendForm.LINE);
 
             // dont forget to refresh the drawing
             mChart.invalidate();
@@ -565,7 +514,6 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     private void initializeResources() {
         tvHandicapExact = (TextView) viewRootFragment.findViewById(R.id.tvHandicapExact);
         tvHandicapPlaying = (TextView) viewRootFragment.findViewById(R.id.tvHandicapPlaying);
-        //  tvHandicapType = (TextView) viewRootFragment.findViewById(R.id.tvHandicapType);
         tvDateOfPlayedStr = (TextView) viewRootFragment.findViewById(R.id.tvDateOfPlayedStr);
         tvTitleOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTitleOfPlayStr);
         tvTypeOfPlayStr = (TextView) viewRootFragment.findViewById(R.id.tvTypeOfPlayStr);
@@ -585,5 +533,4 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         ivPreviousYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivPreviousYearGraph);
         ivNextYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivNextYearGraph);
     }
-
 }
