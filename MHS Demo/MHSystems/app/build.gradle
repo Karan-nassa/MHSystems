@@ -70,6 +70,8 @@ dependencies {
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     //Compile dependency of Retrofit.
     compile 'com.squareup.retrofit:retrofit:1.9.0'
+    //To display image in circle.
+    compile 'de.hdodenhof:circleimageview:1.3.0'
     //Facebook round circle image preview.
     compile 'com.facebook.fresco:fresco:0.8.0'
     //Members list Alphabetical in new style like contacts dependency.

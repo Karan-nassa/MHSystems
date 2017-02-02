@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -116,7 +115,6 @@ public class DashboardActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(DashboardActivity.this); //Initialize facebook Fresco for round profile pic.
         setContentView(R.layout.activity_dashboard);
 
         /**
@@ -422,8 +420,6 @@ public class DashboardActivity extends BaseActivity {
                     public void failure(RetrofitError error) {
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
-
-                        //callWeatherService();
                     }
                 });
     }

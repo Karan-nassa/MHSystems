@@ -111,7 +111,9 @@ public class MembersTabFragment extends Fragment {
 
         viewPager = (ViewPager) viewRootFragment.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
-                (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MEMBERS);
+                (getActivity(),
+                        getActivity().getSupportFragmentManager(),
+                        tabLayout.getTabCount(), ApplicationGlobal.POSITION_MEMBERS);
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

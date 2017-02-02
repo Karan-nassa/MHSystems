@@ -423,8 +423,6 @@ public class DashboardActivity extends BaseActivity {
                     public void failure(RetrofitError error) {
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
-
-                        callWeatherService();
                     }
                 });
     }

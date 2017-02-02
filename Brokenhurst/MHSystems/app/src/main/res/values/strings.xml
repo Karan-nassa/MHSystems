@@ -13,6 +13,7 @@
     <string name="error_no_data_found">No Data Found</string>
     <string name="error_no_member">No Members found</string>
     <string name="error_no_friend">No Friends found</string>
+    <string name="error_no_top_up">No Top Up range found</string>
     <string name="error_select_different_month">Select different month</string>
     <string name="error_check_internet">Please check your internet connectivity and try again</string>
     <string name="error_no_data">No Data found</string>
@@ -287,5 +288,18 @@
     <string name="text_contact_Secretariat">01344 621681</string>
 
     <!-- ~~ END CONTACT US ~~ -->
+
+    <!-- TOP UP -->
+    <string name="text_title_topup">Top Up</string>
+    <string name="text_title_amount">Amount</string>
+    <string name="text_title_your_balance">Your balance will be </string>
+    <string name="button_title_make_payment">Make Payment Now</string>
+    <string name="error_enter_topup">Please enter top up amount</string>
+
+    <!-- MAKE PAYMENT WEB  -->
+    <string name="alert_title_payment_success">Payment Successful</string>
+    <string name="alert_title_payment_failure">Payment Failure</string>
+    <string name="text_title_new_balance">Your new balance is </string>
+    <string name="error_title_try_again">Please try again</string>
 
 </resources>

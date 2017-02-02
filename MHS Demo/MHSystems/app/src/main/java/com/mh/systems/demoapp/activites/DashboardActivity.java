@@ -3,7 +3,6 @@ package com.mh.systems.demoapp.activites;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -27,9 +25,9 @@ import com.mh.systems.demoapp.models.DeleteToken.AJsonParamsDeleteToken;
 import com.mh.systems.demoapp.models.DeleteToken.DeleteTokenAPI;
 import com.mh.systems.demoapp.models.DeleteToken.DeleteTokenResult;
 import com.mh.systems.demoapp.models.UnreadNewsCount.AJsonParamsGetUnreadCount;
-import com.mh.systems.demoapp.models.UnreadNewsCount.UnreadNewsCountData;
 import com.mh.systems.demoapp.models.UnreadNewsCount.GetUnreadNewsCountAPI;
 import com.mh.systems.demoapp.models.UnreadNewsCount.GetUnreadNewsResponse;
+import com.mh.systems.demoapp.models.UnreadNewsCount.UnreadNewsCountData;
 import com.mh.systems.demoapp.models.weather.WeatherApiResponse;
 import com.mh.systems.demoapp.push.QuickstartPreferences;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
@@ -142,7 +140,6 @@ public class DashboardActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(DashboardActivity.this); //Initialize facebook Fresco for round profile pic.
         setContentView(R.layout.activity_dashboard);
 
         /**

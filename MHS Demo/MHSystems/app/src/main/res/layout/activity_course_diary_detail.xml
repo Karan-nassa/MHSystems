@@ -42,14 +42,15 @@
 
                              &lt;!&ndash; TEAM LOGO &ndash;&gt;
 
-                             <com.facebook.drawee.view.SimpleDraweeView
-                                 android:id="@+id/ivBackgroundColor"
-                                 android:layout_width="match_parent"
-                                 android:layout_height="match_parent"
-                                 android:padding="2dp"
-                                 android:scaleType="fitCenter"
-                                 app:placeholderImage="@android:color/white"
-                                 app:roundAsCircle="true" />
+                               <de.hdodenhof.circleimageview.CircleImageView
+                         android:id="@+id/ivBackgroundColor"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:padding="2dp"
+                         android:src="@color/colorFFEF8176"
+                       />
+
+
 
                              &lt;!&ndash; LOGO OF ITEM &ndash;&gt;
 
@@ -149,8 +150,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:visibility="gone"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <!-- CALENDER ICON -->
 
@@ -180,8 +181,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:visibility="gone"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <!-- CALENDER ICON -->
 
@@ -214,9 +215,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        android:visibility="gone"
         android:clickable="true"
         android:src="@mipmap/ic_plus"
+        android:visibility="gone"
         app:backgroundTint="@color/colorC0995B"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />

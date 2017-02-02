@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="75dp"
             android:background="@color/colorD6D0C9"
             android:orientation="horizontal"
             android:weightSum="100">
@@ -27,29 +27,30 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="10dp">
 
-                    <!-- EXACT LABEL OF HANDICAP -->
+                    <!-- EXACT LABEL OF CARD BALANCE -->
 
-                    <TextView
+                    <com.mh.systems.brokenhurst.customfonts.RobotoTextView
                         android:id="@+id/tvLabelCardBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.4"
                         android:text="Card Balance"
                         android:textColor="@color/color1E1E1C"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
 
-                    <!-- EXACT LABEL VALUE OF HANDICAP -->
+                    <!-- EXACT LABEL VALUE OF CARD BALANCE -->
 
-                    <TextView
+                    <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
                         android:id="@+id/tvCardBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
                         android:textColor="@color/color1E1E1C"
                         android:textSize="19sp" />
 
@@ -67,43 +68,97 @@
 
             </FrameLayout>
 
-            <!-- PLAYING VIEW OF HANDICAP -->
+            <!-- PLAYING VIEW OF CURRENT INVOICE -->
 
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="50">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="10dp">
 
-                    <!-- CURRENT INVOICE -->
+                    <!-- LABEL OF CURRENT INVOICE -->
 
-                    <TextView
+                    <com.mh.systems.brokenhurst.customfonts.RobotoTextView
                         android:id="@+id/tvLabelYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.4"
-                        android:text="Current Invoice"
+                        android:text="Your Invoices"
                         android:textColor="@color/color1E1E1C"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
 
-                    <!-- CURRENT INVOICE VALUE -->
+                    <!-- LABEL VALUE OF CURRENT INVOICE -->
 
-                    <TextView
+                    <com.mh.systems.brokenhurst.customfonts.RobotoMediumTextView
                         android:id="@+id/tvYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
                         android:text="0 Pending"
                         android:textColor="@color/color1E1E1C"
                         android:textSize="19sp" />
 
                 </LinearLayout>
+
+
+                <!-- DIVIDER LINE  -->
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color8F8E94" />
+
+            </FrameLayout>
+
+            <!-- TYPE VIEW OF CARD/TOP UP -->
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="33">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <!-- TYPE LABEL -->
+
+                    <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.4"
+                        android:text="Card"
+                        android:textColor="@color/color1E1E1C"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btTopUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_shape_d6d0c9"
+                        android:text="TOP UP"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBlack000000"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
             </FrameLayout>
 
         </LinearLayout>
@@ -127,6 +182,7 @@
             android:id="@+id/lvTransactionList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:overScrollMode="never"
             android:cacheColorHint="@color/colorF9F8F7"
             android:divider="@color/colorE8E2DD"
             android:dividerHeight="0dp" />

@@ -14,15 +14,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 
 import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
 import com.mh.systems.porterspark.constants.WebAPI;
-import com.mh.systems.porterspark.fragments.MyDetailsFragment;
+import com.mh.systems.porterspark.models.AJsonParamsMembersDatail;
+import com.mh.systems.porterspark.models.MembersDetailAPI;
 import com.mh.systems.porterspark.models.MembersDetailsData;
+import com.mh.systems.porterspark.models.MembersDetailsItems;
 import com.mh.systems.porterspark.models.TogglePrivacy.AJsonParamsToggle;
 import com.mh.systems.porterspark.models.TogglePrivacy.TogglePrivacyAPI;
 import com.mh.systems.porterspark.models.TogglePrivacy.TogglePrivacyResponse;
@@ -53,18 +55,20 @@ public class EditToggleDetailActivity extends BaseActivity {
     Button btEmailMembers, btEmailFriends, btEmailPrivate;
     Button btAddressMembers, btAddressFriends, btAddressPrivate;
 
-    MembersDetailsData membersDetailsData;
-
-    private Intent intent;
+    LinearLayout llEditTogleGroup;
 
     TogglePrivacyAPI togglePrivacyAPI;
     AJsonParamsToggle aJsonParamsToggle;
 
     TogglePrivacyResponse togglePrivacyResponse;
 
+    MembersDetailsData membersDetailsData;
+    MembersDetailAPI membersDetailAPI;
+    AJsonParamsMembersDatail aJsonParamsMembersDatail;
+    MembersDetailsItems membersDetailItems;
+
     boolean isUpdateToSave = false;
     String strMobilePrivacy, strHomePrivacy, strWorkPrivacy, strEMailPrivacy, strAddressPrivacy;
-    private String strTelNoMob, strTelWork, strTelHome, strEmailOfPerson, strAddressOfPerson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +77,17 @@ public class EditToggleDetailActivity extends BaseActivity {
 
         initViewResources();
 
-        //Refresh tab data when go back from this screen.
-        MyDetailsFragment.shouldRefresh = true;
+        //Initially hide whole view group.
+        llEditTogleGroup.setVisibility(View.GONE);
+
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (isOnline(EditToggleDetailActivity.this)) {
+            getMemberDetailService();
+        } else {
+            showErrorMessage(getString(R.string.error_server_problem));
+        }
 
         if (tbEditToggleDetail != null) {
             setSupportActionBar(tbEditToggleDetail);
@@ -104,7 +117,7 @@ public class EditToggleDetailActivity extends BaseActivity {
                 if (isUpdateToSave) {
                     showAlertSave();
                 } else {
-                    intent = new Intent(EditToggleDetailActivity.this, EditDetailsActivity.class);
+                    Intent intent = new Intent(EditToggleDetailActivity.this, EditDetailsActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -163,17 +176,13 @@ public class EditToggleDetailActivity extends BaseActivity {
 
         tbEditToggleDetail = (Toolbar) findViewById(R.id.tbEditToggleDetail);
 
+        llEditTogleGroup = (LinearLayout) findViewById(R.id.llEditTogleGroup);
+
         tvMobile = (TextView) findViewById(R.id.tvMobile);
         tvWork = (TextView) findViewById(R.id.tvWork);
         tvHome = (TextView) findViewById(R.id.tvHome);
         tvEmail = (TextView) findViewById(R.id.tvEmail);
         tvAddress = (TextView) findViewById(R.id.tvAddress);
-
-        /**
-         * Get Members detail data from SharedPreference.
-         **/
-        membersDetailsData = loadPreferencesJson("YOUR_DETAILS_DATA");
-        updateUI();
     }
 
     /*************************** START OF UPDATE PRIVACY SETTINGS OF MEMBER SERVICE ***************************/
@@ -192,7 +201,8 @@ public class EditToggleDetailActivity extends BaseActivity {
     }
 
     /**
-     * Implements a method to hit update Privacy Settings service.
+     * Implements a method to hit update Privacy
+     * Settings service.
      */
     private void updatePrivacySettings() {
 
@@ -402,11 +412,11 @@ public class EditToggleDetailActivity extends BaseActivity {
             onAddressPrivacy(btAddressPrivate);
         }
 
-        strTelNoMob = membersDetailsData.getContactDetails().getTelNoMob();
-        strTelWork = membersDetailsData.getContactDetails().getTelNoWork();
-        strTelHome = membersDetailsData.getContactDetails().getTelNoHome();
-        strEmailOfPerson = membersDetailsData.getContactDetails().getEMail();
-        strAddressOfPerson = membersDetailsData.getContactDetails().getAddress().getLine1();
+        String strTelNoMob = membersDetailsData.getContactDetails().getTelNoMob();
+        String strTelWork = membersDetailsData.getContactDetails().getTelNoWork();
+        String strTelHome = membersDetailsData.getContactDetails().getTelNoHome();
+        String strEmailOfPerson = membersDetailsData.getContactDetails().getEMail();
+        String strAddressOfPerson = membersDetailsData.getContactDetails().getAddress().getLine1();
 
         tvMobile.setText(strTelNoMob);
         tvWork.setText(strTelWork);
@@ -652,6 +662,120 @@ public class EditToggleDetailActivity extends BaseActivity {
 
                 strAddressPrivacy = btAddressPrivate.getText().toString();
                 break;
+        }
+    }
+
+    /*************************** START OF GET MEMBER DETAIL SERVICE ***************************/
+
+    /**
+     * Implement a method to hit Members Detail
+     * web service to get response.
+     */
+    public void getMemberDetailService() {
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
+        aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsMembersDatail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsMembersDatail.setMemberid(getMemberId());
+        aJsonParamsMembersDatail.setLoginMemberId(getMemberId());
+
+        membersDetailAPI = new MembersDetailAPI((getClientId()),
+                "GETMEMBER",
+                aJsonParamsMembersDatail,
+                ApplicationGlobal.TAG_GCLUB_WEBSERVICES,
+                ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getMembersDetail(membersDetailAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, Response response) {
+
+                getDetailSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+                showErrorMessage("" + getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void getDetailSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<MembersDetailsItems>() {
+        }.getType();
+        membersDetailItems = new Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
+
+                if (membersDetailItems.getData() != null) {
+                    llEditTogleGroup.setVisibility(View.VISIBLE);
+
+                    membersDetailsData = membersDetailItems.getData();
+
+                    updateUI();
+                } else {
+                    llEditTogleGroup.setVisibility(View.GONE);
+                    showErrorMessage(getString(R.string.error_server_problem));
+                }
+            } else {
+                llEditTogleGroup.setVisibility(View.GONE);
+                showErrorMessage(membersDetailItems.getMessage());
+            }
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+            llEditTogleGroup.setVisibility(View.GONE);
+        }
+    }
+
+    /*************************** END OF GET MEMBER DETAIL SERVICE ***************************/
+
+    /**
+     * Implement a method to show Error message
+     * Alert Dialog.
+     */
+    public void showErrorMessage(String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(EditToggleDetailActivity.this);
+            builder.setTitle("");
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                            finish();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
     }
 }
