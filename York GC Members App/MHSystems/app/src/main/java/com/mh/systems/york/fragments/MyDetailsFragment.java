@@ -3,7 +3,6 @@ package com.mh.systems.york.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -50,8 +49,6 @@ public class MyDetailsFragment extends Fragment {
 
     String strTitileValues[];
 
-    public static boolean shouldRefresh = false;
-
     //This bool is used to stop on Edit Detail and Privacy screen to handle crash.
     private boolean isError = false;
 
@@ -92,13 +89,6 @@ public class MyDetailsFragment extends Fragment {
         //Initialize the view resources.
         initializeViewResources(mRootFragment);
 
-        //Check Internet connection and hit web service only on first time.
-       /* isClassVisible = true;
-        if (isClassVisible) {
-            callWebService();
-            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
-        }*/
-
         llViewGroup = new View[]{llUsernameOfPerson, /*llStreetOfPerson, llEmailOfPerson,*/
                 /*llMobileContactOfPerson,*/ llTypeOfPerson, llNameOfPerson};
 
@@ -109,71 +99,23 @@ public class MyDetailsFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
 
-        if (shouldRefresh) {
+        if (isVisibleToUser) {
 
-            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
+            ((YourAccountActivity) getActivity()).setiOpenTabPosition(0);
 
             /**
              *  Check internet connection before hitting server request.
              */
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-                llMyDetailGroup.setVisibility(View.VISIBLE);
+
                 requestMemberDetailService();
-            } else {
-                ((BaseActivity) getActivity()).hideProgress();
-                llMyDetailGroup.setVisibility(View.GONE);
-                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
             }
         }
     }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isVisibleToUser /*&& isClassVisible*/) {
-
-            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
-
-            ((BaseActivity) getActivity()).showPleaseWait("Loading...");
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    /**
-                     *  Check internet connection before hitting server request.
-                     */
-                    if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-                        ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-                        llMyDetailGroup.setVisibility(View.VISIBLE);
-                        requestMemberDetailService();
-                    } else {
-                        ((BaseActivity) getActivity()).hideProgress();
-                        llMyDetailGroup.setVisibility(View.GONE);
-                        ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-                    }
-                }
-            }, 5000);
-        }
-    }
-
-//   private void callWebService() {
-//            /**
-//             *  Check internet connection before hitting server request.
-//             */
-//            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-//                ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
-//                llMyDetailGroup.setVisibility(View.VISIBLE);
-//                requestMemberDetailService();
-//            } else {
-//                llMyDetailGroup.setVisibility(View.GONE);
-//                ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
-//        }
-//    }
 
     /**
      * Implement a method to hit Members Detail
@@ -181,15 +123,19 @@ public class MyDetailsFragment extends Fragment {
      */
     public void requestMemberDetailService() {
 
+        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+
         aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
         aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsMembersDatail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsMembersDatail.setMemberid(((YourAccountActivity) getActivity()).getMemberId());
         aJsonParamsMembersDatail.setLoginMemberId(((YourAccountActivity) getActivity()).getMemberId());
 
-        membersDetailAPI = new MembersDetailAPI((((YourAccountActivity) getActivity()).getClientId()), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
-
-        Log.e(LOG_TAG, "membersDetailAPI: " + membersDetailAPI);
+        membersDetailAPI = new MembersDetailAPI((((YourAccountActivity) getActivity()).getClientId()),
+                "GETMEMBER",
+                aJsonParamsMembersDatail,
+                ApplicationGlobal.TAG_GCLUB_WEBSERVICES,
+                ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -227,7 +173,7 @@ public class MyDetailsFragment extends Fragment {
 
         Type type = new TypeToken<MembersDetailsItems>() {
         }.getType();
-        membersDetailItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        membersDetailItems = new Gson().fromJson(jsonObject.toString(), type);
 
         try {
             /**
@@ -237,18 +183,22 @@ public class MyDetailsFragment extends Fragment {
 
                 if (membersDetailItems.getData() != null) {
                     ((YourAccountActivity) getActivity()).updateHasInternetUI(true);
+                    llMyDetailGroup.setVisibility(View.VISIBLE);
                     displayMembersData();
                 } else {
                     ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                    llMyDetailGroup.setVisibility(View.GONE);
                 }
             } else {
                 ((YourAccountActivity) getActivity()).updateHasInternetUI(false);
+                llMyDetailGroup.setVisibility(View.GONE);
             }
             ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             ((BaseActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
+            llMyDetailGroup.setVisibility(View.GONE);
         }
     }
 
@@ -318,16 +268,16 @@ public class MyDetailsFragment extends Fragment {
         tvMobileContactOfPerson.setText(strMobileContactOfPerson);
         tvStreetOfPerson.setText(strStreetOfPerson);
 
-        SaveUserInfoToPreference();
+        //  SaveUserInfoToPreference();
     }
 
     /**
      * Implements this method to save user information to {@link android.content.SharedPreferences} so that
      * it can retrieve later for update.
      */
-    private void SaveUserInfoToPreference() {
+   /* private void SaveUserInfoToPreference() {
         ((YourAccountActivity) getActivity()).savePreferenceList("YOUR_DETAILS_DATA", new Gson().toJson(membersDetailItems.getData()));
-    }
+    }*/
 
     /**
      * Implements a method to initialize the view

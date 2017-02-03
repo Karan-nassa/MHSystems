@@ -44,7 +44,7 @@ public class MembersTabFragment extends Fragment {
     //To Record of which SPINNER item selected "All", "Ladies" or "Gentlemen's".
     public static int iMemberType;
 
-    public static int iLastTabPosition;
+    public static int iLastTabPosition = 0;
 
     /**
      * Declare three bool instances to call api
@@ -103,6 +103,7 @@ public class MembersTabFragment extends Fragment {
 
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_memebers)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_friends)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_contact_us)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -110,7 +111,9 @@ public class MembersTabFragment extends Fragment {
 
         viewPager = (ViewPager) viewRootFragment.findViewById(R.id.pager);
         pageAdapter = new TabsPageAdapter
-                (getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MEMBERS);
+                (getActivity(),
+                        getActivity().getSupportFragmentManager(),
+                        tabLayout.getTabCount(), ApplicationGlobal.POSITION_MEMBERS);
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

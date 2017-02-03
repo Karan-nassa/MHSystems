@@ -35,12 +35,11 @@
 
             <!-- CIRCLE IMAGE AS A BACKGROUND -->
 
-            <com.facebook.drawee.view.SimpleDraweeView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                app:placeholderImage="@color/colorGreyf1f1f0"
-                app:roundAsCircle="true" />
+                android:layout_centerInParent="true"
+                android:src="@color/colorGreyf1f1f0" />
 
             <!-- VIEW TO DISPLAY 'PlayHCapStr' OF EACH MEMBER -->
 

@@ -1,7 +1,9 @@
 package com.mh.systems.york.activites;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,10 +17,11 @@ import com.mh.systems.york.constants.WebAPI;
 
 public class FinanceDetailWebActivity extends BaseActivity {
 
-    /* ++ LOCAL DATA TYPE INSTANCE DECLARATION ++ */
+     /* ++ LOCAL DATA TYPE INSTANCE DECLARATION ++ */
     String strURL;
     boolean IsTopup;
-    int iTransactionId, iMemberId;
+    int iTransactionId;
+    String strMemberId;
 
     /* ++ INSTANCES OF CLASSES ++ */
     WebView wvWebView;
@@ -35,27 +38,42 @@ public class FinanceDetailWebActivity extends BaseActivity {
 
         IsTopup = getIntent().getExtras().getBoolean("IsTopup");
         iTransactionId = getIntent().getExtras().getInt("iTransactionId");
-        iMemberId = getIntent().getExtras().getInt("iMemberId");
 
-        strURL = WebAPI.API_BASE_URL + "/webapi/ClubTransDetail?aClientId=" + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "44118078") + "&aCommand=GetAccReceipt&aJsonParams={%22MemberId%22:" + iMemberId + ",%22TranId%22:" + iTransactionId + ",%22IsTopup%22:" + IsTopup + "}&aModuleId=" + ApplicationGlobal.TAG_GCLUB_WEBSERVICES;
+        strMemberId = getIntent().getExtras().getString("strMemberId");
+
+        strURL = WebAPI.API_BASE_URL
+                + "/webapi/ClubTransDetail?aClientId="
+                + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID)
+                + "&aCommand=GetAccReceipt&aJsonParams={%22MemberId%22:"
+                + strMemberId
+                + ",%22TranId%22:"
+                + iTransactionId
+                + ",%22IsTopup%22:"
+                + IsTopup
+                + "}&aModuleId="
+                + ApplicationGlobal.TAG_GCLUB_WEBSERVICES;
 
         tbFinanceDetail = (Toolbar) findViewById(R.id.tbFinanceDetail);
         setSupportActionBar(tbFinanceDetail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Receipt Reprint");
 
-        if (strURL.length() > 0) {
-            //Load Web View URL.
-            wvWebView.setWebViewClient(new myWebClient());
-            wvWebView.getSettings().setJavaScriptEnabled(true);
-            wvWebView.getSettings().setBuiltInZoomControls(true);
-            wvWebView.getSettings().setSupportZoom(true);
-            wvWebView.setFocusableInTouchMode(false);
-            wvWebView.setFocusable(false);
-            wvWebView.loadUrl(strURL);
+        if (isOnline(FinanceDetailWebActivity.this)) {
+            if (strURL.length() > 0) {
+                //Load Web View URL.
+                wvWebView.setWebViewClient(new myWebClient());
+                wvWebView.getSettings().setJavaScriptEnabled(true);
+                wvWebView.getSettings().setBuiltInZoomControls(true);
+                wvWebView.getSettings().setSupportZoom(true);
+                wvWebView.setFocusableInTouchMode(false);
+                wvWebView.setFocusable(false);
+                wvWebView.loadUrl(strURL);
+            } else {
+                progressWebView.setVisibility(View.GONE);
+                showAlertMessage(getResources().getString(R.string.error_please_retry));
+            }
         } else {
-            progressWebView.setVisibility(View.GONE);
-            showAlertMessage(getResources().getString(R.string.error_please_retry));
+            showErrorMessage(getString(R.string.error_no_internet));
         }
     }
 
@@ -98,5 +116,28 @@ public class FinanceDetailWebActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Implement a method to show Error message
+     * Alert Dialog.
+     */
+
+    public void showErrorMessage(String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(FinanceDetailWebActivity.this);
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                            finish();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.mh.systems.york.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,12 +16,13 @@ import com.mh.systems.york.activites.YourAccountActivity;
 import com.mh.systems.york.adapter.TabsAdapter.TabsPageAdapter;
 import com.mh.systems.york.constants.ApplicationGlobal;
 
+@SuppressLint("ValidFragment")
 public class MyAccountTabFragment extends Fragment {
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = MyAccountTabFragment.class.getSimpleName();
+    public final String LOG_TAG = MyAccountTabFragment.class.getSimpleName();
 
 
     /*********************************
@@ -34,7 +36,7 @@ public class MyAccountTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public int iLastTabPosition;
+    public static int iLastTabPosition;
 
     /**
      * Declare three bool instances to call api
@@ -50,7 +52,7 @@ public class MyAccountTabFragment extends Fragment {
 
             iLastTabPosition = tab.getPosition();
 
-            ((YourAccountActivity)getActivity()).setWhichTab(tab.getPosition());
+            ((YourAccountActivity) getActivity()).setWhichTab(tab.getPosition());
         }
 
         @Override
@@ -68,6 +70,11 @@ public class MyAccountTabFragment extends Fragment {
         }
     };
 
+    @SuppressLint("ValidFragment")
+    public MyAccountTabFragment(int iOpenTabPosition) {
+        iLastTabPosition = iOpenTabPosition;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,7 +84,14 @@ public class MyAccountTabFragment extends Fragment {
         tabLayout = (TabLayout) viewRootFragment.findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_your_details)));
-        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_handicap)));
+
+        //Check is Handicap available or not!
+        boolean isHandicapFeature = ((YourAccountActivity) getActivity())
+                .loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false);
+        if (isHandicapFeature) {
+            tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_handicap)));
+        }
+
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_finances)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -87,13 +101,16 @@ public class MyAccountTabFragment extends Fragment {
 
         //  Log.e("COUNT:",""+tabLayout.getTabCount());
         pageAdapter = new TabsPageAdapter
-                (getActivity(), getActivity().getSupportFragmentManager(), tabLayout.getTabCount(), ApplicationGlobal.POSITION_MY_ACCOUNT);
+                (getActivity(), getActivity().getSupportFragmentManager(),
+                        tabLayout.getTabCount(),
+                        ApplicationGlobal.POSITION_MY_ACCOUNT,
+                        isHandicapFeature);
         viewPager.setAdapter(pageAdapter);
 
-        iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
-        ((YourAccountActivity)getActivity()).setWhichTab(iLastTabPosition);
+       // iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
+        ((YourAccountActivity) getActivity()).setWhichTab(iLastTabPosition);
         viewPager.setCurrentItem(iLastTabPosition);
-        iLastTabPosition = 0;
+        //iLastTabPosition = 0;
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -107,8 +124,6 @@ public class MyAccountTabFragment extends Fragment {
      * Implements a method to update visibility of tab.
      */
     private void setTabVisibleStatus(int iTabPosition) {
-
-        Log.e(LOG_TAG, "" + iTabPosition);
 
         switch (iTabPosition) {
             case 0:

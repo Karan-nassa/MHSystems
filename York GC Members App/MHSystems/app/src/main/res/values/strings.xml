@@ -13,6 +13,7 @@
     <string name="error_no_data_found">No Data Found</string>
     <string name="error_no_member">No Members found</string>
     <string name="error_no_friend">No Friends found</string>
+    <string name="error_no_top_up">No Top Up range found</string>
     <string name="error_select_different_month">Select different month</string>
     <string name="error_check_internet">Please check your internet connectivity and try again</string>
     <string name="error_no_data">No Data found</string>
@@ -74,6 +75,7 @@
     <string name="text_title_members">Members</string>
     <string name="tab_title_memebers">MEMBERS</string>
     <string name="tab_title_friends">FRIENDS</string>
+    <string name="tab_title_contact_us">CONTACT US</string>
     <!-- END OF MEMBERS ACTIVITY -->
 
     <!-- START OF HANDICAP GRAPH FRAGMENT -->
@@ -136,6 +138,7 @@
     <!-- ACCOUNT/SETTINGS SCREEN -->
     <string name="text_title_settings">Settings</string>
     <string name="text_title_reset_pwd">Reset Password</string>
+    <string name="text_title_contact_us">Contact Us</string>
     <string name="edit_title_current_pwd">Current password</string>
     <string name="edit_title_new_pwd">New password</string>
     <string name="edit_title_confirm_pwd">New password confirm</string>
@@ -226,5 +229,76 @@
     <string name="title_activity_member_detail">MemberDetailActivity</string>
 
     <!-- ~~ NAVIGATION DRAWER ICONS ~~ -->
+
+    <!-- FRIENDS INFO ACTIVITY -->
+    <string name="tb_title_frinds_list">Friends List</string>
+
+    <!-- ++ START CONTACT US ++ -->
+
+    <string name="text_title_telephone">TELEPHONE</string>
+    <string name="text_title_fax">FAX</string>
+    <string name="text_title_email">EMAIL</string>
+    <string name="text_title_address">ADDRESS</string>
+    <string name="text_title_department">DEPARTAMENT</string>
+
+    <string name="text_title_member_administration">Membership Administration</string>
+    <string name="text_name_member_administration">Clare Livingston</string>
+    <string name="text_email_member_administration">clarel@yorkgolfclub.co.uk</string>
+    <string name="text_contact_member_administration">01344 621681</string>
+
+    <string name="text_title_restaurant_mngr">Restaurant Manager</string>
+    <string name="text_name_rst_manager">Elaine Brace</string>
+    <string name="text_email_rst_manager">elaineb@yorkgolfclub.co.uk</string>
+    <string name="text_contact_rst_manager">01344 298013</string>
+
+    <string name="text_title_food_mngr">Food &amp; Beverage Manager</string>
+    <string name="text_name_food_mngr">Sherin George</string>
+    <string name="text_email_food_mngr">shering@yorkgolfclub.co.uk</string>
+    <string name="text_contact_food_mngr">01344 298013</string>
+
+    <string name="text_title_club_shop">Club Shop</string>
+    <string name="text_name_club_shop">Assistant Professionals</string>
+    <string name="text_email_club_shop">proshop@yorkgolfclub.co.uk</string>
+    <string name="text_contact_club_shop">01344 621681</string>
+
+    <string name="text_title_caddie_master">Caddie Master</string>
+    <string name="text_name_caddie_master">Vince Reeves</string>
+    <string name="text_email_caddie_master">caddiemaster@yorkgolfclub.co.uk</string>
+    <string name="text_contact_caddie_master">01344 626064</string>
+
+    <string name="text_title_golf_reservations">Golf Reservations</string>
+    <string name="text_name_golf_reservations">Anne Gladman</string>
+    <string name="text_email_golf_reservations">anneg@yorkgolfclub.co.uk</string>
+    <string name="text_contact_golf_reservations">01344 298006</string>
+
+    <string name="text_title_golf_op_mngr">Golf Operations Manager</string>
+    <string name="text_name_golf_op_mngr">Christian Foreman</string>
+    <string name="text_email_golf_op_mngr">christianf@yorkgolfclub.co.uk</string>
+    <string name="text_contact_golf_op_mngr">01344 298003</string>
+
+    <string name="text_title_general_mngr">General Manager</string>
+    <string name="text_name_general_mngr">Tristan Hall</string>
+    <string name="text_email_general_mngr">tristanh@yorkgolfclub.co.uk</string>
+    <string name="text_contact_general_mngr">01344 621681</string>
+
+    <string name="text_title_Secretariat">Secretariat</string>
+    <string name="text_name_Secretariat">General Enquiries</string>
+    <string name="text_email_Secretariat">info@yorkgolfclub.co.uk</string>
+    <string name="text_contact_Secretariat">01344 621681</string>
+
+    <!-- ~~ END CONTACT US ~~ -->
+
+    <!-- TOP UP -->
+    <string name="text_title_topup">Top Up</string>
+    <string name="text_title_amount">Amount</string>
+    <string name="text_title_your_balance">Your balance will be </string>
+    <string name="button_title_make_payment">Make Payment Now</string>
+    <string name="error_enter_topup">Please enter top up amount</string>
+
+    <!-- MAKE PAYMENT WEB  -->
+    <string name="alert_title_payment_success">Payment Successful</string>
+    <string name="alert_title_payment_failure">Payment Failure</string>
+    <string name="text_title_new_balance">Your new balance is </string>
+    <string name="error_title_try_again">Please try again</string>
 
 </resources>

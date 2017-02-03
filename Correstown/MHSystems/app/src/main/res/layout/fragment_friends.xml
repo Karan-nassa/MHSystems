@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- ALPHABETICAL LIST -->
+
+        <lb.library.PinnedHeaderListView
+            android:id="@+id/phlvFriends"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@color/colorF9F8F7"
+            android:background="@color/colorF9F8F7"
+            android:divider="@null"
+            android:dividerHeight="0px"
+            android:fadeScrollbars="false"
+            android:fastScrollEnabled="true"
+            android:listSelector="@drawable/list_item_alphabet_selector"
+            android:scrollingCache="false"
+            tools:listitem="@layout/list_item_alphabets_member" />
+
+    </LinearLayout>
+
+</RelativeLayout>

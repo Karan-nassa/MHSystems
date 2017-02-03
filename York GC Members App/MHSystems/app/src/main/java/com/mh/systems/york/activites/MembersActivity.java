@@ -1,6 +1,5 @@
 package com.mh.systems.york.activites;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,6 +83,12 @@ public class MembersActivity extends BaseActivity {
     Fragment fragmentInstance;
 
     /**
+     * Keep track of tab position to display
+     * info or contact us icon.
+     */
+    private int iTabPosition;
+
+    /**
      * Implements HOME icons press
      * listener.
      */
@@ -152,13 +156,13 @@ public class MembersActivity extends BaseActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        initializeMembersCategory();
-
         /**
          *  If user back press on any other tab then app should
          *  open first tab by default when opening 'MEMBERS'.
          */
         MembersTabFragment.iLastTabPosition = 0;
+
+        initializeMembersCategory();
 
         /**
          *  Setup Tool bar of Members screen with DROP-DOWN [SPINNER]
@@ -188,7 +192,25 @@ public class MembersActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_members, menu);
+
+        getMenuInflater().inflate(R.menu.menu_friends, menu);
+
+        switch (getiTabPosition()){
+            case 0:
+                //getMenuInflater().inflate(R.menu.menu_members, menu);
+                menu.getItem(1).setVisible(false);
+                break;
+
+            case 1:
+                menu.getItem(1).setVisible(true);
+                break;
+
+            case 2:
+                menu.getItem(0).setVisible(false);
+                menu.getItem(1).setVisible(false);
+                break;
+        }
+
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search), new MenuItemCompat.OnActionExpandListener() {
             @Override
@@ -243,8 +265,14 @@ public class MembersActivity extends BaseActivity {
                 return true;
 
             case R.id.action_info:
-                showAlertInfo();
+                Intent infoIntent  = new Intent(MembersActivity.this, FriendsInfoActivity.class);
+                startActivity(infoIntent);
+                //showAlertInfo();
                 return true;
+
+           /* case R.id.action_contact_us:
+                startActivity(new Intent(MembersActivity.this, ContactUsFragment.class));
+                return true;*/
         }
         return false;
     }
@@ -295,39 +323,48 @@ public class MembersActivity extends BaseActivity {
      */
     public void initializeMembersCategory() {
 
-        /**
-         * Step 1: Create a new instance of popup menu
-         */
-        popupMenu = new PopupMenu(this, tvMemberType);
+        if(MembersTabFragment.iLastTabPosition == 2){
 
-        /**
-         * Step 2: Inflate the menu resource. Here the menu resource is
-         * defined in the res/menu project folder
-         */
-        switch (MembersTabFragment.iLastTabPosition) {
-            case 0:
-                popupMenu.inflate(R.menu.members_menu);
-                updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
-                break;
+            llMemberCategory.setVisibility(View.INVISIBLE);
 
-            case 1:
-                popupMenu.inflate(R.menu.members_friends_menu);
-                setStraFriendCommand("GETLINKSTOMEMBERS");
-                setiWhichSpinnerItem(1);
-                updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
-                break;
-        }
+        }else {
 
-        //Initially display title at position 0 of R.menu.course_menu.
-        tvMemberType.setText("" + popupMenu.getMenu().getItem(0));
+            llMemberCategory.setVisibility(View.VISIBLE);
 
-        llMemberCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupMenu.show();
+            /**
+             * Step 1: Create a new instance of popup menu
+             */
+            popupMenu = new PopupMenu(this, tvMemberType);
+
+            /**
+             * Step 2: Inflate the menu resource. Here the menu resource is
+             * defined in the res/menu project folder
+             */
+            switch (MembersTabFragment.iLastTabPosition) {
+                case 0:
+                    popupMenu.inflate(R.menu.members_menu);
+                    updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
+                    break;
+
+                case 1:
+                    popupMenu.inflate(R.menu.members_friends_menu);
+                    setStraFriendCommand("GETLINKSTOMEMBERS");
+                    setiWhichSpinnerItem(1);
+                    updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
+                    break;
             }
-        });
-        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
+
+            //Initially display title at position 0 of R.menu.course_menu.
+            tvMemberType.setText(("" + popupMenu.getMenu().getItem(0)));
+
+            llMemberCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popupMenu.show();
+                }
+            });
+            popupMenu.setOnMenuItemClickListener(mCourseTypeListener);
+        }
     }
 
     /**
@@ -336,14 +373,23 @@ public class MembersActivity extends BaseActivity {
      */
     public void performSearch(final String queryText) {
 
-        if (getFragmentInstance() instanceof MembersFragment) {
-            MembersFragment.mAdapter.getFilter().filter(queryText);
-            MembersFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
-            MembersFragment.mAdapter.notifyDataSetChanged();
-        } else if (getFragmentInstance() instanceof FriendsFragment) {
-            FriendsFragment.mAdapter.getFilter().filter(queryText);
-            FriendsFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
-            FriendsFragment.mAdapter.notifyDataSetChanged();
+        switch (getiTabPosition()) {
+            case 0:
+                if (MembersFragment.mAdapter != null) {
+                    MembersFragment.mAdapter.getFilter().filter(queryText);
+                    MembersFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
+                    MembersFragment.mAdapter.notifyDataSetChanged();
+                }
+                break;
+
+            case 1: {
+                if (FriendsFragment.mAdapter != null) {
+                    FriendsFragment.mAdapter.getFilter().filter(queryText);
+                    FriendsFragment.mAdapter.setHeaderViewVisible(TextUtils.isEmpty(queryText));
+                    FriendsFragment.mAdapter.notifyDataSetChanged();
+                }
+            }
+            break;
         }
     }
 
@@ -395,30 +441,17 @@ public class MembersActivity extends BaseActivity {
     }
 
 
-    /**
-     * Implements this method Clubs would like an explanation of the 'Friends' function and
-     * an icon to display the explanation for users of the App.
-     */
-    private void showAlertInfo() {
-        // Create custom dialog object
-        final Dialog dialog = new Dialog(this);
-        // Include dialog.xml file
-        dialog.setContentView(R.layout.custom_alert_ok);
-        // Set dialog title
-        dialog.setTitle("Custom Dialog");
+    /* +++++++++++++++++++++++++ HOLD TAB POSITION FOR CONTACT US & INFO POP-UP  +++++++++++++++++++++++++ */
 
-        // set values for custom dialog components - text, image and button
-        TextView tvDescription = (TextView) dialog.findViewById(R.id.tvDescription);
-        TextView tvOk = (TextView) dialog.findViewById(R.id.tvOk);
-        dialog.show();
-
-        tvDescription.setMovementMethod(new ScrollingMovementMethod());
-
-        tvOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+    public int getiTabPosition() {
+        return iTabPosition;
     }
+
+    public void setiTabPosition(int iTabPosition) {
+        this.iTabPosition = iTabPosition;
+        invalidateOptionsMenu();
+        llPopMenuBar.setVisibility(View.VISIBLE);
+    }
+
+    /* +++++++++++++++++++++++++ HOLD TAB POSITION FOR CONTACT US & INFO POP-UP  +++++++++++++++++++++++++ */
 }

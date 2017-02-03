@@ -11,18 +11,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.york.R;
 import com.mh.systems.york.constants.ApplicationGlobal;
 import com.mh.systems.york.constants.WebAPI;
-import com.mh.systems.york.fragments.MyDetailsFragment;
+import com.mh.systems.york.models.AJsonParamsMembersDatail;
 import com.mh.systems.york.models.EditDetailMode.AJsonParamsEditDetailMode;
 import com.mh.systems.york.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.york.models.EditDetailMode.EditDetailModeResponse;
+import com.mh.systems.york.models.MembersDetailAPI;
 import com.mh.systems.york.models.MembersDetailsData;
+import com.mh.systems.york.models.MembersDetailsItems;
 import com.mh.systems.york.util.API.WebServiceMethods;
 import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
@@ -50,6 +54,8 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
     EditText etEditEmail, etEditMobile, etEditWork, etEditHome,
             etEditAddress1, etEditAddress2, etEditAddress3, etEditTown, etCounty, etEditPostCode, etEditCountry;
 
+    LinearLayout llEditDetailGroup;
+
     Typeface tfRobotoRegular;
 
     CountryPicker countryPicker;
@@ -60,6 +66,9 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
     EditDetailModeResponse editDetailModeResponse;
 
     MembersDetailsData membersDetailsData;
+    MembersDetailAPI membersDetailAPI;
+    AJsonParamsMembersDatail aJsonParamsMembersDatail;
+    MembersDetailsItems membersDetailItems;
 
     Intent intent;
 
@@ -82,10 +91,10 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        //Refresh tab data when go back from this screen.
-        MyDetailsFragment.shouldRefresh = true;
-
         initializeViews();
+
+        //Initially hide whole view group.
+        llEditDetailGroup.setVisibility(View.GONE);
 
         countryPicker = CountryPicker.newInstance("Select Country");
 
@@ -97,6 +106,15 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
                 countryPicker.getSearchEditText().setText("");
             }
         });
+
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (isOnline(EditDetailsActivity.this)) {
+            getMemberDetailService();
+        } else {
+            showErrorMessage(getString(R.string.error_server_problem));
+        }
 
         etEditCountry.setOnClickListener(this);
 
@@ -314,13 +332,9 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
         etEditPostCode = (EditText) findViewById(R.id.etEditPostCode);
         etEditCountry = (EditText) findViewById(R.id.etEditCountry);
 
-        setTypeFace();
+        llEditDetailGroup = (LinearLayout) findViewById(R.id.llEditDetailGroup);
 
-        /**
-         * Get Members detail data from SharedPreference.
-         **/
-        membersDetailsData = loadPreferencesJson("YOUR_DETAILS_DATA");
-        updateUI();
+        setTypeFace();
     }
 
     /**
@@ -366,10 +380,11 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
     private void showAlertSave() {
         // Create custom dialog object
         final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Include dialog.xml file
         dialog.setContentView(R.layout.alert_edit_detail);
         // Set dialog title
-        dialog.setTitle("Custom Dialog");
+        dialog.setTitle("");
 
         // set values for custom dialog components - text, image and button
         TextView tvCancel = (TextView) dialog.findViewById(R.id.tvCancel);
@@ -475,5 +490,119 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
             }
         }
         return true;
+    }
+
+    /*************************** START OF GET MEMBER DETAIL SERVICE ***************************/
+
+    /**
+     * Implement a method to hit Members Detail
+     * web service to get response.
+     */
+    public void getMemberDetailService() {
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
+        aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsMembersDatail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsMembersDatail.setMemberid(getMemberId());
+        aJsonParamsMembersDatail.setLoginMemberId(getMemberId());
+
+        membersDetailAPI = new MembersDetailAPI((getClientId()),
+                "GETMEMBER",
+                aJsonParamsMembersDatail,
+                ApplicationGlobal.TAG_GCLUB_WEBSERVICES,
+                ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getMembersDetail(membersDetailAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                getDetailSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+                showErrorMessage("" + getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void getDetailSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<MembersDetailsItems>() {
+        }.getType();
+        membersDetailItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
+
+                if (membersDetailItems.getData() != null) {
+                    llEditDetailGroup.setVisibility(View.VISIBLE);
+
+                    membersDetailsData = membersDetailItems.getData();
+
+                    updateUI();
+                } else {
+                    llEditDetailGroup.setVisibility(View.GONE);
+                    showErrorMessage(getString(R.string.error_server_problem));
+                }
+            } else {
+                llEditDetailGroup.setVisibility(View.GONE);
+                showErrorMessage(membersDetailItems.getMessage());
+            }
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+            llEditDetailGroup.setVisibility(View.GONE);
+        }
+    }
+
+    /*************************** END OF GET MEMBER DETAIL SERVICE ***************************/
+
+    /**
+     * Implement a method to show Error message
+     * Alert Dialog.
+     */
+    public void showErrorMessage(String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(EditDetailsActivity.this);
+            builder.setTitle("");
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                            finish();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

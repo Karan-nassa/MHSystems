@@ -1,6 +1,7 @@
 package com.mh.systems.york.activites;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +18,7 @@ import com.mh.systems.york.R;
 import com.mh.systems.york.constants.ApplicationGlobal;
 import com.mh.systems.york.constants.WebAPI;
 import com.mh.systems.york.models.ClubNews.AJsonParamsClubNewsDetail;
+import com.mh.systems.york.models.ClubNews.ClubNewsData;
 import com.mh.systems.york.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.york.models.ClubNews.ClubNewsDetailResult;
 import com.mh.systems.york.util.API.WebServiceMethods;
@@ -59,11 +61,14 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
     ClubNewsDetailResult clubNewsDetailResult;
 
+    ClubNewsData clubNewsData;
+
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
     int iClubNewsID;
     private Boolean isDelete, isRead;
+    private int iPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,15 +86,22 @@ public class ClubNewsDetailActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        tvDateOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
-        //tvTimeOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
-       // tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
-        iClubNewsID = getIntent().getExtras().getInt("ClubNewsID");
-        isRead = getIntent().getExtras().getBoolean("IsRead");
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        clubNewsData = (ClubNewsData) bundle.getSerializable("club_news_content");
+
+        if (clubNewsData != null) {
+            tvDateOfNews.setText(clubNewsData.getCreatedDate());
+            tvTimeOfNews.setText(clubNewsData.getTime());
+            iClubNewsID = clubNewsData.getClubNewsID();
+            isRead = clubNewsData.getIsRead();
+            iPosition = bundle.getInt("iPosition");
+        }
 
         //data == html data which you want to load
         wvClubNews.getSettings().setJavaScriptEnabled(true);
-        wvClubNews.loadDataWithBaseURL("", getIntent().getExtras().getString("Message"), "text/html", "UTF-8", "");
+        wvClubNews.loadDataWithBaseURL("", clubNewsData.getMessage(), "text/html", "UTF-8", "");
 
         //If user haven't read news then call READ API status.
         if (!isRead) {
@@ -110,7 +122,8 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                // finish();
+                onBackPressed();
                 break;
 
             case R.id.action_delete:
@@ -123,6 +136,19 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        Intent intent = new Intent(ClubNewsDetailActivity.this, ClubNewsActivity.class);
+        Bundle informacion = new Bundle();
+        informacion.putSerializable("IsRead", isRead);
+        informacion.putSerializable("iPosition", iPosition);
+        intent.putExtras(informacion);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     /**
@@ -219,15 +245,17 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 if (isDelete) {
                     showAlertOk("News deleted successfully.");
                 }
+                isRead = true;
             } else {
                 showAlertOk(clubNewsDetailResult.getMessage());
+                isRead = false;
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
 
-        resetValues();
+        //resetValues();
 
         //Dismiss progress dialog.
         hideProgress();

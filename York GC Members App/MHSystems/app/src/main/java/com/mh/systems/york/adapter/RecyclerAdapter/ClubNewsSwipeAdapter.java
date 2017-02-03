@@ -1,8 +1,10 @@
 package com.mh.systems.york.adapter.RecyclerAdapter;
 
+import android.app.Activity;
 import android.content.Context;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -22,6 +24,8 @@ import com.mh.systems.york.activites.ClubNewsDetailActivity;
 import com.mh.systems.york.models.ClubNews.ClubNewsData;
 
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -54,15 +58,17 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         viewHolder.tvTitleOfNews.setText(clubNewsDataArrayList.get(position).getTitle());
         viewHolder.tvTimeOfNews.setText(clubNewsDataArrayList.get(position).getCreatedDate());
 
-        if(clubNewsDataArrayList.get(position).getIsRead()){
+        if (clubNewsDataArrayList.get(position).getIsRead()) {
             viewHolder.ivReadStatus.setVisibility(View.INVISIBLE);
+        } else {
+            viewHolder.ivReadStatus.setVisibility(View.VISIBLE);
         }
 
         viewHolder.flRemoveGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                ((ClubNewsActivity)mContext).deleteClubNewsService(position, clubNewsDataArrayList.get(position).getClubNewsID());
+                ((ClubNewsActivity) mContext).deleteClubNewsService(position, clubNewsDataArrayList.get(position).getClubNewsID());
 
 //                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
 //                clubNewsDataArrayList.remove(position);
@@ -201,12 +207,13 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
 
         @Override
         public void onClick(View itemView) {
+
             Intent detailNewsIntent = new Intent(mContext, ClubNewsDetailActivity.class);
-            detailNewsIntent.putExtra("ClubNewsID", clubNewsDataArrayList.get(getAdapterPosition()).getClubNewsID());
-            detailNewsIntent.putExtra("CreatedDate", clubNewsDataArrayList.get(getAdapterPosition()).getCreatedDate());
-            detailNewsIntent.putExtra("Message", clubNewsDataArrayList.get(getAdapterPosition()).getMessage());
-            detailNewsIntent.putExtra("IsRead", clubNewsDataArrayList.get(getAdapterPosition()).getIsRead());
-            mContext.startActivity(detailNewsIntent);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("club_news_content", clubNewsDataArrayList.get(getAdapterPosition()));
+            bundle.putInt("iPosition", getAdapterPosition());
+            detailNewsIntent.putExtras(bundle);
+            ((ClubNewsActivity) mContext).startActivityForResult(detailNewsIntent, 111);            //mContext.startActivity(detailNewsIntent);
         }
     }
 }

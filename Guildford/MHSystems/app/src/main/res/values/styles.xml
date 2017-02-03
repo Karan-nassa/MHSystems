@@ -1,0 +1,157 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppThemeMaterial" parent="MyMaterialTheme.Base">
+        <item name="android:itemBackground">#FAFAFA</item>
+        <item name="android:textColor">@color/colorBlack000000</item>
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <!-- Customize your theme here. -->
+        <!-- <item name="colorPrimary">@color/colorBlack191919</item>-->
+        <item name="colorPrimary">@color/colorBlack000000</item>
+        <item name="colorPrimaryDark">@color/colorBlack000000</item>
+        <item name="colorAccent">@color/colorC0995B</item>
+
+    </style>
+
+
+    <style name="App_Theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/black_transparent</item>
+        <item name="windowNoTitle">true</item>
+        <!-- <item name="colorPrimary">@color/light_brown</item>
+         <item name="colorPrimaryDark">@color/light_brown</item>
+         <item name="colorAccent">@color/light_brown</item>-->
+
+    </style>
+
+    <!-- +++++++++++++++ SPINNER THEME START +++++++++++++++ -->
+
+    <style name="ToolbarSpinnerTheme" parent="Theme.AppCompat">
+        <item name="android:spinnerItemStyle">@style/TextAppearanceSpinnerItem</item>
+    </style>
+
+    <style name="TextAppearanceSpinnerItem">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">@color/colorWhiteffffff</item>
+    </style>
+
+    <!-- +++++++++++++++ SPINNER THEME END +++++++++++++++ -->
+
+    <!-- +++++++++++++++ SPINNER THEME START [MEMBERS LIST] +++++++++++++++ -->
+
+    <style name="MemberSpinnerTheme" parent="Theme.AppCompat">
+        <item name="android:spinnerItemStyle">@style/MemberSpinner</item>
+    </style>
+
+    <style name="MemberSpinner">
+        <item name="android:textColor">@color/colorWhiteffffff</item>
+        <item name="android:background">@color/color4B4B49</item>
+    </style>
+
+    <!-- +++++++++++++++ SPINNER THEME END [MEMBERS LIST] +++++++++++++++ -->
+
+    <!-- +++++++++++++++ START OF MEMBER LIST ALPHABETICAL THEME +++++++++++++++ -->
+
+    <style name="PinnedHeader">
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textAllCaps" tools:targetApi="ice_cream_sandwich">true</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textColor">@color/colorGreyf1f1f0</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppThemeMaterial.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppThemeMaterial.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- +++++++++++++++ END OF MEMBER LIST ALPHABETICAL THEME +++++++++++++++ -->
+
+    <!-- EXPAND TEXT STYLE OF TOOL BAR -->
+
+    <style name="CompetitionsToolExpand" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/colorWhiteffffff</item>
+        <item name="android:text">women stableford competition</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <!-- COLLAPSE TEXT STYLE OF TOOL BAR -->
+
+    <style name="CompetitionsToolCollapse" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/colorWhiteffffff</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+
+    <!-- YELLOW THEME ON COLLAPSE AND SCROLL -->
+
+    <style name="CompetitionsTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <!-- Customize your theme here. -->
+        <!-- <item name="colorPrimary">@color/colorBlack191919</item>-->
+        <item name="colorPrimary">@color/colorF6EA8C</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@android:color/holo_blue_light</item>
+    </style>
+
+
+    <!-- +++++++++++++++ START OF MY DETAIL [HEADING] +++++++++++++++ -->
+
+    <style name="MyDetailHeading">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorC0995B</item>
+        <item name="android:layout_marginTop">35dp</item>
+    </style>
+
+    <!-- ++++++++++++++  END OF MY DETAIL [HEADING]   +++++++++++++++ -->
+
+    <!-- +++++++++++++++ START OF MY DETAIL [VALUES/RECORDS] +++++++++++++++ -->
+
+    <style name="MyDetailValues">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color030303</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <!-- ++++++++++++++  END OF MY DETAIL [VALUES/RECORDS]  +++++++++++++++ -->
+
+    <!-- +++++++++++++++ START OF COURSE DIARY REDESIGN DIVIDERS IN EVENTS NAVIGATION +++++++++++++++ -->
+
+    <style name="CourseNavDividers">
+        <item name="android:layout_width">2dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end|center</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@color/colorBDB6AE</item>
+    </style>
+
+    <!-- ++++++++++++++  END OF COURSE DIARY REDESIGN DIVIDERS IN EVENTS NAVIGATION  +++++++++++++++ -->
+
+    <!-- +++++++++++++++ START OF COMPETITIONS REDESIGN TOOL BAR STYLE +++++++++++++++ -->
+
+    <style name="CompetitionsTheme.Toolbar">
+        <item name="android:textColor">@color/colorWhiteffffff</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <!-- ++++++++++++++  END OF COMPETITIONS REDESIGN TOOL BAR STYLE  +++++++++++++++ -->
+
+</resources>
+

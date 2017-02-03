@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "901131939042",
+    "project_id": "guildford-golf-club-153710"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901131939042:android:3a30a36e15a0e5c2",
+        "android_client_info": {
+          "package_name": "com.mh.systems.guildford"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABwBqsuWhQg2liasYPAZPHfiNq-rQ8ZbU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

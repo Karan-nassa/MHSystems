@@ -109,7 +109,6 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:gravity="center"
-                    android:onClick="onClick"
                     android:textColor="@color/color030303"
                     android:textSize="17sp" />
 

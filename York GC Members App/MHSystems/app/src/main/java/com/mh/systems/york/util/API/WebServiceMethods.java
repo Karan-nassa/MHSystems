@@ -8,6 +8,7 @@ import com.mh.systems.york.models.CompetitionResultAPI;
 import com.mh.systems.york.models.CompetitionJoinAPI;
 import com.mh.systems.york.models.CompetitionUnjoinAPI;
 import com.mh.systems.york.models.CompetitionsAPI;
+import com.mh.systems.york.models.ContactUs.ContactUsAPI;
 import com.mh.systems.york.models.CourseDiaryAPI;
 import com.mh.systems.york.models.DashboardAPI;
 import com.mh.systems.york.models.EditDetailMode.EditDetailModeAPI;
@@ -30,6 +31,7 @@ import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -325,5 +327,54 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void updatePassword(@Body UpdatePassswordAPI updatePassswordAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of WEATHER API status on dashboard.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param type         : WEATHER OR FORCEAST
+     * @param aClientId    : Club ID like 44071043 for Demo App.
+     * @param aCurrentDate : Current date.
+     * @param response     : Weather api response in JSON format.
+     */
+    @POST("/webapi/ClubAppUse/{type}")
+    public void weatherAPI(@Path("type") String type, @Query("aClientId") String aClientId, @Query("aCurrentDate") String aCurrentDate, Callback<JsonObject> response);
+
+    /**
+     * Declaration of FORCAST API status on dashboard.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param type      : WEATHER OR FORCEAST
+     * @param aClientId : Club ID like 44071043 for Demo App.
+     * @param aHour     : Time hour in running device.
+     * @param response  : Weather api response in JSON format.
+     */
+    @POST("/webapi/ClubAppUse/forecast")
+    public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
+
+    /**
+     * Declaration of CONTACT US web service declaration.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param contactUsAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void contactUs(@Body ContactUsAPI contactUsAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of TOP UP prices list web service declaration.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param aClientId     : Client ID.
+     * @param aMemberId     : Member ID.
+     * @param response      : Top Up Price list.
+     */
+    @GET("/api/ApifsiGateway/TopUps")
+    public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
 }
 
