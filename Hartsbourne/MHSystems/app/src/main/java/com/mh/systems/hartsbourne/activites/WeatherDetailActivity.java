@@ -10,7 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +50,7 @@ import retrofit.RetrofitError;
  * Organization : ucreate.it
  * Email        : karan@ucreate.it
  */
-public class WeatherDetailActivity extends BaseActivity {
+public class WeatherDetailActivity extends BaseActivity{
 
     private final String LOG_TAG = WeatherDetailActivity.class.getSimpleName();
 
@@ -78,6 +81,12 @@ public class WeatherDetailActivity extends BaseActivity {
     @Bind(R.id.rvWeatherMain)
     RecyclerView rvWeatherMain;
 
+    @Bind(R.id.inc_message_view)
+    RelativeLayout inc_message_view;
+
+    @Bind(R.id.llMainWeatherGroup)
+    LinearLayout llMainWeatherGroup;
+
     //Instance of Weather api.
     ForecastApiResponse forecastApiResponse;
 
@@ -106,7 +115,17 @@ public class WeatherDetailActivity extends BaseActivity {
 
         strNameOfWeatherLoc = getIntent().getStringExtra("WEATHER_LOC");
 
-        callWeatherService();
+        /**
+         * Check Internet and call Weather detail
+         * web service.
+         */
+        if (isOnline(WeatherDetailActivity.this)) {
+            callWeatherService();
+            llMainWeatherGroup.setVisibility(View.VISIBLE);
+        } else {
+            setContentView(R.layout.include_display_message);
+            llMainWeatherGroup.setVisibility(View.GONE);
+        }
 
         //Initialize Days Adapter.
         weatherMainRecyclerAdapter = new WeatherMainRecyclerAdapter(WeatherDetailActivity.this, listArrayList);
@@ -164,7 +183,6 @@ public class WeatherDetailActivity extends BaseActivity {
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
                         hideProgress();
-                        callWeatherService();
                     }
                 });
     }
@@ -193,6 +211,11 @@ public class WeatherDetailActivity extends BaseActivity {
 
             updateWeatherDaysUI();
 
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, weatherData.getName());
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
+
         } else {
             Toast.makeText(WeatherDetailActivity.this, forecastApiResponse.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -212,7 +235,7 @@ public class WeatherDetailActivity extends BaseActivity {
             @Override
             public int getSpanSize(int position) {
 
-                return (120/iWeatherDaySize);
+                return (120 / iWeatherDaySize);
             }
         });
         // Layout Managers:
@@ -226,7 +249,7 @@ public class WeatherDetailActivity extends BaseActivity {
                 rvWeatherMain.findViewHolderForAdapterPosition(0).itemView.performClick();
 
             }
-        },100);
+        }, 100);
     }
 
     /**

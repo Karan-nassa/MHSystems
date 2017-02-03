@@ -10,7 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +50,7 @@ import retrofit.RetrofitError;
  * Organization : ucreate.it
  * Email        : karan@ucreate.it
  */
-public class WeatherDetailActivity extends BaseActivity {
+public class WeatherDetailActivity extends BaseActivity{
 
     private final String LOG_TAG = WeatherDetailActivity.class.getSimpleName();
 
@@ -78,6 +81,12 @@ public class WeatherDetailActivity extends BaseActivity {
     @Bind(R.id.rvWeatherMain)
     RecyclerView rvWeatherMain;
 
+    @Bind(R.id.inc_message_view)
+    RelativeLayout inc_message_view;
+
+    @Bind(R.id.llMainWeatherGroup)
+    LinearLayout llMainWeatherGroup;
+
     //Instance of Weather api.
     ForecastApiResponse forecastApiResponse;
 
@@ -106,7 +115,17 @@ public class WeatherDetailActivity extends BaseActivity {
 
         strNameOfWeatherLoc = getIntent().getStringExtra("WEATHER_LOC");
 
-        callWeatherService();
+        /**
+         * Check Internet and call Weather detail
+         * web service.
+         */
+        if (isOnline(WeatherDetailActivity.this)) {
+            callWeatherService();
+            llMainWeatherGroup.setVisibility(View.VISIBLE);
+        } else {
+            setContentView(R.layout.include_display_message);
+            llMainWeatherGroup.setVisibility(View.GONE);
+        }
 
         //Initialize Days Adapter.
         weatherMainRecyclerAdapter = new WeatherMainRecyclerAdapter(WeatherDetailActivity.this, listArrayList);
@@ -164,7 +183,6 @@ public class WeatherDetailActivity extends BaseActivity {
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
                         hideProgress();
-                        callWeatherService();
                     }
                 });
     }
@@ -193,6 +211,11 @@ public class WeatherDetailActivity extends BaseActivity {
 
             updateWeatherDaysUI();
 
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, weatherData.getName());
+//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
+
         } else {
             Toast.makeText(WeatherDetailActivity.this, forecastApiResponse.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -212,7 +235,7 @@ public class WeatherDetailActivity extends BaseActivity {
             @Override
             public int getSpanSize(int position) {
 
-                return (120/iWeatherDaySize);
+                return (120 / iWeatherDaySize);
             }
         });
         // Layout Managers:
@@ -226,7 +249,7 @@ public class WeatherDetailActivity extends BaseActivity {
                 rvWeatherMain.findViewHolderForAdapterPosition(0).itemView.performClick();
 
             }
-        },100);
+        }, 100);
     }
 
     /**
@@ -253,6 +276,44 @@ public class WeatherDetailActivity extends BaseActivity {
         }
 
         forecastRecyclerAdapter = new ForecastRecyclerAdapter(WeatherDetailActivity.this, listArrayList.get(iPosition));
+
+        //final int iListSize = listArrayList.get(iPosition).size();
+
+        /*if (iListSize <= 5) {
+            // Create a grid layout with two columns
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 15, LinearLayoutManager.VERTICAL, false);
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+
+                    switch (iListSize) {
+                        case 1:
+                            return 15;
+
+                        case 2:
+                            return (position == 0) ? 8 : 7;
+
+                        case 3:
+                            return 5;
+
+                        case 4:
+                            return (position == 1) ? 3 : 4;
+
+                        case 5:
+                            return 3;
+
+                    }
+                    return 15;
+                }
+            });
+            // Layout Managers:
+           // rvWeatherList.setLayoutManager(layoutManager);
+        } else {
+
+            LinearLayoutManager layoutManager
+                    = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            rvWeatherList.setLayoutManager(layoutManager);
+        }*/
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rvWeatherDetail.setLayoutManager(layoutManager);
@@ -293,6 +354,46 @@ public class WeatherDetailActivity extends BaseActivity {
     }
 
     /**
+     * Implements a method to RETURN the name of DAY from
+     * specific date format.
+     *
+     * @param strDate : Example => "yyyy-MM-dd HH:mm:ss"
+     * @return strDate  : E [Tue]
+     */
+    public static String getFormateDayName(String strDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("E");
+
+        try {
+            Date date = inputFormat.parse(strDate);
+            strDate = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+        return strDate;
+    }
+
+    /**
+     * Implements a method to RETURN the name of DAY from
+     * specific date format.
+     *
+     * @param strTime : Example => "yyyy-MM-dd HH:mm:ss"
+     * @return strTime  : HH:mm [14:00]
+     */
+    public static String getFormateTime(String strTime) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
+
+        try {
+            Date date = inputFormat.parse(strTime);
+            strTime = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+        return strTime;
+    }
+
+    /**
      * Implements this method to get current time of
      * device to get weather status.
      */
@@ -303,5 +404,65 @@ public class WeatherDetailActivity extends BaseActivity {
         String strCurrentTime = DateFormat.format("HH", cal).toString();
 
         return strCurrentTime;
+    }
+
+    /****************** ~~ WEATHER API FEATURE ~~ ******************/
+
+    /**
+     * Implements this method to set Layout of dashboard
+     * Grid.
+     */
+    private void setupGridLayout(int iGridSize) {
+        // Create a grid layout with two columns
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
+
+        switch (iGridSize) {
+            case 3:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 0 ? 6 : 3;
+                    }
+                });
+                break;
+
+            case 4:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 3;
+                    }
+                });
+                break;
+
+            case 5:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 0 || position == 1 ? 3 : 2;
+                    }
+                });
+                break;
+
+            default:
+                // Create a custom SpanSizeLookup where the first item spans both columns
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 2;
+                    }
+                });
+                break;
+        }
+
+
+        // int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        // gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+
+        // Layout Managers:
+        rvWeatherMain.setLayoutManager(layoutManager);
     }
 }

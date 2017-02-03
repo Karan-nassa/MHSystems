@@ -28,7 +28,7 @@ public class MembersTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = MembersTabFragment.class.getSimpleName();
+    public final String LOG_TAG = MembersTabFragment.class.getSimpleName();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -129,8 +129,6 @@ public class MembersTabFragment extends Fragment {
      * Implements a method to update visibility of tab.
      */
     private void setTabVisibleStatus(int iTabPosition) {
-
-        Log.e(LOG_TAG, "" + iTabPosition);
 
         switch (iTabPosition) {
             case 0:

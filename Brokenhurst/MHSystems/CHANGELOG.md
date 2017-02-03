@@ -9,7 +9,7 @@
 
     #####2nd Feb, 2017
     - UPDATE: Replace 'SimpleDrawerView' with 'CircleImageView' for better performance.
-
+    - FIXED: Implement Internet check for Forecast Weather data.
 ##Version 1.2.0 (2016-12-26)
 
 - New: Contact us feature added.

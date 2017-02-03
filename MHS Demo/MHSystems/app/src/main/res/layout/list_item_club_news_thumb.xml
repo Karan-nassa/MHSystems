@@ -124,12 +124,11 @@
                             android:gravity="center"
                             android:visibility="visible">
 
-                            <com.facebook.drawee.view.SimpleDraweeView
+                            <ImageView
                                 android:id="@+id/ivNewsThumbnail"
                                 android:layout_width="55dp"
                                 android:layout_height="55dp"
-                                android:layout_gravity="center"
-                                fresco:placeholderImage="@mipmap/ic_launcher" />
+                                android:layout_gravity="center" />
 
                         </LinearLayout>
 

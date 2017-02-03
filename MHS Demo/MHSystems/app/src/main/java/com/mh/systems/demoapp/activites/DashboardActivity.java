@@ -463,24 +463,11 @@ public class DashboardActivity extends BaseActivity {
                     public void failure(RetrofitError error) {
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
-
-                        //Call Weather api when 'No record found' from server.
-                        /*new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (isOnline(DashboardActivity.this)) {
-                                    callWeatherService();
-                                }
-                            }
-                        }, 5000);*/
-
                     }
                 });
     }
 
     private void updateSuccessResponse(JsonObject jsonObject) {
-
-        //ComonMethods.hideProgress();
 
         Log.e(LOG_TAG, "Weather response : " + jsonObject.toString());
 

@@ -2,7 +2,10 @@ package com.mh.systems.demoapp.adapter.RecyclerAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,13 +18,13 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.ClubNewsActivity;
 import com.mh.systems.demoapp.activites.ClubNewsDetailActivity;
 import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -31,9 +34,9 @@ import java.util.ArrayList;
 public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdapter.SimpleViewHolder> {
 
     private Context mContext;
-    public ArrayList<ClubNewsThumbnailData> clubNewsDataArrayList;
+    private ArrayList<ClubNewsThumbnailData> clubNewsDataArrayList;
 
-    String strThumnailURL = "";
+    private String strThumnailURL = "";
 
     private final int POSITION_THUMBNAIL = 0;
     private final int POSITION_NO_THUMBNAIL = 1;
@@ -76,11 +79,15 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         }
 
         strThumnailURL = clubNewsDataArrayList.get(position).getMessage();
-        if (strThumnailURL.length() > 1) {
+        if (strThumnailURL.length() > 1 && viewHolder.ivNewsThumbnail.getDrawable() == null) {
             strThumnailURL = WebAPI.API_BASE_URL + strThumnailURL;
 
             Uri imageUri = Uri.parse(strThumnailURL);
             viewHolder.ivNewsThumbnail.setImageURI(imageUri);
+
+            // Image link from AWS server.
+            new DownloadImageFromInternet(viewHolder.ivNewsThumbnail)
+                    .execute(strThumnailURL);
         }
 
         viewHolder.flRemoveGroup.setOnClickListener(new View.OnClickListener() {
@@ -140,51 +147,6 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             }
         });
 
-      /*  viewHolder.lllinear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //Toast.makeText(mContext, " onClick : " + item.getName() + " \n" + item.getEmailId(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        viewHolder.btnLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Toast.makeText(v.getContext(), "Clicked on Map " + viewHolder.tvName.getText().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        viewHolder.frameremove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
-
-
-            }
-        });
-
-
-        viewHolder.fmchat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //  Toast.makeText(view.getContext(), "Clicked on Edit  " + viewHolder.tvName.getText().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        viewHolder.ivMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });*/
-
-
         // mItemManger is member in RecyclerSwipeAdapter Class
         mItemManger.bindView(viewHolder.itemView, position);
     }
@@ -206,7 +168,7 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
         ImageView ivReadStatus;
         RelativeLayout rlNewsGroup;
         TextView tvTitleOfNews, tvTimeOfNews;
-        SimpleDraweeView ivNewsThumbnail;
+        ImageView ivNewsThumbnail;
         Context mContext;
 
         public SimpleViewHolder(View itemView, Context context, int viewType) {
@@ -221,7 +183,7 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             tvTimeOfNews = (TextView) itemView.findViewById(R.id.tvTimeOfNews);
 
             if (viewType == POSITION_THUMBNAIL) {
-                ivNewsThumbnail = (SimpleDraweeView) itemView.findViewById(R.id.ivNewsThumbnail);
+                ivNewsThumbnail = (ImageView) itemView.findViewById(R.id.ivNewsThumbnail);
             }
 
             mContext = context;
@@ -238,6 +200,35 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             bundle.putInt("iPosition", getAdapterPosition());
             detailNewsIntent.putExtras(bundle);
             ((ClubNewsActivity) mContext).startActivityForResult(detailNewsIntent, 111);
+        }
+    }
+
+    /**
+     * Used this {@link AsyncTask} class to get
+     * image from URL.
+     */
+    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+
+        public DownloadImageFromInternet(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String imageURL = urls[0];
+            Bitmap bimage = null;
+            try {
+                InputStream in = new java.net.URL(imageURL).openStream();
+                bimage = BitmapFactory.decodeStream(in);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bimage;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
         }
     }
 }

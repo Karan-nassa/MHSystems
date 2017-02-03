@@ -34,7 +34,7 @@
 
             <!-- CIRCLE IMAGE AS A BACKGROUND -->
 
-            <com.mh.systems.hartsbourne.utils.CircularContactView
+            <com.mh.systems.sunningdale.utils.CircularContactView
                 android:id="@+id/listview_item__friendPhotoImageView"
                 android:layout_width="@dimen/list_item__contact_imageview_size"
                 android:layout_height="@dimen/list_item__contact_imageview_size"
@@ -46,12 +46,12 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="2dp"
+                android:layout_centerInParent="true"
                 android:src="@color/colorF1F1F0" />
 
             <!-- VIEW TO DISPLAY 'PlayHCapStr' OF EACH MEMBER -->
 
-            <com.mh.systems.hartsbourne.customfonts.RobotoMediumTextView
+            <com.mh.systems.sunningdale.customfonts.RobotoMediumTextView
                 android:id="@+id/tvPlayHCapStr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,19 +62,34 @@
 
         </FrameLayout>
 
-        <!-- DISPLAY NAME -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.mh.systems.hartsbourne.customfonts.RobotoTextView
-            android:id="@+id/listview_item__friendNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:ellipsize="end"
-            android:text="Calvin Jennings"
-            android:textColor="@color/colorBlack000000"
-            android:textSize="14sp"
-            tools:ignore="HardcodedText,NewApi" />
+
+            <!-- DISPLAY NAME -->
+
+            <com.mh.systems.sunningdale.customfonts.RobotoTextView
+                android:id="@+id/listview_item__friendNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="15dp"
+                android:ellipsize="end"
+                android:text="Calvin Jennings"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText,NewApi" />
+
+            <CheckBox
+                android:id="@+id/cbSelectedMember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="30dp"
+                android:gravity="right|center" />
+
+        </FrameLayout>
 
     </LinearLayout>
 

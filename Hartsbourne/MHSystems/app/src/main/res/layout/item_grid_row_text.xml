@@ -24,14 +24,12 @@
 
             <!-- TEAM LOGO -->
 
-            <com.facebook.drawee.view.SimpleDraweeView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivBackgroundColor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="2dp"
-                android:scaleType="fitCenter"
-                app:placeholderImage="@color/color313130"
-                app:roundAsCircle="true" />
+                android:src="@color/color313130" />
 
             <!-- LOGO OF ITEM -->
             <LinearLayout
@@ -70,16 +68,15 @@
                 android:orientation="vertical"
                 android:visibility="invisible">
 
-                <!-- TEAM LOGO -->
+                <!-- BADGER NOTIFICATION CIRCLE -->
 
-                <com.facebook.drawee.view.SimpleDraweeView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivBadgerBackground"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="invisible"
-                    android:scaleType="fitCenter"
-                    app:placeholderImage="@color/colorFFEF8176"
-                    app:roundAsCircle="true" />
+                    android:padding="2dp"
+                    android:src="@color/colorFFEF8176"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:layout_width="match_parent"

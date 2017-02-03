@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mh.systems.hartsbourne.R;
 
 import butterknife.Bind;
@@ -43,7 +42,6 @@ public class CustomAlertDialogActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(CustomAlertDialogActivity.this); //Initialize facebook Fresco for round profile pic.
         setContentView(R.layout.activity_custom_alert_dialog);
 
         /**

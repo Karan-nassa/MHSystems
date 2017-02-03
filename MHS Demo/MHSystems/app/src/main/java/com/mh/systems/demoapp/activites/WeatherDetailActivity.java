@@ -54,7 +54,7 @@ import retrofit.RetrofitError;
  * Organization : ucreate.it
  * Email        : karan@ucreate.it
  */
-public class WeatherDetailActivity extends BaseActivity /*implements View.OnClickListener*/ {
+public class WeatherDetailActivity extends BaseActivity{
 
     private final String LOG_TAG = WeatherDetailActivity.class.getSimpleName();
 
@@ -98,10 +98,7 @@ public class WeatherDetailActivity extends BaseActivity /*implements View.OnClic
     ForecastRecyclerAdapter forecastRecyclerAdapter;
     WeatherMainRecyclerAdapter weatherMainRecyclerAdapter;
 
-    private Date mLastDate = null;
-
     List<List<ListOfDay>> listArrayList = new ArrayList<>();
-    ArrayList<String> integerArrayList = new ArrayList<>();
 
     String strNameOfWeatherLoc;
 
@@ -190,7 +187,6 @@ public class WeatherDetailActivity extends BaseActivity /*implements View.OnClic
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
                         hideProgress();
-                        //callWeatherService();
                     }
                 });
     }
