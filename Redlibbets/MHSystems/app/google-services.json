@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "949275277182",
+    "project_id": "firebase-redlibbets"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949275277182:android:281e1292a607452f",
+        "android_client_info": {
+          "package_name": "com.mh.systems.redlibbets"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArcdbvtOHjt38xoAypTppAE55enviRmQg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
