@@ -5,8 +5,8 @@ import com.mh.systems.redlibbets.models.AddMemberAPI;
 import com.mh.systems.redlibbets.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.redlibbets.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
 import com.mh.systems.redlibbets.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
-import com.mh.systems.redlibbets.models.CompetitionResultAPI;
 import com.mh.systems.redlibbets.models.CompetitionJoinAPI;
+import com.mh.systems.redlibbets.models.CompetitionResultAPI;
 import com.mh.systems.redlibbets.models.CompetitionUnjoinAPI;
 import com.mh.systems.redlibbets.models.CompetitionsAPI;
 import com.mh.systems.redlibbets.models.ContactUs.ContactUsAPI;
@@ -14,6 +14,7 @@ import com.mh.systems.redlibbets.models.CourseDiaryAPI;
 import com.mh.systems.redlibbets.models.DashboardAPI;
 import com.mh.systems.redlibbets.models.DeleteToken.DeleteTokenAPI;
 import com.mh.systems.redlibbets.models.EditDetailMode.EditDetailModeAPI;
+import com.mh.systems.redlibbets.models.FinanceAPI;
 import com.mh.systems.redlibbets.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.redlibbets.models.Friends.RemoveFriendAPI;
 import com.mh.systems.redlibbets.models.FriendsAPI;
@@ -21,7 +22,6 @@ import com.mh.systems.redlibbets.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.redlibbets.models.HandicapAPI;
 import com.mh.systems.redlibbets.models.MembersAPI;
 import com.mh.systems.redlibbets.models.MembersDetailAPI;
-import com.mh.systems.redlibbets.models.FinanceAPI;
 import com.mh.systems.redlibbets.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.redlibbets.models.TogglePrivacy.TogglePrivacyAPI;
 import com.mh.systems.redlibbets.models.UnreadNewsCount.GetUnreadNewsCountAPI;
@@ -51,7 +51,7 @@ public interface WebServiceMethods {
      * <p/>
      * USAGE :-
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void getDashboardData(@Body DashboardAPI jsonElements, Callback<JsonObject> response);
 
     /**
@@ -64,7 +64,7 @@ public interface WebServiceMethods {
      * # OLD COURSE
      * # NEW COURSE
      */
-    @POST("/api/ClubsApp/RpcRequest")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getCourseDiaryEvents(@Body CourseDiaryAPI jsonElements, Callback<JsonObject> response);
 
     /**
@@ -79,11 +79,11 @@ public interface WebServiceMethods {
      * # CURRENT
      * # FUTURE
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void getCompetitionsEvents(@Body CompetitionsAPI jsonElements, Callback<JsonObject> response);
 
 
-    @GET("/api/ClubsApp/RpcRequest")
+    @GET("/webapi/api/ClubsApp/RpcRequest")
     void joinCompetitionEventGet(@Query("aClientId") String aClientId, @Query("aCommand") String aCommand,
                                  @Query("aJsonParams") String aJsonParams,
                                  @Query("aModuleId") String aModuleId,
@@ -99,7 +99,7 @@ public interface WebServiceMethods {
      * @param competitionJoinAPI
      * @param response
      */
-    @POST("/api/ClubsApp/RpcRequest")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void joinCompetitionEvent(@Body CompetitionJoinAPI competitionJoinAPI, Callback<JsonObject> response);
 
     /**
@@ -111,7 +111,7 @@ public interface WebServiceMethods {
      * @param competitionResultAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void resultOfCompetitionEvent(@Body CompetitionResultAPI competitionResultAPI, Callback<JsonObject> response);
 
     /**
@@ -122,7 +122,7 @@ public interface WebServiceMethods {
      * @param handicapAPI
      * @param response
      */
-    @POST("/api/ClubsApp/RpcRequest")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getHandicap(@Body HandicapAPI handicapAPI, Callback<JsonObject> response);
 
     /**
@@ -139,7 +139,7 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      */
-    @POST("/api/ClubsApp/RpcRequest")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getFinanceDetail(@Body FinanceAPI jsonElements, Callback<JsonObject> response);
 
     /**
@@ -150,7 +150,7 @@ public interface WebServiceMethods {
      * @param membersAPI
      * @param response
      */
-    @POST("/api/ClubsApp/RpcRequest")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getMembers(@Body MembersAPI membersAPI, Callback<JsonObject> response);
 
     /**
@@ -161,7 +161,7 @@ public interface WebServiceMethods {
      * @param membersDetailAPI
      * @param response
      */
-    @POST("/api/ClubsApp/RpcRequest")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getMembersDetail(@Body MembersDetailAPI membersDetailAPI, Callback<JsonObject> response);
 
     /**
@@ -172,7 +172,7 @@ public interface WebServiceMethods {
      * @param addMemberAPI
      * @param response
      */
-    @POST("/api/ClubsApp/RpcRequest")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getAddMember(@Body AddMemberAPI addMemberAPI, Callback<JsonObject> response);
 
     /**
@@ -183,7 +183,7 @@ public interface WebServiceMethods {
      * @param friendsAPI
      * @param response
      */
-    @POST("/api/ClubsApp/RpcRequest")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getFriends(@Body FriendsAPI friendsAPI, Callback<JsonObject> response);
 
     /**
@@ -194,7 +194,7 @@ public interface WebServiceMethods {
      * @param removeFriendAPI
      * @param response
      */
-    @POST("/api/ClubsApp/RpcRequest")
+    @POST("/webapi/api/ClubsApp/RpcRequest")
     public void removeFriend(@Body RemoveFriendAPI removeFriendAPI, Callback<JsonObject> response);
 
     /**
@@ -205,7 +205,7 @@ public interface WebServiceMethods {
      * @param resetPasswordAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void resetPassword(@Body ResetPasswordAPI resetPasswordAPI, Callback<JsonObject> response);
 
     /**
@@ -216,7 +216,7 @@ public interface WebServiceMethods {
      * @param competitionUnjoinAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void unjoinCompetition(@Body CompetitionUnjoinAPI competitionUnjoinAPI, Callback<JsonObject> response);
 
     /**
@@ -238,7 +238,7 @@ public interface WebServiceMethods {
      * @param clubNewsDetailAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void updateClubNews(@Body ClubNewsDetailAPI clubNewsDetailAPI, Callback<JsonObject> response);
 
     /**
@@ -249,7 +249,7 @@ public interface WebServiceMethods {
      * @param hCapHistoryAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void getHCapHistory(@Body HCapHistoryAPI hCapHistoryAPI, Callback<JsonObject> response);
 
     /**
@@ -260,7 +260,7 @@ public interface WebServiceMethods {
      * @param editDetailModeAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void updateMemberDetails(@Body EditDetailModeAPI editDetailModeAPI, Callback<JsonObject> response);
 
     /**
@@ -271,7 +271,7 @@ public interface WebServiceMethods {
      * @param togglePrivacyAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
 
     /**
@@ -283,7 +283,7 @@ public interface WebServiceMethods {
      * @param getClubEventAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void getClubEvent(@Body GetClubEventAPI getClubEventAPI, Callback<JsonObject> response);
 
     /**
@@ -295,7 +295,7 @@ public interface WebServiceMethods {
      * @param compEligiblePlayersAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void getEligiblePlayersList(@Body CompEligiblePlayersAPI compEligiblePlayersAPI, Callback<JsonObject> response);
 
     /**
@@ -307,7 +307,7 @@ public interface WebServiceMethods {
      * @param updateCompEntryAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void updateCompEntry(@Body UpdateCompEntryAPI updateCompEntryAPI, Callback<JsonObject> response);
 
     /**
@@ -318,7 +318,7 @@ public interface WebServiceMethods {
      * @param forgotPasswordAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void forgotPassword(@Body ForgotPasswordAPI forgotPasswordAPI, Callback<JsonObject> response);
 
     /**
@@ -329,7 +329,7 @@ public interface WebServiceMethods {
      * @param updatePassswordAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void updatePassword(@Body UpdatePassswordAPI updatePassswordAPI, Callback<JsonObject> response);
 
     /**
@@ -344,7 +344,7 @@ public interface WebServiceMethods {
      * @param lon      : lon
      * @param response : Response of API
      */
-    @GET("/data/2.5/{type}")
+    @GET("/webapi/data/2.5/{type}")
     public void getWeatherState(@Path("type") String type,
                                 @Query("mode") String mode,
                                 @Query("appid") String appid,
@@ -362,7 +362,7 @@ public interface WebServiceMethods {
      * @param aCurrentDate : Current date.
      * @param response     : Weather api response in JSON format.
      */
-    @POST("/ClubAppUse/{type}")
+    @POST("/webapi/ClubAppUse/{type}")
     public void weatherAPI(@Path("type") String type, @Query("aClientId") String aClientId, @Query("aCurrentDate") String aCurrentDate, Callback<JsonObject> response);
 
     /**
@@ -375,7 +375,7 @@ public interface WebServiceMethods {
      * @param aHour     : Time hour in running device.
      * @param response  : Weather api response in JSON format.
      */
-    @POST("/ClubAppUse/forecast")
+    @POST("/webapi/ClubAppUse/forecast")
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
 
     /**
@@ -386,7 +386,7 @@ public interface WebServiceMethods {
      * @param registerTokenAPI : Time hour in running device.
      * @param response         : Weather api response in JSON format.
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void registerToken(@Body RegisterTokenAPI registerTokenAPI, Callback<JsonObject> response);
 
     /**
@@ -398,7 +398,7 @@ public interface WebServiceMethods {
      * @param deleteTokenAPI : Delete Token which sending at time of Registeration.
      * @param response       : Weather api response in JSON format.
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void deleteToken(@Body DeleteTokenAPI deleteTokenAPI, Callback<JsonObject> response);
 
     /**
@@ -410,7 +410,7 @@ public interface WebServiceMethods {
      * @param getUnreadNewsCountAPI : Object of unread club news.
      * @param response              : Weather api response in JSON format.
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void getUnreadClubNewsCount(@Body GetUnreadNewsCountAPI getUnreadNewsCountAPI, Callback<JsonObject> response);
 
     /**
@@ -422,7 +422,7 @@ public interface WebServiceMethods {
      * @param clubNewsThumbnailAPI :  Club News with Thumbnail.
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void getClubNewsThumbnail(@Body ClubNewsThumbnailAPI clubNewsThumbnailAPI, Callback<JsonObject> response);
 
     /**
@@ -434,7 +434,7 @@ public interface WebServiceMethods {
      * @param clubNewsThumbnailDetailAPI :  Club News detail of Thumbnail.
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void getClubNewsThumbnailDetail(@Body ClubNewsThumbnailDetailAPI clubNewsThumbnailDetailAPI, Callback<JsonObject> response);
 
     /**
@@ -445,7 +445,7 @@ public interface WebServiceMethods {
      * @param contactUsAPI
      * @param response
      */
-    @POST("/api/ClubsApp")
+    @POST("/webapi/api/ClubsApp")
     public void contactUs(@Body ContactUsAPI contactUsAPI, Callback<JsonObject> response);
 
     /**
@@ -453,11 +453,11 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
-     * @param aClientId : Client ID.
-     * @param aMemberId : Member ID.
-     * @param response  : Top Up Price list.
+     * @param aClientId     : Client ID.
+     * @param aMemberId     : Member ID.
+     * @param response      : Top Up Price list.
      */
-    @GET("/api/ApifsiGateway/TopUps")
+    @GET("/webapi/api/ApifsiGateway/TopUps")
     public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
 }
 
