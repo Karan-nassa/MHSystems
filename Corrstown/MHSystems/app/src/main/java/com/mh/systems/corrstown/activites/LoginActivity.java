@@ -1,0 +1,357 @@
+package com.mh.systems.corrstown.activites;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.gson.JsonObject;
+import com.mh.systems.corrstown.R;
+import com.mh.systems.corrstown.constants.ApplicationGlobal;
+import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.models.AJsonParamsDashboard;
+import com.mh.systems.corrstown.models.DashboardAPI;
+import com.mh.systems.corrstown.models.LoginData;
+import com.mh.systems.corrstown.models.LoginItems;
+import com.mh.systems.corrstown.push.QuickstartPreferences;
+import com.mh.systems.corrstown.push.RegistrationIntentService;
+import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+
+/**
+ * The {@link LoginActivity} used for LOGIN process. Member should have entered
+ * EMAIL & PASSWORD to use the app.
+ *
+ * @author : {@link karan@ucreate.co.in}
+ * @version : 1.0
+ * @since : 18 May, 2016
+ */
+public class LoginActivity extends BaseActivity {
+
+    /*********************************
+     * INSTANCES OF LOCAL DATA TYPE
+     *********************************/
+    public static final String LOG_TAG = LoginActivity.class.getSimpleName();
+    String strErrorMessage = "";
+    String strUserName, strPassword;
+
+    /*********************************
+     * INSTANCES OF CLASSES
+     ********************************/
+    @Bind(R.id.tvLoginTitle)
+    TextView tvLoginTitle;
+
+    @Bind(R.id.btLogin)
+    Button btLogin;
+
+    @Bind(R.id.etUserName)
+    EditText etUserName;
+
+    @Bind(R.id.etPassword)
+    EditText etPassword;
+
+    @Bind(R.id.tvCopyRight)
+    TextView tvCopyRight;
+
+    @Bind(R.id.tvForgotPWD)
+    TextView tvForgotPWD;
+
+    Typeface tfRobotoRegular, tfRobotoLight, getTfRobotoMedium;
+
+    //List of type books this list will store type Book which is our data model
+    private DashboardAPI dashboardAPI;
+    AJsonParamsDashboard aJsonParamsDashboard;
+
+    LoginItems dashboardItems;
+    LoginData dashboardData;
+
+    Intent intent;
+    Typeface typeface;
+
+    BroadcastReceiver mRegistrationBroadcastReceiver;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    /**
+     * Define a constant field called when user press on LOGIN
+     * {@link Button}.
+     */
+    private View.OnClickListener mLoginListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            //Get input to local instance.
+            strUserName = etUserName.getText().toString();
+            strPassword = etPassword.getText().toString();
+
+            if (isValid()) {
+                //Call LOGIN API if UserName & Password correctly filled.
+               /* *
+                 *  Check internet connection before hitting server request.
+                 */
+                if (isOnline(LoginActivity.this)) {
+                    //Method to hit Squads API.
+                    requestLoginService();
+                } else {
+                    showAlertMessage(getResources().getString(R.string.error_no_internet));
+                }
+
+            } else {
+                showAlertMessage(strErrorMessage);
+            }
+        }
+    };
+
+    /**
+     * Implements this method to invoke when user tap on Forgot Password
+     * text to recover Password on regitered EMAIL.
+     */
+    private View.OnClickListener mForgotPwdListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            etPassword.setText("");
+
+            intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        //Initialize Butter knife.
+        ButterKnife.bind(this);
+
+        setFontTypeFace();
+
+        btLogin.setOnClickListener(mLoginListener);
+
+        tvForgotPWD.setOnClickListener(mForgotPwdListener);
+    }
+
+    /**
+     * Implements a method to check whether Login and Password
+     * field filled or not?
+     *
+     * @return TRUE if input VALID.
+     */
+    private boolean isValid() {
+
+        if (strUserName.length() == 0 && strPassword.length() == 0) {
+            strErrorMessage = getResources().getString(R.string.error_all_required);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Implement a method to hit Login web service to
+     * get response and information.
+     */
+    public void requestLoginService() {
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsDashboard = new AJsonParamsDashboard();
+        aJsonParamsDashboard.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsDashboard.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsDashboard.setUserID(strUserName);
+        aJsonParamsDashboard.setPassword(strPassword);
+
+        dashboardAPI = new DashboardAPI(44028007, "AUTHENTICATEMEMBER", aJsonParamsDashboard, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getDashboardData(dashboardAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+                Log.e(LOG_TAG, "" + error.toString());
+
+                //you can handle the errors here
+                hideProgress();
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<LoginItems>() {
+        }.getType();
+        dashboardItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        //Clear the Dashboard data.
+        dashboardData = null;
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (dashboardItems.getMessage().equalsIgnoreCase("Success")) {
+
+                dashboardData = dashboardItems.getData();
+
+                if (dashboardData == null) {
+                    showAlertMessage(getResources().getString(R.string.error_no_data));
+                } else {
+
+                    savePreferenceValue(ApplicationGlobal.KEY_MEMBERID, "" + dashboardData.getMemberID());
+
+                    mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+                        @Override
+                        public void onReceive(Context context, Intent intent) {
+                            //  mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
+                            SharedPreferences sharedPreferences =
+                                    PreferenceManager.getDefaultSharedPreferences(context);
+                            boolean sentToken = sharedPreferences
+                                    .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+                            if (sentToken) {
+                                Log.e("sentToken:", "" + sentToken);
+                            } else {
+                                Log.e("sentToken else :", "" + sentToken);
+                            }
+                        }
+                    };
+
+                    Log.e("checkPlayServices():", "" + checkPlayServices());
+                    if (checkPlayServices()) {
+                        Log.e("IF", "CALLING");
+                        Intent intent = new Intent(this, RegistrationIntentService.class);
+                        startService(intent);
+                    }
+
+
+                    etPassword.setText("");
+                    etUserName.setText("");
+
+                    if (dashboardData.getFirstTimeLogin()) {
+                        intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
+                        startActivityForResult(intent, 1);
+                    } else {
+
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_FIRST_TIME_LOGIN, dashboardData.getFirstTimeLogin());
+                        savePreferenceValue(ApplicationGlobal.KEY_CLUB_ID, "" + dashboardData.getClubID());
+                        savePreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, dashboardData.getUserLoginID());
+                        savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);
+                        savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
+                        savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
+
+                        //Make Dashboard dynamic according these bool values.
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, dashboardData.isCourseDiaryFeatures());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, dashboardData.isCompetitionsFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, dashboardData.isHandicapFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, dashboardData.isMembersFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, dashboardData.isClubNewsFeature());
+                        savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, dashboardData.isYourAccountFeature());
+
+                        Gson gson = new Gson();
+
+                        //Save Courses ArrayList in Shared-preference.
+                        savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
+
+                        intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                        startActivity(intent);
+                        this.finish();
+                    }
+                }
+            } else {
+                //If web service not respond in any case.
+                showAlertMessage(dashboardItems.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        //Dismiss progress dialog.
+        hideProgress();
+    }
+
+    /**
+     * Implements a method to set FONT style using .ttf by putting
+     * in ForecastMain\assets\fonts directory of current project.
+     */
+    private void setFontTypeFace() {
+
+        tfRobotoRegular = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Regular.ttf");
+        getTfRobotoMedium = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Medium.ttf");
+        tfRobotoLight = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Light.ttf");
+
+        etUserName.setTypeface(tfRobotoRegular);
+        etPassword.setTypeface(tfRobotoRegular);
+
+
+        btLogin.setTypeface(getTfRobotoMedium);
+
+        tvCopyRight.setTypeface(tfRobotoLight);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            etUserName.setText("" + data.getStringExtra("USERNAME"));
+        }
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i("checkPlayServices", "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+}

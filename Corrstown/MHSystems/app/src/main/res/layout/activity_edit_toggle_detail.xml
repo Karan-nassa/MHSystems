@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- TOOL BAR WITH BACK ARROW AND SAVE -->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbEditToggleDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49"
+            android:minHeight="?android:attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="Edit privacy" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <!-- MOBILE CONTACT PRIVACY -->
+
+                <LinearLayout
+                    android:id="@+id/llMobilePrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/title_text_contact" />
+
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                        android:id="@+id/tvMobile"
+                        style="@style/MyDetailValues"
+                        android:text="07561048644" />
+
+                    <!-- BUTTONS TOGGLE SELECTOR -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:weightSum="99">
+
+                        <Button
+                            android:id="@+id/btMobMembers"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorC59A5C"
+                            android:onClick="onMobilePrivacy"
+                            android:text="Members"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhiteffffff" />
+
+                        <Button
+                            android:id="@+id/btMobFriends"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:onClick="onMobilePrivacy"
+                            android:text="Friends"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color9B9B9B" />
+
+                        <Button
+                            android:id="@+id/btMobPrivate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:onClick="onMobilePrivacy"
+                            android:text="Private"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color9B9B9B" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- WORK CONTACT PRIVACY -->
+
+                <LinearLayout
+                    android:id="@+id/llWorkPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/title_text_work" />
+
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                        android:id="@+id/tvWork"
+                        style="@style/MyDetailValues"
+                        android:text="07561048644" />
+
+                    <!-- BUTTONS TOGGLE SELECTOR -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:weightSum="99">
+
+                        <Button
+                            android:id="@+id/btWorkMembers"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorC59A5C"
+                            android:text="Members"
+                            android:onClick="onWorkPrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhiteffffff" />
+
+                        <Button
+                            android:id="@+id/btWorkFriends"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Friends"
+                            android:onClick="onWorkPrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color9B9B9B" />
+
+                        <Button
+                            android:id="@+id/btWorkPrivate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Private"
+                            android:onClick="onWorkPrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color9B9B9B" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- HOME CONTACT PRIVACY -->
+
+                <LinearLayout
+                    android:id="@+id/llHomePrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/title_text_home" />
+
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                        android:id="@+id/tvHome"
+                        style="@style/MyDetailValues"
+                        android:text="07561048644" />
+
+                    <!-- BUTTONS TOGGLE SELECTOR -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:weightSum="99">
+
+                        <Button
+                            android:id="@+id/btHomeMembers"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorC59A5C"
+                            android:text="Members"
+                            android:onClick="onHomePrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhiteffffff" />
+
+                        <Button
+                            android:id="@+id/btHomeFriends"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Friends"
+                            android:onClick="onHomePrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color9B9B9B" />
+
+                        <Button
+                            android:id="@+id/btHomePrivate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Private"
+                            android:onClick="onHomePrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color9B9B9B" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- EMAIL PRIVACY -->
+
+                <LinearLayout
+                    android:id="@+id/llEmailPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/title_text_email" />
+
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                        android:id="@+id/tvEmail"
+                        style="@style/MyDetailValues"
+                        android:text="mail@example.com" />
+
+                    <!-- BUTTONS TOGGLE SELECTOR -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:weightSum="99">
+
+                        <Button
+                            android:id="@+id/btEmailMembers"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Members"
+                            android:onClick="onEmailPrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color9B9B9B" />
+
+                        <Button
+                            android:id="@+id/btEmailFriends"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorC59A5C"
+                            android:text="Friends"
+                            android:onClick="onEmailPrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhiteffffff" />
+
+                        <Button
+                            android:id="@+id/btEmailPrivate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Private"
+                            android:onClick="onEmailPrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color9B9B9B" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- ADDRESS LINE 1 PRIVACY -->
+
+                <LinearLayout
+                    android:id="@+id/llAddressPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/title_text_address_line1" />
+
+                    <!-- TYPE OF MEMBER -->
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                        android:id="@+id/tvAddress"
+                        style="@style/MyDetailValues"
+                        android:text="32 Example Street" />
+
+                    <!-- BUTTONS TOGGLE SELECTOR -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:weightSum="99">
+
+                        <Button
+                            android:id="@+id/btAddressMembers"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Members"
+                            android:onClick="onAddressPrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color9B9B9B" />
+
+                        <Button
+                            android:id="@+id/btAddressFriends"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:background="@color/colorE8E2DD"
+                            android:text="Friends"
+                            android:onClick="onAddressPrivacy"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color9B9B9B" />
+
+                        <Button
+                            android:id="@+id/btAddressPrivate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="33"
+                            android:onClick="onAddressPrivacy"
+                            android:background="@color/colorC59A5C"
+                            android:text="Private"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhiteffffff" />
+
+                    </LinearLayout>
+
+                    <!-- SPACE AT BOTTOM -->
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

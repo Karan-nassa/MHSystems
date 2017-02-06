@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
@@ -17,7 +18,7 @@ import com.mh.systems.redlibbets.constants.WebAPI;
 
 public class FinanceDetailWebActivity extends BaseActivity {
 
-    /* ++ LOCAL DATA TYPE INSTANCE DECLARATION ++ */
+     /* ++ LOCAL DATA TYPE INSTANCE DECLARATION ++ */
     String strURL;
     boolean IsTopup;
     int iTransactionId;
@@ -38,10 +39,11 @@ public class FinanceDetailWebActivity extends BaseActivity {
 
         IsTopup = getIntent().getExtras().getBoolean("IsTopup");
         iTransactionId = getIntent().getExtras().getInt("iTransactionId");
+
         strMemberId = getIntent().getExtras().getString("strMemberId");
 
         strURL = WebAPI.API_BASE_URL
-                + "/ClubTransDetail?aClientId="
+                + "/webapi/ClubTransDetail?aClientId="
                 + loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID)
                 + "&aCommand=GetAccReceipt&aJsonParams={%22MemberId%22:"
                 + strMemberId
@@ -49,8 +51,10 @@ public class FinanceDetailWebActivity extends BaseActivity {
                 + iTransactionId
                 + ",%22IsTopup%22:"
                 + IsTopup
-                + ",IsDemoApp:true}&aModuleId="
+                + "}&aModuleId="
                 + ApplicationGlobal.TAG_GCLUB_WEBSERVICES;
+
+        Log.e("strURL", strURL);
 
         tbFinanceDetail = (Toolbar) findViewById(R.id.tbFinanceDetail);
         setSupportActionBar(tbFinanceDetail);

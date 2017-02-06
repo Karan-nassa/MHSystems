@@ -1,6 +1,6 @@
 ##MHSystems [ANDROID]
 
-###redlibbets Club
+###Redlibbets Golf Club
 
 - CLUB ID : 44080103
 - Course Diary (Club View/BRS)
@@ -9,15 +9,16 @@
 ###Features:
 
 | Sno. | Name              | Available      |
-| ---- |:----------------: |          ---:  |
-| 1.   | Club News Badger  |       NO       |
-| 2.   | Weather           |       YES      |
-| 3.   | Your Handicap     |       YES      |
-| 4.   | Club View / BRS   |       YES      |
-| 5.   | Competitions      |       YES      |
-| 6.   | Members           |       YES      |
-| 7.   | Club News         |       YES      |
-| 8.   | Your Account      |       YES      |
-| 9.   | TOP UP            |       No       |
-| 10.  | Contact Us        |       YES      |
-| 11.  | Date on Club News |       YES      |
+| ---- |:----------------  | :------------: |
+| 1.   | Club News Badger  | No             |
+| 2.   | Weather           | Yes            |
+| 3.   | Your Handicap     | Yes            |
+| 4.   | Club View / BRS   | Yes            |
+| 5.   | Competitions      | Yes            |
+| 6.   | Members           | Yes            |
+| 7.   | Club News         | Yes            |
+| 8.   | Your Account      | Yes            |
+| 9.   | TOP UP            | No             |
+| 10.  | Contact Us        | Yes            |
+| 11.  | Date and Time on Club News | Yes   |
+

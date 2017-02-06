@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolBarMembers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:minHeight="?android:attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+            <LinearLayout
+                android:id="@+id/llPopMenuBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?android:attr/actionBarSize"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/llHomeMembers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <!-- HOME MENU ICON -->
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/icon_menu" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llMemberCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- COURSE TYPE [OLD/NEW COURSE] -->
+
+                    <com.mh.systems.corrstown.customfonts.RobotoMediumTextView
+                        android:id="@+id/tvMemberType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="All"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_arrow_down" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- USE COMMON VIEW TO DISPLAY TAB DATA -->
+
+            <include
+                android:id="@+id/container"
+                layout="@layout/include_container_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- NO INTERNET CONNECTION VIEW -->
+
+            <include
+                android:id="@+id/inc_message_view"
+                layout="@layout/include_display_message"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+</RelativeLayout>

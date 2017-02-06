@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGreyf1f1f0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <!-- LOGO -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="40"
+            android:background="@color/colorWhiteffffff">
+
+            <!-- GOLF CLUB LOGO -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:src="@mipmap/ic_home_golfclub" />
+
+
+        </LinearLayout>
+
+        <!-- LOGIN AND PASSWORD -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="53">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- PLEASE LOGIN TEXT -->
+
+                <com.mh.systems.corrstown.customfonts.RobotoMediumTextView
+
+                  android:name="com.mh.systems.correstown.customfonts.RobotoMediumTextView"
+                    android:id="@+id/tvLoginTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="25dp"
+                    android:text="@string/text_title_please_login"
+                    android:textColor="@color/coloracacac" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical">
+
+                    <!-- EMAIL FIELD -->
+
+                    <EditText
+                        android:id="@+id/etUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext_shape_white"
+                        android:gravity="center"
+                        android:hint="@string/text_email_hint"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlack000000"
+                        android:textColorHint="@color/colorD6D0C9"
+                        android:textSize="17sp">
+
+
+                    </EditText>
+
+                    <!-- PASSWORD FIELD -->
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_shape_bg"
+                        android:gravity="center"
+                        android:hint="@string/title_text_password"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword|text"
+                        android:maxLines="1"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlack000000"
+                        android:textColorHint="@color/colorD6D0C9"
+                        android:textSize="17sp" />
+
+                    <!-- LOGIN BUTTON-->
+
+                    <Button
+                        android:id="@+id/btLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/button_login_shape_c0995b"
+                        android:elevation="0dp"
+                        android:text="@string/button_text_login"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="17sp" />
+
+                    <!-- FORGOT PASSWORD -->
+
+                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+
+                        android:id="@+id/tvForgotPWD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:padding="7dp"
+                        android:text="@string/text_title_forgot_password"
+                        android:textColor="@color/color4b9dfa"
+                        android:textSize="12sp"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- COPYRIGHT TEXT -->
+
+        <TextView
+            android:id="@+id/tvCopyRight"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:alpha="0.3"
+            android:gravity="center"
+            android:text="@string/text_title_copyright"
+            android:textColor="@color/colorBlack000000"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
