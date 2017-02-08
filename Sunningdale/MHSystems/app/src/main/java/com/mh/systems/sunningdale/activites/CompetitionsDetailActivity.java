@@ -22,7 +22,7 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.sunningdale.models.AJsonParamsJoinCompetition;
 import com.mh.systems.sunningdale.models.AJsonParamsUnjoin;
@@ -33,7 +33,7 @@ import com.mh.systems.sunningdale.models.CompetitionJoinAPI;
 import com.mh.systems.sunningdale.models.ResultEntries;
 import com.mh.systems.sunningdale.models.CompetitionUnjoinAPI;
 import com.mh.systems.sunningdale.models.UnjoinItems;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.mh.systems.sunningdale.util.ScrollRecycleView;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;

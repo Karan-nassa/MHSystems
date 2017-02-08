@@ -25,10 +25,10 @@ import com.mh.systems.sunningdale.activites.BaseActivity;
 import com.mh.systems.sunningdale.activites.YourAccountActivity;
 import com.mh.systems.sunningdale.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.TransactionListData;
 import com.mh.systems.sunningdale.models.FinanceResultItems;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.mh.systems.sunningdale.models.FinanceAPI;
 import com.mh.systems.sunningdale.models.FinanceAJsonParams;
 

@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.corrstown.models.CompetitionDetailItems;
 import com.mh.systems.corrstown.models.CompetitionResultAPI;
 import com.mh.systems.corrstown.models.ResultEntries;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 import com.mh.systems.corrstown.util.ScrollRecycleView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -74,7 +74,7 @@ public class CompletedDetailActivity extends BaseActivity {
     @Bind(R.id.tvTitleTableResult)
     TextView tvTitleTableResult;
 
-    //Create instance of Competitions detail API to display ROUND result.
+    //Create instance of Competitions detail api to display ROUND result.
     CompetitionResultAPI competitionResultAPI;
     AJsonParamsResultOfCompetition aJsonParamsResultOfCompetition;
 

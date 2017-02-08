@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.HCapHistory.AJsonParamsHcapHistory;
 import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryData;
 import com.mh.systems.demoapp.models.HCapHistory.HCapHistoryResult;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.util.DividerItemDecoration;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

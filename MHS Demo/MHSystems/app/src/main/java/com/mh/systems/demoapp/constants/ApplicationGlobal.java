@@ -128,7 +128,6 @@ public class ApplicationGlobal {
     public static final String KEY_TEMPKEY_IMAGE = "image";
     public static final String KEY_TEMPKEY_LOCATION = "location";
     public static final String KEY_TEMPKEY_WEATHER = "weather";
-
 }
 
 

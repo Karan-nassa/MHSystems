@@ -25,10 +25,10 @@ import com.mh.systems.corrstown.activites.BaseActivity;
 import com.mh.systems.corrstown.activites.YourAccountActivity;
 import com.mh.systems.corrstown.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.TransactionListData;
 import com.mh.systems.corrstown.models.FinanceResultItems;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 import com.mh.systems.corrstown.models.FinanceAPI;
 import com.mh.systems.corrstown.models.FinanceAJsonParams;
 

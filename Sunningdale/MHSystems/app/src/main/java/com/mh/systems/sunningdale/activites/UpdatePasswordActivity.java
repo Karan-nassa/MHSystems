@@ -22,14 +22,11 @@ import com.google.common.collect.Range;
 import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
-import com.mh.systems.sunningdale.models.ResetPassword.AJsonParamsResetPwd;
-import com.mh.systems.sunningdale.models.ResetPassword.ResetPasswordAPI;
-import com.mh.systems.sunningdale.models.ResetPassword.ResetPasswordItems;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.UpdatePassword.AJsonParamsUpdatePassword;
 import com.mh.systems.sunningdale.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.sunningdale.models.UpdatePassword.UpdatePasswordResponse;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

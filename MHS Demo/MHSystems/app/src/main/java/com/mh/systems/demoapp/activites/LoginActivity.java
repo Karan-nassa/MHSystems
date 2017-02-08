@@ -18,21 +18,18 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.AJsonParamsDashboard;
 import com.mh.systems.demoapp.models.DashboardAPI;
 import com.mh.systems.demoapp.models.LoginData;
 import com.mh.systems.demoapp.models.LoginItems;
-import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
 import com.mh.systems.demoapp.push.QuickstartPreferences;
 import com.mh.systems.demoapp.push.RegistrationIntentService;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -106,12 +103,12 @@ public class LoginActivity extends BaseActivity {
             strPassword = etPassword.getText().toString();
 
             if (isValid()) {
-                //Call LOGIN API if UserName & Password correctly filled.
+                //Call LOGIN api if UserName & Password correctly filled.
                /* *
                  *  Check internet connection before hitting server request.
                  */
                 if (isOnline(LoginActivity.this)) {
-                    //Method to hit Squads API.
+                    //Method to hit Squads api.
                     requestLoginService();
                 } else {
                     showAlertMessage(getResources().getString(R.string.error_no_internet));

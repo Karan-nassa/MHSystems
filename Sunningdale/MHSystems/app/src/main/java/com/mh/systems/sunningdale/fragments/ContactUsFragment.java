@@ -21,11 +21,11 @@ import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.activites.MembersActivity;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.ContactUs.AJsonParamsContactUs;
 import com.mh.systems.sunningdale.models.ContactUs.ContactUsAPI;
 import com.mh.systems.sunningdale.models.ContactUs.ContactUsResponse;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.rollbar.android.Rollbar;
 

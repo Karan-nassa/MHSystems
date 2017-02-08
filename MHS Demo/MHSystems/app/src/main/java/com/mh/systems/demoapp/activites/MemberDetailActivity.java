@@ -25,14 +25,14 @@ import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.AJsonParamsAddMember;
 import com.mh.systems.demoapp.models.AddMemberAPI;
 import com.mh.systems.demoapp.models.AddRequestResult;
 import com.mh.systems.demoapp.models.Friends.AJsonParamsRemoveFriend;
 import com.mh.systems.demoapp.models.Friends.RemoveFriendAPI;
 import com.mh.systems.demoapp.models.Friends.RemoveFriendItems;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.models.AJsonParamsMembersDatail;
 import com.mh.systems.demoapp.models.MembersDetailAPI;
 import com.mh.systems.demoapp.models.MembersDetailsItems;
@@ -184,7 +184,7 @@ public class MemberDetailActivity extends BaseActivity {
          *  Check internet connection before hitting server request.
          */
         if (isOnline(MemberDetailActivity.this)) {
-            //Method to hit Members list API.
+            //Method to hit Members list api.
             requestMemberDetailService();
         } else {
             showAlertMessage(getResources().getString(R.string.error_no_internet));

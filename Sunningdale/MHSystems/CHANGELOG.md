@@ -11,6 +11,12 @@
     - UPDATE: Replace 'SimpleDrawerView' with 'CircleImageView' for better performance.
     - FIXED: Implement Internet check for Forecast Weather data.
 
+    ####07th Feb, 2017
+    - NEW: Integrate push notification functionality.
+	- NEW: Integrate Register Token functionality with GCM.
+	- UPDATE: Integrate Club News with Thumbnail features.
+	- NEW: Integrate Logout functionality (API).
+
 ##Version 1.4.0 (2016-12-01)
 
 - New: Contact us feature added

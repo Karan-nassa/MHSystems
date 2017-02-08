@@ -22,9 +22,9 @@ import com.mh.systems.corrstown.models.competitionsEntry.AJsonParamsEligiblePlay
 import com.mh.systems.corrstown.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.corrstown.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.corrstown.models.competitionsEntry.EligibleMember;
-import com.mh.systems.corrstown.utils.CircularContactView;
-import com.mh.systems.corrstown.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.corrstown.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.corrstown.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.corrstown.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.corrstown.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.Collections;

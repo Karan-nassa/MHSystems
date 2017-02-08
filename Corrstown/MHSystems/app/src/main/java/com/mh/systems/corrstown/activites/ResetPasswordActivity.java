@@ -20,11 +20,11 @@ import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.ResetPassword.AJsonParamsResetPwd;
 import com.mh.systems.corrstown.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.corrstown.models.ResetPassword.ResetPasswordItems;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

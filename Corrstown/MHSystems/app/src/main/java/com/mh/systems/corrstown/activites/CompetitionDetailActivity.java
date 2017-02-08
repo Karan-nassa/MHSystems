@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.AJsonParamsJoinCompetition;
 import com.mh.systems.corrstown.models.AJsonParamsUnjoin;
 import com.mh.systems.corrstown.models.AddRequestResult;
@@ -32,7 +32,7 @@ import com.mh.systems.corrstown.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.corrstown.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.corrstown.models.competitionsEntry.GetClubEventResponse;
 import com.mh.systems.corrstown.models.competitionsEntry.Player;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -115,7 +115,7 @@ public class CompetitionDetailActivity extends BaseActivity {
     CompetitionJoinAPI competitionJoinAPI;
     AJsonParamsJoinCompetition aJsonParamsJoinCompetition;
 
-    //Create instance of Competitions unjoin API.
+    //Create instance of Competitions unjoin api.
     CompetitionUnjoinAPI competitionUnjoinAPI;
     AJsonParamsUnjoin aJsonParamsUnjoin;
     UnjoinItems unjoinItems;

@@ -18,7 +18,7 @@ import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.BaseAdapter.CompTimeGridAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsUpdateEntry;
 import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
 import com.mh.systems.demoapp.models.competitionsEntry.Entry;
@@ -28,7 +28,7 @@ import com.mh.systems.demoapp.models.competitionsEntry.Player;
 import com.mh.systems.demoapp.models.competitionsEntry.Slot;
 import com.mh.systems.demoapp.models.competitionsEntry.UpdateCompEntryAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.UpdateCompEntryResponse;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.util.ExpandableHeightGridView;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -399,7 +399,7 @@ public class CompetitionEntryActivity extends BaseActivity {
                 for (int iCounter = 0; iCounter < playersList.size(); iCounter++) {
 
                     /**
-                     * After remove Member, RecordID and PlayerName values will be 0 from API. If its
+                     * After remove Member, RecordID and PlayerName values will be 0 from api. If its
                      * 0 or empty then don't update UI and not need to add in local array.
                      */
                     if (playersList.get(iCounter).getRecordID() != 0) {
@@ -558,7 +558,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
         /**
          * Add Member itself if First time Entry competition. And during UPDATE, member
-         * ID already added via API.
+         * ID already added via api.
          */
         if (iEntryID == 0) {
             selectedMemberIdList.add(Integer.parseInt(getMemberId()));

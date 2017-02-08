@@ -18,14 +18,14 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.AJsonParamsDashboard;
 import com.mh.systems.sunningdale.models.DashboardAPI;
 import com.mh.systems.sunningdale.models.LoginData;
 import com.mh.systems.sunningdale.models.LoginItems;
 import com.mh.systems.sunningdale.push.QuickstartPreferences;
 import com.mh.systems.sunningdale.push.RegistrationIntentService;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

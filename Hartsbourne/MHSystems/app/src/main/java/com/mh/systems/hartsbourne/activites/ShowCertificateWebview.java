@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.web.WebAPI;
 
 public class ShowCertificateWebview extends BaseActivity {
 

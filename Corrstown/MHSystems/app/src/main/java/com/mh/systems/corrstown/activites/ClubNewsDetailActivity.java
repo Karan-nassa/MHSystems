@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.corrstown.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.corrstown.models.ClubNews.ClubNewsDetailResult;
@@ -24,7 +24,7 @@ import com.mh.systems.corrstown.models.ClubNewsThumbnail.AJsonParamsClubNewsDeta
 import com.mh.systems.corrstown.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 import com.mh.systems.corrstown.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
 import com.mh.systems.corrstown.models.ClubNewsThumbnail.ClubNewsThumbnailDetailResponse;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -119,7 +119,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
         //wvClubNews.getSettings().setJavaScriptEnabled(true);
         //wvClubNews.loadDataWithBaseURL("", clubNewsThumbnailData.getMessage(), "text/html", "UTF-8", "");
 
-        //If user haven't read news then call READ API status.
+        //If user haven't read news then call READ api status.
         if (!isRead) {
             isRead = true;
             //isDelete = false;

@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.sunningdale.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.sunningdale.models.ClubNews.ClubNewsDetailResult;
@@ -24,7 +24,7 @@ import com.mh.systems.sunningdale.models.ClubNewsThumbnail.AJsonParamsClubNewsDe
 import com.mh.systems.sunningdale.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 import com.mh.systems.sunningdale.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
 import com.mh.systems.sunningdale.models.ClubNewsThumbnail.ClubNewsThumbnailDetailResponse;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,23 +15,17 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.activites.BaseActivity;
 import com.mh.systems.demoapp.activites.EligiblePlayersActivity;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsEligiblePlayers;
 import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
-import com.mh.systems.demoapp.utils.CircularContactView;
-import com.mh.systems.demoapp.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.demoapp.utils.async_task_thread_pool.AsyncTaskThreadPool;
-import com.newrelic.com.google.gson.reflect.TypeToken;
+import com.mh.systems.demoapp.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.demoapp.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.demoapp.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,9 +35,6 @@ import java.util.Locale;
 import lb.library.PinnedHeaderListView;
 import lb.library.SearchablePinnedHeaderListViewAdapter;
 import lb.library.StringArrayAlphabetIndexer;
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
 
 /**
  * The {@link EligibleMemberFragment} used to display the eligible players list

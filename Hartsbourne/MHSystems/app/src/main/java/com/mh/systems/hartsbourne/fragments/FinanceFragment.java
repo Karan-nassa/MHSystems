@@ -25,10 +25,10 @@ import com.mh.systems.hartsbourne.activites.BaseActivity;
 import com.mh.systems.hartsbourne.activites.YourAccountActivity;
 import com.mh.systems.hartsbourne.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.web.WebAPI;
 import com.mh.systems.hartsbourne.models.TransactionListData;
 import com.mh.systems.hartsbourne.models.FinanceResultItems;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 import com.mh.systems.hartsbourne.models.FinanceAPI;
 import com.mh.systems.hartsbourne.models.FinanceAJsonParams;
 

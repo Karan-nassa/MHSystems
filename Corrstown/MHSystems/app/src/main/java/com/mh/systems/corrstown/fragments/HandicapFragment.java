@@ -35,13 +35,13 @@ import com.mh.systems.corrstown.activites.HCapHistoryActivity;
 import com.mh.systems.corrstown.activites.ShowCertificateWebview;
 import com.mh.systems.corrstown.activites.YourAccountActivity;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.AJsonParamsHandicap;
 import com.mh.systems.corrstown.models.HCapRecords;
 import com.mh.systems.corrstown.models.HandicapAPI;
 import com.mh.systems.corrstown.models.HandicapData;
 import com.mh.systems.corrstown.models.HandicapResultItems;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 import com.mh.systems.corrstown.util.MyMarkerView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

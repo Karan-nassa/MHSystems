@@ -12,12 +12,12 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.web.WebAPI;
 import com.mh.systems.hartsbourne.models.AJsonParamsDashboard;
 import com.mh.systems.hartsbourne.models.DashboardAPI;
 import com.mh.systems.hartsbourne.models.LoginData;
 import com.mh.systems.hartsbourne.models.LoginItems;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

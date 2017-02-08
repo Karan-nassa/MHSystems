@@ -21,7 +21,7 @@ import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.AJsonParamsCourse;
 import com.mh.systems.demoapp.models.CourseDiaryAPI;
 import com.mh.systems.demoapp.models.CourseDiaryData;
@@ -29,7 +29,7 @@ import com.mh.systems.demoapp.models.CourseDiaryDataCopy;
 import com.mh.systems.demoapp.models.CourseDiaryItems;
 import com.mh.systems.demoapp.models.CourseDiaryItemsCopy;
 import com.mh.systems.demoapp.models.CoursesData;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -509,7 +509,7 @@ public class CourseDiaryActivity extends BaseActivity {
         if (isOnline(this)) {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
             // inc_message_view.setVisibility(View.GONE);
-            //Method to hit Squads API.
+            //Method to hit Squads api.
             requestCourseService();
         } else {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);

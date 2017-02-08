@@ -23,16 +23,16 @@ import com.mh.systems.hartsbourne.activites.BaseActivity;
 import com.mh.systems.hartsbourne.activites.MemberDetailActivity;
 import com.mh.systems.hartsbourne.activites.MembersActivity;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.web.WebAPI;
+import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 import com.mh.systems.hartsbourne.models.AJsonParamsMembers;
 import com.mh.systems.hartsbourne.models.MembersAPI;
 import com.mh.systems.hartsbourne.models.MembersData;
 import com.mh.systems.hartsbourne.models.MembersItems;
 import com.mh.systems.hartsbourne.models.MembersList;
-import com.mh.systems.hartsbourne.utils.CircularContactView;
-import com.mh.systems.hartsbourne.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.hartsbourne.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.hartsbourne.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.hartsbourne.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.hartsbourne.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 
 import java.lang.reflect.Type;

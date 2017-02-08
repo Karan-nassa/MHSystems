@@ -23,16 +23,16 @@ import com.mh.systems.corrstown.activites.BaseActivity;
 import com.mh.systems.corrstown.activites.MemberDetailActivity;
 import com.mh.systems.corrstown.activites.MembersActivity;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.WebAPI;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 import com.mh.systems.corrstown.models.AJsonParamsMembers;
 import com.mh.systems.corrstown.models.MembersAPI;
 import com.mh.systems.corrstown.models.MembersData;
 import com.mh.systems.corrstown.models.MembersItems;
 import com.mh.systems.corrstown.models.MembersList;
-import com.mh.systems.corrstown.utils.CircularContactView;
-import com.mh.systems.corrstown.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.corrstown.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.corrstown.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.corrstown.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.corrstown.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 
 import java.lang.reflect.Type;
@@ -124,7 +124,7 @@ public class MembersFragment extends Fragment {
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
                 ((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
 
-                //Method to hit Members list API.
+                //Method to hit Members list api.
                 requestMemberService();
              //   ((MembersActivity) getActivity()).updateNoInternetUI(true);
             } else {

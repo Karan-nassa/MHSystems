@@ -23,10 +23,10 @@ import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.sunningdale.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.forecast.ForecastApiResponse;
 import com.mh.systems.sunningdale.models.forecast.ListOfDay;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;

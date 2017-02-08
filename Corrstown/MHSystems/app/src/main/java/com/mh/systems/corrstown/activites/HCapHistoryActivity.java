@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.HCapHistory.AJsonParamsHcapHistory;
 import com.mh.systems.corrstown.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.corrstown.models.HCapHistory.HCapHistoryData;
 import com.mh.systems.corrstown.models.HCapHistory.HCapHistoryResult;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 import com.mh.systems.corrstown.util.DividerItemDecoration;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

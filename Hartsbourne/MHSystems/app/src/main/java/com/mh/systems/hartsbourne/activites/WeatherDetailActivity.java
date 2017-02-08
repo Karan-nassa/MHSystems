@@ -23,10 +23,10 @@ import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.hartsbourne.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.web.WebAPI;
 import com.mh.systems.hartsbourne.models.forecast.ForecastApiResponse;
 import com.mh.systems.hartsbourne.models.forecast.ListOfDay;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;

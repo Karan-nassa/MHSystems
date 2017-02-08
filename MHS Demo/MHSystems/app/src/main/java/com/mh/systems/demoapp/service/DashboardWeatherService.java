@@ -17,9 +17,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.weather.WeatherData;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 
@@ -28,7 +28,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
 public class DashboardWeatherService extends Service {
-    private static final String TAG = "DashboardWeatherService";
+    private final String TAG = "DashboardWeatherService";
     private boolean isRunning = false;
     private Looper looper;
     private MyServiceHandler myServiceHandler;
@@ -93,7 +93,7 @@ public class DashboardWeatherService extends Service {
         }
     }
 
-    /****************** ++ WEATHER API FEATURE ++ ******************/
+    /****************** ++ WEATHER api FEATURE ++ ******************/
 
     /**
      * Implements this method to hit weather web

@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.web.WebAPI;
 import com.mh.systems.hartsbourne.models.AJsonParamsJoinCompetition;
 import com.mh.systems.hartsbourne.models.AJsonParamsUnjoin;
 import com.mh.systems.hartsbourne.models.AddRequestResult;
@@ -32,7 +32,7 @@ import com.mh.systems.hartsbourne.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.hartsbourne.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.hartsbourne.models.competitionsEntry.GetClubEventResponse;
 import com.mh.systems.hartsbourne.models.competitionsEntry.Player;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

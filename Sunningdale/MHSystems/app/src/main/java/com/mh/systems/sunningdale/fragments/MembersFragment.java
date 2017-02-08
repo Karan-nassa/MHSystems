@@ -23,16 +23,16 @@ import com.mh.systems.sunningdale.activites.BaseActivity;
 import com.mh.systems.sunningdale.activites.MemberDetailActivity;
 import com.mh.systems.sunningdale.activites.MembersActivity;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.WebAPI;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.mh.systems.sunningdale.models.AJsonParamsMembers;
 import com.mh.systems.sunningdale.models.MembersAPI;
 import com.mh.systems.sunningdale.models.MembersData;
 import com.mh.systems.sunningdale.models.MembersItems;
 import com.mh.systems.sunningdale.models.MembersList;
-import com.mh.systems.sunningdale.utils.CircularContactView;
-import com.mh.systems.sunningdale.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.sunningdale.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.sunningdale.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.sunningdale.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.sunningdale.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 
 import java.lang.reflect.Type;

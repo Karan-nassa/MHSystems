@@ -30,7 +30,7 @@ import com.mh.systems.corrstown.constants.ApplicationGlobal;
 import com.mh.systems.corrstown.models.TopUp.TopUpPriceListResponse;
 import com.mh.systems.corrstown.models.TopUp.TopUpPricesListAPI;
 import com.mh.systems.corrstown.models.TopUp.TopupList;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

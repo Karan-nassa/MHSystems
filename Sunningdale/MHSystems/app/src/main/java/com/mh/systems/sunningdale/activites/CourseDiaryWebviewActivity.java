@@ -1,10 +1,8 @@
 package com.mh.systems.sunningdale.activites;
 
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
@@ -13,7 +11,6 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
 
 public class CourseDiaryWebviewActivity extends BaseActivity {
 

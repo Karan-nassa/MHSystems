@@ -21,7 +21,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.ClubNewsActivity;
 import com.mh.systems.demoapp.activites.ClubNewsDetailActivity;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 
 import java.io.InputStream;

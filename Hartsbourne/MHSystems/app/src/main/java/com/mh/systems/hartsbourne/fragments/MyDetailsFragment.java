@@ -19,11 +19,11 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.activites.BaseActivity;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.web.WebAPI;
 import com.mh.systems.hartsbourne.models.AJsonParamsMembersDatail;
 import com.mh.systems.hartsbourne.models.MembersDetailAPI;
 import com.mh.systems.hartsbourne.models.MembersDetailsItems;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

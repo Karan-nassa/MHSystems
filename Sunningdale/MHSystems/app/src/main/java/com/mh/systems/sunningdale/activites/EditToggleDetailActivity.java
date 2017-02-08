@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.AJsonParamsMembersDatail;
 import com.mh.systems.sunningdale.models.MembersDetailAPI;
 import com.mh.systems.sunningdale.models.MembersDetailsData;
@@ -28,7 +28,7 @@ import com.mh.systems.sunningdale.models.MembersDetailsItems;
 import com.mh.systems.sunningdale.models.TogglePrivacy.AJsonParamsToggle;
 import com.mh.systems.sunningdale.models.TogglePrivacy.TogglePrivacyAPI;
 import com.mh.systems.sunningdale.models.TogglePrivacy.TogglePrivacyResponse;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

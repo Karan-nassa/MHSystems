@@ -16,22 +16,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.demoapp.models.MembersList;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.BaseActivity;
 import com.mh.systems.demoapp.activites.MemberDetailActivity;
 import com.mh.systems.demoapp.activites.MembersActivity;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.AJsonParamsFriends;
 import com.mh.systems.demoapp.models.FriendsAPI;
 import com.mh.systems.demoapp.models.FriendsData;
 import com.mh.systems.demoapp.models.FriendsItems;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
-import com.mh.systems.demoapp.utils.CircularContactView;
-import com.mh.systems.demoapp.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.demoapp.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
+import com.mh.systems.demoapp.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.demoapp.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.demoapp.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -129,7 +128,7 @@ public class FriendsFragment extends Fragment {
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             // ((MembersActivity) getActivity()).updateNoInternetUI(true);
             // MemberDetailActivity.isRefreshData = false;
-            //Method to hit Members list API.
+            //Method to hit Members list api.
             requestFriendService();
         } else {
             // ((MembersActivity) getActivity()).updateNoInternetUI(false);

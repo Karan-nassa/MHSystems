@@ -2,6 +2,8 @@
 package com.mh.systems.sunningdale.models.ClubNews;
 
 
+import android.support.annotation.Size;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

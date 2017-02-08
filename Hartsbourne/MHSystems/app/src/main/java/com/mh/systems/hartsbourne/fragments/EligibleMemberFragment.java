@@ -22,9 +22,9 @@ import com.mh.systems.hartsbourne.models.competitionsEntry.AJsonParamsEligiblePl
 import com.mh.systems.hartsbourne.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.hartsbourne.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.hartsbourne.models.competitionsEntry.EligibleMember;
-import com.mh.systems.hartsbourne.utils.CircularContactView;
-import com.mh.systems.hartsbourne.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.hartsbourne.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.hartsbourne.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.hartsbourne.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.hartsbourne.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.AJsonParamsJoinCompetition;
 import com.mh.systems.demoapp.models.AJsonParamsUnjoin;
 import com.mh.systems.demoapp.models.AddRequestResult;
@@ -32,14 +32,13 @@ import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.demoapp.models.competitionsEntry.GetClubEventResponse;
 import com.mh.systems.demoapp.models.competitionsEntry.Player;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -116,7 +115,7 @@ public class CompetitionDetailActivity extends BaseActivity {
     CompetitionJoinAPI competitionJoinAPI;
     AJsonParamsJoinCompetition aJsonParamsJoinCompetition;
 
-    //Create instance of Competitions unjoin API.
+    //Create instance of Competitions unjoin api.
     CompetitionUnjoinAPI competitionUnjoinAPI;
     AJsonParamsUnjoin aJsonParamsUnjoin;
     UnjoinItems unjoinItems;

@@ -11,7 +11,6 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,15 +20,13 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.demoapp.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.models.Line;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.forecast.ForecastApiResponse;
 import com.mh.systems.demoapp.models.forecast.ListOfDay;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -43,7 +40,6 @@ import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -153,7 +149,7 @@ public class WeatherDetailActivity extends BaseActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    /****************** ++ WEATHER API FEATURE ++ ******************/
+    /****************** ++ WEATHER api FEATURE ++ ******************/
 
     /**
      * Implements this method to hit weather web
@@ -410,7 +406,7 @@ public class WeatherDetailActivity extends BaseActivity{
         return strCurrentTime;
     }
 
-    /****************** ~~ WEATHER API FEATURE ~~ ******************/
+    /****************** ~~ WEATHER api FEATURE ~~ ******************/
 
     /**
      * Implements this method to set Layout of dashboard

@@ -19,12 +19,12 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.adapter.BaseAdapter.CompetitionsAdapter;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.web.WebAPI;
 import com.mh.systems.hartsbourne.models.CompetitionsAPI;
 import com.mh.systems.hartsbourne.models.CompetitionsData;
 import com.mh.systems.hartsbourne.models.CompetitionsJsonParams;
 import com.mh.systems.hartsbourne.models.CompetitionsResultItems;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 
 
 import java.lang.reflect.Type;

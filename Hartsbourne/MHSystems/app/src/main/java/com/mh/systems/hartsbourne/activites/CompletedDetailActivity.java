@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.web.WebAPI;
 import com.mh.systems.hartsbourne.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.hartsbourne.models.CompetitionDetailItems;
 import com.mh.systems.hartsbourne.models.CompetitionResultAPI;
 import com.mh.systems.hartsbourne.models.ResultEntries;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 import com.mh.systems.hartsbourne.util.ScrollRecycleView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

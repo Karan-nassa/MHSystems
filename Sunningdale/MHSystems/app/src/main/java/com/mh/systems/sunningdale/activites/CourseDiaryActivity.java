@@ -22,7 +22,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.AJsonParamsCourse;
 import com.mh.systems.sunningdale.models.CourseDiaryAPI;
 import com.mh.systems.sunningdale.models.CourseDiaryData;
@@ -30,7 +30,7 @@ import com.mh.systems.sunningdale.models.CourseDiaryDataCopy;
 import com.mh.systems.sunningdale.models.CourseDiaryItems;
 import com.mh.systems.sunningdale.models.CourseDiaryItemsCopy;
 import com.mh.systems.sunningdale.models.CoursesData;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;

@@ -22,11 +22,11 @@ import com.google.common.collect.Range;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.UpdatePassword.AJsonParamsUpdatePassword;
 import com.mh.systems.demoapp.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.demoapp.models.UpdatePassword.UpdatePasswordResponse;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

@@ -20,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.DeleteToken.AJsonParamsDeleteToken;
 import com.mh.systems.corrstown.models.DeleteToken.DeleteTokenAPI;
 import com.mh.systems.corrstown.models.DeleteToken.DeleteTokenResult;
@@ -30,7 +30,7 @@ import com.mh.systems.corrstown.models.UnreadNewsCount.GetUnreadNewsResponse;
 import com.mh.systems.corrstown.models.UnreadNewsCount.UnreadNewsCountData;
 import com.mh.systems.corrstown.models.weather.WeatherApiResponse;
 import com.mh.systems.corrstown.push.QuickstartPreferences;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -94,7 +94,7 @@ public class DashboardActivity extends BaseActivity {
     WeatherApiResponse weatherApiResponse;
 
     /**
-     * Instances of Delete Token API.
+     * Instances of Delete Token api.
      */
     DeleteTokenAPI deleteTokenAPI;
     AJsonParamsDeleteToken aJsonParamsDeleteToken;
@@ -103,7 +103,7 @@ public class DashboardActivity extends BaseActivity {
 
     /**
      * Instances of GET COUNT OF UNREAD
-     * CLUB NEWS API.
+     * CLUB NEWS api.
      */
     GetUnreadNewsCountAPI getUnreadNewsCountAPI;
     AJsonParamsGetUnreadCount aJsonParamsGetUnreadCount;
@@ -413,7 +413,7 @@ public class DashboardActivity extends BaseActivity {
         }
     }
 
-    /****************** ++ WEATHER API FEATURE ++ ******************/
+    /****************** ++ WEATHER api FEATURE ++ ******************/
 
     /**
      * Implements this method to hit weather web
@@ -489,7 +489,7 @@ public class DashboardActivity extends BaseActivity {
         }
     }
 
-    /****************** ~~ WEATHER API FEATURE ~~ ******************/
+    /****************** ~~ WEATHER api FEATURE ~~ ******************/
 
     /*~~~~~~~~~~~~~~~~~ START OF LOGOUT FEATURE  ~~~~~~~~~~~~~~~~~*/
 

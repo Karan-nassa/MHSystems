@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.web.WebAPI;
 import com.mh.systems.hartsbourne.models.AJsonParamsMembersDatail;
 import com.mh.systems.hartsbourne.models.MembersDetailAPI;
 import com.mh.systems.hartsbourne.models.MembersDetailsData;
@@ -28,7 +28,7 @@ import com.mh.systems.hartsbourne.models.MembersDetailsItems;
 import com.mh.systems.hartsbourne.models.TogglePrivacy.AJsonParamsToggle;
 import com.mh.systems.hartsbourne.models.TogglePrivacy.TogglePrivacyAPI;
 import com.mh.systems.hartsbourne.models.TogglePrivacy.TogglePrivacyResponse;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

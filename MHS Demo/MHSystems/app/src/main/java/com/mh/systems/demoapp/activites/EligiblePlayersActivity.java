@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +19,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.fragments.EligibleFriendsFragment;
 import com.mh.systems.demoapp.fragments.EligibleMemberFragment;
 import com.mh.systems.demoapp.fragments.EligiblePlayersTabFragment;
@@ -29,12 +28,11 @@ import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsEligiblePlayer
 import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -155,7 +153,7 @@ public class EligiblePlayersActivity extends BaseActivity {
 
         //Load Default fragment of Members Activity.
         if (isOnline(EligiblePlayersActivity.this)) {
-            //Method to hit Members list API.
+            //Method to hit Members list api.
             requestEligibleMemberService();
             updateNoInternetUI(true);
         } else {

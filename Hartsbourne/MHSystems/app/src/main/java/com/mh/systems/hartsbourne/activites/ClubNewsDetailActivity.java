@@ -16,12 +16,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
+import com.mh.systems.hartsbourne.web.WebAPI;
 import com.mh.systems.hartsbourne.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.hartsbourne.models.ClubNews.ClubNewsData;
 import com.mh.systems.hartsbourne.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.hartsbourne.models.ClubNews.ClubNewsDetailResult;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
+import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

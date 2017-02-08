@@ -19,12 +19,12 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.adapter.BaseAdapter.CompetitionsAdapter;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.CompetitionsAPI;
 import com.mh.systems.corrstown.models.CompetitionsData;
 import com.mh.systems.corrstown.models.CompetitionsJsonParams;
 import com.mh.systems.corrstown.models.CompetitionsResultItems;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;

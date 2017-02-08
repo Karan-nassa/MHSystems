@@ -19,12 +19,12 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.adapter.BaseAdapter.CompetitionsAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.CompetitionsAPI;
 import com.mh.systems.sunningdale.models.CompetitionsData;
 import com.mh.systems.sunningdale.models.CompetitionsJsonParams;
 import com.mh.systems.sunningdale.models.CompetitionsResultItems;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 
 
 import java.lang.reflect.Type;

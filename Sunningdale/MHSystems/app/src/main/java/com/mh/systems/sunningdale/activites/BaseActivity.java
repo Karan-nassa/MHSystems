@@ -173,20 +173,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * create common snackbar for all application to display
-     * toast messages.
-     */
-    public void showSnackBarMessages(CoordinatorLayout coordinatorLayout, String sMessage) {
-
-        snackbar = Snackbar
-                .make(coordinatorLayout, sMessage, Snackbar.LENGTH_LONG);
-
-        ViewGroup group = (ViewGroup) snackbar.getView();
-        group.setBackgroundColor(Color.GRAY);
-        snackbar.show();
-    }
-
-    /**
      * Show progress "Please wait" message.
      */
     public void showPleaseWait(String sMessage) {

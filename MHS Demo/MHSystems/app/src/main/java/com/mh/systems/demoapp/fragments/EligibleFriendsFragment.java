@@ -10,30 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.BaseActivity;
 import com.mh.systems.demoapp.activites.EligiblePlayersActivity;
 import com.mh.systems.demoapp.adapter.pinnedHeaderListAdapter.EligibleMembersAdapter;
-import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.models.competitionsEntry.AJsonParamsEligiblePlayers;
-import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersAPI;
-import com.mh.systems.demoapp.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import lb.library.PinnedHeaderListView;
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
 
 /**
  * The {@link EligibleFriendsFragment} used to display the Member list

@@ -30,7 +30,7 @@ import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.models.TopUp.TopUpPriceListResponse;
 import com.mh.systems.sunningdale.models.TopUp.TopUpPricesListAPI;
 import com.mh.systems.sunningdale.models.TopUp.TopupList;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

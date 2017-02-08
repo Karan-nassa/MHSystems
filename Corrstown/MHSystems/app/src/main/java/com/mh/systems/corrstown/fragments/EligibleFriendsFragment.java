@@ -24,7 +24,7 @@ import lb.library.PinnedHeaderListView;
 
 /**
  * The {@link EligibleFriendsFragment} used to display the Member list
- * with {@link AlphabaticalListAdapter} indexing and {@link android.support.v7.widget.SearchView}
+ * indexing and {@link android.support.v7.widget.SearchView}
  * <p/>
  *
  * @author karan@ucreate.co.in
@@ -90,13 +90,13 @@ public class EligibleFriendsFragment extends Fragment {
     /**
      * Implements a method to set Members list in Adapter.
      *
-     * @param eligibleMembers
+     * @param eligibleMemberArrayList : Array of eligible members.
      */
     private void setMembersListAdapter(ArrayList<EligibleMember> eligibleMemberArrayList) {
 
         if (eligibleMemberArrayList.size() == 0) {
             //((EligiblePlayersActivity) getActivity()).updateNoDataUI(false, 1);
-            ((EligiblePlayersActivity)getActivity()).showAlertMessage(getString(R.string.error_no_friend));
+            ((EligiblePlayersActivity) getActivity()).showAlertMessage(getString(R.string.error_no_friend));
         } else {
 
             //((EligiblePlayersActivity) getActivity()).updateNoDataUI(true, 1);

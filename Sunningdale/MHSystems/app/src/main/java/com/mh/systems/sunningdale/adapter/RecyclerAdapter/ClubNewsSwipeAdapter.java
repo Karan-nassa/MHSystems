@@ -21,7 +21,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.activites.ClubNewsActivity;
 import com.mh.systems.sunningdale.activites.ClubNewsDetailActivity;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 
 import java.io.InputStream;

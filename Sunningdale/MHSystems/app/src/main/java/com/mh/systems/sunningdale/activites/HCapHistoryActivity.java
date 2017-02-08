@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.HCapHistory.AJsonParamsHcapHistory;
 import com.mh.systems.sunningdale.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.sunningdale.models.HCapHistory.HCapHistoryData;
 import com.mh.systems.sunningdale.models.HCapHistory.HCapHistoryResult;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.mh.systems.sunningdale.util.DividerItemDecoration;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

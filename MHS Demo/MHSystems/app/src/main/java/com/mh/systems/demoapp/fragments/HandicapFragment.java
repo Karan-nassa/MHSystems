@@ -34,13 +34,13 @@ import com.mh.systems.demoapp.activites.HCapHistoryActivity;
 import com.mh.systems.demoapp.activites.ShowCertificateWebview;
 import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.AJsonParamsHandicap;
 import com.mh.systems.demoapp.models.HCapRecords;
 import com.mh.systems.demoapp.models.HandicapAPI;
 import com.mh.systems.demoapp.models.HandicapData;
 import com.mh.systems.demoapp.models.HandicapResultItems;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.util.MyMarkerView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

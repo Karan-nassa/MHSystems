@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 
 public class ShowCertificateWebview extends BaseActivity {
 

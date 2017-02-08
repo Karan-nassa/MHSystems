@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 
 public class FinanceDetailWebActivity extends BaseActivity {
 

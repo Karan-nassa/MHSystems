@@ -21,7 +21,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.activites.ClubNewsActivity;
 import com.mh.systems.corrstown.activites.ClubNewsDetailActivity;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 
 import java.io.InputStream;

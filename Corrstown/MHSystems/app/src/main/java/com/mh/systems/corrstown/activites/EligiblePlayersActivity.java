@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
-import com.mh.systems.corrstown.constants.WebAPI;
+import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.fragments.EligibleFriendsFragment;
 import com.mh.systems.corrstown.fragments.EligibleMemberFragment;
 import com.mh.systems.corrstown.fragments.EligiblePlayersTabFragment;
@@ -28,7 +28,7 @@ import com.mh.systems.corrstown.models.competitionsEntry.AJsonParamsEligiblePlay
 import com.mh.systems.corrstown.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.corrstown.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.corrstown.models.competitionsEntry.EligibleMember;
-import com.mh.systems.corrstown.util.API.WebServiceMethods;
+import com.mh.systems.corrstown.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -153,7 +153,7 @@ public class EligiblePlayersActivity extends BaseActivity {
 
         //Load Default fragment of Members Activity.
         if (isOnline(EligiblePlayersActivity.this)) {
-            //Method to hit Members list API.
+            //Method to hit Members list api.
             requestEligibleMemberService();
             updateNoInternetUI(true);
         } else {

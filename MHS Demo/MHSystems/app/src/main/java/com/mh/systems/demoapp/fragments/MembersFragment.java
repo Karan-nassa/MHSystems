@@ -23,16 +23,16 @@ import com.mh.systems.demoapp.activites.BaseActivity;
 import com.mh.systems.demoapp.activites.MemberDetailActivity;
 import com.mh.systems.demoapp.activites.MembersActivity;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.WebAPI;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.models.AJsonParamsMembers;
 import com.mh.systems.demoapp.models.MembersAPI;
 import com.mh.systems.demoapp.models.MembersData;
 import com.mh.systems.demoapp.models.MembersItems;
 import com.mh.systems.demoapp.models.MembersList;
-import com.mh.systems.demoapp.utils.CircularContactView;
-import com.mh.systems.demoapp.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.demoapp.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.demoapp.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.demoapp.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.demoapp.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 
 import java.lang.reflect.Type;
@@ -124,7 +124,7 @@ public class MembersFragment extends Fragment {
             if (((BaseActivity) getActivity()).isOnline(getActivity())) {
                 ((MembersActivity) getActivity()).setFragmentInstance(new MembersFragment());
 
-                //Method to hit Members list API.
+                //Method to hit Members list api.
                 requestMemberService();
                 //   ((MembersActivity) getActivity()).updateNoInternetUI(true);
             } else {

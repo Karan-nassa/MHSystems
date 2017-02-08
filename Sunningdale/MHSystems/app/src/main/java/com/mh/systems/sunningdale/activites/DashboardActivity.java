@@ -19,7 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.web.WebAPI;
 import com.mh.systems.sunningdale.models.DeleteToken.AJsonParamsDeleteToken;
 import com.mh.systems.sunningdale.models.DeleteToken.DeleteTokenAPI;
 import com.mh.systems.sunningdale.models.DeleteToken.DeleteTokenResult;
@@ -29,7 +29,7 @@ import com.mh.systems.sunningdale.models.UnreadNewsCount.GetUnreadNewsResponse;
 import com.mh.systems.sunningdale.models.UnreadNewsCount.UnreadNewsCountData;
 import com.mh.systems.sunningdale.models.weather.WeatherApiResponse;
 import com.mh.systems.sunningdale.push.QuickstartPreferences;
-import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.mh.systems.sunningdale.R;
 
 import java.lang.reflect.Type;

@@ -17,9 +17,9 @@ import com.mh.systems.demoapp.activites.EligiblePlayersActivity;
 import com.mh.systems.demoapp.fragments.EligibleFriendsFragment;
 import com.mh.systems.demoapp.fragments.EligibleMemberFragment;
 import com.mh.systems.demoapp.models.competitionsEntry.EligibleMember;
-import com.mh.systems.demoapp.utils.CircularContactView;
-import com.mh.systems.demoapp.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.demoapp.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.demoapp.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.demoapp.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.demoapp.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

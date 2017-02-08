@@ -1,42 +1,18 @@
 package com.mh.systems.hartsbourne.fragments;
 
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
 import com.mh.systems.hartsbourne.R;
-import com.mh.systems.hartsbourne.activites.BaseActivity;
-import com.mh.systems.hartsbourne.activites.YourAccountActivity;
-import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
-import com.mh.systems.hartsbourne.constants.WebAPI;
-import com.mh.systems.hartsbourne.models.AJsonParamsMembersDatail;
-import com.mh.systems.hartsbourne.models.MembersDetailAPI;
-import com.mh.systems.hartsbourne.models.MembersDetailsItems;
-import com.mh.systems.hartsbourne.util.API.WebServiceMethods;
-import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-
-import static com.mh.systems.hartsbourne.R.id.ivMessageSymbol;
-import static com.mh.systems.hartsbourne.R.id.llUsernameOfPerson;
 
 /**
  * The {@link NoInternetFragment} used to display the

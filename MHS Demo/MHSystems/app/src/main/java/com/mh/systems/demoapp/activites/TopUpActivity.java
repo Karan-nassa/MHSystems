@@ -1,11 +1,9 @@
 package com.mh.systems.demoapp.activites;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -32,7 +30,7 @@ import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.models.TopUp.TopUpPriceListResponse;
 import com.mh.systems.demoapp.models.TopUp.TopUpPricesListAPI;
 import com.mh.systems.demoapp.models.TopUp.TopupList;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -45,8 +43,6 @@ import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
-
-import static android.R.id.message;
 
 /**
  * Create {@link TopUpActivity} is used to implements the FSI

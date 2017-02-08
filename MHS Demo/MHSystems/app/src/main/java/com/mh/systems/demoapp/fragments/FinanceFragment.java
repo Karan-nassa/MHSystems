@@ -25,10 +25,10 @@ import com.mh.systems.demoapp.activites.BaseActivity;
 import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.constants.WebAPI;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.TransactionListData;
 import com.mh.systems.demoapp.models.FinanceResultItems;
-import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.models.FinanceAPI;
 import com.mh.systems.demoapp.models.FinanceAJsonParams;
 
