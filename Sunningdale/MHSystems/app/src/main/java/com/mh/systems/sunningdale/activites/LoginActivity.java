@@ -1,20 +1,20 @@
 package com.mh.systems.sunningdale.activites;
 
-import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
@@ -23,7 +23,10 @@ import com.mh.systems.sunningdale.models.AJsonParamsDashboard;
 import com.mh.systems.sunningdale.models.DashboardAPI;
 import com.mh.systems.sunningdale.models.LoginData;
 import com.mh.systems.sunningdale.models.LoginItems;
+import com.mh.systems.sunningdale.push.QuickstartPreferences;
+import com.mh.systems.sunningdale.push.RegistrationIntentService;
 import com.mh.systems.sunningdale.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -48,7 +51,6 @@ public class LoginActivity extends BaseActivity {
      * INSTANCES OF LOCAL DATA TYPE
      *********************************/
     public static final String LOG_TAG = LoginActivity.class.getSimpleName();
-
     String strErrorMessage = "";
     String strUserName, strPassword;
 
@@ -83,6 +85,10 @@ public class LoginActivity extends BaseActivity {
     LoginData dashboardData;
 
     Intent intent;
+    Typeface typeface;
+
+    BroadcastReceiver mRegistrationBroadcastReceiver;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     /**
      * Define a constant field called when user press on LOGIN
@@ -98,7 +104,7 @@ public class LoginActivity extends BaseActivity {
 
             if (isValid()) {
                 //Call LOGIN API if UserName & Password correctly filled.
-                /**
+               /* *
                  *  Check internet connection before hitting server request.
                  */
                 if (isOnline(LoginActivity.this)) {
@@ -137,15 +143,7 @@ public class LoginActivity extends BaseActivity {
         //Initialize Butter knife.
         ButterKnife.bind(this);
 
-        //First checking if the app is already having the permission
-        if (!isCallPermissionAllowed()) {
-            requestPermissions();
-        }
-
         setFontTypeFace();
-
-//        etUserName.setText("TONYP1952");
-//        etPassword.setText("WINCHESTER52");
 
         btLogin.setOnClickListener(mLoginListener);
 
@@ -237,7 +235,29 @@ public class LoginActivity extends BaseActivity {
                 if (dashboardData == null) {
                     showAlertMessage(getResources().getString(R.string.error_no_data));
                 } else {
+
                     savePreferenceValue(ApplicationGlobal.KEY_MEMBERID, "" + dashboardData.getMemberID());
+
+                    mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+                        @Override
+                        public void onReceive(Context context, Intent intent) {
+                            SharedPreferences sharedPreferences =
+                                    PreferenceManager.getDefaultSharedPreferences(context);
+                            boolean sentToken = sharedPreferences
+                                    .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+                            if (sentToken) {
+                                Log.e("sentToken:", "" + sentToken);
+                            } else {
+                                Log.e("sentToken else :", "" + sentToken);
+                            }
+                        }
+                    };
+
+                    if (checkPlayServices()) {
+                        Intent intent = new Intent(this, RegistrationIntentService.class);
+                        startService(intent);
+                    }
+
 
                     etPassword.setText("");
                     etUserName.setText("");
@@ -262,10 +282,10 @@ public class LoginActivity extends BaseActivity {
                         savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, dashboardData.isClubNewsFeature());
                         savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, dashboardData.isYourAccountFeature());
 
-//                        Gson gson = new Gson();
+                        Gson gson = new Gson();
 
                         //Save Courses ArrayList in Shared-preference.
-                        // savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
+                        savePreferenceList(ApplicationGlobal.KEY_COURSES, gson.toJson(dashboardData.getCourses()));
 
                         intent = new Intent(LoginActivity.this, DashboardActivity.class);
                         startActivity(intent);
@@ -287,17 +307,18 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * Implements a method to set FONT style using .ttf by putting
-     * in main\assets\fonts directory of current project.
+     * in ForecastMain\assets\fonts directory of current project.
      */
     private void setFontTypeFace() {
-        tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
-        getTfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
-        tfRobotoLight = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+
+        tfRobotoRegular = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Regular.ttf");
+        getTfRobotoMedium = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Medium.ttf");
+        tfRobotoLight = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Light.ttf");
 
         etUserName.setTypeface(tfRobotoRegular);
         etPassword.setTypeface(tfRobotoRegular);
 
-        tvLoginTitle.setTypeface(getTfRobotoMedium);
+
         btLogin.setTypeface(getTfRobotoMedium);
 
         tvCopyRight.setTypeface(tfRobotoLight);
@@ -310,25 +331,24 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_CALL_PHONE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i("checkPlayServices", "This device is not supported.");
+                finish();
             }
+            return false;
         }
+        return true;
     }
 }

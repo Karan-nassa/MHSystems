@@ -332,7 +332,7 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
      * @param strEmailAddress : EMAIL address which selected to send email.
      */
     protected void callSendEmail(String strEmailAddress) {
-        String[] TO = {strEmailAddress/*tvEmail.getText().toString()*/};
+        String[] TO = {strEmailAddress};
         String[] CC = {""};
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 

@@ -79,11 +79,6 @@ public class EligibleFriendsFragment extends Fragment {
 
         isTabVisibile = 1;
 
-//        ((EligiblePlayersActivity) getActivity()).setFragmentInstance(new EligibleMemberFragment());
-//        eligibleMemberArrayList.clear();
-//        eligibleMemberArrayList = ((EligiblePlayersActivity) getActivity()).getEligibleMemberList(1);
-//        setMembersListAdapter(eligibleMemberArrayList);
-
         return viewRootFragment;
     }
 
@@ -108,11 +103,8 @@ public class EligibleFriendsFragment extends Fragment {
     private void setMembersListAdapter(ArrayList<EligibleMember> eligibleMemberArrayList) {
 
         if (eligibleMemberArrayList.size() == 0) {
-            //((EligiblePlayersActivity) getActivity()).updateNoDataUI(false, 1);
             ((EligiblePlayersActivity) getActivity()).showAlertMessage(getString(R.string.error_no_friend));
         } else {
-
-            //((EligiblePlayersActivity) getActivity()).updateNoDataUI(true, 1);
 
             //Members list demo.
             Collections.sort(eligibleMemberArrayList, new Comparator<EligibleMember>() {

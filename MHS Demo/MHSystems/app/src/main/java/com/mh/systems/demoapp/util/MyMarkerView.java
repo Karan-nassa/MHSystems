@@ -25,9 +25,6 @@ public class MyMarkerView extends MarkerView {
         super(context, layoutResource);
 
         this.hCapRecordses = hCapRecordses;
-
-//        tvContent = (TextView) findViewById(R.id.tvHandicapPlayStr);
-//        tvHandicapDate = (TextView) findViewById(R.id.tvHandicapDate);
     }
 
     // callbacks everytime the MarkerView is redrawn, can be used to update the

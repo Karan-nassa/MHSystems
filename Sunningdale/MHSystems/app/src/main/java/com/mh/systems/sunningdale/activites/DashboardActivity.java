@@ -13,17 +13,24 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.mh.systems.sunningdale.R;
+import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.constants.WebAPI;
+import com.mh.systems.sunningdale.models.DeleteToken.AJsonParamsDeleteToken;
+import com.mh.systems.sunningdale.models.DeleteToken.DeleteTokenAPI;
+import com.mh.systems.sunningdale.models.DeleteToken.DeleteTokenResult;
+import com.mh.systems.sunningdale.models.UnreadNewsCount.AJsonParamsGetUnreadCount;
+import com.mh.systems.sunningdale.models.UnreadNewsCount.GetUnreadNewsCountAPI;
+import com.mh.systems.sunningdale.models.UnreadNewsCount.GetUnreadNewsResponse;
+import com.mh.systems.sunningdale.models.UnreadNewsCount.UnreadNewsCountData;
 import com.mh.systems.sunningdale.models.weather.WeatherApiResponse;
+import com.mh.systems.sunningdale.push.QuickstartPreferences;
 import com.mh.systems.sunningdale.util.API.WebServiceMethods;
-import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.reflect.TypeToken;
+import com.mh.systems.sunningdale.R;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -38,7 +45,7 @@ import retrofit.RetrofitError;
 
 /**
  * The {@link DashboardActivity} used to display {@link GridView}, Settings and
- * Logout option. Basically, it will be use as the main screen of application
+ * Logout option. Basically, it will be use as the ForecastMain screen of application
  * after Login.
  *
  * @author {@link karan@ucreate.co.in}
@@ -79,13 +86,30 @@ public class DashboardActivity extends BaseActivity {
     @Bind(R.id.todayIcon)
     ImageView todayIcon;
 
-
     //Instance of Grid Adapter.
     DashboardRecyclerAdapter dashboardRecyclerAdapter;
     Intent intent = null;
 
     //Instance of Weather api.
     WeatherApiResponse weatherApiResponse;
+
+    /**
+     * Instances of Delete Token API.
+     */
+    DeleteTokenAPI deleteTokenAPI;
+    AJsonParamsDeleteToken aJsonParamsDeleteToken;
+
+    DeleteTokenResult deleteTokenResult;
+
+    /**
+     * Instances of GET COUNT OF UNREAD
+     * CLUB NEWS API.
+     */
+    GetUnreadNewsCountAPI getUnreadNewsCountAPI;
+    AJsonParamsGetUnreadCount aJsonParamsGetUnreadCount;
+
+    GetUnreadNewsResponse getUnreadNewsResponse;
+    UnreadNewsCountData unreadNewsCountData;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -103,13 +127,12 @@ public class DashboardActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            /**
-             *  Clear shared-preference memory.
-             */
-            clearAutoPreference();
-
-            startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
-            finish();
+            //Call Weather api functionality.
+            if (isOnline(DashboardActivity.this)) {
+                callLogoutService();
+            } else {
+                showAlertMessage(getString(R.string.error_no_connection));
+            }
         }
     };
 
@@ -160,6 +183,23 @@ public class DashboardActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+//        String temp = loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, "");
+//          if (temp.equals("")){
+//        callWeatherService();
+//          }
+//    else{
+//            llWeatherGroup.setVisibility(View.VISIBLE);
+//            tvTodayTemperature.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ""));
+//            tvWeatherDesc.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ""));
+//            //        tvNameOfLocation.setText(weatherData.getName() + ", " + weatherData.getSys().getCountry());
+//            tvNameOfLocation.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, ""));
+//        //    todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherData.getWeather().get(0).getIcon() + ".png"));
+//            Resources res=getResources();
+//            int resID = res.getIdentifier(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ""), "mipmap", getPackageName());
+//            Drawable drawable = res.getDrawable(resID);
+//            todayIcon.setImageDrawable(drawable);
+//
+//        }
     }
 
     @Override
@@ -169,6 +209,7 @@ public class DashboardActivity extends BaseActivity {
         //Call Weather api functionality.
         if (isOnline(DashboardActivity.this)) {
             callWeatherService();
+            getUnreadNewsCountService();
         }
     }
 
@@ -216,12 +257,12 @@ public class DashboardActivity extends BaseActivity {
         }
 
         //Add Club News
-        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, false)) {
-            dashboardItemsArrayList.add(new DashboardItems(
-                    R.mipmap.ic_home_clubnews,
-                    "Club News",
-                    getApplicationContext().getPackageName() + ".activites.ClubNewsActivity"));
-        }
+        // if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, false)) {
+        dashboardItemsArrayList.add(new DashboardItems(
+                R.mipmap.ic_home_clubnews,
+                "Club News",
+                getApplicationContext().getPackageName() + ".activites.ClubNewsActivity"));
+        // }
 
         //Add Finance/Your Details
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, false)) {
@@ -239,7 +280,6 @@ public class DashboardActivity extends BaseActivity {
 
         // ScrollRecycleView.getListViewSize(gvMenuOptions);
     }
-
     /**
      * Implements this method to set Layout of dashboard
      * Grid.
@@ -422,8 +462,6 @@ public class DashboardActivity extends BaseActivity {
                     public void failure(RetrofitError error) {
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
-
-                        //callWeatherService();
                     }
                 });
     }
@@ -459,9 +497,188 @@ public class DashboardActivity extends BaseActivity {
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
 
         } else {
-            Toast.makeText(DashboardActivity.this, weatherApiResponse.getMessage(), Toast.LENGTH_LONG).show();
+            //  Toast.makeText(DashboardActivity.this, weatherApiResponse.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e(LOG_TAG, weatherApiResponse.getMessage());
+            //callWeatherService();
         }
     }
 
     /****************** ~~ WEATHER API FEATURE ~~ ******************/
+
+    /*~~~~~~~~~~~~~~~~~ START OF LOGOUT FEATURE  ~~~~~~~~~~~~~~~~~*/
+
+    /**
+     * Implements this method to call the
+     * Logout web service.
+     */
+    private void callLogoutService() {
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsDeleteToken = new AJsonParamsDeleteToken();
+        aJsonParamsDeleteToken.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsDeleteToken.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsDeleteToken.setDeviceId(loadPreferenceValue(QuickstartPreferences.TAG_DEVICE_ID, "N/A"));
+
+        deleteTokenAPI = new DeleteTokenAPI(getClientId(), "DELETEMEMBERDEVICE", aJsonParamsDeleteToken, "PUSHNOTIFICATION", ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.deleteToken(deleteTokenAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateTokenSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }
+
+    /**
+     * Implements a method which called when token
+     * deleted from web server successfully.
+     */
+    private void updateTokenSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "LOGOUT SUSSCESS RESPONSE : " + jsonObject.toString());
+
+        Type type = new com.newrelic.com.google.gson.reflect.TypeToken<DeleteTokenResult>() {
+        }.getType();
+        deleteTokenResult = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (deleteTokenResult.getMessage().equalsIgnoreCase("Success") || deleteTokenResult.getData() == 1) {
+                /**
+                 *  Clear shared-preference memory.
+                 */
+                clearAutoPreference();
+
+                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+                finish();
+            } else {
+                /*mAwesomeValidation.addValidation(etUserName, "regex", updatePasswordResponse.getMessage());
+                mAwesomeValidation.validate();*/
+                showAlertMessage("" + deleteTokenResult.getMessage());
+            }
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    public String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+    }
+
+     /*~~~~~~~~~~~~~~~~~ END OF LOGOUT FEATURE  ~~~~~~~~~~~~~~~~~*/
+
+    /****************** ++ GET CLUB NEWS UNREAD COUNT FUNCTIONALITY ++ ******************/
+
+    /**
+     * Implements this method to hit weather web
+     * service get count of UNREAD club news.
+     */
+    private void getUnreadNewsCountService() {
+
+        aJsonParamsGetUnreadCount = new AJsonParamsGetUnreadCount();
+        aJsonParamsGetUnreadCount.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsGetUnreadCount.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsGetUnreadCount.setLoginMemberId(getMemberId());
+
+        getUnreadNewsCountAPI = new GetUnreadNewsCountAPI(getClientId(), "GETUNREADCLUBNEWS", aJsonParamsGetUnreadCount, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getUnreadClubNewsCount(getUnreadNewsCountAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateGetUnreadCountResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                //getUnreadNewsCountService();
+            }
+        });
+    }
+
+    /**
+     * Implements a method which called to get count of
+     * UNREAD club news.
+     */
+    private void updateGetUnreadCountResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<GetUnreadNewsResponse>() {
+        }.getType();
+        getUnreadNewsResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (getUnreadNewsResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                int iUnReadCount = getUnreadNewsResponse.getData().getUnRead();
+
+                if (iUnReadCount > 0) {
+                    dashboardRecyclerAdapter.updateBadgerCount(getUnreadNewsResponse.getData().getUnRead());
+                }
+            } else {
+                /*mAwesomeValidation.addValidation(etUserName, "regex", updatePasswordResponse.getMessage());
+                mAwesomeValidation.validate();*/
+                showAlertMessage("" + getUnreadNewsResponse.getMessage());
+            }
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /****************** ++ GET CLUB NEWS UNREAD COUNT FUNCTIONALITY ++ ******************/
 }

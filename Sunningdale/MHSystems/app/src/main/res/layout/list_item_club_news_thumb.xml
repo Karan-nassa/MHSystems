@@ -78,45 +78,69 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- TIME and DESCRIPTION OF NEWS VIEW GROUP -->
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
                         android:paddingLeft="20dp"
                         android:paddingTop="10dp">
 
-                        <TextView
-                            android:id="@+id/tvTimeOfNews"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:alpha="0.5"
-                            android:text="10 minutes ago"
-                            android:textColor="@color/colorBlack000000"
-                            android:textSize="14sp" />
+                        <!-- TIME and DESCRIPTION OF NEWS VIEW GROUP -->
 
-                        <TextView
-                            android:id="@+id/tvTitleOfNews"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginTop="5dp"
-                            android:text="Checkout upcoming competitions this month, new promotions…"
-                            android:textColor="@color/colorBlack000000"
-                            android:textSize="14sp" />
+                            android:layout_weight="80"
+                            android:orientation="vertical">
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/divider"
-                            android:visibility="visible" />
+                            <TextView
+                                android:id="@+id/tvTimeOfNews"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:alpha="0.5"
+                                android:text="10 minutes ago"
+                                android:textColor="@color/colorBlack000000"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tvTitleOfNews"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:text="Checkout upcoming competitions this month, new promotions…"
+                                android:textColor="@color/colorBlack000000"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|end"
+                            android:layout_weight="20"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center"
+                            android:visibility="visible">
+
+                            <ImageView
+                                android:id="@+id/ivNewsThumbnail"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:layout_gravity="center" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/divider"
+                        android:visibility="visible" />
                 </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>

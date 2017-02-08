@@ -33,8 +33,6 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     private final int POSITION_NORMAL = 0;
     private final int POSITION_HANDICAP = 1;
 
-    //int iGridIcons[];
-    //String gridTitles[];
     String hCapExactStr;
     int iHandicapPosition;
 
@@ -47,11 +45,8 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
         context = mainActivity;
         this.dashboardItemsArrayList = dashboardItemsArrayList;
-        //this.gridTitles = gridTitles;
         this.iHandicapPosition = iHandicapPosition;
         this.hCapExactStr = hCapExactStr;
-        //this.iGridIcons = iGridIcons;
-        //this.gridBackground = gridBackground;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

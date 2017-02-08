@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.models.AddMemberAPI;
 import com.mh.systems.sunningdale.models.ClubNews.ClubNewsAPI;
 import com.mh.systems.sunningdale.models.ClubNews.ClubNewsDetailAPI;
+import com.mh.systems.sunningdale.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
+import com.mh.systems.sunningdale.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
 import com.mh.systems.sunningdale.models.CompetitionResultAPI;
 import com.mh.systems.sunningdale.models.CompetitionJoinAPI;
 import com.mh.systems.sunningdale.models.CompetitionUnjoinAPI;
@@ -11,6 +13,7 @@ import com.mh.systems.sunningdale.models.CompetitionsAPI;
 import com.mh.systems.sunningdale.models.ContactUs.ContactUsAPI;
 import com.mh.systems.sunningdale.models.CourseDiaryAPI;
 import com.mh.systems.sunningdale.models.DashboardAPI;
+import com.mh.systems.sunningdale.models.DeleteToken.DeleteTokenAPI;
 import com.mh.systems.sunningdale.models.EditDetailMode.EditDetailModeAPI;
 import com.mh.systems.sunningdale.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.sunningdale.models.Friends.RemoveFriendAPI;
@@ -22,7 +25,9 @@ import com.mh.systems.sunningdale.models.MembersDetailAPI;
 import com.mh.systems.sunningdale.models.FinanceAPI;
 import com.mh.systems.sunningdale.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.sunningdale.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.sunningdale.models.UnreadNewsCount.GetUnreadNewsCountAPI;
 import com.mh.systems.sunningdale.models.UpdatePassword.UpdatePassswordAPI;
+import com.mh.systems.sunningdale.models.registerToken.RegisterTokenAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -316,6 +321,65 @@ public interface WebServiceMethods {
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
 
     /**
+     * Declaration of DELETE TOKEN API which is using for push
+     * notifications.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param deleteTokenAPI : Delete Token which sending at time of Registeration.
+     * @param response       : Weather api response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void deleteToken(@Body DeleteTokenAPI deleteTokenAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of GET UNREAD CLUB NEWS API which will be
+     * display on dashboard at top of Club News icon.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getUnreadNewsCountAPI : Object of unread club news.
+     * @param response              : Weather api response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getUnreadClubNewsCount(@Body GetUnreadNewsCountAPI getUnreadNewsCountAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of REGISTRATION TOKEN API in background service.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param registerTokenAPI : Time hour in running device.
+     * @param response         : Weather api response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void registerToken(@Body RegisterTokenAPI registerTokenAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Club News web service method with Thumbnail
+     * of image.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param clubNewsThumbnailAPI :  Club News with Thumbnail.
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getClubNewsThumbnail(@Body ClubNewsThumbnailAPI clubNewsThumbnailAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Club News detail content of Thumbnail web
+     * service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param clubNewsThumbnailDetailAPI :  Club News detail of Thumbnail.
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getClubNewsThumbnailDetail(@Body ClubNewsThumbnailDetailAPI clubNewsThumbnailDetailAPI, Callback<JsonObject> response);
+
+    /**
      * Declaration of CONTACT US web service declaration.
      * <p/>
      * TYPE : POST
@@ -337,6 +401,5 @@ public interface WebServiceMethods {
      */
     @GET("/api/ApifsiGateway/TopUps")
     public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
-
 }
 

@@ -13,17 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.demoapp.activites.YourAccountActivity;
-import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.activites.BaseActivity;
+import com.mh.systems.demoapp.activites.YourAccountActivity;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.constants.WebAPI;
 import com.mh.systems.demoapp.models.AJsonParamsMembersDatail;
 import com.mh.systems.demoapp.models.MembersDetailAPI;
 import com.mh.systems.demoapp.models.MembersDetailsItems;
 import com.mh.systems.demoapp.util.API.WebServiceMethods;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
@@ -48,11 +47,6 @@ public class MyDetailsFragment extends Fragment {
             strMobileContactOfPerson, strTypeOfPerson, strNameOfPerson, strTelHome, strTelWork;
 
     String strTitileValues[];
-
-    //This bool is used to stop on Edit Detail and Privacy screen to handle crash.
-    private boolean isError = false;
-
-    //private boolean isClassVisible = false;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -89,11 +83,9 @@ public class MyDetailsFragment extends Fragment {
         //Initialize the view resources.
         initializeViewResources(mRootFragment);
 
-        llViewGroup = new View[]{llUsernameOfPerson, /*llStreetOfPerson, llEmailOfPerson,*/
-                /*llMobileContactOfPerson,*/ llTypeOfPerson, llNameOfPerson};
+        llViewGroup = new View[]{llUsernameOfPerson, llTypeOfPerson, llNameOfPerson};
 
-        tvTitleLabel = new View[]{tvUsernameOfPerson, /*tvStreetOfPerson, tvEmailOfPerson,*/
-                /*tvMobileContactOfPerson,*/ tvTypeOfPerson, tvNameOfPerson};
+        tvTitleLabel = new View[]{tvUsernameOfPerson, tvTypeOfPerson, tvNameOfPerson};
 
         return mRootFragment;
     }
@@ -267,17 +259,7 @@ public class MyDetailsFragment extends Fragment {
         tvEmailOfPerson.setText(strEmailOfPerson);
         tvMobileContactOfPerson.setText(strMobileContactOfPerson);
         tvStreetOfPerson.setText(strStreetOfPerson);
-
-        //  SaveUserInfoToPreference();
     }
-
-    /**
-     * Implements this method to save user information to {@link android.content.SharedPreferences} so that
-     * it can retrieve later for update.
-     */
-   /* private void SaveUserInfoToPreference() {
-        ((YourAccountActivity) getActivity()).savePreferenceList("YOUR_DETAILS_DATA", new Gson().toJson(membersDetailItems.getData()));
-    }*/
 
     /**
      * Implements a method to initialize the view
