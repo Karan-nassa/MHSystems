@@ -1,14 +1,10 @@
 ##MHSystems [ANDROID]
 
 ###Sunningdale Golf Club
->Following information using for MHS GOLF(DEMO) Club App:
 - CLUB ID : 44118078
 - Course Diary (Book Alert Dialog) 01344 621 681  info@sunningdalegolfclub.co.uk
 
-
-####NOTE: Its just the demo App of GOLF CLUB. For now, its showing the data set of Poters Park. So CLUB ID and all information using of Poters Park of local server.
-
-###Features:
+###Available Features:
 
 | Sno. | Name              | Available      |
 | ---- |:----------------  | :------------: |
