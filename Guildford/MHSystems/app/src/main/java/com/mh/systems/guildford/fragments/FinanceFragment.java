@@ -25,10 +25,10 @@ import com.mh.systems.guildford.activites.BaseActivity;
 import com.mh.systems.guildford.activites.YourAccountActivity;
 import com.mh.systems.guildford.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 import com.mh.systems.guildford.models.TransactionListData;
 import com.mh.systems.guildford.models.FinanceResultItems;
-import com.mh.systems.guildford.util.API.WebServiceMethods;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 import com.mh.systems.guildford.models.FinanceAPI;
 import com.mh.systems.guildford.models.FinanceAJsonParams;
 

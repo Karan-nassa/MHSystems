@@ -21,11 +21,11 @@ import com.google.gson.JsonObject;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.activites.MembersActivity;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.ContactUs.AJsonParamsContactUs;
 import com.mh.systems.redlibbets.models.ContactUs.ContactUsAPI;
 import com.mh.systems.redlibbets.models.ContactUs.ContactUsResponse;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.rollbar.android.Rollbar;
 

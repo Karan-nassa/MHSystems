@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.web.WebAPI;
 
 public class FinanceDetailWebActivity extends BaseActivity {
 

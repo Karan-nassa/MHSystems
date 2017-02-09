@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.models.Contact;
-import com.mh.systems.halesworth.utils.CircularContactView;
-import com.mh.systems.halesworth.utils.ContactImageUtil;
-import com.mh.systems.halesworth.utils.ImageCache;
-import com.mh.systems.halesworth.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.halesworth.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.halesworth.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.halesworth.util.libAlphaIndexing.ContactImageUtil;
+import com.mh.systems.halesworth.util.libAlphaIndexing.ImageCache;
+import com.mh.systems.halesworth.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.halesworth.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

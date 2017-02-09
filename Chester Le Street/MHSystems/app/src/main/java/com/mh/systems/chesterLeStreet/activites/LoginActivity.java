@@ -12,12 +12,12 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.AJsonParamsDashboard;
 import com.mh.systems.chesterLeStreet.models.DashboardAPI;
 import com.mh.systems.chesterLeStreet.models.LoginData;
 import com.mh.systems.chesterLeStreet.models.LoginItems;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

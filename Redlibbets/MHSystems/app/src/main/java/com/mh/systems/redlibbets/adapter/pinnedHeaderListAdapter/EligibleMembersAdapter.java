@@ -17,9 +17,9 @@ import com.mh.systems.redlibbets.activites.EligiblePlayersActivity;
 import com.mh.systems.redlibbets.fragments.EligibleFriendsFragment;
 import com.mh.systems.redlibbets.fragments.EligibleMemberFragment;
 import com.mh.systems.redlibbets.models.competitionsEntry.EligibleMember;
-import com.mh.systems.redlibbets.utils.CircularContactView;
-import com.mh.systems.redlibbets.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.redlibbets.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

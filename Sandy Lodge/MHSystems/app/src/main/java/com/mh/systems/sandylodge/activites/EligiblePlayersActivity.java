@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
+import com.mh.systems.sandylodge.web.WebAPI;
 import com.mh.systems.sandylodge.fragments.EligibleFriendsFragment;
 import com.mh.systems.sandylodge.fragments.EligibleMemberFragment;
 import com.mh.systems.sandylodge.fragments.EligiblePlayersTabFragment;
@@ -28,7 +28,7 @@ import com.mh.systems.sandylodge.models.competitionsEntry.AJsonParamsEligiblePla
 import com.mh.systems.sandylodge.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.sandylodge.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.sandylodge.models.competitionsEntry.EligibleMember;
-import com.mh.systems.sandylodge.util.API.WebServiceMethods;
+import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

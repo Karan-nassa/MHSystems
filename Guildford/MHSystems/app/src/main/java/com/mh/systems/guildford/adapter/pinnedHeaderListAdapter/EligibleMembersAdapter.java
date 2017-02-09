@@ -17,9 +17,9 @@ import com.mh.systems.guildford.activites.EligiblePlayersActivity;
 import com.mh.systems.guildford.fragments.EligibleFriendsFragment;
 import com.mh.systems.guildford.fragments.EligibleMemberFragment;
 import com.mh.systems.guildford.models.competitionsEntry.EligibleMember;
-import com.mh.systems.guildford.utils.CircularContactView;
-import com.mh.systems.guildford.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.guildford.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.guildford.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.guildford.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.guildford.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

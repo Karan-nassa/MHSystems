@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.porterspark.models.CompetitionDetailItems;
 import com.mh.systems.porterspark.models.CompetitionResultAPI;
 import com.mh.systems.porterspark.models.ResultEntries;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.mh.systems.porterspark.util.ScrollRecycleView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

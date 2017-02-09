@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.models.Contact;
-import com.mh.systems.chesterLeStreet.utils.CircularContactView;
-import com.mh.systems.chesterLeStreet.utils.ContactImageUtil;
-import com.mh.systems.chesterLeStreet.utils.ImageCache;
-import com.mh.systems.chesterLeStreet.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.chesterLeStreet.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.ContactImageUtil;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.ImageCache;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

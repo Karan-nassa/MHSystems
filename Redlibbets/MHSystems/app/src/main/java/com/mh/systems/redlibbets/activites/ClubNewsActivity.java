@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.adapter.RecyclerAdapter.ClubNewsSwipeAdapter;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.redlibbets.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.redlibbets.models.ClubNews.ClubNewsDetailResult;
@@ -28,7 +28,7 @@ import com.mh.systems.redlibbets.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
 import com.mh.systems.redlibbets.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 import com.mh.systems.redlibbets.models.ClubNewsThumbnail.ClubNewsThumbnailResponse;
 import com.mh.systems.redlibbets.push.PushNotificationService;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class ClubNewsActivity extends BaseActivity {
     ClubNewsDetailResult clubNewsDetailResult;
 
     /**
-     * Add Club News Thumbnail API.
+     * Add Club News Thumbnail api.
      */
     ClubNewsThumbnailAPI clubNewsThumbnailAPI;
     AJsonParamsClubNewsThumbnail aJsonParamsClubNewsThumbnail;

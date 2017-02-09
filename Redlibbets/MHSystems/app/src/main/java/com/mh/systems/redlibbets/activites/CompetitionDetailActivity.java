@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.AJsonParamsJoinCompetition;
 import com.mh.systems.redlibbets.models.AJsonParamsUnjoin;
 import com.mh.systems.redlibbets.models.AddRequestResult;
@@ -32,7 +32,7 @@ import com.mh.systems.redlibbets.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.redlibbets.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.redlibbets.models.competitionsEntry.GetClubEventResponse;
 import com.mh.systems.redlibbets.models.competitionsEntry.Player;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -115,7 +115,7 @@ public class CompetitionDetailActivity extends BaseActivity {
     CompetitionJoinAPI competitionJoinAPI;
     AJsonParamsJoinCompetition aJsonParamsJoinCompetition;
 
-    //Create instance of Competitions unjoin API.
+    //Create instance of Competitions unjoin api.
     CompetitionUnjoinAPI competitionUnjoinAPI;
     AJsonParamsUnjoin aJsonParamsUnjoin;
     UnjoinItems unjoinItems;

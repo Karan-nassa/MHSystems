@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.york.R;
 import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.constants.WebAPI;
+import com.mh.systems.york.web.WebAPI;
 import com.mh.systems.york.models.AJsonParamsMembersDatail;
 import com.mh.systems.york.models.MembersDetailAPI;
 import com.mh.systems.york.models.MembersDetailsData;
@@ -28,7 +28,7 @@ import com.mh.systems.york.models.MembersDetailsItems;
 import com.mh.systems.york.models.TogglePrivacy.AJsonParamsToggle;
 import com.mh.systems.york.models.TogglePrivacy.TogglePrivacyAPI;
 import com.mh.systems.york.models.TogglePrivacy.TogglePrivacyResponse;
-import com.mh.systems.york.util.API.WebServiceMethods;
+import com.mh.systems.york.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

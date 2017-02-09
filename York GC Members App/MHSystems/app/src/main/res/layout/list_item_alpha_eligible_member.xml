@@ -34,7 +34,7 @@
 
             <!-- CIRCLE IMAGE AS A BACKGROUND -->
 
-            <com.mh.systems.york.utils.CircularContactView
+            <com.mh.systems.york.util.libAlphaIndexing.CircularContactView
                 android:id="@+id/listview_item__friendPhotoImageView"
                 android:layout_width="@dimen/list_item__contact_imageview_size"
                 android:layout_height="@dimen/list_item__contact_imageview_size"

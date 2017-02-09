@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.york.R;
 import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.constants.WebAPI;
+import com.mh.systems.york.web.WebAPI;
 import com.mh.systems.york.fragments.EligibleFriendsFragment;
 import com.mh.systems.york.fragments.EligibleMemberFragment;
 import com.mh.systems.york.fragments.EligiblePlayersTabFragment;
@@ -28,7 +28,7 @@ import com.mh.systems.york.models.competitionsEntry.AJsonParamsEligiblePlayers;
 import com.mh.systems.york.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.york.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.york.models.competitionsEntry.EligibleMember;
-import com.mh.systems.york.util.API.WebServiceMethods;
+import com.mh.systems.york.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

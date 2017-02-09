@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.models.Contact;
-import com.mh.systems.sandylodge.utils.CircularContactView;
-import com.mh.systems.sandylodge.utils.ContactImageUtil;
-import com.mh.systems.sandylodge.utils.ImageCache;
-import com.mh.systems.sandylodge.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.sandylodge.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.sandylodge.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.sandylodge.util.libAlphaIndexing.ContactImageUtil;
+import com.mh.systems.sandylodge.util.libAlphaIndexing.ImageCache;
+import com.mh.systems.sandylodge.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.sandylodge.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

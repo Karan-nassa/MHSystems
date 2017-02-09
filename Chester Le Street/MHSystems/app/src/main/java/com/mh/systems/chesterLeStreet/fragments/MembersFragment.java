@@ -23,16 +23,16 @@ import com.mh.systems.chesterLeStreet.activites.BaseActivity;
 import com.mh.systems.chesterLeStreet.activites.MemberDetailActivity;
 import com.mh.systems.chesterLeStreet.activites.MembersActivity;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.mh.systems.chesterLeStreet.models.AJsonParamsMembers;
 import com.mh.systems.chesterLeStreet.models.MembersAPI;
 import com.mh.systems.chesterLeStreet.models.MembersData;
 import com.mh.systems.chesterLeStreet.models.MembersItems;
 import com.mh.systems.chesterLeStreet.models.MembersList;
-import com.mh.systems.chesterLeStreet.utils.CircularContactView;
-import com.mh.systems.chesterLeStreet.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.chesterLeStreet.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 
 import java.lang.reflect.Type;

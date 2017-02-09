@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.AJsonParamsMembersDatail;
 import com.mh.systems.porterspark.models.MembersDetailAPI;
 import com.mh.systems.porterspark.models.MembersDetailsData;
@@ -28,7 +28,7 @@ import com.mh.systems.porterspark.models.MembersDetailsItems;
 import com.mh.systems.porterspark.models.TogglePrivacy.AJsonParamsToggle;
 import com.mh.systems.porterspark.models.TogglePrivacy.TogglePrivacyAPI;
 import com.mh.systems.porterspark.models.TogglePrivacy.TogglePrivacyResponse;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 
 public class FinanceDetailWebActivity extends BaseActivity {
 

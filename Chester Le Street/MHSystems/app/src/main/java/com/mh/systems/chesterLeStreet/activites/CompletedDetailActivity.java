@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.chesterLeStreet.models.CompetitionDetailItems;
 import com.mh.systems.chesterLeStreet.models.CompetitionResultAPI;
 import com.mh.systems.chesterLeStreet.models.ResultEntries;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.mh.systems.chesterLeStreet.util.ScrollRecycleView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

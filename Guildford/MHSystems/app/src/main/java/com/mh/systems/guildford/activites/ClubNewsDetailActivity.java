@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,12 +16,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 import com.mh.systems.guildford.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.guildford.models.ClubNews.ClubNewsData;
 import com.mh.systems.guildford.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.guildford.models.ClubNews.ClubNewsDetailResult;
-import com.mh.systems.guildford.util.API.WebServiceMethods;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

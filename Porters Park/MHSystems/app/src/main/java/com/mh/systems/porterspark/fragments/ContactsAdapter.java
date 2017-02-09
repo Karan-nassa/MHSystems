@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.models.Contact;
-import com.mh.systems.porterspark.utils.CircularContactView;
-import com.mh.systems.porterspark.utils.ContactImageUtil;
-import com.mh.systems.porterspark.utils.ImageCache;
-import com.mh.systems.porterspark.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.porterspark.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.porterspark.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.porterspark.util.libAlphaIndexing.ContactImageUtil;
+import com.mh.systems.porterspark.util.libAlphaIndexing.ImageCache;
+import com.mh.systems.porterspark.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.porterspark.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -15,15 +15,14 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.guildford.R;
-import com.mh.systems.guildford.activites.CourseDiaryActivity;
 import com.mh.systems.guildford.activites.CourseDiaryWebviewActivity;
 import com.mh.systems.guildford.activites.DashboardActivity;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 import com.mh.systems.guildford.models.CourseNames.AJsonParamsCourseNames;
 import com.mh.systems.guildford.models.CourseNames.CourseNamesAPI;
 import com.mh.systems.guildford.models.CourseNames.CourseNamesResponse;
-import com.mh.systems.guildford.util.API.WebServiceMethods;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

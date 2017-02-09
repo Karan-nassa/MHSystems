@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.redlibbets.models.CompetitionDetailItems;
 import com.mh.systems.redlibbets.models.CompetitionResultAPI;
 import com.mh.systems.redlibbets.models.ResultEntries;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.mh.systems.redlibbets.util.ScrollRecycleView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -74,7 +74,7 @@ public class CompletedDetailActivity extends BaseActivity {
     @Bind(R.id.tvTitleTableResult)
     TextView tvTitleTableResult;
 
-    //Create instance of Competitions detail API to display ROUND result.
+    //Create instance of Competitions detail api to display ROUND result.
     CompetitionResultAPI competitionResultAPI;
     AJsonParamsResultOfCompetition aJsonParamsResultOfCompetition;
 

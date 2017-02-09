@@ -21,7 +21,7 @@ import com.google.gson.JsonObject;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.AJsonParamsCourse;
 import com.mh.systems.redlibbets.models.CourseDiaryAPI;
 import com.mh.systems.redlibbets.models.CourseDiaryData;
@@ -29,7 +29,7 @@ import com.mh.systems.redlibbets.models.CourseDiaryDataCopy;
 import com.mh.systems.redlibbets.models.CourseDiaryItems;
 import com.mh.systems.redlibbets.models.CourseDiaryItemsCopy;
 import com.mh.systems.redlibbets.models.CoursesData;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -509,7 +509,7 @@ public class CourseDiaryActivity extends BaseActivity {
         if (isOnline(this)) {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
             // inc_message_view.setVisibility(View.GONE);
-            //Method to hit Squads API.
+            //Method to hit Squads api.
             requestCourseService();
         } else {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);

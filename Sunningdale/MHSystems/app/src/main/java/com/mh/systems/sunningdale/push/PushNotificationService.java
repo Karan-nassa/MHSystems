@@ -30,6 +30,7 @@ import android.util.Log;
 import com.google.android.gms.gcm.GcmListenerService;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.activites.ClubNewsActivity;
+import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 import com.rollbar.android.Rollbar;
 
 import org.json.JSONException;
@@ -58,18 +59,25 @@ public class PushNotificationService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
         String message = "";
         try {
+
             message = data.getString("message");
 
             try {
                 mJSONObject = new JSONObject(message);
                 strMessage = mJSONObject.getString("message");
 
-                strArrList.add(strMessage);
+                if (ApplicationGlobal.TAG_CLIENT_ID.equals(mJSONObject.getString("receiver_clientId"))) {
+
+                    strArrList.add(strMessage);
+
+                    sendNotification();
+                } else {
+                    Log.e(LOG_TAG, "Push sends for other club.");
+                }
 
             } catch (JSONException e) {
                 Log.e(LOG_TAG, "JSONException Error parsing data " + e.toString());
             }
-            sendNotification();
 
         } catch (Exception e) {
 

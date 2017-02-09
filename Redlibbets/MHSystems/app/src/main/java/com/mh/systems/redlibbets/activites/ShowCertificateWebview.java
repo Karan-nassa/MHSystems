@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 
 public class ShowCertificateWebview extends BaseActivity {
 

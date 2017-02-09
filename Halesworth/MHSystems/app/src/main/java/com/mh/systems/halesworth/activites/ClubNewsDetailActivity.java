@@ -16,12 +16,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.halesworth.models.ClubNews.ClubNewsData;
 import com.mh.systems.halesworth.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.halesworth.models.ClubNews.ClubNewsDetailResult;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

@@ -23,16 +23,16 @@ import com.mh.systems.porterspark.activites.BaseActivity;
 import com.mh.systems.porterspark.activites.MemberDetailActivity;
 import com.mh.systems.porterspark.activites.MembersActivity;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.WebAPI;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.mh.systems.porterspark.models.AJsonParamsMembers;
 import com.mh.systems.porterspark.models.MembersAPI;
 import com.mh.systems.porterspark.models.MembersData;
 import com.mh.systems.porterspark.models.MembersItems;
 import com.mh.systems.porterspark.models.MembersList;
-import com.mh.systems.porterspark.utils.CircularContactView;
-import com.mh.systems.porterspark.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.porterspark.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.porterspark.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.porterspark.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.porterspark.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 
 import java.lang.reflect.Type;

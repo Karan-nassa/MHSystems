@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.AJsonParamsJoinCompetition;
 import com.mh.systems.chesterLeStreet.models.AJsonParamsUnjoin;
 import com.mh.systems.chesterLeStreet.models.AddRequestResult;
@@ -32,7 +32,7 @@ import com.mh.systems.chesterLeStreet.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.chesterLeStreet.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.chesterLeStreet.models.competitionsEntry.GetClubEventResponse;
 import com.mh.systems.chesterLeStreet.models.competitionsEntry.Player;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

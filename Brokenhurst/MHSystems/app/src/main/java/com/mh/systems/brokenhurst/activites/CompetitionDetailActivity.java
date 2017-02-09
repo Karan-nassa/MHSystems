@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 import com.mh.systems.brokenhurst.models.AJsonParamsJoinCompetition;
 import com.mh.systems.brokenhurst.models.AJsonParamsUnjoin;
 import com.mh.systems.brokenhurst.models.AddRequestResult;
@@ -32,7 +32,7 @@ import com.mh.systems.brokenhurst.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.brokenhurst.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.brokenhurst.models.competitionsEntry.GetClubEventResponse;
 import com.mh.systems.brokenhurst.models.competitionsEntry.Player;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

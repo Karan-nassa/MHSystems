@@ -18,11 +18,11 @@ import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.activites.CourseDiaryWebviewActivity;
 import com.mh.systems.sandylodge.activites.DashboardActivity;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
+import com.mh.systems.sandylodge.web.WebAPI;
 import com.mh.systems.sandylodge.models.CourseNames.AJsonParamsCourseNames;
 import com.mh.systems.sandylodge.models.CourseNames.CourseNamesAPI;
 import com.mh.systems.sandylodge.models.CourseNames.CourseNamesResponse;
-import com.mh.systems.sandylodge.util.API.WebServiceMethods;
+import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

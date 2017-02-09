@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
+import com.mh.systems.sandylodge.web.WebAPI;
 
 public class ShowCertificateWebview extends BaseActivity {
 

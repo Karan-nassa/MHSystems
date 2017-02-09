@@ -25,10 +25,10 @@ import com.mh.systems.chesterLeStreet.activites.BaseActivity;
 import com.mh.systems.chesterLeStreet.activites.YourAccountActivity;
 import com.mh.systems.chesterLeStreet.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.TransactionListData;
 import com.mh.systems.chesterLeStreet.models.FinanceResultItems;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.mh.systems.chesterLeStreet.models.FinanceAPI;
 import com.mh.systems.chesterLeStreet.models.FinanceAJsonParams;
 

@@ -1,42 +1,18 @@
 package com.mh.systems.york.fragments;
 
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
 import com.mh.systems.york.R;
-import com.mh.systems.york.activites.BaseActivity;
-import com.mh.systems.york.activites.YourAccountActivity;
-import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.constants.WebAPI;
-import com.mh.systems.york.models.AJsonParamsMembersDatail;
-import com.mh.systems.york.models.MembersDetailAPI;
-import com.mh.systems.york.models.MembersDetailsItems;
-import com.mh.systems.york.util.API.WebServiceMethods;
-import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-
-import static com.mh.systems.york.R.id.ivMessageSymbol;
-import static com.mh.systems.york.R.id.llUsernameOfPerson;
 
 /**
  * The {@link NoInternetFragment} used to display the

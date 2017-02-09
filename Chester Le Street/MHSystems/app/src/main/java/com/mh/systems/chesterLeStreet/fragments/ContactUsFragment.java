@@ -21,16 +21,15 @@ import com.google.gson.JsonObject;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.activites.MembersActivity;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.ContactUs.AJsonParamsContactUs;
 import com.mh.systems.chesterLeStreet.models.ContactUs.ContactUsAPI;
 import com.mh.systems.chesterLeStreet.models.ContactUs.ContactUsResponse;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.rollbar.android.Rollbar;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

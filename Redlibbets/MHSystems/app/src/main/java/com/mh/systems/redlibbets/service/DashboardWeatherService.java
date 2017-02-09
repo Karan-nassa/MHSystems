@@ -17,9 +17,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.weather.WeatherData;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 
@@ -93,7 +93,7 @@ public class DashboardWeatherService extends Service {
         }
     }
 
-    /****************** ++ WEATHER API FEATURE ++ ******************/
+    /****************** ++ WEATHER api FEATURE ++ ******************/
 
     /**
      * Implements this method to hit weather web
@@ -108,7 +108,7 @@ public class DashboardWeatherService extends Service {
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(WebAPI.API_WEATHER_BASE_URL)
+                .setEndpoint(WebAPI.API_BASE_URL)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 

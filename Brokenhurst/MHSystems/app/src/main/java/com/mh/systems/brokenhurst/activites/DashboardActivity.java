@@ -22,9 +22,9 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 import com.mh.systems.brokenhurst.models.weather.WeatherApiResponse;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;

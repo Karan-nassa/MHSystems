@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.fragments.EligibleFriendsFragment;
 import com.mh.systems.chesterLeStreet.fragments.EligibleMemberFragment;
 import com.mh.systems.chesterLeStreet.fragments.EligiblePlayersTabFragment;
@@ -28,7 +28,7 @@ import com.mh.systems.chesterLeStreet.models.competitionsEntry.AJsonParamsEligib
 import com.mh.systems.chesterLeStreet.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.chesterLeStreet.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.chesterLeStreet.models.competitionsEntry.EligibleMember;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

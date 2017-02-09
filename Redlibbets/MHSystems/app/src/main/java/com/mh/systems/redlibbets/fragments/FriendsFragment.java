@@ -22,15 +22,15 @@ import com.mh.systems.redlibbets.activites.BaseActivity;
 import com.mh.systems.redlibbets.activites.MemberDetailActivity;
 import com.mh.systems.redlibbets.activites.MembersActivity;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.AJsonParamsFriends;
 import com.mh.systems.redlibbets.models.FriendsAPI;
 import com.mh.systems.redlibbets.models.FriendsData;
 import com.mh.systems.redlibbets.models.FriendsItems;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
-import com.mh.systems.redlibbets.utils.CircularContactView;
-import com.mh.systems.redlibbets.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.redlibbets.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -128,7 +128,7 @@ public class FriendsFragment extends Fragment {
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
             // ((MembersActivity) getActivity()).updateNoInternetUI(true);
             // MemberDetailActivity.isRefreshData = false;
-            //Method to hit Members list API.
+            //Method to hit Members list api.
             requestFriendService();
         } else {
             // ((MembersActivity) getActivity()).updateNoInternetUI(false);

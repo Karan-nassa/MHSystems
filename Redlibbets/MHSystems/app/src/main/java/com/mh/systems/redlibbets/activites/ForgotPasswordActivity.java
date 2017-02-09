@@ -20,11 +20,11 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.gson.JsonObject;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.ForgotPassword.AJsonParamsForgotPassword;
 import com.mh.systems.redlibbets.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.redlibbets.models.ForgotPassword.ForgotPasswordResponse;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

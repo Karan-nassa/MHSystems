@@ -34,13 +34,13 @@ import com.mh.systems.brokenhurst.activites.HCapHistoryActivity;
 import com.mh.systems.brokenhurst.activites.ShowCertificateWebview;
 import com.mh.systems.brokenhurst.activites.YourAccountActivity;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 import com.mh.systems.brokenhurst.models.AJsonParamsHandicap;
 import com.mh.systems.brokenhurst.models.HCapRecords;
 import com.mh.systems.brokenhurst.models.HandicapAPI;
 import com.mh.systems.brokenhurst.models.HandicapData;
 import com.mh.systems.brokenhurst.models.HandicapResultItems;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 import com.mh.systems.brokenhurst.util.MyMarkerView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

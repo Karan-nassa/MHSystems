@@ -25,10 +25,10 @@ import com.mh.systems.porterspark.activites.BaseActivity;
 import com.mh.systems.porterspark.activites.YourAccountActivity;
 import com.mh.systems.porterspark.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.TransactionListData;
 import com.mh.systems.porterspark.models.FinanceResultItems;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.mh.systems.porterspark.models.FinanceAPI;
 import com.mh.systems.porterspark.models.FinanceAJsonParams;
 

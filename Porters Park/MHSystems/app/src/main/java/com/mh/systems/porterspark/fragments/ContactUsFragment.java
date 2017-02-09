@@ -21,16 +21,15 @@ import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.activites.MembersActivity;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.ContactUs.AJsonParamsContactUs;
 import com.mh.systems.porterspark.models.ContactUs.ContactUsAPI;
 import com.mh.systems.porterspark.models.ContactUs.ContactUsResponse;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.rollbar.android.Rollbar;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

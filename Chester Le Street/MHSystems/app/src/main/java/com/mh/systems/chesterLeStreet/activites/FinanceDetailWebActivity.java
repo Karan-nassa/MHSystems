@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 
 public class FinanceDetailWebActivity extends BaseActivity {
 

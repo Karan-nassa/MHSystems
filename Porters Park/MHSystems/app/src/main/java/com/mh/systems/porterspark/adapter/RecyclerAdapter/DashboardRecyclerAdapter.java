@@ -18,11 +18,11 @@ import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.activites.CourseDiaryActivity;
 import com.mh.systems.porterspark.activites.DashboardActivity;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.CourseNames.AJsonParamsCourseNames;
 import com.mh.systems.porterspark.models.CourseNames.CourseNamesAPI;
 import com.mh.systems.porterspark.models.CourseNames.CourseNamesResponse;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

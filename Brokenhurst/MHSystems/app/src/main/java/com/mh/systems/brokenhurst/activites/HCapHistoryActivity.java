@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 import com.mh.systems.brokenhurst.models.HCapHistory.AJsonParamsHcapHistory;
 import com.mh.systems.brokenhurst.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.brokenhurst.models.HCapHistory.HCapHistoryData;
 import com.mh.systems.brokenhurst.models.HCapHistory.HCapHistoryResult;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 import com.mh.systems.brokenhurst.util.DividerItemDecoration;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

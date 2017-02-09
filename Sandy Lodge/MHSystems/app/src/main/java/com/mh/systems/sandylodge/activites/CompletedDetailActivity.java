@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
+import com.mh.systems.sandylodge.web.WebAPI;
 import com.mh.systems.sandylodge.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.sandylodge.models.CompetitionDetailItems;
 import com.mh.systems.sandylodge.models.CompetitionResultAPI;
 import com.mh.systems.sandylodge.models.ResultEntries;
-import com.mh.systems.sandylodge.util.API.WebServiceMethods;
+import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 import com.mh.systems.sandylodge.util.ScrollRecycleView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

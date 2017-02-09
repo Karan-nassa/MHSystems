@@ -20,11 +20,11 @@ import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.ResetPassword.AJsonParamsResetPwd;
 import com.mh.systems.redlibbets.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.redlibbets.models.ResetPassword.ResetPasswordItems;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

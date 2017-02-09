@@ -17,9 +17,9 @@ import com.mh.systems.halesworth.activites.EligiblePlayersActivity;
 import com.mh.systems.halesworth.fragments.EligibleFriendsFragment;
 import com.mh.systems.halesworth.fragments.EligibleMemberFragment;
 import com.mh.systems.halesworth.models.competitionsEntry.EligibleMember;
-import com.mh.systems.halesworth.utils.CircularContactView;
-import com.mh.systems.halesworth.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.halesworth.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.halesworth.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.halesworth.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.halesworth.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

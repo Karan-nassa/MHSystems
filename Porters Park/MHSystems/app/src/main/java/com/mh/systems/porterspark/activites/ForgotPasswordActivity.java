@@ -20,11 +20,11 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.ForgotPassword.AJsonParamsForgotPassword;
 import com.mh.systems.porterspark.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.porterspark.models.ForgotPassword.ForgotPasswordResponse;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

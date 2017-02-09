@@ -21,9 +21,9 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.models.weather.WeatherApiResponse;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;

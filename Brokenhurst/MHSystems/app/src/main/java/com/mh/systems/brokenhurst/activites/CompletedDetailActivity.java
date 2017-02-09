@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 import com.mh.systems.brokenhurst.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.brokenhurst.models.CompetitionDetailItems;
 import com.mh.systems.brokenhurst.models.CompetitionResultAPI;
 import com.mh.systems.brokenhurst.models.ResultEntries;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 import com.mh.systems.brokenhurst.util.ScrollRecycleView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

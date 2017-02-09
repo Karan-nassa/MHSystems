@@ -25,10 +25,10 @@ import com.mh.systems.york.activites.BaseActivity;
 import com.mh.systems.york.activites.YourAccountActivity;
 import com.mh.systems.york.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.constants.WebAPI;
+import com.mh.systems.york.web.WebAPI;
 import com.mh.systems.york.models.TransactionListData;
 import com.mh.systems.york.models.FinanceResultItems;
-import com.mh.systems.york.util.API.WebServiceMethods;
+import com.mh.systems.york.web.api.WebServiceMethods;
 import com.mh.systems.york.models.FinanceAPI;
 import com.mh.systems.york.models.FinanceAJsonParams;
 

@@ -200,7 +200,9 @@
             android:name=".activites.FriendsInfoActivity"
             android:screenOrientation="portrait" />
 
-        <!-- [START gcm_receiver] -->
+
+        <!-- START OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->
+
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
@@ -211,10 +213,7 @@
                 <category android:name="gcm.play.android.samples.com.gcmquickstart" />
             </intent-filter>
         </receiver>
-        <!-- [END gcm_receiver] -->
 
-
-        <!-- [START gcm_listener] -->
         <service
             android:name=".push.PushNotificationService"
             android:exported="false">
@@ -222,8 +221,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
-        <!-- [END gcm_listener] -->
-        <!-- [START instanceId_listener] -->
+
         <service
             android:name=".push.MyInstanceIDListenerService"
             android:exported="false">
@@ -231,10 +229,12 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
-        <!-- [END instanceId_listener] -->
+
         <service
             android:name=".push.RegistrationIntentService"
             android:exported="false" />
+
+        <!-- END OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->
 
         <!-- WEATHER SERVICE -->
 

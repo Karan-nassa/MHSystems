@@ -23,10 +23,10 @@ import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.redlibbets.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.forecast.ForecastApiResponse;
 import com.mh.systems.redlibbets.models.forecast.ListOfDay;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -149,7 +149,7 @@ public class WeatherDetailActivity extends BaseActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    /****************** ++ WEATHER API FEATURE ++ ******************/
+    /****************** ++ WEATHER api FEATURE ++ ******************/
 
     /**
      * Implements this method to hit weather web
@@ -406,7 +406,7 @@ public class WeatherDetailActivity extends BaseActivity{
         return strCurrentTime;
     }
 
-    /****************** ~~ WEATHER API FEATURE ~~ ******************/
+    /****************** ~~ WEATHER api FEATURE ~~ ******************/
 
     /**
      * Implements this method to set Layout of dashboard

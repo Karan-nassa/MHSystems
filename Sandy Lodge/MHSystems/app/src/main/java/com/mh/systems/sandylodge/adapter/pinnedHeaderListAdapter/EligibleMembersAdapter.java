@@ -17,9 +17,9 @@ import com.mh.systems.sandylodge.activites.EligiblePlayersActivity;
 import com.mh.systems.sandylodge.fragments.EligibleFriendsFragment;
 import com.mh.systems.sandylodge.fragments.EligibleMemberFragment;
 import com.mh.systems.sandylodge.models.competitionsEntry.EligibleMember;
-import com.mh.systems.sandylodge.utils.CircularContactView;
-import com.mh.systems.sandylodge.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.sandylodge.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.sandylodge.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.sandylodge.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.sandylodge.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -21,9 +21,9 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.weather.WeatherApiResponse;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;

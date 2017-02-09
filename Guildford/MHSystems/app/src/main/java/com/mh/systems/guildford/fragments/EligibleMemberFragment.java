@@ -22,9 +22,9 @@ import com.mh.systems.guildford.models.competitionsEntry.AJsonParamsEligiblePlay
 import com.mh.systems.guildford.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.guildford.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.guildford.models.competitionsEntry.EligibleMember;
-import com.mh.systems.guildford.utils.CircularContactView;
-import com.mh.systems.guildford.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.guildford.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.guildford.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.guildford.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.guildford.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,42 +1,18 @@
 package com.mh.systems.sandylodge.fragments;
 
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
-import com.mh.systems.sandylodge.activites.BaseActivity;
-import com.mh.systems.sandylodge.activites.YourAccountActivity;
-import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
-import com.mh.systems.sandylodge.models.AJsonParamsMembersDatail;
-import com.mh.systems.sandylodge.models.MembersDetailAPI;
-import com.mh.systems.sandylodge.models.MembersDetailsItems;
-import com.mh.systems.sandylodge.util.API.WebServiceMethods;
-import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-
-import static com.mh.systems.sandylodge.R.id.ivMessageSymbol;
-import static com.mh.systems.sandylodge.R.id.llUsernameOfPerson;
 
 /**
  * The {@link NoInternetFragment} used to display the

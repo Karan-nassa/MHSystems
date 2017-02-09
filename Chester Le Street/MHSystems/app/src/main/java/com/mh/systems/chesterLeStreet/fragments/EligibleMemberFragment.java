@@ -22,9 +22,9 @@ import com.mh.systems.chesterLeStreet.models.competitionsEntry.AJsonParamsEligib
 import com.mh.systems.chesterLeStreet.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.chesterLeStreet.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.chesterLeStreet.models.competitionsEntry.EligibleMember;
-import com.mh.systems.chesterLeStreet.utils.CircularContactView;
-import com.mh.systems.chesterLeStreet.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.chesterLeStreet.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.chesterLeStreet.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -20,11 +20,11 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.gson.JsonObject;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.models.ForgotPassword.AJsonParamsForgotPassword;
 import com.mh.systems.halesworth.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.halesworth.models.ForgotPassword.ForgotPasswordResponse;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

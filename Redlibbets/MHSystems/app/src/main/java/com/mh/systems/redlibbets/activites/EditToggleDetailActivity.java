@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.AJsonParamsMembersDatail;
 import com.mh.systems.redlibbets.models.MembersDetailAPI;
 import com.mh.systems.redlibbets.models.MembersDetailsData;
@@ -28,7 +28,7 @@ import com.mh.systems.redlibbets.models.MembersDetailsItems;
 import com.mh.systems.redlibbets.models.TogglePrivacy.AJsonParamsToggle;
 import com.mh.systems.redlibbets.models.TogglePrivacy.TogglePrivacyAPI;
 import com.mh.systems.redlibbets.models.TogglePrivacy.TogglePrivacyResponse;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

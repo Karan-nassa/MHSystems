@@ -21,9 +21,9 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 import com.mh.systems.guildford.models.weather.WeatherApiResponse;
-import com.mh.systems.guildford.util.API.WebServiceMethods;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;

@@ -16,12 +16,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.york.R;
 import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.constants.WebAPI;
+import com.mh.systems.york.web.WebAPI;
 import com.mh.systems.york.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.york.models.ClubNews.ClubNewsData;
 import com.mh.systems.york.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.york.models.ClubNews.ClubNewsDetailResult;
-import com.mh.systems.york.util.API.WebServiceMethods;
+import com.mh.systems.york.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

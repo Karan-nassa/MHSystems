@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.adapter.RecyclerAdapter.ClubNewsSwipeAdapter;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 import com.mh.systems.guildford.models.ClubNews.AJsonParamsClubNews;
 import com.mh.systems.guildford.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.guildford.models.ClubNews.ClubNewsAPI;
@@ -26,7 +26,7 @@ import com.mh.systems.guildford.models.ClubNews.ClubNewsData;
 import com.mh.systems.guildford.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.guildford.models.ClubNews.ClubNewsDetailResult;
 import com.mh.systems.guildford.models.ClubNews.ClubNewsItems;
-import com.mh.systems.guildford.util.API.WebServiceMethods;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 import com.mh.systems.guildford.util.DividerItemDecoration;
 
 import java.lang.reflect.Type;

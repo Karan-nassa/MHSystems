@@ -34,13 +34,13 @@ import com.mh.systems.redlibbets.activites.HCapHistoryActivity;
 import com.mh.systems.redlibbets.activites.ShowCertificateWebview;
 import com.mh.systems.redlibbets.activites.YourAccountActivity;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.AJsonParamsHandicap;
 import com.mh.systems.redlibbets.models.HCapRecords;
 import com.mh.systems.redlibbets.models.HandicapAPI;
 import com.mh.systems.redlibbets.models.HandicapData;
 import com.mh.systems.redlibbets.models.HandicapResultItems;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.mh.systems.redlibbets.util.MyMarkerView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

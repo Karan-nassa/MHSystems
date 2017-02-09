@@ -22,11 +22,11 @@ import com.google.common.collect.Range;
 import com.google.gson.JsonObject;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.UpdatePassword.AJsonParamsUpdatePassword;
 import com.mh.systems.chesterLeStreet.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.chesterLeStreet.models.UpdatePassword.UpdatePasswordResponse;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

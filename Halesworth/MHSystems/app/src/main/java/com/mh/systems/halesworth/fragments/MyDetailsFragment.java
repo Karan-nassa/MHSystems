@@ -19,11 +19,11 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.activites.BaseActivity;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.models.AJsonParamsMembersDatail;
 import com.mh.systems.halesworth.models.MembersDetailAPI;
 import com.mh.systems.halesworth.models.MembersDetailsItems;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

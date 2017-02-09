@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.models.Contact;
-import com.mh.systems.guildford.utils.CircularContactView;
-import com.mh.systems.guildford.utils.ContactImageUtil;
-import com.mh.systems.guildford.utils.ImageCache;
-import com.mh.systems.guildford.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.guildford.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.guildford.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.guildford.util.libAlphaIndexing.ContactImageUtil;
+import com.mh.systems.guildford.util.libAlphaIndexing.ImageCache;
+import com.mh.systems.guildford.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.guildford.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

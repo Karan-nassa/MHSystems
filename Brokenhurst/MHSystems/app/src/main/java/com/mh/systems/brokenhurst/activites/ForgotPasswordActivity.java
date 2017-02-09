@@ -20,11 +20,11 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.gson.JsonObject;
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 import com.mh.systems.brokenhurst.models.ForgotPassword.AJsonParamsForgotPassword;
 import com.mh.systems.brokenhurst.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.brokenhurst.models.ForgotPassword.ForgotPasswordResponse;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

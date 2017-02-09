@@ -19,11 +19,11 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.york.R;
 import com.mh.systems.york.activites.BaseActivity;
 import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.constants.WebAPI;
+import com.mh.systems.york.web.WebAPI;
 import com.mh.systems.york.models.AJsonParamsMembersDatail;
 import com.mh.systems.york.models.MembersDetailAPI;
 import com.mh.systems.york.models.MembersDetailsItems;
-import com.mh.systems.york.util.API.WebServiceMethods;
+import com.mh.systems.york.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.AJsonParamsJoinCompetition;
 import com.mh.systems.porterspark.models.AJsonParamsUnjoin;
 import com.mh.systems.porterspark.models.AddRequestResult;
@@ -32,7 +32,7 @@ import com.mh.systems.porterspark.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.porterspark.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.porterspark.models.competitionsEntry.GetClubEventResponse;
 import com.mh.systems.porterspark.models.competitionsEntry.Player;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

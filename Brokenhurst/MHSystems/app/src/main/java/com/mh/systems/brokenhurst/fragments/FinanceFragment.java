@@ -25,10 +25,10 @@ import com.mh.systems.brokenhurst.activites.BaseActivity;
 import com.mh.systems.brokenhurst.activites.YourAccountActivity;
 import com.mh.systems.brokenhurst.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 import com.mh.systems.brokenhurst.models.TransactionListData;
 import com.mh.systems.brokenhurst.models.FinanceResultItems;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 import com.mh.systems.brokenhurst.models.FinanceAPI;
 import com.mh.systems.brokenhurst.models.FinanceAJsonParams;
 

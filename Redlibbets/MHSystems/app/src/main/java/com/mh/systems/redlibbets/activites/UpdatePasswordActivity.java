@@ -22,11 +22,11 @@ import com.google.common.collect.Range;
 import com.google.gson.JsonObject;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.UpdatePassword.AJsonParamsUpdatePassword;
 import com.mh.systems.redlibbets.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.redlibbets.models.UpdatePassword.UpdatePasswordResponse;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

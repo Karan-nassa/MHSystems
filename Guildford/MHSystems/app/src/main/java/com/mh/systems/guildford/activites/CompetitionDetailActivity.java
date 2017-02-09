@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 import com.mh.systems.guildford.models.AJsonParamsJoinCompetition;
 import com.mh.systems.guildford.models.AJsonParamsUnjoin;
 import com.mh.systems.guildford.models.AddRequestResult;
@@ -32,7 +32,7 @@ import com.mh.systems.guildford.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.guildford.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.guildford.models.competitionsEntry.GetClubEventResponse;
 import com.mh.systems.guildford.models.competitionsEntry.Player;
-import com.mh.systems.guildford.util.API.WebServiceMethods;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

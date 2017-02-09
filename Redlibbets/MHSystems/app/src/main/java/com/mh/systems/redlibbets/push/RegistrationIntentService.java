@@ -29,11 +29,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.registerToken.AJsonParamsRegisterToken;
 import com.mh.systems.redlibbets.models.registerToken.RegisterTokenAPI;
 import com.mh.systems.redlibbets.models.registerToken.RegisterTokenResult;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

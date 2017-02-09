@@ -23,14 +23,14 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.AJsonParamsCourse;
 import com.mh.systems.porterspark.models.CourseDiaryAPI;
 import com.mh.systems.porterspark.models.CourseDiaryData;
 import com.mh.systems.porterspark.models.CourseDiaryDataCopy;
 import com.mh.systems.porterspark.models.CourseDiaryItems;
 import com.mh.systems.porterspark.models.CourseDiaryItemsCopy;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;

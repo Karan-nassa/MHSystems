@@ -23,10 +23,10 @@ import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.guildford.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 import com.mh.systems.guildford.models.forecast.ForecastApiResponse;
 import com.mh.systems.guildford.models.forecast.ListOfDay;
-import com.mh.systems.guildford.util.API.WebServiceMethods;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;

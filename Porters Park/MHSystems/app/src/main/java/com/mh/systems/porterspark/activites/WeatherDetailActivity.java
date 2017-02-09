@@ -20,10 +20,10 @@ import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.porterspark.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.forecast.ForecastApiResponse;
 import com.mh.systems.porterspark.models.forecast.ListOfDay;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;

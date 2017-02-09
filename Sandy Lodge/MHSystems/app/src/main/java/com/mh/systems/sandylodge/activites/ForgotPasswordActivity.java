@@ -20,11 +20,11 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
+import com.mh.systems.sandylodge.web.WebAPI;
 import com.mh.systems.sandylodge.models.ForgotPassword.AJsonParamsForgotPassword;
 import com.mh.systems.sandylodge.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.sandylodge.models.ForgotPassword.ForgotPasswordResponse;
-import com.mh.systems.sandylodge.util.API.WebServiceMethods;
+import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

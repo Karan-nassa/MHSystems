@@ -23,10 +23,10 @@ import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.halesworth.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.models.forecast.ForecastApiResponse;
 import com.mh.systems.halesworth.models.forecast.ListOfDay;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;

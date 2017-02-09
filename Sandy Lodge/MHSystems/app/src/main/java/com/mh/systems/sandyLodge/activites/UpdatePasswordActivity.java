@@ -22,11 +22,11 @@ import com.google.common.collect.Range;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
+import com.mh.systems.sandylodge.web.WebAPI;
 import com.mh.systems.sandylodge.models.UpdatePassword.AJsonParamsUpdatePassword;
 import com.mh.systems.sandylodge.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.sandylodge.models.UpdatePassword.UpdatePasswordResponse;
-import com.mh.systems.sandylodge.util.API.WebServiceMethods;
+import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

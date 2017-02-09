@@ -30,7 +30,7 @@ import com.mh.systems.halesworth.constants.ApplicationGlobal;
 import com.mh.systems.halesworth.models.TopUp.TopUpPriceListResponse;
 import com.mh.systems.halesworth.models.TopUp.TopUpPricesListAPI;
 import com.mh.systems.halesworth.models.TopUp.TopupList;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

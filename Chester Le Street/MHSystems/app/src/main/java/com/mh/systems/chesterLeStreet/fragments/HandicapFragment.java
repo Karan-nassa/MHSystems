@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -34,13 +33,13 @@ import com.mh.systems.chesterLeStreet.activites.HCapHistoryActivity;
 import com.mh.systems.chesterLeStreet.activites.ShowCertificateWebview;
 import com.mh.systems.chesterLeStreet.activites.YourAccountActivity;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.AJsonParamsHandicap;
 import com.mh.systems.chesterLeStreet.models.HCapRecords;
 import com.mh.systems.chesterLeStreet.models.HandicapAPI;
 import com.mh.systems.chesterLeStreet.models.HandicapData;
 import com.mh.systems.chesterLeStreet.models.HandicapResultItems;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.mh.systems.chesterLeStreet.util.MyMarkerView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

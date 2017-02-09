@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.adapter.BaseAdapter.CompetitionDetailAdapter;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.halesworth.models.CompetitionDetailItems;
 import com.mh.systems.halesworth.models.CompetitionResultAPI;
 import com.mh.systems.halesworth.models.ResultEntries;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.web.api.WebServiceMethods;
 import com.mh.systems.halesworth.util.ScrollRecycleView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

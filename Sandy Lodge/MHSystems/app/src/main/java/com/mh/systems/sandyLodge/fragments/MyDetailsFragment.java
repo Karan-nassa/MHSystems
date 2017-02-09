@@ -19,11 +19,11 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.activites.BaseActivity;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
+import com.mh.systems.sandylodge.web.WebAPI;
 import com.mh.systems.sandylodge.models.AJsonParamsMembersDatail;
 import com.mh.systems.sandylodge.models.MembersDetailAPI;
 import com.mh.systems.sandylodge.models.MembersDetailsItems;
-import com.mh.systems.sandylodge.util.API.WebServiceMethods;
+import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

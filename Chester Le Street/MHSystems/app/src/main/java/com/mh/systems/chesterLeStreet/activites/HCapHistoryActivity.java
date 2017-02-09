@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.HCapHistory.AJsonParamsHcapHistory;
 import com.mh.systems.chesterLeStreet.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.chesterLeStreet.models.HCapHistory.HCapHistoryData;
 import com.mh.systems.chesterLeStreet.models.HCapHistory.HCapHistoryResult;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.mh.systems.chesterLeStreet.util.DividerItemDecoration;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

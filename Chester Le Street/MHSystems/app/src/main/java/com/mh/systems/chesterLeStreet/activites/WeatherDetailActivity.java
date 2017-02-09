@@ -23,10 +23,10 @@ import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.chesterLeStreet.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.forecast.ForecastApiResponse;
 import com.mh.systems.chesterLeStreet.models.forecast.ListOfDay;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;

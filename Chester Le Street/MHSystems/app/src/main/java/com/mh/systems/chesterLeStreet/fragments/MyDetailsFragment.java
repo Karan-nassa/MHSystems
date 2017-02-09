@@ -19,11 +19,11 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.activites.BaseActivity;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.AJsonParamsMembersDatail;
 import com.mh.systems.chesterLeStreet.models.MembersDetailAPI;
 import com.mh.systems.chesterLeStreet.models.MembersDetailsItems;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

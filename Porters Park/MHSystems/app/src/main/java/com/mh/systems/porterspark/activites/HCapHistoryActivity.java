@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.HCapHistory.AJsonParamsHcapHistory;
 import com.mh.systems.porterspark.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.porterspark.models.HCapHistory.HCapHistoryData;
 import com.mh.systems.porterspark.models.HCapHistory.HCapHistoryResult;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.mh.systems.porterspark.util.DividerItemDecoration;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

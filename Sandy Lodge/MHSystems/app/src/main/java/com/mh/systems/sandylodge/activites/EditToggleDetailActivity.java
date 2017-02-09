@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
+import com.mh.systems.sandylodge.web.WebAPI;
 import com.mh.systems.sandylodge.models.AJsonParamsMembersDatail;
 import com.mh.systems.sandylodge.models.MembersDetailAPI;
 import com.mh.systems.sandylodge.models.MembersDetailsData;
@@ -28,7 +28,7 @@ import com.mh.systems.sandylodge.models.MembersDetailsItems;
 import com.mh.systems.sandylodge.models.TogglePrivacy.AJsonParamsToggle;
 import com.mh.systems.sandylodge.models.TogglePrivacy.TogglePrivacyAPI;
 import com.mh.systems.sandylodge.models.TogglePrivacy.TogglePrivacyResponse;
-import com.mh.systems.sandylodge.util.API.WebServiceMethods;
+import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

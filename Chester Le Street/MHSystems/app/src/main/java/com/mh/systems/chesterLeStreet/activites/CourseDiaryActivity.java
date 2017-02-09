@@ -21,7 +21,7 @@ import com.google.gson.JsonObject;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.AJsonParamsCourse;
 import com.mh.systems.chesterLeStreet.models.CourseDiaryAPI;
 import com.mh.systems.chesterLeStreet.models.CourseDiaryData;
@@ -29,7 +29,7 @@ import com.mh.systems.chesterLeStreet.models.CourseDiaryDataCopy;
 import com.mh.systems.chesterLeStreet.models.CourseDiaryItems;
 import com.mh.systems.chesterLeStreet.models.CourseDiaryItemsCopy;
 import com.mh.systems.chesterLeStreet.models.CoursesData;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

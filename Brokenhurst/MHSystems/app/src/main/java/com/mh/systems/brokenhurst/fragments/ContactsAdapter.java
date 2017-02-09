@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.models.Contact;
-import com.mh.systems.brokenhurst.utils.CircularContactView;
-import com.mh.systems.brokenhurst.utils.ContactImageUtil;
-import com.mh.systems.brokenhurst.utils.ImageCache;
-import com.mh.systems.brokenhurst.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.brokenhurst.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.ContactImageUtil;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.ImageCache;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

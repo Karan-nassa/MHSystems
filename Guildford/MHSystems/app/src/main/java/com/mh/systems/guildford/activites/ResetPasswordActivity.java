@@ -20,11 +20,11 @@ import com.google.gson.JsonObject;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 import com.mh.systems.guildford.models.ResetPassword.AJsonParamsResetPwd;
 import com.mh.systems.guildford.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.guildford.models.ResetPassword.ResetPasswordItems;
-import com.mh.systems.guildford.util.API.WebServiceMethods;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

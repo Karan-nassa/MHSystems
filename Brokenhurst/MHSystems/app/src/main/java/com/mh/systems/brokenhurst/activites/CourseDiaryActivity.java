@@ -21,7 +21,7 @@ import com.google.gson.JsonObject;
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 import com.mh.systems.brokenhurst.models.AJsonParamsCourse;
 import com.mh.systems.brokenhurst.models.CourseDiaryAPI;
 import com.mh.systems.brokenhurst.models.CourseDiaryData;
@@ -29,7 +29,7 @@ import com.mh.systems.brokenhurst.models.CourseDiaryDataCopy;
 import com.mh.systems.brokenhurst.models.CourseDiaryItems;
 import com.mh.systems.brokenhurst.models.CourseDiaryItemsCopy;
 import com.mh.systems.brokenhurst.models.CoursesData;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

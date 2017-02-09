@@ -34,13 +34,13 @@ import com.mh.systems.guildford.activites.HCapHistoryActivity;
 import com.mh.systems.guildford.activites.ShowCertificateWebview;
 import com.mh.systems.guildford.activites.YourAccountActivity;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 import com.mh.systems.guildford.models.AJsonParamsHandicap;
 import com.mh.systems.guildford.models.HCapRecords;
 import com.mh.systems.guildford.models.HandicapAPI;
 import com.mh.systems.guildford.models.HandicapData;
 import com.mh.systems.guildford.models.HandicapResultItems;
-import com.mh.systems.guildford.util.API.WebServiceMethods;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 import com.mh.systems.guildford.util.MyMarkerView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

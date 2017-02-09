@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 import com.mh.systems.brokenhurst.fragments.EligibleFriendsFragment;
 import com.mh.systems.brokenhurst.fragments.EligibleMemberFragment;
 import com.mh.systems.brokenhurst.fragments.EligiblePlayersTabFragment;
@@ -28,7 +28,7 @@ import com.mh.systems.brokenhurst.models.competitionsEntry.AJsonParamsEligiblePl
 import com.mh.systems.brokenhurst.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.brokenhurst.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.brokenhurst.models.competitionsEntry.EligibleMember;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

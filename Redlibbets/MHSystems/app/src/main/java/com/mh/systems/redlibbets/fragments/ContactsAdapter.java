@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.models.Contact;
-import com.mh.systems.redlibbets.utils.CircularContactView;
-import com.mh.systems.redlibbets.utils.ContactImageUtil;
-import com.mh.systems.redlibbets.utils.ImageCache;
-import com.mh.systems.redlibbets.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.redlibbets.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.ContactImageUtil;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.ImageCache;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

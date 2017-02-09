@@ -25,10 +25,10 @@ import com.mh.systems.halesworth.activites.BaseActivity;
 import com.mh.systems.halesworth.activites.YourAccountActivity;
 import com.mh.systems.halesworth.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.models.TransactionListData;
 import com.mh.systems.halesworth.models.FinanceResultItems;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.web.api.WebServiceMethods;
 import com.mh.systems.halesworth.models.FinanceAPI;
 import com.mh.systems.halesworth.models.FinanceAJsonParams;
 

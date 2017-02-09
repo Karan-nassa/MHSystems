@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -34,13 +33,13 @@ import com.mh.systems.porterspark.activites.HCapHistoryActivity;
 import com.mh.systems.porterspark.activites.ShowCertificateWebview;
 import com.mh.systems.porterspark.activites.YourAccountActivity;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.AJsonParamsHandicap;
 import com.mh.systems.porterspark.models.HCapRecords;
 import com.mh.systems.porterspark.models.HandicapAPI;
 import com.mh.systems.porterspark.models.HandicapData;
 import com.mh.systems.porterspark.models.HandicapResultItems;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.mh.systems.porterspark.util.MyMarkerView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

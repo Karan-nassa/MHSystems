@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.AJsonParamsMembersDatail;
 import com.mh.systems.chesterLeStreet.models.EditDetailMode.AJsonParamsEditDetailMode;
 import com.mh.systems.chesterLeStreet.models.EditDetailMode.EditDetailModeAPI;
@@ -27,7 +27,7 @@ import com.mh.systems.chesterLeStreet.models.EditDetailMode.EditDetailModeRespon
 import com.mh.systems.chesterLeStreet.models.MembersDetailAPI;
 import com.mh.systems.chesterLeStreet.models.MembersDetailsData;
 import com.mh.systems.chesterLeStreet.models.MembersDetailsItems;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
 import com.newrelic.com.google.gson.reflect.TypeToken;

@@ -25,10 +25,10 @@ import com.mh.systems.sandylodge.activites.BaseActivity;
 import com.mh.systems.sandylodge.activites.YourAccountActivity;
 import com.mh.systems.sandylodge.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
+import com.mh.systems.sandylodge.web.WebAPI;
 import com.mh.systems.sandylodge.models.TransactionListData;
 import com.mh.systems.sandylodge.models.FinanceResultItems;
-import com.mh.systems.sandylodge.util.API.WebServiceMethods;
+import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 import com.mh.systems.sandylodge.models.FinanceAPI;
 import com.mh.systems.sandylodge.models.FinanceAJsonParams;
 

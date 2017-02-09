@@ -21,16 +21,15 @@ import com.google.gson.JsonObject;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.activites.MembersActivity;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.models.ContactUs.AJsonParamsContactUs;
 import com.mh.systems.halesworth.models.ContactUs.ContactUsAPI;
 import com.mh.systems.halesworth.models.ContactUs.ContactUsResponse;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.rollbar.android.Rollbar;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

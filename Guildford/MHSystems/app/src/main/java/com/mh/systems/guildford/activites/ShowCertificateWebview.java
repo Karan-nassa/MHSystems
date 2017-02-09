@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 
 public class ShowCertificateWebview extends BaseActivity {
 

@@ -23,16 +23,16 @@ import com.mh.systems.york.activites.BaseActivity;
 import com.mh.systems.york.activites.MemberDetailActivity;
 import com.mh.systems.york.activites.MembersActivity;
 import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.constants.WebAPI;
-import com.mh.systems.york.util.API.WebServiceMethods;
+import com.mh.systems.york.web.WebAPI;
+import com.mh.systems.york.web.api.WebServiceMethods;
 import com.mh.systems.york.models.AJsonParamsMembers;
 import com.mh.systems.york.models.MembersAPI;
 import com.mh.systems.york.models.MembersData;
 import com.mh.systems.york.models.MembersItems;
 import com.mh.systems.york.models.MembersList;
-import com.mh.systems.york.utils.CircularContactView;
-import com.mh.systems.york.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.york.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.york.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.york.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.york.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 
 import java.lang.reflect.Type;

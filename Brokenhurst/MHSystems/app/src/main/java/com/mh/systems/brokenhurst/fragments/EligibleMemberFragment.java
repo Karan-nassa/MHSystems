@@ -22,9 +22,9 @@ import com.mh.systems.brokenhurst.models.competitionsEntry.AJsonParamsEligiblePl
 import com.mh.systems.brokenhurst.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.brokenhurst.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.brokenhurst.models.competitionsEntry.EligibleMember;
-import com.mh.systems.brokenhurst.utils.CircularContactView;
-import com.mh.systems.brokenhurst.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.brokenhurst.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -22,9 +22,9 @@ import com.mh.systems.redlibbets.models.competitionsEntry.AJsonParamsEligiblePla
 import com.mh.systems.redlibbets.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.redlibbets.models.competitionsEntry.CompEligiblePlayersResponse;
 import com.mh.systems.redlibbets.models.competitionsEntry.EligibleMember;
-import com.mh.systems.redlibbets.utils.CircularContactView;
-import com.mh.systems.redlibbets.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.redlibbets.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.redlibbets.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.Collections;

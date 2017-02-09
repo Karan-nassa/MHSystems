@@ -23,16 +23,16 @@ import com.mh.systems.brokenhurst.activites.BaseActivity;
 import com.mh.systems.brokenhurst.activites.MemberDetailActivity;
 import com.mh.systems.brokenhurst.activites.MembersActivity;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.WebAPI;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 import com.mh.systems.brokenhurst.models.AJsonParamsMembers;
 import com.mh.systems.brokenhurst.models.MembersAPI;
 import com.mh.systems.brokenhurst.models.MembersData;
 import com.mh.systems.brokenhurst.models.MembersItems;
 import com.mh.systems.brokenhurst.models.MembersList;
-import com.mh.systems.brokenhurst.utils.CircularContactView;
-import com.mh.systems.brokenhurst.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.brokenhurst.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 
 import java.lang.reflect.Type;

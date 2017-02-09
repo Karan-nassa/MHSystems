@@ -19,18 +19,17 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.adapter.BaseAdapter.CompetitionsAdapter;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.CompetitionsAPI;
 import com.mh.systems.porterspark.models.CompetitionsData;
 import com.mh.systems.porterspark.models.CompetitionsJsonParams;
 import com.mh.systems.porterspark.models.CompetitionsResultItems;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import butterknife.Bind;

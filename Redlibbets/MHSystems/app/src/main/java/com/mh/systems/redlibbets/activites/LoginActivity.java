@@ -18,14 +18,14 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.JsonObject;
 import com.mh.systems.redlibbets.R;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.AJsonParamsDashboard;
 import com.mh.systems.redlibbets.models.DashboardAPI;
 import com.mh.systems.redlibbets.models.LoginData;
 import com.mh.systems.redlibbets.models.LoginItems;
 import com.mh.systems.redlibbets.push.QuickstartPreferences;
 import com.mh.systems.redlibbets.push.RegistrationIntentService;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -103,12 +103,12 @@ public class LoginActivity extends BaseActivity {
             strPassword = etPassword.getText().toString();
 
             if (isValid()) {
-                //Call LOGIN API if UserName & Password correctly filled.
+                //Call LOGIN api if UserName & Password correctly filled.
                /* *
                  *  Check internet connection before hitting server request.
                  */
                 if (isOnline(LoginActivity.this)) {
-                    //Method to hit Squads API.
+                    //Method to hit Squads api.
                     requestLoginService();
                 } else {
                     showAlertMessage(getResources().getString(R.string.error_no_internet));

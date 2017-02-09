@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.york.R;
 import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.constants.WebAPI;
+import com.mh.systems.york.web.WebAPI;
 
 public class FinanceDetailWebActivity extends BaseActivity {
 

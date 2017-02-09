@@ -19,11 +19,11 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.activites.BaseActivity;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
-import com.mh.systems.guildford.constants.WebAPI;
+import com.mh.systems.guildford.web.WebAPI;
 import com.mh.systems.guildford.models.AJsonParamsMembersDatail;
 import com.mh.systems.guildford.models.MembersDetailAPI;
 import com.mh.systems.guildford.models.MembersDetailsItems;
-import com.mh.systems.guildford.util.API.WebServiceMethods;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

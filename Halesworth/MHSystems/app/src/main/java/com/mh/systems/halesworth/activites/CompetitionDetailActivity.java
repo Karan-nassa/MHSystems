@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.constants.WebAPI;
+import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.models.AJsonParamsJoinCompetition;
 import com.mh.systems.halesworth.models.AJsonParamsUnjoin;
 import com.mh.systems.halesworth.models.AddRequestResult;
@@ -32,7 +32,7 @@ import com.mh.systems.halesworth.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.halesworth.models.competitionsEntry.GetClubEventData;
 import com.mh.systems.halesworth.models.competitionsEntry.GetClubEventResponse;
 import com.mh.systems.halesworth.models.competitionsEntry.Player;
-import com.mh.systems.halesworth.util.API.WebServiceMethods;
+import com.mh.systems.halesworth.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

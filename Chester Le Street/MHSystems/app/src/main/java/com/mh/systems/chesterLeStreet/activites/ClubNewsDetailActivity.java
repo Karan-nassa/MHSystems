@@ -16,12 +16,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.chesterLeStreet.models.ClubNews.ClubNewsData;
 import com.mh.systems.chesterLeStreet.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.chesterLeStreet.models.ClubNews.ClubNewsDetailResult;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 

@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.york.R;
 import com.mh.systems.york.adapter.BaseAdapter.CompetitionsAdapter;
 import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.constants.WebAPI;
+import com.mh.systems.york.web.WebAPI;
 import com.mh.systems.york.models.CompetitionsAPI;
 import com.mh.systems.york.models.CompetitionsData;
 import com.mh.systems.york.models.CompetitionsJsonParams;
 import com.mh.systems.york.models.CompetitionsResultItems;
-import com.mh.systems.york.util.API.WebServiceMethods;
+import com.mh.systems.york.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

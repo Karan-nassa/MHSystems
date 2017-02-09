@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.adapter.RecyclerAdapter.ClubNewsSwipeAdapter;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.ClubNews.AJsonParamsClubNews;
 import com.mh.systems.porterspark.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.porterspark.models.ClubNews.ClubNewsAPI;
@@ -26,7 +26,7 @@ import com.mh.systems.porterspark.models.ClubNews.ClubNewsData;
 import com.mh.systems.porterspark.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.porterspark.models.ClubNews.ClubNewsDetailResult;
 import com.mh.systems.porterspark.models.ClubNews.ClubNewsItems;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.mh.systems.porterspark.util.DividerItemDecoration;
 
 import java.lang.reflect.Type;

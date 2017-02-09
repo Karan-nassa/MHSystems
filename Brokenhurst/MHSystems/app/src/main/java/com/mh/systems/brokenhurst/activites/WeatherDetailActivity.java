@@ -23,10 +23,10 @@ import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.brokenhurst.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
 import com.mh.systems.brokenhurst.constants.ApplicationGlobal;
-import com.mh.systems.brokenhurst.constants.WebAPI;
+import com.mh.systems.brokenhurst.web.WebAPI;
 import com.mh.systems.brokenhurst.models.forecast.ForecastApiResponse;
 import com.mh.systems.brokenhurst.models.forecast.ListOfDay;
-import com.mh.systems.brokenhurst.util.API.WebServiceMethods;
+import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;

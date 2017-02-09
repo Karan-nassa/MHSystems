@@ -25,10 +25,10 @@ import com.mh.systems.redlibbets.activites.BaseActivity;
 import com.mh.systems.redlibbets.activites.YourAccountActivity;
 import com.mh.systems.redlibbets.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.redlibbets.constants.ApplicationGlobal;
-import com.mh.systems.redlibbets.constants.WebAPI;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.models.TransactionListData;
 import com.mh.systems.redlibbets.models.FinanceResultItems;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.mh.systems.redlibbets.models.FinanceAPI;
 import com.mh.systems.redlibbets.models.FinanceAJsonParams;
 

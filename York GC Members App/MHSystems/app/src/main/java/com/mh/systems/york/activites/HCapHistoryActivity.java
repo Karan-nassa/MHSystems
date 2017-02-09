@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.york.R;
 import com.mh.systems.york.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.constants.WebAPI;
+import com.mh.systems.york.web.WebAPI;
 import com.mh.systems.york.models.HCapHistory.AJsonParamsHcapHistory;
 import com.mh.systems.york.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.york.models.HCapHistory.HCapHistoryData;
 import com.mh.systems.york.models.HCapHistory.HCapHistoryResult;
-import com.mh.systems.york.util.API.WebServiceMethods;
+import com.mh.systems.york.web.api.WebServiceMethods;
 import com.mh.systems.york.util.DividerItemDecoration;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

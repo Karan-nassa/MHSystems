@@ -30,7 +30,7 @@ import com.mh.systems.redlibbets.constants.ApplicationGlobal;
 import com.mh.systems.redlibbets.models.TopUp.TopUpPriceListResponse;
 import com.mh.systems.redlibbets.models.TopUp.TopUpPricesListAPI;
 import com.mh.systems.redlibbets.models.TopUp.TopupList;
-import com.mh.systems.redlibbets.util.API.WebServiceMethods;
+import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

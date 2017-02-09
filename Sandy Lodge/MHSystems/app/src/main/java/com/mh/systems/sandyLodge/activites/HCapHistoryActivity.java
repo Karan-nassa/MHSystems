@@ -18,12 +18,12 @@ import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.constants.WebAPI;
+import com.mh.systems.sandylodge.web.WebAPI;
 import com.mh.systems.sandylodge.models.HCapHistory.AJsonParamsHcapHistory;
 import com.mh.systems.sandylodge.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.sandylodge.models.HCapHistory.HCapHistoryData;
 import com.mh.systems.sandylodge.models.HCapHistory.HCapHistoryResult;
-import com.mh.systems.sandylodge.util.API.WebServiceMethods;
+import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 import com.mh.systems.sandylodge.util.DividerItemDecoration;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 

@@ -12,13 +12,12 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.porterspark.R;
 import com.mh.systems.porterspark.constants.ApplicationGlobal;
-import com.mh.systems.porterspark.constants.WebAPI;
+import com.mh.systems.porterspark.web.WebAPI;
 import com.mh.systems.porterspark.models.AJsonParamsDashboard;
 import com.mh.systems.porterspark.models.DashboardAPI;
 import com.mh.systems.porterspark.models.LoginData;
 import com.mh.systems.porterspark.models.LoginItems;
-import com.mh.systems.porterspark.util.API.WebServiceMethods;
-import com.newrelic.com.google.gson.Gson;
+import com.mh.systems.porterspark.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

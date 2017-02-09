@@ -17,9 +17,9 @@ import com.mh.systems.brokenhurst.activites.EligiblePlayersActivity;
 import com.mh.systems.brokenhurst.fragments.EligibleFriendsFragment;
 import com.mh.systems.brokenhurst.fragments.EligibleMemberFragment;
 import com.mh.systems.brokenhurst.models.competitionsEntry.EligibleMember;
-import com.mh.systems.brokenhurst.utils.CircularContactView;
-import com.mh.systems.brokenhurst.utils.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.brokenhurst.utils.async_task_thread_pool.AsyncTaskThreadPool;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.CircularContactView;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.brokenhurst.util.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

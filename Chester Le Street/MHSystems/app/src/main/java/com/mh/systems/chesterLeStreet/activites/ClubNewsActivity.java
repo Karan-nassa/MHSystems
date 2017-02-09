@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.chesterLeStreet.R;
 import com.mh.systems.chesterLeStreet.adapter.RecyclerAdapter.ClubNewsSwipeAdapter;
 import com.mh.systems.chesterLeStreet.constants.ApplicationGlobal;
-import com.mh.systems.chesterLeStreet.constants.WebAPI;
+import com.mh.systems.chesterLeStreet.web.WebAPI;
 import com.mh.systems.chesterLeStreet.models.ClubNews.AJsonParamsClubNews;
 import com.mh.systems.chesterLeStreet.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.chesterLeStreet.models.ClubNews.ClubNewsAPI;
@@ -26,7 +26,7 @@ import com.mh.systems.chesterLeStreet.models.ClubNews.ClubNewsData;
 import com.mh.systems.chesterLeStreet.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.chesterLeStreet.models.ClubNews.ClubNewsDetailResult;
 import com.mh.systems.chesterLeStreet.models.ClubNews.ClubNewsItems;
-import com.mh.systems.chesterLeStreet.util.API.WebServiceMethods;
+import com.mh.systems.chesterLeStreet.web.api.WebServiceMethods;
 import com.mh.systems.chesterLeStreet.util.DividerItemDecoration;
 
 import java.lang.reflect.Type;
