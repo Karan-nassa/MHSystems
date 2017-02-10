@@ -13,4 +13,7 @@ Initial release
 - UPDATE: REMOVE 'Contact Us' from Settings. Create new tab of 'Contact Us' along with MEMBERS and FRIENDS tabs. Also update 'CONTACT US' information.
 
 #####2nd Feb, 2017
-    - UPDATE: Replace 'SimpleDrawerView' with 'CircleImageView' for better performance.
+  - UPDATE: Replace 'SimpleDrawerView' with 'CircleImageView' for better performance.
+
+####10th Feb, 2017
+  - Enhanced: Remove 'libValidation' library used for input passwords validations and implements custom code.

@@ -17,6 +17,9 @@
 	- UPDATE: Integrate Club News with Thumbnail features.
 	- NEW: Integrate Logout functionality (API).
 
+	####10th Feb, 2017
+      - Enhanced: Remove 'libValidation' library used for input passwords validations and implements custom code.
+
 ##Version 1.4.0 (2016-12-01)
 
 - New: Contact us feature added
