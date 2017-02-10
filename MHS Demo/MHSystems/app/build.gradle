@@ -60,8 +60,7 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
     //New Relic compile dependency.
-    //  compile 'com.newrelic.agent.android:android-agent:5.6'
-    compile 'com.newrelic.agent.android:android-agent:5.6.+'
+    compile 'com.newrelic.agent.android:android-agent:5.10.0'
     //Recycler View Adapter.
     compile 'com.android.support:recyclerview-v7:23.4.0'
     //Bind resources of xml using Butter Knife library.
@@ -85,7 +84,7 @@ dependencies {
     //3rd party SwipeView.
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     //Awesome validation library for form-fields.
-    compile project(':libValidation')
+    //compile project(':libValidation')
     //Country Picker Dialog
     compile 'com.mukesh:countrypicker:1.1.5'
     compile 'com.google.android.gms:play-services-gcm:9.0.0'

@@ -118,7 +118,8 @@
         <!-- RESET PASSWORD SCREEN -->
         <activity
             android:name=".activites.ResetPasswordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
 
         <!-- SEND FEEDBACK SCREEN -->
         <activity
