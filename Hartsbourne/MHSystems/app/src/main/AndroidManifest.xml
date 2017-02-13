@@ -53,6 +53,12 @@
             android:name="com.mh.systems.hartsbourne.activites.CourseDiaryActivity"
             android:screenOrientation="portrait" />
 
+        <!-- COURSE DIARY WEB-VIEW -->
+
+        <activity
+            android:name="com.mh.systems.hartsbourne.activites.CourseDiaryWebviewActivity"
+            android:screenOrientation="portrait" />
+
         <!-- COURSE DIARY DETAIL ACTIVITY -->
         <activity
             android:name="com.mh.systems.hartsbourne.activites.CourseDiaryDetailActivity"

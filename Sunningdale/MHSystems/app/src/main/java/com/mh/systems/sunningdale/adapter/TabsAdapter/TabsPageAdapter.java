@@ -19,6 +19,8 @@ import com.mh.systems.sunningdale.fragments.FriendsFragment;
 import com.mh.systems.sunningdale.fragments.HandicapFragment;
 import com.mh.systems.sunningdale.fragments.MembersFragment;
 import com.mh.systems.sunningdale.fragments.MyDetailsFragment;
+import com.mh.systems.sunningdale.fragments.NewsWebCamFragment1;
+import com.mh.systems.sunningdale.fragments.NewsWebCamFragment2;
 import com.mh.systems.sunningdale.fragments.NoInternetFragment;
 
 
@@ -83,6 +85,8 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 case ApplicationGlobal.POSITION_MEMBERS:
                     return loadMembersTab(position);
 
+                case ApplicationGlobal.POSITION_NEWS_WEBCAM:
+                    return loadWebCamTabs(position);
             }
         }
         return new NoInternetFragment();
@@ -165,7 +169,7 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
             case 1:
                 fragment = new HandicapFragment();
-               break;
+                break;
 
             case 2:
                 fragment = new FinanceFragment();
@@ -234,6 +238,31 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 return null;
         }*/
         return null;
+    }
+
+    /**
+     * Load News Webcam Tabs i.e
+     * <br> 1. WebCam1
+     * <br> 2. WebCam2
+     * <p/>
+     *
+     * @param iPosition
+     * @return Fragment
+     */
+    private Fragment loadWebCamTabs(int iPosition) {
+
+        switch (iPosition) {
+            case 0:
+                NewsWebCamFragment1 newsWebCamFragment1 = new NewsWebCamFragment1();
+                return newsWebCamFragment1;
+
+            case 1:
+                NewsWebCamFragment2 newsWebCamFragment2 = new NewsWebCamFragment2();
+                return newsWebCamFragment2;
+
+            default:
+                return null;
+        }
     }
 
     /**

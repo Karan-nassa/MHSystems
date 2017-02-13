@@ -34,6 +34,7 @@ public class ApplicationGlobal {
     public static final int POSITION_MEMBERS = 4;
     public static final int POSITION_ABOUT_CLUB = 5;
     public static final int POSITION_MY_ACCOUNT = 6;
+    public static final int POSITION_NEWS_WEBCAM = 7;
 
     /**
      * Use this for COMPETITIONS ENTRY.

@@ -11,6 +11,9 @@
     - UPDATE: Replace 'SimpleDrawerView' with 'CircleImageView' for better performance.
     - FIXED: Implement Internet check for Forecast Weather data.
 
+     #####13th Feb, 2017
+     - NEW: Integrate BRS diary.
+
 ##Version 1.3.0 (2016-12-26)
 
 - New: Contact us feature added

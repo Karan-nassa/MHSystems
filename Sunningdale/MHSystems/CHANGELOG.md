@@ -20,6 +20,9 @@
 	####10th Feb, 2017
       - Enhanced: Remove 'libValidation' library used for input passwords validations and implements custom code.
 
+    ####13th Feb, 2017
+      - NEW: Implements 'Webcam' webview integration.
+
 ##Version 1.4.0 (2016-12-01)
 
 - New: Contact us feature added

@@ -81,9 +81,6 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.7'
     //3rd party SwipeView.
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
-    //Awesome validation library for form-fields.
-    //compile project(':libValidation')
-    //Country Picker Dialog
     compile 'com.mukesh:countrypicker:1.1.5'
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
 

@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.WelcomeActivity">
+
+    <!-- WEB-CAM-->
+
+    <item
+        android:id="@+id/action__webcam"
+        android:icon="@mipmap/ic_videocam"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="always"/>
+
+</menu>

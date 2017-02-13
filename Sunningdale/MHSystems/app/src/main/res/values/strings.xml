@@ -299,4 +299,9 @@
 
     <!-- ~~ END CONTACT US ~~ -->
 
+    <!-- WEB-CAM TABS -->
+    <string name="text_title_webcams">Webcams</string>
+    <string name="tab_name_webcam1">WEBCAM 1</string>
+    <string name="tab_name_webcam2">WEBCAM 2</string>
+
 </resources>
