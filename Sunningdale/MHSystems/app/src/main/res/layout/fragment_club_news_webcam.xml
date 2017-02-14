@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhiteffffff">
+    android:background="@color/color4B4B49">
 
     <!-- DETAIL NEWS VIEW GROUP -->
 
@@ -15,20 +15,12 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
-
-        <WebView
-            android:id="@+id/wvNewsWebCam"
+        <ImageView
+            android:id="@+id/ivNewsWebCam"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="matrix"/>
 
     </LinearLayout>
-
-    <!-- PROGRESS BAR -->
-
-    <ProgressBar
-        android:id="@+id/pbNewsCam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
 
 </RelativeLayout>

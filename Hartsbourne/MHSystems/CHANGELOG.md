@@ -1,4 +1,4 @@
-##Version  1.4.0 ()
+##Version  1.4.0 (2017-01-14)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.
 - Fixed: Club News: Implements Serializable to pass club news data on detail screen instead of passing value one by one.
@@ -11,8 +11,16 @@
     - UPDATE: Replace 'SimpleDrawerView' with 'CircleImageView' for better performance.
     - FIXED: Implement Internet check for Forecast Weather data.
 
-     #####13th Feb, 2017
-     - NEW: Integrate BRS diary.
+    #####13th Feb, 2017
+    - NEW: Integrate BRS diary.
+
+    ####14th Feb, 2017
+    - NEW: Integrate 'Glide' library to load images from URL for club news.
+    - UPDATE: Club News with thumbnail feature added.
+    - Enhanced: Remove 'libValidation' library used for input passwords validations and implements custom code.
+    - Enhanced: Move 'Features Flag' and 'Registration Token' from Login to Dashboard.
+    - NEW: Add 'Delete Token' functionality.
+    - NEW: Add 'Unread News Badger' count functionality [Hide].
 
 ##Version 1.3.0 (2016-12-26)
 

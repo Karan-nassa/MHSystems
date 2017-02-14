@@ -4,14 +4,18 @@ import com.google.gson.JsonObject;
 import com.mh.systems.hartsbourne.models.AddMemberAPI;
 import com.mh.systems.hartsbourne.models.ClubNews.ClubNewsAPI;
 import com.mh.systems.hartsbourne.models.ClubNews.ClubNewsDetailAPI;
-import com.mh.systems.hartsbourne.models.CompetitionResultAPI;
+import com.mh.systems.hartsbourne.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
+import com.mh.systems.hartsbourne.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
 import com.mh.systems.hartsbourne.models.CompetitionJoinAPI;
+import com.mh.systems.hartsbourne.models.CompetitionResultAPI;
 import com.mh.systems.hartsbourne.models.CompetitionUnjoinAPI;
 import com.mh.systems.hartsbourne.models.CompetitionsAPI;
 import com.mh.systems.hartsbourne.models.ContactUs.ContactUsAPI;
 import com.mh.systems.hartsbourne.models.CourseDiaryAPI;
 import com.mh.systems.hartsbourne.models.DashboardAPI;
+import com.mh.systems.hartsbourne.models.DeleteToken.DeleteTokenAPI;
 import com.mh.systems.hartsbourne.models.EditDetailMode.EditDetailModeAPI;
+import com.mh.systems.hartsbourne.models.FinanceAPI;
 import com.mh.systems.hartsbourne.models.ForgotPassword.ForgotPasswordAPI;
 import com.mh.systems.hartsbourne.models.Friends.RemoveFriendAPI;
 import com.mh.systems.hartsbourne.models.FriendsAPI;
@@ -19,13 +23,15 @@ import com.mh.systems.hartsbourne.models.HCapHistory.HCapHistoryAPI;
 import com.mh.systems.hartsbourne.models.HandicapAPI;
 import com.mh.systems.hartsbourne.models.MembersAPI;
 import com.mh.systems.hartsbourne.models.MembersDetailAPI;
-import com.mh.systems.hartsbourne.models.FinanceAPI;
 import com.mh.systems.hartsbourne.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.hartsbourne.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.hartsbourne.models.UnreadNewsCount.GetUnreadNewsCountAPI;
 import com.mh.systems.hartsbourne.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.hartsbourne.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.hartsbourne.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.hartsbourne.models.competitionsEntry.UpdateCompEntryAPI;
+import com.mh.systems.hartsbourne.models.featuresflag.FeatureFlagsAPI;
+import com.mh.systems.hartsbourne.models.registerToken.RegisterTokenAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -35,7 +41,7 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
- * Created by karan@ucreate.co.in for
+ * Created by karan@mh.co.in for
  * all web services on 08-03-2016.
  */
 public interface WebServiceMethods {
@@ -79,7 +85,7 @@ public interface WebServiceMethods {
     public void getCompetitionsEvents(@Body CompetitionsAPI jsonElements, Callback<JsonObject> response);
 
 
-    @GET("/api/ClubsApp/RpcRequest")
+    @GET("/webapi/api/ClubsApp/RpcRequest")
     void joinCompetitionEventGet(@Query("aClientId") String aClientId, @Query("aCommand") String aCommand,
                                  @Query("aJsonParams") String aJsonParams,
                                  @Query("aModuleId") String aModuleId,
@@ -260,17 +266,6 @@ public interface WebServiceMethods {
     public void updateMemberDetails(@Body EditDetailModeAPI editDetailModeAPI, Callback<JsonObject> response);
 
     /**
-     * Declaration of Update Members detail service method.
-     * <p/>
-     * TYPE : POST
-     *
-     * @param togglePrivacyAPI
-     * @param response
-     */
-    @POST("/webapi/api/ClubsApp")
-    public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
-
-    /**
      * Declaration of GETCLUBEVENT web service to get detail
      * of COMPETITION event by passing 'eventId'.
      * <p/>
@@ -305,6 +300,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void updateCompEntry(@Body UpdateCompEntryAPI updateCompEntryAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Update Members detail service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param togglePrivacyAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
 
     /**
      * Declaration of Forgot Password web service method.
@@ -346,12 +352,72 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
+     * @param type      : WEATHER OR FORCEAST
      * @param aClientId : Club ID like 44071043 for Demo App.
      * @param aHour     : Time hour in running device.
      * @param response  : Weather api response in JSON format.
      */
     @POST("/webapi/ClubAppUse/forecast")
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
+
+    /**
+     * Declaration of DELETE TOKEN API which is using for push
+     * notifications.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param deleteTokenAPI : Delete Token which sending at time of Registeration.
+     * @param response       : Weather api response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void deleteToken(@Body DeleteTokenAPI deleteTokenAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of GET UNREAD CLUB NEWS API which will be
+     * display on dashboard at top of Club News icon.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getUnreadNewsCountAPI : Object of unread club news.
+     * @param response              : Weather api response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getUnreadClubNewsCount(@Body GetUnreadNewsCountAPI getUnreadNewsCountAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of REGISTRATION TOKEN API in background service.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param registerTokenAPI : Time hour in running device.
+     * @param response         : Weather api response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void registerToken(@Body RegisterTokenAPI registerTokenAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Club News web service method with Thumbnail
+     * of image.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param clubNewsThumbnailAPI :  Club News with Thumbnail.
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getClubNewsThumbnail(@Body ClubNewsThumbnailAPI clubNewsThumbnailAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Club News detail content of Thumbnail web
+     * service method.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param clubNewsThumbnailDetailAPI :  Club News detail of Thumbnail.
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getClubNewsThumbnailDetail(@Body ClubNewsThumbnailDetailAPI clubNewsThumbnailDetailAPI, Callback<JsonObject> response);
 
     /**
      * Declaration of CONTACT US web service declaration.
@@ -375,5 +441,17 @@ public interface WebServiceMethods {
      */
     @GET("/api/ApifsiGateway/TopUps")
     public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
+
+    /**
+     * Call Features flag web service to get list of
+     * features show on dashboard.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param featureFlagsAPI       : Pass instance of features flag.
+     * @param response              : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getFeaturesFlagOptions(@Body FeatureFlagsAPI featureFlagsAPI, Callback<JsonObject> response);
 }
 

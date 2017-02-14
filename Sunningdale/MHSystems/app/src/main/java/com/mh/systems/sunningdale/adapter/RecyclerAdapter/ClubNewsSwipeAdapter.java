@@ -197,7 +197,7 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
      * Used this {@link AsyncTask} class to get
      * image from URL.
      */
-    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
+    public class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
         ImageView imageView;
 
         public DownloadImageFromInternet(ImageView imageView) {

@@ -1,14 +1,20 @@
 package com.mh.systems.hartsbourne.activites;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.JsonObject;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
@@ -17,6 +23,8 @@ import com.mh.systems.hartsbourne.models.AJsonParamsDashboard;
 import com.mh.systems.hartsbourne.models.DashboardAPI;
 import com.mh.systems.hartsbourne.models.LoginData;
 import com.mh.systems.hartsbourne.models.LoginItems;
+import com.mh.systems.hartsbourne.push.QuickstartPreferences;
+import com.mh.systems.hartsbourne.push.RegistrationIntentService;
 import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -42,7 +50,7 @@ public class LoginActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *********************************/
-    public static final String LOG_TAG = LoginActivity.class.getSimpleName();
+    public final String LOG_TAG = LoginActivity.class.getSimpleName();
     String strErrorMessage = "";
     String strUserName, strPassword;
 
@@ -77,6 +85,7 @@ public class LoginActivity extends BaseActivity {
     LoginData dashboardData;
 
     Intent intent;
+    Typeface typeface;
 
     /**
      * Define a constant field called when user press on LOGIN
@@ -91,12 +100,12 @@ public class LoginActivity extends BaseActivity {
             strPassword = etPassword.getText().toString();
 
             if (isValid()) {
-                //Call LOGIN API if UserName & Password correctly filled.
+                //Call LOGIN api if UserName & Password correctly filled.
                /* *
                  *  Check internet connection before hitting server request.
                  */
                 if (isOnline(LoginActivity.this)) {
-                    //Method to hit Squads API.
+                    //Method to hit Squads api.
                     requestLoginService();
                 } else {
                     showAlertMessage(getResources().getString(R.string.error_no_internet));
@@ -241,14 +250,6 @@ public class LoginActivity extends BaseActivity {
                         savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
                         savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
 
-                        //Make Dashboard dynamic according these bool values.
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, dashboardData.isCourseDiaryFeatures());
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, dashboardData.isCompetitionsFeature());
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, dashboardData.isHandicapFeature());
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, dashboardData.isMembersFeature());
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, dashboardData.isClubNewsFeature());
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, dashboardData.isYourAccountFeature());
-
                         Gson gson = new Gson();
 
                         //Save Courses ArrayList in Shared-preference.
@@ -274,22 +275,22 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * Implements a method to set FONT style using .ttf by putting
-     * in main\assets\fonts directory of current project.
+     * in ForecastMain\assets\fonts directory of current project.
      */
     private void setFontTypeFace() {
-        tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
-        getTfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
-        tfRobotoLight = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+
+        tfRobotoRegular = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Regular.ttf");
+        getTfRobotoMedium = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Medium.ttf");
+        tfRobotoLight = Typeface.createFromAsset(getResources().getAssets(), "fonts/Roboto-Light.ttf");
 
         etUserName.setTypeface(tfRobotoRegular);
         etPassword.setTypeface(tfRobotoRegular);
 
-        tvLoginTitle.setTypeface(getTfRobotoMedium);
+
         btLogin.setTypeface(getTfRobotoMedium);
 
         tvCopyRight.setTypeface(tfRobotoLight);
     }
-
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

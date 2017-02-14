@@ -23,6 +23,9 @@
     ####13th Feb, 2017
       - NEW: Implements 'Webcam' webview integration.
 
+    ####14th Feb, 2017
+      - UPDATE: Replace 'Webcam' webview with image. Only webcam image will be displayed.
+
 ##Version 1.4.0 (2016-12-01)
 
 - New: Contact us feature added

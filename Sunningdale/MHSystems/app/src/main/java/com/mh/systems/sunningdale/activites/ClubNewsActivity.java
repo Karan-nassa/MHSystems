@@ -174,7 +174,6 @@ public class ClubNewsActivity extends BaseActivity {
             case R.id.action__webcam:
                 intent = new Intent(ClubNewsActivity.this, ClubNewsWebCamActivity.class);
                 startActivity(intent);
-                finish();
 
                 break;
 
@@ -314,7 +313,6 @@ public class ClubNewsActivity extends BaseActivity {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
         }
 
         //Dismiss progress dialog.
@@ -447,7 +445,6 @@ public class ClubNewsActivity extends BaseActivity {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
         }
 
         //Dismiss progress dialog.

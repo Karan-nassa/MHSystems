@@ -50,7 +50,7 @@ public class LoginActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *********************************/
-    public static final String LOG_TAG = LoginActivity.class.getSimpleName();
+    public final String LOG_TAG = LoginActivity.class.getSimpleName();
     String strErrorMessage = "";
     String strUserName, strPassword;
 
@@ -86,9 +86,6 @@ public class LoginActivity extends BaseActivity {
 
     Intent intent;
     Typeface typeface;
-
-    BroadcastReceiver mRegistrationBroadcastReceiver;
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     /**
      * Define a constant field called when user press on LOGIN
@@ -219,7 +216,7 @@ public class LoginActivity extends BaseActivity {
 
         Type type = new TypeToken<LoginItems>() {
         }.getType();
-        dashboardItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        dashboardItems = new Gson().fromJson(jsonObject.toString(), type);
 
         //Clear the Dashboard data.
         dashboardData = null;
@@ -238,30 +235,6 @@ public class LoginActivity extends BaseActivity {
 
                     savePreferenceValue(ApplicationGlobal.KEY_MEMBERID, "" + dashboardData.getMemberID());
 
-                    mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-                        @Override
-                        public void onReceive(Context context, Intent intent) {
-                            //  mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
-                            SharedPreferences sharedPreferences =
-                                    PreferenceManager.getDefaultSharedPreferences(context);
-                            boolean sentToken = sharedPreferences
-                                    .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-                            if (sentToken) {
-                                Log.e("sentToken:", "" + sentToken);
-                            } else {
-                                Log.e("sentToken else :", "" + sentToken);
-                            }
-                        }
-                    };
-
-                    Log.e("checkPlayServices():", "" + checkPlayServices());
-                    if (checkPlayServices()) {
-                        Log.e("IF", "CALLING");
-                        Intent intent = new Intent(this, RegistrationIntentService.class);
-                        startService(intent);
-                    }
-
-
                     etPassword.setText("");
                     etUserName.setText("");
 
@@ -276,14 +249,6 @@ public class LoginActivity extends BaseActivity {
                         savePreferenceValue(ApplicationGlobal.KEY_PASSWORD, "" + strPassword);
                         savePreferenceValue(ApplicationGlobal.KEY_HCAP_TYPE_STR, dashboardData.getHCapTypeStr());
                         savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, dashboardData.getHCapExactStr());
-
-                        //Make Dashboard dynamic according these bool values.
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, dashboardData.isCourseDiaryFeatures());
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, dashboardData.isCompetitionsFeature());
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, dashboardData.isHandicapFeature());
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, dashboardData.isMembersFeature());
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, dashboardData.isClubNewsFeature());
-                        savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, dashboardData.isYourAccountFeature());
 
                         Gson gson = new Gson();
 
@@ -332,26 +297,5 @@ public class LoginActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             etUserName.setText("" + data.getStringExtra("USERNAME"));
         }
-    }
-
-    /**
-     * Check the device to make sure it has the Google Play Services APK. If
-     * it doesn't, display a dialog that allows users to download the APK from
-     * the Google Play Store or enable it in the device's system settings.
-     */
-    private boolean checkPlayServices() {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
-                        .show();
-            } else {
-                Log.i("checkPlayServices", "This device is not supported.");
-                finish();
-            }
-            return false;
-        }
-        return true;
     }
 }

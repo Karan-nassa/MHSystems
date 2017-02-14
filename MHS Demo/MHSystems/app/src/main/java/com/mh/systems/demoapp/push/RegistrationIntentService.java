@@ -22,20 +22,18 @@ import android.content.SharedPreferences;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.models.registerToken.AJsonParamsRegisterToken;
 import com.mh.systems.demoapp.models.registerToken.RegisterTokenAPI;
 import com.mh.systems.demoapp.models.registerToken.RegisterTokenResult;
+import com.mh.systems.demoapp.web.WebAPI;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 
 import retrofit.Callback;
@@ -60,21 +58,15 @@ public class RegistrationIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         sharedPreferences = getSharedPreferences(ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
 
         try {
-            // [START register_for_gcm]
-            // Initially this call goes out to the network to retrieve the token, subsequent calls
-            // are local.
-            // [START get_token]
-            //  Log.e("START:","HERe");
+
             InstanceID instanceID = InstanceID.getInstance(this);
-            // R.string.gcm_defaultSenderId (the Sender ID) is typically derived from google-services.json.
-            // See https://developers.google.com/cloud-messaging/android/start for details on this file.
-            //608811502775
+
             strToken = instanceID.getToken("505018842271", GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-            // [END get_token]
+
             Log.e(TAG, "GCM Registration Token: " + strToken);
 
             /**
@@ -84,12 +76,8 @@ public class RegistrationIntentService extends IntentService {
                 sendRegistrationToServer();
             }
 
-            // Subscribe to topic channels
-            //subscribeTopics(token);
         } catch (Exception e) {
             Log.e(TAG, "Failed to complete token refresh", e);
-            // If an exception happens while fetching the new token or updating our registration data
-            // on a third-party server, this ensures that we'll attempt the update at a later time.
             sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
         }
         // Notify UI that registration has completed, so the progress indicator can be hidden.
@@ -134,15 +122,13 @@ public class RegistrationIntentService extends IntentService {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(TAG, "RetrofitError : " + error);
+                Log.e(TAG, "registerToken : " + error);
                 sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
             }
         });
     }
 
     private void updateSuccessResponse(JsonObject jsonObject) {
-
-        //ComonMethods.hideProgress();
 
         Log.e(TAG, "Register Token : " + jsonObject.toString());
 
@@ -160,13 +146,12 @@ public class RegistrationIntentService extends IntentService {
             editor.commit();
 
         } else {
-            //Toast.makeText(DashboardWeatherService.this, "Oops! Unable to load weather status.", Toast.LENGTH_LONG).show();
             sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
         }
     }
 
     /**
-     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     * Implements a method to get CLIENT-ID from {@link SharedPreferences}
      */
     public String getClientId() {
         String strClubID = sharedPreferences.getString(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
@@ -174,26 +159,10 @@ public class RegistrationIntentService extends IntentService {
     }
 
     /**
-     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     * Implements a method to get MEMBER-ID from {@link SharedPreferences}
      */
     public String getMemberId() {
         String strMemberID = sharedPreferences.getString(ApplicationGlobal.KEY_MEMBERID, "");
         return strMemberID;
     }
-
-    /**
-     * Subscribe to any GCM topics of interest, as defined by the TOPICS constant.
-     *
-     * @param token GCM token
-     * @throws IOException if unable to reach the GCM PubSub service
-     */
-    // [START subscribe_topics]
-    private void subscribeTopics(String token) throws IOException {
-        GcmPubSub pubSub = GcmPubSub.getInstance(this);
-        for (String topic : TOPICS) {
-            pubSub.subscribe(token, "/topics/" + topic, null);
-        }
-    }
-    // [END subscribe_topics]
-
 }
