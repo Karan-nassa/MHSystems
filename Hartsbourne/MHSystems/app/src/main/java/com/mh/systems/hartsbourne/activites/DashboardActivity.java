@@ -784,7 +784,7 @@ public class DashboardActivity extends BaseActivity {
                 setGridMenuOptions();
 
             } else {
-                showAlertMessage("" + getUnreadNewsResponse.getMessage());
+                showAlertMessage("" + featureFlagsResponse.getMessage());
             }
             hideProgress();
         } catch (Exception e) {

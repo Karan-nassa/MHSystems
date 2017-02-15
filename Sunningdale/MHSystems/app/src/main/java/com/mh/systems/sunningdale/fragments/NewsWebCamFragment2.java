@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.activites.ClubNewsWebCamActivity;
+import com.mh.systems.sunningdale.constants.ApplicationGlobal;
 
 /**
  * The {@link NewsWebCamFragment2} used to display the detail of LOGIN
@@ -34,7 +35,7 @@ public class NewsWebCamFragment2 extends Fragment {
     public final String LOG_TAG = NewsWebCamFragment2.class.getSimpleName();
 
     //String strURL = "http://www.sunningdale-golfclub.co.uk/visitor-information/webcam2/";
-    String strURL = "http://www.waidev2.com/~sunningdale-cam/camera2.jpg";
+//    String strURL = "http://www.waidev2.com/~sunningdale-cam/camera2.jpg";
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -52,7 +53,7 @@ public class NewsWebCamFragment2 extends Fragment {
 
         // Image link from AWS server.
         ((ClubNewsWebCamActivity)getActivity()).new DownloadImageFromInternet(ivNewsWebCam)
-                .execute(strURL);
+                .execute(ApplicationGlobal.TAG_NEWS_WEBCAM2);
 
         return mRootFragment;
     }

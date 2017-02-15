@@ -25,6 +25,10 @@
 
     ####14th Feb, 2017
       - UPDATE: Replace 'Webcam' webview with image. Only webcam image will be displayed.
+	  
+	####15th Feb, 2017
+	  - UPDATE: Implements features flag functionality on dashboard.
+	  - UPDATE: Integrate webcam functionality dynamically.
 
 ##Version 1.4.0 (2016-12-01)
 

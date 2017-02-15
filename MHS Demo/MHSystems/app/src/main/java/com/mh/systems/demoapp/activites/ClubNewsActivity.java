@@ -305,7 +305,7 @@ public class ClubNewsActivity extends BaseActivity {
 
     /**
      * Implements this method is used to DELETE Club News via swipe to
-     * Delte from Club News list.
+     * Delete from Club News list.
      *
      * @param iDeletePosition
      * @param clubNewsID
