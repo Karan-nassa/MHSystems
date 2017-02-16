@@ -35,162 +35,126 @@ public class ClubNewsThumbnailDetailData {
     private Boolean IsDeleted;
 
     /**
-     * 
-     * @return
-     *     The ClubNewsID
+     * @return The ClubNewsID
      */
     public Integer getClubNewsID() {
         return ClubNewsID;
     }
 
     /**
-     * 
-     * @param ClubNewsID
-     *     The ClubNewsID
+     * @param ClubNewsID The ClubNewsID
      */
     public void setClubNewsID(Integer ClubNewsID) {
         this.ClubNewsID = ClubNewsID;
     }
 
     /**
-     * 
-     * @return
-     *     The Title
+     * @return The Title
      */
     public String getTitle() {
         return Title;
     }
 
     /**
-     * 
-     * @param Title
-     *     The Title
+     * @param Title The Title
      */
     public void setTitle(String Title) {
         this.Title = Title;
     }
 
     /**
-     * 
-     * @return
-     *     The Message
+     * @return The Message
      */
     public String getMessage() {
         return Message;
     }
 
     /**
-     * 
-     * @param Message
-     *     The Message
+     * @param Message The Message
      */
     public void setMessage(String Message) {
         this.Message = Message;
     }
 
     /**
-     * 
-     * @return
-     *     The Date
+     * @return The Date
      */
     public String getDate() {
         return Date;
     }
 
     /**
-     * 
-     * @param Date
-     *     The Date
+     * @param Date The Date
      */
     public void setDate(String Date) {
         this.Date = Date;
     }
 
     /**
-     * 
-     * @return
-     *     The Time
+     * @return The Time
      */
     public String getTime() {
         return Time;
     }
 
     /**
-     * 
-     * @param Time
-     *     The Time
+     * @param Time The Time
      */
     public void setTime(String Time) {
         this.Time = Time;
     }
 
     /**
-     * 
-     * @return
-     *     The DateTimeText
+     * @return The DateTimeText
      */
     public String getDateTimeText() {
         return DateTimeText;
     }
 
     /**
-     * 
-     * @param DateTimeText
-     *     The DateTimeText
+     * @param DateTimeText The DateTimeText
      */
     public void setDateTimeText(String DateTimeText) {
         this.DateTimeText = DateTimeText;
     }
 
     /**
-     * 
-     * @return
-     *     The IsActive
+     * @return The IsActive
      */
     public Boolean getIsActive() {
         return IsActive;
     }
 
     /**
-     * 
-     * @param IsActive
-     *     The IsActive
+     * @param IsActive The IsActive
      */
     public void setIsActive(Boolean IsActive) {
         this.IsActive = IsActive;
     }
 
     /**
-     * 
-     * @return
-     *     The IsRead
+     * @return The IsRead
      */
     public Boolean getIsRead() {
         return IsRead;
     }
 
     /**
-     * 
-     * @param IsRead
-     *     The IsRead
+     * @param IsRead The IsRead
      */
     public void setIsRead(Boolean IsRead) {
         this.IsRead = IsRead;
     }
 
     /**
-     * 
-     * @return
-     *     The IsDeleted
+     * @return The IsDeleted
      */
     public Boolean getIsDeleted() {
         return IsDeleted;
     }
 
     /**
-     * 
-     * @param IsDeleted
-     *     The IsDeleted
+     * @param IsDeleted The IsDeleted
      */
     public void setIsDeleted(Boolean IsDeleted) {
         this.IsDeleted = IsDeleted;

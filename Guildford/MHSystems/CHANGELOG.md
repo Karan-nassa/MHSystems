@@ -1,4 +1,4 @@
-##Version  1.3.0 ()
+##Version  1.3.0 (2016-02-16)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.
 - Fixed: Club News: Implements Serializable to pass club news data on detail screen instead of passing value one by one.
@@ -10,6 +10,15 @@
    #####2nd Feb, 2017
     - UPDATE: Replace 'SimpleDrawerView' with 'CircleImageView' for better performance.
     - FIXED: Implement Internet check for Forecast Weather data.
+
+   ####16th Feb, 2017
+    - Enhanced: Remove 'libValidation' library used for input passwords validations and implements custom code.
+    - UPDATE: Display 'No Image' till club news doesn't load image.
+    - NEW: Integrate push notification functionality [HIDE].
+    - NEW: Integrate Register Token functionality with GCM.
+    - UPDATE: Integrate Club News with Thumbnail features.
+    - NEW: Integrate Logout functionality (API).
+    - NEW: Display Unread Club News badger cound on dashboard [HIDE].
 
 ##Version 1.2.0 (2016-12-26)
 
