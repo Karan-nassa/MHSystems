@@ -2,10 +2,6 @@ package com.mh.systems.hartsbourne.adapter.RecyclerAdapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.mh.systems.hartsbourne.R;
@@ -24,8 +19,8 @@ import com.mh.systems.hartsbourne.activites.ClubNewsActivity;
 import com.mh.systems.hartsbourne.activites.ClubNewsDetailActivity;
 import com.mh.systems.hartsbourne.models.ClubNewsThumbnail.ClubNewsThumbnailData;
 import com.mh.systems.hartsbourne.web.WebAPI;
+import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -81,23 +76,11 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
 
         strThumbnailURL = "";
 
-        //String strThumnailURL = clubNewsDataArrayList.get(position).getMessage();
-        //if (clubNewsDataArrayList.get(position).getMessage().length() > 1 && viewHolder.ivNewsThumbnail.getDrawable() == null) {
-        //    strThumbnailURL = WebAPI.API_BASE_URL + "/webapi/" + clubNewsDataArrayList.get(position).getMessage();
-
-            /*Uri imageUri = Uri.parse(strThumbnailURL);
-            viewHolder.ivNewsThumbnail.setImageURI(imageUri);
-
-            // Image link from AWS server.
-            new DownloadImageFromInternet(viewHolder.ivNewsThumbnail)
-                    .execute(strThumbnailURL);*/
-
-
-        // }
-
         if (clubNewsDataArrayList.get(position).getMessage().length() > 0) {
-            Glide.with(mContext)
+            Picasso.with(mContext)
                     .load(WebAPI.API_BASE_URL + "/webapi/" + clubNewsDataArrayList.get(position).getMessage())
+                    .placeholder(R.mipmap.ic_no_image)
+                    .error(R.mipmap.ic_no_image)
                     .into(viewHolder.ivNewsThumbnail);
         }
 
@@ -200,35 +183,6 @@ public class ClubNewsSwipeAdapter extends RecyclerSwipeAdapter<ClubNewsSwipeAdap
             bundle.putInt("iPosition", getAdapterPosition());
             detailNewsIntent.putExtras(bundle);
             ((ClubNewsActivity) mContext).startActivityForResult(detailNewsIntent, 111);
-        }
-    }
-
-    /**
-     * Used this {@link AsyncTask} class to get
-     * image from URL.
-     */
-    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageFromInternet(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String imageURL = urls[0];
-            Bitmap bimage = null;
-            try {
-                InputStream in = new java.net.URL(imageURL).openStream();
-                bimage = BitmapFactory.decodeStream(in);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return bimage;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
         }
     }
 }

@@ -1,3 +1,11 @@
+##Version  1.5.0 (2017-01.14)
+
+- Fixed all changes in this version.
+
+    #####16th Feb, 2017
+     - UPDATE: Replace image loader library 'Glide' with 'Picasso' version 2.5.2.
+     - UPDATE: Display 'No Image' till club news doesn't load image.
+
 ##Version  1.4.0 (2017-01-14)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.
