@@ -214,6 +214,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
+
         <service
             android:name=".push.MyInstanceIDListenerService"
             android:exported="false">
@@ -221,6 +222,7 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
+
         <service
             android:name=".push.RegistrationIntentService"
             android:exported="false" />

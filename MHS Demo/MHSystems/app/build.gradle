@@ -83,6 +83,7 @@ dependencies {
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.mukesh:countrypicker:1.1.5'
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     //Integrate TestFairy tool to send build
     compile 'testfairy:testfairy-android-sdk:1.4.3@aar'

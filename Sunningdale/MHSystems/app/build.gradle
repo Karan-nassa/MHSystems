@@ -17,8 +17,8 @@ android {
         applicationId "com.mh.systems.sunningdale"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 5
-        versionName '1.4'
+        versionCode 6
+        versionName '1.5'
         multiDexEnabled true
     }
     //Used for Draw Graph Library
@@ -68,6 +68,7 @@ dependencies {
     //Country Picker Dialog
     compile 'com.mukesh:countrypicker:1.1.5'
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

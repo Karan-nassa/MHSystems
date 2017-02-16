@@ -30,6 +30,10 @@
 	  - UPDATE: Implements features flag functionality on dashboard.
 	  - UPDATE: Integrate webcam functionality dynamically.
 
+	 ####16th Feb, 2017
+       - UPDATE: Replace image loader library 'Glide' with 'Picasso' version 2.5.2.
+       - UPDATE: Display 'No Image' till club news doesn't load image.
+
 ##Version 1.4.0 (2016-12-01)
 
 - New: Contact us feature added
