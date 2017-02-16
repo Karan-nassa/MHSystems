@@ -11,7 +11,7 @@
 | 1.   | Club News Badger  | Yes            |
 | 2.   | Weather           | Yes            |
 | 3.   | Your Handicap     | Yes            |
-| 4.   | Course Diary      | Yes            |
+| 4.   | Course Diary      | Yes (WEB-VIEW) |
 | 5.   | Competitions      | No             |
 | 6.   | Members           | Yes            |
 | 7.   | Club News         | Yes            |
