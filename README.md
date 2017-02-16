@@ -13,8 +13,8 @@
 | 7.    | [Sandy Lodge](https://github.com/uCreateit/mhsystems_android/tree/master/Sandy%20Lodge/MHSystems)       	  		 | 44071048  | Yes (Club Diary)|
 | 8.    | [Brokenhurst](https://github.com/uCreateit/mhsystems_android/tree/master/Brokenhurst/MHSystems)       	         | 44069013  |       No        |
 | 9.    | [Chester-Le-Street](https://github.com/uCreateit/mhsystems_android/tree/master/Chester%20Le%20Street/MHSystems) 	 | 44061006  |       No        |
-| 10.   | [Guildford](https://github.com/uCreateit/mhsystems_android/tree/master/Guildford/MHSystems)         				 | 44118032  |       Yes       |
-| 11.   | [Corrstown](https://github.com/uCreateit/mhsystems_android/tree/master/Corrstown/MHSystems)         				 | 44028007  |    Yes (BRS)    |
+| 10.   | [Guildford](https://github.com/uCreateit/mhsystems_android/tree/master/Guildford/MHSystems)         				 | 44118032  |    Yes (BRS)    |
+| 11.   | [Corrstown](https://github.com/uCreateit/mhsystems_android/tree/master/Corrstown/MHSystems)         				 | 44028007  |    	Yes        |
 | 12.   | [Redlibbets](https://github.com/uCreateit/mhsystems_android/tree/master/Redlibbets/MHSystems)        				 | 44080103  |       N/A       |
 
 
