@@ -1,9 +1,12 @@
 package com.mh.systems.sandylodge.activites;
 
-
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,16 +17,28 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.sandylodge.constants.ApplicationGlobal;
-import com.mh.systems.sandylodge.web.WebAPI;
+import com.mh.systems.sandylodge.models.DeleteToken.AJsonParamsDeleteToken;
+import com.mh.systems.sandylodge.models.DeleteToken.DeleteTokenAPI;
+import com.mh.systems.sandylodge.models.DeleteToken.DeleteTokenResult;
+import com.mh.systems.sandylodge.models.UnreadNewsCount.AJsonParamsGetUnreadCount;
+import com.mh.systems.sandylodge.models.UnreadNewsCount.GetUnreadNewsCountAPI;
+import com.mh.systems.sandylodge.models.UnreadNewsCount.GetUnreadNewsResponse;
+import com.mh.systems.sandylodge.models.featuresflag.AJsonParamsFeaturesFlag;
+import com.mh.systems.sandylodge.models.featuresflag.FeatureFlagsAPI;
+import com.mh.systems.sandylodge.models.featuresflag.FeatureFlagsResponse;
 import com.mh.systems.sandylodge.models.weather.WeatherApiResponse;
+import com.mh.systems.sandylodge.push.QuickstartPreferences;
+import com.mh.systems.sandylodge.push.RegistrationIntentService;
+import com.mh.systems.sandylodge.web.WebAPI;
 import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
@@ -39,7 +54,7 @@ import retrofit.RetrofitError;
 
 /**
  * The {@link DashboardActivity} used to display {@link GridView}, Settings and
- * Logout option. Basically, it will be use as the main screen of application
+ * Logout option. Basically, it will be use as the welcome screen of application
  * after Login.
  *
  * @author {@link karan@ucreate.co.in}
@@ -47,7 +62,9 @@ import retrofit.RetrofitError;
  */
 public class DashboardActivity extends BaseActivity {
 
-    private final String LOG_TAG = DashboardActivity.class.getSimpleName();
+    private String LOG_TAG = DashboardActivity.class.getSimpleName();
+
+    private final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -62,11 +79,11 @@ public class DashboardActivity extends BaseActivity {
     @Bind(R.id.llSettings)
     LinearLayout llSettings;
 
-    @Bind(R.id.btSendFeedback)
-    Button btSendFeedback;
-
     @Bind(R.id.llWeatherGroup)
     LinearLayout llWeatherGroup;
+
+    @Bind(R.id.btSendFeedback)
+    Button btSendFeedback;
 
     @Bind(R.id.tvTodayTemperature)
     TextView tvTodayTemperature;
@@ -87,6 +104,34 @@ public class DashboardActivity extends BaseActivity {
     //Instance of Weather api.
     WeatherApiResponse weatherApiResponse;
 
+    /**
+     * Instances of Delete Token api.
+     */
+    DeleteTokenAPI deleteTokenAPI;
+    AJsonParamsDeleteToken aJsonParamsDeleteToken;
+
+    DeleteTokenResult deleteTokenResult;
+
+    /**
+     * Instances of GET COUNT OF UNREAD
+     * CLUB NEWS api.
+     */
+    GetUnreadNewsCountAPI getUnreadNewsCountAPI;
+    AJsonParamsGetUnreadCount aJsonParamsGetUnreadCount;
+
+    GetUnreadNewsResponse getUnreadNewsResponse;
+
+    /**
+     * Instances of Features Flag
+     * on dashboard.
+     */
+    FeatureFlagsAPI featureFlagsAPI;
+    AJsonParamsFeaturesFlag aJsonParamsFeaturesFlag;
+
+    FeatureFlagsResponse featureFlagsResponse;
+
+    BroadcastReceiver mRegistrationBroadcastReceiver;
+
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
@@ -103,13 +148,12 @@ public class DashboardActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            /**
-             *  Clear shared-preference memory.
-             */
-            clearAutoPreference();
-
-            startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
-            finish();
+            //Call Weather api functionality.
+            if (isOnline(DashboardActivity.this)) {
+                callLogoutService();
+            } else {
+                showAlertMessage(getString(R.string.error_no_connection));
+            }
         }
     };
 
@@ -125,7 +169,14 @@ public class DashboardActivity extends BaseActivity {
          */
         ButterKnife.bind(DashboardActivity.this);
 
-        setGridMenuOptions();
+        //Initialize adapter.
+        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
+                dashboardItemsArrayList,
+                iHandicapPosition,
+                loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
+
+        sendTokenToServer();
 
         //LogOut listener.
         llLogoutBtn.setOnClickListener(mLogoutListener);
@@ -160,15 +211,55 @@ public class DashboardActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+//        String temp = loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, "");
+//          if (temp.equals("")){
+//        callWeatherService();
+//          }
+//    else{
+//            llWeatherGroup.setVisibility(View.VISIBLE);
+//            tvTodayTemperature.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ""));
+//            tvWeatherDesc.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ""));
+//            //        tvNameOfLocation.setText(weatherData.getName() + ", " + weatherData.getSys().getCountry());
+//            tvNameOfLocation.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, ""));
+//        //    todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherData.getWeather().get(0).getIcon() + ".png"));
+//            Resources res=getResources();
+//            int resID = res.getIdentifier(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ""), "mipmap", getPackageName());
+//            Drawable drawable = res.getDrawable(resID);
+//            todayIcon.setImageDrawable(drawable);
+//
+//        }
+    }
+
+    /**
+     * Implements this method to send Token to
+     * server for push notifications.
+     */
+    private void sendTokenToServer() {
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                //  mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(context);
+                boolean sentToken = sharedPreferences
+                        .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+            }
+        };
+
+        if (checkPlayServices()) {
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        //Call Weather api functionality.
         if (isOnline(DashboardActivity.this)) {
+            callFeaturesFlagService();
             callWeatherService();
+            //getUnreadNewsCountService();
         }
     }
 
@@ -177,6 +268,9 @@ public class DashboardActivity extends BaseActivity {
      * dynamically.
      */
     private void setGridMenuOptions() {
+
+        dashboardItemsArrayList.clear();
+        iHandicapPosition = -1;
 
         //Add Handicap.
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false)) {
@@ -232,8 +326,7 @@ public class DashboardActivity extends BaseActivity {
         }
 
         //Set Grid options adapter.
-        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this, dashboardItemsArrayList, iHandicapPosition, loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
-        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
+        dashboardRecyclerAdapter.notifyDataSetChanged();
 
         setupGridLayout(dashboardItemsArrayList.size());
 
@@ -245,12 +338,11 @@ public class DashboardActivity extends BaseActivity {
      * Grid.
      */
     private void setupGridLayout(int iGridSize) {
-        // Create a grid layout with two columns
+
         GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
 
         switch (iGridSize) {
             case 3:
-                // Create a custom SpanSizeLookup where the first item spans both columns
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
@@ -260,7 +352,6 @@ public class DashboardActivity extends BaseActivity {
                 break;
 
             case 4:
-                // Create a custom SpanSizeLookup where the first item spans both columns
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
@@ -270,7 +361,6 @@ public class DashboardActivity extends BaseActivity {
                 break;
 
             case 5:
-                // Create a custom SpanSizeLookup where the first item spans both columns
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
@@ -280,7 +370,6 @@ public class DashboardActivity extends BaseActivity {
                 break;
 
             default:
-                // Create a custom SpanSizeLookup where the first item spans both columns
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
@@ -389,7 +478,7 @@ public class DashboardActivity extends BaseActivity {
         }
     }
 
-    /****************** ++ WEATHER API FEATURE ++ ******************/
+    /****************** ++ WEATHER api FEATURE ++ ******************/
 
     /**
      * Implements this method to hit weather web
@@ -420,19 +509,14 @@ public class DashboardActivity extends BaseActivity {
 
                     @Override
                     public void failure(RetrofitError error) {
-                        //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
-
-                       // callWeatherService();
                     }
                 });
     }
 
     private void updateSuccessResponse(JsonObject jsonObject) {
 
-        //ComonMethods.hideProgress();
-
-        Log.e(LOG_TAG, "Weather response : " + jsonObject.toString());
+        Log.e(LOG_TAG, "WEATHER RESPONSE : " + jsonObject.toString());
 
         Type type = new TypeToken<WeatherApiResponse>() {
         }.getType();
@@ -461,9 +545,274 @@ public class DashboardActivity extends BaseActivity {
 //            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
 
         } else {
-            Toast.makeText(DashboardActivity.this, weatherApiResponse.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e(LOG_TAG, weatherApiResponse.getMessage());
         }
     }
 
-    /****************** ~~ WEATHER API FEATURE ~~ ******************/
+    /****************** ~~ WEATHER api FEATURE ~~ ******************/
+
+    /*~~~~~~~~~~~~~~~~~ START OF LOGOUT FEATURE  ~~~~~~~~~~~~~~~~~*/
+
+    /**
+     * Implements this method to call the
+     * Logout web service.
+     */
+    private void callLogoutService() {
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsDeleteToken = new AJsonParamsDeleteToken();
+        aJsonParamsDeleteToken.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsDeleteToken.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsDeleteToken.setDeviceId(loadPreferenceValue(QuickstartPreferences.TAG_DEVICE_ID, "N/A"));
+
+        deleteTokenAPI = new DeleteTokenAPI(getClientId(), "DELETEMEMBERDEVICE", aJsonParamsDeleteToken, "PUSHNOTIFICATION", ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.deleteToken(deleteTokenAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                deleteTokenSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }
+
+    /**
+     * Implements a method which called when token
+     * deleted from web server successfully.
+     */
+    private void deleteTokenSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "DELETE TOKEN RESPONSE : " + jsonObject.toString());
+
+        Type type = new com.newrelic.com.google.gson.reflect.TypeToken<DeleteTokenResult>() {
+        }.getType();
+        deleteTokenResult = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (deleteTokenResult.getMessage().equalsIgnoreCase("Success") || deleteTokenResult.getData() == 1) {
+                /**
+                 *  Clear shared-preference memory.
+                 */
+                clearAutoPreference();
+
+                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+                finish();
+            } else {
+                showAlertMessage("" + deleteTokenResult.getMessage());
+            }
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+        }
+    }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link SharedPreferences}
+     */
+    public String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+    }
+
+     /*~~~~~~~~~~~~~~~~~ END OF LOGOUT FEATURE  ~~~~~~~~~~~~~~~~~*/
+
+    /****************** ++ GET CLUB NEWS UNREAD COUNT FUNCTIONALITY ++ ******************/
+
+    /**
+     * Implements this method to hit weather web
+     * service get count of UNREAD club news.
+     */
+    private void getUnreadNewsCountService() {
+
+        aJsonParamsGetUnreadCount = new AJsonParamsGetUnreadCount();
+        aJsonParamsGetUnreadCount.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsGetUnreadCount.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsGetUnreadCount.setLoginMemberId(getMemberId());
+
+        getUnreadNewsCountAPI = new GetUnreadNewsCountAPI(getClientId(), "GETUNREADCLUBNEWS", aJsonParamsGetUnreadCount, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getUnreadClubNewsCount(getUnreadNewsCountAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateGetUnreadCountResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+            }
+        });
+    }
+
+    /**
+     * Implements a method which called to get count of
+     * UNREAD club news.
+     */
+    private void updateGetUnreadCountResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "UNREAD NEWS COUNT RESPONSE : " + jsonObject.toString());
+
+        Type type = new TypeToken<GetUnreadNewsResponse>() {
+        }.getType();
+        getUnreadNewsResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (getUnreadNewsResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                int iUnReadCount = getUnreadNewsResponse.getData().getUnRead();
+
+                if (iUnReadCount > 0) {
+                    dashboardRecyclerAdapter.updateBadgerCount(getUnreadNewsResponse.getData().getUnRead());
+                }
+            } else {
+                showAlertMessage("" + getUnreadNewsResponse.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+        }
+    }
+
+    /****************** ++ GET CLUB NEWS UNREAD COUNT FUNCTIONALITY ++ ******************/
+
+
+    /**
+     * Call Features flag web service to get list of
+     * features show on dashboard.
+     */
+    private void callFeaturesFlagService() {
+
+        showPleaseWait("Please wait...");
+
+        aJsonParamsFeaturesFlag = new AJsonParamsFeaturesFlag();
+        aJsonParamsFeaturesFlag.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsFeaturesFlag.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+
+        featureFlagsAPI = new FeatureFlagsAPI(getClientId(), "GETCLUBFEATURES", aJsonParamsFeaturesFlag, "CLUBINFO", ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        api.getFeaturesFlagOptions(featureFlagsAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateFeaturesFlagResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+            }
+        });
+    }
+
+    /****************** ++ GET DASHBOARD FEATURES FLAG ++ ******************/
+
+    /**
+     * Implements a method which called to get count of
+     * UNREAD club news.
+     */
+    private void updateFeaturesFlagResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "FEATURES FLAG RESPONSE : " + jsonObject.toString());
+
+        Type type = new TypeToken<FeatureFlagsResponse>() {
+        }.getType();
+        featureFlagsResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (featureFlagsResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                //Make Dashboard dynamic according these bool values.
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, featureFlagsResponse.getData().getCourseDiaryFeatures());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, featureFlagsResponse.getData().getCompetitionsFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, featureFlagsResponse.getData().getHandicapFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, featureFlagsResponse.getData().getMembersFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, featureFlagsResponse.getData().getClubNewsFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, featureFlagsResponse.getData().getYourAccountFeature());
+
+                setGridMenuOptions();
+
+            } else {
+                showAlertMessage("" + featureFlagsResponse.getMessage());
+            }
+            hideProgress();
+        } catch (Exception e) {
+            hideProgress();
+            Log.e(LOG_TAG, "" + e.getMessage());
+        }
+    }
+
+    /****************** ++ GET DASHBOARD FEATURES FLAG ++ ******************/
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i("checkPlayServices", "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
 }
