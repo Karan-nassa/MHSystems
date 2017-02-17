@@ -1,3 +1,10 @@
+##Version  1.6.0 ()
+
+- Update changes in Version 1.6.0 are as below:
+
+    #####17th Feb, 2017
+     - UPDATE: Change 'FSI' payment gateway from STAGING to PRODUCTION server.
+
 ##Version  1.5.0 (16th Feb, 2017)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.
