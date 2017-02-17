@@ -1,4 +1,4 @@
-##Version  1.5.0 ()
+##Version  1.5.0 (16th Feb, 2017)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.
 - Fixed: Club News: Implements Serializable to pass club news data on detail screen instead of passing value one by one.
