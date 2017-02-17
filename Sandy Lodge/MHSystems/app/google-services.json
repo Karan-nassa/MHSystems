@@ -1,12 +1,12 @@
 {
   "project_info": {
-    "project_number": "283020449609",
-    "project_id": "sandy-lodge"
+    "project_number": "505018842271",
+    "project_id": "mhs-golf-153711"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:283020449609:android:e9026afc3c51b2c0",
+        "mobilesdk_app_id": "1:505018842271:android:714845c7c685667c",
         "android_client_info": {
           "package_name": "com.mh.systems.sandylodge"
         }
@@ -14,7 +14,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDXLbb5hSbbsqbFAnmlDAUjOOno5yo2sJU"
+          "current_key": "AIzaSyCHx_ro5uAJyRBE8UxttZQTDp9IwJhCalw"
         }
       ],
       "services": {
