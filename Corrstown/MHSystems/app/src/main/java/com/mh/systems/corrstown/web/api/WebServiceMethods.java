@@ -29,6 +29,7 @@ import com.mh.systems.corrstown.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.corrstown.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.corrstown.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.corrstown.models.competitionsEntry.UpdateCompEntryAPI;
+import com.mh.systems.corrstown.models.featuresflag.FeatureFlagsAPI;
 import com.mh.systems.corrstown.models.registerToken.RegisterTokenAPI;
 
 import retrofit.Callback;
@@ -459,5 +460,17 @@ public interface WebServiceMethods {
      */
     @GET("/webapi/api/ApifsiGateway/TopUps")
     public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
+
+    /**
+     * Call Features flag web service to get list of
+     * features show on dashboard.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param featureFlagsAPI       : Pass instance of features flag.
+     * @param response              : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getFeaturesFlagOptions(@Body FeatureFlagsAPI featureFlagsAPI, Callback<JsonObject> response);
 }
 

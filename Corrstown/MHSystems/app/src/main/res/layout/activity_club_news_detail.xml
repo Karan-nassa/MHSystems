@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhiteffffff"
-    >
+    android:background="@color/colorWhiteffffff">
 
     <!-- DETAIL NEWS VIEW GROUP -->
 
@@ -28,59 +27,60 @@
 
         <!-- CLUB NEWS DETAIL CONTENT -->
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <com.mh.systems.corrstown.customfonts.SFUI_TextFontMedium
+                android:id="@+id/tvTitleOfNews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
+                android:textSize="21sp"
+                android:textColor="@color/colorC0995B" />
 
-                <com.mh.systems.corrstown.customfonts.SFUI_TextFontMedium
-                    android:id="@+id/tvTitleOfNews"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="21sp"
-                    android:textColor="@color/colorC0995B"/>
+            <!-- DATE OF NEWS -->
 
-                <!-- DATE OF NEWS -->
+            <TextView
+                android:id="@+id/tvDateOfNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/tvDateOfNews"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.5"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="15sp" />
+            <!-- TIME OF NEWS -->
 
-                <!-- TIME OF NEWS -->
+            <TextView
+                android:id="@+id/tvTimeOfNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/tvTimeOfNews"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.5"
-                    android:textColor="@color/colorBlack000000"
-                    android:textSize="15sp" />
+        </LinearLayout>
 
-            </LinearLayout>
+        <!-- CLUB NEWS DETAIL DESCRIPTION -->
 
-                <!-- CLUB NEWS DETAIL DESCRIPTION -->
+        <!-- <TextView
+             android:id="@+id/tvDescOfNews"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:textSize="15dp"
+             android:text="@string/text_club_news_detail"
+             android:textColor="#A8000000" />-->
 
-               <!-- <TextView
-                    android:id="@+id/tvDescOfNews"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:text="@string/text_club_news_detail"
-                    android:textColor="#A8000000" />-->
-
-                <WebView
-                    android:id="@+id/wvClubNews"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="25dp"/>
+        <WebView
+            android:id="@+id/wvClubNews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+			 android:overScrollMode="never"
+            android:layout_marginTop="25dp" />
 
     </LinearLayout>
 

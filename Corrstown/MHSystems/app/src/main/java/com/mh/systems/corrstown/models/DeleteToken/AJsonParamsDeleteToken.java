@@ -17,54 +17,42 @@ public class AJsonParamsDeleteToken {
     private String DeviceId;
 
     /**
-     * 
-     * @return
-     *     The version
+     * @return The version
      */
     public Integer getVersion() {
         return version;
     }
 
     /**
-     * 
-     * @param version
-     *     The version
+     * @param version The version
      */
     public void setVersion(Integer version) {
         this.version = version;
     }
 
     /**
-     * 
-     * @return
-     *     The callid
+     * @return The callid
      */
     public String getCallid() {
         return callid;
     }
 
     /**
-     * 
-     * @param callid
-     *     The callid
+     * @param callid The callid
      */
     public void setCallid(String callid) {
         this.callid = callid;
     }
 
     /**
-     * 
-     * @return
-     *     The DeviceId
+     * @return The DeviceId
      */
     public String getDeviceId() {
         return DeviceId;
     }
 
     /**
-     * 
-     * @param DeviceId
-     *     The DeviceId
+     * @param DeviceId The DeviceId
      */
     public void setDeviceId(String DeviceId) {
         this.DeviceId = DeviceId;

@@ -28,108 +28,84 @@ public class AJsonParamsRegisterToken {
     private String deviceId;
 
     /**
-     * 
-     * @return
-     *     The version
+     * @return The version
      */
     public int getVersion() {
         return version;
     }
 
     /**
-     * 
-     * @param version
-     *     The version
+     * @param version The version
      */
     public void setVersion(int version) {
         this.version = version;
     }
 
     /**
-     * 
-     * @return
-     *     The callid
+     * @return The callid
      */
     public String getCallid() {
         return callid;
     }
 
     /**
-     * 
-     * @param callid
-     *     The callid
+     * @param callid The callid
      */
     public void setCallid(String callid) {
         this.callid = callid;
     }
 
     /**
-     * 
-     * @return
-     *     The memberId
+     * @return The memberId
      */
     public String getMemberId() {
         return memberId;
     }
 
     /**
-     * 
-     * @param memberId
-     *     The MemberId
+     * @param memberId The MemberId
      */
     public void setMemberId(String memberId) {
         this.memberId = memberId;
     }
 
     /**
-     * 
-     * @return
-     *     The deviceState
+     * @return The deviceState
      */
     public int getDeviceState() {
         return deviceState;
     }
 
     /**
-     * 
-     * @param deviceState
-     *     The DeviceState
+     * @param deviceState The DeviceState
      */
     public void setDeviceState(int deviceState) {
         this.deviceState = deviceState;
     }
 
     /**
-     * 
-     * @return
-     *     The deviceType
+     * @return The deviceType
      */
     public int getDeviceType() {
         return deviceType;
     }
 
     /**
-     * 
-     * @param deviceType
-     *     The DeviceType
+     * @param deviceType The DeviceType
      */
     public void setDeviceType(int deviceType) {
         this.deviceType = deviceType;
     }
 
     /**
-     * 
-     * @return
-     *     The deviceId
+     * @return The deviceId
      */
     public String getDeviceId() {
         return deviceId;
     }
 
     /**
-     * 
-     * @param deviceId
-     *     The DeviceId
+     * @param deviceId The DeviceId
      */
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;

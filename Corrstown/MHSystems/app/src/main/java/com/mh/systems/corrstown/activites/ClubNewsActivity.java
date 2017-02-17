@@ -22,6 +22,7 @@ import com.mh.systems.corrstown.web.WebAPI;
 import com.mh.systems.corrstown.models.ClubNews.AJsonParamsClubNewsDetail;
 import com.mh.systems.corrstown.models.ClubNews.ClubNewsDetailAPI;
 import com.mh.systems.corrstown.models.ClubNews.ClubNewsDetailResult;
+import com.mh.systems.corrstown.models.ClubNews.ClubNewsItems;
 import com.mh.systems.corrstown.models.ClubNewsThumbnail.AJsonParamsClubNewsThumbnail;
 import com.mh.systems.corrstown.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
 import com.mh.systems.corrstown.models.ClubNewsThumbnail.ClubNewsThumbnailData;
@@ -52,6 +53,11 @@ public class ClubNewsActivity extends BaseActivity {
     RecyclerView rvClubNewsList;
 
     ClubNewsSwipeAdapter clubNewsSwipeAdapter;
+
+//    ClubNewsAPI clubNewsAPI;
+//    AJsonParamsClubNews aJsonParamsClubNews;
+
+    ClubNewsItems clubNewsItems;
 
     ClubNewsDetailAPI clubNewsDetailAPI;
     AJsonParamsClubNewsDetail aJsonParamsClubNewsDetail;
@@ -85,6 +91,7 @@ public class ClubNewsActivity extends BaseActivity {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
+    //ArrayList<ClubNewsData> clubNewsDataArrayList = new ArrayList<>();
     ArrayList<ClubNewsThumbnailData> clubNewsThumbnailList = new ArrayList<>();
 
     private Boolean isDelete = true, isRead = true;
@@ -114,15 +121,21 @@ public class ClubNewsActivity extends BaseActivity {
 
         // Layout Managers:
         rvClubNewsList.setLayoutManager(new LinearLayoutManager(this));
+        // Item Decorator:
+        //rvClubNewsList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
+        // mRecyclerView.setItemAnimator(new FadeInLeftAnimator());
 
         /**
          *  Check internet connection before hitting server request.
          */
         if (isOnline(this)) {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            // inc_message_view.setVisibility(View.GONE);
             requestClubNews();
         } else {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            // inc_message_view.setVisibility(View.VISIBLE);
+            //showAlertMessage(getResources().getString(R.string.error_no_internet));
             hideProgress();
         }
 
@@ -132,6 +145,13 @@ public class ClubNewsActivity extends BaseActivity {
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
     }
+
+   /* @Override
+    protected void onResume() {
+        super.onResume();
+
+        clubNewsSwipeAdapter.notifyDataSetChanged();
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -163,6 +183,108 @@ public class ClubNewsActivity extends BaseActivity {
         }
     }
 
+    /* @Override
+    protected void onResume() {
+        super.onResume();
+
+        *//**
+     *  Check internet connection before hitting server request.
+     *//*
+        if (isOnline(this)) {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            // inc_message_view.setVisibility(View.GONE);
+            requestClubNews();
+        } else {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            // inc_message_view.setVisibility(View.VISIBLE);
+            //showAlertMessage(getResources().getString(R.string.error_no_internet));
+            hideProgress();
+        }
+    }*/
+
+    /**
+     * Implement a method to hit News web service to get response.
+     */
+  /*  public void requestClubNews() {
+
+        showPleaseWait("Please wait...");
+
+        aJsonParamsClubNews = new AJsonParamsClubNews();
+        aJsonParamsClubNews.setLoginMemberId(getMemberId());
+
+        clubNewsAPI = new ClubNewsAPI(getClientId(), "GETCLUBNEWS", aJsonParamsClubNews, ApplicationGlobal.TAG_GCLUB_WEBSERVICES);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getClubNews(clubNewsAPI, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+            }
+        });
+    }*/
+
+    /**
+     * Implements this method to UPDATE the data from webservice in
+     * COURSE DIARY list if get SUCCESS.
+     */
+    /*private void updateSuccessResponse(JsonObject jsonObject) {
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<ClubNewsItems>() {
+        }.getType();
+        clubNewsItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        //Clear Old data from Array-list.
+        clubNewsDataArrayList.clear();
+
+        try {
+            *//**
+     *  Check "Result" 1 or 0. If 1, means data received successfully.
+     *//*
+            if (clubNewsItems.getMessage().equalsIgnoreCase("Success")) {
+
+                //Take backup of List before changing to record.
+                clubNewsDataArrayList.addAll(clubNewsItems.getData());
+
+                if (clubNewsDataArrayList.size() == 0) {
+                    clubNewsDataArrayList.clear();
+                    clubNewsSwipeAdapter.notifyDataSetChanged();
+                    showNoCourseView(false);
+                } else {
+                    showNoCourseView(true);
+
+                    //Set Adapter.
+                    clubNewsSwipeAdapter.notifyDataSetChanged();
+                }
+            } else {
+                showNoCourseView(false);
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        //Dismiss progress dialog.
+        hideProgress();
+    }*/
+
     /**
      * Implements a method to show 'NO COURSE' view and hide it at least one Course event.
      *
@@ -183,7 +305,7 @@ public class ClubNewsActivity extends BaseActivity {
 
     /**
      * Implements this method is used to DELETE Club News via swipe to
-     * Delte from Club News list.
+     * Delete from Club News list.
      *
      * @param iDeletePosition
      * @param clubNewsID
@@ -296,7 +418,7 @@ public class ClubNewsActivity extends BaseActivity {
                             if (isCallFromDelete) {
                                 clubNewsThumbnailList.remove(iDeletePosition);
                                 clubNewsSwipeAdapter.notifyDataSetChanged();
-                            }else{
+                            } else {
                                 onBackPressed();
                             }
                         }

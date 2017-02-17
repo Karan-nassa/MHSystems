@@ -20,6 +20,7 @@
     <uses-permission android:name="com.mh.systems.corrstown.permission.C2D_MESSAGE" />
 
     <!-- [END gcm_permission] -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -122,9 +123,11 @@
             android:screenOrientation="portrait" />
 
         <!-- RESET PASSWORD SCREEN -->
+
         <activity
             android:name="com.mh.systems.corrstown.activites.ResetPasswordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
 
         <!-- SEND FEEDBACK SCREEN -->
         <activity
@@ -208,7 +211,8 @@
             android:name="com.mh.systems.corrstown.activites.FriendsInfoActivity"
             android:screenOrientation="portrait" />
 
-        <!-- [START gcm_receiver] -->
+        <!-- START OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->
+
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
@@ -219,30 +223,28 @@
                 <category android:name="gcm.play.android.samples.com.gcmquickstart" />
             </intent-filter>
         </receiver>
-        <!-- [END gcm_receiver] -->
 
-
-        <!-- [START gcm_listener] -->
         <service
-            android:name="com.mh.systems.corrstown.push.PushNotificationService"
+            android:name=".push.PushNotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
-        <!-- [END gcm_listener] -->
-        <!-- [START instanceId_listener] -->
+
         <service
-            android:name="com.mh.systems.corrstown.push.MyInstanceIDListenerService"
+            android:name=".push.MyInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
-        <!-- [END instanceId_listener] -->
+
         <service
-            android:name="com.mh.systems.corrstown.push.RegistrationIntentService"
+            android:name=".push.RegistrationIntentService"
             android:exported="false" />
+
+        <!-- END OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->
 
         <!-- WEATHER SERVICE -->
 

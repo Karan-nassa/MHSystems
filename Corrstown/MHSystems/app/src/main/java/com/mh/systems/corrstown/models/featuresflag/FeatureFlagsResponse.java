@@ -1,12 +1,10 @@
 
-package com.mh.systems.corrstown.models.registerToken;
-
+package com.mh.systems.corrstown.models.featuresflag;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class RegisterTokenResult {
+public class FeatureFlagsResponse {
 
     @SerializedName("Message")
     @Expose
@@ -16,47 +14,29 @@ public class RegisterTokenResult {
     private Integer result;
     @SerializedName("Data")
     @Expose
-    private Integer data;
+    private FeaturesFlagData data;
 
-    /**
-     * @return The message
-     */
     public String getMessage() {
         return message;
     }
 
-    /**
-     * @param message The Message
-     */
     public void setMessage(String message) {
         this.message = message;
     }
 
-    /**
-     * @return The result
-     */
     public Integer getResult() {
         return result;
     }
 
-    /**
-     * @param result The Result
-     */
     public void setResult(Integer result) {
         this.result = result;
     }
 
-    /**
-     * @return The data
-     */
-    public Integer getData() {
+    public FeaturesFlagData getData() {
         return data;
     }
 
-    /**
-     * @param data The Data
-     */
-    public void setData(Integer data) {
+    public void setData(FeaturesFlagData data) {
         this.data = data;
     }
 

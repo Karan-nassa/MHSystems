@@ -77,14 +77,14 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
     ClubNewsThumbnailDetailResponse clubNewsThumbnailDetailResponse;
 
+    ClubNewsThumbnailData clubNewsThumbnailData;
+
     /*********************************
      * DECLARATION OF CONSTANTS
      *******************************/
     int iClubNewsID;
     private Boolean isDelete, isRead;
     private int iPosition;
-
-    ClubNewsThumbnailData clubNewsThumbnailData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,13 +102,22 @@ public class ClubNewsDetailActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        //tvDateOfNews.setText(getIntent().getExtras().getString("CreatedDate"));
+        //tvTimeOfNews.setText(getIntent().getExtras().getString("Time"));
+        // tvDescOfNews.setText(getIntent().getExtras().getString("Message"));
+
+        iClubNewsID = getIntent().getExtras().getInt("TAG_CLUB_NEWS_ID");
+        iPosition = getIntent().getExtras().getInt("TAG_CLUB_NEWS_POSITION");
+        isRead = getIntent().getExtras().getBoolean("TAG_CLUB_NEWS_IS_READ");
+        isDelete = getIntent().getExtras().getBoolean("TAG_CLUB_NEWS_IS_DELETE");
+
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         clubNewsThumbnailData = (ClubNewsThumbnailData) bundle.getSerializable("club_news_content");
 
         if (clubNewsThumbnailData != null) {
-            //tvDateOfNews.setText(clubNewsThumbnailData.getDate());
-            //tvTimeOfNews.setText(clubNewsThumbnailData.getTime());
+            // tvDateOfNews.setText(clubNewsThumbnailData.getDate());
+            // tvTimeOfNews.setText(clubNewsThumbnailData.getTime());
             iClubNewsID = clubNewsThumbnailData.getClubNewsID();
             isRead = clubNewsThumbnailData.getIsRead();
             isDelete = clubNewsThumbnailData.getIsDeleted();
@@ -248,7 +257,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
         Type type = new TypeToken<ClubNewsDetailResult>() {
         }.getType();
-        clubNewsDetailResult = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        clubNewsDetailResult = new Gson().fromJson(jsonObject.toString(), type);
 
         try {
            /* *
@@ -403,7 +412,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
                 tvTitleOfNews.setText(clubNewsThumbnailDetailResponse.getData().getTitle());
                 tvDateOfNews.setText(clubNewsThumbnailDetailResponse.getData().getDate());
                 tvTimeOfNews.setText(clubNewsThumbnailDetailResponse.getData().getTime());
-            } else{
+            } else {
                 showAlertOk(clubNewsThumbnailDetailResponse.getMessage());
             }
         } catch (Exception e) {
