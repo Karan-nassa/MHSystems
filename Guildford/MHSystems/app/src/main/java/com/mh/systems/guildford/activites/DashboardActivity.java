@@ -259,7 +259,6 @@ public class DashboardActivity extends BaseActivity {
         if (isOnline(DashboardActivity.this)) {
             callFeaturesFlagService();
             callWeatherService();
-            //getUnreadNewsCountService();
         }
     }
 
@@ -268,6 +267,8 @@ public class DashboardActivity extends BaseActivity {
      * dynamically.
      */
     private void setGridMenuOptions() {
+
+        //getUnreadNewsCountService();
 
         dashboardItemsArrayList.clear();
         iHandicapPosition = -1;

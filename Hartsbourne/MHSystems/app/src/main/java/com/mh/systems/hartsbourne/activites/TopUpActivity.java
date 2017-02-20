@@ -30,6 +30,7 @@ import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
 import com.mh.systems.hartsbourne.models.TopUp.TopUpPriceListResponse;
 import com.mh.systems.hartsbourne.models.TopUp.TopUpPricesListAPI;
 import com.mh.systems.hartsbourne.models.TopUp.TopupList;
+import com.mh.systems.hartsbourne.web.WebAPI;
 import com.mh.systems.hartsbourne.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -292,7 +293,7 @@ public class TopUpActivity extends BaseActivity {
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint("https://staging.mhsystems.co.uk/")
+                .setEndpoint(WebAPI.API_BASE_URL)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
@@ -314,7 +315,6 @@ public class TopUpActivity extends BaseActivity {
                         //you can handle the errors here
                         Log.e(LOG_TAG, "RetrofitError : " + error);
                         hideProgress();
-                        //showAlertMessage("" + getResources().getString(R.string.error_please_retry));
                         showNoTopUpView(false);
                     }
                 });

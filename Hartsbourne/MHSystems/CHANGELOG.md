@@ -1,10 +1,13 @@
-##Version  1.5.0 (2017-01.14)
+##Version  1.5.0 ()
 
 - Fixed all changes in this version.
 
     #####16th Feb, 2017
      - UPDATE: Replace image loader library 'Glide' with 'Picasso' version 2.5.2.
      - UPDATE: Display 'No Image' till club news doesn't load image.
+
+    #####20th Feb, 2017
+    - NEW: Deploy FSI Top ups gateway integration.
 
 ##Version  1.4.0 (2017-01-14)
 

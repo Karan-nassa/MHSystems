@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.constants.ApplicationGlobal;
+import com.mh.systems.hartsbourne.web.WebAPI;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -56,7 +57,7 @@ public class MakePaymentWebActivity extends BaseActivity {
         fCardBalance = getIntent().getExtras().getFloat("fCardBalance");
         strCurrencySign = getIntent().getExtras().getString("strCurrencySign");
 
-        strURL = "https://staging.mhsystems.co.uk//fsipayment/paymentgateway?aClientId="
+        strURL = WebAPI.API_BASE_URL +"/fsipayment/paymentgateway?aClientId="
                 + getClientId() +
                 "&aMemberId=" + getMemberId()
                 + "&aAmount=" + fTopUpPrize;

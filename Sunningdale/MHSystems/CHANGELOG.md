@@ -5,6 +5,9 @@
     #####17th Feb, 2017
      - UPDATE: Change 'FSI' payment gateway from STAGING to PRODUCTION server.
 
+    #####20th Feb, 2017
+     - NEW: Deploy FSI Top ups gateway integration.
+
 ##Version  1.5.0 (16th Feb, 2017)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.
