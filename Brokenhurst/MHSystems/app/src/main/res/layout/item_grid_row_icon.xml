@@ -58,10 +58,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="2dp"
-                    android:src="@color/colorFFEF8176"
-                    android:visibility="invisible" />
+                    android:src="@color/colorFFEF8176" />
 
                 <TextView
+                    android:id="@+id/tvBadgerCount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="7dp"

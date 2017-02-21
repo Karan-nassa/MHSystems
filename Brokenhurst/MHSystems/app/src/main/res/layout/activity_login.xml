@@ -93,17 +93,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/edittext_shape_bg"
+                    android:background="@drawable/edittext_shape_white"
                     android:gravity="center"
                     android:hint="@string/title_text_password"
                     android:imeOptions="actionDone"
-                    android:inputType="textPassword"
+                    android:inputType="textPassword|text"
                     android:maxLines="1"
-                    android:textSize="17sp"
                     android:padding="10dp"
                     android:singleLine="true"
                     android:textColor="@color/colorBlack000000"
-                    android:textColorHint="@color/colorD6D0C9" />
+                    android:textColorHint="@color/colorD6D0C9"
+                    android:textSize="17sp" />
 
                 <!-- LOGIN BUTTON-->
 
