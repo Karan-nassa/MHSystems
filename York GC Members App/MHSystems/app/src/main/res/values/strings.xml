@@ -145,6 +145,7 @@
     <string name="button_reset_pwd">Reset password</string>
     <string name="error_incorrect_current_pwd">Incorrect current password</string>
     <string name="error_pwd_no_match">New passwords did not match</string>
+    <string name="error_fields_required">All fields are required.</string>
 
     <!-- FORGOT PASSWORD -->
     <string name="edit_title_forgot_pwd">Forgot Password</string>

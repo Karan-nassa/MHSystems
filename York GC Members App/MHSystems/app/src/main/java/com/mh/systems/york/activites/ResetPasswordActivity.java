@@ -1,8 +1,10 @@
 package com.mh.systems.york.activites;
 
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -10,21 +12,21 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.google.common.collect.Range;
 import com.google.gson.JsonObject;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.york.R;
 import com.mh.systems.york.constants.ApplicationGlobal;
-import com.mh.systems.york.web.WebAPI;
 import com.mh.systems.york.models.ResetPassword.AJsonParamsResetPwd;
 import com.mh.systems.york.models.ResetPassword.ResetPasswordAPI;
 import com.mh.systems.york.models.ResetPassword.ResetPasswordItems;
+import com.mh.systems.york.web.WebAPI;
 import com.mh.systems.york.web.api.WebServiceMethods;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
@@ -34,13 +36,9 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-import static com.basgeekball.awesomevalidation.ValidationStyle.UNDERLABEL;
-
 public class ResetPasswordActivity extends BaseActivity implements View.OnClickListener {
 
     private final String LOG_TAG = ResetPasswordActivity.class.getSimpleName();
-
-    private AwesomeValidation mAwesomeValidation;
 
     @Bind(R.id.tbResetPassword)
     Toolbar tbResetPassword;
@@ -60,12 +58,17 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
     @Bind(R.id.ivResetPassword)
     ImageView ivResetPassword;
 
-    //List of type ResetPassword will store type Book which is our data model
+    @Bind(R.id.tvCurrPwdError)
+    TextView tvCurrPwdError;
+
+    @Bind(R.id.tvNewPwdError)
+    TextView tvNewPwdError;
+
     private ResetPasswordAPI resetPasswordAPI;
     AJsonParamsResetPwd aJsonParamsResetPwd;
     ResetPasswordItems resetPasswordItems;
 
-    Typeface tfRobotoRegular, tfRobotoMedium;
+    Typeface tfRobotoRegular, tfsfTextRegular;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -84,7 +87,9 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
         public void onTextChanged(CharSequence s, int start,
                                   int before, int count) {
 
-            if (etNewPassword.getText().toString().length() == 0 || etConfirmPassword.getText().toString().length() == 0 || etCurrentPassword.getText().toString().length() == 0) {
+            if (etNewPassword.getText().toString().length() == 0 || etNewPassword.getText().length() < 4
+                    || etConfirmPassword.getText().toString().length() == 0
+                    || etCurrentPassword.getText().toString().length() == 0) {
                 btResetPassword.setEnabled(false);
                 btResetPassword.setBackground(ContextCompat.getDrawable(ResetPasswordActivity.this, R.drawable.background_button_e8dcc9));
             } else {
@@ -94,30 +99,12 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
         }
     };
 
-    /**
-     * Implements a method to RESET/UPDATE button UI.
-     */
-    private void updateResetButtonUI() {
-        if (etNewPassword.getText().toString().length() == 0 || etConfirmPassword.getText().toString().length() == 0 || etCurrentPassword.getText().toString().length() == 0) {
-            btResetPassword.setEnabled(false);
-            btResetPassword.setBackground(ContextCompat.getDrawable(ResetPasswordActivity.this, R.drawable.background_button_e8dcc9));
-        } else {
-            btResetPassword.setEnabled(true);
-            btResetPassword.setBackground(ContextCompat.getDrawable(ResetPasswordActivity.this, R.drawable.button_login_shape_c0995b));
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
         ButterKnife.bind(ResetPasswordActivity.this);
-
-        // Step 1: designate a style
-        mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
-        mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
-        mAwesomeValidation.addValidation(this, R.id.etConfirmPassword, Range.closed(strNewPassword, strConfirmPassword), R.string.error_pwd_no_match);
 
         setSupportActionBar(tbResetPassword);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -148,10 +135,16 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
                 strNewPassword = etNewPassword.getText().toString();
                 strConfirmPassword = etConfirmPassword.getText().toString();
 
-                if (strCurrentPassword.length() == 0 && strNewPassword.length() == 0 && strConfirmPassword.length() == 0) {
-                    showAlertMessage("All fields are required.");
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(btResetPassword.getWindowToken(), 0);
+
+                if (strCurrentPassword.trim().length() == 0 && strNewPassword.trim().length() == 0 && strConfirmPassword.trim().length() == 0) {
+                    showAlertMessage(getString(R.string.error_fields_required));
                 } else {
                     if (strNewPassword.equals(strConfirmPassword)) {
+
+                        tvNewPwdError.setVisibility(View.GONE);
+
                         /**
                          *  Check internet connection before hitting server request.
                          */
@@ -161,10 +154,13 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
                             showAlertMessage(getString(R.string.error_no_connection));
                         }
                     } else {
-                        // Step 2: add validations
-                        // support regex string, java.util.regex.Pattern and Guava#Range
-                        // you can pass resource or string
-                        mAwesomeValidation.validate();
+                        tvNewPwdError.setVisibility(View.VISIBLE);
+
+                        /**
+                         * Not sure about current password is right or not because we are
+                         * matching it on server.
+                         */
+                        tvCurrPwdError.setVisibility(View.GONE);
                     }
                 }
                 break;
@@ -180,9 +176,6 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            /**
-             *  Tool bar back arrow handler.
-             */
             case android.R.id.home:
                 finish();
                 break;
@@ -237,20 +230,6 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
     }
 
     /**
-     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
-     */
-    public String getMemberId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
-    }
-
-    /**
-     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
-     */
-    public String getClientId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
-    }
-
-    /**
      * Implements a method to update SUCCESS
      * response of web service.
      */
@@ -269,43 +248,56 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
             if (resetPasswordItems.getMessage().equalsIgnoreCase("Success")) {
 
                 btResetPassword.setVisibility(View.GONE);
-                clearAllFields();
+                tvCurrPwdError.setVisibility(View.GONE);
+                tvNewPwdError.setVisibility(View.GONE);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onBackPressed();
+                    }
+                }, 1000);
+            } else if (resetPasswordItems.getMessage().contains("Incorrect old password!")) {
+                tvCurrPwdError.setVisibility(View.VISIBLE);
             } else {
-                mAwesomeValidation.addValidation(etCurrentPassword, "regex", resetPasswordItems.getMessage());
-                mAwesomeValidation.validate();
+                showAlertMessage(resetPasswordItems.getMessage());
             }
             hideProgress();
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
         }
     }
 
     /**
-     * Implements the method to clear the fields.
-     */
-    private void clearAllFields() {
-        etConfirmPassword.setText("");
-        etNewPassword.setText("");
-        etCurrentPassword.setText("");
-        etCurrentPassword.requestFocus();
-        mAwesomeValidation.clear();
-    }
-
-
-    /**
      * Implements a method to set FONT style using .ttf by putting
-     * in main\assets\fonts directory of current project.
+     * in ForecastMain\assets\fonts directory of current project.
      */
     private void setFontTypeFace() {
         tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
-        tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        tfsfTextRegular = Typeface.createFromAsset(getAssets(), "fonts/SF-UI-Text-Regular.otf");
 
         etNewPassword.setTypeface(tfRobotoRegular);
         etConfirmPassword.setTypeface(tfRobotoRegular);
         etCurrentPassword.setTypeface(tfRobotoRegular);
 
-        btResetPassword.setTypeface(tfRobotoMedium);
+        btResetPassword.setTypeface(tfRobotoRegular);
+
+        tvCurrPwdError.setTypeface(tfsfTextRegular);
+        tvNewPwdError.setTypeface(tfsfTextRegular);
+    }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    public String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
+
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 }
