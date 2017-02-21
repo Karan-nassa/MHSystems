@@ -26,15 +26,13 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
 
     Context context;
-    private static LayoutInflater inflater = null;
+    private LayoutInflater inflater = null;
 
     private ViewHolder mInstanceOfClubNews = null;
 
     private final int POSITION_NORMAL = 0;
     private final int POSITION_HANDICAP = 1;
 
-    //int iGridIcons[];
-    //String gridTitles[];
     String hCapExactStr;
     int iHandicapPosition;
 
@@ -43,15 +41,12 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList;
 
     // The default constructor to receive titles,icons and context from DashboardActivity.
-    public DashboardRecyclerAdapter(DashboardActivity mainActivity, ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList, int iHandicapPosition, String hCapExactStr) {
+    public DashboardRecyclerAdapter(DashboardActivity context, ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList, int iHandicapPosition, String hCapExactStr) {
 
-        context = mainActivity;
+        this.context = context;
         this.dashboardItemsArrayList = dashboardItemsArrayList;
-        //this.gridTitles = gridTitles;
         this.iHandicapPosition = iHandicapPosition;
         this.hCapExactStr = hCapExactStr;
-        //this.iGridIcons = iGridIcons;
-        //this.gridBackground = gridBackground;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

@@ -257,7 +257,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
 
         Type type = new TypeToken<ClubNewsDetailResult>() {
         }.getType();
-        clubNewsDetailResult = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        clubNewsDetailResult = new Gson().fromJson(jsonObject.toString(), type);
 
         try {
            /* *

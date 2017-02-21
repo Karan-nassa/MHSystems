@@ -32,7 +32,6 @@ import com.mh.systems.redlibbets.models.CoursesData;
 import com.mh.systems.redlibbets.models.MembersDetailsData;
 import com.newrelic.com.google.gson.Gson;
 import com.rollbar.android.Rollbar;
-import com.testfairy.TestFairy;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -72,7 +71,6 @@ public class BaseActivity extends AppCompatActivity {
         if (ApplicationGlobal.isRollMessageDisplay) {
             //Initialize Roll bar.
             Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_TESTING, "TEST");
-            TestFairy.begin(this, KEY_TEST_FAIRY);
         }
     }
 
