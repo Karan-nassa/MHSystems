@@ -1,6 +1,7 @@
 package com.mh.systems.halesworth.activites;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -13,19 +14,18 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.google.common.collect.Range;
 import com.google.gson.JsonObject;
 import com.mh.systems.halesworth.R;
 import com.mh.systems.halesworth.constants.ApplicationGlobal;
-import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.models.UpdatePassword.AJsonParamsUpdatePassword;
 import com.mh.systems.halesworth.models.UpdatePassword.UpdatePassswordAPI;
 import com.mh.systems.halesworth.models.UpdatePassword.UpdatePasswordResponse;
+import com.mh.systems.halesworth.web.WebAPI;
 import com.mh.systems.halesworth.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -37,13 +37,10 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
-import static com.basgeekball.awesomevalidation.ValidationStyle.UNDERLABEL;
 
 public class UpdatePasswordActivity extends BaseActivity implements View.OnClickListener {
 
     private final String LOG_TAG = UpdatePasswordActivity.class.getSimpleName();
-
-    private AwesomeValidation mAwesomeValidation;
 
     @Bind(R.id.etUserName)
     EditText etUserName;
@@ -60,12 +57,15 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     @Bind(R.id.tvUpdatePwdTitle)
     TextView tvUpdatePwdTitle;
 
+    @Bind(R.id.tvNewPwdError)
+    TextView tvNewPwdError;
+
     //List of type ResetPassword will store type Book which is our data model
     private UpdatePassswordAPI updatePassswordAPI;
     private AJsonParamsUpdatePassword aJsonParamsUpdatePassword;
     private UpdatePasswordResponse updatePasswordResponse;
 
-    Typeface tfRobotoRegular, tfRobotoMedium;
+    Typeface tfRobotoRegular, tfsfTextRegular;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -84,7 +84,9 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
         public void onTextChanged(CharSequence s, int start,
                                   int before, int count) {
 
-            if (etUserName.getText().toString().length() == 0 || etNewPassword.getText().toString().length() == 0 || etConfirmPassword.getText().toString().length() == 0) {
+            if (etNewPassword.getText().toString().length() == 0 || etNewPassword.getText().length() < 4
+                    || etConfirmPassword.getText().toString().length() == 0
+                    || etUserName.getText().toString().length() == 0) {
                 btUpdatePassword.setEnabled(false);
                 btUpdatePassword.setBackground(ContextCompat.getDrawable(UpdatePasswordActivity.this, R.drawable.background_button_e8dcc9));
             } else {
@@ -101,12 +103,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
 
         ButterKnife.bind(UpdatePasswordActivity.this);
 
-        // Step 1: designate a style
-        mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
-        mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
-        mAwesomeValidation.addValidation(this, R.id.etConfirmPassword, Range.closed(strNewPassword, strConfirmPassword), R.string.error_no_match_pwd);
-
-        btUpdatePassword.setEnabled(false);
+//        btUpdatePassword.setEnabled(false);
 
         //Set Custom font style.
         setFontTypeFace();
@@ -133,7 +130,13 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
                 strNewPassword = etNewPassword.getText().toString();
                 strConfirmPassword = etConfirmPassword.getText().toString();
 
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(btUpdatePassword.getWindowToken(), 0);
+
                 if (strNewPassword.equals(strConfirmPassword)) {
+
+                    tvNewPwdError.setVisibility(View.GONE);
+
                     /**
                      *  Check internet connection before hitting server request.
                      */
@@ -143,11 +146,9 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
                         showAlertMessage(getString(R.string.error_no_connection));
                     }
                 } else {
-                    // Step 2: add validations
-                    // support regex string, java.util.regex.Pattern and Guava#Range
-                    // you can pass resource or string
-                    mAwesomeValidation.validate();
+                    tvNewPwdError.setVisibility(View.VISIBLE);
                 }
+
                 break;
         }
 
@@ -157,9 +158,6 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            /**
-             *  Tool bar back arrow handler.
-             */
             case android.R.id.home:
                 finish();
                 break;
@@ -230,46 +228,36 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
             if (updatePasswordResponse.getMessage().equalsIgnoreCase("Success")) {
-                clearAllFields();
+
+                tvNewPwdError.setVisibility(View.GONE);
+
                 showAlertOk("" + updatePasswordResponse.getData());
             } else {
-                /*mAwesomeValidation.addValidation(etUserName, "regex", updatePasswordResponse.getMessage());
-                mAwesomeValidation.validate();*/
                 showAlertMessage("" + updatePasswordResponse.getMessage());
             }
             hideProgress();
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
         }
     }
 
     /**
-     * Implements the method to clear the fields.
-     */
-    private void clearAllFields() {
-        etUserName.setText("");
-        etNewPassword.setText("");
-        etConfirmPassword.setText("");
-        mAwesomeValidation.clear();
-    }
-
-
-    /**
      * Implements a method to set FONT style using .ttf by putting
-     * in main\assets\fonts directory of current project.
+     * in ForecastMain\assets\fonts directory of current project.
      */
     private void setFontTypeFace() {
         tfRobotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
-        tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        tfsfTextRegular = Typeface.createFromAsset(getAssets(), "fonts/SF-UI-Text-Regular.otf");
 
         etUserName.setTypeface(tfRobotoRegular);
         etNewPassword.setTypeface(tfRobotoRegular);
         etConfirmPassword.setTypeface(tfRobotoRegular);
 
-        btUpdatePassword.setTypeface(tfRobotoMedium);
-        tvUpdatePwdTitle.setTypeface(tfRobotoMedium);
+        btUpdatePassword.setTypeface(tfRobotoRegular);
+        tvUpdatePwdTitle.setTypeface(tfRobotoRegular);
+
+        tvNewPwdError.setTypeface(tfsfTextRegular);
     }
 
     /**
@@ -294,6 +282,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
 
         if (builder == null) {
             builder = new AlertDialog.Builder(this);
+            builder.setTitle("");
             builder.setMessage(strAlertMessage)
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -307,7 +296,6 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
                             intent.putExtras(informacion);
                             setResult(RESULT_OK, intent);
                             finish();
-                            // onBackPressed();
                         }
                     });
             AlertDialog alert = builder.create();

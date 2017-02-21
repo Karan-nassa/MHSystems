@@ -26,6 +26,7 @@ import com.mh.systems.halesworth.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -43,7 +44,9 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     private final String LOG_TAG = DashboardRecyclerAdapter.class.getSimpleName();
 
     Context context;
-    private static LayoutInflater inflater = null;
+    private LayoutInflater inflater = null;
+
+    private ViewHolder mInstanceOfClubNews = null;
 
     private final int POSITION_NORMAL = 0;
     private final int POSITION_HANDICAP = 1;
@@ -63,13 +66,12 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     Intent intent;
 
     // The default constructor to receive titles,icons and context from DashboardActivity.
-    public DashboardRecyclerAdapter(DashboardActivity mainActivity, ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList, int iHandicapPosition, String hCapExactStr) {
+    public DashboardRecyclerAdapter(DashboardActivity context, ArrayList<DashboardActivity.DashboardItems> dashboardItemsArrayList, int iHandicapPosition, String hCapExactStr) {
 
-        context = mainActivity;
+        this.context = context;
         this.dashboardItemsArrayList = dashboardItemsArrayList;
         this.iHandicapPosition = iHandicapPosition;
         this.hCapExactStr = hCapExactStr;
-
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -99,6 +101,9 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
             default:
                 return null;
         }
+
+       /* View itemLayout = layoutInflater.inflate(R.layout.item_grid_row_text, null);
+        return new ViewHolder(itemLayout, viewType, context);*/
     }
 
     /**
@@ -119,9 +124,17 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
             holder.tvHCapExactStr.setText(hCapExactStr);
         }
 
-        if (position == 4) {
-            holder.flBadgerGroup.setVisibility(View.VISIBLE);
+        /**
+         * Assign instance of club news holder on dashboard
+         * that will require to update unread news count.
+         */
+        if (dashboardItemsArrayList.get(position).getStrTitleOfGrid().equals("Club News")) {
+            mInstanceOfClubNews = holder;
         }
+
+       /* if (position == 4) {
+            holder.flBadgerGroup.setVisibility(View.VISIBLE);
+        }*/
     }
 
     /**
@@ -155,6 +168,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
          */
         TextView tvHCapExactStr;
         TextView tvGridTitle;
+        TextView tvBadgerCount;
         ImageView ivGridLogo;
         RelativeLayout rlGridMenuItem;
         FrameLayout flBadgerGroup;
@@ -165,6 +179,8 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
             tvGridTitle = (TextView) itemView.findViewById(R.id.tvGridTitle);
             ivGridLogo = (ImageView) itemView.findViewById(R.id.ivGridLogo);
             rlGridMenuItem = (RelativeLayout) itemView.findViewById(R.id.rlGridMenuItem);
+
+            tvBadgerCount = (TextView) itemView.findViewById(R.id.tvBadgerCount);
 
             flBadgerGroup = (FrameLayout) itemView.findViewById(R.id.flBadgerGroup);
             tvGridTitle.setTypeface(tfButtlerMedium);
@@ -207,12 +223,54 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
                         e.printStackTrace();
                     }
 
-                    intent = new Intent(context, destClassName);
+                    Intent intent = new Intent(context, destClassName);
                     intent.putExtra("iTabPosition", iPosition);
                     context.startActivity(intent);
                 }
+
+            /*Intent intent = null;
+
+            switch (getAdapterPosition()) {
+                case 0:
+                    intent = new Intent(context, YourAccountActivity.class);
+                    intent.putExtra("iTabPosition", 1);
+                    break;
+                case 1:
+                    intent = new Intent(context, CourseDiaryActivity.class);
+                    break;
+                case 2:
+                    intent = new Intent(context, CompetitionsActivity.class);
+                    break;
+                case 3:
+                    intent = new Intent(context, MembersActivity.class);
+                    break;
+
+                case 4:
+                    intent = new Intent(context, ClubNewsActivity.class);
+                    break;
+
+                case 5:
+                    intent = new Intent(context, YourAccountActivity.class);
+                    intent.putExtra("iTabPosition", 0);
+                    break;
+            }
+
+            //Check if intent not NULL then navigate to that selected screen.
+            if (intent != null) {
+                context.startActivity(intent);
+                intent = null;
+            }*/
             }
         }
+    }
+
+    /**
+     * Implements this method to update the Club News
+     * badger icon on dashboard.
+     */
+    public void updateBadgerCount(int iUnreadCount) {
+        mInstanceOfClubNews.flBadgerGroup.setVisibility(View.VISIBLE);
+        mInstanceOfClubNews.tvBadgerCount.setText(("" + iUnreadCount));
     }
 
     /**
@@ -260,7 +318,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
      */
     private void updateSuccessResponse(JsonObject jsonObject) {
 
-        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+        //Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
         Type type = new TypeToken<CourseNamesResponse>() {
         }.getType();
