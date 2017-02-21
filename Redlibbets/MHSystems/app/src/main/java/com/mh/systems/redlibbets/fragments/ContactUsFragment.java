@@ -30,7 +30,6 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.rollbar.android.Rollbar;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -65,19 +64,14 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
     @Bind(R.id.tvAddress)
     TextView tvAddress;
 
-    @Bind(R.id.llDepartments)
-    LinearLayout llDepartments;
-
     @Bind(R.id.ivAppLogo)
     ImageView ivAppLogo;
 
-    @Bind({R.id.tvEmail, R.id.tvEmailAdministration, R.id.tvEmailRstMngr, R.id.tvEmailFoodMngr, R.id.tvEmailClubShop, R.id.tvEmailCaddieMaster,
-            R.id.tvEmailGolfReservations, R.id.tvEmailGolfOpMngr, R.id.tvEmailGeneralMngr, R.id.tvEmailSecretariat})
-    List<TextView> listOfEmailViews;
+    @Bind(R.id.tvTelephone)
+    TextView tvTelephone;
 
-    @Bind({R.id.tvTelephone, R.id.tvCallAdministration, R.id.tvCallRstMngr, R.id.tvCallFoodMngr, R.id.tvCallClubShop, R.id.tvCallCaddieMaster,
-            R.id.tvCallGolfReservations, R.id.tvCallGolfOpMngr, R.id.tvCallGeneralMngr, R.id.tvCallSecretariat})
-    List<TextView> listOfContactViews;
+    @Bind(R.id.tvEmail)
+    TextView tvEmail;
 
     Intent callIntent = null;
 
@@ -131,29 +125,11 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    @OnClick({R.id.tvTelephone, R.id.tvEmail,
-            R.id.tvEmailAdministration, R.id.tvCallAdministration,
-            R.id.tvEmailRstMngr, R.id.tvCallRstMngr,
-            R.id.tvEmailFoodMngr, R.id.tvCallFoodMngr,
-            R.id.tvEmailClubShop, R.id.tvCallClubShop,
-            R.id.tvEmailCaddieMaster, R.id.tvCallCaddieMaster,
-            R.id.tvEmailGolfReservations, R.id.tvCallGolfReservations,
-            R.id.tvEmailGolfOpMngr, R.id.tvCallGolfOpMngr,
-            R.id.tvEmailGeneralMngr, R.id.tvCallGeneralMngr,
-            R.id.tvEmailSecretariat, R.id.tvCallSecretariat})
+    @OnClick({R.id.tvTelephone, R.id.tvEmail})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvTelephone:
-            case R.id.tvCallAdministration:
-            case R.id.tvCallRstMngr:
-            case R.id.tvCallFoodMngr:
-            case R.id.tvCallClubShop:
-            case R.id.tvCallCaddieMaster:
-            case R.id.tvCallGolfReservations:
-            case R.id.tvCallGolfOpMngr:
-            case R.id.tvCallGeneralMngr:
-            case R.id.tvCallSecretariat:
 
                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     strContactToCall = ((TextView) view).getText().toString();
@@ -167,15 +143,6 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
                 break;
 
             case R.id.tvEmail:
-            case R.id.tvEmailAdministration:
-            case R.id.tvEmailRstMngr:
-            case R.id.tvEmailFoodMngr:
-            case R.id.tvEmailClubShop:
-            case R.id.tvEmailCaddieMaster:
-            case R.id.tvEmailGolfReservations:
-            case R.id.tvEmailGolfOpMngr:
-            case R.id.tvEmailGeneralMngr:
-            case R.id.tvEmailSecretariat:
                 callSendEmail(((TextView) view).getText().toString());
                 break;
         }
@@ -274,8 +241,6 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
              */
             if (contactUsResponse.getMessage().equalsIgnoreCase("Success")) {
 
-                llDepartments.setVisibility(View.VISIBLE);
-
                 strTelephone = contactUsResponse.getData().getTelephone();
                 strFax = contactUsResponse.getData().getFaxNo();
                 strEmail = contactUsResponse.getData().getEmail();
@@ -286,7 +251,7 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
 
                 if (strTelephone.length() > 0) {
                     llTelephone.setVisibility(View.VISIBLE);
-                    listOfContactViews.get(0).setText(strTelephone);
+                    tvTelephone.setText(strTelephone);
                 } else {
                     llTelephone.setVisibility(View.GONE);
                 }
@@ -300,7 +265,7 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
 
                 if (strEmail.length() > 0) {
                     llEmail.setVisibility(View.VISIBLE);
-                    listOfEmailViews.get(0).setText(strEmail);
+                    tvEmail.setText(strEmail);
                 } else {
                     llEmail.setVisibility(View.GONE);
                 }
@@ -313,12 +278,10 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
                 }
 
             } else {
-                llDepartments.setVisibility(View.GONE);
                 ((MembersActivity) getActivity()).showAlertMessage(contactUsResponse.getMessage());
             }
             ((MembersActivity) getActivity()).hideProgress();
         } catch (Exception e) {
-            llDepartments.setVisibility(View.GONE);
             ((MembersActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();

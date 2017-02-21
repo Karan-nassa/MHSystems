@@ -61,9 +61,6 @@ public class BaseActivity extends AppCompatActivity {
 
     static Fragment fragmentInstance;
 
-    //TOKEN of TestFairy.
-    private final String KEY_TEST_FAIRY = "607132019102f58e6620f8be506322315fad2aa9";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
