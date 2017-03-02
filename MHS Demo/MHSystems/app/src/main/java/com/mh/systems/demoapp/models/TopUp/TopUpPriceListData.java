@@ -27,6 +27,9 @@ public class TopUpPriceListData {
     @Expose
     private List<TopupList> TopupList = null;
 
+    @SerializedName("TopupTxFeeStr")
+    private String TopupTxFeeStr;
+
     public Integer getMinTopup() {
         return MinTopup;
     }
@@ -73,6 +76,14 @@ public class TopUpPriceListData {
 
     public void setCrnSym(String CrnSym) {
         CrnSym = CrnSym;
+    }
+
+    public String getTopupTxFeeStr() {
+        return TopupTxFeeStr;
+    }
+
+    public void setTopupTxFeeStr(String topupTxFeeStr) {
+        TopupTxFeeStr = topupTxFeeStr;
     }
 
 }

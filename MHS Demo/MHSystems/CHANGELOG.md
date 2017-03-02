@@ -1,3 +1,10 @@
+##Version 1.2
+
+   ####2nd Marc, 2017
+    - UPDATE: Get extra deduction amount from key 'TopupTxFeeStr' in ToUpActivity along with pricing list. Also display deduction amount before make payment if exists.
+    - NEW: Display VERSION NAME in the Settings screen at bottom.
+
+##Version 1.1
 
 ####16th Feb, 2017
   - UPDATE: Replace image loader library 'Glide' with 'Picasso' version 2.5.2.
@@ -15,7 +22,7 @@
 - UPDATE: REMOVE 'Contact Us' from Settings. Create new tab of 'Contact Us' along with MEMBERS and FRIENDS tabs. Also update 'CONTACT US' information.
 
 
-##Version 1.1.0
+##Version 1.0
 
 Initial Created.
 

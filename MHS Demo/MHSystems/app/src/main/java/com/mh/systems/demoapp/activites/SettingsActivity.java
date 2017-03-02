@@ -1,9 +1,12 @@
 package com.mh.systems.demoapp.activites;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
 
@@ -40,6 +43,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
 
+    @Bind(R.id.tvVersionName)
+    TextView tvVersionName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,22 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
         //Initialize all view resources.
         ButterKnife.bind(SettingsActivity.this);
+
+        showVersionName();
+    }
+
+    /**
+     * Implements this method to display
+     * version name of App.
+     */
+    private void showVersionName() {
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            tvVersionName.setText("V " + pInfo.versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick({R.id.llHomeIcon, R.id.llResetPassword, R.id.llContactUs})

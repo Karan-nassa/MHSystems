@@ -1,6 +1,8 @@
 package com.mh.systems.demoapp.activites;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -145,11 +147,17 @@ public class TopUpActivity extends BaseActivity {
                 if (isOnline(TopUpActivity.this)) {
 
                     if (fTopUpPrize >= iMinTopup && fTopUpPrize <= iMaxTopup) {
-                        intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
-                        intent.putExtra("fTopUpPrize", fTopUpPrize);
-                        intent.putExtra("fCardBalance", fCardBalance);
-                        intent.putExtra("strCurrencySign", tvCurrencySign.getText().toString());
-                        startActivityForResult(intent, ACTION_MAKE_PAYMENT);
+
+                        /**
+                         * Implements check if any extra charges deduct in payment then
+                         * show it to user first. If user agree then proceed to payment.
+                         */
+                        if (topUpPriceListResponse.getData().getTopupTxFeeStr().length() > 0) {
+                            proceedToNextStep();
+                        } else {
+                            proceedToPayment();
+                        }
+
                     } else {
                         showAlertMessage("Top Up range should remain between " + strMinTopup + " and " + strMaxTopup + ".");
                     }
@@ -162,6 +170,42 @@ public class TopUpActivity extends BaseActivity {
             }
         }
     };
+
+    /**
+     * Finally, proceeds to make payment.
+     */
+    private void proceedToPayment() {
+        intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
+        intent.putExtra("fTopUpPrize", fTopUpPrize);
+        intent.putExtra("fCardBalance", fCardBalance);
+        intent.putExtra("strCurrencySign", tvCurrencySign.getText().toString());
+        startActivityForResult(intent, ACTION_MAKE_PAYMENT);
+    }
+
+    /**
+     * Implements this method to proceed the next step of
+     * FSI payment. For example : If "TopupTxFeeStr" key is not
+     * empty then display user about deduct extra charges.
+     */
+    private void proceedToNextStep() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("");
+        builder.setMessage(topUpPriceListResponse.getData().getTopupTxFeeStr())
+                .setCancelable(false)
+                .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        proceedToPayment();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     private TextWatcher mPrizeChangeListener = new TextWatcher() {
         @Override
