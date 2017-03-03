@@ -5,6 +5,7 @@
     ####3rd March, 2017
      - UPDATE: Get extra deduction amount from key 'TopupTxFeeStr' in ToUpActivity along with pricing list. Also display deduction amount before make payment if exists.
      - NEW: Display VERSION NAME in the Settings screen at bottom.
+     - UPDATE: Change the FSI Top up price list and Make Payment url from testing to production.
 
 ##Version 1.5.0 (17th Feb, 2017)
 

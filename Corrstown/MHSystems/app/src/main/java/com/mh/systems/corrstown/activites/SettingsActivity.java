@@ -1,9 +1,12 @@
 package com.mh.systems.corrstown.activites;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mh.systems.corrstown.R;
 
@@ -40,6 +43,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
 
+    @Bind(R.id.tvVersionName)
+    TextView tvVersionName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
         //Initialize all view resources.
         ButterKnife.bind(SettingsActivity.this);
+
+        showVersionName();
     }
 
     @OnClick({R.id.llHomeIcon, R.id.llResetPassword, R.id.llContactUs})
@@ -67,6 +75,20 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 // intent = new Intent(SettingsActivity.this, ContactUsActivity.class);
                 // startActivity(intent);
                 break;
+        }
+    }
+
+    /**
+     * Implements this method to display
+     * version name of App.
+     */
+    private void showVersionName() {
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            tvVersionName.setText("V " + pInfo.versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

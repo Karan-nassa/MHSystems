@@ -458,7 +458,7 @@ public interface WebServiceMethods {
      * @param aMemberId     : Member ID.
      * @param response      : Top Up Price list.
      */
-    @GET("/webapi/api/ApifsiGateway/TopUps")
+    @GET("/api/ApifsiGateway/TopUps")
     public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
 
     /**
