@@ -159,4 +159,18 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <!-- VERSION NAME -->
+
+    <com.mh.systems.hartsbourne.customfonts.RobotoTextView
+        android:id="@+id/tvVersionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:alpha="0.7"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/colorBlack000000"
+        android:textSize="14sp" />
+
 </RelativeLayout>
