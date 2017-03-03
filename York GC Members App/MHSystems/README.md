@@ -15,6 +15,6 @@
 | 6.   | Members           | Yes            |
 | 7.   | Club News         | Yes            |
 | 8.   | Your Account      | Yes            |
-| 9.   | TOP UP            | No             |
+| 9.   | TOP UP            | Yes            |
 | 10.  | Contact Us        | Yes            |
 | 11.  | Date and Time on Club News | Yes   |
