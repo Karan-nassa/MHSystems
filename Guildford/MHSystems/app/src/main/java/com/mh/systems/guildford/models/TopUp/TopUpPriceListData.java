@@ -2,6 +2,7 @@
 package com.mh.systems.guildford.models.TopUp;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -25,6 +26,9 @@ public class TopUpPriceListData {
     @SerializedName("TopupList")
     @Expose
     private List<TopupList> TopupList = null;
+
+    @SerializedName("TopupTxFeeStr")
+    private String TopupTxFeeStr;
 
     public Integer getMinTopup() {
         return MinTopup;
@@ -72,6 +76,14 @@ public class TopUpPriceListData {
 
     public void setCrnSym(String CrnSym) {
         CrnSym = CrnSym;
+    }
+
+    public String getTopupTxFeeStr() {
+        return TopupTxFeeStr;
+    }
+
+    public void setTopupTxFeeStr(String topupTxFeeStr) {
+        TopupTxFeeStr = topupTxFeeStr;
     }
 
 }
