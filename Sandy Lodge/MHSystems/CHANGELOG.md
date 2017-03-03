@@ -1,3 +1,11 @@
+##Version 1.6.0 ()
+
+- Update the following changes: 
+
+    ####3rd March, 2017
+     - UPDATE: Get extra deduction amount from key 'TopupTxFeeStr' in ToUpActivity along with pricing list. Also display deduction amount before make payment if exists.
+     - NEW: Display VERSION NAME in the Settings screen at bottom.
+
 ##Version 1.5.0 (17th Feb, 2017)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.
