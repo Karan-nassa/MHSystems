@@ -1,6 +1,8 @@
 package com.mh.systems.redlibbets.activites;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import com.mh.systems.redlibbets.constants.ApplicationGlobal;
 import com.mh.systems.redlibbets.models.TopUp.TopUpPriceListResponse;
 import com.mh.systems.redlibbets.models.TopUp.TopUpPricesListAPI;
 import com.mh.systems.redlibbets.models.TopUp.TopupList;
+import com.mh.systems.redlibbets.web.WebAPI;
 import com.mh.systems.redlibbets.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -145,11 +148,17 @@ public class TopUpActivity extends BaseActivity {
                 if (isOnline(TopUpActivity.this)) {
 
                     if (fTopUpPrize >= iMinTopup && fTopUpPrize <= iMaxTopup) {
-                        intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
-                        intent.putExtra("fTopUpPrize", fTopUpPrize);
-                        intent.putExtra("fCardBalance", fCardBalance);
-                        intent.putExtra("strCurrencySign", tvCurrencySign.getText().toString());
-                        startActivityForResult(intent, ACTION_MAKE_PAYMENT);
+
+                        /**
+                         * Implements check if any extra charges deduct in payment then
+                         * show it to user first. If user agree then proceed to payment.
+                         */
+                        if (topUpPriceListResponse.getData().getTopupTxFeeStr().length() > 0) {
+                            proceedToNextStep();
+                        } else {
+                            proceedToPayment();
+                        }
+
                     } else {
                         showAlertMessage("Top Up range should remain between " + strMinTopup + " and " + strMaxTopup + ".");
                     }
@@ -162,6 +171,42 @@ public class TopUpActivity extends BaseActivity {
             }
         }
     };
+
+    /**
+     * Finally, proceeds to make payment.
+     */
+    private void proceedToPayment() {
+        intent = new Intent(TopUpActivity.this, MakePaymentWebActivity.class);
+        intent.putExtra("fTopUpPrize", fTopUpPrize);
+        intent.putExtra("fCardBalance", fCardBalance);
+        intent.putExtra("strCurrencySign", tvCurrencySign.getText().toString());
+        startActivityForResult(intent, ACTION_MAKE_PAYMENT);
+    }
+
+    /**
+     * Implements this method to proceed the next step of
+     * FSI payment. For example : If "TopupTxFeeStr" key is not
+     * empty then display user about deduct extra charges.
+     */
+    private void proceedToNextStep() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("");
+        builder.setMessage(topUpPriceListResponse.getData().getTopupTxFeeStr())
+                .setCancelable(false)
+                .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        proceedToPayment();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     private TextWatcher mPrizeChangeListener = new TextWatcher() {
         @Override
@@ -263,7 +308,7 @@ public class TopUpActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         /**
-         * If PAYMENT status SUCCESS then navigate user to {@link com.mh.systems.redlibbets.fragments.FinanceFragment}
+         * If PAYMENT status SUCCESS then navigate user to {@link com.mh.systems.sunningdale.fragments.FinanceFragment}
          * Otherwise, retain on this screen.
          */
         if (resultCode == ACTION_MAKE_PAYMENT) {
@@ -292,7 +337,7 @@ public class TopUpActivity extends BaseActivity {
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint("https://staging.mhsystems.co.uk/")
+                .setEndpoint(WebAPI.API_BASE_URL)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
@@ -307,7 +352,6 @@ public class TopUpActivity extends BaseActivity {
                     public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
                         updateSuccessResponse(jsonObject);
-                        llMainGroup.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -317,7 +361,6 @@ public class TopUpActivity extends BaseActivity {
                         hideProgress();
                         //showAlertMessage("" + getResources().getString(R.string.error_please_retry));
                         showNoTopUpView(false);
-                        llMainGroup.setVisibility(View.INVISIBLE);
                     }
                 });
     }
