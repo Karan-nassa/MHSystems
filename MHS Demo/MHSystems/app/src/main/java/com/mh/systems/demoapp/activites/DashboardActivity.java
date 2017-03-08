@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -65,6 +66,9 @@ public class DashboardActivity extends BaseActivity {
     private String LOG_TAG = DashboardActivity.class.getSimpleName();
 
     private final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    //Use for version feature on web.
+    private final int TAG_ANDROID = 2;
 
     /*********************************
      * INSTANCES OF CLASSES

@@ -26,6 +26,9 @@
     - NEW: Display VERSION NAME in the Settings screen at bottom.
     - UPDATE: Change the FSI Top up price list and Make Payment url from testing to production.
 
+  ####7th March, 2017
+    - NEW: Integrate BRS diary.
+
 ##Version 1.1.0 (2016-12-02)
 
 - New: Weather feature added

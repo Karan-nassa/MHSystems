@@ -1,6 +1,6 @@
-##Version  1.5.0 ()
+##Version  1.5.0 (2017-03-08)
 
-- Fixed all changes in this version.
+- Fixed all changes in this version 1.5
 
     #####16th Feb, 2017
      - UPDATE: Replace image loader library 'Glide' with 'Picasso' version 2.5.2.

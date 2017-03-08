@@ -13,7 +13,6 @@ public class AJsonParamsFeaturesFlag {
     @Expose
     private String callid;
 
-
     public Integer getVersion() {
         return version;
     }
