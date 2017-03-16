@@ -28,6 +28,9 @@
 
   ####7th March, 2017
     - NEW: Integrate BRS diary.
+    
+  ####16th March, 2017
+   - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.
 
 ##Version 1.1.0 (2016-12-02)
 

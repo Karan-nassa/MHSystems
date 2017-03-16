@@ -67,7 +67,6 @@ public class MyAccountTabFragment extends Fragment {
              */
             viewPager.setCurrentItem(tab.getPosition());
             pageAdapter.notifyDataSetChanged();
-            ((YourAccountActivity) getActivity()).setWhichTab(tab.getPosition());
         }
     };
 

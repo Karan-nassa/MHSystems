@@ -12,6 +12,9 @@
     ####3rd March, 2017
      - UPDATE: Get extra deduction amount from key 'TopupTxFeeStr' in ToUpActivity along with pricing list. Also display deduction amount before make payment if exists.
      - NEW: Display VERSION NAME in the Settings screen at bottom.
+     
+    ####16th March, 2017
+     - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.
 
 ##Version  1.4.0 (2017-01-14)
 

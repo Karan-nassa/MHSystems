@@ -25,6 +25,9 @@
     - NEW: Display VERSION NAME in the Settings screen at bottom.
     - UPDATE: Change the FSI Top up price list and Make Payment url from testing to production.
 
+   ####16th March, 2017
+    - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.
+
 ##Version 1.2.0 (2016-12-26)
 
 - New: Contact us feature added.

@@ -62,11 +62,12 @@ public class MyAccountTabFragment extends Fragment {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
             /**
-             *  When user direct navigtate to Handicap Graph and tap on My Detail Tab then tab selection
+             *  When user direct navigate to Handicap Graph and tap on My Detail Tab then tab selection
              *  and content not replacing so change and notify pageAdapter here onReselected.
              */
             viewPager.setCurrentItem(tab.getPosition());
             pageAdapter.notifyDataSetChanged();
+            ((YourAccountActivity) getActivity()).setWhichTab(tab.getPosition());
         }
     };
 
