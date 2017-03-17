@@ -8,6 +8,7 @@
 
    ####14th March, 2017
    - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.
+   - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor
 
    ####16th Feb, 2017
    - UPDATE: Replace image loader library 'Glide' with 'Picasso' version 2.5.2.
@@ -18,7 +19,6 @@
 
    #####2nd Feb, 2017
    - UPDATE: Replace 'SimpleDrawerView' with 'CircleImageView' for better performance.
-
 
    ####25th Jan, 2017
    - UPDATE: 'Friends' info on FRIENDS tab display information on new screen instead of Alert Dialog.

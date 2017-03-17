@@ -16,7 +16,6 @@ import com.mh.systems.guildford.activites.YourAccountActivity;
 import com.mh.systems.guildford.adapter.TabsAdapter.TabsPageAdapter;
 import com.mh.systems.guildford.constants.ApplicationGlobal;
 
-@SuppressLint("ValidFragment")
 public class MyAccountTabFragment extends Fragment {
 
     /*********************************
@@ -70,6 +69,9 @@ public class MyAccountTabFragment extends Fragment {
             ((YourAccountActivity) getActivity()).setWhichTab(tab.getPosition());
         }
     };
+
+    public  MyAccountTabFragment(){
+    }
 
     @SuppressLint("ValidFragment")
     public MyAccountTabFragment(int iOpenTabPosition) {
