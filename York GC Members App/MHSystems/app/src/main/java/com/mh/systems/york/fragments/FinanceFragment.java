@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -66,6 +70,7 @@ public class FinanceFragment extends Fragment {
     TextView tvLabelCardBalance, tvCardBalance, tvDateHeading;
     TextView tvLabelYourInvoice, tvYourInvoice;
     ImageView ivFilter;
+    View vwPopMenu;
     Intent intent;
     Button btTopUp;
 
@@ -84,6 +89,14 @@ public class FinanceFragment extends Fragment {
     FinanceResultItems financeResultItems;
 
     LinearLayout llFinanceGroup;
+    LinearLayout llPurseType;
+    FrameLayout flPurseGroup, flInvoicesGroup;
+
+    //Pop Menu to show Categories of Course Diary.
+    PopupMenu popupMenu;
+
+    LinearLayout.LayoutParams param;
+    LinearLayout.LayoutParams param1;
 
     private AdapterView.OnItemClickListener mFinanceListListener = new AdapterView.OnItemClickListener() {
         @Override
@@ -110,16 +123,61 @@ public class FinanceFragment extends Fragment {
         }
     };
 
+    private PopupMenu.OnMenuItemClickListener mPurseCategoryListener = new PopupMenu.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+
+            tvLabelCardBalance.setText(item.getTitle() + " " + getString(R.string.title_text_balance));
+
+            updatePurseType(item);
+
+            return true;
+        }
+    };
+
+    private void updatePurseType(MenuItem menuItemInstance) {
+
+        switch (menuItemInstance.getItemId()) {
+            case R.id.item_general:
+                flPurseGroup.setVisibility(View.VISIBLE);
+                flInvoicesGroup.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.item_Competitions:
+                updateUI();
+                break;
+
+            case R.id.item_Associates:
+                updateUI();
+                break;
+        }
+    }
+
+    private void updateUI() {
+        flPurseGroup.setVisibility(View.VISIBLE);
+        flInvoicesGroup.setVisibility(View.GONE);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
 
         initViewResources();
 
+        initPurseCategory();
+
         setFontTypeface();
 
         financeAdapter = new FinanceAdapter(getActivity(), transactionListDataArrayList);
         lvTransactionList.setAdapter(financeAdapter);
+
+        llPurseType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMenu.show();
+            }
+        });
+        popupMenu.setOnMenuItemClickListener(mPurseCategoryListener);
 
         lvTransactionList.setOnItemClickListener(mFinanceListListener);
         btTopUp.setOnClickListener(mTopUpListener);
@@ -142,14 +200,24 @@ public class FinanceFragment extends Fragment {
         if (isVisibleToUser) {
             callFinanceWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
-            ((YourAccountActivity)getActivity()).setiOpenTabPosition(2);
+            ((YourAccountActivity) getActivity()).setiOpenTabPosition(2);
         }
     }
 
     /**
-     * Implements this method to initialize all
-     * view resources.
+     * Implements this method to initialized the purse
+     * category of finance.
      */
+    private void initPurseCategory() {
+
+        popupMenu = new PopupMenu(getActivity(), vwPopMenu);
+        popupMenu.inflate(R.menu.menu_finance_purse);
+
+        //Initially display title at 0 index.
+        tvLabelCardBalance.setText(popupMenu.getMenu().getItem(0) + " " + getString(R.string.title_text_balance));
+    }
+
+
     private void initViewResources() {
         tvCardBalance = (TextView) viewRootFragment.findViewById(R.id.tvCardBalance);
         tvDateHeading = (TextView) viewRootFragment.findViewById(R.id.tvDateHeading);
@@ -159,10 +227,15 @@ public class FinanceFragment extends Fragment {
         tvYourInvoice = (TextView) viewRootFragment.findViewById(R.id.tvYourInvoice);
 
         ivFilter = (ImageView) viewRootFragment.findViewById(R.id.ivFilter);
+        vwPopMenu = (View) viewRootFragment.findViewById(R.id.vwPopMenu);
 
         lvTransactionList = (ListView) viewRootFragment.findViewById(R.id.lvTransactionList);
 
         llFinanceGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFinanceGroup);
+        llPurseType = (LinearLayout) viewRootFragment.findViewById(R.id.llPurseType);
+
+        flPurseGroup = (FrameLayout) viewRootFragment.findViewById(R.id.flPurseGroup);
+        flInvoicesGroup = (FrameLayout) viewRootFragment.findViewById(R.id.flInvoicesGroup);
 
         btTopUp = (Button) viewRootFragment.findViewById(R.id.btTopUp);
     }

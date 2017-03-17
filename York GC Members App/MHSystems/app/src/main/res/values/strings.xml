@@ -100,6 +100,7 @@
     <string name="title_recent_transaction">RECENT TRANSACTIONS</string>
     <string name="title_current_invoice">CURRENT INVOICE</string>
     <string name="button_title_show_all">SHOW ALL</string>
+    <string name="title_text_balance">Balance</string>
     <!-- END OF FINANCE FRAGMENT -->
 
     <!-- START OF MY ACCOUNT ACTIVITY -->
