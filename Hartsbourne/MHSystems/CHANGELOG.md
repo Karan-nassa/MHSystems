@@ -1,3 +1,10 @@
+##Version 1.6.0 ()
+
+- UPDATE the following changes in the code are:
+
+  ####20th March, 2017
+  -Fixed: Move splash background image to correspoding directories. Roll bar item no 31. java.lang.RuntimeException: Canvas: trying to draw too large(132710400bytes) bitmap.
+
 ##Version  1.5.0 (2017-03-08)
 
 - Fixed all changes in this version 1.5
