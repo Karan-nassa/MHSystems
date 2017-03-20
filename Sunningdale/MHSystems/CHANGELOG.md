@@ -1,4 +1,4 @@
-##Version  1.6.0 ()
+##Version  1.6.0 (20th March, 2017)
 
 - Update changes in Version 1.6.0 are as below:
 
