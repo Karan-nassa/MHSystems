@@ -70,6 +70,8 @@ public class MyAccountTabFragment extends Fragment {
         }
     };
 
+    public MyAccountTabFragment(){}
+
     @SuppressLint("ValidFragment")
     public MyAccountTabFragment(int iOpenTabPosition) {
         iLastTabPosition = iOpenTabPosition;

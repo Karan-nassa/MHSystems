@@ -1,4 +1,11 @@
-##Version 1.0 (2017-03-17)
+####Version 1.1 ()
+
+ Release the following changes:
+ 
+ ####20th March, 2017
+ - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
+ 
+####Version 1.0 (2017-03-17)
 
    Initially release.
 
@@ -24,7 +31,7 @@
    - UPDATE: 'Friends' info on FRIENDS tab display information on new screen instead of Alert Dialog.
    - UPDATE: REMOVE 'Contact Us' from Settings. Create new tab of 'Contact Us' along with MEMBERS and FRIENDS tabs. Also update 'CONTACT US' information.
 
-   ####Initial Created.
+####Initial Created.
 
    - New: Weather feature added.
    - New: Contact us feature added.

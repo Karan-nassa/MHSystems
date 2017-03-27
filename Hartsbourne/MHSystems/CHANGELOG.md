@@ -3,7 +3,11 @@
 - UPDATE the following changes in the code are:
 
   ####20th March, 2017
-  -Fixed: Move splash background image to correspoding directories. Roll bar item no 31. java.lang.RuntimeException: Canvas: trying to draw too large(132710400bytes) bitmap.
+  - Fixed: Move splash background image to correspoding directories. Roll bar item no 31. java.lang.RuntimeException: Canvas: trying to draw too large(132710400bytes) bitmap.
+  
+  ####22th March, 2017
+  - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor
+  - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
 
 ##Version  1.5.0 (2017-03-08)
 

@@ -21,6 +21,9 @@ public class ResultEntries {
     @SerializedName("ExactHCap")
     @Expose
     private String ExactHCap;
+    @SerializedName("NettTotal")
+    @Expose
+    private String NettTotal;
 
     /**
      * @return The PlaceStr
@@ -78,4 +81,11 @@ public class ResultEntries {
         this.ExactHCap = ExactHCap;
     }
 
+    public String getNettTotal() {
+        return NettTotal;
+    }
+
+    public void setNettTotal(String nettTotal) {
+        NettTotal = nettTotal;
+    }
 }

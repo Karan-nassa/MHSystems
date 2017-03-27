@@ -28,7 +28,11 @@
 
     ####16th March, 2017
      - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.
-
+     
+    ####22nd March, 2017
+    - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
+    - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor.
+    
 ##Version 1.1.0 (2016-12-02)
 
 - New: Weather feature added.
