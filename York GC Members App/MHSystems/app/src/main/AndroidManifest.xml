@@ -31,7 +31,7 @@
 
         <!-- SPLASH ACTIVITY -->
         <activity
-            android:name="com.mh.systems.york.activites.SplashActivity"
+            android:name=".activites.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -18,3 +18,4 @@
 | 9.   | TOP UP            | Yes            |
 | 10.  | Contact Us        | Yes            |
 | 11.  | Date and Time on Club News | Yes   |
+| 12.  | Finance Purse Api | Yes            |

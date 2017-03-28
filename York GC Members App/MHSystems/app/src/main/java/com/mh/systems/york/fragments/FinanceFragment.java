@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,12 +28,18 @@ import com.mh.systems.york.activites.BaseActivity;
 import com.mh.systems.york.activites.YourAccountActivity;
 import com.mh.systems.york.adapter.BaseAdapter.FinanceAdapter;
 import com.mh.systems.york.constants.ApplicationGlobal;
+import com.mh.systems.york.models.pursebalance.AJsonParamsPurseApi;
+import com.mh.systems.york.models.pursebalance.AccountBalance;
+import com.mh.systems.york.models.pursebalance.PurseBalanceApi;
+import com.mh.systems.york.models.pursebalance.PurseBalanceResponse;
+import com.mh.systems.york.models.pursebalance.PurseBalanceData;
 import com.mh.systems.york.web.WebAPI;
 import com.mh.systems.york.models.TransactionListData;
 import com.mh.systems.york.models.FinanceResultItems;
 import com.mh.systems.york.web.api.WebServiceMethods;
 import com.mh.systems.york.models.FinanceAPI;
 import com.mh.systems.york.models.FinanceAJsonParams;
+import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -54,6 +59,8 @@ public class FinanceFragment extends Fragment {
     public static final String LOG_TAG = FinanceFragment.class.getSimpleName();
     ArrayList<TransactionListData> transactionListDataArrayList = new ArrayList<>();
 
+    ArrayList<AccountBalance> purseBalanceDatas = new ArrayList<>();
+
     /*++ Filter type for Today, 1 Week, 1 Month, 3 Months, 6 Months, 1 Year or From Start++*/
     int iFilterType = 2; //By Default 1 month will be selected.
     String strClosingBalance = "";
@@ -70,6 +77,7 @@ public class FinanceFragment extends Fragment {
     TextView tvLabelCardBalance, tvCardBalance, tvDateHeading;
     TextView tvLabelYourInvoice, tvYourInvoice;
     ImageView ivFilter;
+    LinearLayout llTransactionUI;
     View vwPopMenu;
     Intent intent;
     Button btTopUp;
@@ -95,8 +103,12 @@ public class FinanceFragment extends Fragment {
     //Pop Menu to show Categories of Course Diary.
     PopupMenu popupMenu;
 
-    LinearLayout.LayoutParams param;
-    LinearLayout.LayoutParams param1;
+    MenuItem financeMenuItem = null;
+
+    PurseBalanceApi purseBalanceApi;
+    AJsonParamsPurseApi aJsonParamsPurseApi;
+
+    private PurseBalanceResponse mPurseBalanceResponse;
 
     private AdapterView.OnItemClickListener mFinanceListListener = new AdapterView.OnItemClickListener() {
         @Override
@@ -127,36 +139,15 @@ public class FinanceFragment extends Fragment {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
 
-            tvLabelCardBalance.setText(item.getTitle() + " " + getString(R.string.title_text_balance));
+            financeMenuItem = item;
 
-            updatePurseType(item);
+            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+                requestPurseApiService();
+            }
 
             return true;
         }
     };
-
-    private void updatePurseType(MenuItem menuItemInstance) {
-
-        switch (menuItemInstance.getItemId()) {
-            case R.id.item_general:
-                flPurseGroup.setVisibility(View.VISIBLE);
-                flInvoicesGroup.setVisibility(View.VISIBLE);
-                break;
-
-            case R.id.item_Competitions:
-                updateUI();
-                break;
-
-            case R.id.item_Associates:
-                updateUI();
-                break;
-        }
-    }
-
-    private void updateUI() {
-        flPurseGroup.setVisibility(View.VISIBLE);
-        flInvoicesGroup.setVisibility(View.GONE);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -197,7 +188,7 @@ public class FinanceFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser) {
+        if (isVisibleToUser && ((YourAccountActivity)getActivity()).getiBalanceType() == 0) {
             callFinanceWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
             ((YourAccountActivity) getActivity()).setiOpenTabPosition(2);
@@ -233,6 +224,8 @@ public class FinanceFragment extends Fragment {
 
         llFinanceGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFinanceGroup);
         llPurseType = (LinearLayout) viewRootFragment.findViewById(R.id.llPurseType);
+
+        llTransactionUI = (LinearLayout) viewRootFragment.findViewById(R.id.llTransactionUI);
 
         flPurseGroup = (FrameLayout) viewRootFragment.findViewById(R.id.flPurseGroup);
         flInvoicesGroup = (FrameLayout) viewRootFragment.findViewById(R.id.flInvoicesGroup);
@@ -390,4 +383,123 @@ public class FinanceFragment extends Fragment {
 
         tvDateHeading.setTypeface(tpRobotoMedium);
     }
+
+    /* ++++++++++++++++ START OF PURSE API FEATURE ++++++++++++++++ */
+
+    private void requestPurseApiService() {
+
+        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+
+        aJsonParamsPurseApi = new AJsonParamsPurseApi();
+        aJsonParamsPurseApi.setCallid(ApplicationGlobal.TAG_NEW_GCLUB_CALL_ID);
+        aJsonParamsPurseApi.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsPurseApi.setMemberId(((YourAccountActivity) getActivity()).getMemberId());
+
+        purseBalanceApi = new PurseBalanceApi((((YourAccountActivity) getActivity()).getClientId()), "GetMemberPurseBalances", aJsonParamsPurseApi, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getFinancePurseBalance(purseBalanceApi, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updatePurseApiSuccess(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                ((BaseActivity) getActivity()).hideProgress();
+            }
+        });
+    }
+
+    private void updatePurseApiSuccess(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<PurseBalanceResponse>() {
+        }.getType();
+        mPurseBalanceResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        purseBalanceDatas.addAll(mPurseBalanceResponse.getData().getAccountBalances());
+
+        if (financeMenuItem != null) {
+            tvLabelCardBalance.setText(financeMenuItem.getTitle() + " " + getString(R.string.title_text_balance));
+            updatePurseType(financeMenuItem);
+        }
+
+        ((BaseActivity) getActivity()).hideProgress();
+    }
+
+    private String getPurseBalance(int iCrnID) {
+
+        for (int iCount = 0; iCount < purseBalanceDatas.size(); iCount++) {
+
+            if (purseBalanceDatas.get(iCount).getCrnID() == iCrnID) {
+
+                return purseBalanceDatas.get(iCount).getBalance();
+            }
+        }
+        return null;
+    }
+
+    private void updatePurseType(MenuItem menuItemInstance) {
+
+        switch (menuItemInstance.getItemId()) {
+            case R.id.item_general:
+                ((YourAccountActivity)getActivity()).setiBalanceType(0);
+                tvCardBalance.setText(getPurseBalance(0));
+                CollapsePurseUI();
+                break;
+
+            case R.id.item_Competitions:
+                ((YourAccountActivity)getActivity()).setiBalanceType(1);
+                ExpandPurseUI();
+                tvCardBalance.setText(getPurseBalance(1));
+                break;
+
+            case R.id.item_Associates:
+                ((YourAccountActivity)getActivity()).setiBalanceType(8);
+                ExpandPurseUI();
+                tvCardBalance.setText(getPurseBalance(8));
+                break;
+        }
+    }
+
+    /**
+     * Visible the following Purse Api according to position and hide
+     * others:
+     * - General
+     * - Competitions
+     * - Associate
+     */
+    private void ExpandPurseUI() {
+        flPurseGroup.setVisibility(View.VISIBLE);
+        flInvoicesGroup.setVisibility(View.GONE);
+        llTransactionUI.setVisibility(View.GONE);
+
+        //Hide Filter Icon on top right if General not selected.
+        ((YourAccountActivity) getActivity()).updateFilterIcon(View.GONE);
+    }
+
+    private void CollapsePurseUI() {
+        flPurseGroup.setVisibility(View.VISIBLE);
+        flInvoicesGroup.setVisibility(View.VISIBLE);
+        llTransactionUI.setVisibility(View.VISIBLE);
+
+        //Show top right filter to choose transactions according to date.
+        ((YourAccountActivity) getActivity()).updateFilterIcon(View.VISIBLE);
+    }
+
+
+     /* ++++++++++++++++  END OF PURSE API FEATURE ++++++++++++++++ */
 }
