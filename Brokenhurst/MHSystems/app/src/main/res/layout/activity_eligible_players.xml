@@ -38,7 +38,7 @@
                     android:background="@color/colorBDB6AE"
                     android:gravity="center">
 
-                    <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+                    <com.mh.systems.brokenhurst.ui.customfonts.RobotoTextView
                         android:id="@+id/tvAddPlayerDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

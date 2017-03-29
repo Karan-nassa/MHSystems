@@ -12,7 +12,7 @@
         android:paddingRight="20dp"
         android:weightSum="100">
 
-        <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+        <com.mh.systems.brokenhurst.ui.customfonts.RobotoTextView
             android:id="@+id/tvPosOfMember"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -23,7 +23,7 @@
             android:textColor="@color/color1E1E1C"
             android:textSize="15sp" />
 
-        <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+        <com.mh.systems.brokenhurst.ui.customfonts.RobotoTextView
             android:id="@+id/tvNameOfMember"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -33,7 +33,7 @@
             android:textColor="@color/color1E1E1C"
             android:textSize="15sp" />
 
-        <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+        <com.mh.systems.brokenhurst.ui.customfonts.RobotoTextView
             android:id="@+id/tvScoreOfMember"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -43,7 +43,7 @@
             android:textColor="@color/color1E1E1C"
             android:textSize="15sp" />
 
-        <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+        <com.mh.systems.brokenhurst.ui.customfonts.RobotoTextView
             android:id="@+id/tvTotalScoreOfMember"
             android:layout_width="0dp"
             android:layout_height="match_parent"

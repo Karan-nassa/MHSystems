@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp" />
 
-                <com.mh.systems.sandylodge.customfonts.RobotoMediumTextView
+                <com.mh.systems.sandylodge.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvEventStatusStrDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:textColor="@color/colorC0995B"
                     android:textSize="14sp" />
 
-                <com.mh.systems.sandylodge.customfonts.ButlerLightTextView
+                <com.mh.systems.sandylodge.ui.customfonts.ButlerLightTextView
                     android:id="@+id/tvTitleOfEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
 
                 <!-- PRIZE OF COURSE EVENT -->
 
-                <com.mh.systems.sandylodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.ui.customfonts.RobotoTextView
                     android:id="@+id/tvTypeOfCompEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -255,7 +255,7 @@
 
                 <!-- DESCRIPTION OF COMPETITION EVENTS -->
 
-                <com.mh.systems.sandylodge.customfonts.RobotoTextView
+                <com.mh.systems.sandylodge.ui.customfonts.RobotoTextView
                     android:id="@+id/tvDescCourseEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -275,7 +275,7 @@
                 android:visibility="gone"
                 android:orientation="vertical">
 
-                <com.mh.systems.sandylodge.customfonts.ButlerMediumTextView
+                <com.mh.systems.sandylodge.ui.customfonts.ButlerMediumTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -347,7 +347,7 @@
 
             <!-- MANAGE YOUR BOOKING -->
 
-            <com.mh.systems.sandylodge.customfonts.RobotoMediumTextView
+            <com.mh.systems.sandylodge.ui.customfonts.RobotoMediumTextView
                 android:id="@+id/tvManageBooking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

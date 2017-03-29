@@ -7,7 +7,7 @@
 
     <!-- PLAYER COUNT -->
 
-    <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+    <com.mh.systems.brokenhurst.ui.customfonts.RobotoTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.5"
@@ -23,7 +23,7 @@
         android:orientation="horizontal">
 
 
-        <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+        <com.mh.systems.brokenhurst.ui.customfonts.RobotoTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"

@@ -31,7 +31,7 @@
 
                 <!-- FRIENDS INFO -->
 
-                <!--  <com.mh.systems.brokenhurst.customfonts.RobotoTextView
+                <!--  <com.mh.systems.brokenhurst.ui.customfonts.RobotoTextView
                       android:layout_width="wrap_content"
                       android:layout_height="match_parent"
                       android:alpha="54"

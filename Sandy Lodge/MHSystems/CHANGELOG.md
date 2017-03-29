@@ -1,12 +1,12 @@
 ##Version 1.6.0 ()
 
-- Update the following changes: 
+- Update the following changes:
 
     ####3rd March, 2017
      - UPDATE: Get extra deduction amount from key 'TopupTxFeeStr' in ToUpActivity along with pricing list. Also display deduction amount before make payment if exists.
      - NEW: Display VERSION NAME in the Settings screen at bottom.
      - UPDATE: Change the FSI Top up price list and Make Payment url from testing to production.
-     
+
     ####14th March, 2017
     - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.
 
@@ -35,6 +35,9 @@
     - NEW: Integrate Club News Push Notification [Hide].
     - NEW: Add 'Delete Token' functionality.
     - NEW: Add 'Unread News Badger' count functionality [Hide].
+
+    #####29th March, 2017
+        UPDATE: Replace new sub-packing structure and re-ordering the override, private, public methods structure.
 
 ##Version 1.4.0 (2017-01-20)
 

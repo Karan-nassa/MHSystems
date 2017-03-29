@@ -43,7 +43,7 @@
 
                 <!-- COURSE TYPE [OLD/NEW COURSE] -->
 
-                <com.mh.systems.sandylodge.customfonts.RobotoMediumTextView
+                <com.mh.systems.sandylodge.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvCompType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                 android:layout_weight="35"
                 android:orientation="horizontal">
 
-                <com.mh.systems.sandylodge.customfonts.SFUI_TextFontMedium
+                <com.mh.systems.sandylodge.ui.customfonts.SFUI_TextFontMedium
                     android:id="@+id/tvNameOfMonthComp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -148,7 +148,7 @@
                 android:layout_weight="20"
                 android:orientation="horizontal">
 
-                <com.mh.systems.sandylodge.customfonts.SFUI_TextFontMedium
+                <com.mh.systems.sandylodge.ui.customfonts.SFUI_TextFontMedium
                     android:id="@+id/tvTodayComp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
