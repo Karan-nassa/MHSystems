@@ -78,6 +78,9 @@ public class YourAccountActivity extends BaseActivity {
 
     private int iOpenTabPosition;
 
+    //Refresh finance if balance type general.
+    int iBalanceType = 0;
+
     Intent intent;
 
      /* -- INTERNET CONNECTION PARAMETERS -- */
@@ -173,7 +176,7 @@ public class YourAccountActivity extends BaseActivity {
             getSupportActionBar().setTitle("Your Account");
         }
 
-              tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
         //tvMyAccountTitle.setTypeface(tfRobotoMedium);
 
         iOpenTabPosition = getIntent().getExtras().getInt("iTabPosition");
@@ -194,8 +197,9 @@ public class YourAccountActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        updateFragment(new MyAccountTabFragment(getiOpenTabPosition()));
+        if (iBalanceType == 0) {
+            updateFragment(new MyAccountTabFragment(getiOpenTabPosition()));
+        }
     }
 
     @Override
@@ -344,5 +348,13 @@ public class YourAccountActivity extends BaseActivity {
 
     public void setiOpenTabPosition(int iOpenTabPosition) {
         this.iOpenTabPosition = iOpenTabPosition;
+    }
+
+    public int getiBalanceType() {
+        return iBalanceType;
+    }
+
+    public void setiBalanceType(int iBalanceType) {
+        this.iBalanceType = iBalanceType;
     }
 }

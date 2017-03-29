@@ -61,7 +61,6 @@
                             android:id="@+id/tvCardBalance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$100"
                             android:textColor="@color/color1E1E1C"
                             android:textSize="19sp" />
 
@@ -152,8 +151,8 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -191,29 +190,37 @@
 
         </LinearLayout>
 
-        <!-- DATE/FILTER TYPE-->
-
-        <TextView
-            android:id="@+id/tvDateHeading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/colorC59A5C"
-            android:textSize="14sp" />
-
-
-        <!-- USE TO DISPLAY TRANSACTION LIST -->
-
-        <ListView
-            android:id="@+id/lvTransactionList"
+        <LinearLayout
+            android:id="@+id/llTransactionUI"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:cacheColorHint="@color/colorF9F8F7"
-            android:divider="@color/colorE8E2DD"
-            android:dividerHeight="0dp"
-            android:overScrollMode="never" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- DATE/FILTER TYPE-->
+
+            <TextView
+                android:id="@+id/tvDateHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/colorC59A5C"
+                android:textSize="14sp" />
+
+
+            <!-- USE TO DISPLAY TRANSACTION LIST -->
+
+            <ListView
+                android:id="@+id/lvTransactionList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="@color/colorF9F8F7"
+                android:divider="@color/colorE8E2DD"
+                android:dividerHeight="0dp"
+                android:overScrollMode="never" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

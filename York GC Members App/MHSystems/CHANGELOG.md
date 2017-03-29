@@ -36,6 +36,8 @@
    - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
    - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor.
  
+  ####28th March, 2017
+  - NEW: Integrate Competitions and Association purse api on Finance tab.
 
 ##Version 1.1.0 (2016-12-02)
 

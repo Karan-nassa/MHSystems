@@ -196,6 +196,10 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
             ((YourAccountActivity) getActivity()).updateFilterIcon(8);
             ((YourAccountActivity) getActivity()).setiOpenTabPosition(1);
 
+            /* ++++++++++++++++  START OF PURSE API FEATURE ++++++++++++++++ */
+            ((YourAccountActivity)getActivity()).setiBalanceType(0);
+            /* ++++++++++++++++  END OF PURSE API FEATURE ++++++++++++++++ */
+
             /**
              *  Check internet connection before hitting server request.
              */

@@ -31,6 +31,7 @@ import com.mh.systems.york.models.competitionsEntry.CompEligiblePlayersAPI;
 import com.mh.systems.york.models.competitionsEntry.GetClubEventAPI;
 import com.mh.systems.york.models.competitionsEntry.UpdateCompEntryAPI;
 import com.mh.systems.york.models.featuresflag.FeatureFlagsAPI;
+import com.mh.systems.york.models.pursebalance.PurseBalanceApi;
 import com.mh.systems.york.models.registerToken.RegisterTokenAPI;
 
 import retrofit.Callback;
@@ -453,5 +454,13 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getFeaturesFlagOptions(@Body FeatureFlagsAPI featureFlagsAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Finance Purse API method declaration.
+     * <p/>
+     * TYPE : POST
+     */
+    @POST("/webapi/api/ClubsApp/RpcRequest")
+    public void getFinancePurseBalance(@Body PurseBalanceApi purseBalanceApi, Callback<JsonObject> response);
 }
 
