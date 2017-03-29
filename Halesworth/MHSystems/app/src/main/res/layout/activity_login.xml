@@ -42,7 +42,7 @@
 
                 <!-- PLEASE LOGIN TEXT -->
 
-                <com.mh.systems.halesworth.customfonts.RobotoMediumTextView
+                <com.mh.systems.halesworth.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvLoginTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
 
                     <!-- FORGOT PASSWORD -->
 
-                    <com.mh.systems.halesworth.customfonts.RobotoTextView
+                    <com.mh.systems.halesworth.ui.customfonts.RobotoTextView
                         android:id="@+id/tvForgotPWD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

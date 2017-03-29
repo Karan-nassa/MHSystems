@@ -57,7 +57,7 @@
 
                     <!-- COURSE TYPE [OLD/NEW COURSE] -->
 
-                    <com.mh.systems.halesworth.customfonts.RobotoMediumTextView
+                    <com.mh.systems.halesworth.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvMemberType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
