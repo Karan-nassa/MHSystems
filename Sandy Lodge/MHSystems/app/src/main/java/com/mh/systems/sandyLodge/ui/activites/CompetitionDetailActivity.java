@@ -232,7 +232,7 @@ public class CompetitionDetailActivity extends BaseActivity {
 
     /**
      * Declares the field to JOIN a COMPETITIONS if user come from
-     * {@link com.mh.systems.sandylodge.fragments.UpcomingFragment} because
+     * {@link com.mh.systems.sandylodge.ui.fragments.UpcomingFragment} because
      * user can JOIN only for future COMPETITIONS not past.
      */
     public View.OnClickListener mJoinOnClickListener = new View.OnClickListener() {
@@ -463,7 +463,7 @@ public class CompetitionDetailActivity extends BaseActivity {
 
         /**
          *  FAB ({@link FloatingActionButton}) button should be visible for
-         *  {@link com.mh.systems.sandylodge.fragments.UpcomingFragment} only.
+         *  {@link com.mh.systems.sandylodge.ui.fragments.UpcomingFragment} only.
          */
         if (isJoinVisible) {
             fabJoinCompetition.setVisibility(View.VISIBLE);
