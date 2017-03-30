@@ -275,7 +275,7 @@
                 android:visibility="gone"
                 android:orientation="vertical">
 
-                <com.mh.systems.chesterLeStreet.customfonts.ButlerMediumTextView
+                <com.mh.systems.chesterLeStreet.ui.customfonts.ButlerMediumTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
