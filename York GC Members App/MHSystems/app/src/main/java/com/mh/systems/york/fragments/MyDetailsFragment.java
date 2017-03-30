@@ -106,7 +106,6 @@ public class MyDetailsFragment extends Fragment {
 
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
             ((YourAccountActivity) getActivity()).setiOpenTabPosition(0);
-
             /* ++++++++++++++++  START OF PURSE API FEATURE ++++++++++++++++ */
             ((YourAccountActivity) getActivity()).setiBalanceType(0);
             /* ++++++++++++++++  END OF PURSE API FEATURE ++++++++++++++++ */
