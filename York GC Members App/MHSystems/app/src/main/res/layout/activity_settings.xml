@@ -44,7 +44,7 @@
 
                 <!-- COURSE DATE WEEKEND/MONTHLY -->
 
-                <com.mh.systems.york.ui.customfonts.RobotoMediumTextView
+                <com.mh.systems.york.customfonts.RobotoMediumTextView
                     android:id="@+id/tvInvoiceTitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -90,7 +90,7 @@
                     android:layout_marginLeft="20dp"
                     android:orientation="vertical">
 
-                    <com.mh.systems.york.ui.customfonts.RobotoTextView
+                    <com.mh.systems.york.customfonts.RobotoTextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -140,7 +140,7 @@
                     android:layout_marginLeft="20dp"
                     android:orientation="vertical">
 
-                    <com.mh.systems.york.ui.customfonts.RobotoTextView
+                    <com.mh.systems.york.customfonts.RobotoTextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -162,7 +162,7 @@
 
     <!-- VERSION NAME -->
 
-    <com.mh.systems.york.ui.customfonts.RobotoTextView
+    <com.mh.systems.york.customfonts.RobotoTextView
         android:id="@+id/tvVersionName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

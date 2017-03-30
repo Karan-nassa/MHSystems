@@ -35,7 +35,7 @@
             android:layout_marginTop="15dp"
             android:orientation="vertical">
 
-            <com.mh.systems.york.ui.customfonts.SFUI_TextFontMedium
+            <com.mh.systems.york.customfonts.SFUI_TextFontMedium
                 android:id="@+id/tvTitleOfNews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

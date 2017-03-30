@@ -1,39 +1,38 @@
 package com.mh.systems.york.web.api;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.york.web.models.AddMemberAPI;
-import com.mh.systems.york.web.models.clubnews.ClubNewsAPI;
-import com.mh.systems.york.web.models.clubnews.ClubNewsDetailAPI;
-import com.mh.systems.york.web.models.clubnewsthumbnail.ClubNewsThumbnailAPI;
-import com.mh.systems.york.web.models.clubnewsthumbnail.ClubNewsThumbnailDetailAPI;
-import com.mh.systems.york.web.models.CompetitionResultAPI;
-import com.mh.systems.york.web.models.CompetitionJoinAPI;
-import com.mh.systems.york.web.models.CompetitionUnjoinAPI;
-import com.mh.systems.york.web.models.CompetitionsAPI;
-import com.mh.systems.york.web.models.contactus.ContactUsAPI;
-import com.mh.systems.york.web.models.CourseDiaryAPI;
-import com.mh.systems.york.web.models.coursenames.CourseNamesAPI;
-import com.mh.systems.york.web.models.DashboardAPI;
-import com.mh.systems.york.web.models.deletetoken.DeleteTokenAPI;
-import com.mh.systems.york.web.models.editdetailmode.EditDetailModeAPI;
-import com.mh.systems.york.web.models.forgotpassword.ForgotPasswordAPI;
-import com.mh.systems.york.web.models.friends.RemoveFriendAPI;
-import com.mh.systems.york.web.models.FriendsAPI;
-import com.mh.systems.york.web.models.hcaphistory.HCapHistoryAPI;
-import com.mh.systems.york.web.models.HandicapAPI;
-import com.mh.systems.york.web.models.MembersAPI;
-import com.mh.systems.york.web.models.MembersDetailAPI;
-import com.mh.systems.york.web.models.FinanceAPI;
-import com.mh.systems.york.web.models.pursebalance.PurseBalanceApi;
-import com.mh.systems.york.web.models.resetpassword.ResetPasswordAPI;
-import com.mh.systems.york.web.models.toggleprivacy.TogglePrivacyAPI;
-import com.mh.systems.york.web.models.unreadnewscount.GetUnreadNewsCountAPI;
-import com.mh.systems.york.web.models.updatepassword.UpdatePassswordAPI;
-import com.mh.systems.york.web.models.competitionsentry.CompEligiblePlayersAPI;
-import com.mh.systems.york.web.models.competitionsentry.GetClubEventAPI;
-import com.mh.systems.york.web.models.competitionsentry.UpdateCompEntryAPI;
-import com.mh.systems.york.web.models.featuresflag.FeatureFlagsAPI;
-import com.mh.systems.york.web.models.registertoken.RegisterTokenAPI;
+import com.mh.systems.york.models.AddMemberAPI;
+import com.mh.systems.york.models.ClubNews.ClubNewsAPI;
+import com.mh.systems.york.models.ClubNews.ClubNewsDetailAPI;
+import com.mh.systems.york.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
+import com.mh.systems.york.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
+import com.mh.systems.york.models.CompetitionResultAPI;
+import com.mh.systems.york.models.CompetitionJoinAPI;
+import com.mh.systems.york.models.CompetitionUnjoinAPI;
+import com.mh.systems.york.models.CompetitionsAPI;
+import com.mh.systems.york.models.ContactUs.ContactUsAPI;
+import com.mh.systems.york.models.CourseDiaryAPI;
+import com.mh.systems.york.models.DashboardAPI;
+import com.mh.systems.york.models.DeleteToken.DeleteTokenAPI;
+import com.mh.systems.york.models.EditDetailMode.EditDetailModeAPI;
+import com.mh.systems.york.models.ForgotPassword.ForgotPasswordAPI;
+import com.mh.systems.york.models.Friends.RemoveFriendAPI;
+import com.mh.systems.york.models.FriendsAPI;
+import com.mh.systems.york.models.HCapHistory.HCapHistoryAPI;
+import com.mh.systems.york.models.HandicapAPI;
+import com.mh.systems.york.models.MembersAPI;
+import com.mh.systems.york.models.MembersDetailAPI;
+import com.mh.systems.york.models.FinanceAPI;
+import com.mh.systems.york.models.ResetPassword.ResetPasswordAPI;
+import com.mh.systems.york.models.TogglePrivacy.TogglePrivacyAPI;
+import com.mh.systems.york.models.UnreadNewsCount.GetUnreadNewsCountAPI;
+import com.mh.systems.york.models.UpdatePassword.UpdatePassswordAPI;
+import com.mh.systems.york.models.competitionsEntry.CompEligiblePlayersAPI;
+import com.mh.systems.york.models.competitionsEntry.GetClubEventAPI;
+import com.mh.systems.york.models.competitionsEntry.UpdateCompEntryAPI;
+import com.mh.systems.york.models.featuresflag.FeatureFlagsAPI;
+import com.mh.systems.york.models.pursebalance.PurseBalanceApi;
+import com.mh.systems.york.models.registerToken.RegisterTokenAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -363,17 +362,6 @@ public interface WebServiceMethods {
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
 
     /**
-     * Declaration of Course Diary names from web service.
-     * <p/>
-     * TYPE : POST
-     *
-     * @param courseNamesAPI : Names of course diary.
-     * @param response       : JSON response back from api.
-     */
-    @POST("/webapi/api/ClubsApp")
-    public void getCourseNames(@Body CourseNamesAPI courseNamesAPI, Callback<JsonObject> response);
-
-    /**
      * Declaration of CONTACT US web service declaration.
      * <p/>
      * TYPE : POST
@@ -389,9 +377,9 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
-     * @param aClientId : Client ID.
-     * @param aMemberId : Member ID.
-     * @param response  : Top Up Price list.
+     * @param aClientId     : Client ID.
+     * @param aMemberId     : Member ID.
+     * @param response      : Top Up Price list.
      */
     @GET("/api/ApifsiGateway/TopUps")
     public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
@@ -461,8 +449,8 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
-     * @param featureFlagsAPI : Pass instance of features flag.
-     * @param response        : Response in JSON format.
+     * @param featureFlagsAPI       : Pass instance of features flag.
+     * @param response              : Response in JSON format.
      */
     @POST("/webapi/api/ClubsApp")
     public void getFeaturesFlagOptions(@Body FeatureFlagsAPI featureFlagsAPI, Callback<JsonObject> response);
@@ -475,3 +463,4 @@ public interface WebServiceMethods {
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getFinancePurseBalance(@Body PurseBalanceApi purseBalanceApi, Callback<JsonObject> response);
 }
+

@@ -118,7 +118,7 @@
 
                     <!-- DATE OF COURSE EVENT -->
 
-                    <com.mh.systems.york.ui.customfonts.RobotoMediumTextView
+                    <com.mh.systems.york.customfonts.RobotoMediumTextView
                         android:id="@+id/tvDateCourseEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
 
                     <!-- DATE OF COURSE EVENT -->
 
-                    <com.mh.systems.york.ui.customfonts.RobotoMediumTextView
+                    <com.mh.systems.york.customfonts.RobotoMediumTextView
                         android:id="@+id/tvTimeCourseEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
 
                 <!-- PRIZE OF COURSE EVENT -->
 
-                <com.mh.systems.york.ui.customfonts.RobotoMediumTextView
+                <com.mh.systems.york.customfonts.RobotoMediumTextView
                     android:id="@+id/tvFeeCourseEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -194,7 +194,7 @@
 
                 <!-- DESCRIPTION OF COURSY EVENTS -->
 
-                <com.mh.systems.york.ui.customfonts.RobotoTextView
+                <com.mh.systems.york.customfonts.RobotoTextView
                     android:id="@+id/tvDescCourseEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

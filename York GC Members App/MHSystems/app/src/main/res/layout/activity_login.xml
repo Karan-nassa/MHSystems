@@ -49,7 +49,7 @@
 
             <!-- PLEASE LOGIN TEXT -->
 
-            <com.mh.systems.york.ui.customfonts.RobotoMediumTextView
+            <com.mh.systems.york.customfonts.RobotoMediumTextView
                 android:id="@+id/tvLoginTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
 
                 <!-- FORGOT PASSWORD -->
 
-                <com.mh.systems.york.ui.customfonts.RobotoTextView
+                <com.mh.systems.york.customfonts.RobotoTextView
                     android:id="@+id/tvForgotPWD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

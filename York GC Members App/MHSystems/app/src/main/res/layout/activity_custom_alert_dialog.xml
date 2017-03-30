@@ -35,7 +35,7 @@
 
         <!-- ALERT MESSAGE OF BOOK EVENT -->
 
-        <com.mh.systems.york.ui.customfonts.RobotoTextView
+        <com.mh.systems.york.customfonts.RobotoTextView
             android:id="@+id/tvAlertMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
 
         <!-- CONTACT NUMBER -->
 
-        <com.mh.systems.york.ui.customfonts.RobotoTextView
+        <com.mh.systems.york.customfonts.RobotoTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -70,7 +70,7 @@
 
         <!-- EMAIL OF MEMBER -->
 
-        <com.mh.systems.york.ui.customfonts.RobotoTextView
+        <com.mh.systems.york.customfonts.RobotoTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
@@ -89,7 +89,7 @@
 
         <!-- CLOSE TEXT-->
 
-        <com.mh.systems.york.ui.customfonts.RobotoMediumTextView
+        <com.mh.systems.york.customfonts.RobotoMediumTextView
             android:id="@+id/tvCloseDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
