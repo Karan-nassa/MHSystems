@@ -7,7 +7,7 @@
 
     <!-- LOAD MORE VIEW TO DISPLAY BOTTOM OF LIST -->
 
-    <com.mh.systems.chesterLeStreet.customfonts.RobotoMediumTextView
+    <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoMediumTextView
         android:id="@id/android:empty"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"

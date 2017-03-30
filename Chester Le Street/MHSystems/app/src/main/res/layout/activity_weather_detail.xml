@@ -40,7 +40,7 @@
                     android:layout_weight="62"
                     android:orientation="vertical">
 
-                    <com.mh.systems.chesterLeStreet.customfonts.RobotoMediumTextView
+                    <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvNameOfLoc"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -50,7 +50,7 @@
                         android:textColor="@color/colorWhiteffffff"
                         android:textSize="17sp" />
 
-                    <com.mh.systems.chesterLeStreet.customfonts.RobotoMediumTextView
+                    <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvWeatherDate"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -69,7 +69,7 @@
                         android:layout_weight="20"
                         android:gravity="center_vertical" />
 
-                    <com.mh.systems.chesterLeStreet.customfonts.RobotoLight
+                    <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoLight
                         android:id="@+id/tvCurrentWeather"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -79,7 +79,7 @@
                         android:textColor="@color/colorWhiteffffff"
                         android:textSize="40sp" />
 
-                    <com.mh.systems.chesterLeStreet.customfonts.RobotoMediumTextView
+                    <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvWeatherType"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -90,7 +90,7 @@
                         android:textColor="@color/colorWhiteffffff"
                         android:textSize="13sp" />
 
-                    <com.mh.systems.chesterLeStreet.customfonts.RobotoMediumTextView
+                    <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvWindPressure"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"

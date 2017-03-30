@@ -57,7 +57,7 @@
 
                     <!-- COURSE TYPE [OLD/NEW COURSE] -->
 
-                    <com.mh.systems.chesterLeStreet.customfonts.RobotoMediumTextView
+                    <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvMemberType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -1,38 +1,38 @@
 package com.mh.systems.guildford.web.api;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.guildford.models.AddMemberAPI;
-import com.mh.systems.guildford.models.ClubNews.ClubNewsAPI;
-import com.mh.systems.guildford.models.ClubNews.ClubNewsDetailAPI;
-import com.mh.systems.guildford.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
-import com.mh.systems.guildford.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
-import com.mh.systems.guildford.models.CompetitionResultAPI;
-import com.mh.systems.guildford.models.CompetitionJoinAPI;
-import com.mh.systems.guildford.models.CompetitionUnjoinAPI;
-import com.mh.systems.guildford.models.CompetitionsAPI;
-import com.mh.systems.guildford.models.ContactUs.ContactUsAPI;
-import com.mh.systems.guildford.models.CourseDiaryAPI;
-import com.mh.systems.guildford.models.CourseNames.CourseNamesAPI;
-import com.mh.systems.guildford.models.DashboardAPI;
-import com.mh.systems.guildford.models.DeleteToken.DeleteTokenAPI;
-import com.mh.systems.guildford.models.EditDetailMode.EditDetailModeAPI;
-import com.mh.systems.guildford.models.ForgotPassword.ForgotPasswordAPI;
-import com.mh.systems.guildford.models.Friends.RemoveFriendAPI;
-import com.mh.systems.guildford.models.FriendsAPI;
-import com.mh.systems.guildford.models.HCapHistory.HCapHistoryAPI;
-import com.mh.systems.guildford.models.HandicapAPI;
-import com.mh.systems.guildford.models.MembersAPI;
-import com.mh.systems.guildford.models.MembersDetailAPI;
-import com.mh.systems.guildford.models.FinanceAPI;
-import com.mh.systems.guildford.models.ResetPassword.ResetPasswordAPI;
-import com.mh.systems.guildford.models.TogglePrivacy.TogglePrivacyAPI;
-import com.mh.systems.guildford.models.UnreadNewsCount.GetUnreadNewsCountAPI;
-import com.mh.systems.guildford.models.UpdatePassword.UpdatePassswordAPI;
-import com.mh.systems.guildford.models.competitionsEntry.CompEligiblePlayersAPI;
-import com.mh.systems.guildford.models.competitionsEntry.GetClubEventAPI;
-import com.mh.systems.guildford.models.competitionsEntry.UpdateCompEntryAPI;
-import com.mh.systems.guildford.models.featuresflag.FeatureFlagsAPI;
-import com.mh.systems.guildford.models.registerToken.RegisterTokenAPI;
+import com.mh.systems.guildford.web.models.AddMemberAPI;
+import com.mh.systems.guildford.web.models.clubnews.ClubNewsAPI;
+import com.mh.systems.guildford.web.models.clubnews.ClubNewsDetailAPI;
+import com.mh.systems.guildford.web.models.clubnewsthumbnail.ClubNewsThumbnailAPI;
+import com.mh.systems.guildford.web.models.clubnewsthumbnail.ClubNewsThumbnailDetailAPI;
+import com.mh.systems.guildford.web.models.CompetitionResultAPI;
+import com.mh.systems.guildford.web.models.CompetitionJoinAPI;
+import com.mh.systems.guildford.web.models.CompetitionUnjoinAPI;
+import com.mh.systems.guildford.web.models.CompetitionsAPI;
+import com.mh.systems.guildford.web.models.contactus.ContactUsAPI;
+import com.mh.systems.guildford.web.models.CourseDiaryAPI;
+import com.mh.systems.guildford.web.models.coursenames.CourseNamesAPI;
+import com.mh.systems.guildford.web.models.DashboardAPI;
+import com.mh.systems.guildford.web.models.deletetoken.DeleteTokenAPI;
+import com.mh.systems.guildford.web.models.editdetailmode.EditDetailModeAPI;
+import com.mh.systems.guildford.web.models.forgotpassword.ForgotPasswordAPI;
+import com.mh.systems.guildford.web.models.friends.RemoveFriendAPI;
+import com.mh.systems.guildford.web.models.FriendsAPI;
+import com.mh.systems.guildford.web.models.hcaphistory.HCapHistoryAPI;
+import com.mh.systems.guildford.web.models.HandicapAPI;
+import com.mh.systems.guildford.web.models.MembersAPI;
+import com.mh.systems.guildford.web.models.MembersDetailAPI;
+import com.mh.systems.guildford.web.models.FinanceAPI;
+import com.mh.systems.guildford.web.models.resetpassword.ResetPasswordAPI;
+import com.mh.systems.guildford.web.models.toggleprivacy.TogglePrivacyAPI;
+import com.mh.systems.guildford.web.models.unreadnewscount.GetUnreadNewsCountAPI;
+import com.mh.systems.guildford.web.models.updatepassword.UpdatePassswordAPI;
+import com.mh.systems.guildford.web.models.competitionsentry.CompEligiblePlayersAPI;
+import com.mh.systems.guildford.web.models.competitionsentry.GetClubEventAPI;
+import com.mh.systems.guildford.web.models.competitionsentry.UpdateCompEntryAPI;
+import com.mh.systems.guildford.web.models.featuresflag.FeatureFlagsAPI;
+import com.mh.systems.guildford.web.models.registertoken.RegisterTokenAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -56,7 +56,6 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getDashboardData(@Body DashboardAPI jsonElements, Callback<JsonObject> response);
-
     /**
      * Declaration of COURSE DIARY events
      * web service method.
@@ -69,7 +68,6 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getCourseDiaryEvents(@Body CourseDiaryAPI jsonElements, Callback<JsonObject> response);
-
     /**
      * Declaration of COMPETITIONS events
      * web service method.
@@ -84,8 +82,6 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getCompetitionsEvents(@Body CompetitionsAPI jsonElements, Callback<JsonObject> response);
-
-
     @GET("/api/ClubsApp/RpcRequest")
     void joinCompetitionEventGet(@Query("aClientId") String aClientId, @Query("aCommand") String aCommand,
                                  @Query("aJsonParams") String aJsonParams,
@@ -353,6 +349,7 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
+     * @param type      : WEATHER OR FORCEAST
      * @param aClientId : Club ID like 44071043 for Demo App.
      * @param aHour     : Time hour in running device.
      * @param response  : Weather api response in JSON format.

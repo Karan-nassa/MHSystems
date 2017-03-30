@@ -21,7 +21,7 @@
 
         <!-- INTERNET CONNECTION TITLE -->
 
-        <com.mh.systems.chesterLeStreet.customfonts.RobotoTextFontBold
+        <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoTextFontBold
             android:id="@+id/tvMessageTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
 
         <!-- TRY AGAIN TITLE-->
 
-        <com.mh.systems.chesterLeStreet.customfonts.RobotoTextView
+        <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoTextView
             android:id="@+id/tvMessageDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

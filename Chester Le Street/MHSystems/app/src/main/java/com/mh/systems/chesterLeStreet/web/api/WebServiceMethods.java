@@ -1,37 +1,38 @@
 package com.mh.systems.chesterLeStreet.web.api;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.chesterLeStreet.models.AddMemberAPI;
-import com.mh.systems.chesterLeStreet.models.ClubNews.ClubNewsAPI;
-import com.mh.systems.chesterLeStreet.models.ClubNews.ClubNewsDetailAPI;
-import com.mh.systems.chesterLeStreet.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
-import com.mh.systems.chesterLeStreet.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
-import com.mh.systems.chesterLeStreet.models.CompetitionResultAPI;
-import com.mh.systems.chesterLeStreet.models.CompetitionJoinAPI;
-import com.mh.systems.chesterLeStreet.models.CompetitionUnjoinAPI;
-import com.mh.systems.chesterLeStreet.models.CompetitionsAPI;
-import com.mh.systems.chesterLeStreet.models.ContactUs.ContactUsAPI;
-import com.mh.systems.chesterLeStreet.models.CourseDiaryAPI;
-import com.mh.systems.chesterLeStreet.models.DashboardAPI;
-import com.mh.systems.chesterLeStreet.models.DeleteToken.DeleteTokenAPI;
-import com.mh.systems.chesterLeStreet.models.EditDetailMode.EditDetailModeAPI;
-import com.mh.systems.chesterLeStreet.models.ForgotPassword.ForgotPasswordAPI;
-import com.mh.systems.chesterLeStreet.models.Friends.RemoveFriendAPI;
-import com.mh.systems.chesterLeStreet.models.FriendsAPI;
-import com.mh.systems.chesterLeStreet.models.HCapHistory.HCapHistoryAPI;
-import com.mh.systems.chesterLeStreet.models.HandicapAPI;
-import com.mh.systems.chesterLeStreet.models.MembersAPI;
-import com.mh.systems.chesterLeStreet.models.MembersDetailAPI;
-import com.mh.systems.chesterLeStreet.models.FinanceAPI;
-import com.mh.systems.chesterLeStreet.models.ResetPassword.ResetPasswordAPI;
-import com.mh.systems.chesterLeStreet.models.TogglePrivacy.TogglePrivacyAPI;
-import com.mh.systems.chesterLeStreet.models.UnreadNewsCount.GetUnreadNewsCountAPI;
-import com.mh.systems.chesterLeStreet.models.UpdatePassword.UpdatePassswordAPI;
-import com.mh.systems.chesterLeStreet.models.competitionsEntry.CompEligiblePlayersAPI;
-import com.mh.systems.chesterLeStreet.models.competitionsEntry.GetClubEventAPI;
-import com.mh.systems.chesterLeStreet.models.competitionsEntry.UpdateCompEntryAPI;
-import com.mh.systems.chesterLeStreet.models.featuresflag.FeatureFlagsAPI;
-import com.mh.systems.chesterLeStreet.models.registerToken.RegisterTokenAPI;
+import com.mh.systems.chesterLeStreet.web.models.AddMemberAPI;
+import com.mh.systems.chesterLeStreet.web.models.clubnews.ClubNewsAPI;
+import com.mh.systems.chesterLeStreet.web.models.clubnews.ClubNewsDetailAPI;
+import com.mh.systems.chesterLeStreet.web.models.clubnewsthumbnail.ClubNewsThumbnailAPI;
+import com.mh.systems.chesterLeStreet.web.models.clubnewsthumbnail.ClubNewsThumbnailDetailAPI;
+import com.mh.systems.chesterLeStreet.web.models.CompetitionResultAPI;
+import com.mh.systems.chesterLeStreet.web.models.CompetitionJoinAPI;
+import com.mh.systems.chesterLeStreet.web.models.CompetitionUnjoinAPI;
+import com.mh.systems.chesterLeStreet.web.models.CompetitionsAPI;
+import com.mh.systems.chesterLeStreet.web.models.contactus.ContactUsAPI;
+import com.mh.systems.chesterLeStreet.web.models.CourseDiaryAPI;
+import com.mh.systems.chesterLeStreet.web.models.coursenames.CourseNamesAPI;
+import com.mh.systems.chesterLeStreet.web.models.DashboardAPI;
+import com.mh.systems.chesterLeStreet.web.models.deletetoken.DeleteTokenAPI;
+import com.mh.systems.chesterLeStreet.web.models.editdetailmode.EditDetailModeAPI;
+import com.mh.systems.chesterLeStreet.web.models.forgotpassword.ForgotPasswordAPI;
+import com.mh.systems.chesterLeStreet.web.models.friends.RemoveFriendAPI;
+import com.mh.systems.chesterLeStreet.web.models.FriendsAPI;
+import com.mh.systems.chesterLeStreet.web.models.hcaphistory.HCapHistoryAPI;
+import com.mh.systems.chesterLeStreet.web.models.HandicapAPI;
+import com.mh.systems.chesterLeStreet.web.models.MembersAPI;
+import com.mh.systems.chesterLeStreet.web.models.MembersDetailAPI;
+import com.mh.systems.chesterLeStreet.web.models.FinanceAPI;
+import com.mh.systems.chesterLeStreet.web.models.resetpassword.ResetPasswordAPI;
+import com.mh.systems.chesterLeStreet.web.models.toggleprivacy.TogglePrivacyAPI;
+import com.mh.systems.chesterLeStreet.web.models.unreadnewscount.GetUnreadNewsCountAPI;
+import com.mh.systems.chesterLeStreet.web.models.updatepassword.UpdatePassswordAPI;
+import com.mh.systems.chesterLeStreet.web.models.competitionsentry.CompEligiblePlayersAPI;
+import com.mh.systems.chesterLeStreet.web.models.competitionsentry.GetClubEventAPI;
+import com.mh.systems.chesterLeStreet.web.models.competitionsentry.UpdateCompEntryAPI;
+import com.mh.systems.chesterLeStreet.web.models.featuresflag.FeatureFlagsAPI;
+import com.mh.systems.chesterLeStreet.web.models.registertoken.RegisterTokenAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -352,12 +353,24 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
+     * @param type      : WEATHER OR FORCEAST
      * @param aClientId : Club ID like 44071043 for Demo App.
      * @param aHour     : Time hour in running device.
      * @param response  : Weather api response in JSON format.
      */
     @POST("/webapi/ClubAppUse/forecast")
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Course Diary names from web service.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param courseNamesAPI : Names of course diary.
+     * @param response       : JSON response back from api.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getCourseNames(@Body CourseNamesAPI courseNamesAPI, Callback<JsonObject> response);
 
     /**
      * Declaration of CONTACT US web service declaration.

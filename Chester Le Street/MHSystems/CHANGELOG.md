@@ -32,7 +32,11 @@
    ####22nd March, 2017
    - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
    - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor.
- 
+
+   #####29th March, 2017
+       UPDATE: Replace new sub-packing structure and re-ordering the override, private, public methods structure.
+
+
 ##Version 1.1.0 (2016-12-02)
 
 - New: Weather feature added

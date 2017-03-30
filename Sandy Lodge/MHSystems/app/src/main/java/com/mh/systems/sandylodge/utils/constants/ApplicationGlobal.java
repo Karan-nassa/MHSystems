@@ -12,7 +12,7 @@ public class ApplicationGlobal {
     /**
      * Declares the ROLL BAR key for PRODUCTION ENVIRONMENT.
      */
-    public static final String KEY_ROLLBAR_CLIENT_PRODUCTION = "30f34ebae7ef4c3484a59be06e7fe578";
+    public static final String KEY_ROLLBAR_CLIENT_PRODUCTION = "84fd9e61fe6d4a1788ae9ae29fcf765d";
 
     /**
      * Declares the ROLL BAR key for TEST ENVIRONMENT.
@@ -65,7 +65,7 @@ public class ApplicationGlobal {
 
     /**
      * Used during tap on SPINNER/DROPDOWN selectable items to sent on
-     * {@link MembersTabFragment} for update MEMBERS list accordingly.
+     * {@link com.mh.systems.sandylodge.fragments.MembersTabFragment} for update MEMBERS list accordingly.
      */
     public static final int ACTION_MEMBERS_ALL = 2;
     public static final int ACTION_MEMBERS_LADIES = 1;
@@ -73,7 +73,7 @@ public class ApplicationGlobal {
 
     /**
      * Used during tap on SPINNER/DROPDOWN selectable items to sent on
-     * {@link MembersTabFragment} for update FRIENDS list accordingly.
+     * {@link com.mh.systems.sandylodge.fragments.MembersTabFragment} for update FRIENDS list accordingly.
      */
     public static final int ACTION_FRIENDS_YOUR_FRIENDS = 0;
     public static final int ACTION_FRIENDS_ADDED_ME = 1;
@@ -122,9 +122,6 @@ public class ApplicationGlobal {
     public static final String KEY_CLUB_NEWS_FEATURE = "ClubNewsFeature";
     public static final String KEY_YOUR_ACCOUNT_FEATURE = "YourAccountFeature";
 }
-
-
-
 
 
 

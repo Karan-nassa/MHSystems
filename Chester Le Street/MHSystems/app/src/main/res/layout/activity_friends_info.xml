@@ -31,7 +31,7 @@
 
                 <!-- FRIENDS INFO -->
 
-                <!--  <com.mh.systems.chesterLeStreet.customfonts.RobotoTextView
+                <!--  <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoTextView
                       android:layout_width="wrap_content"
                       android:layout_height="match_parent"
                       android:alpha="54"

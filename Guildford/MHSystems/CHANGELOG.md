@@ -4,7 +4,7 @@ Changed the following issues:
     
    ####22nd March, 2017
    - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
-   - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor. 
+   - Fixed: Resolved crashed. java.lang.Class<guildford_.fragments.MyAccountTabFragment> has no zero argument constructor.
 
 ##Version  1.3.0 (2016-02-16)
 
@@ -35,7 +35,7 @@ Changed the following issues:
     
     ####16th March, 2017
      - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.
-     - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor
+     - Fixed: Resolved crashed. java.lang.Class<guildford_.fragments.MyAccountTabFragment> has no zero argument constructor
 
 ##Version 1.2.0 (2016-12-26)
 
