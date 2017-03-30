@@ -1,37 +1,38 @@
 package com.mh.systems.brokenhurst.web.api;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.brokenhurst.models.AddMemberAPI;
-import com.mh.systems.brokenhurst.models.ClubNews.ClubNewsAPI;
-import com.mh.systems.brokenhurst.models.ClubNews.ClubNewsDetailAPI;
-import com.mh.systems.brokenhurst.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
-import com.mh.systems.brokenhurst.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
-import com.mh.systems.brokenhurst.models.CompetitionResultAPI;
-import com.mh.systems.brokenhurst.models.CompetitionJoinAPI;
-import com.mh.systems.brokenhurst.models.CompetitionUnjoinAPI;
-import com.mh.systems.brokenhurst.models.CompetitionsAPI;
-import com.mh.systems.brokenhurst.models.ContactUs.ContactUsAPI;
-import com.mh.systems.brokenhurst.models.CourseDiaryAPI;
-import com.mh.systems.brokenhurst.models.DashboardAPI;
-import com.mh.systems.brokenhurst.models.DeleteToken.DeleteTokenAPI;
-import com.mh.systems.brokenhurst.models.EditDetailMode.EditDetailModeAPI;
-import com.mh.systems.brokenhurst.models.ForgotPassword.ForgotPasswordAPI;
-import com.mh.systems.brokenhurst.models.Friends.RemoveFriendAPI;
-import com.mh.systems.brokenhurst.models.FriendsAPI;
-import com.mh.systems.brokenhurst.models.HCapHistory.HCapHistoryAPI;
-import com.mh.systems.brokenhurst.models.HandicapAPI;
-import com.mh.systems.brokenhurst.models.MembersAPI;
-import com.mh.systems.brokenhurst.models.MembersDetailAPI;
-import com.mh.systems.brokenhurst.models.FinanceAPI;
-import com.mh.systems.brokenhurst.models.ResetPassword.ResetPasswordAPI;
-import com.mh.systems.brokenhurst.models.TogglePrivacy.TogglePrivacyAPI;
-import com.mh.systems.brokenhurst.models.UnreadNewsCount.GetUnreadNewsCountAPI;
-import com.mh.systems.brokenhurst.models.UpdatePassword.UpdatePassswordAPI;
-import com.mh.systems.brokenhurst.models.competitionsEntry.CompEligiblePlayersAPI;
-import com.mh.systems.brokenhurst.models.competitionsEntry.GetClubEventAPI;
-import com.mh.systems.brokenhurst.models.competitionsEntry.UpdateCompEntryAPI;
-import com.mh.systems.brokenhurst.models.featuresflag.FeatureFlagsAPI;
-import com.mh.systems.brokenhurst.models.registerToken.RegisterTokenAPI;
+import com.mh.systems.brokenhurst.web.models.AddMemberAPI;
+import com.mh.systems.brokenhurst.web.models.clubnews.ClubNewsAPI;
+import com.mh.systems.brokenhurst.web.models.clubnews.ClubNewsDetailAPI;
+import com.mh.systems.brokenhurst.web.models.clubnewsthumbnail.ClubNewsThumbnailAPI;
+import com.mh.systems.brokenhurst.web.models.clubnewsthumbnail.ClubNewsThumbnailDetailAPI;
+import com.mh.systems.brokenhurst.web.models.CompetitionResultAPI;
+import com.mh.systems.brokenhurst.web.models.CompetitionJoinAPI;
+import com.mh.systems.brokenhurst.web.models.CompetitionUnjoinAPI;
+import com.mh.systems.brokenhurst.web.models.CompetitionsAPI;
+import com.mh.systems.brokenhurst.web.models.contactus.ContactUsAPI;
+import com.mh.systems.brokenhurst.web.models.CourseDiaryAPI;
+import com.mh.systems.brokenhurst.web.models.coursenames.CourseNamesAPI;
+import com.mh.systems.brokenhurst.web.models.DashboardAPI;
+import com.mh.systems.brokenhurst.web.models.deletetoken.DeleteTokenAPI;
+import com.mh.systems.brokenhurst.web.models.editdetailmode.EditDetailModeAPI;
+import com.mh.systems.brokenhurst.web.models.forgotpassword.ForgotPasswordAPI;
+import com.mh.systems.brokenhurst.web.models.friends.RemoveFriendAPI;
+import com.mh.systems.brokenhurst.web.models.FriendsAPI;
+import com.mh.systems.brokenhurst.web.models.hcaphistory.HCapHistoryAPI;
+import com.mh.systems.brokenhurst.web.models.HandicapAPI;
+import com.mh.systems.brokenhurst.web.models.MembersAPI;
+import com.mh.systems.brokenhurst.web.models.MembersDetailAPI;
+import com.mh.systems.brokenhurst.web.models.FinanceAPI;
+import com.mh.systems.brokenhurst.web.models.resetpassword.ResetPasswordAPI;
+import com.mh.systems.brokenhurst.web.models.toggleprivacy.TogglePrivacyAPI;
+import com.mh.systems.brokenhurst.web.models.unreadnewscount.GetUnreadNewsCountAPI;
+import com.mh.systems.brokenhurst.web.models.updatepassword.UpdatePassswordAPI;
+import com.mh.systems.brokenhurst.web.models.competitionsentry.CompEligiblePlayersAPI;
+import com.mh.systems.brokenhurst.web.models.competitionsentry.GetClubEventAPI;
+import com.mh.systems.brokenhurst.web.models.competitionsentry.UpdateCompEntryAPI;
+import com.mh.systems.brokenhurst.web.models.featuresflag.FeatureFlagsAPI;
+import com.mh.systems.brokenhurst.web.models.registertoken.RegisterTokenAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -352,12 +353,24 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
+     * @param type      : WEATHER OR FORCEAST
      * @param aClientId : Club ID like 44071043 for Demo App.
      * @param aHour     : Time hour in running device.
      * @param response  : Weather api response in JSON format.
      */
     @POST("/webapi/ClubAppUse/forecast")
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Course Diary names from web service.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param courseNamesAPI : Names of course diary.
+     * @param response       : JSON response back from api.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getCourseNames(@Body CourseNamesAPI courseNamesAPI, Callback<JsonObject> response);
 
     /**
      * Declaration of CONTACT US web service declaration.
