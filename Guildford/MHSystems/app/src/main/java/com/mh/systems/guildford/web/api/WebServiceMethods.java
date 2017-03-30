@@ -56,6 +56,7 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getDashboardData(@Body DashboardAPI jsonElements, Callback<JsonObject> response);
+
     /**
      * Declaration of COURSE DIARY events
      * web service method.
@@ -68,6 +69,7 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getCourseDiaryEvents(@Body CourseDiaryAPI jsonElements, Callback<JsonObject> response);
+
     /**
      * Declaration of COMPETITIONS events
      * web service method.
@@ -82,6 +84,7 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getCompetitionsEvents(@Body CompetitionsAPI jsonElements, Callback<JsonObject> response);
+
     @GET("/api/ClubsApp/RpcRequest")
     void joinCompetitionEventGet(@Query("aClientId") String aClientId, @Query("aCommand") String aCommand,
                                  @Query("aJsonParams") String aJsonParams,
