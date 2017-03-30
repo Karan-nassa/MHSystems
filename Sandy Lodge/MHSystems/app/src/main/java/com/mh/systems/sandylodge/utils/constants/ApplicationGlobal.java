@@ -65,7 +65,7 @@ public class ApplicationGlobal {
 
     /**
      * Used during tap on SPINNER/DROPDOWN selectable items to sent on
-     * {@link com.mh.systems.sandylodge.fragments.MembersTabFragment} for update MEMBERS list accordingly.
+     * {@link com.mh.systems.sandylodge.ui.fragments.MembersTabFragment} for update MEMBERS list accordingly.
      */
     public static final int ACTION_MEMBERS_ALL = 2;
     public static final int ACTION_MEMBERS_LADIES = 1;
@@ -73,7 +73,7 @@ public class ApplicationGlobal {
 
     /**
      * Used during tap on SPINNER/DROPDOWN selectable items to sent on
-     * {@link com.mh.systems.sandylodge.fragments.MembersTabFragment} for update FRIENDS list accordingly.
+     * {@link com.mh.systems.sandylodge.ui.fragments.MembersTabFragment} for update FRIENDS list accordingly.
      */
     public static final int ACTION_FRIENDS_YOUR_FRIENDS = 0;
     public static final int ACTION_FRIENDS_ADDED_ME = 1;
