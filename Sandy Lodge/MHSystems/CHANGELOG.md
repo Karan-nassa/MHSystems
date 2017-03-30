@@ -14,6 +14,10 @@
     - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
     - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor.
 
+    #####29th March, 2017
+    - UPDATE: Replace new sub-packing structure and re-ordering the override, private, public methods structure.
+
+
 ##Version 1.5.0 (17th Feb, 2017)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.
@@ -35,9 +39,6 @@
     - NEW: Integrate Club News Push Notification [Hide].
     - NEW: Add 'Delete Token' functionality.
     - NEW: Add 'Unread News Badger' count functionality [Hide].
-
-    #####29th March, 2017
-        UPDATE: Replace new sub-packing structure and re-ordering the override, private, public methods structure.
 
 ##Version 1.4.0 (2017-01-20)
 
