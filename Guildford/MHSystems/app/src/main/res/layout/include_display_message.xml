@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/inc_message_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <!-- NO INTERNET CONNECTION IMAGE -->
+        <ImageView
+            android:id="@+id/ivMessageSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_no_internet" />
+
+        <!-- INTERNET CONNECTION TITLE -->
+
+        <com.mh.systems.guildford.ui.customfonts.RobotoTextFontBold
+            android:id="@+id/tvMessageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/color1E1E1C"
+            android:alpha="0.5"
+            android:text="@string/error_no_connection"
+            android:textStyle="bold"
+            android:textSize="13sp" />
+
+        <!-- TRY AGAIN TITLE-->
+
+        <com.mh.systems.guildford.ui.customfonts.RobotoTextView
+            android:id="@+id/tvMessageDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color1E1E1C"
+            android:text="@string/error_try_again"
+            android:alpha="0.5"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

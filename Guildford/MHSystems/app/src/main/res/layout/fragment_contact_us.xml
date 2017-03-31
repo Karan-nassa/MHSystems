@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhiteffffff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- CONTENT SHOULD BE IN SCROLL FOR SMALL DEVICES -->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+
+                <!-- GOLF CLUB LOGO -->
+
+                <ImageView
+                    android:id="@+id/ivAppLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp" />
+
+                <!-- TITLE TELEPHONE -->
+
+                <LinearLayout
+                    android:id="@+id/llTelephone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.mh.systems.guildford.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:text="@string/text_title_telephone" />
+
+                    <!-- NAME OF PERSON -->
+
+                    <com.mh.systems.guildford.ui.customfonts.RobotoTextView
+                        android:id="@+id/tvTelephone"
+                        style="@style/MyDetailValues"
+                        android:layout_width="250dp"/>
+
+                </LinearLayout>
+
+                <!-- TITLE FAX -->
+
+                <LinearLayout
+                    android:id="@+id/llFax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.mh.systems.guildford.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/text_title_fax" />
+
+                    <!-- NAME OF PERSON -->
+
+                    <com.mh.systems.guildford.ui.customfonts.RobotoTextView
+                        android:id="@+id/tvFax"
+                        style="@style/MyDetailValues" />
+
+                </LinearLayout>
+
+                <!-- TITLE EMAIL -->
+
+                <LinearLayout
+                    android:id="@+id/llEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.mh.systems.guildford.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/text_title_email" />
+
+                    <!-- NAME OF PERSON -->
+
+                    <com.mh.systems.guildford.ui.customfonts.RobotoTextView
+                        android:id="@+id/tvEmail"
+                        style="@style/MyDetailValues" />
+
+                </LinearLayout>
+
+                <!-- TITLE ADDRESS -->
+
+                <LinearLayout
+                    android:id="@+id/llAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.mh.systems.guildford.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/text_title_address" />
+
+                    <!-- NAME OF PERSON -->
+
+                    <com.mh.systems.guildford.ui.customfonts.RobotoTextView
+                        android:id="@+id/tvAddress"
+                        style="@style/MyDetailValues"
+                        android:layout_width="250dp" />
+
+                </LinearLayout>
+
+                <!-- SPACE VIEW AT BOTTOM -->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>
