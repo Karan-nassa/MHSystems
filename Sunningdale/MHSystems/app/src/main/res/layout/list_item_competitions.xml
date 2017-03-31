@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/button_corner_shape_ffffff">
+
+    <LinearLayout
+        android:id="@+id/llCompetitionGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- CONTENT OF COMPETITIONS -->
+
+            <!-- TITLE OF COMPETITIONS EVENT -->
+
+            <TextView
+                android:id="@+id/tvCompTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Competition Name"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="19sp" />
+
+            <!-- STATUS OF COMPETITION -->
+
+            <TextView
+                android:id="@+id/tvEventStatusStr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="ENTRY OPEN"
+                android:textAllCaps="true"
+                android:textColor="@color/colorC0995B"
+                android:textSize="15sp" />
+
+            <!-- DESCRIPTION -->
+
+            <TextView
+                android:id="@+id/tvCompDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textColor="@color/color4A4A4A"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorF9F8F7" />
+
+            <!-- DATE OF COMPETITIONS EVENT -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:src="@mipmap/ic_today" />
+
+                <!-- DATE OF COMPETITION EVENT -->
+
+                <TextView
+                    android:id="@+id/tvDateCompEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="Monday, 29th February 2016"
+                    android:textColor="@color/color030303"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <!-- TIME OF COMPETITION EVENT -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.1"
+                    android:paddingLeft="4dp"
+                    android:src="@mipmap/ic_today"
+                    android:visibility="invisible" />
+
+                <!-- TIME OF COMPETITION EVENT -->
+
+                <TextView
+                    android:id="@+id/tvTimeOfCompEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="10:30 - 12:30"
+                    android:textColor="@color/color030303"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorF9F8F7" />
+
+            <!-- FEE PER GUEST -->
+
+            <LinearLayout
+                android:id="@+id/llPriceGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <!-- PRICE OR POSITION ICON -->
+
+                <ImageView
+                    android:id="@+id/ivStatOfEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.3"
+                    android:src="@mipmap/ic_fee" />
+
+                <!-- PRIZE OF COMPETITION EVENT -->
+
+                <TextView
+                    android:id="@+id/tvNameTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:text="£5 fee per player"
+                    android:textColor="@color/color030303"
+                    android:textSize="16sp" />
+
+                <!-- POSITION OF PERSON IN COMPETITION EVENT -->
+
+                <TextView
+                    android:id="@+id/tvPosOfPerson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="end|center"
+                    android:textColor="@color/color030303"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!-- SHOW DETAILS & JOIN -->
+
+        <!--  <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp">
+
+              <LinearLayout
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="50"
+                  android:orientation="vertical">
+
+                  <TextView
+                      android:id="@+id/tvEventStatusStr"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:alpha="0.5"
+                      android:gravity="right"
+                      android:padding="8dp"
+                      android:text="ENTRY OPEN"
+                      android:textColor="@color/color939393"
+                      android:textSize="14sp" />
+
+              </LinearLayout>
+
+              &lt;!&ndash; &ndash;&gt;
+
+              <LinearLayout
+                  android:id="@+id/llShowDetails"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="50"
+                  android:gravity="right"
+                  android:orientation="vertical">
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingBottom="8dp"
+                      android:paddingTop="8dp"
+                      android:text="SHOW DETAIL"
+                      android:textColor="@color/color4942AA"
+                      android:textSize="14sp" />
+
+              </LinearLayout>
+
+          </LinearLayout>-->
+
+    </LinearLayout>
+</RelativeLayout>
