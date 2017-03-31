@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.activites.MembersActivity;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.contactus.AJsonParamsContactUs;
 import com.mh.systems.sandylodge.web.models.contactus.ContactUsAPI;

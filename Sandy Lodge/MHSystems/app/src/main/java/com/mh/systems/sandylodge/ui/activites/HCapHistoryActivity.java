@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.adapter.RecyclerAdapter.HCapHistoryRecyclerAdapter;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.hcaphistory.AJsonParamsHcapHistory;
 import com.mh.systems.sandylodge.web.models.hcaphistory.HCapHistoryAPI;

@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mh.systems.sandylodge.R;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.ui.fragments.FriendsFragment;
 import com.mh.systems.sandylodge.ui.fragments.MembersFragment;
 import com.mh.systems.sandylodge.ui.fragments.MembersTabFragment;

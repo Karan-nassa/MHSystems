@@ -18,7 +18,6 @@ import com.mh.systems.sandylodge.ui.activites.BaseActivity;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.AJsonParamsMembersDatail;
 import com.mh.systems.sandylodge.web.models.MembersDetailAPI;

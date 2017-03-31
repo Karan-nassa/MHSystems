@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mh.systems.sandylodge.ui.activites.BaseActivity;
 import com.mh.systems.sandylodge.ui.activites.YourAccountActivity;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.ui.fragments.ContactUsFragment;
 import com.mh.systems.sandylodge.ui.fragments.EligibleFriendsFragment;
 import com.mh.systems.sandylodge.ui.fragments.EligibleMemberFragment;

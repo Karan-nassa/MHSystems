@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.activites.YourAccountActivity;
 import com.mh.systems.sandylodge.ui.adapter.TabsAdapter.TabsPageAdapter;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 
 @SuppressLint("ValidFragment")
 public class MyAccountTabFragment extends Fragment {

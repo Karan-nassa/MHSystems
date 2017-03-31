@@ -17,7 +17,6 @@ import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.activites.CourseDiaryActivity;
 import com.mh.systems.sandylodge.ui.activites.DashboardActivity;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.coursenames.AJsonParamsCourseNames;
 import com.mh.systems.sandylodge.web.models.coursenames.CourseNamesAPI;

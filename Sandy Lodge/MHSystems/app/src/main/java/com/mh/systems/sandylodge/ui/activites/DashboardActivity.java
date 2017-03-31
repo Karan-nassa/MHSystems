@@ -25,7 +25,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.deletetoken.AJsonParamsDeleteToken;
 import com.mh.systems.sandylodge.web.models.deletetoken.DeleteTokenAPI;
 import com.mh.systems.sandylodge.web.models.deletetoken.DeleteTokenResult;

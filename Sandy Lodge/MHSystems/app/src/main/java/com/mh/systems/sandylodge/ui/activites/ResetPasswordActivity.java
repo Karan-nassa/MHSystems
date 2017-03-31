@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.resetpassword.AJsonParamsResetPwd;
 import com.mh.systems.sandylodge.web.models.resetpassword.ResetPasswordAPI;
 import com.mh.systems.sandylodge.web.models.resetpassword.ResetPasswordItems;

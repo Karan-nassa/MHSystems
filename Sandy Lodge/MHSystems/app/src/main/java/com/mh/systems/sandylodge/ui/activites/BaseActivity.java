@@ -34,7 +34,6 @@ import com.mh.systems.sandylodge.web.models.MembersData;
 import com.newrelic.com.google.gson.Gson;
 import com.rollbar.android.Rollbar;
 import com.mh.systems.sandylodge.R;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

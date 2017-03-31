@@ -24,7 +24,6 @@ import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.activites.BaseActivity;
 import com.mh.systems.sandylodge.ui.activites.YourAccountActivity;
 import com.mh.systems.sandylodge.ui.adapter.BaseAdapter.FinanceAdapter;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.TransactionListData;
 import com.mh.systems.sandylodge.web.models.FinanceResultItems;

@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Bundle;
 
 import com.mh.systems.sandylodge.R;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 
 /**
  * The {@link SplashActivity} used to load the SPLASH/LOADING

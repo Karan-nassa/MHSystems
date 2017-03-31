@@ -27,7 +27,6 @@ import com.google.android.gms.iid.InstanceID;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.registertoken.AJsonParamsRegisterToken;
 import com.mh.systems.sandylodge.web.models.registertoken.RegisterTokenAPI;
 import com.mh.systems.sandylodge.web.models.registertoken.RegisterTokenResult;

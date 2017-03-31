@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.ui.fragments.EligibleFriendsFragment;
 import com.mh.systems.sandylodge.ui.fragments.EligibleMemberFragment;
 import com.mh.systems.sandylodge.web.api.WebAPI;

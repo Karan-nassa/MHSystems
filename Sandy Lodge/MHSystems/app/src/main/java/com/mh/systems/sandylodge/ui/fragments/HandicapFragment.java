@@ -32,7 +32,6 @@ import com.mh.systems.sandylodge.ui.activites.BaseActivity;
 import com.mh.systems.sandylodge.ui.activites.HCapHistoryActivity;
 import com.mh.systems.sandylodge.ui.activites.ShowCertificateWebview;
 import com.mh.systems.sandylodge.ui.activites.YourAccountActivity;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.AJsonParamsHandicap;
 import com.mh.systems.sandylodge.web.models.HCapRecords;

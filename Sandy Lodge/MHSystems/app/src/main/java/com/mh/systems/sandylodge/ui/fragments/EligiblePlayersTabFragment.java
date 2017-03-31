@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.adapter.TabsAdapter.TabsPageAdapter;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 
 /**
  * {@Link EligiblePlayersTabFragment} provides {@link MembersFragment} and {@link FriendsFragment}

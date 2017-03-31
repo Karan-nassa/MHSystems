@@ -26,7 +26,6 @@ import com.mh.systems.sandylodge.ui.fragments.FriendsFragment;
 import com.mh.systems.sandylodge.ui.fragments.MembersFragment;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.AJsonParamsAddMember;
 import com.mh.systems.sandylodge.web.models.AddMemberAPI;

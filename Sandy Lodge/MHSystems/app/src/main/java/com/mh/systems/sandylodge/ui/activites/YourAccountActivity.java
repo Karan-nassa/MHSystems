@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mh.systems.sandylodge.R;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.ui.fragments.FinanceFragment;
 import com.mh.systems.sandylodge.ui.fragments.MyAccountTabFragment;
 

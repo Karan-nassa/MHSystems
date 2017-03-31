@@ -15,7 +15,6 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.mh.systems.sandylodge.R;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 
 import butterknife.Bind;

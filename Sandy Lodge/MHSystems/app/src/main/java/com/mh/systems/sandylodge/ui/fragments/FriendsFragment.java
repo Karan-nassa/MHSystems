@@ -21,7 +21,6 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.activites.MemberDetailActivity;
 import com.mh.systems.sandylodge.ui.activites.MembersActivity;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.AJsonParamsFriends;
 import com.mh.systems.sandylodge.web.models.FriendsAPI;

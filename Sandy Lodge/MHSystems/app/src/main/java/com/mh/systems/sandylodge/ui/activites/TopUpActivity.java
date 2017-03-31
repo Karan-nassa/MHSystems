@@ -28,7 +28,6 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.adapter.RecyclerAdapter.TopUpPriceListRecyclerAdapter;
-import com.mh.systems.sandylodge.utils.constants.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.topup.TopUpPriceListResponse;
 import com.mh.systems.sandylodge.web.models.topup.TopUpPricesListAPI;
 import com.mh.systems.sandylodge.web.models.topup.TopupList;
