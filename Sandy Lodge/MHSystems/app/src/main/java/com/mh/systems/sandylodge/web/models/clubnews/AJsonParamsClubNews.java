@@ -1,5 +1,5 @@
 
-package com.mh.systems.sandylodge.models.ClubNews;
+package com.mh.systems.sandylodge.web.models.clubnews;
 
 
 import com.google.gson.annotations.Expose;
