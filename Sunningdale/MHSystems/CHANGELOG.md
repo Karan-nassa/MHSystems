@@ -2,6 +2,10 @@
 
    ####21st March, 2017
    - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
+   
+   ####31st March, 2017
+   - UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
+   - FIXED: hCap value not showing on dashboard.
  
 ##Version  1.6.0 (20th March, 2017)
 
