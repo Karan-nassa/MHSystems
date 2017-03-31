@@ -10,13 +10,11 @@ public class AJsonParamsClubNews {
     @SerializedName("LoginMemberId")
     @Expose
     private String LoginMemberId;
-
     /**
      * No args constructor for use in serialization
      * 
      */
-    public AJsonParamsClubNews() {
-    }
+    public AJsonParamsClubNews() {}
 
     /**
      * 
