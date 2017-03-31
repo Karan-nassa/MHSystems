@@ -34,10 +34,14 @@
 
   ####22nd March, 2017
    - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
-   - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor.
+   - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.york.fragments.MyAccountTabFragment> has no zero argument constructor.
  
   ####28th March, 2017
   - NEW: Integrate Competitions and Association purse api on Finance tab.
+
+  ####31st March, 2017
+  - UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
+  - FIXED: hCap value not showing on dashboard.
 
 ##Version 1.1.0 (2016-12-02)
 

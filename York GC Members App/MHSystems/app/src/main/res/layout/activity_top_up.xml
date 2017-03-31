@@ -43,7 +43,7 @@
                     android:layout_marginRight="16dp"
                     android:orientation="horizontal">
 
-                    <com.mh.systems.york.customfonts.RobotoTextView
+                    <com.mh.systems.york.ui.customfonts.RobotoTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
@@ -104,7 +104,7 @@
 
             <!-- CARD BALANCE INFO -->
 
-            <com.mh.systems.york.customfonts.RobotoTextView
+            <com.mh.systems.york.ui.customfonts.RobotoTextView
                 android:id="@+id/tvYourBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
