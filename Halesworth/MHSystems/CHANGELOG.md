@@ -33,6 +33,11 @@
     - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
     - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor.
     
+    ####31st March, 2017
+    - UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
+    - NEW: Integrate Cards Top Ups feature.
+    - FIXED: hCap value not showing on dashboard.
+    
 ##Version 1.1.0 (2016-12-02)
 
 - New: Weather feature added.

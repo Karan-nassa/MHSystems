@@ -1,4 +1,4 @@
-package com.mh.systems.sandylodge.util.libAlphaIndexing.async_task_thread_pool;
+package com.mh.systems.sandylodge.utils.libAlphaIndexing.async_task_thread_pool;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;

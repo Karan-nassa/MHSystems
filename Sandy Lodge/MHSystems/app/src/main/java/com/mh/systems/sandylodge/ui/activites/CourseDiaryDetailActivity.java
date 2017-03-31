@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.sandylodge.R;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 

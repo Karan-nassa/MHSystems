@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.mh.systems.sandylodge.R;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 
 public class CourseDiaryWebviewActivity extends BaseActivity {
 

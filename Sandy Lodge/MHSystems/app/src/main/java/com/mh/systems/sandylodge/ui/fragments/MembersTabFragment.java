@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.activites.MembersActivity;
 import com.mh.systems.sandylodge.ui.adapter.TabsAdapter.TabsPageAdapter;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 
 /**
  * {@Link MembersTabFragment} provides {@link MembersFragment} and {@link FriendsFragment}

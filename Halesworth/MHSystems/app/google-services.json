@@ -1,12 +1,12 @@
 {
   "project_info": {
-    "project_number": "227458152088",
-    "project_id": "halesworth-golf-club"
+    "project_number": "505018842271",
+    "project_id": "mhs-golf-153711"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:227458152088:android:7cb6bad8861613d8",
+        "mobilesdk_app_id": "1:505018842271:android:714845c7c685667c",
         "android_client_info": {
           "package_name": "com.mh.systems.halesworth"
         }
@@ -14,7 +14,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB5QN0ccZc_tfrnJkvXdYcF180vlF9F5Ag"
+          "current_key": "AIzaSyCHx_ro5uAJyRBE8UxttZQTDp9IwJhCalw"
         }
       ],
       "services": {

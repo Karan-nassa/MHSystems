@@ -1,4 +1,4 @@
-package com.mh.systems.sandylodge.constants;
+package com.mh.systems.sandylodge.utils;
 
 /**
  * Created by karan@ucreate.co.in to use

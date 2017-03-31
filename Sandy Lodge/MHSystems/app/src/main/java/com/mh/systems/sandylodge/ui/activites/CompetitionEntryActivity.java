@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.adapter.BaseAdapter.CompTimeGridAdapter;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.competitionsentry.AJsonParamsUpdateEntry;
 import com.mh.systems.sandylodge.web.models.competitionsentry.EligibleMember;
@@ -675,8 +676,7 @@ public class CompetitionEntryActivity extends BaseActivity {
     /**
      * Implements this method to Remove Member from ArrayList.
      *
-     * @param iMemberID
-     * @param tag
+     * @param strMemberName
      */
     private void removeMemberFromList(String strMemberName) {
 

@@ -2,7 +2,6 @@ package com.mh.systems.sandylodge.web.models.forecast;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.mh.systems.sandylodge.web.models.weather.WeatherData;
 
 /**
  * Created by Karan Nassa on 09-11-2016.

@@ -1,5 +1,5 @@
 
-package com.mh.systems.sandylodge.util;
+package com.mh.systems.sandylodge.utils;
 
 import android.content.Context;
 import android.widget.TextView;
@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.mh.systems.sandylodge.models.HCapRecords;
+import com.mh.systems.sandylodge.web.models.HCapRecords;
 
 import java.util.List;
 

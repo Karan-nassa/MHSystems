@@ -34,7 +34,7 @@
 
             <!-- CIRCLE IMAGE AS A BACKGROUND -->
 
-            <com.mh.systems.sandylodge.util.libAlphaIndexing.CircularContactView
+            <com.mh.systems.sandylodge.utils.libAlphaIndexing.CircularContactView
                 android:id="@+id/listview_item__friendPhotoImageView"
                 android:layout_width="@dimen/list_item__contact_imageview_size"
                 android:layout_height="@dimen/list_item__contact_imageview_size"

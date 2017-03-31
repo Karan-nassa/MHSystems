@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mh.systems.sandylodge.util.libAlphaIndexing.async_task_thread_pool;
+package com.mh.systems.sandylodge.utils.libAlphaIndexing.async_task_thread_pool;
 
 import android.os.Handler;
 import android.os.Message;

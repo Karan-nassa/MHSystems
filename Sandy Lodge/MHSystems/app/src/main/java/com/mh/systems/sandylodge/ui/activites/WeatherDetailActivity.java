@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.adapter.RecyclerAdapter.ForecastRecyclerAdapter;
 import com.mh.systems.sandylodge.ui.adapter.RecyclerAdapter.WeatherMainRecyclerAdapter;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.forecast.ForecastApiResponse;
 import com.mh.systems.sandylodge.web.models.forecast.ListOfDay;

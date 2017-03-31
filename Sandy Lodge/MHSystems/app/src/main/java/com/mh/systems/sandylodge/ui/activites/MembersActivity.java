@@ -21,6 +21,7 @@ import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.fragments.FriendsFragment;
 import com.mh.systems.sandylodge.ui.fragments.MembersFragment;
 import com.mh.systems.sandylodge.ui.fragments.MembersTabFragment;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

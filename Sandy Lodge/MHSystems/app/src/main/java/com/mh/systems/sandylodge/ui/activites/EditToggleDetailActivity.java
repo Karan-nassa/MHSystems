@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.AJsonParamsMembersDatail;
 import com.mh.systems.sandylodge.web.models.MembersDetailAPI;

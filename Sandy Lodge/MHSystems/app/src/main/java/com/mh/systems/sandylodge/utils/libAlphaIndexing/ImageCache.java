@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mh.systems.sandylodge.util.libAlphaIndexing;
+package com.mh.systems.sandylodge.utils.libAlphaIndexing;
 
 import android.graphics.Bitmap;
 import android.os.Build;

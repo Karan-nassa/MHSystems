@@ -20,6 +20,7 @@ import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.fragments.EligibleFriendsFragment;
 import com.mh.systems.sandylodge.ui.fragments.EligibleMemberFragment;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.ui.fragments.EligiblePlayersTabFragment;
 import com.mh.systems.sandylodge.ui.fragments.MembersTabFragment;

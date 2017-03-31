@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.coursenames.CourseNamesData;
 import com.mh.systems.sandylodge.ui.adapter.BaseAdapter.CourseDiaryAdapter;
 import com.newrelic.com.google.gson.reflect.TypeToken;

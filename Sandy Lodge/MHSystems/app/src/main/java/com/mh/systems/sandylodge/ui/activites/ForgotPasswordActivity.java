@@ -18,6 +18,7 @@ import android.widget.EditText;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.forgotpassword.AJsonParamsForgotPassword;
 import com.mh.systems.sandylodge.web.models.forgotpassword.ForgotPasswordAPI;
 import com.mh.systems.sandylodge.web.models.forgotpassword.ForgotPasswordResponse;

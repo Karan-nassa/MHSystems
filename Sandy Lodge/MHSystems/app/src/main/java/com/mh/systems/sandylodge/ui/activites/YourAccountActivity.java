@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.fragments.FinanceFragment;
 import com.mh.systems.sandylodge.ui.fragments.MyAccountTabFragment;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

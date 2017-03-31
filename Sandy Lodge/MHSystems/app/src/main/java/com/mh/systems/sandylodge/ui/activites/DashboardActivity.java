@@ -25,6 +25,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.deletetoken.AJsonParamsDeleteToken;
 import com.mh.systems.sandylodge.web.models.deletetoken.DeleteTokenAPI;
 import com.mh.systems.sandylodge.web.models.deletetoken.DeleteTokenResult;
@@ -136,7 +137,7 @@ public class DashboardActivity extends BaseActivity {
      *******************************/
     ArrayList<DashboardItems> dashboardItemsArrayList = new ArrayList<>();
 
-    int iHandicapPosition = -1;
+    int iHandicapPosition = 0;
     String strNameOfWeatherLoc = "";
 
     @Override
@@ -231,7 +232,7 @@ public class DashboardActivity extends BaseActivity {
         //getUnreadNewsCountService();
 
         dashboardItemsArrayList.clear();
-        iHandicapPosition = -1;
+        iHandicapPosition = 0;
 
         //Add Handicap.
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false)) {

@@ -1,4 +1,4 @@
-package com.mh.systems.sandylodge.util;
+package com.mh.systems.sandylodge.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;

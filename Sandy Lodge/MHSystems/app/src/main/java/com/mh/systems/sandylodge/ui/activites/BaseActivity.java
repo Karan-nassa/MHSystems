@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.coursenames.CourseNamesData;
 import com.mh.systems.sandylodge.web.models.MembersDetailsData;
 import com.mh.systems.sandylodge.web.models.MembersData;

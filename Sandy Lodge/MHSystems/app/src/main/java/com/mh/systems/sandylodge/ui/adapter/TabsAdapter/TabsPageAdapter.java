@@ -21,6 +21,7 @@ import com.mh.systems.sandylodge.ui.fragments.HandicapFragment;
 import com.mh.systems.sandylodge.ui.fragments.MembersFragment;
 import com.mh.systems.sandylodge.ui.fragments.MyDetailsFragment;
 import com.mh.systems.sandylodge.ui.fragments.NoInternetFragment;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 
 
 /**

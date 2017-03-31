@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.ui.activites.BaseActivity;
 import com.mh.systems.sandylodge.ui.activites.MembersActivity;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.activites.MemberDetailActivity;

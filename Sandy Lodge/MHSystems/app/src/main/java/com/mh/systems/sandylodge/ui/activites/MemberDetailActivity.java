@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.ui.fragments.FriendsFragment;
 import com.mh.systems.sandylodge.ui.fragments.MembersFragment;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.web.api.WebAPI;

@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.updatepassword.AJsonParamsUpdatePassword;
 import com.mh.systems.sandylodge.web.models.updatepassword.UpdatePassswordAPI;
 import com.mh.systems.sandylodge.web.models.updatepassword.UpdatePasswordResponse;

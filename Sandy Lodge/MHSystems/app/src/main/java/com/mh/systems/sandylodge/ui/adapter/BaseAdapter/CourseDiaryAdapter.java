@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.activites.CustomAlertDialogActivity;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.CourseDiaryData;
 
 import java.util.ArrayList;

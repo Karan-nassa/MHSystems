@@ -27,6 +27,7 @@ import com.google.android.gms.iid.InstanceID;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.registertoken.AJsonParamsRegisterToken;
 import com.mh.systems.sandylodge.web.models.registertoken.RegisterTokenAPI;
 import com.mh.systems.sandylodge.web.models.registertoken.RegisterTokenResult;
@@ -90,7 +91,6 @@ public class RegistrationIntentService extends IntentService {
      * Modify this method to associate the user's GCM registration token with any server-side account
      * maintained by your application.
      *
-     * @param token : The new token.
      */
     private void sendRegistrationToServer() {
         // Add custom implementation, as needed.

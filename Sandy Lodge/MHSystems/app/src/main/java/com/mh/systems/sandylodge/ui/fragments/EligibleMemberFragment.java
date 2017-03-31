@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.activites.EligiblePlayersActivity;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.models.competitionsentry.AJsonParamsEligiblePlayers;
 import com.mh.systems.sandylodge.web.models.competitionsentry.CompEligiblePlayersAPI;
 import com.mh.systems.sandylodge.web.models.competitionsentry.CompEligiblePlayersResponse;

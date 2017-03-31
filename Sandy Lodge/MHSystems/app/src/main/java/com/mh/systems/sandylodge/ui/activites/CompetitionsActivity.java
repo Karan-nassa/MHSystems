@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.R;
 import com.mh.systems.sandylodge.ui.adapter.BaseAdapter.CompetitionsAdapter;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.mh.systems.sandylodge.web.api.WebAPI;
 import com.mh.systems.sandylodge.web.models.CompetitionsAPI;
 import com.mh.systems.sandylodge.web.models.CompetitionsData;

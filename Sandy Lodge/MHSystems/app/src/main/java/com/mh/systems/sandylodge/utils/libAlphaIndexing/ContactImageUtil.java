@@ -1,4 +1,4 @@
-package com.mh.systems.sandylodge.util.libAlphaIndexing;
+package com.mh.systems.sandylodge.utils.libAlphaIndexing;
 
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
