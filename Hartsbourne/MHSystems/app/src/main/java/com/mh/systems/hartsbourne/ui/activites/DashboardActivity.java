@@ -137,7 +137,7 @@ public class DashboardActivity extends BaseActivity {
      *******************************/
     ArrayList<DashboardItems> dashboardItemsArrayList = new ArrayList<>();
 
-    int iHandicapPosition = -1;
+    int iHandicapPosition = 0;
     String strNameOfWeatherLoc = "";
 
 
@@ -334,7 +334,7 @@ public class DashboardActivity extends BaseActivity {
         //getUnreadNewsCountService();
 
         dashboardItemsArrayList.clear();
-        iHandicapPosition = -1;
+        iHandicapPosition = 0;
 
         //Add Handicap.
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false)) {
