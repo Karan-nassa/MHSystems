@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "227458152088",
+    "project_id": "brokenhurst-golf-club"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227458152088:android:7cb6bad8861613d8",
+        "android_client_info": {
+          "package_name": "com.mh.systems.brokenhurst"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5QN0ccZc_tfrnJkvXdYcF180vlF9F5Ag"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
