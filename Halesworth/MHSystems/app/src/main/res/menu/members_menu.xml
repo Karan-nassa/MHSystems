@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/item_all"
+        android:title="All" />
+
+    <item
+        android:id="@+id/item_ladies"
+        android:title="Ladies" />
+
+    <item
+        android:id="@+id/item_gents"
+        android:title="Mens" />
+
+</menu>
