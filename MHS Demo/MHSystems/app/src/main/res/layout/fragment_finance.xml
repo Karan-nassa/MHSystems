@@ -34,7 +34,7 @@
 
                     <!-- EXACT LABEL OF CARD BALANCE -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         android:id="@+id/tvLabelCardBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
 
                     <!-- EXACT LABEL VALUE OF CARD BALANCE -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvCardBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
 
                     <!-- LABEL OF CURRENT INVOICE -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         android:id="@+id/tvLabelYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
 
                     <!-- LABEL VALUE OF CURRENT INVOICE -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
 
                     <!-- TYPE LABEL -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.4"

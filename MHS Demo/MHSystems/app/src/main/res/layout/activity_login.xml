@@ -42,7 +42,7 @@
 
                 <!-- PLEASE LOGIN TEXT -->
 
-                <com.mh.systems.demoapp.customfonts.RobotoMediumTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
 
                     android:name="com.mh.systems.demoapp.customfonts.RobotoMediumTextView"
                     android:id="@+id/tvLoginTitle"
@@ -116,7 +116,7 @@
 
                     <!-- FORGOT PASSWORD -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
 
                         android:id="@+id/tvForgotPWD"
                         android:layout_width="wrap_content"
