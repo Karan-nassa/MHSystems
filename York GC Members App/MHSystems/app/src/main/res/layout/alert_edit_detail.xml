@@ -13,7 +13,7 @@
 
         <!-- TITLE OF ALERT -->
 
-        <com.mh.systems.york.customfonts.RobotoMediumTextView
+        <com.mh.systems.york.ui.customfonts.RobotoMediumTextView
             android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
 
         <!-- MESSAGE OF ALERT -->
 
-        <com.mh.systems.york.customfonts.RobotoTextView
+        <com.mh.systems.york.ui.customfonts.RobotoTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -48,7 +48,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="30" />
 
-            <com.mh.systems.york.customfonts.RobotoMediumTextView
+            <com.mh.systems.york.ui.customfonts.RobotoMediumTextView
                 android:id="@+id/tvCancel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -59,7 +59,7 @@
                 android:text="CANCEL"
                 android:textColor="@color/color009688" />
 
-            <com.mh.systems.york.customfonts.RobotoMediumTextView
+            <com.mh.systems.york.ui.customfonts.RobotoMediumTextView
                 android:id="@+id/tvSaveNow"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

@@ -26,12 +26,16 @@
      - NEW: Display VERSION NAME in the Settings screen at bottom.
 	 - UPDATE: Change the FSI Top up price list and Make Payment url from testing to production.
 
-    ####16th March, 2017
+   ####16th March, 2017
     - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.
 
    ####22nd March, 2017
    - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
    - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor.
+ 
+   ####31st March, 2017
+   - UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
+   - FIXED: hCap value not showing on dashboard.
  
 ##Version 1.1.0 (2016-12-02)
 
