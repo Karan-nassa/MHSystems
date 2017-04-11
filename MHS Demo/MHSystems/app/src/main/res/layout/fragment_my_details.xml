@@ -26,13 +26,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:text="@string/title_text_personal_details" />
 
                 <!-- NAME OF PERSON -->
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     android:id="@+id/tvNameOfPerson"
                     style="@style/MyDetailValues" />
 
@@ -46,13 +46,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:text="@string/title_text_membership_type" />
 
                 <!-- TYPE OF MEMBER -->
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     android:id="@+id/tvTypeOfPerson"
                     style="@style/MyDetailValues" />
 
@@ -71,13 +71,13 @@
                     android:layout_gravity="left"
                     android:orientation="vertical">
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:text="@string/title_text_contact" />
 
                     <!-- PHONE CONTACT OF MEMBER -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         android:id="@+id/tvMobileContactOfPerson"
                         style="@style/MyDetailValues" />
 
@@ -85,7 +85,7 @@
 
                 <!-- CONTACT VISIBILITY STATUS -->
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     android:id="@+id/tvMobileVisibilty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -111,13 +111,13 @@
                     android:layout_gravity="left"
                     android:orientation="vertical">
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:text="@string/title_text_work" />
 
                     <!-- WORK PHONE CONTACT OF MEMBER -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         android:id="@+id/tvWorkContactOfPerson"
                         style="@style/MyDetailValues" />
 
@@ -125,7 +125,7 @@
 
                 <!-- CONTACT VISIBILITY STATUS -->
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     android:id="@+id/tvWorkVisibilty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -150,13 +150,13 @@
                     android:layout_gravity="left"
                     android:orientation="vertical">
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:text="@string/title_text_home" />
 
                     <!-- HOME CONTACT OF MEMBER -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         android:id="@+id/tvHomeContactOfPerson"
                         style="@style/MyDetailValues" />
 
@@ -164,7 +164,7 @@
 
                 <!-- CONTACT VISIBILITY STATUS -->
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     android:id="@+id/tvHomeVisibilty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -188,13 +188,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:text="@string/title_text_email" />
 
                     <!-- EMAIL OF MEMBER -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         android:id="@+id/tvEmailOfPerson"
                         style="@style/MyDetailValues" />
 
@@ -202,7 +202,7 @@
 
                 <!-- EMAIL VISIBILITY STATUS -->
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     android:id="@+id/tvEmailVisibilty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -227,13 +227,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:text="@string/title_text_address" />
 
                     <!-- ADDRESS OF MEMBER -->
 
-                    <com.mh.systems.demoapp.customfonts.RobotoTextView
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                         android:id="@+id/tvStreetOfPerson"
                         style="@style/MyDetailValues"
                         android:layout_width="match_parent"
@@ -243,7 +243,7 @@
 
                 <!-- ADDRESS VISIBILITY STATUS -->
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     android:id="@+id/tvAddressVisibilty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -264,13 +264,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     style="@style/MyDetailHeading"
                     android:text="@string/title_text_username" />
 
                 <!-- USERNAME OF MEMBER -->
 
-                <com.mh.systems.demoapp.customfonts.RobotoTextView
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                     android:id="@+id/tvUsernameOfPerson"
                     style="@style/MyDetailValues" />
 
