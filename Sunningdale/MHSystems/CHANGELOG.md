@@ -6,20 +6,23 @@
    ####31st March, 2017
    - UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
    - FIXED: hCap value not showing on dashboard.
+   
+   ####11th April 2017
+   - FIXED: Set Top up amount followed by 2 fraction values.
  
 ##Version  1.6.0 (20th March, 2017)
 
-- Update changes in Version 1.6.0 are as below:
+  - Update changes in Version 1.6.0 are as below:
 
     #####17th Feb, 2017
      - UPDATE: Change 'FSI' payment gateway from STAGING to PRODUCTION server.
 
     #####20th Feb, 2017
-     - NEW: Deploy FSI Top ups gateway integration.
+    - NEW: Deploy FSI Top ups gateway integration.
      
     ####3rd March, 2017
-     - UPDATE: Get extra deduction amount from key 'TopupTxFeeStr' in ToUpActivity along with pricing list. Also display deduction amount before make payment if exists.
-     - NEW: Display VERSION NAME in the Settings screen at bottom.
+    - UPDATE: Get extra deduction amount from key 'TopupTxFeeStr' in ToUpActivity along with pricing list. Also display deduction amount before make payment if exists.
+    - NEW: Display VERSION NAME in the Settings screen at bottom.
 
     ####16th March, 2017
      - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.

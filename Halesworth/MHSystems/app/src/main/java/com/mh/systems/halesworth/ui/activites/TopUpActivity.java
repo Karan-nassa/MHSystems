@@ -1,5 +1,6 @@
 package com.mh.systems.halesworth.ui.activites;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -486,7 +487,7 @@ public class TopUpActivity extends BaseActivity {
     private void updatePriceDecsription() {
         tvYourBalance.setText((getString(R.string.text_title_your_balance)
                 + " " + tvCurrencySign.getText().toString()
-                + (fCardBalance + fTopUpPrize) + ""));
+                + decimalFormat.format((fCardBalance + fTopUpPrize)) + ""));
     }
 
     /**

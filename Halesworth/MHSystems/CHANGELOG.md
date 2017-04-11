@@ -38,6 +38,9 @@
     - NEW: Integrate Cards Top Ups feature.
     - FIXED: hCap value not showing on dashboard.
     
+    ####11th April 2017
+    - Fixed: Set Top up amount followed by 2 fraction values.
+    
 ##Version 1.1.0 (2016-12-02)
 
 - New: Weather feature added.

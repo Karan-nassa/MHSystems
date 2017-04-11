@@ -5,6 +5,8 @@
  ####20th March, 2017
  - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
  
+
+ 
 ####Version 1.0 (2017-03-17)
 
    Initially release.

@@ -507,6 +507,6 @@ public class TopUpActivity extends BaseActivity {
     private void updatePriceDecsription() {
         tvYourBalance.setText((getString(R.string.text_title_your_balance)
                 + " " + tvCurrencySign.getText().toString()
-                + (fCardBalance + fTopUpPrize) + ""));
+                + decimalFormat.format((fCardBalance + fTopUpPrize)) + ""));
     }
 }

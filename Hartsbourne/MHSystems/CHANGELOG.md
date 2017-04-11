@@ -12,7 +12,10 @@
   ####31st March, 2017
   - UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
   - FIXED: hCap value not showing on dashboard.
-
+ 
+  ####11th April 2017
+  - FIXED: Set Top up amount followed by 2 fraction values.
+ 
 ##Version  1.5.0 (2017-03-08)
 
 - Fixed all changes in this version 1.5
