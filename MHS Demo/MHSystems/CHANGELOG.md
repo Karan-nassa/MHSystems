@@ -5,7 +5,8 @@
  ####20th March, 2017
  - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
  
-
+ ####11th April 2017
+ - Fixed: Set Top up amount followed by 2 fraction values.
  
 ####Version 1.0 (2017-03-17)
 
