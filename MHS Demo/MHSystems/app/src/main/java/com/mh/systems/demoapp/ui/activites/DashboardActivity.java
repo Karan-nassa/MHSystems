@@ -348,7 +348,7 @@ public class DashboardActivity extends BaseActivity {
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_handicap_chart,
                     "Your Handicap",
-                    getApplicationContext().getPackageName() + ".activites.YourAccountActivity"));
+                    getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
         }
 
         //Add Course Diary.
@@ -357,7 +357,7 @@ public class DashboardActivity extends BaseActivity {
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_home_diary,
                     "Course Diary",
-                    getApplicationContext().getPackageName() + ".activites.CourseDiaryActivity"));
+                    getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryActivity"));
         }
 
         //Add Competitions
@@ -366,7 +366,7 @@ public class DashboardActivity extends BaseActivity {
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_home_competitions,
                     "Competitions",
-                    getApplicationContext().getPackageName() + ".activites.CompetitionsActivity"));
+                    getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
         }
 
         //Add Members
@@ -374,7 +374,7 @@ public class DashboardActivity extends BaseActivity {
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_home_members,
                     "Members",
-                    getApplicationContext().getPackageName() + ".activites.MembersActivity"));
+                    getApplicationContext().getPackageName() + ".ui.activites.MembersActivity"));
         }
 
         //Add Club News
@@ -382,7 +382,7 @@ public class DashboardActivity extends BaseActivity {
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_home_clubnews,
                     "Club News",
-                    getApplicationContext().getPackageName() + ".activites.ClubNewsActivity"));
+                    getApplicationContext().getPackageName() + ".ui.activites.ClubNewsActivity"));
         }
 
         //Add Finance/Your Details
@@ -390,7 +390,7 @@ public class DashboardActivity extends BaseActivity {
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_my_account,
                     "Your Account",
-                    getApplicationContext().getPackageName() + ".activites.YourAccountActivity"));
+                    getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
         }
 
         //Set Grid options adapter.
