@@ -73,6 +73,7 @@ public class MyAccountTabFragment extends Fragment {
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.colorC0995B));
 
         viewPager = (ViewPager) viewRootFragment.findViewById(R.id.pager);
+        viewPager.setOffscreenPageLimit(2);
 
         //  Log.e("COUNT:",""+tabLayout.getTabCount());
         pageAdapter = new TabsPageAdapter

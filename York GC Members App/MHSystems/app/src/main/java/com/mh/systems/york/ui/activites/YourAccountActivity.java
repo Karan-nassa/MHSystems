@@ -14,9 +14,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mh.systems.york.R;
+import com.mh.systems.york.ui.fragments.HandicapFragment;
 import com.mh.systems.york.utils.constants.ApplicationGlobal;
 import com.mh.systems.york.ui.fragments.FinanceFragment;
 import com.mh.systems.york.ui.fragments.MyAccountTabFragment;
+
+
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,10 +51,11 @@ public class YourAccountActivity extends BaseActivity {
     Toolbar tbMyAccount;
 
     Fragment fragmentObj;
+    FinanceFragment financeFragmentInstance;
 
     Typeface tfRobotoMedium;
 
-     /* ++ INTERNET CONNECTION PARAMETERS ++ */
+    /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
     @Bind(R.id.inc_message_view)
     RelativeLayout inc_message_view;
@@ -154,54 +158,50 @@ public class YourAccountActivity extends BaseActivity {
 
                     iOpenTabPosition = iTabPosition;
 
+                    if(item.getItemId() !=  R.id.item_edit_mode && item.getItemId() != R.id.item_toggle_mode
+                            && fragmentObj instanceof FinanceFragment){
+                        financeFragmentInstance = (FinanceFragment) getSupportFragmentManager().findFragmentById(R.id.pager);
+                    }
+
                     if (isOnline(YourAccountActivity.this)) {
                         switch (item.getItemId()) {
                             case R.id.item_today:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(0);
-                                }
+                                financeFragmentInstance.updateFilterControl(0);
+//                                if (getFragmentInstance() instanceof FinanceFragment) {
+//                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(0);
+//                                }
                                 break;
 
                             case R.id.item_a_week:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(1);
-                                }
+                                financeFragmentInstance.updateFilterControl(1);
+//                                if (getFragmentInstance() instanceof FinanceFragment) {
+//                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(1);
+//                                 }
                                 break;
 
                             case R.id.item_one_month:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(2);
-                                }
+                                financeFragmentInstance.updateFilterControl(2);
                                 break;
 
                             case R.id.item_three_months:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(3);
-                                }
+                                financeFragmentInstance.updateFilterControl(3);
                                 break;
 
                             case R.id.item_six_months:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(4);
-                                }
+                                financeFragmentInstance.updateFilterControl(4);
                                 break;
 
                             case R.id.item_a_year:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(5);
-                                }
+                                financeFragmentInstance.updateFilterControl(5);
                                 break;
 
                             case R.id.item_from_start:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(6);
-                                }
+                                financeFragmentInstance.updateFilterControl(6);
                                 break;
 
                             case R.id.item_toggle_mode:
                                 intent = new Intent(YourAccountActivity.this, EditToggleDetailActivity.class);
                                 startActivity(intent);
-
                                 break;
 
                             case R.id.item_edit_mode:

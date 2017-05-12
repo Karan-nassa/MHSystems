@@ -42,6 +42,10 @@
   ####31st March, 2017
   - UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
   - FIXED: hCap value not showing on dashboard.
+  
+  ####1st May 2017
+  - Fixed: Finance tab 'Your Invoices' and 'General Balance' was half missing.
+  - Fixed: Logo 'ic_home_golfclub' Club logo has been cropped, missing the top of the hat and sceptre and sword..
 
 ##Version 1.1.0 (2016-12-02)
 

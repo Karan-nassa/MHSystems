@@ -1,6 +1,7 @@
 package com.mh.systems.york.ui.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -108,6 +109,7 @@ public class FinanceFragment extends Fragment {
     AJsonParamsPurseApi aJsonParamsPurseApi;
 
     private PurseBalanceResponse mPurseBalanceResponse;
+    private Context mContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -142,9 +144,16 @@ public class FinanceFragment extends Fragment {
 
         if (isVisibleToUser && ((YourAccountActivity)getActivity()).getiBalanceType() == 0) {
             callFinanceWebService();
-            ((YourAccountActivity) getActivity()).updateFilterIcon(0);
-            ((YourAccountActivity) getActivity()).setiOpenTabPosition(2);
+            ((YourAccountActivity) mContext).updateFilterIcon(0);
+            ((YourAccountActivity) mContext).setiOpenTabPosition(2);
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        mContext = context;
     }
 
     /**
@@ -159,10 +168,10 @@ public class FinanceFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            intent = new Intent(getActivity(), FinanceDetailWebActivity.class);
+            intent = new Intent(mContext, FinanceDetailWebActivity.class);
             intent.putExtra("IsTopup", transactionListDataArrayList.get(position).getIsTopup());
             intent.putExtra("iTransactionId", transactionListDataArrayList.get(position).getTransactionId());
-            intent.putExtra("strMemberId", ((YourAccountActivity) getActivity()).getMemberId());
+            intent.putExtra("strMemberId", ((YourAccountActivity) mContext).getMemberId());
             intent.putExtra("titleOfScreen", transactionListDataArrayList.get(position).getTitle());
             startActivity(intent);
         }
@@ -173,7 +182,7 @@ public class FinanceFragment extends Fragment {
         public void onClick(View v) {
 
             if (financeResultItems != null) {
-                intent = new Intent(getActivity(), TopUpActivity.class);
+                intent = new Intent(mContext, TopUpActivity.class);
                 intent.putExtra("strClosingBalance", strClosingBalance);
                 startActivity(intent);
             }
@@ -186,7 +195,7 @@ public class FinanceFragment extends Fragment {
 
             financeMenuItem = item;
 
-            if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+            if (((BaseActivity) mContext).isOnline(mContext)) {
                 requestPurseApiService();
             }
 
@@ -200,7 +209,7 @@ public class FinanceFragment extends Fragment {
      */
     private void initPurseCategory() {
 
-        popupMenu = new PopupMenu(getActivity(), vwPopMenu);
+        popupMenu = new PopupMenu(mContext, vwPopMenu);
         popupMenu.inflate(R.menu.menu_finance_purse);
 
         //Initially display title at 0 index.
@@ -240,7 +249,7 @@ public class FinanceFragment extends Fragment {
         /**
          *  Check internet connection before hitting server request.
          */
-        if (((BaseActivity) getActivity()).isOnline(getActivity())) {
+        if (((BaseActivity) mContext).isOnline(mContext)) {
             requestFinanceService();
         }
     }
@@ -251,14 +260,14 @@ public class FinanceFragment extends Fragment {
      */
     private void requestFinanceService() {
 
-        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+        ((BaseActivity) mContext).showPleaseWait("Loading...");
 
         myAccountJsonParams = new FinanceAJsonParams();
         myAccountJsonParams.setCallid(ApplicationGlobal.TAG_NEW_GCLUB_CALL_ID);
         myAccountJsonParams.setDateRange(iFilterType);
-        myAccountJsonParams.setMemberId(((YourAccountActivity) getActivity()).getMemberId());
+        myAccountJsonParams.setMemberId(((YourAccountActivity) mContext).getMemberId());
 
-        financeAPI = new FinanceAPI((((YourAccountActivity) getActivity()).getClientId()), "GetAccStatement", myAccountJsonParams, "TRANSACTION", ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        financeAPI = new FinanceAPI((((YourAccountActivity) mContext).getClientId()), "GetAccStatement", myAccountJsonParams, "TRANSACTION", ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -280,7 +289,7 @@ public class FinanceFragment extends Fragment {
             public void failure(RetrofitError error) {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
-                ((BaseActivity) getActivity()).hideProgress();
+                ((BaseActivity) mContext).hideProgress();
             }
         });
     }
@@ -309,7 +318,7 @@ public class FinanceFragment extends Fragment {
                 transactionListDataArrayList.addAll(financeResultItems.getData().getTransactionList());
 
                 if (transactionListDataArrayList.size() == 0) {
-                    ((BaseActivity) getActivity()).showAlertMessage("No Transaction Found.");
+                    ((BaseActivity) mContext).showAlertMessage("No Transaction Found.");
                 }
 
                 financeAdapter.notifyDataSetChanged();
@@ -321,15 +330,15 @@ public class FinanceFragment extends Fragment {
 
             } else {
                 //If web service not respond in any case.
-                ((BaseActivity) getActivity()).showAlertMessage(financeResultItems.getMessage());
+                ((BaseActivity) mContext).showAlertMessage(financeResultItems.getMessage());
             }
         } catch (Exception e) {
-            Log.e(LOG_TAG, "" + e.getMessage());
+            Log.e(LOG_TAG, "Exception : " + e.getMessage());
             e.printStackTrace();
         }
 
         //Dismiss progress dialog.
-        ((BaseActivity) getActivity()).hideProgress();
+        ((BaseActivity) mContext).hideProgress();
     }
 
     /**
@@ -372,8 +381,8 @@ public class FinanceFragment extends Fragment {
      * Implements a method to set Font style.
      */
     private void setFontTypeface() {
-        tpRobotoRegular = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Regular.ttf");
-        tpRobotoMedium = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Medium.ttf");
+        tpRobotoRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Regular.ttf");
+        tpRobotoMedium = Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Medium.ttf");
 
         tvLabelCardBalance.setTypeface(tpRobotoRegular);
         tvLabelYourInvoice.setTypeface(tpRobotoRegular);
@@ -387,14 +396,14 @@ public class FinanceFragment extends Fragment {
 
     private void requestPurseApiService() {
 
-        ((BaseActivity) getActivity()).showPleaseWait("Loading...");
+        ((BaseActivity) mContext).showPleaseWait("Loading...");
 
         aJsonParamsPurseApi = new AJsonParamsPurseApi();
         aJsonParamsPurseApi.setCallid(ApplicationGlobal.TAG_NEW_GCLUB_CALL_ID);
         aJsonParamsPurseApi.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsPurseApi.setMemberId(((YourAccountActivity) getActivity()).getMemberId());
+        aJsonParamsPurseApi.setMemberId(((YourAccountActivity) mContext).getMemberId());
 
-        purseBalanceApi = new PurseBalanceApi((((YourAccountActivity) getActivity()).getClientId()), "GetMemberPurseBalances", aJsonParamsPurseApi, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        purseBalanceApi = new PurseBalanceApi((((YourAccountActivity) mContext).getClientId()), "GetMemberPurseBalances", aJsonParamsPurseApi, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -416,7 +425,7 @@ public class FinanceFragment extends Fragment {
             public void failure(RetrofitError error) {
                 //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
-                ((BaseActivity) getActivity()).hideProgress();
+                ((BaseActivity) mContext).hideProgress();
             }
         });
     }
@@ -436,7 +445,7 @@ public class FinanceFragment extends Fragment {
             updatePurseType(financeMenuItem);
         }
 
-        ((BaseActivity) getActivity()).hideProgress();
+        ((BaseActivity) mContext).hideProgress();
     }
 
     private String getPurseBalance(int iCrnID) {
@@ -455,19 +464,19 @@ public class FinanceFragment extends Fragment {
 
         switch (menuItemInstance.getItemId()) {
             case R.id.item_general:
-                ((YourAccountActivity)getActivity()).setiBalanceType(0);
+                ((YourAccountActivity)mContext).setiBalanceType(0);
                 tvCardBalance.setText(getPurseBalance(0));
                 CollapsePurseUI();
                 break;
 
             case R.id.item_Competitions:
-                ((YourAccountActivity)getActivity()).setiBalanceType(1);
+                ((YourAccountActivity)mContext).setiBalanceType(1);
                 ExpandPurseUI();
                 tvCardBalance.setText(getPurseBalance(1));
                 break;
 
             case R.id.item_Associates:
-                ((YourAccountActivity)getActivity()).setiBalanceType(8);
+                ((YourAccountActivity)mContext).setiBalanceType(8);
                 ExpandPurseUI();
                 tvCardBalance.setText(getPurseBalance(8));
                 break;
@@ -487,7 +496,7 @@ public class FinanceFragment extends Fragment {
         llTransactionUI.setVisibility(View.GONE);
 
         //Hide Filter Icon on top right if General not selected.
-        ((YourAccountActivity) getActivity()).updateFilterIcon(View.GONE);
+        ((YourAccountActivity) mContext).updateFilterIcon(View.GONE);
     }
 
     private void CollapsePurseUI() {
@@ -496,7 +505,7 @@ public class FinanceFragment extends Fragment {
         llTransactionUI.setVisibility(View.VISIBLE);
 
         //Show top right filter to choose transactions according to date.
-        ((YourAccountActivity) getActivity()).updateFilterIcon(View.VISIBLE);
+        ((YourAccountActivity) mContext).updateFilterIcon(View.VISIBLE);
     }
 
 
