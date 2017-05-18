@@ -310,7 +310,7 @@ public class ClubNewsDetailActivity extends BaseActivity {
      */
     private void showAlertOk(String strMessage) {
 
-        if (builder == null) {
+        if (builder == null && !isFinishing()) {
             builder = new AlertDialog.Builder(this);
             builder.setMessage(strMessage)
                     .setCancelable(false)

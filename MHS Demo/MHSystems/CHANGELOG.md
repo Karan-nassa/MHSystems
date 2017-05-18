@@ -8,6 +8,10 @@
  ####11th April 2017
  - Fixed: Set Top up amount followed by 2 fraction values.
  
+ ####15th May, 2017
+ - FIXED: android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@5878646 is not valid; is your activity running?
+    
+ 
 ####Version 1.0 (2017-03-17)
 
    Initially release.

@@ -11,6 +11,7 @@
 
     <!-- [START gcm_permission] -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <permission
         android:name="com.mh.systems.hartsbourne.permission.C2D_MESSAGE"

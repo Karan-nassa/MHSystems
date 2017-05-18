@@ -42,6 +42,9 @@
   UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
   FIXED: hCap value not showing on dashboard.
   
+  ####15th May, 2017
+ - FIXED: android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@5878646 is not valid; is your activity running?
+  
 ##Version 1.2.0 (2016-12-26)
 
    New: Contact us feature added.

@@ -14,10 +14,13 @@
     - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
     - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor.
 
-     ####31st March, 2017
-     - UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
-     - FIXED: hCap value not showing on dashboard.
+    ####31st March, 2017
+    - UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
+    - FIXED: hCap value not showing on dashboard.
     
+    ####15th May, 2017
+    - FIXED: android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@5878646 is not valid; is your activity running?
+     
 ##Version 1.5.0 (17th Feb, 2017)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.

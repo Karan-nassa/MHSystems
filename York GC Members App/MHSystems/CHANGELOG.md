@@ -44,9 +44,12 @@
   - FIXED: hCap value not showing on dashboard.
   
   ####1st May 2017
-  - Fixed: Finance tab 'Your Invoices' and 'General Balance' was half missing.
-  - Fixed: Logo 'ic_home_golfclub' Club logo has been cropped, missing the top of the hat and sceptre and sword..
-
+  - FIXED: Finance tab 'Your Invoices' and 'General Balance' was half missing.
+  - FIXED: Logo 'ic_home_golfclub' Club logo has been cropped, missing the top of the hat and sceptre and sword..
+  
+  ####15th May, 2017
+  - FIXED: android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@5878646 is not valid; is your activity running?
+   
 ##Version 1.1.0 (2016-12-02)
 
 - New: Weather feature added

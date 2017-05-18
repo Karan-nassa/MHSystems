@@ -15,6 +15,9 @@
  
   ####11th April 2017
   - FIXED: Set Top up amount followed by 2 fraction values.
+  
+  ####17th May, 2017
+  - UPDATE: Update the App icon and dashboard logo (ic_home_golfclub).
  
 ##Version  1.5.0 (2017-03-08)
 
