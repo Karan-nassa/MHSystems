@@ -18,10 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.corrstown.models.Line;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.corrstown.R;
 import com.mh.systems.corrstown.constants.ApplicationGlobal;
@@ -66,6 +68,7 @@ public class MemberDetailActivity extends BaseActivity {
 
     String strAddressLine, strMemberEmail, strTelNoHome, strTelNoWork, strTelNoMob, strHandCapPlay;
     String strNameOfMember;
+    String strMemberShipType;
     int iMemberID;
 
     /**
@@ -86,6 +89,7 @@ public class MemberDetailActivity extends BaseActivity {
      *******************************/
     FloatingActionButton fabFriendInvitation;
     FrameLayout flEmailGroup, flContactGroup, flAddressGroup, flWorkGroup, flHomeGroup;
+    LinearLayout llMemberShipType;
     TextView tvMemberNameDD, tvMobContact, tvWorkContact, tvHomeContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
     ImageView ivActionMap, ivActionEmail, ivActionCall;
     Toolbar tbMemberDetail;
@@ -233,7 +237,7 @@ public class MemberDetailActivity extends BaseActivity {
                 if (scrollRange + verticalOffset == 0) {
                     collapseMemberDetail.setTitle(strNameOfMember);
                     isShow = true;
-                } else if(isShow) {
+                } else if (isShow) {
                     collapseMemberDetail.setTitle("");
                     isShow = false;
                 }
@@ -281,8 +285,10 @@ public class MemberDetailActivity extends BaseActivity {
         flEmailGroup = (FrameLayout) findViewById(R.id.flEmailGroup);
         flContactGroup = (FrameLayout) findViewById(R.id.flContactGroup);
         flWorkGroup = (FrameLayout) findViewById(R.id.flWorkGroup);
-                flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
+        flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
         flAddressGroup = (FrameLayout) findViewById(R.id.flAddressGroup);
+
+        llMemberShipType = (LinearLayout) findViewById(R.id.llMemberShipType);
 
         fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
 
@@ -368,7 +374,7 @@ public class MemberDetailActivity extends BaseActivity {
         aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
         aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsMembersDatail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsMembersDatail.setMemberid(""+iMemberID);
+        aJsonParamsMembersDatail.setMemberid("" + iMemberID);
         aJsonParamsMembersDatail.setLoginMemberId(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
 
         membersDetailAPI = new MembersDetailAPI(getClientId(), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
@@ -503,6 +509,8 @@ public class MemberDetailActivity extends BaseActivity {
                     strTelNoWork = membersDetailItems.getData().getContactDetails().getTelNoWork();
                     strHandCapPlay = membersDetailItems.getData().getHCapPlayStr();
 
+                    strMemberShipType = membersDetailItems.getData().getMembershipStatus();
+
                     updateIsFriendUI(membersDetailItems.getData().getIsfriend());
 
                     displayMembersData();
@@ -519,7 +527,6 @@ public class MemberDetailActivity extends BaseActivity {
             Log.e(LOG_TAG, "" + e.getMessage());
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -592,7 +599,16 @@ public class MemberDetailActivity extends BaseActivity {
             tvHandicapPlayStr.setText(strHandCapPlay);
         }
 
-        tvHandicapTypeStr.setText(membersDetailItems.getData().getMembershipStatus());
+        /**
+         * Display Membership Type if club allow.
+         */
+        if (strMemberShipType.length() > 0) {
+            llMemberShipType.setVisibility(View.VISIBLE);
+            tvHandicapTypeStr.setText(strMemberShipType);
+        } else {
+            llMemberShipType.setVisibility(View.GONE);
+        }
+
         tvMemberNameDD.setText(strNameOfMember);
         tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
 

@@ -39,6 +39,39 @@
 
     </FrameLayout>
 
+    <!-- FINANCE DISCOUNT -->
+
+    <FrameLayout
+        android:id="@+id/flDiscountGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <!-- DISCOUNT TITLE -->
+
+        <TextView
+            android:id="@+id/tvDiscountTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textColor="@color/colorBlack000000"
+            android:textSize="16sp" />
+
+        <!-- DISCOUNT AMOUNT -->
+
+        <TextView
+            android:id="@+id/tvDiscountAmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textColor="@color/colorBlack000000"
+            android:textSize="16sp" />
+
+    </FrameLayout>
+
     <!-- TIME OF TRANSACTION -->
 
     <TextView

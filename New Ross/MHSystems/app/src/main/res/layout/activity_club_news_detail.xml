@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhiteffffff">
+
+    <!-- DETAIL NEWS VIEW GROUP -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- TOOL BAR WITH BACK ARROW AND DELETE -->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbClubNewsDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49"
+            android:minHeight="?android:attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <!-- CLUB NEWS DETAIL CONTENT -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.mh.systems.newross.ui.customfonts.SFUI_TextFontMedium
+                android:id="@+id/tvTitleOfNews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorC0995B"
+                android:visibility="gone"
+                android:textSize="21sp" />
+
+            <!-- DATE OF NEWS -->
+
+            <TextView
+                android:id="@+id/tvDateOfNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:alpha="0.5"
+                android:visibility="gone"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="15sp" />
+
+            <!-- TIME OF NEWS -->
+
+            <TextView
+                android:id="@+id/tvTimeOfNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:visibility="gone"
+                android:textColor="@color/colorBlack000000"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <!-- CLUB NEWS DETAIL DESCRIPTION -->
+
+        <!-- <TextView
+             android:id="@+id/tvDescOfNews"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:textSize="15dp"
+             android:text="@string/text_club_news_detail"
+             android:textColor="#A8000000" />-->
+
+        <WebView
+            android:id="@+id/wvClubNews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"/>
+
+        <!-- SPACE VIEW AT BOTTOM -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mh.systems.sunningdale.R;
@@ -85,12 +86,24 @@ public class FinanceAdapter extends BaseAdapter {
         viewHolder.tvAmountStr = (TextView) rowView.findViewById(R.id.tvAmountStr);
         viewHolder.tvTimeOfTrans = (TextView) rowView.findViewById(R.id.tvTimeOfTrans);
 
+        viewHolder.tvDiscountTitle = (TextView) rowView.findViewById(R.id.tvDiscountTitle);
+        viewHolder.tvDiscountAmt = (TextView) rowView.findViewById(R.id.tvDiscountAmt);
+
+        viewHolder.flDiscountGroup = (FrameLayout) rowView.findViewById(R.id.flDiscountGroup);
+
         rowView.setTag(viewHolder);
         viewHolder = (View_Holder) rowView.getTag();
 
         //Set Font Style Typeface
         setEventTypeFace(viewHolder);
 
+        if(transactionListDataArrayList.get(position).getDiscountTitle().length()>0){
+            viewHolder.flDiscountGroup.setVisibility(View.VISIBLE);
+            viewHolder.tvDiscountTitle.setText(transactionListDataArrayList.get(position).getDiscountTitle());
+            viewHolder.tvDiscountAmt.setText(transactionListDataArrayList.get(position).getDiscountAmountStr());
+        }else{
+            viewHolder.flDiscountGroup.setVisibility(View.GONE);
+        }
 
         viewHolder.tvTransTitle.setText(transactionListDataArrayList.get(position).getTitle());
         viewHolder.tvTimeOfTrans.setText(transactionListDataArrayList.get(position).getDateStr() +" "+ transactionListDataArrayList.get(position).getTimeStr());
@@ -112,6 +125,8 @@ public class FinanceAdapter extends BaseAdapter {
         viewHolder.tvTransTitle.setTypeface(tfRobotoRegular, Typeface.NORMAL);
         viewHolder.tvAmountStr.setTypeface(tfRobotoRegular, Typeface.NORMAL);
         viewHolder.tvTimeOfTrans.setTypeface(tfRobotoRegular, Typeface.NORMAL);
+        viewHolder.tvDiscountTitle.setTypeface(tfRobotoRegular, Typeface.NORMAL);
+        viewHolder.tvDiscountAmt.setTypeface(tfRobotoRegular, Typeface.NORMAL);
     }
 
     /**
@@ -123,5 +138,7 @@ public class FinanceAdapter extends BaseAdapter {
          * Text Row VIEW INSTANCES DECLARATION
          */
         TextView tvTransTitle, tvAmountStr, tvTimeOfTrans;
+        TextView tvDiscountTitle, tvDiscountAmt;
+        FrameLayout flDiscountGroup;
     }
 }
