@@ -13,6 +13,11 @@
    ####15th May, 2017
    - FIXED: android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@5878646 is not valid; is your activity running?
     
+   ####24th May, 2017
+   - UPDATE: Update the Finance tab UI with 4 columns (date/time, item, amount and balance).
+   - FIXED : Navigate back from finance detail to finance tab, top-right filter icon was not working. Now fixed.
+        
+    
 ##Version  1.6.0 (20th March, 2017)
 
   - Update changes in Version 1.6.0 are as below:
