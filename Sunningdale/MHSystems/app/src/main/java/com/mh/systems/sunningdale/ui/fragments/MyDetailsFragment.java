@@ -31,6 +31,8 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+import static com.mh.systems.sunningdale.ui.activites.YourAccountActivity.isRefreshEnable;
+
 /**
  * The {@link MyDetailsFragment} used to display the detail of LOGIN
  * MEMBER by passing MemberId.
@@ -106,6 +108,8 @@ public class MyDetailsFragment extends Fragment {
 
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
             ((YourAccountActivity) getActivity()).setiOpenTabPosition(0);
+
+            YourAccountActivity.isRefreshEnable = true;
 
             /**
              *  Check internet connection before hitting server request.

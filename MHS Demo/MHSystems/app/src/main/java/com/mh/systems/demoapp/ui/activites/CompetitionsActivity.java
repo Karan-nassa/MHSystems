@@ -489,108 +489,10 @@ public class CompetitionsActivity extends BaseActivity {
     }
 
     /**
-     * Implements a method to update SUCCESS
-     * response of web service.
-     */
-    private void updateSuccessResponse(JsonObject jsonObject) {
-
-        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
-
-        Type type = new TypeToken<CompetitionsResultItems>() {
-        }.getType();
-        competitionsResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
-
-        //Clear array list before inserting items.
-        competitionsDatas.clear();
-        //arrayCourseDataBackup.clear();
-
-        try {
-            /**
-             *  Check "Result" 1 or 0. If 1, means data received successfully.
-             */
-            if (competitionsResultItems.getMessage().equalsIgnoreCase("Success")) {
-
-                competitionsDatas.addAll(competitionsResultItems.getData());
-
-                if (competitionsDatas.size() == 0) {
-                    // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
-                    updateNoCompetitionsUI(false);
-                } else {
-
-                    updateNoCompetitionsUI(true);
-
-                    competitionsAdapter = new CompetitionsAdapter(CompetitionsActivity.this, competitionsDatas, true, iPopItemPos);
-                    lvCompetitions.setAdapter(competitionsAdapter);
-                    competitionsAdapter.notifyDataSetChanged();
-
-                    Log.e(LOG_TAG, "arrayListCourseData : " + competitionsDatas.size());
-                }
-            } else {
-                updateNoCompetitionsUI(false);
-                //If web service not respond in any case.
-                //((BaseActivity) getActivity()).showAlertMessage(competitionsResultItems.getMessage());
-            }
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
-        }
-
-        //Update Month title name.
-        setTitleBar(getMonth(iMonth));
-
-        //Dismiss progress dialog.
-        hideProgress();
-    }
-
-    /**
-     * Implements a method to clear array on
-     * 'NO DATA FOUND' message.
-     */
-    private void resetArrayData() {
-        competitionsDatas.clear();
-        iScrollCount = 0;
-
-        /*if (competitionsAdapter.compititionsDatas.size() > 0) {*/
-        competitionsAdapter.compititionsDatas.clear();
-        competitionsAdapter.notifyDataSetChanged();
-        /*}*/
-    }
-
-    /**
-     * Implements a method to RESET CALENDAR state
-     * or set as initial state.
-     */
-    private void resetCalendarPicker() {
-        strDate = strDateTemp;
-        iMonth = iMonthTemp;
-        iYear = iYearTemp;
-    }
-
-    /**
-     * Implements a method to initialize Competitions category in pop-up menu like <b>My Events</b>, <b>Upcoming</b>, <b>Past</b>
-     * and <b>Completed</b> for Sunningdales golf club.
-     */
-    private void initCompetitionsCategory() {
-
-        /**
-         * Step 1: Create a new instance of popup menu
-         */
-        popupMenu = new PopupMenu(this, tvCompType);
-        /**
-         * Step 2: Inflate the menu resource. Here the menu resource is
-         * defined in the res/menu project folder
-         */
-        popupMenu.inflate(R.menu.competitions_menu);
-
-        //Initially display title at position 0 of R.menu.course_menu.
-        tvCompType.setText("" + popupMenu.getMenu().getItem(0));
-    }
-
-    /**
      * Declares the quick navigation of top bar icons like Previous/Next Month, Today or
      * Calendar navigation to month randomly.
      */
-    private void onClick(View view) {
+    public void onClick(View view) {
 
         if (isOnline(CompetitionsActivity.this)) {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
@@ -694,6 +596,104 @@ public class CompetitionsActivity extends BaseActivity {
         } else {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
         }
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<CompetitionsResultItems>() {
+        }.getType();
+        competitionsResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        //Clear array list before inserting items.
+        competitionsDatas.clear();
+        //arrayCourseDataBackup.clear();
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (competitionsResultItems.getMessage().equalsIgnoreCase("Success")) {
+
+                competitionsDatas.addAll(competitionsResultItems.getData());
+
+                if (competitionsDatas.size() == 0) {
+                    // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                    updateNoCompetitionsUI(false);
+                } else {
+
+                    updateNoCompetitionsUI(true);
+
+                    competitionsAdapter = new CompetitionsAdapter(CompetitionsActivity.this, competitionsDatas, true, iPopItemPos);
+                    lvCompetitions.setAdapter(competitionsAdapter);
+                    competitionsAdapter.notifyDataSetChanged();
+
+                    Log.e(LOG_TAG, "arrayListCourseData : " + competitionsDatas.size());
+                }
+            } else {
+                updateNoCompetitionsUI(false);
+                //If web service not respond in any case.
+                //((BaseActivity) getActivity()).showAlertMessage(competitionsResultItems.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        //Update Month title name.
+        setTitleBar(getMonth(iMonth));
+
+        //Dismiss progress dialog.
+        hideProgress();
+    }
+
+    /**
+     * Implements a method to clear array on
+     * 'NO DATA FOUND' message.
+     */
+    private void resetArrayData() {
+        competitionsDatas.clear();
+        iScrollCount = 0;
+
+        /*if (competitionsAdapter.compititionsDatas.size() > 0) {*/
+        competitionsAdapter.compititionsDatas.clear();
+        competitionsAdapter.notifyDataSetChanged();
+        /*}*/
+    }
+
+    /**
+     * Implements a method to RESET CALENDAR state
+     * or set as initial state.
+     */
+    private void resetCalendarPicker() {
+        strDate = strDateTemp;
+        iMonth = iMonthTemp;
+        iYear = iYearTemp;
+    }
+
+    /**
+     * Implements a method to initialize Competitions category in pop-up menu like <b>My Events</b>, <b>Upcoming</b>, <b>Past</b>
+     * and <b>Completed</b> for Sunningdales golf club.
+     */
+    private void initCompetitionsCategory() {
+
+        /**
+         * Step 1: Create a new instance of popup menu
+         */
+        popupMenu = new PopupMenu(this, tvCompType);
+        /**
+         * Step 2: Inflate the menu resource. Here the menu resource is
+         * defined in the res/menu project folder
+         */
+        popupMenu.inflate(R.menu.competitions_menu);
+
+        //Initially display title at position 0 of R.menu.course_menu.
+        tvCompType.setText("" + popupMenu.getMenu().getItem(0));
     }
 
     /**

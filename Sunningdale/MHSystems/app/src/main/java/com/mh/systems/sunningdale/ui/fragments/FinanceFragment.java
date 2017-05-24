@@ -5,39 +5,45 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.mh.systems.sunningdale.ui.activites.FinanceDetailWebActivity;
-import com.mh.systems.sunningdale.ui.activites.TopUpActivity;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.ui.activites.BaseActivity;
+import com.mh.systems.sunningdale.ui.activites.TopUpActivity;
 import com.mh.systems.sunningdale.ui.activites.YourAccountActivity;
-import com.mh.systems.sunningdale.ui.adapter.BaseAdapter.FinanceAdapter;
+import com.mh.systems.sunningdale.ui.adapter.RecyclerAdapter.FinanceRecycleAdapter;
 import com.mh.systems.sunningdale.utils.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.web.api.WebAPI;
-import com.mh.systems.sunningdale.web.models.TransactionListData;
-import com.mh.systems.sunningdale.web.models.FinanceResultItems;
 import com.mh.systems.sunningdale.web.api.WebServiceMethods;
-import com.mh.systems.sunningdale.web.models.FinanceAPI;
 import com.mh.systems.sunningdale.web.models.FinanceAJsonParams;
+import com.mh.systems.sunningdale.web.models.FinanceAPI;
+import com.mh.systems.sunningdale.web.models.FinanceResultItems;
+import com.mh.systems.sunningdale.web.models.TransactionListData;
+import com.mh.systems.sunningdale.web.models.finance.FinanceFilter;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
+
+import static android.R.id.list;
+import static com.newrelic.agent.android.TaskQueue.size;
 
 /**
  * Created by karan@ucreate.co.in to load and FINANCE
@@ -47,8 +53,8 @@ public class FinanceFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static final String LOG_TAG = FinanceFragment.class.getSimpleName();
-    ArrayList<TransactionListData> transactionListDataArrayList = new ArrayList<>();
+    public final String LOG_TAG = FinanceFragment.class.getSimpleName();
+   // ArrayList<TransactionListData> transactionListDataArrayList = new ArrayList<>();
 
     /*++ Filter type for Today, 1 Week, 1 Month, 3 Months, 6 Months, 1 Year or From Start++*/
     int iFilterType = 2; //By Default 1 month will be selected.
@@ -72,9 +78,9 @@ public class FinanceFragment extends Fragment {
     Typeface tpRobotoMedium, tpRobotoRegular;
 
     //Instance of Transaction listview.
-    ListView lvTransactionList;
+    //ListView lvTransactionList;
 
-    FinanceAdapter financeAdapter;
+    //FinanceAdapter financeAdapter;
 
     //List of type books this list will store type Book which is our data model
     private FinanceAPI financeAPI;
@@ -85,6 +91,11 @@ public class FinanceFragment extends Fragment {
 
     LinearLayout llFinanceGroup;
 
+    ArrayList<FinanceFilter> financeFilterArrayList = new ArrayList<>();
+    List<TransactionListData> TransactionList = new ArrayList<>();
+    RecyclerView rvTransactionList;
+    FinanceRecycleAdapter financeRecycleAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
@@ -93,10 +104,17 @@ public class FinanceFragment extends Fragment {
 
         setFontTypeface();
 
-        financeAdapter = new FinanceAdapter(getActivity(), transactionListDataArrayList);
-        lvTransactionList.setAdapter(financeAdapter);
+//        financeAdapter = new FinanceAdapter(getActivity(), transactionListDataArrayList);
+//        lvTransactionList.setAdapter(financeAdapter);
 
-        lvTransactionList.setOnItemClickListener(mFinanceListListener);
+        financeRecycleAdapter = new FinanceRecycleAdapter(financeFilterArrayList, getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), OrientationHelper.VERTICAL, false);
+
+        rvTransactionList.setLayoutManager(linearLayoutManager);
+        rvTransactionList.setItemAnimator(new DefaultItemAnimator());
+        rvTransactionList.setAdapter(financeRecycleAdapter);
+
+        //lvTransactionList.setOnItemClickListener(mFinanceListListener);
         btTopUp.setOnClickListener(mTopUpListener);
 
         return viewRootFragment;
@@ -109,7 +127,9 @@ public class FinanceFragment extends Fragment {
         if (isVisibleToUser) {
             callFinanceWebService();
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
-            ((YourAccountActivity)getActivity()).setiOpenTabPosition(2);
+            ((YourAccountActivity) getActivity()).setiOpenTabPosition(2);
+
+            YourAccountActivity.isRefreshEnable = false;
         }
     }
 
@@ -122,18 +142,18 @@ public class FinanceFragment extends Fragment {
     }
 
 
-    public AdapterView.OnItemClickListener mFinanceListListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            intent = new Intent(getActivity(), FinanceDetailWebActivity.class);
-            intent.putExtra("IsTopup", transactionListDataArrayList.get(position).getIsTopup());
-            intent.putExtra("iTransactionId", transactionListDataArrayList.get(position).getTransactionId());
-            intent.putExtra("strMemberId", ((YourAccountActivity) getActivity()).getMemberId());
-            intent.putExtra("titleOfScreen", transactionListDataArrayList.get(position).getTitle());
-            startActivity(intent);
-        }
-    };
+//    public AdapterView.OnItemClickListener mFinanceListListener = new AdapterView.OnItemClickListener() {
+//        @Override
+//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//            intent = new Intent(getActivity(), FinanceDetailWebActivity.class);
+//            intent.putExtra("IsTopup", transactionListDataArrayList.get(position).getIsTopup());
+//            intent.putExtra("iTransactionId", transactionListDataArrayList.get(position).getTransactionId());
+//            intent.putExtra("strMemberId", ((YourAccountActivity) getActivity()).getMemberId());
+//            intent.putExtra("titleOfScreen", transactionListDataArrayList.get(position).getTitle());
+//            startActivity(intent);
+//        }
+//    };
 
     public View.OnClickListener mTopUpListener = new View.OnClickListener() {
         @Override
@@ -161,7 +181,7 @@ public class FinanceFragment extends Fragment {
 
         ivFilter = (ImageView) viewRootFragment.findViewById(R.id.ivFilter);
 
-        lvTransactionList = (ListView) viewRootFragment.findViewById(R.id.lvTransactionList);
+        rvTransactionList = (RecyclerView) viewRootFragment.findViewById(R.id.rvTransactionList);
 
         llFinanceGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFinanceGroup);
 
@@ -234,7 +254,9 @@ public class FinanceFragment extends Fragment {
         financeResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         //Clear array list before inserting items.
-        transactionListDataArrayList.clear();
+        //transactionListDataArrayList.clear();
+        financeFilterArrayList.clear();
+        TransactionList.clear();
 
         try {
             /**
@@ -242,13 +264,25 @@ public class FinanceFragment extends Fragment {
              */
             if (financeResultItems.getMessage().equalsIgnoreCase("Success")) {
 
-                transactionListDataArrayList.addAll(financeResultItems.getData().getTransactionList());
+                TransactionList = financeResultItems.getData().getTransactionList();
+                String strLastDate = "";
 
-                if (transactionListDataArrayList.size() == 0) {
+                for (int iCount = 0; iCount < TransactionList.size(); iCount++) {
+
+                    if(!strLastDate.equals(TransactionList.get(iCount).getDateStr())){
+                        financeFilterArrayList.add(new FinanceFilter(FinanceFilter.TYPE_DATE, TransactionList.get(iCount).getDateStr(),null));
+                        strLastDate = TransactionList.get(iCount).getDateStr();
+                    }
+                    financeFilterArrayList.add(new FinanceFilter(FinanceFilter.TYPE_DATA, "", TransactionList.get(iCount)));
+                }
+
+                //transactionListDataArrayList.addAll(financeResultItems.getData().getTransactionList());
+
+                if (financeFilterArrayList.size() == 0) {
                     ((BaseActivity) getActivity()).showAlertMessage("No Transaction Found.");
                 }
 
-                financeAdapter.notifyDataSetChanged();
+                financeRecycleAdapter.notifyDataSetChanged();
 
                 setTransactionListTitle();
 

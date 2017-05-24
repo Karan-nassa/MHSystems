@@ -141,8 +141,8 @@ public class TopUpActivity extends BaseActivity {
         //Get Closing balance.
         strClosingBalance = getIntent().getExtras().getString("strClosingBalance");
         if (strClosingBalance.length() > 0) {
-            tvYourBalance.setText(decimalFormat.format((getString(R.string.text_title_your_balance)
-                    + " " + strClosingBalance)));
+            tvYourBalance.setText((getString(R.string.text_title_your_balance)
+                    + " " + /*decimalFormat.format(*/strClosingBalance/*)*/));
 
             fCardBalance = Float.parseFloat(strClosingBalance.substring(1, strClosingBalance.length()));
         }
