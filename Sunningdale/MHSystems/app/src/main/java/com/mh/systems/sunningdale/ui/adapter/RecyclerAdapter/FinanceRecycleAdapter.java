@@ -71,12 +71,16 @@ public class FinanceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(mContext, FinanceDetailWebActivity.class);
-            intent.putExtra("IsTopup", dataSet.get(getAdapterPosition()).transactionListData.getIsTopup());
-            intent.putExtra("iTransactionId", dataSet.get(getAdapterPosition()).transactionListData.getTransactionId());
-            intent.putExtra("strMemberId", ((YourAccountActivity) mContext).getMemberId());
-            intent.putExtra("titleOfScreen", dataSet.get(getAdapterPosition()).transactionListData.getTitle());
-            mContext.startActivity(intent);
+            if (dataSet.get(getAdapterPosition()).transactionListData.getTransactionId() != 0) {
+                Intent intent = new Intent(mContext, FinanceDetailWebActivity.class);
+                intent.putExtra("IsTopup", dataSet.get(getAdapterPosition()).transactionListData.getIsTopup());
+                intent.putExtra("iTransactionId", dataSet.get(getAdapterPosition()).transactionListData.getTransactionId());
+                intent.putExtra("strMemberId", ((YourAccountActivity) mContext).getMemberId());
+                intent.putExtra("titleOfScreen", dataSet.get(getAdapterPosition()).transactionListData.getTitle());
+                mContext.startActivity(intent);
+            }else{
+                ((YourAccountActivity)mContext).showAlertMessage(mContext.getResources().getString(R.string.error_no_transaction));
+            }
         }
     }
 
@@ -134,22 +138,27 @@ public class FinanceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     break;
                 case FinanceFilter.TYPE_DATA:
                     setRawTypeFace(holder);
+                    RawTypeViewHolder rawViewHolder = (RawTypeViewHolder) holder;
+
+                    rawViewHolder.tvTransTime.setText(object.transactionListData.getTimeStr());
+                    rawViewHolder.tvTransTitle.setText(object.transactionListData.getTitle());
+                    rawViewHolder.tvAmountStr.setText(object.transactionListData.getAmountStr());
+                    rawViewHolder.tvBalanceStr.setText(object.transactionListData.getBalanceStr());
+
                     if (object.transactionListData.getDiscountTitle().length() > 0) {
-                        ((RawTypeViewHolder) holder).llDiscountGroup.setVisibility(View.VISIBLE);
-                        ((RawTypeViewHolder) holder).tvDiscountTitle.setText(object.transactionListData.getDiscountTitle());
-                        ((RawTypeViewHolder) holder).tvDiscountAmtStr.setText(object.transactionListData.getDiscountAmountStr());
+                        rawViewHolder.llDiscountGroup.setVisibility(View.VISIBLE);
+                        rawViewHolder.tvDiscountTime.setText(object.transactionListData.getTimeStr());
+                        rawViewHolder.tvDiscountTitle.setText(object.transactionListData.getDiscountTitle());
+                        rawViewHolder.tvDiscountAmtStr.setText(object.transactionListData.getDiscountAmountStr());
+                        rawViewHolder.tvDiscountBalStr.setText(object.transactionListData.getDiscountAmountStr());
                     } else {
-                        ((RawTypeViewHolder) holder).llDiscountGroup.setVisibility(View.GONE);
+                        rawViewHolder.llDiscountGroup.setVisibility(View.GONE);
                     }
 
-                    ((RawTypeViewHolder) holder).tvTransTime.setText(object.transactionListData.getTimeStr());
-                    ((RawTypeViewHolder) holder).tvTransTitle.setText(object.transactionListData.getTitle());
-                    ((RawTypeViewHolder) holder).tvAmountStr.setText(object.transactionListData.getAmountStr());
-
 //                    if (object.transactionListData.getIsTopup()) {
-//                        ((RawTypeViewHolder) holder).llFinanceView.setBackgroundResource(R.drawable.button_corner_shape_7ed321);
+//                        rawViewHolder.llFinanceView.setBackgroundResource(R.drawable.button_corner_shape_7ed321);
 //                    } else {
-//                        ((RawTypeViewHolder) holder).llFinanceView.setBackgroundResource(R.drawable.button_corner_shape_c41615);
+//                        rawViewHolder.llFinanceView.setBackgroundResource(R.drawable.button_corner_shape_c41615);
 //                    }
                     break;
             }

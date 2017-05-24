@@ -1,9 +1,12 @@
 package com.mh.systems.sunningdale.ui.activites;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,22 +27,24 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
+import com.mh.systems.sunningdale.dataaccess.push.QuickstartPreferences;
+import com.mh.systems.sunningdale.dataaccess.push.RegistrationIntentService;
 import com.mh.systems.sunningdale.ui.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
+import com.mh.systems.sunningdale.utils.SyncMarket;
 import com.mh.systems.sunningdale.utils.constants.ApplicationGlobal;
+import com.mh.systems.sunningdale.web.api.WebAPI;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.mh.systems.sunningdale.web.models.deletetoken.AJsonParamsDeleteToken;
 import com.mh.systems.sunningdale.web.models.deletetoken.DeleteTokenAPI;
 import com.mh.systems.sunningdale.web.models.deletetoken.DeleteTokenResult;
-import com.mh.systems.sunningdale.web.models.unreadnewscount.AJsonParamsGetUnreadCount;
-import com.mh.systems.sunningdale.web.models.unreadnewscount.GetUnreadNewsCountAPI;
-import com.mh.systems.sunningdale.web.models.unreadnewscount.GetUnreadNewsResponse;
 import com.mh.systems.sunningdale.web.models.featuresflag.AJsonParamsFeaturesFlag;
 import com.mh.systems.sunningdale.web.models.featuresflag.FeatureFlagsAPI;
 import com.mh.systems.sunningdale.web.models.featuresflag.FeatureFlagsResponse;
+import com.mh.systems.sunningdale.web.models.unreadnewscount.AJsonParamsGetUnreadCount;
+import com.mh.systems.sunningdale.web.models.unreadnewscount.GetUnreadNewsCountAPI;
+import com.mh.systems.sunningdale.web.models.unreadnewscount.GetUnreadNewsResponse;
 import com.mh.systems.sunningdale.web.models.weather.WeatherApiResponse;
-import com.mh.systems.sunningdale.dataaccess.push.QuickstartPreferences;
-import com.mh.systems.sunningdale.dataaccess.push.RegistrationIntentService;
-import com.mh.systems.sunningdale.web.api.WebAPI;
-import com.mh.systems.sunningdale.web.api.WebServiceMethods;
+
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -151,6 +156,8 @@ public class DashboardActivity extends BaseActivity {
          * automatically cast the corresponding view in your layout.
          */
         ButterKnife.bind(DashboardActivity.this);
+
+        checkUpdateVersion();
 
         //Initialize adapter.
         dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
@@ -287,10 +294,48 @@ public class DashboardActivity extends BaseActivity {
         }
     };
 
+    private void checkUpdateVersion() {
+        SyncMarket.Initialize(this);
+        String version = loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "1.0");
+        if (version.equals("")) {
+            try {
+                version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+                savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            if (!SyncMarket.isVersionEqual(version)) {
+                AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
+                alertDlg.setTitle("Alert");
+                alertDlg.setPositiveButton("Update now", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        SyncMarket.gotoMarket();
+                    }
+                });
+
+                alertDlg.setNegativeButton("Not now", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, SyncMarket.getMarketVersion());
+                        dialog.dismiss();
+                    }
+                });
+
+                alertDlg.setMessage(String.format("A New (" + SyncMarket.getMarketVersion()
+                        + ")  version of Sunningdale Golf Club is now available. Please press “Update Now” to update your current version"));
+                alertDlg.show();
+            }
+        }
+    }
+
     /**
      * Implements this method to send Token to
      * server for push notifications.
      */
+
     private void sendTokenToServer() {
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
