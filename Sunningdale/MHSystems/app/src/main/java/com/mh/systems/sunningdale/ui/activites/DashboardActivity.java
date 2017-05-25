@@ -294,10 +294,14 @@ public class DashboardActivity extends BaseActivity {
         }
     };
 
+    /**
+     * Check if any update version available on
+     * Google Store.
+    */
     private void checkUpdateVersion() {
         SyncMarket.Initialize(this);
         String version = loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "1.0");
-        if (version.equals("")) {
+        if (version.equals("1.0")) {
             try {
                 version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
                 savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);

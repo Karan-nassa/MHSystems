@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +69,7 @@ public class MemberDetailActivity extends BaseActivity {
 
     String strAddressLine, strMemberEmail, strTelNoHome, strTelNoWork, strTelNoMob, strHandCapPlay;
     String strNameOfMember;
+    String strMemberShipType;
     int iMemberID;
 
     /**
@@ -88,6 +90,7 @@ public class MemberDetailActivity extends BaseActivity {
      *******************************/
     FloatingActionButton fabFriendInvitation;
     FrameLayout flEmailGroup, flContactGroup, flAddressGroup, flWorkGroup, flHomeGroup;
+    LinearLayout llMemberShipType;
     TextView tvMemberNameDD, tvMobContact, tvWorkContact, tvHomeContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
     ImageView ivActionMap, ivActionEmail, ivActionCall;
     Toolbar tbMemberDetail;
@@ -285,8 +288,10 @@ public class MemberDetailActivity extends BaseActivity {
         flEmailGroup = (FrameLayout) findViewById(R.id.flEmailGroup);
         flContactGroup = (FrameLayout) findViewById(R.id.flContactGroup);
         flWorkGroup = (FrameLayout) findViewById(R.id.flWorkGroup);
-                flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
+        flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
         flAddressGroup = (FrameLayout) findViewById(R.id.flAddressGroup);
+
+        llMemberShipType = (LinearLayout) findViewById(R.id.llMemberShipType);
 
         fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
 
@@ -507,6 +512,8 @@ public class MemberDetailActivity extends BaseActivity {
                     strTelNoWork = membersDetailItems.getData().getContactDetails().getTelNoWork();
                     strHandCapPlay = membersDetailItems.getData().getHCapPlayStr();
 
+                    strMemberShipType = membersDetailItems.getData().getMembershipStatus();
+
                     updateIsFriendUI(membersDetailItems.getData().getIsfriend());
 
                     displayMembersData();
@@ -583,6 +590,10 @@ public class MemberDetailActivity extends BaseActivity {
      * Implements a method to display data on each view
      * after getting SUCCESS from web service.
      */
+    /**
+     * Implements a method to display data on each view
+     * after getting SUCCESS from web service.
+     */
     private void displayMembersData() {
 
         strNameOfMember = membersDetailItems.getData().getNameRecord().getFullName();
@@ -596,7 +607,16 @@ public class MemberDetailActivity extends BaseActivity {
             tvHandicapPlayStr.setText(strHandCapPlay);
         }
 
-        tvHandicapTypeStr.setText(membersDetailItems.getData().getMembershipStatus());
+        /**
+         * Display Membership Type if club allow.
+         */
+        if (strMemberShipType.length() > 0) {
+            llMemberShipType.setVisibility(View.VISIBLE);
+            tvHandicapTypeStr.setText(strMemberShipType);
+        } else {
+            llMemberShipType.setVisibility(View.GONE);
+        }
+
         tvMemberNameDD.setText(strNameOfMember);
         tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
 

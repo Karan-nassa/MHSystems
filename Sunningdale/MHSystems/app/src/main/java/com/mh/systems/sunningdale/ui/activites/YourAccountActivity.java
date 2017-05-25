@@ -74,7 +74,7 @@ public class YourAccountActivity extends BaseActivity {
     private int iOpenTabPosition;
 
     Intent intent;
-    public static boolean isRefreshEnable = true;
+    public static boolean isRefreshEnable;
 
      /* -- INTERNET CONNECTION PARAMETERS -- */
 
@@ -86,6 +86,8 @@ public class YourAccountActivity extends BaseActivity {
 
         //Initialize view resources.
         ButterKnife.bind(this);
+
+        isRefreshEnable = true;
 
         if (tbMyAccount != null) {
             setSupportActionBar(tbMyAccount);

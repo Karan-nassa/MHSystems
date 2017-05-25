@@ -16,7 +16,8 @@
    ####24th May, 2017
    - UPDATE: Update the Finance tab UI with 4 columns (date/time, item, amount and balance).
    - FIXED : Navigate back from finance detail to finance tab, top-right filter icon was not working. Now fixed.
-   - UPDATE: Add In App Update Notification version alert dialog one time when any update found.         
+   - UPDATE: Add In App Update Notification version alert dialog one time when any update found.
+   - UPDATE: Integrate the feature flag to Membership Type in Members.
            
 ##Version  1.6.0 (20th March, 2017)
 
