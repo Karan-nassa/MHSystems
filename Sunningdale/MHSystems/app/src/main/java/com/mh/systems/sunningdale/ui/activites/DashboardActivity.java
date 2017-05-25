@@ -328,8 +328,8 @@ public class DashboardActivity extends BaseActivity {
                     }
                 });
 
-                alertDlg.setMessage(String.format("A New (" + SyncMarket.getMarketVersion()
-                        + ")  version of Sunningdale Golf Club is now available. Please press “Update Now” to update your current version"));
+                alertDlg.setMessage(String.format("A New version of Sunningdale Golf Club (" + SyncMarket.getMarketVersion()
+                        + ") is now available. Please press “UPDATE NOW” to update your current version"));
                 alertDlg.show();
             }
         }

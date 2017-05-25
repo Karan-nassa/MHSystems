@@ -14,8 +14,8 @@ android {
         applicationId "com.mh.systems.sunningdale"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 10
-        versionName '1.7'
+        versionCode 11
+        versionName '1.8'
         multiDexEnabled true
     }
     //Used for Draw Graph Library

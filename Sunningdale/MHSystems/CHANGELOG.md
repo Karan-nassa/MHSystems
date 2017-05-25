@@ -1,7 +1,7 @@
-####Version 1.7.0 ()
+####Version 1.7.0 (25th May, 2017)
 
    ####21st March, 2017
-   - UPDATE: Display 'NetTotal' instead of 'GetScoreSummary' in Completed Competitions details.
+   - UPDATE: Display 'NettTotal' instead of 'GetScoreSummary' in Completed Competitions details.
    
    ####31st March, 2017
    - UPDATE: Re-ordering the methods (override, private, public) and the packaging structure.
