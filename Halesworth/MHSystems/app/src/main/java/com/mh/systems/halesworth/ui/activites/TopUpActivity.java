@@ -194,7 +194,7 @@ public class TopUpActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         /**
-         * If PAYMENT status SUCCESS then navigate user to {@link com.mh.systems.sunningdale.fragments.FinanceFragment}
+         * If PAYMENT status SUCCESS then navigate user to {@link com.mh.systems.halesworth.fragments.FinanceFragment}
          * Otherwise, retain on this screen.
          */
         if (resultCode == ACTION_MAKE_PAYMENT) {

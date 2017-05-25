@@ -157,7 +157,11 @@ public class DashboardActivity extends BaseActivity {
          */
         ButterKnife.bind(DashboardActivity.this);
 
-        checkUpdateVersion();
+        try {
+            checkUpdateVersion();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
         //Initialize adapter.
         dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
@@ -297,19 +301,19 @@ public class DashboardActivity extends BaseActivity {
     /**
      * Check if any update version available on
      * Google Store.
-    */
-    private void checkUpdateVersion() {
+     */
+    private void checkUpdateVersion() throws PackageManager.NameNotFoundException {
         SyncMarket.Initialize(this);
-        String version = loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "1.0");
-        if (version.equals("1.0")) {
-            try {
-                version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-                savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
+        final String version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+
+        if(SyncMarket.getMarketVersion().equals(version)){
+            savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
+        }
+
+        if (loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "").equals("")) {
+            savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
         } else {
-            if (!SyncMarket.isVersionEqual(version)) {
+            if (!SyncMarket.isVersionEqual(loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "1.0"))) {
                 AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
                 alertDlg.setTitle("Alert");
                 alertDlg.setPositiveButton("Update now", new DialogInterface.OnClickListener() {
@@ -323,12 +327,14 @@ public class DashboardActivity extends BaseActivity {
                 alertDlg.setNegativeButton("Not now", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //Store latest version to {@link SharedPreferences} so that never alert for current update.
                         savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, SyncMarket.getMarketVersion());
                         dialog.dismiss();
                     }
                 });
 
-                alertDlg.setMessage(String.format("A New version of Sunningdale Golf Club (" + SyncMarket.getMarketVersion()
+                alertDlg.setMessage(String.format("A New version of " +
+                        getString(R.string.title_golf_club_name) + " (" + SyncMarket.getMarketVersion()
                         + ") is now available. Please press “UPDATE NOW” to update your current version"));
                 alertDlg.show();
             }

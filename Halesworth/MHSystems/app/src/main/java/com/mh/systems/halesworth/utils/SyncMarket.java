@@ -15,22 +15,27 @@
  * limitations under the License.
  */
 
-package com.mh.systems.sunningdale.utils;
+package com.mh.systems.halesworth.utils;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.mh.systems.halesworth.ui.activites.BaseActivity;
+import com.mh.systems.halesworth.utils.constants.ApplicationGlobal;
+
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 public class SyncMarket {
 

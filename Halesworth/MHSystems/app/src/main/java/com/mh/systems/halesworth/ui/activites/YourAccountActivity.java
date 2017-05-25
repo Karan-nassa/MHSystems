@@ -74,7 +74,7 @@ public class YourAccountActivity extends BaseActivity {
     private int iOpenTabPosition;
 
     Intent intent;
-
+    public static boolean isRefreshEnable;
      /* -- INTERNET CONNECTION PARAMETERS -- */
 
 
@@ -85,6 +85,8 @@ public class YourAccountActivity extends BaseActivity {
 
         //Initialize view resources.
         ButterKnife.bind(this);
+
+        isRefreshEnable = true;
 
         if (tbMyAccount != null) {
             setSupportActionBar(tbMyAccount);
@@ -117,8 +119,9 @@ public class YourAccountActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        updateFragment(new MyAccountTabFragment(getiOpenTabPosition()));
+        if (isRefreshEnable) {
+            updateFragment(new MyAccountTabFragment(getiOpenTabPosition()));
+        }
     }
 
     @Override
