@@ -211,13 +211,12 @@
 
             <!-- USE TO DISPLAY TRANSACTION LIST -->
 
-            <ListView
-                android:id="@+id/lvTransactionList"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvTransactionList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cacheColorHint="@color/colorF9F8F7"
-                android:divider="@color/colorE8E2DD"
-                android:dividerHeight="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:overScrollMode="never" />
 
         </LinearLayout>

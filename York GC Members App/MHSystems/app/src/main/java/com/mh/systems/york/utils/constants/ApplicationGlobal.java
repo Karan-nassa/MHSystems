@@ -112,6 +112,7 @@ public class ApplicationGlobal {
     public static final String KEY_HCAP_PLAY_STR = "HCapPlayStr";
     public static final String KEY_COURSES = "Courses";
     public static final String KEY_FIRST_TIME_LOGIN = "FirstTimeLogin";
+    public static final String KEY_MARKET_VERSION = "maketVersion";
 
     public static final String KEY_COURSE_DIARY_FEATURE = "CourseDiaryFeatures";
     public static final String KEY_COMPETITIONS_FEATURE = "CompetitionsFeature";

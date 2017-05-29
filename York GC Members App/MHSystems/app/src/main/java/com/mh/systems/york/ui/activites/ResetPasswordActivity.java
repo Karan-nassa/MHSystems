@@ -266,7 +266,7 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
             hideProgress();
         } catch (Exception e) {
             hideProgress();
-            Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(ResetPasswordActivity.class.getSimpleName(), e.toString());
         }
     }
 

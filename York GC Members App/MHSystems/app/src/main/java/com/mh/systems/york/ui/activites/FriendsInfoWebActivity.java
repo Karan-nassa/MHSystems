@@ -10,7 +10,7 @@ import com.mh.systems.york.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class FriendsInfoActivity extends BaseActivity {
+public class FriendsInfoWebActivity extends BaseActivity {
 
     @Bind(R.id.tbFriendInfo)
     Toolbar tbFriendInfo;
@@ -23,7 +23,7 @@ public class FriendsInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_info);
 
-        ButterKnife.bind(FriendsInfoActivity.this);
+        ButterKnife.bind(FriendsInfoWebActivity.this);
 
         setSupportActionBar(tbFriendInfo);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

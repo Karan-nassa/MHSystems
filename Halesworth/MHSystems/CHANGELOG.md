@@ -1,4 +1,4 @@
-##Version 1.2.0 (25th May, 2017)
+##Version 1.2.0 (26th May, 2017)
 
 - New: Contact us feature added.
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.

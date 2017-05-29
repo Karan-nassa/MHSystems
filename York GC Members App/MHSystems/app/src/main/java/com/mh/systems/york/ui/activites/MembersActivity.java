@@ -211,7 +211,7 @@ public class MembersActivity extends BaseActivity {
                 return true;
 
             case R.id.action_info:
-                Intent infoIntent  = new Intent(MembersActivity.this, FriendsInfoActivity.class);
+                Intent infoIntent  = new Intent(MembersActivity.this, FriendsInfoWebActivity.class);
                 startActivity(infoIntent);
                 //showAlertInfo();
                 return true;

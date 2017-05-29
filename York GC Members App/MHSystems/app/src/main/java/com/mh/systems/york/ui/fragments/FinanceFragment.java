@@ -6,43 +6,47 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.mh.systems.york.ui.activites.FinanceDetailWebActivity;
-import com.mh.systems.york.ui.activites.TopUpActivity;
 import com.mh.systems.york.R;
 import com.mh.systems.york.ui.activites.BaseActivity;
+import com.mh.systems.york.ui.activites.MembersActivity;
+import com.mh.systems.york.ui.activites.TopUpActivity;
 import com.mh.systems.york.ui.activites.YourAccountActivity;
-import com.mh.systems.york.ui.adapter.BaseAdapter.FinanceAdapter;
+import com.mh.systems.york.ui.adapter.RecyclerAdapter.FinanceRecycleAdapter;
 import com.mh.systems.york.utils.constants.ApplicationGlobal;
+import com.mh.systems.york.web.api.WebAPI;
+import com.mh.systems.york.web.api.WebServiceMethods;
+import com.mh.systems.york.web.models.FinanceAJsonParams;
+import com.mh.systems.york.web.models.FinanceAPI;
+import com.mh.systems.york.web.models.FinanceResultItems;
+import com.mh.systems.york.web.models.TransactionListData;
+import com.mh.systems.york.web.models.finance.FinanceFilter;
 import com.mh.systems.york.web.models.pursebalance.AJsonParamsPurseApi;
 import com.mh.systems.york.web.models.pursebalance.AccountBalance;
 import com.mh.systems.york.web.models.pursebalance.PurseBalanceApi;
 import com.mh.systems.york.web.models.pursebalance.PurseBalanceResponse;
-import com.mh.systems.york.web.api.WebAPI;
-import com.mh.systems.york.web.models.TransactionListData;
-import com.mh.systems.york.web.models.FinanceResultItems;
-import com.mh.systems.york.web.api.WebServiceMethods;
-import com.mh.systems.york.web.models.FinanceAPI;
-import com.mh.systems.york.web.models.FinanceAJsonParams;
 import com.newrelic.com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -84,11 +88,6 @@ public class FinanceFragment extends Fragment {
 
     Typeface tpRobotoMedium, tpRobotoRegular;
 
-    //Instance of Transaction listview.
-    ListView lvTransactionList;
-
-    FinanceAdapter financeAdapter;
-
     //List of type books this list will store type Book which is our data model
     private FinanceAPI financeAPI;
     FinanceAJsonParams myAccountJsonParams;
@@ -111,6 +110,11 @@ public class FinanceFragment extends Fragment {
     private PurseBalanceResponse mPurseBalanceResponse;
     private Context mContext;
 
+    ArrayList<FinanceFilter> financeFilterArrayList = new ArrayList<>();
+    List<TransactionListData> TransactionList = new ArrayList<>();
+    RecyclerView rvTransactionList;
+    FinanceRecycleAdapter financeRecycleAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_finance, container, false);
@@ -121,8 +125,12 @@ public class FinanceFragment extends Fragment {
 
         setFontTypeface();
 
-        financeAdapter = new FinanceAdapter(getActivity(), transactionListDataArrayList);
-        lvTransactionList.setAdapter(financeAdapter);
+        financeRecycleAdapter = new FinanceRecycleAdapter(financeFilterArrayList, getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), OrientationHelper.VERTICAL, false);
+
+        rvTransactionList.setLayoutManager(linearLayoutManager);
+        rvTransactionList.setItemAnimator(new DefaultItemAnimator());
+        rvTransactionList.setAdapter(financeRecycleAdapter);
 
         llPurseType.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +140,6 @@ public class FinanceFragment extends Fragment {
         });
         popupMenu.setOnMenuItemClickListener(mPurseCategoryListener);
 
-        lvTransactionList.setOnItemClickListener(mFinanceListListener);
         btTopUp.setOnClickListener(mTopUpListener);
 
         return viewRootFragment;
@@ -146,6 +153,8 @@ public class FinanceFragment extends Fragment {
             callFinanceWebService();
             ((YourAccountActivity) mContext).updateFilterIcon(0);
             ((YourAccountActivity) mContext).setiOpenTabPosition(2);
+
+            YourAccountActivity.isRefreshEnable = false;
         }
     }
 
@@ -163,19 +172,6 @@ public class FinanceFragment extends Fragment {
         this.iFilterType = iFilterType;
         callFinanceWebService();
     }
-
-    private AdapterView.OnItemClickListener mFinanceListListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            intent = new Intent(mContext, FinanceDetailWebActivity.class);
-            intent.putExtra("IsTopup", transactionListDataArrayList.get(position).getIsTopup());
-            intent.putExtra("iTransactionId", transactionListDataArrayList.get(position).getTransactionId());
-            intent.putExtra("strMemberId", ((YourAccountActivity) mContext).getMemberId());
-            intent.putExtra("titleOfScreen", transactionListDataArrayList.get(position).getTitle());
-            startActivity(intent);
-        }
-    };
 
     private View.OnClickListener mTopUpListener = new View.OnClickListener() {
         @Override
@@ -228,7 +224,7 @@ public class FinanceFragment extends Fragment {
         ivFilter = (ImageView) viewRootFragment.findViewById(R.id.ivFilter);
         vwPopMenu = (View) viewRootFragment.findViewById(R.id.vwPopMenu);
 
-        lvTransactionList = (ListView) viewRootFragment.findViewById(R.id.lvTransactionList);
+        rvTransactionList = (RecyclerView) viewRootFragment.findViewById(R.id.rvTransactionList);
 
         llFinanceGroup = (LinearLayout) viewRootFragment.findViewById(R.id.llFinanceGroup);
         llPurseType = (LinearLayout) viewRootFragment.findViewById(R.id.llPurseType);
@@ -304,10 +300,10 @@ public class FinanceFragment extends Fragment {
 
         Type type = new TypeToken<FinanceResultItems>() {
         }.getType();
-        financeResultItems = new Gson().fromJson(jsonObject.toString(), type);
+        financeResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
-        //Clear array list before inserting items.
-        transactionListDataArrayList.clear();
+        financeFilterArrayList.clear();
+        TransactionList.clear();
 
         try {
             /**
@@ -315,13 +311,23 @@ public class FinanceFragment extends Fragment {
              */
             if (financeResultItems.getMessage().equalsIgnoreCase("Success")) {
 
-                transactionListDataArrayList.addAll(financeResultItems.getData().getTransactionList());
+                TransactionList = financeResultItems.getData().getTransactionList();
+                String strLastDate = "";
 
-                if (transactionListDataArrayList.size() == 0) {
-                    ((BaseActivity) mContext).showAlertMessage("No Transaction Found.");
+                for (int iCount = 0; iCount < TransactionList.size(); iCount++) {
+
+                    if(!strLastDate.equals(TransactionList.get(iCount).getDateStr())){
+                        financeFilterArrayList.add(new FinanceFilter(FinanceFilter.TYPE_DATE, TransactionList.get(iCount).getDateStr(),null));
+                        strLastDate = TransactionList.get(iCount).getDateStr();
+                    }
+                    financeFilterArrayList.add(new FinanceFilter(FinanceFilter.TYPE_DATA, "", TransactionList.get(iCount)));
                 }
 
-                financeAdapter.notifyDataSetChanged();
+                if (financeFilterArrayList.size() == 0) {
+                    ((BaseActivity) getActivity()).showAlertMessage("No Transaction Found.");
+                }
+
+                financeRecycleAdapter.notifyDataSetChanged();
 
                 setTransactionListTitle();
 
@@ -330,15 +336,15 @@ public class FinanceFragment extends Fragment {
 
             } else {
                 //If web service not respond in any case.
-                ((BaseActivity) mContext).showAlertMessage(financeResultItems.getMessage());
+                ((BaseActivity) getActivity()).showAlertMessage(financeResultItems.getMessage());
             }
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Exception : " + e.getMessage());
-            e.printStackTrace();
+            Log.e(LOG_TAG, "" + e.getMessage());
+            ((BaseActivity)getActivity()).reportRollBarException(FinanceFragment.class.getSimpleName(), e.toString());
         }
 
         //Dismiss progress dialog.
-        ((BaseActivity) mContext).hideProgress();
+        ((BaseActivity) getActivity()).hideProgress();
     }
 
     /**

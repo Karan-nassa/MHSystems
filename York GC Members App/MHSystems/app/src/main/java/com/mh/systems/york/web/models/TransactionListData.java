@@ -20,12 +20,19 @@ public class TransactionListData {
     @SerializedName("AmountStr")
     @Expose
     private String AmountStr;
+    @SerializedName("BalanceStr")
+    @Expose
+    private String BalanceStr;
     @SerializedName("DiscountTitle")
     @Expose
     private String DiscountTitle;
     @SerializedName("DiscountAmountStr")
     @Expose
     private String DiscountAmountStr;
+    @SerializedName("DiscountBalanceStr")
+    @Expose
+
+    private String DiscountBalanceStr;
     @SerializedName("DateStr")
     @Expose
     private String DateStr;
@@ -198,4 +205,39 @@ public class TransactionListData {
         this.TransactionId = TransactionId;
     }
 
+    /**
+     *
+     * @return
+     *     The BalanceStr
+     */
+    public String getBalanceStr() {
+        return BalanceStr;
+    }
+
+    /**
+     *
+     * @param BalanceStr
+     *     The BalanceStr
+     */
+    public void setBalanceStr(String balanceStr) {
+        BalanceStr = balanceStr;
+    }
+
+    /**
+     *
+     * @return
+     *     The DiscountBalanceStr
+     */
+    public String getDiscountBalanceStr() {
+        return DiscountBalanceStr;
+    }
+
+    /**
+     *
+     * @param DiscountBalanceStr
+     *     The DiscountBalanceStr
+     */
+    public void setDiscountBalanceStr(String discountBalanceStr) {
+        DiscountBalanceStr = discountBalanceStr;
+    }
 }

@@ -14,7 +14,7 @@ android {
         applicationId "com.mh.systems.sunningdale"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 11
+        versionCode 12
         versionName '1.8'
         multiDexEnabled true
     }

@@ -20,6 +20,7 @@ import com.mh.systems.york.web.models.LoginItems;
 import com.mh.systems.york.web.api.WebServiceMethods;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
+import com.rollbar.android.Rollbar;
 
 import java.lang.reflect.Type;
 
@@ -267,7 +268,7 @@ public class LoginActivity extends BaseActivity {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(LoginActivity.class.getSimpleName(), e.toString());
         }
 
         //Dismiss progress dialog.

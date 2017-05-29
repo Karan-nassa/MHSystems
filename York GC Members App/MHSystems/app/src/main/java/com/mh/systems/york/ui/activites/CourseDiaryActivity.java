@@ -698,7 +698,7 @@ public class CourseDiaryActivity extends BaseActivity {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(CourseDiaryActivity.class.getSimpleName(), e.toString());
         }
 
         //Dismiss progress dialog.

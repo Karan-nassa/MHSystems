@@ -36,6 +36,9 @@ import com.rollbar.android.Rollbar;
 import com.mh.systems.york.R;
 import com.mh.systems.york.utils.constants.ApplicationGlobal;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -168,9 +171,9 @@ public class BaseActivity extends AppCompatActivity {
         } else {
             inc_message_view.setVisibility(View.VISIBLE);
             ivMessageSymbol.setImageResource(R.mipmap.ic_home_members);
-            if(iTabPositon==0) {
+            if (iTabPositon == 0) {
                 tvMessageTitle.setText(getResources().getString(R.string.error_no_member));
-            }else{
+            } else {
                 tvMessageTitle.setText(getResources().getString(R.string.error_no_friend));
             }
             tvMessageDesc.setText(getResources().getString(R.string.error_try_again));
@@ -439,6 +442,20 @@ public class BaseActivity extends AppCompatActivity {
 
         //If permission is not granted returning false
         return false;
+    }
+
+    /**
+     * To report exception on Roll-bar with user
+     * information.
+     *
+     * @param strNameOfScreen : Name of the Activity/Fragment.
+     * @param strException    : Cause of Exception.
+     */
+    public void reportRollBarException(String strNameOfScreen, String strException) {
+        Rollbar.setPersonData(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "N/A"),
+                loadPreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, "N/A"),
+                null);
+        Rollbar.reportMessage(strNameOfScreen, strException);
     }
 
 }

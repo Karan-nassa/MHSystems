@@ -18,8 +18,8 @@ android {
         applicationId "com.mh.systems.york"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 2
-        versionName '1.1'
+        versionCode 3
+        versionName '1.2'
         multiDexEnabled true
     }
     //Used for Draw Graph Library
@@ -68,4 +68,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
     testCompile 'junit:junit:4.12'
+    compile 'org.jsoup:jsoup:1.10.2'
 }

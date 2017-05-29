@@ -1,3 +1,7 @@
+####Version 1.8.0 (26th May, 2017)
+   - FIXED: Fixed the In app update notification logic issue.
+   - FIXED: Finance tab 'DiscountAmountBalance' showing wrong value.
+   
 ####Version 1.7.0 (25th May, 2017)
 
    ####21st March, 2017

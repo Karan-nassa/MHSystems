@@ -1,4 +1,4 @@
-package com.mh.systems.halesworth.ui.adapter.RecyclerAdapter;
+package com.mh.systems.york.ui.adapter.RecyclerAdapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,10 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mh.systems.halesworth.R;
-import com.mh.systems.halesworth.ui.activites.FinanceDetailWebActivity;
-import com.mh.systems.halesworth.ui.activites.YourAccountActivity;
-import com.mh.systems.halesworth.web.models.finance.FinanceFilter;
+import com.mh.systems.york.R;
+import com.mh.systems.york.ui.activites.FinanceDetailWebActivity;
+import com.mh.systems.york.ui.activites.YourAccountActivity;
+import com.mh.systems.york.web.models.finance.FinanceFilter;
 
 import java.util.ArrayList;
 

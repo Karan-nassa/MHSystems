@@ -150,7 +150,7 @@ public class FinanceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         rawViewHolder.tvDiscountTime.setText(object.transactionListData.getTimeStr());
                         rawViewHolder.tvDiscountTitle.setText(object.transactionListData.getDiscountTitle());
                         rawViewHolder.tvDiscountAmtStr.setText(object.transactionListData.getDiscountAmountStr());
-                        rawViewHolder.tvDiscountBalStr.setText(object.transactionListData.getDiscountAmountStr());
+                        rawViewHolder.tvDiscountBalStr.setText(object.transactionListData.getDiscountBalanceStr());
                     } else {
                         rawViewHolder.llDiscountGroup.setVisibility(View.GONE);
                     }

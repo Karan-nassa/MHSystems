@@ -1,9 +1,12 @@
 package com.mh.systems.york.ui.activites;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,6 +28,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.york.R;
 import com.mh.systems.york.ui.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
+import com.mh.systems.york.utils.SyncMarket;
 import com.mh.systems.york.utils.constants.ApplicationGlobal;
 import com.mh.systems.york.web.models.deletetoken.AJsonParamsDeleteToken;
 import com.mh.systems.york.web.models.deletetoken.DeleteTokenAPI;
@@ -150,6 +154,12 @@ public class DashboardActivity extends BaseActivity {
          * automatically cast the corresponding view in your layout.
          */
         ButterKnife.bind(DashboardActivity.this);
+
+        try {
+            checkUpdateVersion();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
         //Initialize adapter.
         dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
@@ -355,6 +365,49 @@ public class DashboardActivity extends BaseActivity {
          */
         public void setStrTitleOfGrid(String strTitleOfGrid) {
             this.strTitleOfGrid = strTitleOfGrid;
+        }
+    }
+
+    /**
+     * Check if any update version available on
+     * Google Store.
+     */
+    private void checkUpdateVersion() throws PackageManager.NameNotFoundException {
+        SyncMarket.Initialize(this);
+        final String version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+
+        if(SyncMarket.getMarketVersion().equals(version)){
+            savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
+        }
+
+        if (loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "").equals("")) {
+            savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
+        } else {
+            if (!SyncMarket.isVersionEqual(loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "1.0"))) {
+                AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
+                alertDlg.setTitle("Alert");
+                alertDlg.setPositiveButton("Update now", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        SyncMarket.gotoMarket();
+                    }
+                });
+
+                alertDlg.setNegativeButton("Not now", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Store latest version to {@link SharedPreferences} so that never alert for current update.
+                        savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, SyncMarket.getMarketVersion());
+                        dialog.dismiss();
+                    }
+                });
+
+                alertDlg.setMessage(String.format("A New version of " +
+                        getString(R.string.title_golf_club_name) + " (" + SyncMarket.getMarketVersion()
+                        + ") is now available. Please press “UPDATE NOW” to update your current version"));
+                alertDlg.show();
+            }
         }
     }
 
@@ -626,7 +679,7 @@ public class DashboardActivity extends BaseActivity {
             hideProgress();
         } catch (Exception e) {
             hideProgress();
-            Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
         }
     }
 
@@ -712,7 +765,7 @@ public class DashboardActivity extends BaseActivity {
                 showAlertMessage("" + getUnreadNewsResponse.getMessage());
             }
         } catch (Exception e) {
-            Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
         }
     }
 
@@ -792,7 +845,7 @@ public class DashboardActivity extends BaseActivity {
             hideProgress();
         } catch (Exception e) {
             hideProgress();
-            Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
         }
     }
 

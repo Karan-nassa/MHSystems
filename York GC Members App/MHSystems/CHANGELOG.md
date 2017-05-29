@@ -1,4 +1,4 @@
-##Version 1.2.0 ()
+##Version 1.2.0 (29th May, 2017)
 
 - New: Contact us feature added
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'
@@ -49,6 +49,13 @@
   
   ####15th May, 2017
   - FIXED: android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@5878646 is not valid; is your activity running?
+   
+  ####25th May, 2017
+  - UPDATE: Update the Finance tab UI with 4 columns (date/time, item, amount and balance).
+  - FIXED : Navigate back from finance detail to finance tab, top-right filter icon was not working. Now fixed.
+  - UPDATE: Add In App Update Notification version alert dialog one time when any update found.
+  - UPDATE: Integrate the feature flag to Membership Type in Members.
+  - ADDED : Integrate User profile data to send people section of Roll bar.
    
 ##Version 1.1.0 (2016-12-02)
 

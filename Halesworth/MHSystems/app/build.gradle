@@ -18,7 +18,7 @@ android {
         applicationId "com.mh.systems.halesworth"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 4
+        versionCode 5
         versionName '1.2'
         multiDexEnabled true
     }

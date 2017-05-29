@@ -17,7 +17,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="com.mh.systems.halesworth.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.mh.systems.york.permission.C2D_MESSAGE" />
 
     <!-- [END gcm_permission] -->
     <application
@@ -204,7 +204,7 @@
         <!-- FRIENDS INFO -->
 
         <activity
-            android:name=".ui.activites.FriendsInfoActivity"
+            android:name=".ui.activites.FriendsInfoWebActivity"
             android:screenOrientation="portrait" />
 
         <!-- START OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->

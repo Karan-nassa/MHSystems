@@ -366,8 +366,9 @@ public class CompetitionEntryActivity extends BaseActivity {
                         svPlayerContent.fullScroll(View.FOCUS_UP);
                     }
                 });
-            } catch (Exception exp) {
-                Log.e(LOG_TAG, "Exception " + exp.toString());
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Exception " + e.toString());
+                reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
             }
         } else {
             llTimeSlotsGroup.setVisibility(View.GONE);
@@ -654,7 +655,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
     }
