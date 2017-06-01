@@ -48,6 +48,9 @@ public class FeaturesFlagData {
     @SerializedName("WebCamera2")
     @Expose
     private String WebCamera2;
+    @SerializedName("ProAgendaFeature")
+    @Expose
+    private boolean ProAgendaFeature;
 
     public Integer getClientId() {
         return clientId;
@@ -159,6 +162,14 @@ public class FeaturesFlagData {
 
     public void setWebCamera1(String webCamera1) {
         WebCamera1 = webCamera1;
+    }
+
+    public boolean getProAgendaFeature() {
+        return ProAgendaFeature;
+    }
+
+    public void setProAgendaFeature(boolean proAgendaFeature) {
+        ProAgendaFeature = proAgendaFeature;
     }
 
 }

@@ -149,27 +149,6 @@ public class WeatherDetailActivity extends BaseActivity{
         return super.onOptionsItemSelected(item);
     }
 
-
-    /**
-     * Implements a method to RETURN the complete date from
-     * specific date format.
-     *
-     * @param strDate : Example => "yyyy-MM-dd HH:mm:ss"
-     * @return strDate  : EEEE, dd MMMM
-     */
-    public static String getFormateDate(String strDate) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, dd MMMM");
-
-        try {
-            Date date = inputFormat.parse(strDate);
-            strDate = outputFormat.format(date);
-        } catch (ParseException exp) {
-            exp.printStackTrace();
-        }
-        return strDate;
-    }
-
     /**
      * Implements a method to RETURN the name of DAY from
      * specific date format.
@@ -208,6 +187,27 @@ public class WeatherDetailActivity extends BaseActivity{
             exp.printStackTrace();
         }
         return strTime;
+    }
+
+    /**
+     * Implements a method to RETURN the complete date from
+     * specific date format.
+     *
+     * @param strDate : Example => "yyyy-MM-dd HH:mm:ss"
+     * @return strDate  : EEEE, dd MMMM
+     */
+    public String getFormateDate(String strDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, dd MMMM");
+
+        try {
+            Date date = inputFormat.parse(strDate);
+            strDate = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            reportRollBarException(WeatherDetailActivity.class.getSimpleName(), e.toString());
+        }
+        return strDate;
     }
 
     /**

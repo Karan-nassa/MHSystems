@@ -13,7 +13,6 @@
 
 
         <!-- NO INTERNET CONNECTION IMAGE -->
-
         <ImageView
             android:id="@+id/ivMessageSymbol"
             android:layout_width="wrap_content"
@@ -22,7 +21,7 @@
 
         <!-- INTERNET CONNECTION TITLE -->
 
-        <com.mh.systems.redlibbets.customfonts.RobotoTextFontBold
+        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextFontBold
             android:id="@+id/tvMessageTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +34,7 @@
 
         <!-- TRY AGAIN TITLE-->
 
-        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
             android:id="@+id/tvMessageDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

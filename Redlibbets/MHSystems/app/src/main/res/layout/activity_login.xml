@@ -22,7 +22,6 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_home_golfclub" />
 
@@ -43,9 +42,7 @@
 
                 <!-- PLEASE LOGIN TEXT -->
 
-                <com.mh.systems.redlibbets.customfonts.RobotoMediumTextView
-
-                    android:name="com.mh.systems.redlibbets.customfonts.RobotoMediumTextView"
+                <com.mh.systems.redlibbets.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvLoginTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,8 +114,7 @@
 
                     <!-- FORGOT PASSWORD -->
 
-                    <com.mh.systems.redlibbets.customfonts.RobotoTextView
-
+                    <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                         android:id="@+id/tvForgotPWD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

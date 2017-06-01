@@ -122,6 +122,7 @@ public class ApplicationGlobal {
     public static final String KEY_MEMBERS_FEATURE = "MembersFeature";
     public static final String KEY_CLUB_NEWS_FEATURE = "ClubNewsFeature";
     public static final String KEY_YOUR_ACCOUNT_FEATURE = "YourAccountFeature";
+    public static final String KEY_PRO_AGENDA_FEATURE = "ProAgendaFeature";
 
     public static String TAG_NEWS_WEBCAM1 = "";
     public static String TAG_NEWS_WEBCAM2 = "";

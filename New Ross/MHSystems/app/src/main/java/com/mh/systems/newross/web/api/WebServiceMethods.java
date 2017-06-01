@@ -23,6 +23,7 @@ import com.mh.systems.newross.web.models.hcaphistory.HCapHistoryAPI;
 import com.mh.systems.newross.web.models.HandicapAPI;
 import com.mh.systems.newross.web.models.MembersAPI;
 import com.mh.systems.newross.web.models.MembersDetailAPI;
+import com.mh.systems.newross.web.models.pursebalance.PurseBalanceApi;
 import com.mh.systems.newross.web.models.resetpassword.ResetPasswordAPI;
 import com.mh.systems.newross.web.models.toggleprivacy.TogglePrivacyAPI;
 import com.mh.systems.newross.web.models.unreadnewscount.GetUnreadNewsCountAPI;
@@ -453,5 +454,13 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getFeaturesFlagOptions(@Body FeatureFlagsAPI featureFlagsAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of Finance Purse API method declaration.
+     * <p/>
+     * TYPE : POST
+     */
+    @POST("/webapi/api/ClubsApp/RpcRequest")
+    public void getFinancePurseBalance(@Body PurseBalanceApi purseBalanceApi, Callback<JsonObject> response);
 }
 

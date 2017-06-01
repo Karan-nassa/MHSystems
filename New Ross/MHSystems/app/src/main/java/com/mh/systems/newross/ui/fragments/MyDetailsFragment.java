@@ -13,17 +13,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.newross.ui.activites.YourAccountActivity;
-import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.newross.R;
 import com.mh.systems.newross.ui.activites.BaseActivity;
+import com.mh.systems.newross.ui.activites.YourAccountActivity;
 import com.mh.systems.newross.utils.constants.ApplicationGlobal;
 import com.mh.systems.newross.web.api.WebAPI;
+import com.mh.systems.newross.web.api.WebServiceMethods;
 import com.mh.systems.newross.web.models.AJsonParamsMembersDatail;
 import com.mh.systems.newross.web.models.MembersDetailAPI;
 import com.mh.systems.newross.web.models.MembersDetailsItems;
-import com.mh.systems.newross.web.api.WebServiceMethods;
+import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
@@ -106,6 +106,11 @@ public class MyDetailsFragment extends Fragment {
 
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
             ((YourAccountActivity) getActivity()).setiOpenTabPosition(0);
+            /* ++++++++++++++++  START OF PURSE API FEATURE ++++++++++++++++ */
+            ((YourAccountActivity) getActivity()).setiBalanceType(0);
+            /* ++++++++++++++++  END OF PURSE API FEATURE ++++++++++++++++ */
+
+            YourAccountActivity.isRefreshEnable = true;
 
             /**
              *  Check internet connection before hitting server request.
@@ -197,7 +202,7 @@ public class MyDetailsFragment extends Fragment {
         } catch (Exception e) {
             ((BaseActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((YourAccountActivity)getActivity()).reportRollBarException(MyDetailsFragment.class.getSimpleName(), e.toString());
             llMyDetailGroup.setVisibility(View.GONE);
         }
     }

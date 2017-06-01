@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="lb.library">
+          package="lb.library">
 
-    <application android:allowBackup="true">
+    <application
+        android:allowBackup="true"
+        >
 
     </application>
 

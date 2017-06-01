@@ -149,7 +149,7 @@ public class FinanceFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser && ((YourAccountActivity)getActivity()).getiBalanceType() == 0) {
+        if (isVisibleToUser && ((YourAccountActivity) getActivity()).getiBalanceType() == 0) {
             callFinanceWebService();
             ((YourAccountActivity) mContext).updateFilterIcon(0);
             ((YourAccountActivity) mContext).setiOpenTabPosition(2);
@@ -316,8 +316,8 @@ public class FinanceFragment extends Fragment {
 
                 for (int iCount = 0; iCount < TransactionList.size(); iCount++) {
 
-                    if(!strLastDate.equals(TransactionList.get(iCount).getDateStr())){
-                        financeFilterArrayList.add(new FinanceFilter(FinanceFilter.TYPE_DATE, TransactionList.get(iCount).getDateStr(),null));
+                    if (!strLastDate.equals(TransactionList.get(iCount).getDateStr())) {
+                        financeFilterArrayList.add(new FinanceFilter(FinanceFilter.TYPE_DATE, TransactionList.get(iCount).getDateStr(), null));
                         strLastDate = TransactionList.get(iCount).getDateStr();
                     }
                     financeFilterArrayList.add(new FinanceFilter(FinanceFilter.TYPE_DATA, "", TransactionList.get(iCount)));
@@ -340,7 +340,7 @@ public class FinanceFragment extends Fragment {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            ((BaseActivity)getActivity()).reportRollBarException(FinanceFragment.class.getSimpleName(), e.toString());
+            ((BaseActivity) getActivity()).reportRollBarException(FinanceFragment.class.getSimpleName(), e.toString());
         }
 
         //Dismiss progress dialog.
@@ -444,7 +444,9 @@ public class FinanceFragment extends Fragment {
         }.getType();
         mPurseBalanceResponse = new Gson().fromJson(jsonObject.toString(), type);
 
-        purseBalanceDatas.addAll(mPurseBalanceResponse.getData().getAccountBalances());
+        if (mPurseBalanceResponse.getData() != null) {
+            purseBalanceDatas.addAll(mPurseBalanceResponse.getData().getAccountBalances());
+        }
 
         if (financeMenuItem != null) {
             tvLabelCardBalance.setText(financeMenuItem.getTitle() + " " + getString(R.string.title_text_balance));
@@ -470,19 +472,19 @@ public class FinanceFragment extends Fragment {
 
         switch (menuItemInstance.getItemId()) {
             case R.id.item_general:
-                ((YourAccountActivity)mContext).setiBalanceType(0);
+                ((YourAccountActivity) mContext).setiBalanceType(0);
                 tvCardBalance.setText(getPurseBalance(0));
                 CollapsePurseUI();
                 break;
 
             case R.id.item_Competitions:
-                ((YourAccountActivity)mContext).setiBalanceType(1);
+                ((YourAccountActivity) mContext).setiBalanceType(1);
                 ExpandPurseUI();
                 tvCardBalance.setText(getPurseBalance(1));
                 break;
 
             case R.id.item_Associates:
-                ((YourAccountActivity)mContext).setiBalanceType(8);
+                ((YourAccountActivity) mContext).setiBalanceType(8);
                 ExpandPurseUI();
                 tvCardBalance.setText(getPurseBalance(8));
                 break;

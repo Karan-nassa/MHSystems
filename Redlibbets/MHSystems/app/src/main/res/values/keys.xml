@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- WEATHER KEY -->
-    <string name="apiKey" translatable="false">"1e9b9ce7fda000bc5e118b4c73da0c41"</string>
-</resources>

@@ -69,7 +69,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (ApplicationGlobal.isRollMessageDisplay) {
-            Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_PRODUCTION, "PRODUCTION");
+            Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_TESTING, "TESTING");
         }
     }
 
@@ -438,5 +438,19 @@ public class BaseActivity extends AppCompatActivity {
 
         //If permission is not granted returning false
         return false;
+    }
+
+    /**
+     * To report exception on Roll-bar with user
+     * information.
+     *
+     * @param strNameOfScreen : Name of the Activity/Fragment.
+     * @param strException    : Cause of Exception.
+     */
+    public void reportRollBarException(String strNameOfScreen, String strException) {
+        Rollbar.setPersonData(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "N/A"),
+                loadPreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, "N/A"),
+                null);
+        Rollbar.reportMessage(strNameOfScreen, strException);
     }
 }

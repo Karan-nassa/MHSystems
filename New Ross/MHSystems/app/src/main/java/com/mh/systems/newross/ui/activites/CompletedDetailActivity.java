@@ -346,7 +346,7 @@ public class CompletedDetailActivity extends BaseActivity {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(CompletedDetailActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
     }

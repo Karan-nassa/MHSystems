@@ -43,6 +43,8 @@ public class MyAccountTabFragment extends Fragment {
      */
     public static boolean IsFriendVisible1, IsFriendVisible2, IsFinanceVisible;
 
+    public  MyAccountTabFragment(){}
+
     @SuppressLint("ValidFragment")
     public MyAccountTabFragment(int iOpenTabPosition) {
         iLastTabPosition = iOpenTabPosition;
@@ -71,6 +73,7 @@ public class MyAccountTabFragment extends Fragment {
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.colorC0995B));
 
         viewPager = (ViewPager) viewRootFragment.findViewById(R.id.pager);
+        viewPager.setOffscreenPageLimit(2);
 
         //  Log.e("COUNT:",""+tabLayout.getTabCount());
         pageAdapter = new TabsPageAdapter
@@ -80,7 +83,7 @@ public class MyAccountTabFragment extends Fragment {
                         isHandicapFeature);
         viewPager.setAdapter(pageAdapter);
 
-        // iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
+       // iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
         ((YourAccountActivity) getActivity()).setWhichTab(iLastTabPosition);
         viewPager.setCurrentItem(iLastTabPosition);
         //iLastTabPosition = 0;
@@ -111,7 +114,7 @@ public class MyAccountTabFragment extends Fragment {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
             /**
-             *  When user direct navigtate to Handicap Graph and tap on My Detail Tab then tab selection
+             *  When user direct navigate to Handicap Graph and tap on My Detail Tab then tab selection
              *  and content not replacing so change and notify pageAdapter here onReselected.
              */
             viewPager.setCurrentItem(tab.getPosition());
@@ -119,8 +122,6 @@ public class MyAccountTabFragment extends Fragment {
             ((YourAccountActivity) getActivity()).setWhichTab(tab.getPosition());
         }
     };
-
-    public  MyAccountTabFragment(){}
 
     /**
      * Implements a method to update visibility of tab.

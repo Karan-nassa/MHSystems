@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp" />
 
-                <com.mh.systems.redlibbets.customfonts.RobotoMediumTextView
+                <com.mh.systems.redlibbets.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvEventStatusStrDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:textColor="@color/colorC0995B"
                     android:textSize="14sp" />
 
-                <com.mh.systems.redlibbets.customfonts.ButlerLightTextView
+                <com.mh.systems.redlibbets.ui.customfonts.ButlerLightTextView
                     android:id="@+id/tvTitleOfEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
 
                 <!-- PRIZE OF COURSE EVENT -->
 
-                <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                     android:id="@+id/tvTypeOfCompEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -255,7 +255,7 @@
 
                 <!-- DESCRIPTION OF COMPETITION EVENTS -->
 
-                <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                     android:id="@+id/tvDescCourseEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -275,7 +275,7 @@
                 android:visibility="gone"
                 android:orientation="vertical">
 
-                <com.mh.systems.redlibbets.customfonts.ButlerMediumTextView
+                <com.mh.systems.redlibbets.ui.customfonts.ButlerMediumTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -345,39 +345,39 @@
                 </LinearLayout>
 
 
-                <!-- MANAGE YOUR BOOKING -->
+            <!-- MANAGE YOUR BOOKING -->
 
-                <com.mh.systems.redlibbets.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvManageBooking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:padding="10dp"
-                    android:text="MANAGE YOUR BOOKING"
-                    android:textColor="@color/colorC59A5C"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <!-- +++++++++++ PAID BOOKING STATUS END +++++++++++ -->
+            <com.mh.systems.redlibbets.ui.customfonts.RobotoMediumTextView
+                android:id="@+id/tvManageBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="MANAGE YOUR BOOKING"
+                android:textColor="@color/colorC59A5C"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+        <!-- +++++++++++ PAID BOOKING STATUS END +++++++++++ -->
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
 
     <!-- JOIN COMPETITIONS FLOATING ACTION BUTTON -->
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabJoinCompetition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:clickable="true"
-        android:src="@mipmap/ic_plus"
-        android:visibility="invisible"
-        app:backgroundTint="@color/colorC0995B"
-        app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|right|end" />
+<android.support.design.widget.FloatingActionButton
+android:id="@+id/fabJoinCompetition"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_margin="@dimen/fab_margin"
+android:clickable="true"
+android:src="@mipmap/ic_plus"
+android:visibility="invisible"
+app:backgroundTint="@color/colorC0995B"
+app:layout_anchor="@id/appbar"
+app:layout_anchorGravity="bottom|right|end" />
 
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>

@@ -52,7 +52,7 @@
 
                     <!-- MEMBER NAME -->
 
-                    <com.mh.systems.redlibbets.customfonts.ButlerLightTextView
+                    <com.mh.systems.redlibbets.ui.customfonts.ButlerLightTextView
                         android:id="@+id/tvMemberNameDD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
 
                     <!-- MEMBER JOIN DATE -->
 
-                    <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                    <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                         android:id="@+id/tvMemberJoinDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
 
                     <!-- MEMBER TYPE -->
 
-                    <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                    <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -81,7 +81,7 @@
 
                     <!-- MEMBER HANDICAP STR -->
 
-                    <com.mh.systems.redlibbets.customfonts.ButlerLightTextView
+                    <com.mh.systems.redlibbets.ui.customfonts.ButlerLightTextView
                         android:id="@+id/tvHandicapPlayStr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -128,17 +128,19 @@
                 android:layout_marginRight="20dp"
                 android:orientation="vertical">
 
-                <!-- HANDICAP PERSON -->
+                <!-- MEMBERSHIP TYPE -->
 
                 <LinearLayout
+                    android:id="@+id/llMemberShipType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <!-- LABEL HANDICAP TYPE STR -->
 
-                    <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                    <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="MEMBERSHIP TYPE"
@@ -148,7 +150,7 @@
 
                     <!-- HANDICAP TYPE STR -->
 
-                    <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                    <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                         android:id="@+id/tvHandicapTypeStr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -172,7 +174,7 @@
 
                         <!-- TEXT PHONE NUMBER -->
 
-                        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="MOBILE"
@@ -181,7 +183,7 @@
 
                         <!-- MEMBER NAME -->
 
-                        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                             android:id="@+id/tvMobContact"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -222,7 +224,7 @@
 
                         <!-- TEXT PHONE NUMBER -->
 
-                        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_text_work"
@@ -232,7 +234,7 @@
 
                         <!-- MEMBER NAME -->
 
-                        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                             android:id="@+id/tvWorkContact"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -273,7 +275,7 @@
 
                         <!-- TEXT PHONE NUMBER -->
 
-                        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_text_home"
@@ -283,7 +285,7 @@
 
                         <!-- CONTACT HOME TEXT LABEL -->
 
-                        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                             android:id="@+id/tvHomeContact"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -324,7 +326,7 @@
 
                         <!-- TEXT TITLE EMAIL -->
 
-                        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="EMAIL"
@@ -333,7 +335,7 @@
 
                         <!-- MEMBER EMAIL -->
 
-                        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                             android:id="@+id/tvMemberEmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -374,7 +376,7 @@
 
                         <!-- TEXT ADDRESS TITLE -->
 
-                        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="ADDRESS"
@@ -384,7 +386,7 @@
 
                         <!-- MEMBER ADDRESS WITH DETAIL -->
 
-                        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+                        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
                             android:id="@+id/tvMemberAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

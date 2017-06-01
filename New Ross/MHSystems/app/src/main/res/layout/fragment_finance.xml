@@ -13,46 +13,71 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="80dp"
             android:background="@color/colorD6D0C9"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:orientation="horizontal">
 
             <!-- EXACT VIEW OF HANDICAP -->
 
             <FrameLayout
+                android:id="@+id/flPurseGroup"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="33">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="8dp">
+
 
                     <!-- EXACT LABEL OF CARD BALANCE -->
 
                     <com.mh.systems.newross.ui.customfonts.RobotoTextView
                         android:id="@+id/tvLabelCardBalance"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.4"
-                        android:text="Card Balance"
+                        android:gravity="center"
+                        android:text="General Balance"
                         android:textColor="@color/color1E1E1C"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
-                    <!-- EXACT LABEL VALUE OF CARD BALANCE -->
 
-                    <com.mh.systems.newross.ui.customfonts.RobotoMediumTextView
-                        android:id="@+id/tvCardBalance"
+                    <LinearLayout
+                        android:id="@+id/llPurseType"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:textColor="@color/color1E1E1C"
-                        android:textSize="19sp" />
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <!-- EXACT LABEL VALUE OF CARD BALANCE -->
+
+                        <com.mh.systems.newross.ui.customfonts.RobotoMediumTextView
+                            android:id="@+id/tvCardBalance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color1E1E1C"
+                            android:textSize="19sp" />
+
+                        <ImageView
+                            android:id="@+id/ivDownArrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="15dp"
+                            android:src="@mipmap/ic_arrow_down_black" />
+
+                        <View
+                            android:id="@+id/vwPopMenu"
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -71,16 +96,17 @@
             <!-- PLAYING VIEW OF CURRENT INVOICE -->
 
             <FrameLayout
+                android:id="@+id/flInvoicesGroup"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="34">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="8dp">
 
                     <!-- LABEL OF CURRENT INVOICE -->
 
@@ -100,7 +126,7 @@
                         android:id="@+id/tvYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="7dp"
                         android:text="0 Pending"
                         android:textColor="@color/color1E1E1C"
                         android:textSize="19sp" />
@@ -124,15 +150,16 @@
 
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="33">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="8dp">
 
                     <!-- TYPE LABEL -->
 
@@ -150,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="7dp"
                         android:background="@drawable/button_shape_d6d0c9"
                         android:text="TOP UP"
                         android:textAllCaps="false"
@@ -163,29 +190,36 @@
 
         </LinearLayout>
 
-        <!-- DATE/FILTER TYPE-->
-
-        <TextView
-            android:id="@+id/tvDateHeading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/colorC59A5C"
-            android:textSize="14sp" />
-
-
-        <!-- USE TO DISPLAY TRANSACTION LIST -->
-
-        <ListView
-            android:id="@+id/lvTransactionList"
+        <LinearLayout
+            android:id="@+id/llTransactionUI"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            android:cacheColorHint="@color/colorF9F8F7"
-            android:divider="@color/colorE8E2DD"
-            android:dividerHeight="0dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- DATE/FILTER TYPE-->
+
+            <TextView
+                android:id="@+id/tvDateHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/colorC59A5C"
+                android:textSize="14sp" />
+
+
+            <!-- USE TO DISPLAY TRANSACTION LIST -->
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvTransactionList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:overScrollMode="never" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

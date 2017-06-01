@@ -1,3 +1,7 @@
+####Version 1.9.0 ()
+   - UPDATE: Display 'Account' and 'Balance' title along with month title on Finance.
+   - UPDATE: The balance needs to be complete - not + 101.... Allow for up to £9,999.99.
+
 ####Version 1.8.0 (26th May, 2017)
    - FIXED: Fixed the In app update notification logic issue.
    - FIXED: Finance tab 'DiscountAmountBalance' showing wrong value.

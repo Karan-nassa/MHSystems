@@ -13,13 +13,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import com.mh.systems.newross.R;
-import com.mh.systems.newross.utils.constants.ApplicationGlobal;
 import com.mh.systems.newross.ui.fragments.FinanceFragment;
 import com.mh.systems.newross.ui.fragments.MyAccountTabFragment;
+import com.mh.systems.newross.utils.constants.ApplicationGlobal;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 
 public class YourAccountActivity extends BaseActivity {
 
@@ -48,10 +50,11 @@ public class YourAccountActivity extends BaseActivity {
     Toolbar tbMyAccount;
 
     Fragment fragmentObj;
+    FinanceFragment financeFragmentInstance;
 
     Typeface tfRobotoMedium;
 
-     /* ++ INTERNET CONNECTION PARAMETERS ++ */
+    /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
     @Bind(R.id.inc_message_view)
     RelativeLayout inc_message_view;
@@ -73,7 +76,12 @@ public class YourAccountActivity extends BaseActivity {
 
     private int iOpenTabPosition;
 
+    //Refresh finance if balance type general.
+    int iBalanceType = 0;
+
     Intent intent;
+
+    public static boolean isRefreshEnable;
 
      /* -- INTERNET CONNECTION PARAMETERS -- */
 
@@ -84,6 +92,8 @@ public class YourAccountActivity extends BaseActivity {
 
         //Initialize view resources.
         ButterKnife.bind(this);
+
+        isRefreshEnable = true;
 
         if (tbMyAccount != null) {
             setSupportActionBar(tbMyAccount);
@@ -116,8 +126,9 @@ public class YourAccountActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        updateFragment(new MyAccountTabFragment(getiOpenTabPosition()));
+        if (isRefreshEnable) {
+            updateFragment(new MyAccountTabFragment(getiOpenTabPosition()));
+        }
     }
 
     @Override
@@ -139,7 +150,6 @@ public class YourAccountActivity extends BaseActivity {
         return true;
     }
 
-
     /**
      * Declares the click event handling FIELD to set categories
      * of Your Account Finance {@link Fragment}.
@@ -151,54 +161,50 @@ public class YourAccountActivity extends BaseActivity {
 
                     iOpenTabPosition = iTabPosition;
 
+                    if(item.getItemId() !=  R.id.item_edit_mode && item.getItemId() != R.id.item_toggle_mode
+                            && fragmentObj instanceof FinanceFragment){
+                        financeFragmentInstance = (FinanceFragment) getSupportFragmentManager().findFragmentById(R.id.pager);
+                    }
+
                     if (isOnline(YourAccountActivity.this)) {
                         switch (item.getItemId()) {
                             case R.id.item_today:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(0);
-                                }
+                                financeFragmentInstance.updateFilterControl(0);
+//                                if (getFragmentInstance() instanceof FinanceFragment) {
+//                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(0);
+//                                }
                                 break;
 
                             case R.id.item_a_week:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(1);
-                                }
+                                financeFragmentInstance.updateFilterControl(1);
+//                                if (getFragmentInstance() instanceof FinanceFragment) {
+//                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(1);
+//                                 }
                                 break;
 
                             case R.id.item_one_month:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(2);
-                                }
+                                financeFragmentInstance.updateFilterControl(2);
                                 break;
 
                             case R.id.item_three_months:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(3);
-                                }
+                                financeFragmentInstance.updateFilterControl(3);
                                 break;
 
                             case R.id.item_six_months:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(4);
-                                }
+                                financeFragmentInstance.updateFilterControl(4);
                                 break;
 
                             case R.id.item_a_year:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(5);
-                                }
+                                financeFragmentInstance.updateFilterControl(5);
                                 break;
 
                             case R.id.item_from_start:
-                                if (getFragmentInstance() instanceof FinanceFragment) {
-                                    ((FinanceFragment) getFragmentInstance()).updateFilterControl(6);
-                                }
+                                financeFragmentInstance.updateFilterControl(6);
                                 break;
 
                             case R.id.item_toggle_mode:
                                 intent = new Intent(YourAccountActivity.this, EditToggleDetailActivity.class);
                                 startActivity(intent);
-
                                 break;
 
                             case R.id.item_edit_mode:
@@ -301,6 +307,14 @@ public class YourAccountActivity extends BaseActivity {
 
     public void setiOpenTabPosition(int iOpenTabPosition) {
         this.iOpenTabPosition = iOpenTabPosition;
+    }
+
+    public int getiBalanceType() {
+        return iBalanceType;
+    }
+
+    public void setiBalanceType(int iBalanceType) {
+        this.iBalanceType = iBalanceType;
     }
 
     /**

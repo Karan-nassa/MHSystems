@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
                 android:minHeight="?android:attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
             <LinearLayout
                 android:id="@+id/llPopMenuBar"
@@ -57,7 +57,7 @@
 
                     <!-- COURSE TYPE [OLD/NEW COURSE] -->
 
-                    <com.mh.systems.redlibbets.customfonts.RobotoMediumTextView
+                    <com.mh.systems.redlibbets.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvMemberType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

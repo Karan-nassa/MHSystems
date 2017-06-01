@@ -34,7 +34,7 @@
 
             <!-- CIRCLE IMAGE AS A BACKGROUND -->
 
-            <com.mh.systems.redlibbets.util.libAlphaIndexing.CircularContactView
+            <com.mh.systems.redlibbets.utils.libAlphaIndexing.CircularContactView
                 android:id="@+id/listview_item__friendPhotoImageView"
                 android:layout_width="@dimen/list_item__contact_imageview_size"
                 android:layout_height="@dimen/list_item__contact_imageview_size"
@@ -51,7 +51,7 @@
 
             <!-- VIEW TO DISPLAY 'PlayHCapStr' OF EACH MEMBER -->
 
-            <com.mh.systems.redlibbets.customfonts.RobotoMediumTextView
+            <com.mh.systems.redlibbets.ui.customfonts.RobotoMediumTextView
                 android:id="@+id/tvPlayHCapStr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
 
         <!-- DISPLAY NAME -->
 
-        <com.mh.systems.redlibbets.customfonts.RobotoTextView
+        <com.mh.systems.redlibbets.ui.customfonts.RobotoTextView
             android:id="@+id/listview_item__friendNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

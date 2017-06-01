@@ -32,15 +32,15 @@ import com.mh.systems.newross.ui.activites.BaseActivity;
 import com.mh.systems.newross.ui.activites.HCapHistoryActivity;
 import com.mh.systems.newross.ui.activites.ShowCertificateWebview;
 import com.mh.systems.newross.ui.activites.YourAccountActivity;
+import com.mh.systems.newross.utils.MyMarkerView;
 import com.mh.systems.newross.utils.constants.ApplicationGlobal;
 import com.mh.systems.newross.web.api.WebAPI;
+import com.mh.systems.newross.web.api.WebServiceMethods;
 import com.mh.systems.newross.web.models.AJsonParamsHandicap;
 import com.mh.systems.newross.web.models.HCapRecords;
 import com.mh.systems.newross.web.models.HandicapAPI;
 import com.mh.systems.newross.web.models.HandicapData;
 import com.mh.systems.newross.web.models.HandicapResultItems;
-import com.mh.systems.newross.web.api.WebServiceMethods;
-import com.mh.systems.newross.utils.MyMarkerView;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -109,7 +109,6 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     Button btDetailHacp;
     Intent intent;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewRootFragment = inflater.inflate(R.layout.fragment_handicap, container, false);
@@ -152,6 +151,10 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
             ((YourAccountActivity) getActivity()).updateFilterIcon(8);
             ((YourAccountActivity) getActivity()).setiOpenTabPosition(1);
 
+            /* ++++++++++++++++  START OF PURSE API FEATURE ++++++++++++++++ */
+            ((YourAccountActivity)getActivity()).setiBalanceType(0);
+            /* ++++++++++++++++  END OF PURSE API FEATURE ++++++++++++++++ */
+
             /**
              *  Check internet connection before hitting server request.
              */
@@ -176,6 +179,63 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
     @Override
     public void onNothingSelected() {
     }
+
+    /**
+     * Define globally method to display detail information
+     * of Handicap on graph.
+     *
+     * @param hCapRecordses
+     * @param size
+     */
+    public void loadDetailGraphInfo(ArrayList<HCapRecords> hCapRecordses, int size) {
+        tvDateOfPlayedStr.setText(hCapRecordses.get(size).getDatePlayedStr().replace("\"", ""));
+        tvTitleOfPlayStr.setText(hCapRecordses.get(size).getCompetitionOrReason().replace("\"", ""));
+        tvTypeOfPlayStr.setText(hCapRecordses.get(size).getNewExactHCapOnlyStr().replace("\"", ""));
+    }
+
+    /**
+     * Declares the Graph YEAR navigation listener to redraw
+     * graph.
+     */
+    public View.OnClickListener mGraphNavListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()) {
+                case R.id.llPreviousYearGraph:
+                    if (mYearIndex != 0) {
+                        mYearIndex--;
+                        refreshGraph();
+                    }
+                    break;
+
+                case R.id.llNextYearGraph:
+                    if (mYearIndex != (arrNameOfYear.size() - 1)) {
+                        mYearIndex++;
+                        refreshGraph();
+                    }
+                    break;
+            }
+            setNavigationIcons();
+        }
+    };
+
+    /**
+     * Navigate user to LATEST year of Graph.
+     */
+    public View.OnClickListener mLatestGraphListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (arrNameOfYear.size() > 0) {
+                mYearIndex = (arrNameOfYear.size() - 1);
+
+                setNavigationIcons();
+
+                //setCompResultData(10, handicapData.get(0).getHCapRecordses());
+                refreshGraph();
+            }
+        }
+    };
 
     /**
      * Implement a method to hit HANDICAP
@@ -313,23 +373,9 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
             ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((YourAccountActivity)getActivity()).reportRollBarException(HandicapFragment.class.getSimpleName(), e.toString());
             ((BaseActivity) getActivity()).hideProgress();
         }
-    }
-
-
-    /**
-     * Define globally method to display detail information
-     * of Handicap on graph.
-     *
-     * @param hCapRecordses
-     * @param size
-     */
-    public void loadDetailGraphInfo(ArrayList<HCapRecords> hCapRecordses, int size) {
-        tvDateOfPlayedStr.setText(hCapRecordses.get(size).getDatePlayedStr().replace("\"", ""));
-        tvTitleOfPlayStr.setText(hCapRecordses.get(size).getCompetitionOrReason().replace("\"", ""));
-        tvTypeOfPlayStr.setText(hCapRecordses.get(size).getNewExactHCapOnlyStr().replace("\"", ""));
     }
 
     /**
@@ -487,49 +533,4 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
         ivPreviousYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivPreviousYearGraph);
         ivNextYearGraph = (ImageView) viewRootFragment.findViewById(R.id.ivNextYearGraph);
     }
-
-    /**
-     * Declares the Graph YEAR navigation listener to redraw
-     * graph.
-     */
-    private View.OnClickListener mGraphNavListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            switch (v.getId()) {
-                case R.id.llPreviousYearGraph:
-                    if (mYearIndex != 0) {
-                        mYearIndex--;
-                        refreshGraph();
-                    }
-                    break;
-
-                case R.id.llNextYearGraph:
-                    if (mYearIndex != (arrNameOfYear.size() - 1)) {
-                        mYearIndex++;
-                        refreshGraph();
-                    }
-                    break;
-            }
-            setNavigationIcons();
-        }
-    };
-
-    /**
-     * Navigate user to LATEST year of Graph.
-     */
-    private View.OnClickListener mLatestGraphListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (arrNameOfYear.size() > 0) {
-                mYearIndex = (arrNameOfYear.size() - 1);
-
-                setNavigationIcons();
-
-                //setCompResultData(10, handicapData.get(0).getHCapRecordses());
-                refreshGraph();
-            }
-        }
-    };
-
 }

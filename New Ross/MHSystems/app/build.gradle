@@ -14,8 +14,8 @@ android {
         applicationId "com.mh.systems.newross"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 8
-        versionName '1.6'
+        versionCode 1
+        versionName '1.0'
         multiDexEnabled true
     }
     //Used for Draw Graph Library
@@ -61,4 +61,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'testfairy:testfairy-android-sdk:1.4.3@aar'
+    compile 'org.jsoup:jsoup:1.10.2'
 }

@@ -306,14 +306,15 @@ public class DashboardActivity extends BaseActivity {
         SyncMarket.Initialize(this);
         final String version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 
-        if(SyncMarket.getMarketVersion().equals(version)){
+        if(SyncMarket.getMarketVersion() != null && SyncMarket.getMarketVersion().equals(version)){
             savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
         }
 
         if (loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "").equals("")) {
             savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
         } else {
-            if (!SyncMarket.isVersionEqual(loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "1.0"))) {
+            if (!SyncMarket.isVersionEqual(loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "1.0"))
+                    && SyncMarket.getMarketVersion() != null) {
                 AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
                 alertDlg.setTitle("Alert");
                 alertDlg.setPositiveButton("Update now", new DialogInterface.OnClickListener() {
@@ -396,12 +397,23 @@ public class DashboardActivity extends BaseActivity {
         }
 
         //Add Competitions
-        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
+       /* if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
 
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_home_competitions,
                     "Competitions",
                     getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
+        }*/
+
+        //ProAgenda (Booking Lessions) feature.
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_PRO_AGENDA_FEATURE, false)) {
+
+            iHandicapPosition = 0;
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_booking_agenda,
+                    getResources().getString(R.string.title_book_lessons),
+                    getApplicationContext().getPackageName() + ".ui.activites.BookingLessonsWebActivity"));
         }
 
         //Add Members
@@ -815,6 +827,7 @@ public class DashboardActivity extends BaseActivity {
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, featureFlagsResponse.getData().getMembersFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, featureFlagsResponse.getData().getClubNewsFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, featureFlagsResponse.getData().getYourAccountFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_PRO_AGENDA_FEATURE, featureFlagsResponse.getData().getProAgendaFeature());
 
                 ApplicationGlobal.TAG_NEWS_WEBCAM1 = featureFlagsResponse.getData().getWebCamera1();
                 ApplicationGlobal.TAG_NEWS_WEBCAM2 = featureFlagsResponse.getData().getWebCamera2();

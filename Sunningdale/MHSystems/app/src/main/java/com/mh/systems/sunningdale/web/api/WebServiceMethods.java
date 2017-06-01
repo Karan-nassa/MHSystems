@@ -414,5 +414,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getFeaturesFlagOptions(@Body FeatureFlagsAPI featureFlagsAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of WEATHER API status on dashboard.
+     * <p/>
+     * TYPE : GET
+     *
+     * @param aClientId    : Club ID like 44071043 for Demo App.
+     * @param amemberid    : Golf club member id.
+     * @param response     : response in JSON format.
+     */
+    @GET("/api/apiproagenda/geturl")
+    public void proAgendaAPI(@Query("aClientId") String aClientId, @Query("amemberid") String amemberid, Callback<JsonObject> response);
 }
 

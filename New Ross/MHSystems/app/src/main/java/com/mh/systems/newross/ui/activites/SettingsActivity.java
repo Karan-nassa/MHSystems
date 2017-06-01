@@ -89,6 +89,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
             tvVersionName.setText("V " + pInfo.versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+            reportRollBarException(SettingsActivity.class.getSimpleName(), e.toString());
         }
     }
 }

@@ -305,4 +305,7 @@
     <string name="tab_name_webcam1">WEBCAM 1</string>
     <string name="tab_name_webcam2">WEBCAM 2</string>
 
+    <!-- BOOKING LESSONS -->
+    <string name="title_book_lessons">Book Lessons</string>
+
 </resources>

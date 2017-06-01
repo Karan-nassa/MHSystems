@@ -393,14 +393,15 @@ public class DashboardActivity extends BaseActivity {
         SyncMarket.Initialize(this);
         final String version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 
-        if(SyncMarket.getMarketVersion().equals(version)){
+        if(SyncMarket.getMarketVersion() != null && SyncMarket.getMarketVersion().equals(version)){
             savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
         }
 
         if (loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "").equals("")) {
             savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
         } else {
-            if (!SyncMarket.isVersionEqual(loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "1.0"))) {
+            if (!SyncMarket.isVersionEqual(loadPreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, "1.0"))
+                    && SyncMarket.getMarketVersion() != null) {
                 AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
                 alertDlg.setTitle("Alert");
                 alertDlg.setPositiveButton("Update now", new DialogInterface.OnClickListener() {
