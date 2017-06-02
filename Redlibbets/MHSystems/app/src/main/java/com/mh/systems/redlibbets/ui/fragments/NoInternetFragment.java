@@ -28,7 +28,6 @@ public class NoInternetFragment extends Fragment {
     @Bind(R.id.tvMessageTitle) TextView tvMessageTitle;
     @Bind(R.id.tvMessageDesc)  TextView tvMessageDesc;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
