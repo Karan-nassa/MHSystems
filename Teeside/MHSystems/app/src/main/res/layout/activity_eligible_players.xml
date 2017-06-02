@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolBarMembers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49"
+            android:fitsSystemWindows="true"
+            android:minHeight="?android:attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- USE COMMON VIEW TO DISPLAY TAB DATA -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/llBottomDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorBDB6AE"
+                    android:gravity="center">
+
+                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                        android:id="@+id/tvAddPlayerDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:textColor="@color/colorF9F8F7"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/container"
+                    layout="@layout/include_container_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/llBottomDesc" />
+
+            </RelativeLayout>
+
+            <!-- NO INTERNET CONNECTION VIEW -->
+
+            <include
+                android:id="@+id/inc_message_view"
+                layout="@layout/include_display_message"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+</RelativeLayout>

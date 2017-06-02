@@ -56,36 +56,8 @@ public class BookingLessonsWebActivity extends BaseActivity {
             setSupportActionBar(tbBookingLessons);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-    }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        /**
-         * Check Internet connection.
-         */
-        if (isOnline(BookingLessonsWebActivity.this)) {
-            showPleaseWait("Please wait...");
-            //callBookingLessonService();
-
-            strBookLessonsUrl = strBookLessonsUrl +"aclientid="+ApplicationGlobal.TAG_CLIENT_ID
-                     +"&amemberid="+getMemberId();
-
-            wvBookingContent.setVisibility(View.VISIBLE);
-            wvBookingContent.setVisibility(View.VISIBLE);
-            wvBookingContent.setWebViewClient(new myWebClient());
-            wvBookingContent.getSettings().setJavaScriptEnabled(true);
-            wvBookingContent.getSettings().setBuiltInZoomControls(true);
-            wvBookingContent.getSettings().setSupportZoom(true);
-            wvBookingContent.setFocusableInTouchMode(false);
-            wvBookingContent.setFocusable(false);
-            wvBookingContent.loadUrl(strBookLessonsUrl);
-        } else {
-            setContentView(R.layout.include_display_message);
-            wvBookingContent.setVisibility(View.GONE);
-        }
+        loadBookingLessons();
     }
 
     @Override
@@ -100,6 +72,32 @@ public class BookingLessonsWebActivity extends BaseActivity {
                 break;
         }
         return true;
+    }
+
+    private void loadBookingLessons() {
+        /**
+         * Check Internet connection.
+         */
+        if (isOnline(BookingLessonsWebActivity.this)) {
+            showPleaseWait("Please wait...");
+            //callBookingLessonService();
+
+            strBookLessonsUrl = strBookLessonsUrl +"aclientid="+ApplicationGlobal.TAG_CLIENT_ID
+                    +"&amemberid="+getMemberId();
+
+            wvBookingContent.setVisibility(View.VISIBLE);
+            wvBookingContent.setVisibility(View.VISIBLE);
+            wvBookingContent.setWebViewClient(new myWebClient());
+            wvBookingContent.getSettings().setJavaScriptEnabled(true);
+            wvBookingContent.getSettings().setBuiltInZoomControls(true);
+            wvBookingContent.getSettings().setSupportZoom(true);
+            wvBookingContent.setFocusableInTouchMode(false);
+            wvBookingContent.setFocusable(false);
+            wvBookingContent.loadUrl(strBookLessonsUrl);
+        } else {
+            setContentView(R.layout.include_display_message);
+            wvBookingContent.setVisibility(View.GONE);
+        }
     }
 
     /**

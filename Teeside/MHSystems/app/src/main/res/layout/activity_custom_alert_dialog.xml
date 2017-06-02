@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="34dp"
+        android:background="@drawable/ic_white_bg"
+        android:orientation="vertical">
+
+        <!-- TOP IMAGE WITH BOOK TEE TITLE -->
+        <FrameLayout
+            android:id="@+id/flPopupTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_booknow_dialog">
+
+            <!-- BOOK TEE TIME TEXT -->
+
+            <TextView
+                android:id="@+id/tvAlertTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/text_alert_book_course"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+        </FrameLayout>
+
+        <!-- ALERT MESSAGE OF BOOK EVENT -->
+
+        <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+            android:id="@+id/tvAlertMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="35dp"
+            android:gravity="center"
+            android:text="@string/text_alert_course_message"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <!-- CONTACT NUMBER -->
+
+        <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:padding="12dp"
+            android:text="123456789"
+            android:textColor="@color/color0076FF"
+            android:textSize="17sp" />
+
+        <!-- DIVIDER LINE -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:alpha="0.5"
+            android:background="@color/colorAAAAAA" />
+
+        <!-- EMAIL OF MEMBER -->
+
+        <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:padding="12dp"
+            android:text="info@mhsystems.co.uk"
+            android:textColor="@color/color0076FF"
+            android:textSize="17sp" />
+
+        <!-- DIVIDER LINE -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:alpha="0.5"
+            android:background="@color/colorAAAAAA" />
+
+        <!-- CLOSE TEXT-->
+
+        <com.mh.systems.teeside.ui.customfonts.RobotoMediumTextView
+            android:id="@+id/tvCloseDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="onClose"
+            android:padding="12dp"
+            android:text="Close"
+            android:textAllCaps="true"
+            android:textColor="@color/colorD6D0C9"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+</RelativeLayout>
