@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- TODAY -->
+
+    <item
+        android:id="@+id/item_today"
+        android:title="Today" />
+
+    <!-- 1 Week-->
+
+    <item
+        android:id="@+id/item_a_week"
+        android:title="1 week" />
+
+    <!-- 1 Month -->
+
+    <item
+        android:id="@+id/item_one_month"
+        android:title="1 month" />
+
+    <!-- 3 Months-->
+
+    <item
+        android:id="@+id/item_three_months"
+        android:title="3 months" />
+
+    <!-- 6 Months -->
+
+    <item
+        android:id="@+id/item_six_months"
+        android:title="6 months" />
+
+    <!-- 1 Year -->
+
+    <item
+        android:id="@+id/item_a_year"
+        android:title="1 year" />
+
+    <!-- From Start-->
+
+    <item
+        android:id="@+id/item_from_start"
+        android:title="From Start" />
+
+</menu>

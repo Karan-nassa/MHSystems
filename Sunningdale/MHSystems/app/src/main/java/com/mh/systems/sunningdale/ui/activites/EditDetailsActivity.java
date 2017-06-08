@@ -389,7 +389,7 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(EditDetailsActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
     }
@@ -579,7 +579,7 @@ public class EditDetailsActivity extends BaseActivity implements View.OnClickLis
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(EditDetailsActivity.class.getSimpleName(), e.toString());
             llEditDetailGroup.setVisibility(View.GONE);
         }
     }

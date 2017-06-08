@@ -30,6 +30,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.ui.activites.BaseActivity;
+import com.mh.systems.sunningdale.ui.activites.CompetitionsDetailActivity;
 import com.mh.systems.sunningdale.ui.activites.HCapHistoryActivity;
 import com.mh.systems.sunningdale.ui.activites.ShowCertificateWebview;
 import com.mh.systems.sunningdale.ui.activites.YourAccountActivity;
@@ -413,7 +414,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
             ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((BaseActivity) getActivity()).reportRollBarException(HandicapFragment.class.getSimpleName(), e.toString());
             ((BaseActivity) getActivity()).hideProgress();
         }
     }

@@ -81,6 +81,7 @@ public class ClubNewsWebCamActivity extends BaseActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                reportRollBarException(ClubNewsWebCamActivity.class.getSimpleName(), e.toString());
             }
             return bimage;
         }

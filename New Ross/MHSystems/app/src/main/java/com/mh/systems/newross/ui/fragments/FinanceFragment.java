@@ -80,6 +80,7 @@ public class FinanceFragment extends Fragment {
     View viewRootFragment;
     TextView tvLabelCardBalance, tvCardBalance, tvDateHeading;
     TextView tvLabelYourInvoice, tvYourInvoice;
+    TextView tvAmount, tvBalance;
     ImageView ivFilter;
     LinearLayout llTransactionUI;
     View vwPopMenu;
@@ -220,6 +221,9 @@ public class FinanceFragment extends Fragment {
         tvLabelCardBalance = (TextView) viewRootFragment.findViewById(R.id.tvLabelCardBalance);
         tvLabelYourInvoice = (TextView) viewRootFragment.findViewById(R.id.tvLabelYourInvoice);
         tvYourInvoice = (TextView) viewRootFragment.findViewById(R.id.tvYourInvoice);
+
+        tvAmount = (TextView) viewRootFragment.findViewById(R.id.tvAmount);
+        tvBalance = (TextView) viewRootFragment.findViewById(R.id.tvBalance);
 
         ivFilter = (ImageView) viewRootFragment.findViewById(R.id.ivFilter);
         vwPopMenu = (View) viewRootFragment.findViewById(R.id.vwPopMenu);
@@ -396,6 +400,8 @@ public class FinanceFragment extends Fragment {
         tvYourInvoice.setTypeface(tpRobotoMedium);
 
         tvDateHeading.setTypeface(tpRobotoMedium);
+        tvAmount.setTypeface(tpRobotoMedium);
+        tvBalance.setTypeface(tpRobotoMedium);
     }
 
     /* ++++++++++++++++ START OF PURSE API FEATURE ++++++++++++++++ */

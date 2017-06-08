@@ -203,8 +203,9 @@ public class TopUpActivity extends BaseActivity {
                 if (isPaymentSuccess) {
                     onBackPressed();
                 }
-            } catch (Exception exp) {
-                Log.e(LOG_TAG, "" + exp.toString());
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "" + e.toString());
+                reportRollBarException(TopUpActivity.class.getSimpleName(), e.toString());
             }
         }
     }
@@ -465,6 +466,7 @@ public class TopUpActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(TopUpActivity.class.getSimpleName(), e.toString());
             showNoTopUpView(false);
         }
     }

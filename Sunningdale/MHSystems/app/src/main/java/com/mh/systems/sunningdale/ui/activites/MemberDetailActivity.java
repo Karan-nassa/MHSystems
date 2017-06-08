@@ -437,7 +437,7 @@ public class MemberDetailActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(MemberDetailActivity.class.getSimpleName(), e.toString());
         }
     }
 
@@ -479,7 +479,7 @@ public class MemberDetailActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(MemberDetailActivity.class.getSimpleName(), e.toString());
         }
     }
 
@@ -528,7 +528,7 @@ public class MemberDetailActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(MemberDetailActivity.class.getSimpleName(), e.toString());
         }
 
     }

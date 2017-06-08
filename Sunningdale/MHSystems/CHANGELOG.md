@@ -1,4 +1,6 @@
-####Version 1.9.0 ()
+####Version 1.10.0 ()
+
+####Version 1.9.0 (7th June, 2017)
    - UPDATE: Display 'Account' and 'Balance' title along with month title on Finance.
    - UPDATE: The balance needs to be complete - not + 101.... Allow for up to £9,999.99.
 

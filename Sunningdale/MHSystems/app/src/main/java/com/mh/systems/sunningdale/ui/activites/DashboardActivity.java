@@ -671,6 +671,7 @@ public class DashboardActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
         }
     }
 
@@ -757,6 +758,7 @@ public class DashboardActivity extends BaseActivity {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
         }
     }
 
@@ -841,6 +843,7 @@ public class DashboardActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
         }
     }
 

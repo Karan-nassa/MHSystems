@@ -104,10 +104,7 @@ public class FinanceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 return new RawTypeViewHolder(view);
         }
         return null;
-
-
     }
-
 
     @Override
     public int getItemViewType(int position) {
@@ -120,8 +117,6 @@ public class FinanceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             default:
                 return -1;
         }
-
-
     }
 
     @Override

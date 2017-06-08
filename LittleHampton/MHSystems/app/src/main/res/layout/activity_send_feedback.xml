@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorF9F8F7"
+        android:orientation="vertical">
+
+        <!-- BACK ICON WITH Send Feedback TITLE  -->
+
+        <!-- TOOL BAR WITH BACK ARROW AND DELETE -->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbSendFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49"
+            android:minHeight="?android:attr/actionBarSize"
+            app:title="Send Feedback"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+
+        <!-- WEB VIEW TO LOAD VIDEO ON WEB PAGE -->
+
+        <WebView
+            android:id="@+id/wvWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="WebViewLayout" />
+
+
+    </LinearLayout>
+
+    <!-- PROGRESS BAR -->
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

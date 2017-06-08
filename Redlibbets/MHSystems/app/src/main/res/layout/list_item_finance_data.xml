@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="100">
+            >
 
             <!--  TRANSACTION TIME -->
 
@@ -23,7 +23,7 @@
                 android:id="@+id/tvTransTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="22"
+                android:layout_weight="1"
                 android:paddingLeft="2dp"
                 android:text="11:05 PM"
                 android:textSize="14sp" />
@@ -34,8 +34,7 @@
                 android:id="@+id/tvTransTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="34"
-                android:paddingLeft="7dp"
+                android:layout_weight="1"
                 android:text="Purchase"
                 android:singleLine="true"
                 android:textSize="14sp" />
@@ -46,11 +45,11 @@
                 android:id="@+id/tvAmountStr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="22"
+                android:layout_weight="1"
                 android:gravity="right"
                 android:singleLine="true"
                 android:paddingLeft="4dp"
-                android:text="£-279.00"
+                android:text="+£9,999.99"
                 android:textSize="14sp" />
 
             <!-- BALANCE-->
@@ -59,10 +58,10 @@
                 android:id="@+id/tvBalanceStr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="22"
+                android:layout_weight="1"
                 android:gravity="right"
                 android:paddingLeft="6dp"
-                android:text="£67.82"
+                android:text="+£9,999.99"
                 android:singleLine="true"
                 android:textSize="14sp" />
 
@@ -73,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="100">
+            >
 
             <!--  TRANSACTION TIME -->
 
@@ -81,7 +80,8 @@
                 android:id="@+id/tvDiscountTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="22"
+                android:layout_weight="1"
+                android:gravity="left"
                 android:paddingLeft="2dp"
                 android:text="11:05 PM"
                 android:textSize="14sp" />
@@ -92,8 +92,7 @@
                 android:id="@+id/tvDiscountTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="34"
-                android:paddingLeft="7dp"
+                android:layout_weight="1"
                 android:text="Discount"
                 android:singleLine="true"
                 android:textSize="14sp" />
@@ -104,11 +103,11 @@
                 android:id="@+id/tvDiscountAmtStr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="22"
+                android:layout_weight="1"
                 android:gravity="right"
                 android:singleLine="true"
                 android:paddingLeft="4dp"
-                android:text="£27.90"
+                android:text="-£9,999.99"
                 android:textSize="14sp" />
 
             <!-- BALANCE-->
@@ -117,11 +116,11 @@
                 android:id="@+id/tvDiscountBalStr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="22"
+                android:layout_weight="1"
                 android:gravity="right"
                 android:paddingLeft="6dp"
                 android:singleLine="true"
-                android:text="£95.72"
+                android:text="+£9,999.99"
                 android:textSize="14sp" />
 
         </LinearLayout>

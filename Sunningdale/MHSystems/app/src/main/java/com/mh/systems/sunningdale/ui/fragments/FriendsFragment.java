@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.sunningdale.ui.activites.CompetitionsDetailActivity;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.ui.activites.BaseActivity;
@@ -220,7 +221,7 @@ public class FriendsFragment extends Fragment {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((MembersActivity) getActivity()).reportRollBarException(FriendsFragment.class.getSimpleName(), e.toString());
         }
 
         //Dismiss progress dialog.

@@ -69,6 +69,7 @@ public class FinanceFragment extends Fragment {
     View viewRootFragment;
     TextView tvLabelCardBalance, tvCardBalance, tvDateHeading;
     TextView tvLabelYourInvoice, tvYourInvoice;
+    TextView tvAmount, tvBalance;
     ImageView ivFilter;
     Intent intent;
     Button btTopUp;
@@ -176,6 +177,9 @@ public class FinanceFragment extends Fragment {
         tvLabelCardBalance = (TextView) viewRootFragment.findViewById(R.id.tvLabelCardBalance);
         tvLabelYourInvoice = (TextView) viewRootFragment.findViewById(R.id.tvLabelYourInvoice);
         tvYourInvoice = (TextView) viewRootFragment.findViewById(R.id.tvYourInvoice);
+
+        tvAmount = (TextView) viewRootFragment.findViewById(R.id.tvAmount);
+        tvBalance = (TextView) viewRootFragment.findViewById(R.id.tvBalance);
 
         ivFilter = (ImageView) viewRootFragment.findViewById(R.id.ivFilter);
 
@@ -349,5 +353,7 @@ public class FinanceFragment extends Fragment {
         tvYourInvoice.setTypeface(tpRobotoMedium);
 
         tvDateHeading.setTypeface(tpRobotoMedium);
+        tvAmount.setTypeface(tpRobotoMedium);
+        tvBalance.setTypeface(tpRobotoMedium);
     }
 }

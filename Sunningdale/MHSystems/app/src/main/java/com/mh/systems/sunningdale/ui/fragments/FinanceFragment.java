@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.ui.activites.BaseActivity;
+import com.mh.systems.sunningdale.ui.activites.CompetitionsDetailActivity;
 import com.mh.systems.sunningdale.ui.activites.TopUpActivity;
 import com.mh.systems.sunningdale.ui.activites.YourAccountActivity;
 import com.mh.systems.sunningdale.ui.adapter.RecyclerAdapter.FinanceRecycleAdapter;
@@ -299,7 +300,7 @@ public class FinanceFragment extends Fragment {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((YourAccountActivity) getActivity()).reportRollBarException(FinanceFragment.class.getSimpleName(), e.toString());
         }
 
         //Dismiss progress dialog.

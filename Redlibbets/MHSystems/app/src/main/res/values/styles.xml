@@ -2,8 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppThemeMaterial" parent="MyMaterialTheme.Base">
-        <item name="android:itemBackground">#FAFAFA</item>
-        <item name="android:textColor">@color/colorBlack000000</item>
+
     </style>
 
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
@@ -14,7 +13,6 @@
         <item name="colorPrimary">@color/colorBlack000000</item>
         <item name="colorPrimaryDark">@color/colorBlack000000</item>
         <item name="colorAccent">@color/colorC0995B</item>
-
     </style>
 
 
@@ -77,7 +75,7 @@
     <!-- EXPAND TEXT STYLE OF TOOL BAR -->
 
     <style name="CompetitionsToolExpand" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/colorWhiteffffff</item>
         <item name="android:text">women stableford competition</item>
         <item name="android:maxLines">2</item>
@@ -87,7 +85,7 @@
     <!-- COLLAPSE TEXT STYLE OF TOOL BAR -->
 
     <style name="CompetitionsToolCollapse" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorWhiteffffff</item>
         <item name="android:singleLine">false</item>
     </style>
@@ -148,7 +146,6 @@
 
     <style name="CompetitionsTheme.Toolbar">
         <item name="android:textColor">@color/colorWhiteffffff</item>
-        <item name="android:textSize">26sp</item>
     </style>
 
     <!-- ++++++++++++++  END OF COMPETITIONS REDESIGN TOOL BAR STYLE  +++++++++++++++ -->

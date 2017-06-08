@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
+import com.mh.systems.sunningdale.ui.activites.CompetitionsDetailActivity;
 import com.mh.systems.sunningdale.ui.activites.MembersActivity;
 import com.mh.systems.sunningdale.utils.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.web.api.WebAPI;
@@ -320,7 +321,7 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
             llDepartments.setVisibility(View.GONE);
             ((MembersActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((MembersActivity)getActivity()).reportRollBarException(ContactUsFragment.class.getSimpleName(), e.toString());
         }
     }
 

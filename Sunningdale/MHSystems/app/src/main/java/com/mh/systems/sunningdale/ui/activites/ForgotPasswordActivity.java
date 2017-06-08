@@ -207,6 +207,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(ForgotPasswordActivity.class.getSimpleName(), e.toString());
         }
     }
 

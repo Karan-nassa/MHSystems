@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.sunningdale.ui.activites.CompetitionsDetailActivity;
 import com.mh.systems.sunningdale.ui.activites.YourAccountActivity;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -201,7 +202,7 @@ public class MyDetailsFragment extends Fragment {
         } catch (Exception e) {
             ((BaseActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((BaseActivity) getActivity()).reportRollBarException(MyDetailsFragment.class.getSimpleName(), e.toString());
             llMyDetailGroup.setVisibility(View.GONE);
         }
     }

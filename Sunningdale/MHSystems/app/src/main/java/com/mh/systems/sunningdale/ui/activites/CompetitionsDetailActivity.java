@@ -411,7 +411,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(CompetitionsDetailActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
     }
@@ -540,7 +540,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(CompetitionsDetailActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
     }
@@ -618,7 +618,7 @@ public class CompetitionsDetailActivity extends BaseActivity {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(CompetitionsDetailActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
     }
