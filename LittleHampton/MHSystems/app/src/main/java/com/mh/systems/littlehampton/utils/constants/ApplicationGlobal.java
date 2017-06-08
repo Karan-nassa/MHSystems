@@ -10,7 +10,7 @@ public class ApplicationGlobal {
     /**
      * Declares the ROLL BAR key for PRODUCTION ENVIRONMENT.
      */
-    public static final String KEY_ROLLBAR_CLIENT_PRODUCTION = "32a0fd0e1a1846b8b7686370c7337fed";
+    public static final String KEY_ROLLBAR_CLIENT_PRODUCTION = "be7b6d1030554860a66beb234c72a68e";
 
     /**
      * Declares the ROLL BAR key for TEST ENVIRONMENT.

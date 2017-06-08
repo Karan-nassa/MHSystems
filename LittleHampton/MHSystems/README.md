@@ -1,6 +1,6 @@
 ##MHSystems_Android
 
-###REDLIBBETS Club
+###Little Hampton Club
 - CLUB ID : 44080103
 
 ###Available Features:

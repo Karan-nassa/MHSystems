@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- TOOL BAR WITH BACK ARROW AND DELETE -->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbMyDetailEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49"
+            android:minHeight="?android:attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="Edit details" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/llEditDetailGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <!-- EMAIL EDIT TEXT -->
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="16dp"
+                        android:text="CONTACT DETAILS"
+                        android:textColor="@color/colorC59A5C"
+                        android:textSize="12sp" />
+
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="18dp"
+                        android:paddingLeft="3dp"
+                        android:text="Email"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etEditEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:paddingLeft="3dp"
+                        android:singleLine="true"
+                        android:textAllCaps="false"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+                    <!-- EMAIL EDIT TEXT END -->
+
+                    <!-- MOIL EDIT TEXT -->
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:paddingLeft="3dp"
+                        android:text="Mobile"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etEditMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingLeft="3dp"
+                        android:singleLine="true"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+                    <!-- MOBILE EDIT TEXT END -->
+
+                    <!-- WORK EDIT TEXT -->
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:paddingLeft="3dp"
+                        android:text="Work"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etEditWork"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingLeft="3dp"
+                        android:singleLine="true"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+                    <!-- WORK EDIT TEXT END -->
+
+                    <!-- HOME EDIT TEXT -->
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:paddingLeft="3dp"
+                        android:text="Home"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etEditHome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+                    <!-- HOME EDIT TEXT END -->
+
+
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoMediumTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="16dp"
+                        android:paddingLeft="3dp"
+                        android:text="ADDRESS DETAILS"
+                        android:textColor="@color/colorC59A5C"
+                        android:textSize="12sp" />
+
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="18dp"
+                        android:paddingLeft="3dp"
+                        android:text="Address Line 1"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etEditAddress1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingLeft="0dp"
+                        android:singleLine="true"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="18dp"
+                        android:text="Address Line 2"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etEditAddress2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingLeft="3dp"
+                        android:singleLine="true"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="18dp"
+                        android:paddingLeft="3dp"
+                        android:text="Address Line 3"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <!-- ADDRESS LINE 3 -->
+
+                    <EditText
+                        android:id="@+id/etEditAddress3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingLeft="0dp"
+                        android:singleLine="true"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="18dp"
+                        android:paddingLeft="3dp"
+                        android:text="Town"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etEditTown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingLeft="3dp"
+                        android:singleLine="true"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="18dp"
+                        android:paddingLeft="3dp"
+                        android:text="County"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etCounty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingLeft="3dp"
+                        android:singleLine="true"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="18dp"
+                        android:paddingLeft="3dp"
+                        android:text="Post Code"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etEditPostCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingLeft="3dp"
+                        android:singleLine="true"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+
+                    <com.mh.systems.woolstonmanor.ui.customfonts.RobotoTextView
+                        style="@style/MyDetailHeading"
+                        android:layout_marginTop="18dp"
+                        android:paddingLeft="3dp"
+                        android:text="Country"
+                        android:textAllCaps="false"
+                        android:textColor="@color/fifty_four_of_black"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/etEditCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorE8E2DD"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:maxLines="1"
+                        android:paddingLeft="3dp"
+                        android:singleLine="true"
+                        android:textColor="@color/eighty_seven_of_black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+                </LinearLayout>
+            </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>
