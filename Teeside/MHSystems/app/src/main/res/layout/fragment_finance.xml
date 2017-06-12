@@ -35,7 +35,7 @@
 
                     <!-- EXACT LABEL OF CARD BALANCE -->
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         android:id="@+id/tvLabelCardBalance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
 
                         <!-- EXACT LABEL VALUE OF CARD BALANCE -->
 
-                        <com.mh.systems.teeside.ui.customfonts.RobotoMediumTextView
+                        <com.mh.systems.teesside.ui.customfonts.RobotoMediumTextView
                             android:id="@+id/tvCardBalance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
 
                     <!-- LABEL OF CURRENT INVOICE -->
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         android:id="@+id/tvLabelYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
 
                     <!-- LABEL VALUE OF CURRENT INVOICE -->
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoMediumTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -149,6 +149,7 @@
             <!-- TYPE VIEW OF CARD/TOP UP -->
 
             <FrameLayout
+                android:id="@+id/flTopUpGroup"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -163,7 +164,7 @@
 
                     <!-- TYPE LABEL -->
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.4"

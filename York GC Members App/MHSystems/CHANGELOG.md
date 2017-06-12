@@ -1,4 +1,4 @@
-##Version 1.3.0 (09th June, 2017)
+##Version 1.3.0 (12th June, 2017)
  - Fixed: Top Ups are only added to the General purse.
 
 ##Version 1.2.0 (29th May, 2017)

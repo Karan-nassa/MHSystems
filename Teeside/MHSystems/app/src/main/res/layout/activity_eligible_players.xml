@@ -38,7 +38,7 @@
                     android:background="@color/colorBDB6AE"
                     android:gravity="center">
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         android:id="@+id/tvAddPlayerDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

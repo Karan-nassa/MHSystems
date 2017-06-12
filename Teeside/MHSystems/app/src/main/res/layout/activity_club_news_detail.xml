@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.mh.systems.teeside.ui.customfonts.SFUI_TextFontMedium
+            <com.mh.systems.teesside.ui.customfonts.SFUI_TextFontMedium
                 android:id="@+id/tvTitleOfNews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

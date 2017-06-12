@@ -98,7 +98,7 @@ public class FinanceFragment extends Fragment {
 
     LinearLayout llFinanceGroup;
     LinearLayout llPurseType;
-    FrameLayout flPurseGroup, flInvoicesGroup;
+    FrameLayout flPurseGroup, flInvoicesGroup, flTopUpGroup;
 
     //Pop Menu to show Categories of Course Diary.
     PopupMenu popupMenu;
@@ -237,6 +237,7 @@ public class FinanceFragment extends Fragment {
 
         flPurseGroup = (FrameLayout) viewRootFragment.findViewById(R.id.flPurseGroup);
         flInvoicesGroup = (FrameLayout) viewRootFragment.findViewById(R.id.flInvoicesGroup);
+        flTopUpGroup = (FrameLayout) viewRootFragment.findViewById(R.id.flTopUpGroup);
 
         btTopUp = (Button) viewRootFragment.findViewById(R.id.btTopUp);
     }
@@ -508,6 +509,7 @@ public class FinanceFragment extends Fragment {
         flPurseGroup.setVisibility(View.VISIBLE);
         flInvoicesGroup.setVisibility(View.GONE);
         llTransactionUI.setVisibility(View.GONE);
+        flTopUpGroup.setVisibility(View.GONE);
 
         //Hide Filter Icon on top right if General not selected.
         ((YourAccountActivity) mContext).updateFilterIcon(View.GONE);
@@ -517,6 +519,7 @@ public class FinanceFragment extends Fragment {
         flPurseGroup.setVisibility(View.VISIBLE);
         flInvoicesGroup.setVisibility(View.VISIBLE);
         llTransactionUI.setVisibility(View.VISIBLE);
+        flTopUpGroup.setVisibility(View.VISIBLE);
 
         //Show top right filter to choose transactions according to date.
         ((YourAccountActivity) mContext).updateFilterIcon(View.VISIBLE);

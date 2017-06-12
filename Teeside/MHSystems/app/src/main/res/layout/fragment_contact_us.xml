@@ -40,13 +40,13 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:text="@string/text_title_telephone" />
 
                     <!-- NAME OF PERSON -->
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         android:id="@+id/tvTelephone"
                         style="@style/MyDetailValues"
                         android:layout_width="250dp"/>
@@ -62,14 +62,14 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:layout_marginTop="20dp"
                         android:text="@string/text_title_fax" />
 
                     <!-- NAME OF PERSON -->
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         android:id="@+id/tvFax"
                         style="@style/MyDetailValues" />
 
@@ -84,14 +84,14 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:layout_marginTop="20dp"
                         android:text="@string/text_title_email" />
 
                     <!-- NAME OF PERSON -->
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         android:id="@+id/tvEmail"
                         style="@style/MyDetailValues" />
 
@@ -106,14 +106,14 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:layout_marginTop="20dp"
                         android:text="@string/text_title_address" />
 
                     <!-- NAME OF PERSON -->
 
-                    <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                    <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                         android:id="@+id/tvAddress"
                         style="@style/MyDetailValues"
                         android:layout_width="250dp" />

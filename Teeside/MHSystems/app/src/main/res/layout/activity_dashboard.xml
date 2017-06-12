@@ -121,11 +121,11 @@
 
             <!-- TEMPERATURE -->
 
-            <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+            <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                 android:id="@+id/tvTodayTemperature"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:layout_weight="20"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:textColor="@color/colorWhiteffffff"
                 android:textSize="25sp" />
@@ -135,7 +135,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="15"
+                android:layout_weight="13"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -149,11 +149,11 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:paddingLeft="20dp"
-                android:layout_weight="55"
+                android:paddingLeft="3dp"
+                android:layout_weight="60"
                 android:orientation="vertical">
 
-                <com.mh.systems.teeside.ui.customfonts.RobotoMediumTextView
+                <com.mh.systems.teesside.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvNameOfLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="17sp" />
 
-                <com.mh.systems.teeside.ui.customfonts.RobotoMediumTextView
+                <com.mh.systems.teesside.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvWeatherDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -177,9 +177,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
-                android:layout_weight="5"
+                android:layout_weight="7"
                 android:src="@mipmap/ic_arrow_right" />
-
 
         </LinearLayout>
 

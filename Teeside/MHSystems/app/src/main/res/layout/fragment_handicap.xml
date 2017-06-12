@@ -47,7 +47,7 @@
 
                                 <!-- EXACT LABEL OF HANDICAP -->
 
-                                <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                                <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:alpha="0.4"
@@ -58,7 +58,7 @@
 
                                 <!-- EXACT LABEL VALUE OF HANDICAP -->
 
-                                <com.mh.systems.teeside.ui.customfonts.RobotoMediumTextView
+                                <com.mh.systems.teesside.ui.customfonts.RobotoMediumTextView
                                     android:id="@+id/tvHandicapExact"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
 
                                 <!-- PLAYING LABEL OF HANDICAP -->
 
-                                <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                                <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:alpha="0.4"
@@ -107,7 +107,7 @@
 
                                 <!-- PLAYING LABEL VALUE OF HANDICAP -->
 
-                                <com.mh.systems.teeside.ui.customfonts.RobotoMediumTextView
+                                <com.mh.systems.teesside.ui.customfonts.RobotoMediumTextView
                                     android:id="@+id/tvHandicapPlaying"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
 
                                 <!-- TYPE LABEL -->
 
-                                <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                                <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:alpha="0.4"
@@ -205,7 +205,7 @@
 
                                 <!-- SELECTED HANDICAP GRAPH DATE  -->
 
-                                <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                                <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                                     android:id="@+id/tvDateOfPlayedStr"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -215,7 +215,7 @@
 
                                 <!-- SELECTED HANDICAP GRAPH DESCRIPTION  -->
 
-                                <com.mh.systems.teeside.ui.customfonts.RobotoTextView
+                                <com.mh.systems.teesside.ui.customfonts.RobotoTextView
                                     android:id="@+id/tvTitleOfPlayStr"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
                                 android:gravity="right"
                                 android:orientation="horizontal">
 
-                                <com.mh.systems.teeside.ui.customfonts.RobotoTextFontBold
+                                <com.mh.systems.teesside.ui.customfonts.RobotoTextFontBold
                                     android:id="@+id/tvTypeOfPlayStr"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -293,7 +293,7 @@
 
                         <!-- CURRENT SELECTED HANDICAP GRAPH YEAR  -->
 
-                        <com.mh.systems.teeside.ui.customfonts.RobotoMediumTextView
+                        <com.mh.systems.teesside.ui.customfonts.RobotoMediumTextView
                             android:id="@+id/tvSelectGraphYear"
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
@@ -319,7 +319,7 @@
 
                         </LinearLayout>
 
-                        <com.mh.systems.teeside.ui.customfonts.RobotoMediumTextView
+                        <com.mh.systems.teesside.ui.customfonts.RobotoMediumTextView
                             android:id="@+id/tvLatestGraphYear"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
