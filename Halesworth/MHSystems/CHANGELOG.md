@@ -1,3 +1,12 @@
+##Version 1.3.0 (12th June, 2017)
+
+ - UPDATE: Display 'Account' and 'Balance' title along with month title on Finance.
+ - UPDATE: Update the Finance tab UI with 4 columns (date/time, item, amount and balance).
+ - FIXED : Navigate back from finance detail to finance tab, top-right filter icon was not working. Now fixed.
+ - UPDATE: Add In App Update Notification version alert dialog one time when any update found.
+ - UPDATE: Integrate the feature flag to Membership Type in Members.
+ - UPDATE: The balance needs to be complete - not + 101.... Allow for up to £9,999.99.
+
 ##Version 1.2.0 (26th May, 2017)
 
 - New: Contact us feature added.
