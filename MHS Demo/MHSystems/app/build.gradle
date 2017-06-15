@@ -68,4 +68,5 @@ dependencies {
     compile 'com.mukesh:countrypicker:1.1.5'
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'org.jsoup:jsoup:1.10.2'
 }

@@ -200,40 +200,27 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
         @Override
         public void onClick(View v) {
 
-            /**
-             * If course diary available then get names of Courses online.
-             */
-            if (dashboardItemsArrayList.get(getAdapterPosition()).getStrTitleOfGrid().equals("Course Diary")) {
+            int iPosition = 0;
 
-                if (((DashboardActivity) context).isOnline(context)) {
-                    updateMemberDetails();
-                } else {
-                    ((DashboardActivity) context).showAlertMessage(context.getResources().getString(R.string.error_no_internet));
-                    ((DashboardActivity) context).hideProgress();
-                }
-            } else {
-                int iPosition = 0;
+            Class<?> destClassName = null;
+            if (dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid() != null) {
+                try {
+                    destClassName = Class.forName(dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid());
 
-                Class<?> destClassName = null;
-                if (dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid() != null) {
-                    try {
-                        destClassName = Class.forName(dashboardItemsArrayList.get(getAdapterPosition()).getStrTagOfGrid());
-
-                        if (dashboardItemsArrayList.get(getAdapterPosition()).getiGridIcon() == R.mipmap.ic_handicap_chart) {
-                            iPosition = 1;
-                        }
-
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
+                    if (dashboardItemsArrayList.get(getAdapterPosition()).getiGridIcon() == R.mipmap.ic_handicap_chart) {
+                        iPosition = 1;
                     }
 
-                    Intent intent = new Intent(context, destClassName);
-                    intent.putExtra("iTabPosition", iPosition);
-                    context.startActivity(intent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
 
-            /*Intent intent = null;
+                Intent intent = new Intent(context, destClassName);
+                intent.putExtra("iTabPosition", iPosition);
+                context.startActivity(intent);
+            }
 
+            /*Intent intent = null;
             switch (getAdapterPosition()) {
                 case 0:
                     intent = new Intent(context, YourAccountActivity.class);
@@ -248,23 +235,19 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
                 case 3:
                     intent = new Intent(context, MembersActivity.class);
                     break;
-
                 case 4:
                     intent = new Intent(context, ClubNewsActivity.class);
                     break;
-
                 case 5:
                     intent = new Intent(context, YourAccountActivity.class);
                     intent.putExtra("iTabPosition", 0);
                     break;
             }
-
             //Check if intent not NULL then navigate to that selected screen.
             if (intent != null) {
                 context.startActivity(intent);
                 intent = null;
             }*/
-            }
         }
     }
 

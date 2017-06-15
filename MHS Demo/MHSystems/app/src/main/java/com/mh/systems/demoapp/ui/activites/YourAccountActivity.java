@@ -51,6 +51,8 @@ public class YourAccountActivity extends BaseActivity {
 
     Typeface tfRobotoMedium;
 
+    public static boolean isRefreshEnable;
+
      /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
     @Bind(R.id.inc_message_view)
@@ -85,6 +87,8 @@ public class YourAccountActivity extends BaseActivity {
         //Initialize view resources.
         ButterKnife.bind(this);
 
+        isRefreshEnable = true;
+
         if (tbMyAccount != null) {
             setSupportActionBar(tbMyAccount);
             getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -116,8 +120,9 @@ public class YourAccountActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        updateFragment(new MyAccountTabFragment(getiOpenTabPosition()));
+        if (isRefreshEnable) {
+            updateFragment(new MyAccountTabFragment(getiOpenTabPosition()));
+        }
     }
 
     @Override

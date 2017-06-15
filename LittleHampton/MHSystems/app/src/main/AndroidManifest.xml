@@ -25,8 +25,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:largeHeap="true"
+        android:supportsRtl="true"
         android:theme="@style/AppThemeMaterial">
 
         <!-- SPLASH ACTIVITY -->
@@ -54,6 +54,11 @@
         <!-- COURSE DIARY ACTIVITY -->
         <activity
             android:name="com.mh.systems.littlehampton.ui.activites.CourseDiaryActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- COURSE DIARY WEB VIEW -->
+        <activity
+            android:name=".ui.activites.CourseDiaryWebviewActivity"
             android:screenOrientation="portrait" />
 
         <!-- COURSE DIARY DETAIL ACTIVITY -->
@@ -119,7 +124,7 @@
         <activity
             android:name="com.mh.systems.littlehampton.ui.activites.ResetPasswordActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
 
         <!-- SEND FEEDBACK SCREEN -->
         <activity

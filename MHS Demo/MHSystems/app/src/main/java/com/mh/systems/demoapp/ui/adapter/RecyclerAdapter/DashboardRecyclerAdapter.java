@@ -96,7 +96,11 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
 
         if (position == iHandicapPosition) {
             holder.tvHCapExactStr.setVisibility(View.VISIBLE);
-            holder.tvHCapExactStr.setText(hCapExactStr);
+            if(hCapExactStr.length() == 0){
+                holder.tvHCapExactStr.setText("N/A");
+            }else {
+                holder.tvHCapExactStr.setText(hCapExactStr);
+            }
         }
 
         /**
@@ -231,7 +235,9 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
      * badger icon on dashboard.
      */
     public void updateBadgerCount(int iUnreadCount) {
-        mInstanceOfClubNews.flBadgerGroup.setVisibility(View.VISIBLE);
-        mInstanceOfClubNews.tvBadgerCount.setText(("" + iUnreadCount));
+        if (mInstanceOfClubNews != null) {
+            mInstanceOfClubNews.flBadgerGroup.setVisibility(View.VISIBLE);
+            mInstanceOfClubNews.tvBadgerCount.setText(("" + iUnreadCount));
+        }
     }
 }
