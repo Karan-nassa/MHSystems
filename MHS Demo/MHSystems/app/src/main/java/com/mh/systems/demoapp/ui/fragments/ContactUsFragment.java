@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.ui.activites.HCapHistoryActivity;
 import com.mh.systems.demoapp.ui.activites.MembersActivity;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
@@ -321,7 +322,7 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
             llDepartments.setVisibility(View.GONE);
             ((MembersActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((MembersActivity)getActivity()).reportRollBarException(ContactUsFragment.class.getSimpleName(), e.toString());
         }
     }
 

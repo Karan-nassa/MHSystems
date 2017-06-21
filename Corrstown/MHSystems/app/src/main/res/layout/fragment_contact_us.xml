@@ -22,13 +22,19 @@
                 android:layout_margin="16dp"
                 android:orientation="vertical">
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+
                 <!-- GOLF CLUB LOGO -->
 
                 <ImageView
                     android:id="@+id/ivAppLogo"
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="200dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp" />
 
                 <!-- TITLE TELEPHONE -->
 
@@ -39,13 +45,13 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:text="@string/text_title_telephone" />
 
                     <!-- NAME OF PERSON -->
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         android:id="@+id/tvTelephone"
                         style="@style/MyDetailValues"
                         android:layout_width="250dp"/>
@@ -61,14 +67,14 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:layout_marginTop="20dp"
                         android:text="@string/text_title_fax" />
 
                     <!-- NAME OF PERSON -->
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         android:id="@+id/tvFax"
                         style="@style/MyDetailValues" />
 
@@ -83,14 +89,14 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:layout_marginTop="20dp"
                         android:text="@string/text_title_email" />
 
                     <!-- NAME OF PERSON -->
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         android:id="@+id/tvEmail"
                         style="@style/MyDetailValues" />
 
@@ -105,14 +111,14 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         style="@style/MyDetailHeading"
                         android:layout_marginTop="20dp"
                         android:text="@string/text_title_address" />
 
                     <!-- NAME OF PERSON -->
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         android:id="@+id/tvAddress"
                         style="@style/MyDetailValues"
                         android:layout_width="250dp" />

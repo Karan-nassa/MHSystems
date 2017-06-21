@@ -805,6 +805,7 @@ public class DashboardActivity extends BaseActivity {
             public void failure(RetrofitError error) {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
+                showAlertMessage(error.getMessage());
             }
         });
     }

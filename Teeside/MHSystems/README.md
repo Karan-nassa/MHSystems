@@ -7,15 +7,16 @@
 
 | Sno. | Name              | Available      |
 | ---- |:----------------  | :------------: |
-| 1.   | Club News Badger  | N/A            |
-| 2.   | Weather           | N/A            |
-| 3.   | Your Handicap     | N/A            |
-| 4.   | Course Diary      | N/A            |
-| 5.   | Competitions      | N/A            |
-| 6.   | Members           | N/A            |
-| 7.   | Club News         | N/A            |
-| 8.   | Your Account      | N/A            |
-| 9.   | TOP UP            | N/A            |
-| 10.  | Contact Us        | N/A            |
-| 11.  | Date and Time on Club News | N.A   |
-| 12.  | News WebCam Integration | N/A      |
+| 1.   | Club News Badger  | NO             |
+| 2.   | Weather           | Yes            |
+| 3.   | Your Handicap     | Yes            |
+| 4.   | Course Diary      | Yes            |
+| 5.   | Competitions      | Yes            |
+| 6.   | Members           | Yes            |
+| 7.   | Club News         | Yes            |
+| 8.   | Your Account      | Yes            |
+| 9.   | TOP UP            | No             |
+| 10.  | Contact Us        | Yes            |
+| 11.  | Date and Time on Club News | Yes   |
+| 12.  | News WebCam Integration | No       |
+| 13.  | Finance           |  No            |

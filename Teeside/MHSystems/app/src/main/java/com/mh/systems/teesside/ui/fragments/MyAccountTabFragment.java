@@ -67,7 +67,7 @@ public class MyAccountTabFragment extends Fragment {
             tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_handicap)));
         }
 
-        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_finances)));
+        //tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.tab_title_finances)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.colorC0995B));

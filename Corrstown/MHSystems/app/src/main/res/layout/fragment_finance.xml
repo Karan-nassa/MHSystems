@@ -34,7 +34,7 @@
 
                     <!-- EXACT LABEL OF CARD BALANCE -->
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         android:id="@+id/tvLabelCardBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
 
                     <!-- EXACT LABEL VALUE OF CARD BALANCE -->
 
-                    <com.mh.systems.corrstown.customfonts.RobotoMediumTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvCardBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
 
                     <!-- LABEL OF CURRENT INVOICE -->
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         android:id="@+id/tvLabelYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
 
                     <!-- LABEL VALUE OF CURRENT INVOICE -->
 
-                    <com.mh.systems.corrstown.customfonts.RobotoMediumTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
                         android:id="@+id/tvYourInvoice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
 
                     <!-- TYPE LABEL -->
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.4"
@@ -163,29 +163,76 @@
 
         </LinearLayout>
 
-        <!-- DATE/FILTER TYPE-->
-
-        <TextView
-            android:id="@+id/tvDateHeading"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/colorC59A5C"
-            android:textSize="14sp" />
+            android:layout_marginTop="5dp"
+            android:background="@color/colorF8F7F6"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="60"
+                android:orientation="vertical">
+
+                <!-- DATE/FILTER TYPE-->
+
+                <TextView
+                    android:id="@+id/tvDateHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/colorC59A5C"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- AMOUNT TITLE -->
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:gravity="center"
+                android:text="Amount"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- BALANCE TITLE -->
+
+            <TextView
+                android:id="@+id/tvBalance"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:gravity="center"
+                android:text="Balance"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
 
         <!-- USE TO DISPLAY TRANSACTION LIST -->
 
-        <ListView
+       <!-- <ListView
             android:id="@+id/lvTransactionList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:cacheColorHint="@color/colorF9F8F7"
             android:divider="@color/colorE8E2DD"
-            android:dividerHeight="0dp" />
+            android:dividerHeight="0dp" />-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvTransactionList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:overScrollMode="never" />
 
     </LinearLayout>
 

@@ -43,9 +43,7 @@
 
                 <!-- PLEASE LOGIN TEXT -->
 
-                <com.mh.systems.corrstown.customfonts.RobotoMediumTextView
-
-                  android:name="com.mh.systems.correstown.customfonts.RobotoMediumTextView"
+                <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvLoginTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,8 +115,7 @@
 
                     <!-- FORGOT PASSWORD -->
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
-
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         android:id="@+id/tvForgotPWD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

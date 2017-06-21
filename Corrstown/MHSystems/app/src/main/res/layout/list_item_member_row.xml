@@ -43,7 +43,7 @@
 
             <!-- VIEW TO DISPLAY 'PlayHCapStr' OF EACH MEMBER -->
 
-            <com.mh.systems.corrstown.customfonts.RobotoMediumTextView
+            <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
                 android:id="@+id/tvPlayHCapStr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
 
         <!-- NAME OF MEMBER -->
 
-        <com.mh.systems.corrstown.customfonts.RobotoTextView
+        <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
             android:id="@+id/tvMemberName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

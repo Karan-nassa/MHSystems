@@ -22,6 +22,7 @@
     <string name="error_no_club_news">No Club News</string>
     <string name="error_wrong_date_selection">You can only view data of current date and future dates.</string>
     <string name="error_valid_email">Please enter valid Email address.</string>
+    <string name="error_no_transaction">No Transaction Receipt Available.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
     <!-- START OF COMMON MESSAGES THROUGH OUT THE APP -->
@@ -49,7 +50,7 @@
     <!-- END OF LOGIN ACTIVITY -->
 
     <!-- START OF DASHBOARD ACTIVITY -->
-    <string name="title_golf_club_name">Corrstown CLUB</string>
+    <string name="title_golf_club_name">Corrstown Golf Club</string>
     <string name="title_home_message">“Kindness is the language which the deaf can hear and the blind can see.”</string>
     <string name="title_home_message_author">Mark Twain</string>
     <!-- END OF DASHBOARD ACTIVITY -->
@@ -235,6 +236,61 @@
     <!-- FRIENDS INFO ACTIVITY -->
     <string name="tb_title_frinds_list">Friends List</string>
 
+    <!-- ++ START CONTACT US ++ -->
+
+    <string name="text_title_telephone">TELEPHONE</string>
+    <string name="text_title_fax">FAX</string>
+    <string name="text_title_email">EMAIL</string>
+    <string name="text_title_address">ADDRESS</string>
+    <string name="text_title_department">DEPARTAMENT</string>
+
+    <string name="text_title_member_administration">Membership Administration</string>
+    <string name="text_name_member_administration">Clare Livingston</string>
+    <string name="text_email_member_administration">clarel@halesworthgolfclub.co.uk</string>
+    <string name="text_contact_member_administration">01344 621681</string>
+
+    <string name="text_title_restaurant_mngr">Restaurant Manager</string>
+    <string name="text_name_rst_manager">Elaine Brace</string>
+    <string name="text_email_rst_manager">elaineb@halesworthgolfclub.co.uk</string>
+    <string name="text_contact_rst_manager">01344 298013</string>
+
+    <string name="text_title_food_mngr">Food &amp; Beverage Manager</string>
+    <string name="text_name_food_mngr">Sherin George</string>
+    <string name="text_email_food_mngr">shering@halesworthgolfclub.co.uk</string>
+    <string name="text_contact_food_mngr">01344 298013</string>
+
+    <string name="text_title_club_shop">Club Shop</string>
+    <string name="text_name_club_shop">Assistant Professionals</string>
+    <string name="text_email_club_shop">proshop@halesworthgolfclub.co.uk</string>
+    <string name="text_contact_club_shop">01344 621681</string>
+
+    <string name="text_title_caddie_master">Caddie Master</string>
+    <string name="text_name_caddie_master">Vince Reeves</string>
+    <string name="text_email_caddie_master">caddiemaster@halesworthgolfclub.co.uk</string>
+    <string name="text_contact_caddie_master">01344 626064</string>
+
+    <string name="text_title_golf_reservations">Golf Reservations</string>
+    <string name="text_name_golf_reservations">Anne Gladman</string>
+    <string name="text_email_golf_reservations">anneg@halesworthgolfclub.co.uk</string>
+    <string name="text_contact_golf_reservations">01344 298006</string>
+
+    <string name="text_title_golf_op_mngr">Golf Operations Manager</string>
+    <string name="text_name_golf_op_mngr">Christian Foreman</string>
+    <string name="text_email_golf_op_mngr">christianf@halesworthgolfclub.co.uk</string>
+    <string name="text_contact_golf_op_mngr">01344 298003</string>
+
+    <string name="text_title_general_mngr">General Manager</string>
+    <string name="text_name_general_mngr">Tristan Hall</string>
+    <string name="text_email_general_mngr">tristanh@halesworthgolfclub.co.uk</string>
+    <string name="text_contact_general_mngr">01344 621681</string>
+
+    <string name="text_title_Secretariat">Secretariat</string>
+    <string name="text_name_Secretariat">General Enquiries</string>
+    <string name="text_email_Secretariat">info@halesworthgolfclub.co.uk</string>
+    <string name="text_contact_Secretariat">01344 621681</string>
+
+    <!-- ~~ END CONTACT US ~~ -->
+
     <!-- TOP UP -->
     <string name="text_title_topup">Top Up</string>
     <string name="text_title_amount">Amount</string>
@@ -247,60 +303,5 @@
     <string name="alert_title_payment_failure">Payment Failure</string>
     <string name="text_title_new_balance">Your new balance is </string>
     <string name="error_title_try_again">Please try again</string>
-
-    <!-- ++ START CONTACT US ++ -->
-
-    <string name="text_title_telephone">TELEPHONE</string>
-    <string name="text_title_fax">FAX</string>
-    <string name="text_title_email">EMAIL</string>
-    <string name="text_title_address">ADDRESS</string>
-    <string name="text_title_department">DEPARTAMENT</string>
-
-    <string name="text_title_member_administration">Membership Administration</string>
-    <string name="text_name_member_administration">Clare Livingston</string>
-    <string name="text_email_member_administration">clarel@corrstowngolfclub.co.uk</string>
-    <string name="text_contact_member_administration">01344 621681</string>
-
-    <string name="text_title_restaurant_mngr">Restaurant Manager</string>
-    <string name="text_name_rst_manager">Elaine Brace</string>
-    <string name="text_email_rst_manager">elaineb@corrstowngolfclub.co.uk</string>
-    <string name="text_contact_rst_manager">01344 298013</string>
-
-    <string name="text_title_food_mngr">Food &amp; Beverage Manager</string>
-    <string name="text_name_food_mngr">Sherin George</string>
-    <string name="text_email_food_mngr">shering@corrstowngolfclub.co.uk</string>
-    <string name="text_contact_food_mngr">01344 298013</string>
-
-    <string name="text_title_club_shop">Club Shop</string>
-    <string name="text_name_club_shop">Assistant Professionals</string>
-    <string name="text_email_club_shop">proshop@corrstowngolfclub.co.uk</string>
-    <string name="text_contact_club_shop">01344 621681</string>
-
-    <string name="text_title_caddie_master">Caddie Master</string>
-    <string name="text_name_caddie_master">Vince Reeves</string>
-    <string name="text_email_caddie_master">caddiemaster@corrstowngolfclub.co.uk</string>
-    <string name="text_contact_caddie_master">01344 626064</string>
-
-    <string name="text_title_golf_reservations">Golf Reservations</string>
-    <string name="text_name_golf_reservations">Anne Gladman</string>
-    <string name="text_email_golf_reservations">anneg@corrstowngolfclub.co.uk</string>
-    <string name="text_contact_golf_reservations">01344 298006</string>
-
-    <string name="text_title_golf_op_mngr">Golf Operations Manager</string>
-    <string name="text_name_golf_op_mngr">Christian Foreman</string>
-    <string name="text_email_golf_op_mngr">christianf@corrstowngolfclub.co.uk</string>
-    <string name="text_contact_golf_op_mngr">01344 298003</string>
-
-    <string name="text_title_general_mngr">General Manager</string>
-    <string name="text_name_general_mngr">Tristan Hall</string>
-    <string name="text_email_general_mngr">tristanh@corrstowngolfclub.co.uk</string>
-    <string name="text_contact_general_mngr">01344 621681</string>
-
-    <string name="text_title_Secretariat">Secretariat</string>
-    <string name="text_name_Secretariat">General Enquiries</string>
-    <string name="text_email_Secretariat">info@corrstowngolfclub.co.uk</string>
-    <string name="text_contact_Secretariat">01344 621681</string>
-
-    <!-- ~~ END CONTACT US ~~ -->
 
 </resources>

@@ -389,7 +389,7 @@ public class MembersFragment extends Fragment {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((MembersActivity)getActivity()).reportRollBarException(MembersFragment.class.getSimpleName(), e.toString());
         }
 
        /* *//**

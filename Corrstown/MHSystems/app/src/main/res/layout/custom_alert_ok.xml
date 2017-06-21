@@ -14,7 +14,7 @@
 
         <!-- TITLE OF ALERT -->
 
-        <com.mh.systems.corrstown.customfonts.RobotoMediumTextView
+        <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
             android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
 
         <!-- MESSAGE OF ALERT -->
 
-        <com.mh.systems.corrstown.customfonts.RobotoTextView
+        <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
             android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="250dp"
@@ -34,7 +34,7 @@
             android:textColor="@color/colorBlack000000"
             android:textSize="16sp" />
 
-        <com.mh.systems.corrstown.customfonts.RobotoMediumTextView
+        <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
             android:id="@+id/tvOk"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

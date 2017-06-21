@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.activites.BaseActivity;
+import com.mh.systems.demoapp.ui.activites.MembersActivity;
 import com.mh.systems.demoapp.ui.activites.YourAccountActivity;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
@@ -191,7 +192,7 @@ public class MyDetailsFragment extends Fragment {
         } catch (Exception e) {
             ((BaseActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((BaseActivity)getActivity()).reportRollBarException(MyDetailsFragment.class.getSimpleName(), e.toString());
             llMyDetailGroup.setVisibility(View.GONE);
         }
     }

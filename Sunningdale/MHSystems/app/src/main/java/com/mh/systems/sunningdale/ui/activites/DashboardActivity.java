@@ -161,6 +161,7 @@ public class DashboardActivity extends BaseActivity {
             checkUpdateVersion();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
         }
 
         //Initialize adapter.

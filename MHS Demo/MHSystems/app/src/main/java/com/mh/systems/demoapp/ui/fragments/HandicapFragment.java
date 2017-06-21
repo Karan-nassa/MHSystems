@@ -31,6 +31,7 @@ import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.activites.BaseActivity;
 import com.mh.systems.demoapp.ui.activites.HCapHistoryActivity;
+import com.mh.systems.demoapp.ui.activites.MembersActivity;
 import com.mh.systems.demoapp.ui.activites.ShowCertificateWebview;
 import com.mh.systems.demoapp.ui.activites.YourAccountActivity;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
@@ -359,7 +360,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
             ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((BaseActivity)getActivity()).reportRollBarException(HandicapFragment.class.getSimpleName(), e.toString());
             ((BaseActivity) getActivity()).hideProgress();
         }
     }

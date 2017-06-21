@@ -121,7 +121,7 @@
 
             <!-- TEMPERATURE -->
 
-            <com.mh.systems.corrstown.customfonts.RobotoTextView
+            <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                 android:id="@+id/tvTodayTemperature"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -153,7 +153,7 @@
                 android:layout_weight="55"
                 android:orientation="vertical">
 
-                <com.mh.systems.corrstown.customfonts.RobotoMediumTextView
+                <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvNameOfLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="17sp" />
 
-                <com.mh.systems.corrstown.customfonts.RobotoMediumTextView
+                <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvWeatherDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
                 android:layout_weight="5"
-                android:src="@mipmap/ic_arrow_right_white" />
+                android:src="@mipmap/ic_arrowright" />
 
 
         </LinearLayout>
@@ -208,7 +208,6 @@
                 android:id="@+id/gvMenuOptions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:overScrollMode="never"
                 android:cacheColorHint="@color/colorF9F8F7"
                 android:divider="@color/colorE8E2DD"
                 android:dividerHeight="1dp" />

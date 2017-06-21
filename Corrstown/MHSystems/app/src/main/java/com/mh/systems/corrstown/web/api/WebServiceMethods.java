@@ -1,36 +1,38 @@
 package com.mh.systems.corrstown.web.api;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.corrstown.models.AddMemberAPI;
-import com.mh.systems.corrstown.models.ClubNews.ClubNewsDetailAPI;
-import com.mh.systems.corrstown.models.ClubNewsThumbnail.ClubNewsThumbnailAPI;
-import com.mh.systems.corrstown.models.ClubNewsThumbnail.ClubNewsThumbnailDetailAPI;
-import com.mh.systems.corrstown.models.CompetitionResultAPI;
-import com.mh.systems.corrstown.models.CompetitionJoinAPI;
-import com.mh.systems.corrstown.models.CompetitionUnjoinAPI;
-import com.mh.systems.corrstown.models.CompetitionsAPI;
-import com.mh.systems.corrstown.models.ContactUs.ContactUsAPI;
-import com.mh.systems.corrstown.models.CourseDiaryAPI;
-import com.mh.systems.corrstown.models.DashboardAPI;
-import com.mh.systems.corrstown.models.DeleteToken.DeleteTokenAPI;
-import com.mh.systems.corrstown.models.EditDetailMode.EditDetailModeAPI;
-import com.mh.systems.corrstown.models.ForgotPassword.ForgotPasswordAPI;
-import com.mh.systems.corrstown.models.Friends.RemoveFriendAPI;
-import com.mh.systems.corrstown.models.FriendsAPI;
-import com.mh.systems.corrstown.models.HCapHistory.HCapHistoryAPI;
-import com.mh.systems.corrstown.models.HandicapAPI;
-import com.mh.systems.corrstown.models.MembersAPI;
-import com.mh.systems.corrstown.models.MembersDetailAPI;
-import com.mh.systems.corrstown.models.FinanceAPI;
-import com.mh.systems.corrstown.models.ResetPassword.ResetPasswordAPI;
-import com.mh.systems.corrstown.models.TogglePrivacy.TogglePrivacyAPI;
-import com.mh.systems.corrstown.models.UnreadNewsCount.GetUnreadNewsCountAPI;
-import com.mh.systems.corrstown.models.UpdatePassword.UpdatePassswordAPI;
-import com.mh.systems.corrstown.models.competitionsEntry.CompEligiblePlayersAPI;
-import com.mh.systems.corrstown.models.competitionsEntry.GetClubEventAPI;
-import com.mh.systems.corrstown.models.competitionsEntry.UpdateCompEntryAPI;
-import com.mh.systems.corrstown.models.featuresflag.FeatureFlagsAPI;
-import com.mh.systems.corrstown.models.registerToken.RegisterTokenAPI;
+import com.mh.systems.corrstown.web.models.AddMemberAPI;
+import com.mh.systems.corrstown.web.models.clubnews.ClubNewsAPI;
+import com.mh.systems.corrstown.web.models.clubnews.ClubNewsDetailAPI;
+import com.mh.systems.corrstown.web.models.clubnewsthumbnail.ClubNewsThumbnailAPI;
+import com.mh.systems.corrstown.web.models.clubnewsthumbnail.ClubNewsThumbnailDetailAPI;
+import com.mh.systems.corrstown.web.models.CompetitionResultAPI;
+import com.mh.systems.corrstown.web.models.CompetitionJoinAPI;
+import com.mh.systems.corrstown.web.models.CompetitionUnjoinAPI;
+import com.mh.systems.corrstown.web.models.CompetitionsAPI;
+import com.mh.systems.corrstown.web.models.contactus.ContactUsAPI;
+import com.mh.systems.corrstown.web.models.CourseDiaryAPI;
+import com.mh.systems.corrstown.web.models.coursenames.CourseNamesAPI;
+import com.mh.systems.corrstown.web.models.DashboardAPI;
+import com.mh.systems.corrstown.web.models.deletetoken.DeleteTokenAPI;
+import com.mh.systems.corrstown.web.models.editdetailmode.EditDetailModeAPI;
+import com.mh.systems.corrstown.web.models.forgotpassword.ForgotPasswordAPI;
+import com.mh.systems.corrstown.web.models.friends.RemoveFriendAPI;
+import com.mh.systems.corrstown.web.models.FriendsAPI;
+import com.mh.systems.corrstown.web.models.hcaphistory.HCapHistoryAPI;
+import com.mh.systems.corrstown.web.models.HandicapAPI;
+import com.mh.systems.corrstown.web.models.MembersAPI;
+import com.mh.systems.corrstown.web.models.MembersDetailAPI;
+import com.mh.systems.corrstown.web.models.FinanceAPI;
+import com.mh.systems.corrstown.web.models.resetpassword.ResetPasswordAPI;
+import com.mh.systems.corrstown.web.models.toggleprivacy.TogglePrivacyAPI;
+import com.mh.systems.corrstown.web.models.unreadnewscount.GetUnreadNewsCountAPI;
+import com.mh.systems.corrstown.web.models.updatepassword.UpdatePassswordAPI;
+import com.mh.systems.corrstown.web.models.competitionsentry.CompEligiblePlayersAPI;
+import com.mh.systems.corrstown.web.models.competitionsentry.GetClubEventAPI;
+import com.mh.systems.corrstown.web.models.competitionsentry.UpdateCompEntryAPI;
+import com.mh.systems.corrstown.web.models.featuresflag.FeatureFlagsAPI;
+import com.mh.systems.corrstown.web.models.registertoken.RegisterTokenAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -46,7 +48,7 @@ import retrofit.http.Query;
 public interface WebServiceMethods {
 
     /**
-     * Declaration of DASHBOARD api.
+     * Declaration of DASHBOARD API.
      * <p/>
      * TYPE : POST
      * <p/>
@@ -84,7 +86,7 @@ public interface WebServiceMethods {
     public void getCompetitionsEvents(@Body CompetitionsAPI jsonElements, Callback<JsonObject> response);
 
 
-    @GET("/webapi/api/ClubsApp/RpcRequest")
+    @GET("/api/ClubsApp/RpcRequest")
     void joinCompetitionEventGet(@Query("aClientId") String aClientId, @Query("aCommand") String aCommand,
                                  @Query("aJsonParams") String aJsonParams,
                                  @Query("aModuleId") String aModuleId,
@@ -136,7 +138,7 @@ public interface WebServiceMethods {
     public void getMyAccount(@Body FinanceAPI jsonElements, Callback<JsonObject> response);*/
 
     /**
-     * Declaration of Finance api method declaration.
+     * Declaration of Finance API method declaration.
      * <p/>
      * TYPE : POST
      */
@@ -228,8 +230,8 @@ public interface WebServiceMethods {
      * @param clubNewsAPI
      * @param response
      */
-//    @POST("/api/ClubsApp")
-//    public void getClubNews(@Body ClubNewsAPI clubNewsAPI, Callback<JsonObject> response);
+    @POST("/webapi/api/ClubsApp")
+    public void getClubNews(@Body ClubNewsAPI clubNewsAPI, Callback<JsonObject> response);
 
     /**
      * Declaration of update Club News READ/DELETE web service method.
@@ -334,27 +336,7 @@ public interface WebServiceMethods {
     public void updatePassword(@Body UpdatePassswordAPI updatePassswordAPI, Callback<JsonObject> response);
 
     /**
-     * Declaration of Weather web service method.
-     * <p/>
-     * TYPE : GET
-     *
-     * @param type     : Weather or Forecast
-     * @param mode     : JSON or XML
-     * @param appid    : api key
-     * @param lat      : lat
-     * @param lon      : lon
-     * @param response : Response of api
-     */
-    @GET("/webapi/data/2.5/{type}")
-    public void getWeatherState(@Path("type") String type,
-                                @Query("mode") String mode,
-                                @Query("appid") String appid,
-                                @Query("lat") String lat,
-                                @Query("lon") String lon,
-                                Callback<JsonObject> response);
-
-    /**
-     * Declaration of WEATHER api status on dashboard.
+     * Declaration of WEATHER API status on dashboard.
      * <p/>
      * TYPE : POST
      *
@@ -367,7 +349,7 @@ public interface WebServiceMethods {
     public void weatherAPI(@Path("type") String type, @Query("aClientId") String aClientId, @Query("aCurrentDate") String aCurrentDate, Callback<JsonObject> response);
 
     /**
-     * Declaration of FORCAST api status on dashboard.
+     * Declaration of FORCAST API status on dashboard.
      * <p/>
      * TYPE : POST
      *
@@ -380,18 +362,41 @@ public interface WebServiceMethods {
     public void forcastAPI(@Query("aClientId") String aClientId, @Query("aHour") String aHour, Callback<JsonObject> response);
 
     /**
-     * Declaration of REGISTRATION TOKEN api in background service.
+     * Declaration of Course Diary names from web service.
      * <p/>
      * TYPE : POST
      *
-     * @param registerTokenAPI : Time hour in running device.
-     * @param response         : Weather api response in JSON format.
+     * @param courseNamesAPI : Names of course diary.
+     * @param response       : JSON response back from api.
      */
     @POST("/webapi/api/ClubsApp")
-    public void registerToken(@Body RegisterTokenAPI registerTokenAPI, Callback<JsonObject> response);
+    public void getCourseNames(@Body CourseNamesAPI courseNamesAPI, Callback<JsonObject> response);
 
     /**
-     * Declaration of DELETE TOKEN api which is using for push
+     * Declaration of CONTACT US web service declaration.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param contactUsAPI
+     * @param response
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void contactUs(@Body ContactUsAPI contactUsAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of TOP UP prices list web service declaration.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param aClientId     : Client ID.
+     * @param aMemberId     : Member ID.
+     * @param response      : Top Up Price list.
+     */
+    @GET("/api/ApifsiGateway/TopUps")
+    public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
+
+    /**
+     * Declaration of DELETE TOKEN API which is using for push
      * notifications.
      * <p/>
      * TYPE : POST
@@ -403,7 +408,7 @@ public interface WebServiceMethods {
     public void deleteToken(@Body DeleteTokenAPI deleteTokenAPI, Callback<JsonObject> response);
 
     /**
-     * Declaration of GET UNREAD CLUB NEWS api which will be
+     * Declaration of GET UNREAD CLUB NEWS API which will be
      * display on dashboard at top of Club News icon.
      * <p/>
      * TYPE : POST
@@ -413,6 +418,17 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getUnreadClubNewsCount(@Body GetUnreadNewsCountAPI getUnreadNewsCountAPI, Callback<JsonObject> response);
+
+    /**
+     * Declaration of REGISTRATION TOKEN API in background service.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param registerTokenAPI : Time hour in running device.
+     * @param response         : Weather api response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void registerToken(@Body RegisterTokenAPI registerTokenAPI, Callback<JsonObject> response);
 
     /**
      * Declaration of Club News web service method with Thumbnail
@@ -437,29 +453,6 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void getClubNewsThumbnailDetail(@Body ClubNewsThumbnailDetailAPI clubNewsThumbnailDetailAPI, Callback<JsonObject> response);
-
-    /**
-     * Declaration of CONTACT US web service declaration.
-     * <p/>
-     * TYPE : POST
-     *
-     * @param contactUsAPI
-     * @param response
-     */
-    @POST("/webapi/api/ClubsApp")
-    public void contactUs(@Body ContactUsAPI contactUsAPI, Callback<JsonObject> response);
-
-    /**
-     * Declaration of TOP UP prices list web service declaration.
-     * <p/>
-     * TYPE : POST
-     *
-     * @param aClientId     : Client ID.
-     * @param aMemberId     : Member ID.
-     * @param response      : Top Up Price list.
-     */
-    @GET("/api/ApifsiGateway/TopUps")
-    public void getTopUpPricesList(@Query("aClientId") String aClientId, @Query("aMemberId") String aMemberId, Callback<JsonObject> response);
 
     /**
      * Call Features flag web service to get list of

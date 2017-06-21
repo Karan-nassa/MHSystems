@@ -411,7 +411,7 @@ public class BaseActivity extends AppCompatActivity {
      * @param strException    : Cause of Exception.
      */
     public void reportRollBarException(String strNameOfScreen, String strException) {
-        Rollbar.setPersonData(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "N/A"),
+       Rollbar.setPersonData(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "N/A"),
                 loadPreferenceValue(ApplicationGlobal.KEY_USER_LOGINID, "N/A"),
                 null);
         Rollbar.reportMessage(strNameOfScreen, strException);

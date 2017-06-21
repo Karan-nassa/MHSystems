@@ -43,7 +43,7 @@
                     android:layout_marginRight="16dp"
                     android:orientation="horizontal">
 
-                    <com.mh.systems.corrstown.customfonts.RobotoTextView
+                    <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
@@ -68,7 +68,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:maxLength="12"
+                            android:maxLength="7"
                             android:enabled="false"
                             android:maxLines="1"
                             android:imeOptions="actionDone"
@@ -104,7 +104,7 @@
 
             <!-- CARD BALANCE INFO -->
 
-            <com.mh.systems.corrstown.customfonts.RobotoTextView
+            <com.mh.systems.corrstown.ui.customfonts.RobotoTextView
                 android:id="@+id/tvYourBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
