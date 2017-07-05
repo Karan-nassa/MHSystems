@@ -81,6 +81,9 @@
 
     <!-- END OF COLORS THAT ARE USING AT HOME MENU GRID VIEW -->
 
+    <!-- HALESWORTH STATUS BAR COLOR -->
+    <color name="color665D4E">#665D4E</color>
+
     <!-- TRANSPARENT COLOR-->
     <color name="black_transparent">#99000000</color>
 

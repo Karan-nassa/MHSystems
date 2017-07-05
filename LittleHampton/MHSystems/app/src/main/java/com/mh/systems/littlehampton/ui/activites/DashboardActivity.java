@@ -260,7 +260,7 @@ public class DashboardActivity extends BaseActivity {
 
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_home_diary,
-                    "Course Diary",
+                    "Club Diary",
                     getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryWebviewActivity"));
         }
 

@@ -20,7 +20,7 @@
             app:layout_collapseMode="pin"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:titleTextColor="@color/colorWhiteffffff"
-            app:title="Course Diary" />
+            app:title="Club Diary" />
 
         <!-- WEB VIEW TO LOAD HTML CONTENT / URL-->
 

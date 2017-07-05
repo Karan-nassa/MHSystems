@@ -1,3 +1,6 @@
+##Version 1.4.0 (05.May, 2017)
+ - UPDATE: Extend the background colour on Halesworths App on dashboard.
+ 
 ##Version 1.3.0 (12th June, 2017)
 
  - UPDATE: Display 'Account' and 'Balance' title along with month title on Finance.

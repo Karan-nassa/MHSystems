@@ -4,8 +4,8 @@
     <!-- inherit from the material theme -->
     <style name="AppThemeMaterial" parent="MyMaterialTheme.Base">
         <!--   your app branding color for the app bar -->
-        <item name="colorPrimary">@color/colorBlack000000</item>
-        <item name="colorPrimaryDark">@color/colorBlack000000</item>
+        <item name="colorPrimary">@color/color665D4E</item>
+        <item name="colorPrimaryDark">@color/color665D4E</item>
         <item name="colorAccent">@color/colorC0995B</item>
     </style>
 </resources>

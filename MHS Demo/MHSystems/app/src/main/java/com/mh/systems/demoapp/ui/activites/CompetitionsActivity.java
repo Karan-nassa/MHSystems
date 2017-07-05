@@ -248,12 +248,22 @@ public class CompetitionsActivity extends BaseActivity {
 
                     if (iPopItemPos < 2) {
                         resetCalendar();
-                        createDateForData();
+                        //createDateForData();
                     } else {
+                        strDate = "01";
+                        iMonth = iCurrentMonth;
+                        iYear = iCurrentYear;
+                        //createDateForData();
+
                         //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
                         //resetMonthsNavigationIcons();
-                        callCompetitionsWebService();
+                        //callCompetitionsWebService();
                     }
+
+
+                    mCalendarInstance = new GregorianCalendar(iYear, (iMonth - 1), Integer.parseInt(strDate));
+                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
+                    createDateForData();
                     return true;
                 }
             };

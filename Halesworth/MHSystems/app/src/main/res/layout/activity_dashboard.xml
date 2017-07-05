@@ -16,6 +16,7 @@
         android:weightSum="100"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:background="@color/color665D4E"
         android:layout_alignParentStart="true">
 
         <!-- FOR SETTINGS ICON ON LEFT SIDE VIEW GROUP -->
