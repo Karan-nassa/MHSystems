@@ -1,4 +1,4 @@
-##Version 1.4.0 (05.May, 2017)
+##Version 1.4.0 (05.July, 2017)
  - UPDATE: Extend the background colour on Halesworths App on dashboard.
  
 ##Version 1.3.0 (12th June, 2017)
