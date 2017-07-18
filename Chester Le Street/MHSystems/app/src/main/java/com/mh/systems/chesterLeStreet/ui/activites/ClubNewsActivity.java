@@ -171,14 +171,14 @@ public class ClubNewsActivity extends BaseActivity {
             int iPosition = (int) data.getSerializableExtra("TAG_CLUB_NEWS_POSITION");
             boolean isDelete = (boolean) data.getSerializableExtra("TAG_CLUB_NEWS_IS_DELETE");
 
-            if (isDelete) {
-                clubNewsThumbnailList.remove(iPosition);
+            if (clubNewsThumbnailList.size() > 0) {
+                clubNewsThumbnailList.get(iPosition).setIsRead(IsRead);
+
+                if (isDelete) {
+                    clubNewsThumbnailList.remove(iPosition);
+                }
             }
 
-            Log.e("onActivityResult", "TAG_CLUB_NEWS_IS_READ : " + IsRead);
-            Log.e("onActivityResult", "TAG_CLUB_NEWS_POSITION : " + iPosition);
-
-            clubNewsThumbnailList.get(iPosition).setIsRead(IsRead);
             clubNewsSwipeAdapter.notifyDataSetChanged();
         }
     }

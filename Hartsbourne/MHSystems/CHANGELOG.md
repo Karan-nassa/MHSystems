@@ -19,6 +19,9 @@
   ####17th May, 2017
   - UPDATE: Update the App icon and dashboard logo (ic_home_golfclub).
  
+  ###18th July, 2017
+  - FIXED: #23 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0 in Club News at onActivityResult
+ 
 ##Version  1.5.0 (2017-03-08)
 
 - Fixed all changes in this version 1.5

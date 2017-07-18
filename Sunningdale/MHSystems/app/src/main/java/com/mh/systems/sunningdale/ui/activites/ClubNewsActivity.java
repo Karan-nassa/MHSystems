@@ -19,9 +19,11 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
+import com.mh.systems.sunningdale.dataaccess.push.PushNotificationService;
 import com.mh.systems.sunningdale.ui.adapter.RecyclerAdapter.ClubNewsSwipeAdapter;
 import com.mh.systems.sunningdale.utils.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.web.api.WebAPI;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.mh.systems.sunningdale.web.models.clubnews.AJsonParamsClubNewsDetail;
 import com.mh.systems.sunningdale.web.models.clubnews.ClubNewsDetailAPI;
 import com.mh.systems.sunningdale.web.models.clubnews.ClubNewsDetailResult;
@@ -29,8 +31,6 @@ import com.mh.systems.sunningdale.web.models.clubnewsthumbnail.AJsonParamsClubNe
 import com.mh.systems.sunningdale.web.models.clubnewsthumbnail.ClubNewsThumbnailAPI;
 import com.mh.systems.sunningdale.web.models.clubnewsthumbnail.ClubNewsThumbnailData;
 import com.mh.systems.sunningdale.web.models.clubnewsthumbnail.ClubNewsThumbnailResponse;
-import com.mh.systems.sunningdale.dataaccess.push.PushNotificationService;
-import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -190,14 +190,14 @@ public class ClubNewsActivity extends BaseActivity {
             int iPosition = (int) data.getSerializableExtra("TAG_CLUB_NEWS_POSITION");
             boolean isDelete = (boolean) data.getSerializableExtra("TAG_CLUB_NEWS_IS_DELETE");
 
-            if (isDelete) {
-                clubNewsThumbnailList.remove(iPosition);
+            if (clubNewsThumbnailList.size() > 0) {
+                clubNewsThumbnailList.get(iPosition).setIsRead(IsRead);
+
+                if (isDelete) {
+                    clubNewsThumbnailList.remove(iPosition);
+                }
             }
 
-            Log.e("onActivityResult", "TAG_CLUB_NEWS_IS_READ : " + IsRead);
-            Log.e("onActivityResult", "TAG_CLUB_NEWS_POSITION : " + iPosition);
-
-            clubNewsThumbnailList.get(iPosition).setIsRead(IsRead);
             clubNewsSwipeAdapter.notifyDataSetChanged();
         }
     }

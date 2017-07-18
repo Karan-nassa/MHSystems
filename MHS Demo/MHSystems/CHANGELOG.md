@@ -16,7 +16,10 @@
    - FIXED : Navigate back from finance detail to finance tab, top-right filter icon was not working. Now fixed.
    - UPDATE: Add In App Update Notification version alert dialog one time when any update found.
    - UPDATE: Integrate the feature flag to Membership Type in Members.
- 
+
+ ####18th May, 2017
+   - FIXED: #23 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0 in Club News at onActivityResult
+
 ####Version 1.0 (2017-03-17)
 
    Initially release.

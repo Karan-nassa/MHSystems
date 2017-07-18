@@ -1,5 +1,7 @@
 ####Version 1.10.0 ()
 
+ - FIXED: #23 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0 in Club News at onActivityResult
+ 
 ####Version 1.9.0 (7th June, 2017)
    - UPDATE: Display 'Account' and 'Balance' title along with month title on Finance.
    - UPDATE: The balance needs to be complete - not + 101.... Allow for up to £9,999.99.

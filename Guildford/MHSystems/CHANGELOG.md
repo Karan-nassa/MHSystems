@@ -13,7 +13,10 @@ Changed the following issues:
    ####15th May, 2017
    - FIXED: android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@5878646 is not valid; is your activity running?
             
-##Version  1.3.0 (2016-02-16)
+   ####18th July, 2017
+   - FIXED: #23 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0 in Club News at onActivityResult
+
+##Version1.3.0 (2016-02-16)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.
 - Fixed: Club News: Implements Serializable to pass club news data on detail screen instead of passing value one by one.

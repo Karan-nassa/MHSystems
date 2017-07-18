@@ -1,3 +1,7 @@
+##Version 1.4.0 ()
+
+ - FIXED: #23 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0 in Club News at onActivityResult
+
 ##Version 1.3.0 (12th June, 2017)
  - Fixed: Top Ups are only added to the General purse.
 

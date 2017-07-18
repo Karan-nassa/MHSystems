@@ -1,3 +1,6 @@
+##Version 1.5.0 ()
+ - FIXED: #23 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0 in Club News at onActivityResult
+
 ##Version 1.4.0 (05.July, 2017)
  - UPDATE: Extend the background colour on Halesworths App on dashboard.
  

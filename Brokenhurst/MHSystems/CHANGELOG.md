@@ -43,7 +43,10 @@
   FIXED: hCap value not showing on dashboard.
   
   ####15th May, 2017
- - FIXED: android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@5878646 is not valid; is your activity running?
+  FIXED: android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@5878646 is not valid; is your activity running?
+
+  ####18th July, 2017
+  FIXED: #23 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0 in Club News at onActivityResult
   
 ##Version 1.2.0 (2016-12-26)
 
