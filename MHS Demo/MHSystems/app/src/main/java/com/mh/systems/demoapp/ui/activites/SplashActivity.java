@@ -1,8 +1,8 @@
 package com.mh.systems.demoapp.ui.activites;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
@@ -35,7 +35,7 @@ public class SplashActivity extends BaseActivity {
         /**
          *  If we already have MemberID and FirstLogin bool value means user already
          *  Logged-in
-         * */
+         **/
         new Handler().postDelayed(new Runnable() {
             /**
              * Showing splash screen with a timer. This will be useful when you

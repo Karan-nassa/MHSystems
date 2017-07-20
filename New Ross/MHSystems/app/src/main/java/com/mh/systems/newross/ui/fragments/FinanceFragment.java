@@ -472,7 +472,7 @@ public class FinanceFragment extends Fragment {
                 return purseBalanceDatas.get(iCount).getBalance();
             }
         }
-        return null;
+        return "N/A";
     }
 
     private void updatePurseType(MenuItem menuItemInstance) {
