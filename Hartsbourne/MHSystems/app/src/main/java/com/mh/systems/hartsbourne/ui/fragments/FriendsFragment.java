@@ -222,7 +222,7 @@ public class FriendsFragment extends Fragment {
             ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((MembersActivity) getActivity()).reportRollBarException(FriendsFragment.class.getSimpleName(), e.toString());
         }
     }
 

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.hartsbourne.R;
 import com.mh.systems.hartsbourne.ui.activites.MembersActivity;
+import com.mh.systems.hartsbourne.ui.activites.WeatherDetailActivity;
 import com.mh.systems.hartsbourne.utils.constants.ApplicationGlobal;
 import com.mh.systems.hartsbourne.web.api.WebAPI;
 import com.mh.systems.hartsbourne.web.models.contactus.AJsonParamsContactUs;
@@ -284,7 +285,7 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
         } catch (Exception e) {
             ((MembersActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((MembersActivity) getActivity()).reportRollBarException(ContactUsFragment.class.getSimpleName(), e.toString());
         }
     }
 

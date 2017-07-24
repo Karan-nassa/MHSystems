@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorF9F8F7">
@@ -9,11 +9,15 @@
         android:id="@+id/llFinanceGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="75dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorD6D0C9"
             android:orientation="horizontal"
             android:weightSum="100">
@@ -163,30 +167,79 @@
 
         </LinearLayout>
 
-        <!-- DATE/FILTER TYPE-->
 
-        <TextView
-            android:id="@+id/tvDateHeading"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/colorC59A5C"
-            android:textSize="14sp" />
+            android:layout_marginTop="5dp"
+            android:background="@color/colorF8F7F6"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="60"
+                android:orientation="vertical">
+
+                <!-- DATE/FILTER TYPE-->
+
+                <TextView
+                    android:id="@+id/tvDateHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/colorC59A5C"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- AMOUNT TITLE -->
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:gravity="center"
+                android:text="Amount"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- BALANCE TITLE -->
+
+            <TextView
+                android:id="@+id/tvBalance"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:gravity="center"
+                android:text="Balance"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
 
         <!-- USE TO DISPLAY TRANSACTION LIST -->
 
-        <ListView
-            android:id="@+id/lvTransactionList"
+        <!--  <ListView
+              android:id="@+id/lvTransactionList"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:overScrollMode="never"
+              android:cacheColorHint="@color/colorF9F8F7"
+              android:divider="@color/colorE8E2DD"
+              android:dividerHeight="0dp" />-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvTransactionList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            android:cacheColorHint="@color/colorF9F8F7"
-            android:divider="@color/colorE8E2DD"
-            android:dividerHeight="0dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:overScrollMode="never" />
 
     </LinearLayout>
+
 
 </RelativeLayout>

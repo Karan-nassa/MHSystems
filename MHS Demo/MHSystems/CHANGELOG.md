@@ -30,7 +30,7 @@
 
    ####14th March, 2017
    - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.
-   - Fixed: Resolved crashed. java.lang.Class<com.mh.systems.guildford.fragments.MyAccountTabFragment> has no zero argument constructor
+   - Fixed: Resolved crashed. java.lang.Class<...\fragments.MyAccountTabFragment> has no zero argument constructor
 
    ####16th Feb, 2017
    - UPDATE: Replace image loader library 'Glide' with 'Picasso' version 2.5.2.

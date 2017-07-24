@@ -237,7 +237,7 @@ public class HCapHistoryActivity extends BaseActivity {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(HCapHistoryActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
     }

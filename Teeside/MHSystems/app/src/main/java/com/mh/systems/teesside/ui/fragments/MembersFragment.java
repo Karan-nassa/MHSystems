@@ -356,7 +356,7 @@ public class MembersFragment extends Fragment {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            ((MembersActivity) getActivity()).reportRollBarException(ContactUsFragment.class.getSimpleName(), e.toString());
+            ((MembersActivity) getActivity()).reportRollBarException(MembersFragment.class.getSimpleName(), e.toString());
         }
 
         //Dismiss progress dialog.

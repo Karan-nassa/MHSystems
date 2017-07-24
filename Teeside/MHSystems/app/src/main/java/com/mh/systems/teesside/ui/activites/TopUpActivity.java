@@ -136,6 +136,11 @@ public class TopUpActivity extends BaseActivity {
 
         inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
+        if(getIntent().getExtras() == null){
+            showNoTopUpView(false);
+            return;
+        }
+
         //Get Closing balance.
         strClosingBalance = getIntent().getExtras().getString("strClosingBalance");
         if (strClosingBalance.length() > 0) {
@@ -144,6 +149,18 @@ public class TopUpActivity extends BaseActivity {
 
             fCardBalance = Float.parseFloat(strClosingBalance.substring(1, strClosingBalance.length()));
         }
+
+        if (isOnline(TopUpActivity.this)) {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            llMainGroup.setVisibility(View.VISIBLE);
+            requestTopUpPriceListService();
+        } else {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            llMainGroup.setVisibility(View.GONE);
+        }
+
+        etInputPrize.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         etInputPrize.setOnEditorActionListener(mInputActionListener);
 
@@ -159,7 +176,7 @@ public class TopUpActivity extends BaseActivity {
         etInputPrize.addTextChangedListener(mPrizeChangeListener);
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
 
@@ -174,7 +191,7 @@ public class TopUpActivity extends BaseActivity {
 
         etInputPrize.requestFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -506,7 +523,7 @@ public class TopUpActivity extends BaseActivity {
      * Implements this method to update Top
      * Up price description.
      */
-    private void updatePriceDecsription() {
+    public void updatePriceDecsription() {
         tvYourBalance.setText((getString(R.string.text_title_your_balance)
                 + " " + tvCurrencySign.getText().toString()
                 + decimalFormat.format((fCardBalance + fTopUpPrize)) + ""));

@@ -1,5 +1,6 @@
 package com.mh.systems.hartsbourne.ui.activites;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -24,7 +25,7 @@ import java.util.Date;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class CourseDiaryDetailActivity extends AppCompatActivity {
+public class CourseDiaryDetailActivity extends BaseActivity {
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -144,8 +145,8 @@ public class CourseDiaryDetailActivity extends AppCompatActivity {
         try {
             Date date = inputFormat.parse(strNewDate);
             strNewDate = outputFormat.format(date);
-        } catch (ParseException exp) {
-            exp.printStackTrace();
+        } catch (ParseException e) {
+            reportRollBarException(CourseDiaryDetailActivity.class.getSimpleName(), e.toString());
         }
 
         return strNewDate.toUpperCase();

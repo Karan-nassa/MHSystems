@@ -157,15 +157,16 @@ public class WeatherDetailActivity extends BaseActivity{
      * @param strDate : Example => "yyyy-MM-dd HH:mm:ss"
      * @return strDate  : EEEE, dd MMMM
      */
-    public static String getFormateDate(String strDate) {
+    public String getFormateDate(String strDate) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, dd MMMM");
 
         try {
             Date date = inputFormat.parse(strDate);
             strDate = outputFormat.format(date);
-        } catch (ParseException exp) {
-            exp.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            reportRollBarException(WeatherDetailActivity.class.getSimpleName(), e.toString());
         }
         return strDate;
     }
@@ -177,15 +178,15 @@ public class WeatherDetailActivity extends BaseActivity{
      * @param strDate : Example => "yyyy-MM-dd HH:mm:ss"
      * @return strDate  : E [Tue]
      */
-    public static String getFormateDayName(String strDate) {
+    public String getFormateDayName(String strDate) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat outputFormat = new SimpleDateFormat("E");
 
         try {
             Date date = inputFormat.parse(strDate);
             strDate = outputFormat.format(date);
-        } catch (ParseException exp) {
-            exp.printStackTrace();
+        } catch (ParseException e) {
+            reportRollBarException(WeatherDetailActivity.class.getSimpleName(), e.toString());
         }
         return strDate;
     }
@@ -197,15 +198,15 @@ public class WeatherDetailActivity extends BaseActivity{
      * @param strTime : Example => "yyyy-MM-dd HH:mm:ss"
      * @return strTime  : HH:mm [14:00]
      */
-    public static String getFormateTime(String strTime) {
+    public String getFormateTime(String strTime) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
 
         try {
             Date date = inputFormat.parse(strTime);
             strTime = outputFormat.format(date);
-        } catch (ParseException exp) {
-            exp.printStackTrace();
+        } catch (ParseException e) {
+            reportRollBarException(WeatherDetailActivity.class.getSimpleName(), e.toString());
         }
         return strTime;
     }
