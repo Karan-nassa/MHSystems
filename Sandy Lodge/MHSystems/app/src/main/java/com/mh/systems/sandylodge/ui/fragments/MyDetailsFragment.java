@@ -107,6 +107,8 @@ public class MyDetailsFragment extends Fragment {
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
             ((YourAccountActivity) getActivity()).setiOpenTabPosition(0);
 
+            YourAccountActivity.isRefreshEnable = true;
+
             /**
              *  Check internet connection before hitting server request.
              */
@@ -197,7 +199,7 @@ public class MyDetailsFragment extends Fragment {
         } catch (Exception e) {
             ((BaseActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((YourAccountActivity) getActivity()).reportRollBarException(MyDetailsFragment.class.getSimpleName(), e.toString());
             llMyDetailGroup.setVisibility(View.GONE);
         }
     }

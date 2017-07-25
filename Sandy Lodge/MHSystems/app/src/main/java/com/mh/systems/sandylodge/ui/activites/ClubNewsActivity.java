@@ -395,7 +395,7 @@ public class ClubNewsActivity extends BaseActivity {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(ClubNewsActivity.class.getSimpleName(), e.toString());
         }
 
         //Dismiss progress dialog.
@@ -528,7 +528,7 @@ public class ClubNewsActivity extends BaseActivity {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(ClubNewsActivity.class.getSimpleName(), e.toString());
         }
 
         //Dismiss progress dialog.

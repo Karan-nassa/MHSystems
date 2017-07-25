@@ -371,7 +371,7 @@ public class HandicapFragment extends Fragment implements OnChartValueSelectedLi
             ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((BaseActivity) getActivity()).reportRollBarException(HandicapFragment.class.getSimpleName(), e.toString());
             ((BaseActivity) getActivity()).hideProgress();
         }
     }

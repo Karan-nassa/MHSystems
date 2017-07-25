@@ -239,7 +239,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
             hideProgress();
         } catch (Exception e) {
             hideProgress();
-            Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(UpdatePasswordActivity.class.getSimpleName(), e.toString());
         }
     }
 

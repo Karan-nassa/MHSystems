@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.sandylodge.ui.activites.BaseActivity;
+import com.mh.systems.sandylodge.ui.activites.YourAccountActivity;
 import com.mh.systems.sandylodge.utils.ApplicationGlobal;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
@@ -222,7 +223,7 @@ public class FriendsFragment extends Fragment {
             ((BaseActivity) getActivity()).hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((MembersActivity) getActivity()).reportRollBarException(FriendsFragment.class.getSimpleName(), e.toString());
         }
     }
 
