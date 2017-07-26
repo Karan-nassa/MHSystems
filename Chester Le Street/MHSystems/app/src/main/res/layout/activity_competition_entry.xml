@@ -414,7 +414,7 @@
 
                     <!-- TIME SLOTS GRID VIEW -->
 
-                    <com.mh.systems.chesterLeStreet.util.ExpandableHeightGridView
+                    <com.mh.systems.chesterLeStreet.utils.ExpandableHeightGridView
                         android:id="@+id/gvTimeSlots"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

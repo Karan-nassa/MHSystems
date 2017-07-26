@@ -13,7 +13,7 @@ repositories {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '24.0.2'
+    buildToolsVersion '26.0.1'
     defaultConfig {
         applicationId "com.mh.systems.brokenhurst"
         minSdkVersion 16
@@ -66,5 +66,6 @@ dependencies {
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.mukesh:countrypicker:1.1.5'
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
+    compile 'org.jsoup:jsoup:1.10.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
 }

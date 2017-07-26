@@ -437,7 +437,7 @@ public class MemberDetailActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(MemberDetailActivity.class.getSimpleName(), e.toString());
         }
     }
 
@@ -479,7 +479,7 @@ public class MemberDetailActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(MemberDetailActivity.class.getSimpleName(), e.toString());
         }
     }
 
@@ -528,7 +528,7 @@ public class MemberDetailActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(MemberDetailActivity.class.getSimpleName(), e.toString());
         }
 
     }
@@ -614,7 +614,7 @@ public class MemberDetailActivity extends BaseActivity {
         }
 
         tvMemberNameDD.setText(strNameOfMember);
-        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
+        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + membersDetailItems.getData().getStrLastJoiningDate());
 
         /**
          *  Implements check for EMPTY email.
@@ -679,7 +679,7 @@ public class MemberDetailActivity extends BaseActivity {
             Date date = inputFormat.parse(lastJoiningDate);
             lastJoiningDate = outputFormat.format(date);
         } catch (ParseException e) {
-            reportRollBarException(MemberDetailActivity.class.getSimpleName(), e.toString());
+            //reportRollBarException(MemberDetailActivity.class.getSimpleName(), e.toString());
         }
         return lastJoiningDate;
     }

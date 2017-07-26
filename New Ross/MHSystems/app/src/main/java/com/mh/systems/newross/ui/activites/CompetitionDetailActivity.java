@@ -378,7 +378,9 @@ public class CompetitionDetailActivity extends BaseActivity {
 
                 tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");
 
-                iEntryID = getClubEventResponse.getGetClubEventData().getEntry().getEntryID();
+                if(getClubEventResponse.getGetClubEventData().getEntry() != null){
+                    iEntryID = getClubEventResponse.getGetClubEventData().getEntry().getEntryID();
+                }
                 //Log.e(LOG_TAG, "iEntryID : " + iEntryID);
 
                 /**

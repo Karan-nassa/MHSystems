@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.brokenhurst.ui.activites.MembersActivity;
 import com.mh.systems.brokenhurst.ui.activites.YourAccountActivity;
 import com.mh.systems.brokenhurst.ui.activites.BaseActivity;
 import com.newrelic.com.google.gson.Gson;
@@ -107,6 +108,8 @@ public class MyDetailsFragment extends Fragment {
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
             ((YourAccountActivity) getActivity()).setiOpenTabPosition(0);
 
+            YourAccountActivity.isRefreshEnable = true;
+
             /**
              *  Check internet connection before hitting server request.
              */
@@ -197,7 +200,7 @@ public class MyDetailsFragment extends Fragment {
         } catch (Exception e) {
             ((BaseActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            ((YourAccountActivity) getActivity()).reportRollBarException(MyDetailsFragment.class.getSimpleName(), e.toString());
             llMyDetailGroup.setVisibility(View.GONE);
         }
     }

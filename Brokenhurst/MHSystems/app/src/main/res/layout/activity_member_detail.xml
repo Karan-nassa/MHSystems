@@ -128,12 +128,14 @@
                 android:layout_marginRight="20dp"
                 android:orientation="vertical">
 
-                <!-- HANDICAP PERSON -->
+                <!-- MEMBERSHIP TYPE -->
 
                 <LinearLayout
+                    android:id="@+id/llMemberShipType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <!-- LABEL HANDICAP TYPE STR -->

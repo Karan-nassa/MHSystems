@@ -563,7 +563,7 @@ public class EditToggleDetailActivity extends BaseActivity {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(EditToggleDetailActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
     }
@@ -749,7 +749,7 @@ public class EditToggleDetailActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(EditToggleDetailActivity.class.getSimpleName(), e.toString());
             llEditTogleGroup.setVisibility(View.GONE);
         }
     }

@@ -51,6 +51,8 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+import static com.mh.systems.sunningdale.ui.activites.WeatherDetailActivity.getFormateDate;
+
 /**
  * The {@link MemberDetailActivity} used to display the detail of selected
  * member from {@link MembersFragment} or
@@ -618,7 +620,7 @@ public class MemberDetailActivity extends BaseActivity {
         }
 
         tvMemberNameDD.setText(strNameOfMember);
-        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
+        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + membersDetailItems.getData().getStrLastJoiningDate());
 
         /**
          *  Implements check for EMPTY email.
@@ -675,7 +677,7 @@ public class MemberDetailActivity extends BaseActivity {
      * @param lastJoiningDate : Example => "2009-11-30T18:30:00Z"
      * @return lastJoiningDate  : MM/DD/YYYY [11/30/2009]
      */
-    private String getFormateDate(String lastJoiningDate) {
+    /*private String getFormateDate(String lastJoiningDate) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -686,7 +688,7 @@ public class MemberDetailActivity extends BaseActivity {
             exp.printStackTrace();
         }
         return lastJoiningDate;
-    }
+    }*/
 
 
     /**

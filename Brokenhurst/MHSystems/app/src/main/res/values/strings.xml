@@ -22,6 +22,7 @@
     <string name="error_no_club_news">No Club News</string>
     <string name="error_wrong_date_selection">You can only view data of current date and future dates.</string>
     <string name="error_valid_email">Please enter valid Email address.</string>
+    <string name="error_no_transaction">No Transaction Receipt Available.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
     <!-- START OF COMMON MESSAGES THROUGH OUT THE APP -->
