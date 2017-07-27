@@ -107,6 +107,8 @@ public class MyDetailsFragment extends Fragment {
             ((YourAccountActivity) getActivity()).updateFilterIcon(0);
             ((YourAccountActivity) getActivity()).setiOpenTabPosition(0);
 
+            YourAccountActivity.isRefreshEnable = true;
+
             /**
              *  Check internet connection before hitting server request.
              */

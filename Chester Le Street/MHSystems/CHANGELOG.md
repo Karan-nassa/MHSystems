@@ -42,6 +42,13 @@
  
    ####18th July, 2017
    - FIXED: #23 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0 in Club News at onActivityResult
+
+   ####24th July, 2017
+    - UPDATE: Update the Finance tab UI with 4 columns (date/time, item, amount and balance).
+    - FIXED : Navigate back from finance detail to finance tab, top-right filter icon was not working. Now fixed.
+    - UPDATE: Add In App Update Notification version alert dialog one time when any update found.
+    - UPDATE: Integrate the feature flag to Membership Type in Members.
+   	- FIXED:  Completed Competitions should display from 1st date to end of the month always.
  
 ##Version 1.1.0 (2016-12-02)
 
