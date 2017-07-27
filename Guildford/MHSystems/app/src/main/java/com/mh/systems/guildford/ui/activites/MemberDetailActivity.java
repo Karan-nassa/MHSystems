@@ -18,26 +18,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.ui.fragments.FriendsFragment;
 import com.mh.systems.guildford.ui.fragments.MembersFragment;
-import com.newrelic.com.google.gson.reflect.TypeToken;
-import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.utils.constants.ApplicationGlobal;
 import com.mh.systems.guildford.web.api.WebAPI;
+import com.mh.systems.guildford.web.api.WebServiceMethods;
 import com.mh.systems.guildford.web.models.AJsonParamsAddMember;
+import com.mh.systems.guildford.web.models.AJsonParamsMembersDatail;
 import com.mh.systems.guildford.web.models.AddMemberAPI;
 import com.mh.systems.guildford.web.models.AddRequestResult;
+import com.mh.systems.guildford.web.models.MembersDetailAPI;
+import com.mh.systems.guildford.web.models.MembersDetailsItems;
 import com.mh.systems.guildford.web.models.friends.AJsonParamsRemoveFriend;
 import com.mh.systems.guildford.web.models.friends.RemoveFriendAPI;
 import com.mh.systems.guildford.web.models.friends.RemoveFriendItems;
-import com.mh.systems.guildford.web.api.WebServiceMethods;
-import com.mh.systems.guildford.web.models.AJsonParamsMembersDatail;
-import com.mh.systems.guildford.web.models.MembersDetailAPI;
-import com.mh.systems.guildford.web.models.MembersDetailsItems;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
@@ -69,6 +70,7 @@ public class MemberDetailActivity extends BaseActivity {
     String strAddressLine, strMemberEmail, strTelNoHome, strTelNoWork, strTelNoMob, strHandCapPlay;
     String strNameOfMember;
     int iMemberID;
+    String strMemberShipType;
 
     /**
      * iCallFrom will be
@@ -88,6 +90,7 @@ public class MemberDetailActivity extends BaseActivity {
      *******************************/
     FloatingActionButton fabFriendInvitation;
     FrameLayout flEmailGroup, flContactGroup, flAddressGroup, flWorkGroup, flHomeGroup;
+    LinearLayout llMemberShipType;
     TextView tvMemberNameDD, tvMobContact, tvWorkContact, tvHomeContact, tvMemberEmail, tvMemberAddress, tvMemberJoinDate, tvHandicapPlayStr, tvHandicapTypeStr;
     ImageView ivActionMap, ivActionEmail, ivActionCall;
     Toolbar tbMemberDetail;
@@ -290,6 +293,8 @@ public class MemberDetailActivity extends BaseActivity {
         flWorkGroup = (FrameLayout) findViewById(R.id.flWorkGroup);
                 flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
         flAddressGroup = (FrameLayout) findViewById(R.id.flAddressGroup);
+
+        llMemberShipType = (LinearLayout) findViewById(R.id.llMemberShipType);
 
         fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
 
@@ -510,6 +515,8 @@ public class MemberDetailActivity extends BaseActivity {
                     strTelNoWork = membersDetailItems.getData().getContactDetails().getTelNoWork();
                     strHandCapPlay = membersDetailItems.getData().getHCapPlayStr();
 
+                    strMemberShipType = membersDetailItems.getData().getMembershipStatus();
+
                     updateIsFriendUI(membersDetailItems.getData().getIsfriend());
 
                     displayMembersData();
@@ -599,9 +606,18 @@ public class MemberDetailActivity extends BaseActivity {
             tvHandicapPlayStr.setText(strHandCapPlay);
         }
 
-        tvHandicapTypeStr.setText(membersDetailItems.getData().getMembershipStatus());
+        /**
+         * Display Membership Type if club allow.
+         */
+        if (strMemberShipType.length() > 0) {
+            llMemberShipType.setVisibility(View.VISIBLE);
+            tvHandicapTypeStr.setText(strMemberShipType);
+        } else {
+            llMemberShipType.setVisibility(View.GONE);
+        }
+
         tvMemberNameDD.setText(strNameOfMember);
-        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
+        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + membersDetailItems.getData().getStrLastJoiningDate());
 
         /**
          *  Implements check for EMPTY email.

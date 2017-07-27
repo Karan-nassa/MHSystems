@@ -20,11 +20,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,20 +30,18 @@ import android.util.Log;
 import com.google.android.gms.gcm.GcmListenerService;
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.ui.activites.ClubNewsActivity;
+import com.mh.systems.guildford.utils.constants.ApplicationGlobal;
 import com.rollbar.android.Rollbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class PushNotificationService extends GcmListenerService {
 
-    private static final String LOG_TAG = PushNotificationService.class.getSimpleName();
+    private final String LOG_TAG = PushNotificationService.class.getSimpleName();
     String strMessage;
-
-    //public static StringBuilder stringBuilderMsg = new StringBuilder();
 
     NotificationCompat.Builder notificationBuilder;
     private JSONObject mJSONObject;
@@ -61,42 +55,42 @@ public class PushNotificationService extends GcmListenerService {
      * @param data CompEligiblePlayersData bundle containing message data as key/value pairs.
      *             For Set of keys use data.keySet().
      */
-    // [START receive_message]
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        Date now = new Date();
-        long uniqueId = now.getTime();
         String message = "";
         try {
+
             message = data.getString("message");
 
             try {
                 mJSONObject = new JSONObject(message);
                 strMessage = mJSONObject.getString("message");
 
-                strArrList.add(strMessage);
+                if (ApplicationGlobal.TAG_CLIENT_ID.equals(mJSONObject.getString("receiver_clientId"))) {
+
+                    strArrList.add(strMessage);
+
+                    sendNotification();
+                } else {
+                    Log.e(LOG_TAG, "Push sends for other club.");
+                }
 
             } catch (JSONException e) {
-                Log.e(LOG_TAG, "JSONException Cause " + e.getCause());
                 Log.e(LOG_TAG, "JSONException Error parsing data " + e.toString());
             }
-            sendNotification();
 
         } catch (Exception e) {
 
             Log.e(LOG_TAG, "Exception : " + e.toString());
-            Rollbar.reportException(e, "critical", "My Gcmlistener services crash");
             Rollbar.reportMessage("GCM String Builder value : " + strArrList.toString(), "--GCM Message:-" + message);
         }
     }
-    // [END receive_message]
 
     /**
      * Create and show a simple notification containing
      * the received GCM message.
      */
     private void sendNotification() {
-        //Log.e("sendNotification: ", "" + message);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
@@ -111,14 +105,12 @@ public class PushNotificationService extends GcmListenerService {
                 .setContentTitle(getResources().getString(R.string.app_name))
                 .setContentText(getUnexpandedContentText(strArrList.size()))
                 .setAutoCancel(true)
-                /*.setNumber(strArrList.size())*/
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setStyle(getExpandedNotificationStyle(strArrList));
 
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-        // Moves events into the expanded layout
         for (int iCount = 0; iCount < strArrList.size(); iCount++) {
             inboxStyle.addLine(strArrList.get(iCount));
         }
@@ -157,23 +149,5 @@ public class PushNotificationService extends GcmListenerService {
                 return "";
             default:*/
         return numOfNotifications + " news received";
-    }
-
-    private Bitmap drawableToBitmap(Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable) drawable).getBitmap();
-        }
-
-        int width = drawable.getIntrinsicWidth();
-        width = width > 0 ? width : 1;
-        int height = drawable.getIntrinsicHeight();
-        height = height > 0 ? height : 1;
-
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
     }
 }

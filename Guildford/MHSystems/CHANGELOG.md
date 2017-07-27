@@ -47,6 +47,13 @@ Changed the following issues:
      - Fixed: Resolved crash of wrong menu item displayed on YOUR ACCOUNT option.
      - Fixed: Resolved crashed. java.lang.Class<guildford_.fragments.MyAccountTabFragment> has no zero argument constructor
 
+    ####27th July, 2017
+    - UPDATE: Update the Finance tab UI with 4 columns (date/time, item, amount and balance).
+    - FIXED : Navigate back from finance detail to finance tab, top-right filter icon was not working. Now fixed.
+    - UPDATE: Add In App Update Notification version alert dialog one time when any update found.
+    - UPDATE: Integrate the feature flag to Membership Type in Members.
+    - FIXED:  Completed Competitions should display from 1st date to end of the month always.
+
 ##Version 1.2.0 (2016-12-26)
 
 - New: Contact us feature added.

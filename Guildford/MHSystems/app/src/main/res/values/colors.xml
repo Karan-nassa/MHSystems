@@ -85,6 +85,9 @@
     <!-- TRANSPARENT COLOR-->
     <color name="black_transparent">#99000000</color>
 
+    <color name="colorC41615">#f9dfdd</color>
+    <color name="colorF8F7F6">#F8F7F6</color>
+
     <!-- +++++++++++++++++++++++ START OF MEMBERS ALPHABETICAL LIST +++++++++++++++++++++++  -->
     <integer-array name="contacts_text_background_colors">
         <item>0xFF9C27B0</item>
