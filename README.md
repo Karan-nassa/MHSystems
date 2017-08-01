@@ -16,7 +16,10 @@
 | 10.   | [Guildford](https://github.com/uCreateit/mhsystems_android/tree/master/Guildford/MHSystems)         				 | 44118032  |    Yes (BRS)    |
 | 11.   | [Corrstown](https://github.com/uCreateit/mhsystems_android/tree/master/Corrstown/MHSystems)         				 | 44028007  |    	Yes        |
 | 12.   | [Redlibbets](https://github.com/uCreateit/mhsystems_android/tree/master/Redlibbets/MHSystems)        				 | 44080103  |       N/A       |
-
+| 13.   | [New Ross](https://github.com/uCreateit/mhsystems_android/tree/master/New%20Ross/MHSystems)                        | 44050003  |       No        |
+| 14.   | [LittleHampton](https://github.com/uCreateit/mhsystems_android/tree/master/LittleHampton/MHSystems)                | 44120014  | Yes (Club Diary)|
+| 15.   | [Woolston Manor](https://github.com/uCreateit/mhsystems_android/tree/master/Woolston%20Manor/MHSystems)            | 44064087  |       No        |
+| 16.   | [Teesside GC Members App](https://github.com/uCreateit/mhsystems_android/tree/master/Teeside/MHSystems)            | 44018013  | Yes (Club Diary)|
 
 ####MHS Excel Records (Live):
 https://docs.google.com/spreadsheets/d/1hh1j0A8Cae6K81wxgYD21Ky730QOhrpj-A9GPAeHTtw/edit#gid=0
