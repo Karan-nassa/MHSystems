@@ -454,4 +454,28 @@ public class MembersActivity extends BaseActivity {
     }
 
     /* +++++++++++++++++++++++++ HOLD TAB POSITION FOR CONTACT US & INFO POP-UP  +++++++++++++++++++++++++ */
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1112) {
+
+            if (data != null) {
+
+                /**
+                 * Refresh Friend list after remove
+                 * Friend.
+                 */
+                boolean isDeleted = data.getBooleanExtra("isDeleted", false);
+                if (isDeleted) {
+
+                    if (fragmentInstance instanceof FriendsFragment) {
+                        setStraFriendCommand("GETLINKSTOMEMBERS");
+                        setiWhichSpinnerItem(1);
+                        updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
+                    }
+                }
+            }
+        }
+    }
 }

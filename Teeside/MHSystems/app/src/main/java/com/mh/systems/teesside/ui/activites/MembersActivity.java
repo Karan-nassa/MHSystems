@@ -26,6 +26,7 @@ import com.mh.systems.teesside.ui.fragments.MembersTabFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+
 public class MembersActivity extends BaseActivity {
 
     /*********************************
@@ -88,7 +89,6 @@ public class MembersActivity extends BaseActivity {
      */
     private int iTabPosition;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +141,7 @@ public class MembersActivity extends BaseActivity {
 
         getMenuInflater().inflate(R.menu.menu_friends, menu);
 
-        switch (getiTabPosition()){
+        switch (getiTabPosition()) {
             case 0:
                 //getMenuInflater().inflate(R.menu.menu_members, menu);
                 menu.getItem(1).setVisible(false);
@@ -211,7 +211,7 @@ public class MembersActivity extends BaseActivity {
                 return true;
 
             case R.id.action_info:
-                Intent infoIntent  = new Intent(MembersActivity.this, FriendsInfoActivity.class);
+                Intent infoIntent = new Intent(MembersActivity.this, FriendsInfoActivity.class);
                 startActivity(infoIntent);
                 //showAlertInfo();
                 return true;
@@ -223,6 +223,60 @@ public class MembersActivity extends BaseActivity {
         return false;
     }
 
+    /**
+     * Implements HOME icons press
+     * listener.
+     */
+    private View.OnClickListener mHomePressListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onBackPressed();
+        }
+    };
+
+
+    /**
+     * Declares the click event handling FIELD to set categories
+     * of COURSE DIARY.
+     */
+    private PopupMenu.OnMenuItemClickListener mCourseTypeListener =
+            new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    tvMemberType.setText(item.getTitle());
+                    switch (item.getItemId()) {
+                        case R.id.item_all:
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
+                            break;
+
+                        case R.id.item_ladies:
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
+                            break;
+
+                        case R.id.item_gents:
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_GENTLEMENS));
+                            break;
+
+                        case R.id.item_your_friends:
+                            setStraFriendCommand("GETLINKSTOMEMBERS");
+                            setiWhichSpinnerItem(1);
+                            //Initially display title at position 0 of R.menu.course_menu.
+//                            tvMemberType.setText("" + popupMenu.getMenu().getItem(0));
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
+                            break;
+
+                        case R.id.item_added_me:
+                            setStraFriendCommand("GETLINKSFROMMEMBERS");
+                            setiWhichSpinnerItem(2);
+                            //Initially display title at position 0 of R.menu.course_menu.
+//                            tvMemberType.setText("" + popupMenu.getMenu().getItem(1));
+                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_ADDED_ME));
+                            break;
+                    }
+                    return true;
+                }
+            };
 
     /**
      * Implements a method to update UI when 'No Internet connection'
@@ -270,11 +324,11 @@ public class MembersActivity extends BaseActivity {
      */
     public void initializeMembersCategory() {
 
-        if(MembersTabFragment.iLastTabPosition == 2){
+        if (MembersTabFragment.iLastTabPosition == 2) {
 
             llMemberCategory.setVisibility(View.INVISIBLE);
 
-        }else {
+        } else {
 
             llMemberCategory.setVisibility(View.VISIBLE);
 
@@ -402,60 +456,27 @@ public class MembersActivity extends BaseActivity {
 
     /* +++++++++++++++++++++++++ HOLD TAB POSITION FOR CONTACT US & INFO POP-UP  +++++++++++++++++++++++++ */
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-    /**
-     * Implements HOME icons press
-     * listener.
-     */
-    private View.OnClickListener mHomePressListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onBackPressed();
-        }
-    };
+        if (requestCode == 1112) {
 
+            if (data != null) {
 
-    /**
-     * Declares the click event handling FIELD to set categories
-     * of COURSE DIARY.
-     */
-    private PopupMenu.OnMenuItemClickListener mCourseTypeListener =
-            new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
+                /**
+                 * Refresh Friend list after remove
+                 * Friend.
+                 */
+                boolean isDeleted = data.getBooleanExtra("isDeleted", false);
+                if (isDeleted) {
 
-                    tvMemberType.setText(item.getTitle());
-                    switch (item.getItemId()) {
-                        case R.id.item_all:
-                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_ALL));
-                            break;
-
-                        case R.id.item_ladies:
-                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_LADIES));
-                            break;
-
-                        case R.id.item_gents:
-                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_MEMBERS_GENTLEMENS));
-                            break;
-
-                        case R.id.item_your_friends:
-                            setStraFriendCommand("GETLINKSTOMEMBERS");
-                            setiWhichSpinnerItem(1);
-                            //Initially display title at position 0 of R.menu.course_menu.
-//                            tvMemberType.setText("" + popupMenu.getMenu().getItem(0));
-                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
-                            break;
-
-                        case R.id.item_added_me:
-                            setStraFriendCommand("GETLINKSFROMMEMBERS");
-                            setiWhichSpinnerItem(2);
-                            //Initially display title at position 0 of R.menu.course_menu.
-//                            tvMemberType.setText("" + popupMenu.getMenu().getItem(1));
-                            updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_ADDED_ME));
-                            break;
+                    if (fragmentInstance instanceof FriendsFragment) {
+                        setStraFriendCommand("GETLINKSTOMEMBERS");
+                        setiWhichSpinnerItem(1);
+                        updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
                     }
-                    return true;
                 }
-            };
-
+            }
+        }
+    }
 }

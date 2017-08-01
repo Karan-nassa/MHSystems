@@ -597,7 +597,7 @@ public class MemberDetailActivity extends BaseActivity {
      */
     private void displayMembersData() {
 
-        strNameOfMember = membersDetailItems.getData().getNameRecord().getFullName();
+        strNameOfMember = membersDetailItems.getData().getNameRecord().getFormalName();
 
         /**
          *  Implements check for empty STRING of HANDICAP.
@@ -619,13 +619,14 @@ public class MemberDetailActivity extends BaseActivity {
         }
 
         tvMemberNameDD.setText(strNameOfMember);
-        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
+        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + membersDetailItems.getData().getStrLastJoiningDate());
 
         /**
          *  Implements check for EMPTY email.
          */
         if (strMemberEmail.length() > 0) {
             tvMemberEmail.setText(strMemberEmail);
+            flEmailGroup.setVisibility(View.VISIBLE);
         } else {
             // tvMemberEmail.setText(getResources().getString(R.string.text_member_no_email));
             flEmailGroup.setVisibility(View.GONE);
@@ -636,6 +637,7 @@ public class MemberDetailActivity extends BaseActivity {
          */
         if (strTelNoMob.length() > 0) {
             tvMobContact.setText(strTelNoMob);
+            flContactGroup.setVisibility(View.VISIBLE);
         } else {
             flContactGroup.setVisibility(View.GONE);
         }
@@ -645,6 +647,7 @@ public class MemberDetailActivity extends BaseActivity {
          */
         if (strTelNoWork.length() > 0) {
             tvWorkContact.setText(strTelNoWork);
+            flWorkGroup.setVisibility(View.VISIBLE);
         } else {
             flWorkGroup.setVisibility(View.GONE);
         }
@@ -654,6 +657,7 @@ public class MemberDetailActivity extends BaseActivity {
          */
         if (strTelNoHome.length() > 0) {
             tvHomeContact.setText(strTelNoHome);
+            flHomeGroup.setVisibility(View.VISIBLE);
         } else {
             flHomeGroup.setVisibility(View.GONE);
         }
@@ -663,6 +667,7 @@ public class MemberDetailActivity extends BaseActivity {
          */
         if (strAddressLine.length() > 0) {
             tvMemberAddress.setText(strAddressLine);
+            flAddressGroup.setVisibility(View.VISIBLE);
         } else {
             //tvMemberAddress.setText(getResources().getString(R.string.text_member_no_address));
             flAddressGroup.setVisibility(View.GONE);

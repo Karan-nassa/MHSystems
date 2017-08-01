@@ -5,8 +5,10 @@ package com.mh.systems.teesside.web.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 
-public class FriendsData {
+
+public class FriendsData implements Serializable {
 
     @SerializedName("ClubID")
     @Expose

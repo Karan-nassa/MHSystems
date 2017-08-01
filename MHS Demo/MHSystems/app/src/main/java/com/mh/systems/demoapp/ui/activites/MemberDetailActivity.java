@@ -85,6 +85,9 @@ public class MemberDetailActivity extends BaseActivity {
     //Only send Invite if 'isFriendInvite' false.
     boolean isFriendInvite;
 
+    int iPosition = 0;
+    boolean isFriendRemoved = false;
+
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -122,6 +125,7 @@ public class MemberDetailActivity extends BaseActivity {
 
         iMemberID = getIntent().getExtras().getInt(ApplicationGlobal.KEY_MEMBER_ID);
         iCallFrom = getIntent().getExtras().getInt("PASS_FROM");
+        iPosition = getIntent().getExtras().getInt("iPosition");
 
         tbMemberDetail = (Toolbar) findViewById(R.id.tbMemberDetail);
         setSupportActionBar(tbMemberDetail);
@@ -183,6 +187,18 @@ public class MemberDetailActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(MemberDetailActivity.this, MembersActivity.class);
+        Bundle informacion = new Bundle();
+        informacion.putSerializable("iPosition", iPosition);
+        informacion.putSerializable("isDeleted", isFriendRemoved);
+        intent.putExtras(informacion);
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
     }
 
     /**
@@ -293,6 +309,7 @@ public class MemberDetailActivity extends BaseActivity {
         llMemberShipType = (LinearLayout) findViewById(R.id.llMemberShipType);
 
         fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
+        fabFriendInvitation.setVisibility(View.INVISIBLE);
 
         collapseMemberDetail = (CollapsingToolbarLayout) findViewById(R.id.collapseMemberDetail);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
@@ -427,6 +444,7 @@ public class MemberDetailActivity extends BaseActivity {
             if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
                 fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
                 fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D6D0C9")));
+                fabFriendInvitation.setVisibility(View.VISIBLE);
 
                 //Set TRUE so don't display YES/NO alert dialog.
                 isFriendInvite = true;
@@ -469,10 +487,12 @@ public class MemberDetailActivity extends BaseActivity {
 //                AlertDialog alert = builder.create();
 //                alert.show();
 
-                isRefreshData = true;
-                finish();
+                isFriendRemoved = true;
 
-                //onBackPressed();
+                isRefreshData = true;
+                //finish();
+
+                onBackPressed();
             }
             hideProgress();
         } catch (Exception e) {
@@ -551,15 +571,15 @@ public class MemberDetailActivity extends BaseActivity {
 
             case 1:
                 if (isFriend) {
-                    fabFriendInvitation.setVisibility(View.VISIBLE);
                     fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
                     fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D6D0C9")));
+                    fabFriendInvitation.setVisibility(View.VISIBLE);
                     //Set TRUE so don't display YES/NO alert dialog.
                     isFriendInvite = true;
                 } else {
-                    fabFriendInvitation.setVisibility(View.VISIBLE);
                     fabFriendInvitation.setImageResource(R.mipmap.ic_members_add_friend);
                     fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
+                    fabFriendInvitation.setVisibility(View.VISIBLE);
                     //Set TRUE so don't display YES/NO alert dialog.
                     isFriendInvite = false;
                 }
@@ -568,9 +588,9 @@ public class MemberDetailActivity extends BaseActivity {
             case 2:
                 switch (getIntent().getExtras().getInt("SPINNER_ITEM")) {
                     case 1:
-                        fabFriendInvitation.setVisibility(View.VISIBLE);
                         fabFriendInvitation.setImageResource(R.mipmap.ic_remove_friend);
                         fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
+                        fabFriendInvitation.setVisibility(View.VISIBLE);
                         //Set TRUE so don't display YES/NO alert dialog.
                         isFriendInvite = false;
                         break;
@@ -591,7 +611,7 @@ public class MemberDetailActivity extends BaseActivity {
      */
     private void displayMembersData() {
 
-        strNameOfMember = membersDetailItems.getData().getNameRecord().getFullName();
+        strNameOfMember = membersDetailItems.getData().getNameRecord().getFormalName();
 
         /**
          *  Implements check for empty STRING of HANDICAP.
@@ -613,13 +633,14 @@ public class MemberDetailActivity extends BaseActivity {
         }
 
         tvMemberNameDD.setText(strNameOfMember);
-        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + getFormateDate(membersDetailItems.getData().getStrLastJoiningDate()));
+        tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + membersDetailItems.getData().getStrLastJoiningDate());
 
         /**
          *  Implements check for EMPTY email.
          */
         if (strMemberEmail.length() > 0) {
             tvMemberEmail.setText(strMemberEmail);
+            flEmailGroup.setVisibility(View.VISIBLE);
         } else {
             // tvMemberEmail.setText(getResources().getString(R.string.text_member_no_email));
             flEmailGroup.setVisibility(View.GONE);
@@ -630,6 +651,7 @@ public class MemberDetailActivity extends BaseActivity {
          */
         if (strTelNoMob.length() > 0) {
             tvMobContact.setText(strTelNoMob);
+            flContactGroup.setVisibility(View.VISIBLE);
         } else {
             flContactGroup.setVisibility(View.GONE);
         }
@@ -639,6 +661,7 @@ public class MemberDetailActivity extends BaseActivity {
          */
         if (strTelNoWork.length() > 0) {
             tvWorkContact.setText(strTelNoWork);
+            flWorkGroup.setVisibility(View.VISIBLE);
         } else {
             flWorkGroup.setVisibility(View.GONE);
         }
@@ -648,6 +671,7 @@ public class MemberDetailActivity extends BaseActivity {
          */
         if (strTelNoHome.length() > 0) {
             tvHomeContact.setText(strTelNoHome);
+            flHomeGroup.setVisibility(View.VISIBLE);
         } else {
             flHomeGroup.setVisibility(View.GONE);
         }
@@ -657,6 +681,7 @@ public class MemberDetailActivity extends BaseActivity {
          */
         if (strAddressLine.length() > 0) {
             tvMemberAddress.setText(strAddressLine);
+            flAddressGroup.setVisibility(View.VISIBLE);
         } else {
             //tvMemberAddress.setText(getResources().getString(R.string.text_member_no_address));
             flAddressGroup.setVisibility(View.GONE);

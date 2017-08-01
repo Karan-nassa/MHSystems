@@ -151,6 +151,8 @@
         <item name="android:textSize">26sp</item>
     </style>
 
+    <style name="ThemeOverlay.AppCompat.Dark.ActionBar"></style>
+
     <!-- ++++++++++++++  END OF COMPETITIONS REDESIGN TOOL BAR STYLE  +++++++++++++++ -->
 
 </resources>

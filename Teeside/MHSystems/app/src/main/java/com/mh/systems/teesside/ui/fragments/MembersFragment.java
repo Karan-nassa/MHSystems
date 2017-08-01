@@ -290,7 +290,17 @@ public class MembersFragment extends Fragment {
                     // intent.putExtra("A_COMMAND", "GETMEMBER");
                     intent.putExtra("PASS_FROM", 1); // 1 means from Member Fragment and 2 for friends Fragment.
                     intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
+                    intent.putExtra("iPosition", position);
                     startActivity(intent);
+
+                    /*Intent detailNewsIntent = new Intent(getActivity(), MemberDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    //bundle.putString("A_COMMAND", "GETMEMBER");
+                    bundle.getInt("PASS_FROM", 1);
+                    bundle.putInt(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
+                    bundle.putInt("iPosition", position);
+                    detailNewsIntent.putExtras(bundle);
+                    startActivityForResult(detailNewsIntent, 111);*/
                 }
             });
             return rootView;

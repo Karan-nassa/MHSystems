@@ -307,7 +307,7 @@ public class DashboardActivity extends BaseActivity {
         SyncMarket.Initialize(this);
         final String version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 
-        if(SyncMarket.getMarketVersion() != null && SyncMarket.getMarketVersion().equals(version)){
+        if (SyncMarket.getMarketVersion() != null && SyncMarket.getMarketVersion().equals(version)) {
             savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
         }
 
@@ -413,6 +413,13 @@ public class DashboardActivity extends BaseActivity {
                     "Course Diary",
                     getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryActivity"));
         }
+
+        //Pro-Agenda Book Lessons
+        dashboardItemsArrayList.add(new DashboardItems(
+                R.mipmap.ic_booking_agenda,
+                "Book Lessons",
+                getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryWebviewActivity"));
+
 
         //Add Competitions
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {

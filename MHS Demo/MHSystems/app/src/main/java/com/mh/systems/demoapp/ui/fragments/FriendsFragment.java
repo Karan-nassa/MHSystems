@@ -16,21 +16,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.activites.BaseActivity;
 import com.mh.systems.demoapp.ui.activites.MemberDetailActivity;
 import com.mh.systems.demoapp.ui.activites.MembersActivity;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
+import com.mh.systems.demoapp.utils.libAlphaIndexing.CircularContactView;
+import com.mh.systems.demoapp.utils.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.demoapp.utils.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 import com.mh.systems.demoapp.web.api.WebAPI;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.AJsonParamsFriends;
 import com.mh.systems.demoapp.web.models.FriendsAPI;
 import com.mh.systems.demoapp.web.models.FriendsData;
 import com.mh.systems.demoapp.web.models.FriendsItems;
-import com.mh.systems.demoapp.web.api.WebServiceMethods;
-import com.mh.systems.demoapp.utils.libAlphaIndexing.CircularContactView;
-import com.mh.systems.demoapp.utils.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.demoapp.utils.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -280,11 +280,21 @@ public class FriendsFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
+                        Intent detailNewsIntent = new Intent(getActivity(), MemberDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("PASS_FROM", 2);
+                        bundle.putInt("SPINNER_ITEM", ((MembersActivity) getActivity()).getiWhichSpinnerItem());
+                        bundle.putInt("iPosition", position);
+                        bundle.putInt(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
+                        detailNewsIntent.putExtras(bundle);
+                        getActivity().startActivityForResult(detailNewsIntent, 1112);
+
+                        /*Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
                         intent.putExtra("PASS_FROM", 2); // 1 means from Member Fragment and 2 for friends Fragment.
                         intent.putExtra("SPINNER_ITEM", ((MembersActivity) getActivity()).getiWhichSpinnerItem());
                         intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
-                        startActivity(intent);
+                        startActivity(intent);*/
+
                     }
                 });
             }
@@ -391,6 +401,5 @@ public class FriendsFragment extends Fragment {
 
 
     //////////////////////////////////////////////////////////////////////////////////////
-
 
 }
