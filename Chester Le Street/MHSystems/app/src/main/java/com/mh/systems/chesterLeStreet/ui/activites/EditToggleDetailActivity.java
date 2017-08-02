@@ -45,7 +45,7 @@ public class EditToggleDetailActivity extends BaseActivity {
 
     private final String TAG_MEMBERS = "Members";
     private final String TAG_PRIVATE = "Private";
-    private final String TAG_FRIENDS = "friends";
+    private final String TAG_FRIENDS = "Friends";
 
     Toolbar tbEditToggleDetail;
     TextView tvMobile, tvWork, tvHome, tvEmail, tvAddress;
@@ -563,7 +563,7 @@ public class EditToggleDetailActivity extends BaseActivity {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(EditToggleDetailActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
     }
@@ -656,45 +656,45 @@ public class EditToggleDetailActivity extends BaseActivity {
         strAddressPrivacy = membersDetailsData.getContactDetails().getAddress1Privacy();
 
         //Set default Mobile contact privacy.
-        if (strMobilePrivacy.equals(TAG_MEMBERS)) {
+        if (strMobilePrivacy.equalsIgnoreCase(TAG_MEMBERS)) {
             onMobilePrivacy(btMobMembers);
-        } else if (strMobilePrivacy.equals(TAG_FRIENDS)) {
+        } else if (strMobilePrivacy.equalsIgnoreCase(TAG_FRIENDS)) {
             onMobilePrivacy(btMobFriends);
         } else {
             onMobilePrivacy(btMobPrivate);
         }
 
         //Set default Work contact privacy.
-        if (strWorkPrivacy.equals(TAG_MEMBERS)) {
+        if (strWorkPrivacy.equalsIgnoreCase(TAG_MEMBERS)) {
             onWorkPrivacy(btWorkMembers);
-        } else if (strWorkPrivacy.equals(TAG_FRIENDS)) {
+        } else if (strWorkPrivacy.equalsIgnoreCase(TAG_FRIENDS)) {
             onWorkPrivacy(btWorkFriends);
         } else {
             onWorkPrivacy(btWorkPrivate);
         }
 
         //Set default Home contact privacy.
-        if (strHomePrivacy.equals(TAG_MEMBERS)) {
+        if (strHomePrivacy.equalsIgnoreCase(TAG_MEMBERS)) {
             onHomePrivacy(btHomeMembers);
-        } else if (strHomePrivacy.equals(TAG_FRIENDS)) {
+        } else if (strHomePrivacy.equalsIgnoreCase(TAG_FRIENDS)) {
             onHomePrivacy(btHomeFriends);
         } else {
             onHomePrivacy(btHomePrivate);
         }
 
         //Set default EMAIL privacy.
-        if (strEMailPrivacy.equals(TAG_MEMBERS)) {
+        if (strEMailPrivacy.equalsIgnoreCase(TAG_MEMBERS)) {
             onEmailPrivacy(btEmailMembers);
-        } else if (strEMailPrivacy.equals(TAG_FRIENDS)) {
+        } else if (strEMailPrivacy.equalsIgnoreCase(TAG_FRIENDS)) {
             onEmailPrivacy(btEmailFriends);
         } else {
             onEmailPrivacy(btEmailPrivate);
         }
 
         //Set default ADDRESS privacy.
-        if (strAddressPrivacy.equals(TAG_MEMBERS)) {
+        if (strAddressPrivacy.equalsIgnoreCase(TAG_MEMBERS)) {
             onAddressPrivacy(btAddressMembers);
-        } else if (strAddressPrivacy.equals(TAG_FRIENDS)) {
+        } else if (strAddressPrivacy.equalsIgnoreCase(TAG_FRIENDS)) {
             onAddressPrivacy(btAddressFriends);
         } else {
             onAddressPrivacy(btAddressPrivate);
@@ -749,7 +749,7 @@ public class EditToggleDetailActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(EditToggleDetailActivity.class.getSimpleName(), e.toString());
             llEditTogleGroup.setVisibility(View.GONE);
         }
     }

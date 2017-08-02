@@ -49,7 +49,13 @@
     - UPDATE: Add In App Update Notification version alert dialog one time when any update found.
     - UPDATE: Integrate the feature flag to Membership Type in Members.
    	- FIXED:  Completed Competitions should display from 1st date to end of the month always.
- 
+
+   ####2nd August, 2017
+    - FIXED: Friend/Unfriend is not getting updated in one go as need to switch the screen to get the result.
+    - FIXED: Member detail screen should display 'FormalName' not 'FullName'
+    - FIXED: In Members, when click for detailed screen, the fields are reflecting for a moment but no data is showing up.
+    - FIXED: Your Account 'Edit Details' and 'Toggle Privacy' settings is not getting saved.
+
 ##Version 1.1.0 (2016-12-02)
 
 - New: Weather feature added

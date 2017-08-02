@@ -26,7 +26,6 @@ import com.mh.systems.teesside.ui.fragments.MembersTabFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-
 public class MembersActivity extends BaseActivity {
 
     /*********************************
