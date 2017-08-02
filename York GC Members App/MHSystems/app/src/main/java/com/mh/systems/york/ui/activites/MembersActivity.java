@@ -88,7 +88,6 @@ public class MembersActivity extends BaseActivity {
      */
     private int iTabPosition;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +140,7 @@ public class MembersActivity extends BaseActivity {
 
         getMenuInflater().inflate(R.menu.menu_friends, menu);
 
-        switch (getiTabPosition()){
+        switch (getiTabPosition()) {
             case 0:
                 //getMenuInflater().inflate(R.menu.menu_members, menu);
                 menu.getItem(1).setVisible(false);
@@ -211,7 +210,7 @@ public class MembersActivity extends BaseActivity {
                 return true;
 
             case R.id.action_info:
-                Intent infoIntent  = new Intent(MembersActivity.this, FriendsInfoWebActivity.class);
+                Intent infoIntent = new Intent(MembersActivity.this, FriendsInfoWebActivity.class);
                 startActivity(infoIntent);
                 //showAlertInfo();
                 return true;
@@ -227,7 +226,7 @@ public class MembersActivity extends BaseActivity {
      * Implements HOME icons press
      * listener.
      */
-    public View.OnClickListener mHomePressListener = new View.OnClickListener() {
+    private View.OnClickListener mHomePressListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             onBackPressed();
@@ -239,7 +238,7 @@ public class MembersActivity extends BaseActivity {
      * Declares the click event handling FIELD to set categories
      * of COURSE DIARY.
      */
-    public PopupMenu.OnMenuItemClickListener mCourseTypeListener =
+    private PopupMenu.OnMenuItemClickListener mCourseTypeListener =
             new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -324,11 +323,11 @@ public class MembersActivity extends BaseActivity {
      */
     public void initializeMembersCategory() {
 
-        if(MembersTabFragment.iLastTabPosition == 2){
+        if (MembersTabFragment.iLastTabPosition == 2) {
 
             llMemberCategory.setVisibility(View.INVISIBLE);
 
-        }else {
+        } else {
 
             llMemberCategory.setVisibility(View.VISIBLE);
 
@@ -455,4 +454,28 @@ public class MembersActivity extends BaseActivity {
     }
 
     /* +++++++++++++++++++++++++ HOLD TAB POSITION FOR CONTACT US & INFO POP-UP  +++++++++++++++++++++++++ */
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1112) {
+
+            if (data != null) {
+
+                /**
+                 * Refresh Friend list after remove
+                 * Friend.
+                 */
+                boolean isDeleted = data.getBooleanExtra("isDeleted", false);
+                if (isDeleted) {
+
+                    if (fragmentInstance instanceof FriendsFragment) {
+                        setStraFriendCommand("GETLINKSTOMEMBERS");
+                        setiWhichSpinnerItem(1);
+                        updateFragment(new MembersTabFragment(ApplicationGlobal.ACTION_FRIENDS_YOUR_FRIENDS));
+                    }
+                }
+            }
+        }
+    }
 }
