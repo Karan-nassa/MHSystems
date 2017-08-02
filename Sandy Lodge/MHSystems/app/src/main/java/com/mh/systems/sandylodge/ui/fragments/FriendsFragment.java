@@ -16,22 +16,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.sandylodge.ui.activites.BaseActivity;
-import com.mh.systems.sandylodge.ui.activites.YourAccountActivity;
-import com.mh.systems.sandylodge.utils.ApplicationGlobal;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sandylodge.R;
+import com.mh.systems.sandylodge.ui.activites.BaseActivity;
 import com.mh.systems.sandylodge.ui.activites.MemberDetailActivity;
 import com.mh.systems.sandylodge.ui.activites.MembersActivity;
+import com.mh.systems.sandylodge.utils.ApplicationGlobal;
+import com.mh.systems.sandylodge.utils.libAlphaIndexing.CircularContactView;
+import com.mh.systems.sandylodge.utils.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
+import com.mh.systems.sandylodge.utils.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
 import com.mh.systems.sandylodge.web.api.WebAPI;
+import com.mh.systems.sandylodge.web.api.WebServiceMethods;
 import com.mh.systems.sandylodge.web.models.AJsonParamsFriends;
 import com.mh.systems.sandylodge.web.models.FriendsAPI;
 import com.mh.systems.sandylodge.web.models.FriendsData;
 import com.mh.systems.sandylodge.web.models.FriendsItems;
-import com.mh.systems.sandylodge.web.api.WebServiceMethods;
-import com.mh.systems.sandylodge.utils.libAlphaIndexing.CircularContactView;
-import com.mh.systems.sandylodge.utils.libAlphaIndexing.async_task_thread_pool.AsyncTaskEx;
-import com.mh.systems.sandylodge.utils.libAlphaIndexing.async_task_thread_pool.AsyncTaskThreadPool;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -99,7 +98,7 @@ public class FriendsFragment extends Fragment {
 
         if (isVisibleToUser) {
 
-            ((MembersActivity)getActivity()).setiTabPosition(1);
+            ((MembersActivity) getActivity()).setiTabPosition(1);
 
             ((MembersActivity) getActivity()).setFragmentInstance(new FriendsFragment());
 
@@ -127,12 +126,12 @@ public class FriendsFragment extends Fragment {
     public void callWebService() {
 
         if (((BaseActivity) getActivity()).isOnline(getActivity())) {
-            ((MembersActivity) getActivity()).updateNoInternetUI(true);
+            // ((MembersActivity) getActivity()).updateNoInternetUI(true);
             // MemberDetailActivity.isRefreshData = false;
-            //Method to hit Members list API.
+            //Method to hit Members list api.
             requestFriendService();
         } else {
-            ((MembersActivity) getActivity()).updateNoInternetUI(false);
+            // ((MembersActivity) getActivity()).updateNoInternetUI(false);
         }
     }
 
@@ -185,83 +184,6 @@ public class FriendsFragment extends Fragment {
     public String getClientId() {
         return ((MembersActivity) getActivity()).loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
-
-    /**
-     * Implements a method to update SUCCESS
-     * response of web service.
-     */
-    public void updateSuccessResponse(JsonObject jsonObject) {
-
-        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
-
-        Type type = new TypeToken<FriendsItems>() {
-        }.getType();
-        friendsItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
-
-        //Clear array list before inserting items.
-        friendsDataArrayList.clear();
-
-        try {
-            /**
-             *  Check "Result" 1 or 0. If 1, means data received successfully.
-             */
-            if (friendsItems.getMessage().equalsIgnoreCase("Success")) {
-
-                friendsDataArrayList.addAll(friendsItems.getData());
-
-                if (friendsDataArrayList.size() == 0) {
-                    ((MembersActivity) getActivity()).updateNoDataUI(false, 1);
-                    //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
-                } else {
-                    ((MembersActivity) getActivity()).updateNoDataUI(true, 1);
-                    setMembersListAdapter(friendsDataArrayList);
-                }
-            } else {
-                ((MembersActivity) getActivity()).updateNoDataUI(false, 1);
-            }
-            //Dismiss progress dialog.
-            ((BaseActivity) getActivity()).hideProgress();
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "" + e.getMessage());
-            ((MembersActivity) getActivity()).reportRollBarException(FriendsFragment.class.getSimpleName(), e.toString());
-        }
-    }
-
-
-    /**
-     * Implements a method to set Members list in Adapter.
-     *
-     * @param friendsDatas
-     */
-    public void setMembersListAdapter(ArrayList<FriendsData> friendsDatas) {
-
-        //Members list demo.
-        Collections.sort(friendsDatas, new Comparator<FriendsData>() {
-            @Override
-            public int compare(FriendsData lhs, FriendsData rhs) {
-                char lhsFirstLetter = TextUtils.isEmpty(lhs.getNameRecord().getFullName()) ? ' ' : lhs.getNameRecord().getFullName().charAt(0);
-                char rhsFirstLetter = TextUtils.isEmpty(rhs.getNameRecord().getFullName()) ? ' ' : rhs.getNameRecord().getFullName().charAt(0);
-                int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
-                if (firstLetterComparison == 0)
-                    return lhs.getNameRecord().getFullName().compareTo(rhs.getNameRecord().getFullName());
-                return firstLetterComparison;
-            }
-        });
-
-        mAdapter = new AlphabaticalListAdapter(friendsDatas);
-
-        //int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(), android.R.attr.colorBackground)));
-        mAdapter.setPinnedHeaderBackgroundColor(Color.parseColor("#F9F8F7")/*pinnedHeaderBackgroundColor*/);
-        mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.color9B9B9B));
-        phlvFriends.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, phlvFriends, false));
-        phlvFriends.setAdapter(mAdapter);
-        phlvFriends.setOnScrollListener(mAdapter);
-        phlvFriends.setEnableHeaderTransparencyChanges(false);
-        mAdapter.notifyDataSetChanged();
-    }
-
-
-    //////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Implements a method to get Background theme color
@@ -358,11 +280,21 @@ public class FriendsFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
+                        Intent detailNewsIntent = new Intent(getActivity(), MemberDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("PASS_FROM", 2);
+                        bundle.putInt("SPINNER_ITEM", ((MembersActivity) getActivity()).getiWhichSpinnerItem());
+                        bundle.putInt("iPosition", position);
+                        bundle.putInt(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
+                        detailNewsIntent.putExtras(bundle);
+                        getActivity().startActivityForResult(detailNewsIntent, 1112);
+
+                        /*Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
                         intent.putExtra("PASS_FROM", 2); // 1 means from Member Fragment and 2 for friends Fragment.
                         intent.putExtra("SPINNER_ITEM", ((MembersActivity) getActivity()).getiWhichSpinnerItem());
                         intent.putExtra(ApplicationGlobal.KEY_MEMBER_ID, contact.getMemberID());
-                        startActivity(intent);
+                        startActivity(intent);*/
+
                     }
                 });
             }
@@ -392,4 +324,82 @@ public class FriendsFragment extends Fragment {
             public AsyncTaskEx<Void, Void, Bitmap> updateTask;
         }
     }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    public void updateSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<FriendsItems>() {
+        }.getType();
+        friendsItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        //Clear array list before inserting items.
+        friendsDataArrayList.clear();
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (friendsItems.getMessage().equalsIgnoreCase("Success")) {
+
+                friendsDataArrayList.addAll(friendsItems.getData());
+
+                if (friendsDataArrayList.size() == 0) {
+                    ((MembersActivity) getActivity()).updateNoDataUI(false, 1);
+                    //((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+                } else {
+                    ((MembersActivity) getActivity()).updateNoDataUI(true, 1);
+                    setMembersListAdapter(friendsDataArrayList);
+                }
+            } else {
+                ((MembersActivity) getActivity()).updateNoDataUI(false, 1);
+            }
+            //Dismiss progress dialog.
+            ((BaseActivity) getActivity()).hideProgress();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            ((MembersActivity)getActivity()).reportRollBarException(FriendsFragment.class.getSimpleName(), e.toString());
+        }
+    }
+
+
+    /**
+     * Implements a method to set Members list in Adapter.
+     *
+     * @param friendsDatas
+     */
+    private void setMembersListAdapter(ArrayList<FriendsData> friendsDatas) {
+
+        //Members list demo.
+        Collections.sort(friendsDatas, new Comparator<FriendsData>() {
+            @Override
+            public int compare(FriendsData lhs, FriendsData rhs) {
+                char lhsFirstLetter = TextUtils.isEmpty(lhs.getNameRecord().getFullName()) ? ' ' : lhs.getNameRecord().getFullName().charAt(0);
+                char rhsFirstLetter = TextUtils.isEmpty(rhs.getNameRecord().getFullName()) ? ' ' : rhs.getNameRecord().getFullName().charAt(0);
+                int firstLetterComparison = Character.toUpperCase(lhsFirstLetter) - Character.toUpperCase(rhsFirstLetter);
+                if (firstLetterComparison == 0)
+                    return lhs.getNameRecord().getFullName().compareTo(rhs.getNameRecord().getFullName());
+                return firstLetterComparison;
+            }
+        });
+
+        mAdapter = new AlphabaticalListAdapter(friendsDatas);
+
+        //int pinnedHeaderBackgroundColor = (ContextCompat.getColor(getActivity(), getResIdFromAttribute(getActivity(), android.R.attr.colorBackground)));
+        mAdapter.setPinnedHeaderBackgroundColor(Color.parseColor("#F9F8F7")/*pinnedHeaderBackgroundColor*/);
+        mAdapter.setPinnedHeaderTextColor(ContextCompat.getColor(getActivity(), R.color.color9B9B9B));
+        phlvFriends.setPinnedHeaderView(mInflater.inflate(R.layout.pinned_header_listview_side_header, phlvFriends, false));
+        phlvFriends.setAdapter(mAdapter);
+        phlvFriends.setOnScrollListener(mAdapter);
+        phlvFriends.setEnableHeaderTransparencyChanges(false);
+        mAdapter.notifyDataSetChanged();
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+
 }

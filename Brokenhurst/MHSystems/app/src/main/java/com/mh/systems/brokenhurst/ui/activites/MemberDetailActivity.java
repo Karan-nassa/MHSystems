@@ -69,8 +69,8 @@ public class MemberDetailActivity extends BaseActivity {
 
     String strAddressLine, strMemberEmail, strTelNoHome, strTelNoWork, strTelNoMob, strHandCapPlay;
     String strNameOfMember;
-    int iMemberID;
     String strMemberShipType;
+    int iMemberID;
 
     /**
      * iCallFrom will be
@@ -84,6 +84,9 @@ public class MemberDetailActivity extends BaseActivity {
 
     //Only send Invite if 'isFriendInvite' false.
     boolean isFriendInvite;
+
+    int iPosition = 0;
+    boolean isFriendRemoved = false;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -113,7 +116,6 @@ public class MemberDetailActivity extends BaseActivity {
     CollapsingToolbarLayout collapseMemberDetail;
     AppBarLayout appBarLayout;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +125,7 @@ public class MemberDetailActivity extends BaseActivity {
 
         iMemberID = getIntent().getExtras().getInt(ApplicationGlobal.KEY_MEMBER_ID);
         iCallFrom = getIntent().getExtras().getInt("PASS_FROM");
+        iPosition = getIntent().getExtras().getInt("iPosition");
 
         tbMemberDetail = (Toolbar) findViewById(R.id.tbMemberDetail);
         setSupportActionBar(tbMemberDetail);
@@ -133,7 +136,7 @@ public class MemberDetailActivity extends BaseActivity {
          *  Check internet connection before hitting server request.
          */
         if (isOnline(MemberDetailActivity.this)) {
-            //Method to hit Members list API.
+            //Method to hit Members list api.
             requestMemberDetailService();
         } else {
             showAlertMessage(getResources().getString(R.string.error_no_internet));
@@ -169,7 +172,6 @@ public class MemberDetailActivity extends BaseActivity {
         ivActionEmail.setOnClickListener(mEmailMemberListener);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -185,6 +187,18 @@ public class MemberDetailActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(MemberDetailActivity.this, MembersActivity.class);
+        Bundle informacion = new Bundle();
+        informacion.putSerializable("iPosition", iPosition);
+        informacion.putSerializable("isDeleted", isFriendRemoved);
+        intent.putExtras(informacion);
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
     }
 
     /**
@@ -217,8 +231,7 @@ public class MemberDetailActivity extends BaseActivity {
      * Define Floating action button tap Alert Dialog
      * events handle here.
      */
-
-    private DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
@@ -245,7 +258,6 @@ public class MemberDetailActivity extends BaseActivity {
         }
     };
 
-
     private void showTitleOnCollapse() {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
@@ -259,7 +271,7 @@ public class MemberDetailActivity extends BaseActivity {
                 if (scrollRange + verticalOffset == 0) {
                     collapseMemberDetail.setTitle(strNameOfMember);
                     isShow = true;
-                } else if(isShow) {
+                } else if (isShow) {
                     collapseMemberDetail.setTitle("");
                     isShow = false;
                 }
@@ -288,15 +300,16 @@ public class MemberDetailActivity extends BaseActivity {
         ivActionEmail = (ImageView) findViewById(R.id.ivActionEmail);
         ivActionCall = (ImageView) findViewById(R.id.ivActionCall);
 
-        llMemberShipType = (LinearLayout) findViewById(R.id.llMemberShipType);
-
         flEmailGroup = (FrameLayout) findViewById(R.id.flEmailGroup);
         flContactGroup = (FrameLayout) findViewById(R.id.flContactGroup);
         flWorkGroup = (FrameLayout) findViewById(R.id.flWorkGroup);
-                flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
+        flHomeGroup = (FrameLayout) findViewById(R.id.flHomeGroup);
         flAddressGroup = (FrameLayout) findViewById(R.id.flAddressGroup);
 
+        llMemberShipType = (LinearLayout) findViewById(R.id.llMemberShipType);
+
         fabFriendInvitation = (FloatingActionButton) findViewById(R.id.fabFriendInvitation);
+        fabFriendInvitation.setVisibility(View.INVISIBLE);
 
         collapseMemberDetail = (CollapsingToolbarLayout) findViewById(R.id.collapseMemberDetail);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
@@ -380,7 +393,7 @@ public class MemberDetailActivity extends BaseActivity {
         aJsonParamsMembersDatail = new AJsonParamsMembersDatail();
         aJsonParamsMembersDatail.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsMembersDatail.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsMembersDatail.setMemberid(""+iMemberID);
+        aJsonParamsMembersDatail.setMemberid("" + iMemberID);
         aJsonParamsMembersDatail.setLoginMemberId(loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
 
         membersDetailAPI = new MembersDetailAPI(getClientId(), "GETMEMBER", aJsonParamsMembersDatail, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
@@ -431,6 +444,7 @@ public class MemberDetailActivity extends BaseActivity {
             if (membersDetailItems.getMessage().equalsIgnoreCase("Success")) {
                 fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
                 fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D6D0C9")));
+                fabFriendInvitation.setVisibility(View.VISIBLE);
 
                 //Set TRUE so don't display YES/NO alert dialog.
                 isFriendInvite = true;
@@ -473,10 +487,12 @@ public class MemberDetailActivity extends BaseActivity {
 //                AlertDialog alert = builder.create();
 //                alert.show();
 
-                isRefreshData = true;
-                finish();
+                isFriendRemoved = true;
 
-                //onBackPressed();
+                isRefreshData = true;
+                //finish();
+
+                onBackPressed();
             }
             hideProgress();
         } catch (Exception e) {
@@ -515,9 +531,9 @@ public class MemberDetailActivity extends BaseActivity {
                     strTelNoWork = membersDetailItems.getData().getContactDetails().getTelNoWork();
                     strHandCapPlay = membersDetailItems.getData().getHCapPlayStr();
 
-                    strMemberShipType = membersDetailItems.getData().getMembershipStatus();
-
                     updateIsFriendUI(membersDetailItems.getData().getIsfriend());
+
+                    strMemberShipType = membersDetailItems.getData().getMembershipStatus();
 
                     displayMembersData();
                 } else {
@@ -555,15 +571,15 @@ public class MemberDetailActivity extends BaseActivity {
 
             case 1:
                 if (isFriend) {
-                    fabFriendInvitation.setVisibility(View.VISIBLE);
                     fabFriendInvitation.setImageResource(R.mipmap.ic_friends);
                     fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D6D0C9")));
+                    fabFriendInvitation.setVisibility(View.VISIBLE);
                     //Set TRUE so don't display YES/NO alert dialog.
                     isFriendInvite = true;
                 } else {
-                    fabFriendInvitation.setVisibility(View.VISIBLE);
                     fabFriendInvitation.setImageResource(R.mipmap.ic_members_add_friend);
                     fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C0995B")));
+                    fabFriendInvitation.setVisibility(View.VISIBLE);
                     //Set TRUE so don't display YES/NO alert dialog.
                     isFriendInvite = false;
                 }
@@ -572,9 +588,9 @@ public class MemberDetailActivity extends BaseActivity {
             case 2:
                 switch (getIntent().getExtras().getInt("SPINNER_ITEM")) {
                     case 1:
-                        fabFriendInvitation.setVisibility(View.VISIBLE);
                         fabFriendInvitation.setImageResource(R.mipmap.ic_remove_friend);
                         fabFriendInvitation.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
+                        fabFriendInvitation.setVisibility(View.VISIBLE);
                         //Set TRUE so don't display YES/NO alert dialog.
                         isFriendInvite = false;
                         break;
