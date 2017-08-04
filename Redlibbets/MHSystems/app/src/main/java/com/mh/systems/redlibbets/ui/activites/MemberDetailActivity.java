@@ -634,6 +634,7 @@ public class MemberDetailActivity extends BaseActivity {
 
         tvMemberNameDD.setText(strNameOfMember);
         tvMemberJoinDate.setText(getResources().getString(R.string.text_member_since) + " " + membersDetailItems.getData().getStrLastJoiningDate());
+        tvMemberJoinDate.setVisibility(View.GONE);
 
         /**
          *  Implements check for EMPTY email.
