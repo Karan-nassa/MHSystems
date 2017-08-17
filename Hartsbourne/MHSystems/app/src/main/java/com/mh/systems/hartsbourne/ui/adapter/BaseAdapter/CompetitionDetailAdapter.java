@@ -75,7 +75,7 @@ public class CompetitionDetailAdapter extends BaseAdapter {
         rowViewInstance.tvPosOfMember.setText(resultEntryArrayList.get(position).getPlaceStr());
         rowViewInstance.tvNameOfMember.setText(resultEntryArrayList.get(position).getEntryName());
         rowViewInstance.tvScoreOfMember.setText(resultEntryArrayList.get(position).getExactHCap());
-        rowViewInstance.tvTotalScoreOfMember.setText(resultEntryArrayList.get(position).getNettTotal());
+        rowViewInstance.tvTotalScoreOfMember.setText(resultEntryArrayList.get(position).getScoreSummary());
 
         return rowView;
     }

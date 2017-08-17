@@ -14,3 +14,7 @@ Initial release
   - FIXED: Member detail screen should display 'FormalName' not 'FullName'
   - FIXED: In Members, when click for detailed screen, the fields are reflecting for a moment but no data is showing up.
   - FIXED: Your Account 'Edit Details' and 'Toggle Privacy' settings is not getting saved.
+  
+ ####17th Aug, 2017
+  - UPDATE: Display 'GetScoreSummary' instead of 'NettTotal' in Completed Competitions details.
+  - FIXED:  Display 'No Club News' when user delete last news from list.

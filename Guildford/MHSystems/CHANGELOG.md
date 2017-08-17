@@ -22,6 +22,10 @@ Changed the following issues:
    - FIXED: In Members, when click for detailed screen, the fields are reflecting for a moment but no data is showing up.
    - FIXED: Your Account 'Edit Details' and 'Toggle Privacy' settings is not getting saved.
 
+  ####17th Aug, 2017
+   - UPDATE: Display 'GetScoreSummary' instead of 'NettTotal' in Completed Competitions details.
+   - FIXED:  Display 'No Club News' when user delete last news from list.
+
 ##Version1.3.0 (2016-02-16)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.
