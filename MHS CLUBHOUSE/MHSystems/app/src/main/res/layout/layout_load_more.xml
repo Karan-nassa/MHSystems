@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:padding="3dp">
+
+    <!-- LOAD MORE VIEW TO DISPLAY BOTTOM OF LIST -->
+
+    <com.mh.systems.clubhouse.ui.customfonts.RobotoMediumTextView
+        android:id="@id/android:empty"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Loading more..."
+        android:textSize="22sp" />
+
+</LinearLayout>

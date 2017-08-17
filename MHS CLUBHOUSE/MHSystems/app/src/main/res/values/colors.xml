@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="color535796a">#535796</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- START OF COLORS DECLARATION USE THROUGH OUT THE APP -->
+
+    <color name="colorFFEF8176">#FFEF8176</color>
+    <color name="colorF1F1F0">#F1F1F0</color>
+    <color name="colorBlack000000">#000000</color>
+    <color name="color809c76">#809c76</color>
+    <color name="color030303">#030303</color>
+    <color name="color333333">#333333</color>
+    <color name="color4A4A4A">#4A4A4A</color>
+    <color name="colorGrey6d6d6d">#6d6d6d</color>
+    <color name="colorAAAAAA">#AAAAAA</color>
+    <color name="colorEFEFF4">#EFEFF4</color>
+    <color name="colorGreyf1f1f0">#f1f1f0</color>
+    <color name="colorb0acd9">#b0acd9</color>
+    <color name="colorc4a167">#c4a167</color>
+    <color name="colorb5ad67">#b5ad67</color>
+    <color name="colorF7E59A">#F7E59A</color>
+    <color name="colorf3f3f2">#f3f3f2</color>
+    <color name="colorb2b7bf">#b2b7bf</color>
+    <color name="colorD3D2D6">#D3D2D6</color>
+    <color name="colorFFEFEFF4">#EFEFF4</color>
+    <color name="color939393">#939393</color>
+    <color name="color808080">#808080</color>
+    <color name="color0000ff">#0000ff</color>
+    <color name="color107EFD">#107EFD</color>
+    <color name="color4942AA">#4942AA</color>
+    <color name="colorWhiteffffff">#ffffff</color>
+    <color name="colorE8E7E8">#e8e7e8</color>
+    <color name="colorDF7D72">#DF7D72</color>
+    <color name="colorEF8176">#EF8176</color>
+    <color name="colorDB766C">#DB766C</color>
+    <color name="color838383">#838383</color>
+    <color name="color535796">#535796</color>
+    <color name="color8F8E94">#8F8E94</color>
+    <color name="coloracacac">#acacac</color>
+    <color name="colorDDD8D3">#DDD8D3</color>
+    <color name="colorD6D0C9">#D6D0C9</color>
+    <color name="colorBDB6AE">#BDB6AE</color>
+    <color name="color4B4B49">#4B4B49</color>
+    <color name="color313130">#313130</color>
+    <color name="colorF9F8F7">#F9F8F7</color>
+    <color name="color1E1E1C">#1E1E1C</color>
+    <color name="color0076FF">#0076FF</color>
+    <color name="color979797">#979797</color>
+    <color name="color9B9B9B">#9b9b9b</color>
+    <color name="colorE8DCC9">#E8DCC9</color>
+    <color name="colorC59A5C">#C59A5C</color>
+    <color name="color7ED321">#7ED321</color>
+    <color name="color009688">#009688</color>
+
+    <color name="color65B0DE">#65B0DE</color>
+    <color name="color242422">#242422</color>
+
+    <color name="twenty_of_black">#33000000</color>
+    <color name="fifty_four_of_black">#7e000000</color>
+    <color name="eighty_seven_of_black">#de000000</color>
+
+    <color name="color7C7C7C">#7C7C7C</color>
+    <color name="colorC41615">#f9dfdd</color>
+    <color name="colorF8F7F6">#F8F7F6</color>
+
+    <!-- PROGRESS WHEEL COLOR -->
+
+    <color name="color5588FF">#5588FF</color>
+    <color name="color4b9dfa">#4b9dfa</color>
+
+    <!-- START OF COLORS THAT ARE USING AT HOME MENU GRID VIEW -->
+
+    <color name="colorF6B98C">#F6B98C</color>
+    <color name="colorAFD9A1">#AFD9A1</color>
+    <color name="colorF6EA8C">#F6EA8C</color>
+    <color name="colorA1B7E0">#a1b7e0</color>
+    <color name="colorC0995B">#C0995B</color>
+    <color name="colorB2E6D9">#B2E6D9</color>
+    <color name="colorE8E2DD">#E8E2DD</color>
+
+    <!-- END OF COLORS THAT ARE USING AT HOME MENU GRID VIEW -->
+
+    <!-- TRANSPARENT COLOR-->
+    <color name="black_transparent">#99000000</color>
+
+    <!-- +++++++++++++++++++++++ START OF MEMBERS ALPHABETICAL LIST +++++++++++++++++++++++  -->
+    <integer-array name="contacts_text_background_colors">
+        <item>0xFF9C27B0</item>
+        <item>0xFFFF5722</item>
+        <item>0xFF3F51B5</item>
+        <item>0xFFDB4437</item>
+        <item>0xFFEF6C00</item>
+        <item>0xFF689F38</item>
+        <item>0xFF757575</item>
+        <item>0xFF0F9D58</item>
+        <item>0xFF3F51B5</item>
+        <item>0xFF0097A7</item>
+    </integer-array>
+
+    <!--++++++++++++++++++++-->
+    <!--listview item colors-->
+    <!--++++++++++++++++++++-->
+    <color name="listview_pressed">#dddddd</color>
+    <color name="listview_focused">#7dbcd3</color>
+    <color name="listview_checked">#ededed</color>
+
+    <color name="pinned_header_text">#FF3c3c3c</color>
+    <!-- +++++++++++++++++++++++ END OF MEMBERS ALPHABETICAL LIST +++++++++++++++++++++++  -->
+
+</resources>
