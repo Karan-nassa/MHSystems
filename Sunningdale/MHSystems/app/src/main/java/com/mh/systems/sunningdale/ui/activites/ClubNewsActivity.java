@@ -198,6 +198,11 @@ public class ClubNewsActivity extends BaseActivity {
                 }
             }
 
+            if (clubNewsThumbnailList.size() == 0) {
+                showNoCourseView(false);
+            } else {
+                showNoCourseView(true);
+            }
             clubNewsSwipeAdapter.notifyDataSetChanged();
         }
     }

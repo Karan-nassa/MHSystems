@@ -104,8 +104,6 @@ public class FinanceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 return new RawTypeViewHolder(view);
         }
         return null;
-
-
     }
 
 

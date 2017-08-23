@@ -9,7 +9,7 @@ buildscript {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '24.0.3'
+    buildToolsVersion '26.0.1'
     defaultConfig {
         applicationId "com.mh.systems.hartsbourne"
         minSdkVersion 16

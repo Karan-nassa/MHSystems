@@ -108,7 +108,7 @@ public class DashboardWeatherService extends Service {
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(WebAPI.API_WEATHER_BASE_URL)
+                .setEndpoint(WebAPI.API_BASE_URL)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
