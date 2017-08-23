@@ -4,11 +4,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -17,19 +22,18 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.adapter.BaseAdapter.CompTimeGridAdapter;
+import com.mh.systems.demoapp.utils.ExpandableHeightGridView;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.competitionsentry.AJsonParamsUpdateEntry;
 import com.mh.systems.demoapp.web.models.competitionsentry.EligibleMember;
-import com.mh.systems.demoapp.web.models.competitionsentry.Entry;
-import com.mh.systems.demoapp.web.models.competitionsentry.GetClubEventData;
-import com.mh.systems.demoapp.web.models.competitionsentry.NameRecord;
 import com.mh.systems.demoapp.web.models.competitionsentry.Player;
-import com.mh.systems.demoapp.web.models.competitionsentry.Slot;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryAPI;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryResponse;
-import com.mh.systems.demoapp.web.api.WebServiceMethods;
-import com.mh.systems.demoapp.utils.ExpandableHeightGridView;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryData;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -64,9 +68,10 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     String strEventId, strEventPrize, strMemberName;
 
-    int iSlotNo = -1, iTeamSize;
+    int iSlotNo = -1;
+    //int iTeamSize;
 
-    boolean isAllowCompEntryAdHocSelection, IsTeeTimeSlotsAllowed;
+    //  boolean isAllowCompEntryAdHocSelection, IsTeeTimeSlotsAllowed;
 
     @Bind(R.id.tbBookingDetail)
     Toolbar tbBookingDetail;
@@ -138,7 +143,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     CompTimeGridAdapter compTimeGridAdapter;
 
-    List<Slot> slotArrayList = new ArrayList<>();
+    //List<Slot> slotArrayList = new ArrayList<>();
     ArrayList<EligibleMember> playersArrayList = new ArrayList<>();
     ArrayList<Player> nameOfPlayersList = new ArrayList<>();
 
@@ -147,9 +152,57 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     UpdateCompEntryResponse updateCompEntryResponse;
 
-    private GetClubEventData getClubEventData;
-    private Entry entryInstance;
+//    private GetClubEventData getClubEventData;
+//    private Entry entryInstance;
 
+
+   /* @Bind(R.id.rvCompZone)
+    RecyclerView rvCompZone;*/
+
+   @Bind(R.id.svTimeSlotsGroup)
+   ScrollView svTimeSlotsGroup;
+
+    @Bind(R.id.tvTitleOfComp)
+    TextView tvTitleOfComp;
+
+    @Bind(R.id.tvTimeOfComp)
+    TextView tvTimeOfComp;
+
+    @Bind(R.id.flSingleZoneGroup)
+    FrameLayout flSingleZoneGroup;
+
+    @Bind(R.id.ivExpandCompZone)
+    ImageView ivExpandCompZone;
+
+    @Bind(R.id.tvTitleOfZone)
+    TextView tvTitleOfZone;
+
+    @Bind(R.id.tvOccupancy)
+    TextView tvOccupancy;
+
+    private CompZoneExpandAdapter compZoneExpandAdapter;
+    private NewCompEntryData newCompEntryData;
+
+    List<Slot> compSlotsList;
+    private int iZoneNo = 0;
+    private boolean isExpandClose = true;
+
+    private View.OnClickListener mZoneExpandListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (isExpandClose) {
+                svTimeSlotsGroup.setVisibility(View.VISIBLE);
+                ivExpandCompZone.setImageResource(R.mipmap.ic_expand_less);
+                isExpandClose = false;
+                updateTimeSlots();
+            } else {
+                svTimeSlotsGroup.setVisibility(View.GONE);
+                isExpandClose = true;
+                ivExpandCompZone.setImageResource(R.mipmap.ic_expand_more);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,37 +216,50 @@ public class CompetitionEntryActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        String jsonFavorites = getIntent().getExtras().getString("RESPONSE_GET_CLUB_EVENT_DATA");
-        Gson gson = new Gson();
-        getClubEventData = gson.fromJson(jsonFavorites, GetClubEventData.class);
+//        String jsonFavorites = getIntent().getExtras().getString("RESPONSE_GET_CLUB_EVENT_DATA");
+//        Gson gson = new Gson();
+//        getClubEventData = gson.fromJson(jsonFavorites, GetClubEventData.class);
+
+        String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
+        newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
 
         strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
-        strEventPrize = getIntent().getExtras().getString("COMPETITIONS_EVENT_PRIZE");
-        strMemberName = getIntent().getExtras().getString("COMPETITIONS_MEMBER_NAME");
+//        strEventPrize = getIntent().getExtras().getString("COMPETITIONS_EVENT_PRIZE");
+//        strMemberName = getIntent().getExtras().getString("COMPETITIONS_MEMBER_NAME");
 
-        iTeamSize = getClubEventData.getTeamSize();
+        //     iTeamSize = getClubEventData.getTeamSize();
 
         //If FALSE then user hasn't ability to add another members.
-        isAllowCompEntryAdHocSelection = getClubEventData.getAllowCompEntryAdHocSelection();
-        IsTeeTimeSlotsAllowed = getClubEventData.getIsTeeTimeSlotsAllowed();
+//        isAllowCompEntryAdHocSelection = getClubEventData.getAllowCompEntryAdHocSelection();
+//        IsTeeTimeSlotsAllowed = getClubEventData.getIsTeeTimeSlotsAllowed();
 
-        tvPlayerName1.setText(strMemberName);
+        //      tvPlayerName1.setText(strMemberName);
 
-        updateMemberUI();
-        updateTimeSlots();
+        //updateMemberUI();
+        //updateTimeSlots();
 
-        llPlayerGroup2.setOnClickListener(mPlayerSelectionListener);
+
+        /******************************* NEW COMPETITIONS ENTRY DATA *******************************/
+        /*rvCompZone.setLayoutManager(new LinearLayoutManager(CompetitionEntryActivity.this));
+        compZoneExpandAdapter = new CompetitionEntryActivity.CompZoneExpandAdapter(newCompEntryData.getZones());
+        rvCompZone.setAdapter(compZoneExpandAdapter);*/
+
+        updateNewCompEntryUI();
+
+        /*******************************************************************************************/
+
+       /* llPlayerGroup2.setOnClickListener(mPlayerSelectionListener);
         tvPlayerName2.setOnClickListener(mPlayerSelectionListener);
 
         llPlayerGroup3.setOnClickListener(mPlayerSelectionListener);
         tvPlayerName3.setOnClickListener(mPlayerSelectionListener);
 
         llPlayerGroup4.setOnClickListener(mPlayerSelectionListener);
-        tvPlayerName4.setOnClickListener(mPlayerSelectionListener);
+        tvPlayerName4.setOnClickListener(mPlayerSelectionListener);*/
 
-        ivCrossPlayer2.setOnClickListener(mCrossListener);
+       /* ivCrossPlayer2.setOnClickListener(mCrossListener);
         ivCrossPlayer3.setOnClickListener(mCrossListener);
-        ivCrossPlayer4.setOnClickListener(mCrossListener);
+        ivCrossPlayer4.setOnClickListener(mCrossListener);*/
     }
 
     @Override
@@ -212,7 +278,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
             case R.id.action_save:
 
-                if (IsTeeTimeSlotsAllowed) {
+               /* if (IsTeeTimeSlotsAllowed) {
                     if (iSlotNo == -1) {
                         showAlertMessage("Please select any Tee time slot.");
                     } else {
@@ -220,7 +286,7 @@ public class CompetitionEntryActivity extends BaseActivity {
                     }
                 } else {
                     showAlertConfirm();
-                }
+                }*/
                 break;
 
             default:
@@ -264,7 +330,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
             intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
             intent.putExtra("COMPETITIONS_eventId", strEventId);
-            intent.putExtra("COMPETITIONS_TeamSize", iTeamSize);
+            //intent.putExtra("COMPETITIONS_TeamSize", iTeamSize);
             intent.putExtra("COMPETITIONS_iEntryID", iEntryID);
             Bundle informacion = new Bundle();
             informacion.putSerializable("MEMBER_LIST", playersArrayList);
@@ -316,35 +382,35 @@ public class CompetitionEntryActivity extends BaseActivity {
     public void updateTimeSlots() {
 
         //Time Slots should be visible if key 'IsTeeTimeSlotsAllowed' TRUE.
-        if (IsTeeTimeSlotsAllowed) {
+        // if (newCompEntryData.getZones().get(0).getSlots() != null) {
 
-            //Timeslots and TeeTime should be visible if allowed according to selected competition.
-            llTimeSlotsGroup.setVisibility(View.VISIBLE);
-            llTeeTimeGroup.setVisibility(View.VISIBLE);
+        //Timeslots and TeeTime should be visible if allowed according to selected competition.
+        // llTimeSlotsGroup.setVisibility(View.VISIBLE);
+        //  llTeeTimeGroup.setVisibility(View.VISIBLE);
 
-            try {
-                slotArrayList = getClubEventData.getClubEventStartSheet().getZones().get(0).getSlots();
+        try {
+            compSlotsList = newCompEntryData.getZones().get(0).getSlots();
 
-                gvTimeSlots.setExpanded(true);
-                compTimeGridAdapter = new CompTimeGridAdapter(CompetitionEntryActivity.this, slotArrayList, iSlotNo);
-                gvTimeSlots.setAdapter(compTimeGridAdapter);
+            gvTimeSlots.setExpanded(true);
+            compTimeGridAdapter = new CompTimeGridAdapter(CompetitionEntryActivity.this, compSlotsList, iSlotNo);
+            gvTimeSlots.setAdapter(compTimeGridAdapter);
 
-                //Forcefully scroll UP of screen after loading.
-                svPlayerContent.post(new Runnable() {
-                    public void run() {
-                        svPlayerContent.fullScroll(View.FOCUS_UP);
-                    }
-                });
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Exception " + e.toString());
-                reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
-            }
-        } else {
+            //Forcefully scroll UP of screen after loading.
+            svPlayerContent.post(new Runnable() {
+                public void run() {
+                    svPlayerContent.fullScroll(View.FOCUS_UP);
+                }
+            });
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Exception " + e.toString());
+            reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
+        }
+        /*} else {
             llTimeSlotsGroup.setVisibility(View.GONE);
             llTeeTimeGroup.setVisibility(View.GONE);
 
             iSlotNo = 0; //iSlot will be 0 if time slots not Allowed.
-        }
+        }*/
     }
 
 
@@ -353,13 +419,12 @@ public class CompetitionEntryActivity extends BaseActivity {
      *
      * @param iPosition
      */
-    public void updateTeeTimeValue(int iPosition) {
+    /*public void updateTeeTimeValue(int iPosition) {
         tvTeeTimeValue.setText(slotArrayList.get(iPosition).getSlotStartTimeStr());
         tvSelectHint.setText("");
 
         iSlotNo = slotArrayList.get(iPosition).getSlotNo();
-    }
-
+    }*/
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -385,15 +450,15 @@ public class CompetitionEntryActivity extends BaseActivity {
      * <p>
      * NOTE: Maximum TeamSize : 4
      */
-    private void updateMemberUI() {
+   /* private void updateMemberUI() {
 
         //Member has ability to add another member if the below AdHocSelection is TRUE.
         if (isAllowCompEntryAdHocSelection) {
 
-            /**
-             * Loop will start from 1 because 0th is position of member itself
-             * who is going to select other members.
-             */
+            *//**
+     * Loop will start from 1 because 0th is position of member itself
+     * who is going to select other members.
+     *//*
             for (int iCounter = 2; iCounter <= iTeamSize; iCounter++) {
                 switch (iCounter) {
                     case 2:
@@ -430,10 +495,12 @@ public class CompetitionEntryActivity extends BaseActivity {
                 List<Player> playersList = entryInstance.getPlayers();
                 for (int iCounter = 0; iCounter < playersList.size(); iCounter++) {
 
-                    /**
-                     * After remove Member, RecordID and PlayerName values will be 0 from api. If its
-                     * 0 or empty then don't update UI and not need to add in local array.
-                     */
+                    */
+
+    /**
+     * After remove Member, RecordID and PlayerName values will be 0 from api. If its
+     * 0 or empty then don't update UI and not need to add in local array.
+     *//*
                     if (playersList.get(iCounter).getRecordID() != 0) {
 
                         playersArrayList.add(new EligibleMember(playersList.get(iCounter).getRecordID(), new NameRecord(playersList.get(iCounter).getPlayerName())));
@@ -460,6 +527,17 @@ public class CompetitionEntryActivity extends BaseActivity {
         }
 
         updatePriceUI();
+    }*/
+    private void updateNewCompEntryUI() {
+
+        tvTitleOfZone.setText(newCompEntryData.getZones().get(iZoneNo).getZoneName());
+        tvOccupancy.setText(("Total Free Spaces Available :" + newCompEntryData.getZones().get(iZoneNo).getFreePlaces()));
+
+        tvTitleOfComp.setText(newCompEntryData.getEventName());
+        tvTimeOfComp.setText(newCompEntryData.getEventStartDate().getFullDateStr());
+
+        flSingleZoneGroup.setOnClickListener(mZoneExpandListener);
+        ivExpandCompZone.setOnClickListener(mZoneExpandListener);
     }
 
     /**
@@ -758,4 +836,131 @@ public class CompetitionEntryActivity extends BaseActivity {
             alert.show();
         }
     }
+
+    /****************************************************************************
+     *
+     *         START OF EXPANDABLE ADAPTER FOR NEW COMPITIONS ENTRY FEATURE
+     *
+     ****************************************************************************/
+
+    /**
+     * Implements a method to update SUCCESS response of web service.
+     */
+
+    static class UserViewHolder extends RecyclerView.ViewHolder {
+
+        private FrameLayout flZoneGroup;
+        private ImageView ivExpandCompZone;
+        private TextView tvTitleOfZone, tvOccupancy;
+        private ExpandableHeightGridView gvTimeSlots;
+
+        public UserViewHolder(View itemView) {
+            super(itemView);
+            flZoneGroup = (FrameLayout) itemView.findViewById(R.id.flZoneGroup);
+
+            ivExpandCompZone = (ImageView) itemView.findViewById(R.id.ivExpandCompZone);
+
+            tvTitleOfZone = (TextView) itemView.findViewById(R.id.tvTitleOfZone);
+            tvOccupancy = (TextView) itemView.findViewById(R.id.tvOccupancy);
+
+            gvTimeSlots = (ExpandableHeightGridView) itemView.findViewById(R.id.gvTimeSlots);
+        }
+    }
+
+    class CompZoneExpandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        String strSecondPosition = "";
+        List<Zone> compZonesList;
+        LinearLayoutManager layoutInflater;
+
+        public CompZoneExpandAdapter(List<Zone> compZonesList) {
+            this.compZonesList = compZonesList;
+            //  layoutInflater = (LinearLayoutManager) rvCompZone.getLayoutManager();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+            View itemLayout = LayoutInflater.from(CompetitionEntryActivity.this).inflate(R.layout.list_item_comp_zone_title, null);
+            return new CompetitionEntryActivity.UserViewHolder(itemLayout);
+        }
+
+        @Override
+        public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+            if (holder instanceof UserViewHolder) {
+                final Zone zoneInstance = compZonesList.get(position);
+                final UserViewHolder userViewHolder = (UserViewHolder) holder;
+                userViewHolder.tvTitleOfZone.setText(zoneInstance.getZoneName());
+                userViewHolder.tvOccupancy.setText(("Total Free Spaces Available :" + zoneInstance.getFreePlaces()));
+
+                /*
+                * if type = 0 then collapse the view
+                *
+                * if type = 1 then expande the view
+                * */
+                if (zoneInstance.isExpand()) {
+                    userViewHolder.gvTimeSlots.setVisibility(View.GONE);
+                    userViewHolder.ivExpandCompZone.setImageResource(R.mipmap.ic_expand_less);
+                } else {
+                    userViewHolder.gvTimeSlots.setVisibility(View.VISIBLE);
+                    userViewHolder.ivExpandCompZone.setImageResource(R.mipmap.ic_expand_more);
+                }
+                userViewHolder.flZoneGroup.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        /*
+                        * For expande and collapse the view
+                        * */
+
+                        if (zoneInstance.isExpand()) {
+                            zoneInstance.setExpand(false);
+                        } else {
+                            zoneInstance.setExpand(true);
+                        }
+
+
+                        /*
+                        * This condition is used for to collapse the last expand view when expand
+                        * another one
+                        * */
+                        if (!strSecondPosition.equals("") && !strSecondPosition.equals("" + position)) {
+                            Zone zoneInstanceTemp = compZonesList.get(Integer.parseInt(strSecondPosition));
+                            zoneInstanceTemp.setZoneName(zoneInstanceTemp.getZoneName());
+                            zoneInstanceTemp.setFreePlaces("Total Free Spaces Available :" + zoneInstanceTemp.getFreePlaces());
+                            zoneInstanceTemp.setExpand(false);
+                            compZonesList.set(Integer.parseInt(strSecondPosition), zoneInstanceTemp);
+
+                        }
+                  /*
+                   * @param strSecondPosition is used to store clicked item position
+                   * */
+                        strSecondPosition = "" + position;
+
+
+                        compZoneExpandAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                /*
+                * This condition is used to show loader in the bottom of recycle view
+                * */
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return compZonesList == null ? 0 : compZonesList.size();
+        }
+    }
+
+    /****************************************************************************
+     *
+     *         END OF EXPANDABLE ADAPTER FOR NEW COMPITIONS ENTRY FEATURE
+     *
+     ****************************************************************************/
 }

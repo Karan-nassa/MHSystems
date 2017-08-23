@@ -63,6 +63,8 @@
     <!-- START OF COMPETITIONS EVENT ACTIVITY -->
     <string name="title_competitions">COMPETITIONS</string>
     <string name="title_competitions_prize">fee per player</string>
+
+    <string name="text_tee_off_times">Select a Tee-Off Time</string>
     <!-- END OF COMPETITIONS EVENT ACTIVITY -->
 
     <!-- START OF COMPETITIONS FRAGMENT -->

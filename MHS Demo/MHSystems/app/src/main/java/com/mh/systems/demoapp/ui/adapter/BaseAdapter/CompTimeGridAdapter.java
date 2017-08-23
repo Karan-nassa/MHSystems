@@ -10,10 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.activites.CompetitionEntryActivity;
-import com.mh.systems.demoapp.web.models.competitionsentry.Slot;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
 
     Context context;
     private static LayoutInflater inflater = null;
-    private Typeface tfRobotoMedium;
+    private Typeface tfRobotoMedium, tfRobotoBold;
 
     private List<Slot> slotArrayList = new ArrayList<>();
     private Button lastSelectedView = null;
@@ -43,6 +44,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         tfRobotoMedium = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
+        tfRobotoBold = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Bold.ttf");
     }
 
     @Override
@@ -64,7 +66,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
      * Declares a view holder class to create view resources.
      */
     private class Holder {
-        Button btTimeSlot;
+        TextView tvTimeOfSlot;
     }
 
     @Override
@@ -72,23 +74,23 @@ public class CompTimeGridAdapter extends BaseAdapter {
 
         final Holder holder = new Holder();
         View rowView = null;
-        rowView = inflater.inflate(R.layout.grid_item_time_view, null);
+        rowView = inflater.inflate(R.layout.grid_new_comp_zone, null);
 
-        holder.btTimeSlot = (Button) rowView.findViewById(R.id.btTimeSlot);
-        holder.btTimeSlot.setText("" + slotArrayList.get(position).getSlotStartTimeStr());
-        holder.btTimeSlot.setTypeface(tfRobotoMedium);
+        holder.tvTimeOfSlot = (TextView) rowView.findViewById(R.id.tvTimeOfSlot);
+        holder.tvTimeOfSlot.setText(slotArrayList.get(position).getTeeOffTime());
+        holder.tvTimeOfSlot.setTypeface(tfRobotoBold);
 
-        if (slotArrayList.get(position).getIsSlotReserved()) {
+        /*if (slotArrayList.get(position).getTeeOffTime()) {
             holder.btTimeSlot.setAlpha((float) 0.1);
-        }
+        }*/
 
-        if (slotArrayList.get(position).getSlotNo() == iSlotNo) {
+        /*if (slotArrayList.get(position).getSlotNo() == iSlotNo) {
             setSlotSelected(holder.btTimeSlot);
             lastSelectedView = holder.btTimeSlot;
             iPosition = position;
-        }
+        }*/
 
-        holder.btTimeSlot.setOnClickListener(new View.OnClickListener() {
+      /*  holder.btTimeSlot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -100,7 +102,7 @@ public class CompTimeGridAdapter extends BaseAdapter {
                     ((CompetitionEntryActivity) context).updateTeeTimeValue(position);
                 }
             }
-        });
+        });*/
 
         return rowView;
     }

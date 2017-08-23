@@ -9,6 +9,7 @@ import com.mh.systems.demoapp.web.models.CompetitionJoinAPI;
 import com.mh.systems.demoapp.web.models.CompetitionResultAPI;
 import com.mh.systems.demoapp.web.models.CompetitionUnjoinAPI;
 import com.mh.systems.demoapp.web.models.CompetitionsAPI;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryItems;
 import com.mh.systems.demoapp.web.models.contactus.ContactUsAPI;
 import com.mh.systems.demoapp.web.models.CourseDiaryAPI;
 import com.mh.systems.demoapp.web.models.DashboardAPI;
@@ -472,5 +473,17 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void getFeaturesFlagOptions(@Body FeatureFlagsAPI featureFlagsAPI, Callback<JsonObject> response);
+
+    /**
+     * Call Competitions Event entry web service to get detail of
+     * entry competition.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param newCompEntryItems     : Pass model of Competitions Entry.
+     * @param response              : Response in JSON format.
+     */
+    @POST("/api/ClubsApp")
+    public void getClubEventEntryData(@Body NewCompEntryItems newCompEntryItems, Callback<JsonObject> response);
 }
 

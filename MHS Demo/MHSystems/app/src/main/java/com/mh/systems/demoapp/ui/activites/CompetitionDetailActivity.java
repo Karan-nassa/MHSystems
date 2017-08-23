@@ -21,6 +21,7 @@ import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.AJsonParamsJoinCompetition;
 import com.mh.systems.demoapp.web.models.AJsonParamsUnjoin;
 import com.mh.systems.demoapp.web.models.AddRequestResult;
@@ -32,7 +33,10 @@ import com.mh.systems.demoapp.web.models.competitionsentry.GetClubEventAPI;
 import com.mh.systems.demoapp.web.models.competitionsentry.GetClubEventData;
 import com.mh.systems.demoapp.web.models.competitionsentry.GetClubEventResponse;
 import com.mh.systems.demoapp.web.models.competitionsentry.Player;
-import com.mh.systems.demoapp.web.api.WebServiceMethods;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.NewAJsonCompEntry;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryData;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryItems;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryResponse;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -126,6 +130,12 @@ public class CompetitionDetailActivity extends BaseActivity {
     GetClubEventResponse getClubEventResponse;
     GetClubEventData getClubEventData;
 
+
+    NewCompEntryItems newCompEntryItems;
+    NewAJsonCompEntry newAJsonCompEntry;
+    NewCompEntryResponse newCompEntryResponse;
+    NewCompEntryData newCompEntryData;
+
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
@@ -192,11 +202,14 @@ public class CompetitionDetailActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
+        /*********************** END OF COMPETITIONS ZONE UI ***********************/
+
         /**
          *  Check internet connection before hitting server request.
          */
         if (isOnline(CompetitionDetailActivity.this)) {
             getClubEventService();
+            getCompetitiionsEventEntryZones();
         } else {
             showAlertMessage(getResources().getString(R.string.error_no_internet));
         }
@@ -285,19 +298,19 @@ public class CompetitionDetailActivity extends BaseActivity {
      * for UPDATE competition entry.
      */
     private void intentToCompetitionEntry() {
-        if (getClubEventResponse.getGetClubEventData().getIsEntryAllowed()) {
+        if (newCompEntryResponse != null) {
 
             Intent intent = new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class);
-            Gson gson = new Gson();
             //Pass Time Slots to Book Tee Time.
-            intent.putExtra("RESPONSE_GET_CLUB_EVENT_DATA", gson.toJson(getClubEventResponse.getGetClubEventData()));
+           // intent.putExtra("RESPONSE_GET_CLUB_EVENT_DATA", gson.toJson(getClubEventResponse.getGetClubEventData()));
+            intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryResponse.getData()));
             intent.putExtra("COMPETITIONS_eventId", strEventId);
             intent.putExtra("COMPETITIONS_EVENT_PRIZE", strEventPrize);
             intent.putExtra("COMPETITIONS_MEMBER_NAME", strMemberName);
             startActivity(intent);
-        } else {
+        }/* else {
             showAlertMessage("Entry is not open for this Competition yet.");
-        }
+        }*/
     }
 
     /**
@@ -598,5 +611,92 @@ public class CompetitionDetailActivity extends BaseActivity {
         }
         hideProgress();
     }
+
+    /****************************************************************************
+     *
+     *         START OF EXPANDABLE ADAPTER FOR NEW COMPITIONS ENTRY FEATURE
+     *
+     ****************************************************************************/
+
+    /**
+     * Implements this method to hit weather web
+     * service get Competitions Entry.
+     */
+    private void getCompetitiionsEventEntryZones() {
+
+        showPleaseWait("Loading...");
+
+        newAJsonCompEntry = new NewAJsonCompEntry();
+        newAJsonCompEntry.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        newAJsonCompEntry.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        newAJsonCompEntry.setMemberId(getMemberId());
+        newAJsonCompEntry.setEventId("681"/*strEventId*/);
+
+        newCompEntryItems = new NewCompEntryItems(getClientId(),
+                "GETCLUBEVENTENTRYDATA",
+                newAJsonCompEntry,
+                ApplicationGlobal.TAG_GCLUB_WEBSERVICES,
+                ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getClubEventEntryData(newCompEntryItems, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateCompEntryResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+            }
+        });
+    }
+
+    /**
+     * Get Success of Competitions Entry Results.
+     */
+    private void updateCompEntryResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "UNREAD NEWS COUNT RESPONSE : " + jsonObject.toString());
+
+        Type type = new TypeToken<NewCompEntryResponse>() {
+        }.getType();
+        newCompEntryResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (newCompEntryResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                newCompEntryData = newCompEntryResponse.getData();
+
+                hideProgress();
+            } else {
+                hideProgress();
+                showAlertMessage("" + newCompEntryResponse.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            hideProgress();
+            reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
+        }
+    }
+
+    /****************************************************************************
+     *
+     *         END OF EXPANDABLE ADAPTER FOR NEW COMPITIONS ENTRY FEATURE
+     *
+     ****************************************************************************/
 
 }
