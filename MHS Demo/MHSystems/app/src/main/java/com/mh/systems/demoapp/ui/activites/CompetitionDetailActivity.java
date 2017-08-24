@@ -30,9 +30,6 @@ import com.mh.systems.demoapp.web.models.CompetitionUnjoinAPI;
 import com.mh.systems.demoapp.web.models.UnjoinItems;
 import com.mh.systems.demoapp.web.models.competitionsentry.AJsonParamsGetClubEvent;
 import com.mh.systems.demoapp.web.models.competitionsentry.GetClubEventAPI;
-import com.mh.systems.demoapp.web.models.competitionsentry.GetClubEventData;
-import com.mh.systems.demoapp.web.models.competitionsentry.GetClubEventResponse;
-import com.mh.systems.demoapp.web.models.competitionsentry.Player;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewAJsonCompEntry;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryData;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryItems;
@@ -43,7 +40,6 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -127,8 +123,8 @@ public class CompetitionDetailActivity extends BaseActivity {
     //Create instance of GetClubEventAPI.
     GetClubEventAPI getClubEventAPI;
     AJsonParamsGetClubEvent aJsonParamsGetClubEvent;
-    GetClubEventResponse getClubEventResponse;
-    GetClubEventData getClubEventData;
+   // GetClubEventResponse getClubEventResponse;
+   // GetClubEventData getClubEventData;
 
 
     NewCompEntryItems newCompEntryItems;
@@ -208,7 +204,7 @@ public class CompetitionDetailActivity extends BaseActivity {
          *  Check internet connection before hitting server request.
          */
         if (isOnline(CompetitionDetailActivity.this)) {
-            getClubEventService();
+            //getClubEventService();
             getCompetitiionsEventEntryZones();
         } else {
             showAlertMessage(getResources().getString(R.string.error_no_internet));
@@ -304,9 +300,9 @@ public class CompetitionDetailActivity extends BaseActivity {
             //Pass Time Slots to Book Tee Time.
            // intent.putExtra("RESPONSE_GET_CLUB_EVENT_DATA", gson.toJson(getClubEventResponse.getGetClubEventData()));
             intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryResponse.getData()));
-            intent.putExtra("COMPETITIONS_eventId", strEventId);
+            intent.putExtra("COMPETITIONS_eventId", newCompEntryResponse.getData().getEventID());
             intent.putExtra("COMPETITIONS_EVENT_PRIZE", strEventPrize);
-            intent.putExtra("COMPETITIONS_MEMBER_NAME", strMemberName);
+            intent.putExtra("COMPETITIONS_MEMBER_NAME", newCompEntryResponse.getData().getPayeeName());
             startActivity(intent);
         }/* else {
             showAlertMessage("Entry is not open for this Competition yet.");
@@ -317,7 +313,7 @@ public class CompetitionDetailActivity extends BaseActivity {
      * Implements this method to get CLUB EVENT web service to get detail
      * of COMPETITION event by passing 'eventId'.
      */
-    private void getClubEventService() {
+   /* private void getClubEventService() {
 
         showPleaseWait("Please wait...");
 
@@ -356,13 +352,13 @@ public class CompetitionDetailActivity extends BaseActivity {
             }
         });
 
-    }
+    }*/
 
     /**
      * Implements this method to handle success response of
      * GetClubEvent service.
      */
-    private void getClubEventSuccess(JsonObject jsonObject) {
+    /*private void getClubEventSuccess(JsonObject jsonObject) {
 
         Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
 
@@ -371,14 +367,14 @@ public class CompetitionDetailActivity extends BaseActivity {
         getClubEventResponse = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
 
         try {
-            /**
+            *//**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
-             */
+             *//*
             if (getClubEventResponse.getMessage().equalsIgnoreCase("Success")) {
 
                 tvEventStatusStrDD.setText(strEventStatus);
 
-                tvDateCourseEvent.setText("" + strEventDate/*getClubEventResponse.getGetClubEventData().getEventDateStr()*/);
+                tvDateCourseEvent.setText("" + strEventDate*//*getClubEventResponse.getGetClubEventData().getEventDateStr()*//*);
                 tvTimeCourseEvent.setText("" + getClubEventResponse.getGetClubEventData().getEventTime());
                 tvFeeCourseEvent.setText("" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
                 tvCombaseOfCompEvent.setText("" + getClubEventResponse.getGetClubEventData().getCompBasis());
@@ -391,9 +387,9 @@ public class CompetitionDetailActivity extends BaseActivity {
                 iEntryID = getClubEventResponse.getGetClubEventData().getEntry().getEntryID();
                 //Log.e(LOG_TAG, "iEntryID : " + iEntryID);
 
-                /**
+                *//**
                  * Implements check for display selected member list.
-                 */
+                 *//*
                 if (iEntryID != 0) {
 
                     llUpdateBookingView.setVisibility(View.VISIBLE);
@@ -422,7 +418,7 @@ public class CompetitionDetailActivity extends BaseActivity {
             reportRollBarException(CompetitionDetailActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
-    }
+    }*/
 
     /**
      * Implements a method to Initialize the resources using for
@@ -667,7 +663,7 @@ public class CompetitionDetailActivity extends BaseActivity {
      */
     private void updateNewCompEntryResponse(JsonObject jsonObject) {
 
-        Log.e(LOG_TAG, "UNREAD NEWS COUNT RESPONSE : " + jsonObject.toString());
+        Log.e(LOG_TAG, "updateNewCompEntryResponse : " + jsonObject.toString());
 
         Type type = new TypeToken<NewCompEntryResponse>() {
         }.getType();
@@ -681,11 +677,49 @@ public class CompetitionDetailActivity extends BaseActivity {
 
                 newCompEntryData = newCompEntryResponse.getData();
 
-                hideProgress();
+                tvEventStatusStrDD.setText(strEventStatus);
+
+                tvDateCourseEvent.setText("" + strEventDate/*getClubEventResponse.getGetClubEventData().getEventDateStr()*/);
+                tvTimeCourseEvent.setText("" + newCompEntryData.getEventStartDate().getShortDateStr());
+                tvFeeCourseEvent.setText("" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
+                //tvCombaseOfCompEvent.setText("" + getClubEventResponse.getGetClubEventData().getCompBasis());
+                tvDescCourseEvent.setText("" + newCompEntryData.getEventDescription());
+
+                strMemberName = newCompEntryData.getPayeeName();
+
+                tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");
+
+                iEntryID = 0/*newCompEntryData.getEventID()*/;
+                //Log.e(LOG_TAG, "iEntryID : " + iEntryID);
+
+                /**
+                 * Implements check for display selected member list.
+                 */
+               /* if (iEntryID != 0) {
+
+                    llUpdateBookingView.setVisibility(View.VISIBLE);
+
+                    if (newCompEntryData.getEntry().getPlayers() != null && iPopItemPos == 0) {
+                        updateJoinIcon();
+                    }
+
+                    List<Player> playersArrayList = newCompEntryData.getEntry().getPlayers();
+
+                    String strPlayersNameList = "";
+                    for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
+                        strPlayersNameList = strPlayersNameList + playersArrayList.get(iCounter).getPlayerName() + "\n";
+                        tvPlayingMembers.setText("" + strPlayersNameList);
+                    }
+
+                    String strReservedSlotTime = getClubEventResponse.getGetClubEventData().getEntry().getReservedSlotTime();
+                    tvSelectedTeeTime.setText(strReservedSlotTime != null ? strReservedSlotTime : "N/A");
+                }*/
             } else {
-                hideProgress();
-                showAlertMessage("" + newCompEntryResponse.getMessage());
+                //If web service not respond in any case.
+                showAlertMessage(newCompEntryResponse.getMessage());
             }
+
+                hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             hideProgress();

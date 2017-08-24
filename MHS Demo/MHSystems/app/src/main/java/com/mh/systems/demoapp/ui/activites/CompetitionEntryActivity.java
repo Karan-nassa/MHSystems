@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.adapter.BaseAdapter.CompTimeSlotsAdapter;
+import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.demoapp.utils.ExpandableHeightGridView;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
@@ -54,7 +55,7 @@ import retrofit.RetrofitError;
  *
  * @author karan@ucreate.co.in
  */
-public class CompetitionEntryActivity extends BaseActivity {
+public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePlayers {
 
     private final String LOG_TAG = CompetitionEntryActivity.class.getSimpleName();
 
@@ -160,8 +161,8 @@ public class CompetitionEntryActivity extends BaseActivity {
    /* @Bind(R.id.rvCompZone)
     RecyclerView rvCompZone;*/
 
-   @Bind(R.id.svTimeSlotsGroup)
-   ScrollView svTimeSlotsGroup;
+    @Bind(R.id.svTimeSlotsGroup)
+    ScrollView svTimeSlotsGroup;
 
     @Bind(R.id.tvTitleOfComp)
     TextView tvTitleOfComp;
@@ -181,18 +182,23 @@ public class CompetitionEntryActivity extends BaseActivity {
     @Bind(R.id.tvOccupancy)
     TextView tvOccupancy;
 
-    @Bind(R.id.llConfirmBooking)
-    LinearLayout llConfirmBookingl;
-
     @Bind(R.id.btConfirmTimeBooking)
     Button btConfirmTimeBooking;
+
+    @Bind(R.id.tvStartTimeOfEvent)
+    TextView tvStartTimeOfEvent;
+
+    @Bind(R.id.tvEndTimeOfEvent)
+    TextView tvEndTimeOfEvent;
 
     private CompZoneExpandAdapter compZoneExpandAdapter;
     private NewCompEntryData newCompEntryData;
 
     List<Slot> compSlotsList;
     private int iZoneNo = 0;
-    private boolean isExpandClose = true;
+    private boolean isExpandClose = false;
+
+    //ArrayList<AllPlayer> allPlayerArrayList = new ArrayList<>();
 
     private View.OnClickListener mZoneExpandListener = new View.OnClickListener() {
         @Override
@@ -402,7 +408,8 @@ public class CompetitionEntryActivity extends BaseActivity {
             compTimeSlotsAdapter = new CompTimeSlotsAdapter(CompetitionEntryActivity.this,
                     compSlotsList,
                     iSlotNo,
-                    newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
+                    newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot(),
+                    CompetitionEntryActivity.this);
             gvTimeSlots.setAdapter(compTimeSlotsAdapter);
 
             //Forcefully scroll UP of screen after loading.
@@ -448,7 +455,7 @@ public class CompetitionEntryActivity extends BaseActivity {
                 updateWithEntryIdMemberUI();
             }
 
-            updatePriceUI();
+//            updatePriceUI();
         }
     }
 
@@ -541,7 +548,7 @@ public class CompetitionEntryActivity extends BaseActivity {
     private void updateNewCompEntryUI() {
 
         tvTitleOfZone.setText(newCompEntryData.getZones().get(iZoneNo).getZoneName());
-        tvOccupancy.setText(("Total Free Spaces Available :" + newCompEntryData.getZones().get(iZoneNo).getFreePlaces()));
+        tvOccupancy.setText(("Free Spaces Available :" + newCompEntryData.getZones().get(iZoneNo).getFreePlaces()));
 
         tvTitleOfComp.setText(newCompEntryData.getEventName());
         tvTimeOfComp.setText(newCompEntryData.getEventStartDate().getFullDateStr());
@@ -549,13 +556,33 @@ public class CompetitionEntryActivity extends BaseActivity {
         flSingleZoneGroup.setOnClickListener(mZoneExpandListener);
         ivExpandCompZone.setOnClickListener(mZoneExpandListener);
 
+        updateTimeAndTitle(newCompEntryData.getZones().get(iZoneNo).getZoneName());
+
         btConfirmTimeBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CompetitionEntryActivity.this, BookingEntryActivity.class);
+                intent.putExtra("iZoneNo", iZoneNo);
+                intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
                 startActivity(intent);
             }
         });
+
+        updateTimeSlots();
+
+        // allPlayerArrayList.addAll(newCompEntryData.getAllPlayers());
+    }
+
+    private void updateTimeAndTitle(String strEventName) {
+
+        if (strEventName.contains(",")) {
+            tvTitleOfZone.setText(strEventName.substring(0, strEventName.indexOf(",")));
+        }
+
+        if (strEventName.contains("-")) {
+            tvStartTimeOfEvent.setText(strEventName.substring(strEventName.indexOf(",")+1, strEventName.indexOf("-")));
+            tvEndTimeOfEvent.setText(strEventName.substring(strEventName.indexOf("-")+1, strEventName.length()));
+        }
     }
 
     /**
@@ -853,6 +880,24 @@ public class CompetitionEntryActivity extends BaseActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
+    }
+
+    @Override
+    public void addPlayersListener() {
+
+        Intent intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
+        intent.putExtra("NEW_COMP_EVENT_ID", strEventId);
+        intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
+        intent.putExtra("EventID", newCompEntryData.getEventID());
+        Bundle informacion = new Bundle();
+        informacion.putSerializable("AllPlayers", playersArrayList);
+        intent.putExtras(informacion);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void removePlayerListener() {
+
     }
 
     /****************************************************************************

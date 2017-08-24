@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.activites.CompetitionEntryActivity;
 import com.mh.systems.demoapp.ui.activites.NewCompAddPlayersActivity;
+import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 
 import java.util.ArrayList;
@@ -40,12 +42,18 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
     int iSlotNo, iPosition;
     int iTeamsPerSlot;
 
-    public CompTimeSlotsAdapter(CompetitionEntryActivity mainActivity, List<Slot> slotArrayList, int iSlotNo, int iTeamsPerSlot) {
+    private OnUpdatePlayers mOnUpdatePlayers;
+
+    public CompTimeSlotsAdapter(CompetitionEntryActivity mainActivity, List<Slot> slotArrayList
+            , int iSlotNo, int iTeamsPerSlot
+            , OnUpdatePlayers mOnUpdatePlayers) {
 
         context = mainActivity;
         this.slotArrayList = slotArrayList;
         this.iSlotNo = iSlotNo;
         this.iTeamsPerSlot = iTeamsPerSlot;
+
+        this.mOnUpdatePlayers = mOnUpdatePlayers;
 
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -88,8 +96,6 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
         holder.llViewAddTeams = (LinearLayout) rowView.findViewById(R.id.llViewAddTeams);
 
 
-
-
         holder.tvTimeOfSlot.setText(slotArrayList.get(position).getTeeOffTime());
         holder.tvTimeOfSlot.setTypeface(tfRobotoBold);
 
@@ -97,8 +103,8 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
             LayoutInflater inflater = LayoutInflater.from(context);
             View playerView = inflater.inflate(R.layout.inflate_row_add_player, null);
 
-            TextView tvNameOfPlayer = (TextView) playerView .findViewById(R.id.tvNameOfPlayer);
-            ImageView ivRemovePlayer = (ImageView) playerView .findViewById(R.id.ivRemovePlayer);
+            TextView tvNameOfPlayer = (TextView) playerView.findViewById(R.id.tvNameOfPlayer);
+            ImageView ivRemovePlayer = (ImageView) playerView.findViewById(R.id.ivRemovePlayer);
             TextView tvAddPlayer = (TextView) playerView.findViewById(R.id.tvAddPlayer);
 
             String strTeamName = slotArrayList.get(position)
@@ -107,10 +113,10 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
 
             tvNameOfPlayer.setText(strTeamName);
 
-            if(strTeamName.equalsIgnoreCase("(Free)")){
+            if (strTeamName.equalsIgnoreCase("(Free)")) {
                 tvAddPlayer.setVisibility(View.VISIBLE);
                 ivRemovePlayer.setVisibility(View.GONE);
-            }else{
+            } else {
                 tvAddPlayer.setVisibility(View.GONE);
                 ivRemovePlayer.setVisibility(View.VISIBLE);
             }
@@ -127,8 +133,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     //TODO: ADD Players and oepn member screen.
 
-                    Intent intent = new Intent(context, NewCompAddPlayersActivity.class);
-                    context.startActivity(intent);
+                    mOnUpdatePlayers.addPlayersListener();
                 }
             });
 

@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorF9F8F7">
 
+    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
+        android:id="@+id/tvAddPlayerDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBDB6AE"
+        android:padding="10dp"
+        android:textColor="@color/colorF9F8F7"
+        android:textSize="16sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvAddPlayerDesc"
         android:orientation="vertical">
 
         <!-- TOOL BAR WITH BACK ARROW AND SAVE -->
@@ -59,6 +71,24 @@
             android:textColor="@android:color/black"
             android:textSize="14sp" />
 
+        <!-- ALPHABETICAL LIST -->
+
+        <lb.library.PinnedHeaderListView
+            android:id="@+id/lvAddPlayersList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorF9F8F7"
+            android:cacheColorHint="@color/colorF9F8F7"
+            android:divider="@null"
+            android:dividerHeight="0px"
+            android:fadeScrollbars="false"
+            android:fastScrollEnabled="true"
+            android:listSelector="@drawable/list_item_alphabet_selector"
+            android:scrollingCache="false"
+            tools:listitem="@layout/list_item_alphabets_member" />
+
+
     </LinearLayout>
+
 
 </RelativeLayout>

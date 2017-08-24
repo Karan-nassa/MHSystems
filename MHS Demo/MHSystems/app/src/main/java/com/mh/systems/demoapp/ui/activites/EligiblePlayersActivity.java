@@ -124,13 +124,13 @@ public class EligiblePlayersActivity extends BaseActivity {
         eligiblePlayersTabFragment = new EligiblePlayersTabFragment();
 
         //Set Event Id.
-        setStrEventId(getIntent().getExtras().getString("COMPETITIONS_eventId"));
+        setStrEventId(getIntent().getExtras().getString("EventID"));
 
-        iTeamSize = getIntent().getExtras().getInt("COMPETITIONS_TeamSize");
+        iTeamSize = getIntent().getExtras().getInt("TeamsPerSlot");
         iEntryID = getIntent().getExtras().getInt("COMPETITIONS_iEntryID");
 
         //Get previous Member list if already some member selected.
-        selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("MEMBER_LIST");
+        selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("AllPlayers");
 
         for (int iCount = 0; iCount < selectedMemberList.size(); iCount++) {
             iselectedMemberList.add(selectedMemberList.get(iCount).getMemberID());
@@ -482,6 +482,7 @@ public class EligiblePlayersActivity extends BaseActivity {
                 }
             } else {
                 updateNoDataUI(false, 0);
+                hideProgress();
                 //If web service not respond in any case.
                 // ((BaseActivity) getActivity()).showAlertMessage(membersItems.getMessage());
             }

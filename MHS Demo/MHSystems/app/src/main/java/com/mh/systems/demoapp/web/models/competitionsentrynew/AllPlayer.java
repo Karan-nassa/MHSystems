@@ -4,7 +4,9 @@ package com.mh.systems.demoapp.web.models.competitionsentrynew;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AllPlayer {
+import java.io.Serializable;
+
+public class AllPlayer implements Serializable {
 
     @SerializedName("MemberId")
     @Expose
@@ -21,6 +23,8 @@ public class AllPlayer {
     @SerializedName("EntryStatus")
     @Expose
     private Integer EntryStatus;
+
+    boolean isMemberSelected;
 
     public Integer getMemberId() {
         return MemberId;
@@ -62,4 +66,17 @@ public class AllPlayer {
         this.EntryStatus = EntryStatus;
     }
 
+    /**
+     * @return The isMemberSelected
+     */
+    public boolean getIsMemberSelected() {
+        return isMemberSelected;
+    }
+
+    /**
+     * @param isMemberSelected The isMemberSelected
+     */
+    public void setIsMemberSelected(boolean isMemberSelected) {
+        this.isMemberSelected = isMemberSelected;
+    }
 }

@@ -22,7 +22,7 @@ public class Zone {
     @SerializedName("TeamsPerSlot")
     @Expose
     private int TeamsPerSlot;
-    private boolean isExpand = false;
+    private boolean isExpand = true;
 
     public boolean isExpand() {
         return isExpand;

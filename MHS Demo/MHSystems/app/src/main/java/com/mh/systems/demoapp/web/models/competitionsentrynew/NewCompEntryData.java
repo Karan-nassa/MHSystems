@@ -4,6 +4,7 @@ package com.mh.systems.demoapp.web.models.competitionsentrynew;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.Booking;
 
 public class NewCompEntryData {
 
@@ -12,7 +13,7 @@ public class NewCompEntryData {
     private Integer ClientId;
     @SerializedName("EventID")
     @Expose
-    private Integer EventID;
+    private String EventID;
     @SerializedName("PayeeId")
     @Expose
     private Integer PayeeId;
@@ -78,7 +79,7 @@ public class NewCompEntryData {
     private List<Zone> Zones = null;
     @SerializedName("Booking")
     @Expose
-    private List<Object> Booking = null;
+    private List<Booking> Booking = null;
     @SerializedName("AllPlayers")
     @Expose
     private List<AllPlayer> AllPlayers = null;
@@ -94,11 +95,11 @@ public class NewCompEntryData {
         this.ClientId = ClientId;
     }
 
-    public Integer getEventID() {
+    public String getEventID() {
         return EventID;
     }
 
-    public void setEventID(Integer EventID) {
+    public void setEventID(String EventID) {
         this.EventID = EventID;
     }
 
@@ -270,11 +271,11 @@ public class NewCompEntryData {
         this.Zones = Zones;
     }
 
-    public List<Object> getBooking() {
+    public List<Booking> getBooking() {
         return Booking;
     }
 
-    public void setBooking(List<Object> Booking) {
+    public void setBooking(List<Booking> Booking) {
         this.Booking = Booking;
     }
 
