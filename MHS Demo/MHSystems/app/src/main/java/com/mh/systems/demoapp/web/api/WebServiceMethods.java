@@ -10,6 +10,7 @@ import com.mh.systems.demoapp.web.models.CompetitionResultAPI;
 import com.mh.systems.demoapp.web.models.CompetitionUnjoinAPI;
 import com.mh.systems.demoapp.web.models.CompetitionsAPI;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryItems;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.NewCompEventEntryItems;
 import com.mh.systems.demoapp.web.models.contactus.ContactUsAPI;
 import com.mh.systems.demoapp.web.models.CourseDiaryAPI;
 import com.mh.systems.demoapp.web.models.DashboardAPI;
@@ -468,8 +469,8 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
-     * @param featureFlagsAPI       : Pass instance of features flag.
-     * @param response              : Response in JSON format.
+     * @param featureFlagsAPI : Pass instance of features flag.
+     * @param response        : Response in JSON format.
      */
     @POST("/api/ClubsApp")
     public void getFeaturesFlagOptions(@Body FeatureFlagsAPI featureFlagsAPI, Callback<JsonObject> response);
@@ -480,10 +481,22 @@ public interface WebServiceMethods {
      * <p/>
      * TYPE : POST
      *
-     * @param newCompEntryItems     : Pass model of Competitions Entry.
-     * @param response              : Response in JSON format.
+     * @param newCompEntryItems : Pass model of Competitions Entry.
+     * @param response          : Response in JSON format.
      */
     @POST("/api/ClubsApp")
     public void getClubEventEntryData(@Body NewCompEntryItems newCompEntryItems, Callback<JsonObject> response);
+
+    /**
+     * Send Competitions Event Entry V2 to enter
+     * final booking.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param newCompEventEntryItems : Pass model of Competitions Event Entry V2.
+     * @param response               : Response in JSON format.
+     */
+    @POST("/api/ClubsApp")
+    public void sendClubEventEntryV2(@Body NewCompEventEntryItems newCompEventEntryItems, Callback<JsonObject> response);
 }
 

@@ -307,5 +307,6 @@
 
     <!-- FRIENDS INFO ACTIVITY -->
     <string name="tb_title_frinds_list">Friends List</string>
+    <string name="text_title_added_success">You added for this competition successfully.</string>
 
 </resources>

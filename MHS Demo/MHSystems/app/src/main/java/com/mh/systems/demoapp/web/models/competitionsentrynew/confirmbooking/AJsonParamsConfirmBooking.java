@@ -9,7 +9,7 @@ public class AJsonParamsConfirmBooking {
 
     @SerializedName("ClientId")
     @Expose
-    private Integer ClientId;
+    private String ClientId;
     @SerializedName("EventId")
     @Expose
     private Integer EventId;
@@ -18,7 +18,7 @@ public class AJsonParamsConfirmBooking {
     private Integer PayeeId;
     @SerializedName("MemberId")
     @Expose
-    private Integer MemberId;
+    private String MemberId;
     @SerializedName("RemoveEntry")
     @Expose
     private Boolean RemoveEntry;
@@ -42,7 +42,7 @@ public class AJsonParamsConfirmBooking {
      * @param removeEntry
      * @param ClientId
      */
-    public AJsonParamsConfirmBooking(Integer ClientId, Integer EventId, Integer PayeeId, Integer MemberId, Boolean RemoveEntry, List<Booking> Booking) {
+    public AJsonParamsConfirmBooking(String ClientId, Integer EventId, Integer PayeeId, String MemberId, Boolean RemoveEntry, List<Booking> Booking) {
         super();
         this.ClientId = ClientId;
         this.EventId = EventId;
@@ -52,11 +52,11 @@ public class AJsonParamsConfirmBooking {
         this.Booking = Booking;
     }
 
-    public Integer getClientId() {
+    public String getClientId() {
         return ClientId;
     }
 
-    public void setClientId(Integer ClientId) {
+    public void setClientId(String ClientId) {
         this.ClientId = ClientId;
     }
 
@@ -76,11 +76,11 @@ public class AJsonParamsConfirmBooking {
         this.PayeeId = PayeeId;
     }
 
-    public Integer getMemberId() {
+    public String getMemberId() {
         return MemberId;
     }
 
-    public void setMemberId(Integer MemberId) {
+    public void setMemberId(String MemberId) {
         this.MemberId = MemberId;
     }
 

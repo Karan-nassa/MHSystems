@@ -13,7 +13,7 @@ public class NewCompEntryData {
     private Integer ClientId;
     @SerializedName("EventID")
     @Expose
-    private String EventID;
+    private int EventID;
     @SerializedName("PayeeId")
     @Expose
     private Integer PayeeId;
@@ -95,11 +95,11 @@ public class NewCompEntryData {
         this.ClientId = ClientId;
     }
 
-    public String getEventID() {
+    public int getEventID() {
         return EventID;
     }
 
-    public void setEventID(String EventID) {
+    public void setEventID(int EventID) {
         this.EventID = EventID;
     }
 

@@ -11,7 +11,7 @@ public class Player {
     private Boolean IsGuest;
     @SerializedName("MemberId")
     @Expose
-    private Integer MemberId;
+    private String MemberId;
     @SerializedName("GuestName")
     @Expose
     private Object GuestName;
@@ -27,11 +27,11 @@ public class Player {
         this.IsGuest = IsGuest;
     }
 
-    public Integer getMemberId() {
+    public String getMemberId() {
         return MemberId;
     }
 
-    public void setMemberId(Integer MemberId) {
+    public void setMemberId(String MemberId) {
         this.MemberId = MemberId;
     }
 

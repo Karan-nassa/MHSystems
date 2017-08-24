@@ -24,7 +24,7 @@ public class Team {
     private List<Player> Players = null;
     @SerializedName("EntryFee")
     @Expose
-    private Integer EntryFee;
+    private Double EntryFee;
 
     public Integer getZoneId() {
         return ZoneId;
@@ -66,11 +66,11 @@ public class Team {
         this.Players = Players;
     }
 
-    public Integer getEntryFee() {
+    public Double getEntryFee() {
         return EntryFee;
     }
 
-    public void setEntryFee(Integer EntryFee) {
+    public void setEntryFee(Double EntryFee) {
         this.EntryFee = EntryFee;
     }
 

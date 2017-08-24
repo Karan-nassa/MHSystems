@@ -133,7 +133,9 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     //TODO: ADD Players and oepn member screen.
 
-                    mOnUpdatePlayers.addPlayersListener();
+                    mOnUpdatePlayers.addPlayersListener(slotArrayList.get(position).getTeams()
+                    , position
+                    , iTeamsPerSlot);
                 }
             });
 

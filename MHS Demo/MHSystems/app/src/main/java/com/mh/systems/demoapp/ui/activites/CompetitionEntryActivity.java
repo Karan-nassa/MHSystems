@@ -33,9 +33,12 @@ import com.mh.systems.demoapp.web.models.competitionsentry.EligibleMember;
 import com.mh.systems.demoapp.web.models.competitionsentry.Player;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryAPI;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryResponse;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.AllPlayer;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryData;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Team;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.Booking;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -193,12 +196,13 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     private CompZoneExpandAdapter compZoneExpandAdapter;
     private NewCompEntryData newCompEntryData;
+    private NewCompEntryData newCompEntryDataCopy;
 
     List<Slot> compSlotsList;
     private int iZoneNo = 0;
     private boolean isExpandClose = false;
 
-    //ArrayList<AllPlayer> allPlayerArrayList = new ArrayList<>();
+    private List<Booking> mBookingList = new ArrayList<>();
 
     private View.OnClickListener mZoneExpandListener = new View.OnClickListener() {
         @Override
@@ -233,10 +237,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 //        Gson gson = new Gson();
 //        getClubEventData = gson.fromJson(jsonFavorites, GetClubEventData.class);
 
-        String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
-        newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
-
-        strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
 //        strEventPrize = getIntent().getExtras().getString("COMPETITIONS_EVENT_PRIZE");
 //        strMemberName = getIntent().getExtras().getString("COMPETITIONS_MEMBER_NAME");
 
@@ -257,7 +257,15 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         compZoneExpandAdapter = new CompetitionEntryActivity.CompZoneExpandAdapter(newCompEntryData.getZones());
         rvCompZone.setAdapter(compZoneExpandAdapter);*/
 
+        String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
+        newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
+
+        newCompEntryDataCopy = newCompEntryData;
+
+        strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
+
         updateNewCompEntryUI();
+
 
         /*******************************************************************************************/
 
@@ -307,6 +315,50 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         }
 
         return true;
+    }
+
+    @Override
+    public void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot) {
+
+        int iFreeSlotsAvail = teams.size() - iTeamPerSlot;
+        if (true/*iFreeSlotsAvail == 1*/) {
+
+            Team mBookingInstance = new Team();
+            mBookingInstance.setZoneId(teams.get(slotPosition).getZoneId());
+            mBookingInstance.setSlotIdx(teams.get(slotPosition).getSlotIdx());
+            mBookingInstance.setTeamIdx(teams.get(slotPosition).getTeamIdx());
+
+            /*String iMemberID = teams.get(slotPosition)
+                    .getPlayers()
+                    .get(0)
+                    .getMemberId();*/
+
+            mBookingInstance.setTeamName(getMemberNameFromID(Integer.parseInt(getMemberId())));
+            mBookingInstance.setEntryFee(teams.get(slotPosition).getEntryFee());
+
+            teams.set(slotPosition, mBookingInstance);
+           // newCompEntryDataCopy.getZones().get(iZoneNo).getSlots().get(slotPosition).getTeams().get()
+           // mBookingList.add(mBookingInstance);
+
+            updateTimeSlots();
+
+            showAlertMessage(getString(R.string.text_title_added_success));
+            return;
+        } else {
+            Intent intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
+            intent.putExtra("NEW_COMP_EVENT_ID", strEventId);
+            intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
+            intent.putExtra("EventID", newCompEntryData.getEventID());
+            Bundle informacion = new Bundle();
+            informacion.putSerializable("AllPlayers", playersArrayList);
+            intent.putExtras(informacion);
+            startActivityForResult(intent, 1);
+        }
+    }
+
+    @Override
+    public void removePlayerListener() {
+
     }
 
     /**
@@ -387,77 +439,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             removeMemberFromList(strNameOfMember);
         }
     };
-
-    /**
-     * Implements this method to get TEE time slots for book
-     * paid Competitions.
-     */
-    public void updateTimeSlots() {
-
-        //Time Slots should be visible if key 'IsTeeTimeSlotsAllowed' TRUE.
-        // if (newCompEntryData.getZones().get(0).getSlots() != null) {
-
-        //Timeslots and TeeTime should be visible if allowed according to selected competition.
-        // llTimeSlotsGroup.setVisibility(View.VISIBLE);
-        //  llTeeTimeGroup.setVisibility(View.VISIBLE);
-
-        try {
-            compSlotsList = newCompEntryData.getZones().get(0).getSlots();
-
-            gvTimeSlots.setExpanded(true);
-            compTimeSlotsAdapter = new CompTimeSlotsAdapter(CompetitionEntryActivity.this,
-                    compSlotsList,
-                    iSlotNo,
-                    newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot(),
-                    CompetitionEntryActivity.this);
-            gvTimeSlots.setAdapter(compTimeSlotsAdapter);
-
-            //Forcefully scroll UP of screen after loading.
-            svPlayerContent.post(new Runnable() {
-                public void run() {
-                    svPlayerContent.fullScroll(View.FOCUS_UP);
-                }
-            });
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "Exception " + e.toString());
-            reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
-        }
-        /*} else {
-            llTimeSlotsGroup.setVisibility(View.GONE);
-            llTeeTimeGroup.setVisibility(View.GONE);
-
-            iSlotNo = 0; //iSlot will be 0 if time slots not Allowed.
-        }*/
-    }
-
-
-    /**
-     * Update Tee Time Slot value.
-     *
-     * @param iPosition
-     */
-    /*public void updateTeeTimeValue(int iPosition) {
-        tvTeeTimeValue.setText(slotArrayList.get(iPosition).getSlotStartTimeStr());
-        tvSelectHint.setText("");
-
-        iSlotNo = slotArrayList.get(iPosition).getSlotNo();
-    }*/
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-
-            playersArrayList.clear();
-            playersArrayList = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
-
-            if (iEntryID == 0) {
-                updateNoEntryIdMemberUI();
-            } else {
-                updateWithEntryIdMemberUI();
-            }
-
-//            updatePriceUI();
-        }
-    }
 
     /**
      * Implements this method to set visibility status of players
@@ -580,8 +561,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         }
 
         if (strEventName.contains("-")) {
-            tvStartTimeOfEvent.setText(strEventName.substring(strEventName.indexOf(",")+1, strEventName.indexOf("-")));
-            tvEndTimeOfEvent.setText(strEventName.substring(strEventName.indexOf("-")+1, strEventName.length()));
+            tvStartTimeOfEvent.setText(strEventName.substring(strEventName.indexOf(",") + 1, strEventName.indexOf("-")));
+            tvEndTimeOfEvent.setText(strEventName.substring(strEventName.indexOf("-") + 1, strEventName.length()));
         }
     }
 
@@ -882,22 +863,100 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         }
     }
 
-    @Override
-    public void addPlayersListener() {
+    /**
+     * Implements this method to get TEE time slots for book
+     * paid Competitions.
+     */
+    public void updateTimeSlots() {
 
-        Intent intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
-        intent.putExtra("NEW_COMP_EVENT_ID", strEventId);
-        intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
-        intent.putExtra("EventID", newCompEntryData.getEventID());
-        Bundle informacion = new Bundle();
-        informacion.putSerializable("AllPlayers", playersArrayList);
-        intent.putExtras(informacion);
-        startActivityForResult(intent, 1);
+        if (newCompEntryData.getZones().get(iZoneNo).getSlots() == null) {
+            return;
+        }
+
+        try {
+            compSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
+
+            gvTimeSlots.setExpanded(true);
+            compTimeSlotsAdapter = new CompTimeSlotsAdapter(CompetitionEntryActivity.this,
+                    compSlotsList,
+                    iSlotNo,
+                    newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot(),
+                    CompetitionEntryActivity.this);
+            gvTimeSlots.setAdapter(compTimeSlotsAdapter);
+
+            //Forcefully scroll UP of screen after loading.
+            svPlayerContent.post(new Runnable() {
+                public void run() {
+                    svPlayerContent.fullScroll(View.FOCUS_UP);
+                }
+            });
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Exception " + e.toString());
+            reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
+        }
     }
 
-    @Override
-    public void removePlayerListener() {
 
+    /**
+     * Update Tee Time Slot value.
+     *
+     * @param iPosition
+     */
+    /*public void updateTeeTimeValue(int iPosition) {
+        tvTeeTimeValue.setText(slotArrayList.get(iPosition).getSlotStartTimeStr());
+        tvSelectHint.setText("");
+
+        iSlotNo = slotArrayList.get(iPosition).getSlotNo();
+    }*/
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+
+
+           /* Booking mBookingInstance = new Booking();
+            mBookingInstance.setZoneId(teams.get(slotPosition).getZoneId());
+            mBookingInstance.setSlotIdx(teams.get(slotPosition).getSlotIdx());
+            mBookingInstance.setTeamIdx(teams.get(slotPosition).getTeamIdx());
+
+            int iMemberID = teams.get(slotPosition)
+                    .getPlayers()
+                    .get(0)
+                    .getMemberId();
+
+            mBookingInstance.setTeamName(getMemberNameFromID(iMemberID));
+            mBookingInstance.setEntryFee(teams.get(slotPosition).getEntryFee());
+
+            mBookingList.add(mBookingInstance);*/
+
+
+            playersArrayList.clear();
+            playersArrayList = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
+
+            if (iEntryID == 0) {
+                updateNoEntryIdMemberUI();
+            } else {
+                updateWithEntryIdMemberUI();
+            }
+
+//            updatePriceUI();
+        }
+    }
+
+    private String getMemberNameFromID(int iMemberID) {
+
+        if (newCompEntryData.getAllPlayers() == null) {
+            return "";
+        }
+
+        List<AllPlayer> mAllPlayersList = newCompEntryData.getAllPlayers();
+
+        for (int iCounter = 0; iCounter < mAllPlayersList.size(); iCounter++) {
+            if (mAllPlayersList.get(iCounter).getMemberId() == iMemberID) {
+                return mAllPlayersList.get(iCounter).getNameAndHandicap();
+            }
+        }
+
+        return "";
     }
 
     /****************************************************************************
