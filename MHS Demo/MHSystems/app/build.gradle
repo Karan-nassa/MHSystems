@@ -47,7 +47,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile files('libs/rollbar-android-0.1.2-dev.jar')
     //Members list Alphabetical in new style like contacts dependency.
     compile project(':library')
@@ -69,4 +68,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:9.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.jsoup:jsoup:1.8.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 }

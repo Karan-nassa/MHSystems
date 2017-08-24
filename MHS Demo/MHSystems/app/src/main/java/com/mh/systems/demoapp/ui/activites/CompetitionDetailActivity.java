@@ -651,7 +651,7 @@ public class CompetitionDetailActivity extends BaseActivity {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
-                updateCompEntryResponse(jsonObject);
+                updateNewCompEntryResponse(jsonObject);
             }
 
             @Override
@@ -665,7 +665,7 @@ public class CompetitionDetailActivity extends BaseActivity {
     /**
      * Get Success of Competitions Entry Results.
      */
-    private void updateCompEntryResponse(JsonObject jsonObject) {
+    private void updateNewCompEntryResponse(JsonObject jsonObject) {
 
         Log.e(LOG_TAG, "UNREAD NEWS COUNT RESPONSE : " + jsonObject.toString());
 

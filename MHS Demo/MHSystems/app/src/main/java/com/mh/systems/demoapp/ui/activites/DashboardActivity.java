@@ -816,7 +816,7 @@ public class DashboardActivity extends BaseActivity {
             @Override
             public void failure(RetrofitError error) {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
-                showAlertMessage(error.getMessage());
+               // showAlertMessage(error.getMessage());
                 onBackPressed();
                 hideProgress();
             }

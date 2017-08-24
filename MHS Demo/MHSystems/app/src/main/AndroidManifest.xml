@@ -56,8 +56,9 @@
             android:screenOrientation="portrait" />
 
         <!-- COURSE DIARY WEBVIEW ACTIVITY -->
-        <activity android:name=".ui.activites.CourseDiaryWebviewActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activites.CourseDiaryWebviewActivity"
+            android:screenOrientation="portrait" />
 
         <!-- COURSE DIARY DETAIL ACTIVITY -->
         <activity
@@ -123,7 +124,7 @@
         <activity
             android:name=".ui.activites.ResetPasswordActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
 
         <!-- SEND FEEDBACK SCREEN -->
         <activity
@@ -194,7 +195,6 @@
         <activity
             android:name=".ui.activites.MakePaymentWebActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.activites.TopUpActivity"
             android:screenOrientation="portrait" />
@@ -204,7 +204,6 @@
         <activity
             android:name=".ui.activites.FriendsInfoActivity"
             android:screenOrientation="portrait" />
-
 
         <!-- START OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->
 
@@ -226,7 +225,6 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
-
         <service
             android:name=".dataaccess.push.MyInstanceIDListenerService"
             android:exported="false">
@@ -234,16 +232,19 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
-
         <service
             android:name=".dataaccess.push.RegistrationIntentService"
             android:exported="false" />
 
         <!-- END OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->
 
+
         <!-- WEATHER SERVICE -->
 
         <service android:name=".dataaccess.service.DashboardWeatherService" />
+
+        <activity android:name=".ui.activites.BookingEntryActivity" />
+        <activity android:name=".ui.activites.NewCompAddPlayersActivity"></activity>
     </application>
 
 </manifest>

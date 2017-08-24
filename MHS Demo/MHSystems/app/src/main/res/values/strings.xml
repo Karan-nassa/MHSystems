@@ -65,6 +65,8 @@
     <string name="title_competitions_prize">fee per player</string>
 
     <string name="text_tee_off_times">Select a Tee-Off Time</string>
+    <string name="text_your_entry_fee">Your Entry List</string>
+    <string name="text_add_players">Add Players</string>
     <!-- END OF COMPETITIONS EVENT ACTIVITY -->
 
     <!-- START OF COMPETITIONS FRAGMENT -->
@@ -129,7 +131,7 @@
     <!-- START OF CLUB NEWS DETAIL ACTIVITY -->
     <string name="text_club_news_date">Thursday, 2nd June 2016</string>
     <string name="text_club_news_time">06:35AM</string>
-<string name="text_club_news_detail">In Part Three, I promised we would get into the resources. Before we do, however, let’s discuss a treasure that most of us have been exposed to, but don’t take nearly enough time out of our day to focus on – the power of prayer. This may offend some people, but I hope it does not; as that is not my intent.
+    <string name="text_club_news_detail">In Part Three, I promised we would get into the resources. Before we do, however, let’s discuss a treasure that most of us have been exposed to, but don’t take nearly enough time out of our day to focus on – the power of prayer. This may offend some people, but I hope it does not; as that is not my intent.
 
 \n\nAs humans, we have progressed in so many ways, but we have lost touch with our bodies, nature, and the power of prayer. There seems to be a spiritual renaissance, of sorts, going on in the “new age” movement.
 

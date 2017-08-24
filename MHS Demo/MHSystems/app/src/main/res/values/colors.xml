@@ -110,4 +110,7 @@
     <color name="pinned_header_text">#FF3c3c3c</color>
     <!-- +++++++++++++++++++++++ END OF MEMBERS ALPHABETICAL LIST +++++++++++++++++++++++  -->
 
+    <color name="colorE0E0E0">#E0E0E0</color>
+    <color name="colorAA7D4C">#AA7D4C</color>
+
 </resources>

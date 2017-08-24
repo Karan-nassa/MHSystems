@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,7 +22,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.ui.adapter.BaseAdapter.CompTimeGridAdapter;
+import com.mh.systems.demoapp.ui.adapter.BaseAdapter.CompTimeSlotsAdapter;
 import com.mh.systems.demoapp.utils.ExpandableHeightGridView;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
@@ -141,7 +142,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     Intent intent;
 
-    CompTimeGridAdapter compTimeGridAdapter;
+    CompTimeSlotsAdapter compTimeSlotsAdapter;
 
     //List<Slot> slotArrayList = new ArrayList<>();
     ArrayList<EligibleMember> playersArrayList = new ArrayList<>();
@@ -179,6 +180,12 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     @Bind(R.id.tvOccupancy)
     TextView tvOccupancy;
+
+    @Bind(R.id.llConfirmBooking)
+    LinearLayout llConfirmBookingl;
+
+    @Bind(R.id.btConfirmTimeBooking)
+    Button btConfirmTimeBooking;
 
     private CompZoneExpandAdapter compZoneExpandAdapter;
     private NewCompEntryData newCompEntryData;
@@ -264,7 +271,7 @@ public class CompetitionEntryActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_save, menu);
+        //getMenuInflater().inflate(R.menu.menu_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -392,8 +399,11 @@ public class CompetitionEntryActivity extends BaseActivity {
             compSlotsList = newCompEntryData.getZones().get(0).getSlots();
 
             gvTimeSlots.setExpanded(true);
-            compTimeGridAdapter = new CompTimeGridAdapter(CompetitionEntryActivity.this, compSlotsList, iSlotNo);
-            gvTimeSlots.setAdapter(compTimeGridAdapter);
+            compTimeSlotsAdapter = new CompTimeSlotsAdapter(CompetitionEntryActivity.this,
+                    compSlotsList,
+                    iSlotNo,
+                    newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
+            gvTimeSlots.setAdapter(compTimeSlotsAdapter);
 
             //Forcefully scroll UP of screen after loading.
             svPlayerContent.post(new Runnable() {
@@ -538,6 +548,14 @@ public class CompetitionEntryActivity extends BaseActivity {
 
         flSingleZoneGroup.setOnClickListener(mZoneExpandListener);
         ivExpandCompZone.setOnClickListener(mZoneExpandListener);
+
+        btConfirmTimeBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CompetitionEntryActivity.this, BookingEntryActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
