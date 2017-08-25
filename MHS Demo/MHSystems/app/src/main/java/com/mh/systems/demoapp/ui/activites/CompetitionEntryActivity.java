@@ -201,6 +201,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     List<Slot> compSlotsList;
     private int iZoneNo = 0;
     private boolean isExpandClose = false;
+    private boolean slefAlreadyAdded = false;
 
     private List<Booking> mBookingList = new ArrayList<>();
 
@@ -220,6 +221,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             }
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -320,9 +322,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     @Override
     public void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition) {
 
-//        int iFreeSlotsAvail = teams.size() - iTeamPerSlot;
         int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
-        if (iFreeSlotsAvail == 1) {
+        if (iFreeSlotsAvail == 1 && !isSlefAlreadyAdded()) {
 
             Team mTeamInstance = new Team();
             mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
@@ -346,8 +347,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             mTeamInstance.setPlayers(mPlayerList);
             //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
             teams.set(iAddPlayerPosition, mTeamInstance);
-           // newCompEntryDataCopy.getZones().get(iZoneNo).getSlots().get(slotPosition).getTeams().get()
-           // mBookingList.add(mBookingInstance);
+            // newCompEntryDataCopy.getZones().get(iZoneNo).getSlots().get(slotPosition).getTeams().get()
+            // mBookingList.add(mBookingInstance);
 
             updateTimeSlots();
 
@@ -382,10 +383,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         mTeamInstance.setEntryFee((double) 0);
 
         List<Player> mPlayerList = new ArrayList<>();
-        /*Player mPlayer = new Player();
-        mPlayer.setMemberId(getMemberId());
-        mPlayer.setIsGuest(false);
-        mPlayerList.add(mPlayer);*/
+
+        if (teams.get(iAddPlayerPosition).getPlayers().get(0).getMemberId()
+                .equalsIgnoreCase(getMemberId())) {
+            setSelfAlreadyAdded(false);
+        }
 
         mTeamInstance.setPlayers(mPlayerList);
         //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
@@ -575,7 +577,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         btConfirmTimeBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CompetitionEntryActivity.this, BookingEntryActivity.class);
+                Intent intent = new Intent(CompetitionEntryActivity.this, ConfirmBookingEntryActivity.class);
                 intent.putExtra("iZoneNo", iZoneNo);
                 intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
                 startActivity(intent);
@@ -978,11 +980,16 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     /**
      * Get Member name along with HCap value
      * by passing Member ID.
-    */
+     */
     public String getMemberNameFromID(int iMemberID) {
 
         if (newCompEntryData.getAllPlayers() == null) {
             return "N/A";
+        }
+
+        //Also check here if member self added in the list then set Flag.
+        if (iMemberID == Integer.parseInt(getMemberId())) {
+            setSelfAlreadyAdded(true);
         }
 
         List<AllPlayer> mAllPlayersList = newCompEntryData.getAllPlayers();
@@ -998,6 +1005,14 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     private int getAvailableSlotsCount(int slotPosition) {
         return newCompEntryData.getZones().get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail();
+    }
+
+    public boolean isSlefAlreadyAdded() {
+        return slefAlreadyAdded;
+    }
+
+    public void setSelfAlreadyAdded(boolean slefAlreadyAdded) {
+        this.slefAlreadyAdded = slefAlreadyAdded;
     }
 
     /****************************************************************************

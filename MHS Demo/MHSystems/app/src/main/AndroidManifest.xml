@@ -243,7 +243,7 @@
 
         <service android:name=".dataaccess.service.DashboardWeatherService" />
 
-        <activity android:name=".ui.activites.BookingEntryActivity" />
+        <activity android:name=".ui.activites.ConfirmBookingEntryActivity" />
         <activity android:name=".ui.activites.NewCompAddPlayersActivity"></activity>
     </application>
 

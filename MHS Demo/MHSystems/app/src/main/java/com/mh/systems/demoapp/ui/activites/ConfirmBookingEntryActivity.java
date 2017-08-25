@@ -20,6 +20,7 @@ import com.mh.systems.demoapp.web.api.WebAPI;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryData;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Team;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.AJsonParamsConfirmBooking;
@@ -37,10 +38,10 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class BookingEntryActivity extends BaseActivity implements
+public class ConfirmBookingEntryActivity extends BaseActivity implements
         View.OnClickListener, OnUpdatePlayers {
 
-    private final String LOG_TAG = BookingEntryActivity.class.getSimpleName();
+    private final String LOG_TAG = ConfirmBookingEntryActivity.class.getSimpleName();
     @Bind(R.id.tbBookingEntry)
     Toolbar tbBookingEntry;
 
@@ -70,7 +71,7 @@ public class BookingEntryActivity extends BaseActivity implements
     private List<Booking> mBookingList = new ArrayList<>();
     private Booking mBookingInstance;
 
-    List<Zone> zoneCompEntryList = new ArrayList<>();
+    List<Slot> zoneCompEntryList = new ArrayList<>();
     int iZoneNo;
     int iEventID;
     int iPayeeId;
@@ -78,7 +79,7 @@ public class BookingEntryActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_booking_entry);
+        setContentView(R.layout.activity_confirm_booking_entry);
 
         ButterKnife.bind(this);
 
@@ -133,7 +134,7 @@ public class BookingEntryActivity extends BaseActivity implements
                 /**
                  *  Check internet connection before hitting server request.
                  */
-                if (isOnline(BookingEntryActivity.this)) {
+                if (isOnline(ConfirmBookingEntryActivity.this)) {
                     sendConfirmEntryV2();
                 } else {
                     showAlertMessage(getString(R.string.error_no_connection));
@@ -164,11 +165,14 @@ public class BookingEntryActivity extends BaseActivity implements
         tvTimeOfComp.setText(newCompEntryData.getEventStartDate().getFullDateStr());
 
         gvCompEntry.setExpanded(true);
-        compConfirmEntryAdapter = new CompConfirmEntryAdapter(BookingEntryActivity.this,
-                zoneCompEntryList,
+
+        Zone mZoneInstance = newCompEntryData.getZones().get(iZoneNo);
+        compConfirmEntryAdapter = new CompConfirmEntryAdapter(ConfirmBookingEntryActivity.this,
+                mZoneInstance.getSlots(),
                 iZoneNo,
-                newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot(),
-                BookingEntryActivity.this);
+                mZoneInstance.getTeamsPerSlot(),
+                mZoneInstance.getZoneName(),
+                ConfirmBookingEntryActivity.this);
         gvCompEntry.setAdapter(compConfirmEntryAdapter);
     }
 

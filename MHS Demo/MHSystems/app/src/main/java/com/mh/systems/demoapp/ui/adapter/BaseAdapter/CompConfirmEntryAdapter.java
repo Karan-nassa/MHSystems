@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
 
 import java.util.List;
@@ -29,8 +30,10 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private Typeface tfRobotoRegular, tfRobotoBold;
 
-    List<Zone> zoneCompEntryList;
+    List<Slot> mSlotsList;
     private Button lastSelectedView = null;
+
+    String strZoneName;
 
     int iSlotNo, iPosition;
     int iTeamsPerSlot;
@@ -38,9 +41,13 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
 
     private OnUpdatePlayers mOnUpdatePlayers;
 
-    public CompConfirmEntryAdapter(Activity mActivity, List<Zone> zoneCompEntryList, int iZoneNo, int teamsPerSlot, OnUpdatePlayers mOnUpdatePlayers) {
+    public CompConfirmEntryAdapter(Activity mActivity, List<Slot> mSlotsList,
+                                   int iZoneNo, int teamsPerSlot
+                                   , String strZoneName,
+                                   OnUpdatePlayers mOnUpdatePlayers) {
         context = mActivity;
-        this.zoneCompEntryList = zoneCompEntryList;
+        this.mSlotsList = mSlotsList;
+        this.strZoneName = strZoneName;
         this.iTeamsPerSlot = teamsPerSlot;
         this.iZoneNo = iZoneNo;
         this.mOnUpdatePlayers = mOnUpdatePlayers;
@@ -78,7 +85,7 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final ConfirmEntryRow confirmEntryRow = new ConfirmEntryRow();
-        View rowView =  inflater.inflate(R.layout.list_row_confirm_entry, null);
+        View rowView = inflater.inflate(R.layout.list_row_confirm_entry, null);
 
         confirmEntryRow.tvTimeOfComp = (TextView) rowView.findViewById(R.id.tvTimeOfComp);
         confirmEntryRow.tvZoneOfComp = (TextView) rowView.findViewById(R.id.tvZoneOfComp);
