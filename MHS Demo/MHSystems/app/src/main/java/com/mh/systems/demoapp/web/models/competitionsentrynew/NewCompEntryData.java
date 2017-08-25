@@ -11,9 +11,9 @@ public class NewCompEntryData {
     @SerializedName("ClientId")
     @Expose
     private Integer ClientId;
-    @SerializedName("EventID")
+    @SerializedName("EventId")
     @Expose
-    private int EventID;
+    private int EventId;
     @SerializedName("PayeeId")
     @Expose
     private Integer PayeeId;
@@ -67,10 +67,10 @@ public class NewCompEntryData {
     private Boolean AllowGuests;
     @SerializedName("FundsAvailable")
     @Expose
-    private Integer FundsAvailable;
+    private float FundsAvailable;
     @SerializedName("TotalBookingFee")
     @Expose
-    private Integer TotalBookingFee;
+    private float TotalBookingFee;
     @SerializedName("CrnSymbol")
     @Expose
     private String CrnSymbol;
@@ -96,11 +96,11 @@ public class NewCompEntryData {
     }
 
     public int getEventID() {
-        return EventID;
+        return EventId;
     }
 
-    public void setEventID(int EventID) {
-        this.EventID = EventID;
+    public void setEventID(int EventId) {
+        this.EventId = EventId;
     }
 
     public Integer getPayeeId() {
@@ -239,19 +239,19 @@ public class NewCompEntryData {
         this.AllowGuests = AllowGuests;
     }
 
-    public Integer getFundsAvailable() {
+    public float getFundsAvailable() {
         return FundsAvailable;
     }
 
-    public void setFundsAvailable(Integer FundsAvailable) {
+    public void setFundsAvailable(float FundsAvailable) {
         this.FundsAvailable = FundsAvailable;
     }
 
-    public Integer getTotalBookingFee() {
+    public float getTotalBookingFee() {
         return TotalBookingFee;
     }
 
-    public void setTotalBookingFee(Integer TotalBookingFee) {
+    public void setTotalBookingFee(float TotalBookingFee) {
         this.TotalBookingFee = TotalBookingFee;
     }
 

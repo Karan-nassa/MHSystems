@@ -30,7 +30,7 @@ import com.mh.systems.demoapp.web.api.WebAPI;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.competitionsentry.AJsonParamsUpdateEntry;
 import com.mh.systems.demoapp.web.models.competitionsentry.EligibleMember;
-import com.mh.systems.demoapp.web.models.competitionsentry.Player;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryAPI;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryResponse;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.AllPlayer;
@@ -318,25 +318,35 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     }
 
     @Override
-    public void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot) {
+    public void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition) {
 
-        int iFreeSlotsAvail = teams.size() - iTeamPerSlot;
-        if (true/*iFreeSlotsAvail == 1*/) {
+//        int iFreeSlotsAvail = teams.size() - iTeamPerSlot;
+        int iFreeSlotsAvail = newCompEntryData.getZones().get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail();
+        if (iFreeSlotsAvail == 1) {
 
-            Team mBookingInstance = new Team();
-            mBookingInstance.setZoneId(teams.get(slotPosition).getZoneId());
-            mBookingInstance.setSlotIdx(teams.get(slotPosition).getSlotIdx());
-            mBookingInstance.setTeamIdx(teams.get(slotPosition).getTeamIdx());
+            Team mTeamInstance = new Team();
+            mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
+            mTeamInstance.setSlotIdx(teams.get(iAddPlayerPosition).getSlotIdx());
+            mTeamInstance.setTeamIdx(teams.get(iAddPlayerPosition).getTeamIdx());
 
             /*String iMemberID = teams.get(slotPosition)
                     .getPlayers()
                     .get(0)
                     .getMemberId();*/
 
-            mBookingInstance.setTeamName(getMemberNameFromID(Integer.parseInt(getMemberId())));
-            mBookingInstance.setEntryFee(teams.get(slotPosition).getEntryFee());
+            //mBookingInstance.setPlayers(mPlayerList);
+            mTeamInstance.setTeamName(getMemberNameFromID(Integer.parseInt(getMemberId())));
+            mTeamInstance.setEntryFee(teams.get(iAddPlayerPosition).getEntryFee());
 
-            teams.set(slotPosition, mBookingInstance);
+            List<Player> mPlayerList = new ArrayList<>();
+            Player mPlayer = new Player();
+            mPlayer.setMemberId(getMemberId());
+            mPlayer.setIsGuest(false);
+            mPlayerList.add(mPlayer);
+
+            mTeamInstance.setPlayers(mPlayerList);
+            //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
+            teams.set(iAddPlayerPosition, mTeamInstance);
            // newCompEntryDataCopy.getZones().get(iZoneNo).getSlots().get(slotPosition).getTeams().get()
            // mBookingList.add(mBookingInstance);
 
@@ -346,7 +356,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             return;
         } else {
             Intent intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
-            intent.putExtra("NEW_COMP_EVENT_ID", strEventId);
+            intent.putExtra("NEW_COMP_EVENT_ID", newCompEntryData.getEventID());
             intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
             intent.putExtra("EventID", newCompEntryData.getEventID());
             Bundle informacion = new Bundle();
@@ -942,10 +952,14 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         }
     }
 
-    private String getMemberNameFromID(int iMemberID) {
+    /**
+     * Get Member name along with HCap value
+     * by passing Member ID.
+    */
+    public String getMemberNameFromID(int iMemberID) {
 
         if (newCompEntryData.getAllPlayers() == null) {
-            return "";
+            return "N/A";
         }
 
         List<AllPlayer> mAllPlayersList = newCompEntryData.getAllPlayers();
@@ -956,7 +970,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             }
         }
 
-        return "";
+        return "N/A";
     }
 
     /****************************************************************************

@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface OnUpdatePlayers {
 
-    void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot);
+    void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition);
     void removePlayerListener();
 }

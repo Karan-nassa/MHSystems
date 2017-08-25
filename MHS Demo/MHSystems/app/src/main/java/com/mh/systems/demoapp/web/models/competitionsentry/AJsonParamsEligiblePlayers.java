@@ -15,7 +15,7 @@ public class AJsonParamsEligiblePlayers {
     private String callid;
     @SerializedName("EventId")
     @Expose
-    private String EventId;
+    private int EventId;
     @SerializedName("MemberId")
     @Expose
     private String MemberId;
@@ -51,14 +51,14 @@ public class AJsonParamsEligiblePlayers {
     /**
      * @return The EventId
      */
-    public String getEventId() {
+    public int getEventId() {
         return EventId;
     }
 
     /**
      * @param EventId The EventId
      */
-    public void setEventId(String EventId) {
+    public void setEventId(int EventId) {
         this.EventId = EventId;
     }
 

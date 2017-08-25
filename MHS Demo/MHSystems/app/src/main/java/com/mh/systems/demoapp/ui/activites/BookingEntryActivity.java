@@ -112,7 +112,7 @@ public class BookingEntryActivity extends BaseActivity implements
     }
 
     @Override
-    public void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot) {
+    public void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition) {
 
     }
 

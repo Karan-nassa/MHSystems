@@ -2,6 +2,7 @@
 package com.mh.systems.demoapp.web.models.competitionsentrynew;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -16,6 +17,20 @@ public class Slot {
     @SerializedName("Teams")
     @Expose
     private List<Team> Teams = null;
+
+    /**
+     * For record to free available team space
+     * in each slots
+     */
+    private int iFreeSlotsAvail;
+
+    public int getiFreeSlotsAvail() {
+        return iFreeSlotsAvail;
+    }
+
+    public void setiFreeSlotsAvail(int iFreeSlotsAvail) {
+        this.iFreeSlotsAvail = iFreeSlotsAvail;
+    }
 
     public Integer getStatus() {
         return Status;

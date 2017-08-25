@@ -48,7 +48,7 @@ public class EligiblePlayersActivity extends BaseActivity {
 
     private final String LOG_TAG = EligiblePlayersActivity.class.getSimpleName();
 
-    String strEventId;
+    int strEventId;
 
     /**
      * iTeamSize is the size of Members that user can select whereas iTotalAddedMembers is the number
@@ -124,7 +124,7 @@ public class EligiblePlayersActivity extends BaseActivity {
         eligiblePlayersTabFragment = new EligiblePlayersTabFragment();
 
         //Set Event Id.
-        setStrEventId(getIntent().getExtras().getString("EventID"));
+        setStrEventId(getIntent().getExtras().getInt("EventID"));
 
         iTeamSize = getIntent().getExtras().getInt("TeamsPerSlot");
         iEntryID = getIntent().getExtras().getInt("COMPETITIONS_iEntryID");
@@ -313,14 +313,14 @@ public class EligiblePlayersActivity extends BaseActivity {
     /**
      * @return The strEventId
      */
-    public String getStrEventId() {
+    public int getStrEventId() {
         return strEventId;
     }
 
     /**
      * @param strEventId The strEventId
      */
-    public void setStrEventId(String strEventId) {
+    public void setStrEventId(int strEventId) {
         this.strEventId = strEventId;
     }
 

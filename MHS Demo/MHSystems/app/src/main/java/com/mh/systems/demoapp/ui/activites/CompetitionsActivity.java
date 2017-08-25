@@ -49,7 +49,7 @@ public class CompetitionsActivity extends BaseActivity {
      * iCourseType for categorised of Competitions. By default 'My Events' is selected.
      */
     boolean isUpcoming = true;
-    boolean isJoined = false;
+    boolean isJoined = true;
     boolean isCompleted = false;
     boolean isCurrent = false;
 
@@ -222,7 +222,7 @@ public class CompetitionsActivity extends BaseActivity {
                         case R.id.item_Upcoming:
                             iPopItemPos = 0;
                             isUpcoming = true;
-                            isJoined = false;
+                            isJoined = true;
                             isCompleted = false;
                             isCurrent = false;
                             break;

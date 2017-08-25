@@ -62,7 +62,7 @@ public class Team {
         return Players;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(List<Player> Players) {
         this.Players = Players;
     }
 

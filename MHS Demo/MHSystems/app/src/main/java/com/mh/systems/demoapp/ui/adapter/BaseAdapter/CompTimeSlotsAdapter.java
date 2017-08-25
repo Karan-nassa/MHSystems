@@ -20,6 +20,7 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.activites.CompetitionEntryActivity;
 import com.mh.systems.demoapp.ui.activites.NewCompAddPlayersActivity;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 
 import java.util.ArrayList;
@@ -99,19 +100,35 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
         holder.tvTimeOfSlot.setText(slotArrayList.get(position).getTeeOffTime());
         holder.tvTimeOfSlot.setTypeface(tfRobotoBold);
 
+        int iFreeSlotsAvail = 0;
+
         for (int iCounter = 0; iCounter < iTeamsPerSlot; iCounter++) {
             LayoutInflater inflater = LayoutInflater.from(context);
             View playerView = inflater.inflate(R.layout.inflate_row_add_player, null);
 
             TextView tvNameOfPlayer = (TextView) playerView.findViewById(R.id.tvNameOfPlayer);
             ImageView ivRemovePlayer = (ImageView) playerView.findViewById(R.id.ivRemovePlayer);
-            TextView tvAddPlayer = (TextView) playerView.findViewById(R.id.tvAddPlayer);
+            final TextView tvAddPlayer = (TextView) playerView.findViewById(R.id.tvAddPlayer);
 
             String strTeamName = slotArrayList.get(position)
                     .getTeams()
                     .get(iCounter).getTeamName();
 
-            tvNameOfPlayer.setText(strTeamName);
+            List<Player> mPlayersArr = slotArrayList.get(position)
+                    .getTeams()
+                    .get(iCounter)
+                    .getPlayers();
+
+            if (mPlayersArr.size() != 0) {
+                tvNameOfPlayer.setText(((CompetitionEntryActivity) context).
+                        getMemberNameFromID(Integer.parseInt(mPlayersArr.get(0).getMemberId())));
+            }else{
+                tvNameOfPlayer.setText(strTeamName);
+                iFreeSlotsAvail++;
+            }
+
+            //Store Add Player position as Tag for use later.
+            tvAddPlayer.setTag(iCounter);
 
             if (strTeamName.equalsIgnoreCase("(Free)")) {
                 tvAddPlayer.setVisibility(View.VISIBLE);
@@ -134,13 +151,16 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                     //TODO: ADD Players and oepn member screen.
 
                     mOnUpdatePlayers.addPlayersListener(slotArrayList.get(position).getTeams()
-                    , position
-                    , iTeamsPerSlot);
+                            , position
+                            , iTeamsPerSlot
+                            , Integer.parseInt(tvAddPlayer.getTag().toString()));
                 }
             });
 
             holder.llViewAddTeams.addView(playerView);
         }
+
+        slotArrayList.get(position).setiFreeSlotsAvail(iFreeSlotsAvail);
 
         /*if (slotArrayList.get(position).getTeeOffTime()) {
             holder.btTimeSlot.setAlpha((float) 0.1);
