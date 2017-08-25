@@ -196,7 +196,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     private CompZoneExpandAdapter compZoneExpandAdapter;
     private NewCompEntryData newCompEntryData;
-    private NewCompEntryData newCompEntryDataCopy;
 
     List<Slot> compSlotsList;
     private int iZoneNo = 0;
@@ -261,8 +260,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
         newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
-
-        newCompEntryDataCopy = newCompEntryData;
 
         strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
 
@@ -572,7 +569,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         flSingleZoneGroup.setOnClickListener(mZoneExpandListener);
         ivExpandCompZone.setOnClickListener(mZoneExpandListener);
 
-        updateTimeAndTitle(newCompEntryData.getZones().get(iZoneNo).getZoneName());
+        updateTimeAndTitleOfZone(newCompEntryData.getZones().get(iZoneNo).getZoneName());
 
         btConfirmTimeBooking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -589,7 +586,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         // allPlayerArrayList.addAll(newCompEntryData.getAllPlayers());
     }
 
-    private void updateTimeAndTitle(String strEventName) {
+    private void updateTimeAndTitleOfZone(String strEventName) {
 
         if (strEventName.contains(",")) {
             tvTitleOfZone.setText(strEventName.substring(0, strEventName.indexOf(",")));
@@ -931,7 +928,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         }
     }
 
-
     /**
      * Update Tee Time Slot value.
      *
@@ -966,6 +962,13 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
             playersArrayList.clear();
             playersArrayList = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
+
+            for (int iCount = 0; iCount < playersArrayList.size(); iCount++) {
+               /* updateMemberDetailInSlots(playersArrayList.get(iCount).getHCapTypeStr(),
+                        playersArrayList.get(iCount).getNameRecord().getDisplayName(),
+                        playersArrayList.get(iCount).getMemberID());*/
+               //TODO: Update Slots value.
+            }
 
             if (iEntryID == 0) {
                 updateNoEntryIdMemberUI();

@@ -71,7 +71,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     private List<Booking> mBookingList = new ArrayList<>();
     private Booking mBookingInstance;
 
-    List<Slot> zoneCompEntryList = new ArrayList<>();
+    private List<Slot> mFinalBookingList = new ArrayList<>();
     int iZoneNo;
     int iEventID;
     int iPayeeId;
@@ -166,14 +166,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         gvCompEntry.setExpanded(true);
 
-        Zone mZoneInstance = newCompEntryData.getZones().get(iZoneNo);
-        compConfirmEntryAdapter = new CompConfirmEntryAdapter(ConfirmBookingEntryActivity.this,
-                mZoneInstance.getSlots(),
-                iZoneNo,
-                mZoneInstance.getTeamsPerSlot(),
-                mZoneInstance.getZoneName(),
-                ConfirmBookingEntryActivity.this);
-        gvCompEntry.setAdapter(compConfirmEntryAdapter);
+        filterBookingList();
     }
 
     /**
@@ -299,6 +292,28 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
      */
     private String getClientId() {
         return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+    }
+
+    private void filterBookingList() {
+
+        Zone mZoneInstance = newCompEntryData.getZones().get(iZoneNo);
+        List<Slot> mAllSlotsList = mZoneInstance.getSlots();
+
+       /* for (int iSlotCount = 0; iSlotCount < mAllSlotsList.size(); iSlotCount++) {
+
+            for (int jCount = 0; jCount < mZoneInstance.getTeamsPerSlot(); jCount++) {
+
+            }
+        }*/
+
+        mFinalBookingList.addAll(mZoneInstance.getSlots());
+        compConfirmEntryAdapter = new CompConfirmEntryAdapter(ConfirmBookingEntryActivity.this,
+                mFinalBookingList,
+                iZoneNo,
+                mZoneInstance.getTeamsPerSlot(),
+                mZoneInstance.getZoneName(),
+                ConfirmBookingEntryActivity.this);
+        gvCompEntry.setAdapter(compConfirmEntryAdapter);
     }
 
 }
