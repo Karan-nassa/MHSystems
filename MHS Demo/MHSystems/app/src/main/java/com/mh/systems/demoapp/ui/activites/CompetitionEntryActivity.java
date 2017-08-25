@@ -321,7 +321,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     public void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition) {
 
 //        int iFreeSlotsAvail = teams.size() - iTeamPerSlot;
-        int iFreeSlotsAvail = newCompEntryData.getZones().get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail();
+        int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
         if (iFreeSlotsAvail == 1) {
 
             Team mTeamInstance = new Team();
@@ -334,7 +334,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     .get(0)
                     .getMemberId();*/
 
-            //mBookingInstance.setPlayers(mPlayerList);
             mTeamInstance.setTeamName(getMemberNameFromID(Integer.parseInt(getMemberId())));
             mTeamInstance.setEntryFee(teams.get(iAddPlayerPosition).getEntryFee());
 
@@ -367,8 +366,32 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     }
 
     @Override
-    public void removePlayerListener() {
+    public void removePlayerListener(List<Team> teams, int iSlotPosition, int iAddPlayerPosition) {
 
+        Team mTeamInstance = new Team();
+        mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
+        mTeamInstance.setSlotIdx(teams.get(iAddPlayerPosition).getSlotIdx());
+        mTeamInstance.setTeamIdx(teams.get(iAddPlayerPosition).getTeamIdx());
+
+            /*String iMemberID = teams.get(slotPosition)
+                    .getPlayers()
+                    .get(0)
+                    .getMemberId();*/
+
+        mTeamInstance.setTeamName("(Free)");
+        mTeamInstance.setEntryFee((double) 0);
+
+        List<Player> mPlayerList = new ArrayList<>();
+        /*Player mPlayer = new Player();
+        mPlayer.setMemberId(getMemberId());
+        mPlayer.setIsGuest(false);
+        mPlayerList.add(mPlayer);*/
+
+        mTeamInstance.setPlayers(mPlayerList);
+        //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
+        teams.set(iAddPlayerPosition, mTeamInstance);
+
+        updateTimeSlots();
     }
 
     /**
@@ -971,6 +994,10 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         }
 
         return "N/A";
+    }
+
+    private int getAvailableSlotsCount(int slotPosition) {
+        return newCompEntryData.getZones().get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail();
     }
 
     /****************************************************************************

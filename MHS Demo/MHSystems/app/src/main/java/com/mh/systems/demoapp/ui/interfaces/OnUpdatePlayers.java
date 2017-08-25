@@ -11,5 +11,5 @@ import java.util.List;
 public interface OnUpdatePlayers {
 
     void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition);
-    void removePlayerListener();
+    void removePlayerListener(List<Team> teams, int iSlotPosition, int iAddPlayerPosition);
 }

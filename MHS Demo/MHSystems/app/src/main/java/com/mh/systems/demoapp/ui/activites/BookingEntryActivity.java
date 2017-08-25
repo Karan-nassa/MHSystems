@@ -117,7 +117,7 @@ public class BookingEntryActivity extends BaseActivity implements
     }
 
     @Override
-    public void removePlayerListener() {
+    public void removePlayerListener(List<Team> teams, int iSlotPosition, int iAddPlayerPosition) {
 
     }
 

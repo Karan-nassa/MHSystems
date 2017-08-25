@@ -2,10 +2,7 @@ package com.mh.systems.demoapp.ui.adapter.BaseAdapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.ui.activites.BookingEntryActivity;
-import com.mh.systems.demoapp.ui.activites.CompetitionEntryActivity;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
-import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -123,7 +116,7 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     //TODO: when user click on cross icon
 
-                    mOnUpdatePlayers.removePlayerListener();
+                    //mOnUpdatePlayers.removePlayerListener(slotArrayList.get(position).getTeams(), position, Integer.parseInt(tvAddPlayer.getTag().toString()));
                 }
             });
 

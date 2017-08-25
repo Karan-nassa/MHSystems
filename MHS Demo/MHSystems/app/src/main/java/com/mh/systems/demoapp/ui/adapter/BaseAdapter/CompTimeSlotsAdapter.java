@@ -122,7 +122,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
             if (mPlayersArr.size() != 0) {
                 tvNameOfPlayer.setText(((CompetitionEntryActivity) context).
                         getMemberNameFromID(Integer.parseInt(mPlayersArr.get(0).getMemberId())));
-            }else{
+            } else {
                 tvNameOfPlayer.setText(strTeamName);
                 iFreeSlotsAvail++;
             }
@@ -142,6 +142,16 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     //TODO: when user click on cross icon
+
+                    mOnUpdatePlayers.removePlayerListener(
+                            slotArrayList.get(position).getTeams()
+                            , position
+                            , Integer.parseInt(tvAddPlayer.getTag().toString())
+                    );
+
+                    //Increase Free Slot val when user remove any player.
+                    slotArrayList.get(position).setiFreeSlotsAvail(
+                            slotArrayList.get(position).getiFreeSlotsAvail() - 1);
                 }
             });
 
