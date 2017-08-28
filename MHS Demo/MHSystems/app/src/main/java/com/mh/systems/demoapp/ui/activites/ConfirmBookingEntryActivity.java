@@ -1,5 +1,6 @@
 package com.mh.systems.demoapp.ui.activites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         View.OnClickListener, OnUpdatePlayers {
 
     private final String LOG_TAG = ConfirmBookingEntryActivity.class.getSimpleName();
+    private DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
     @Bind(R.id.tbBookingEntry)
     Toolbar tbBookingEntry;
 
@@ -74,12 +78,13 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
     private NewCompEntryResponse newCompEntryResponse;
 
-    private ArrayList<Slot> mSlotEntryList = new ArrayList<>();
-    private List<Slot> mFinalBookingList = new ArrayList<>();
+    ///private ArrayList<Slot> mSlotEntryList = new ArrayList<>();
+    private ArrayList<Slot> mFinalBookingList = new ArrayList<>();
 
     int iZoneNo;
     int iEventID;
     int iPayeeId;
+    private float mEntryFee;
 
     String strZoneName = "N/A";
 
@@ -91,8 +96,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         ButterKnife.bind(this);
 
         initalizeUI();
-
-        updateTotalPrice(10);
 
         llAddPlayer.setOnClickListener(this);
         btConfirmEntry.setOnClickListener(this);
@@ -127,6 +130,38 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     @Override
     public void removePlayerListener(ArrayList<Team> teams, int iSlotPosition, int iAddPlayerPosition) {
 
+        int iSlotIdx = teams.get(iAddPlayerPosition).getSlotIdx();
+        int iTeamIdx = teams.get(iAddPlayerPosition).getTeamIdx();
+
+        Team mTeamInstance = new Team();
+        mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
+        mTeamInstance.setSlotIdx(iSlotIdx);
+        mTeamInstance.setTeamIdx(iTeamIdx);
+
+            /*String iMemberID = teams.get(slotPosition)
+                    .getPlayers()
+                    .get(0)
+                    .getMemberId();*/
+
+        mTeamInstance.setTeamName("(Free)");
+        mTeamInstance.setEntryFee((double) 0);
+
+        List<Player> mPlayerList = new ArrayList<>();
+
+        if (teams.get(iAddPlayerPosition).getPlayers().get(0).getMemberId()
+                .equalsIgnoreCase(getMemberId())) {
+            newCompEntryData.setSelfAlreadyAdded(false);
+        }
+
+        mTeamInstance.setPlayers(mPlayerList);
+        //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
+        teams.set(iAddPlayerPosition, mTeamInstance);
+
+        mEntryFee -= newCompEntryData.getEntryFee();
+
+        newCompEntryData.getZones().get(iZoneNo).getSlots().get(iSlotIdx)
+                .setTeams(teams);
+        filterBookedSlotLists();
     }
 
     @Override
@@ -150,9 +185,25 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         }
     }
 
-    public void updateTotalPrice(int iTotalPrice) {
-        tvTotalCost.setText((newCompEntryData.getCrnSymbol()
-                + iTotalPrice));
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("mEntryFee", mEntryFee);
+        intent.putExtra("iZoneNo", iZoneNo);
+        intent.putExtra("strZoneName", strZoneName);
+        intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
+       /* Bundle informacion = new Bundle();
+        informacion.putSerializable("filterSlotList", mSlotEntryList);
+        intent.putExtras(informacion);*/
+        setResult(RESULT_OK, intent);
+        finish();
+
+        super.onBackPressed();
+    }
+
+    public void updateTotalPrice(float iTotalPrice) {
+        tvTotalCost.setText("" + newCompEntryData.getCrnSymbol()
+                + decimalFormat.format(iTotalPrice));
     }
 
     private void initalizeUI() {
@@ -164,8 +215,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
         newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
 
-        mSlotEntryList = (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
+        // mSlotEntryList = (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
 
+        mEntryFee = getIntent().getExtras().getFloat("mEntryFee");
         strZoneName = getIntent().getExtras().getString("strZoneName");
         iZoneNo = getIntent().getExtras().getInt("iZoneNo");
         iEventID = newCompEntryData.getEventID();
@@ -174,17 +226,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         tvTitleOfComp.setText(newCompEntryData.getEventName());
         tvTimeOfComp.setText(newCompEntryData.getEventStartDate().getFullDateStr());
 
-        gvCompEntry.setExpanded(true);
-
-        Zone mZoneInstance = newCompEntryData.getZones().get(iZoneNo);
-        mFinalBookingList.addAll(mZoneInstance.getSlots());
-        compConfirmEntryAdapter = new CompConfirmEntryAdapter(ConfirmBookingEntryActivity.this,
-                mSlotEntryList,
-                iZoneNo,
-                mZoneInstance.getTeamsPerSlot(),
-                strZoneName,
-                ConfirmBookingEntryActivity.this);
-        gvCompEntry.setAdapter(compConfirmEntryAdapter);
+        filterBookedSlotLists();
     }
 
     /**
@@ -195,7 +237,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         showPleaseWait("Loading...");
 
         List<Booking> mBookingEventsLists = getBookedEventSlotLists();
-
 
         aJsonParamsConfirmBooking = new AJsonParamsConfirmBooking();
         aJsonParamsConfirmBooking.setClientId(ApplicationGlobal.TAG_GCLUB_CALL_ID);
@@ -275,9 +316,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
                 newCompEntryData = newCompEntryResponse.getData();
 
-                if(newCompEntryData.isUpdateFailed()){
+                if (newCompEntryData.isUpdateFailed()) {
                     showAlertMessage(newCompEntryData.getErrorMessage());
-                }else{
+                } else {
                     showAlertMessage(newCompEntryResponse.getMessage());
                 }
 
@@ -355,6 +396,67 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
             }
         }
         return mBookingEntryList;
+    }
+
+    /**
+     * Filter Array with selected
+     * members list.
+     */
+    private void filterBookedSlotLists() {
+
+        mFinalBookingList.clear();
+
+        List<Slot> mSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
+
+
+        boolean isAddedNew;
+
+        for (int iSlotCount = 0; iSlotCount < mSlotsList.size(); iSlotCount++) {
+
+            ArrayList<Team> mFilterTeam = new ArrayList<>();
+            isAddedNew = false;
+
+            int iTeamSize = newCompEntryData.getZones().get(iZoneNo).getSlots()
+                    .get(iSlotCount).getTeams().size();
+
+            for (int jTeamCount = 0; jTeamCount < iTeamSize; jTeamCount++) {
+
+                if (!mSlotsList.get(iSlotCount).getTeams()
+                        .get(jTeamCount).getTeamName().equals("(Free)")) {
+
+                    mFilterTeam.add(mSlotsList.get(iSlotCount).getTeams().get(jTeamCount));
+                    isAddedNew = true;
+                }
+            }
+
+            if (isAddedNew) {
+                Slot mSlotInstance = new Slot();
+                mSlotInstance.setTeams(mFilterTeam);
+                mSlotInstance.setTeeOffTime(mSlotsList.get(iSlotCount).getTeeOffTime());
+                mSlotInstance.setiFreeSlotsAvail(mSlotsList.get(iSlotCount).getiFreeSlotsAvail());
+                mSlotInstance.setStatus(mSlotsList.get(iSlotCount).getStatus());
+                mFinalBookingList.add(mSlotInstance);
+            }
+        }
+
+        updateBookingListAdapter();
+    }
+
+    private void updateBookingListAdapter() {
+
+        updateTotalPrice(mEntryFee);
+
+        Zone mZoneInstance = newCompEntryData.getZones().get(iZoneNo);
+        //   mFinalBookingList.addAll(mZoneInstance.getSlots());
+        gvCompEntry.setExpanded(true);
+        compConfirmEntryAdapter = new CompConfirmEntryAdapter(ConfirmBookingEntryActivity.this,
+                mFinalBookingList,
+                iZoneNo,
+                mZoneInstance.getTeamsPerSlot(),
+                strZoneName,
+                newCompEntryData.getCrnSymbol(),
+                ConfirmBookingEntryActivity.this);
+        gvCompEntry.setAdapter(compConfirmEntryAdapter);
     }
 
 }

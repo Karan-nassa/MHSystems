@@ -94,6 +94,11 @@ public class NewCompEntryData implements Serializable {
     @SerializedName("HCapSelector")
     @Expose
     private Object HCapSelector;
+    @SerializedName("EntryFee")
+    @Expose
+    private float EntryFee;
+
+    private boolean slefAlreadyAdded = false;
 
     public Integer getClientId() {
         return ClientId;
@@ -317,5 +322,21 @@ public class NewCompEntryData implements Serializable {
 
     public void setErrorMessage(String errorMessage) {
         ErrorMessage = errorMessage;
+    }
+
+    public boolean isSlefAlreadyAdded() {
+        return slefAlreadyAdded;
+    }
+
+    public void setSelfAlreadyAdded(boolean slefAlreadyAdded) {
+        this.slefAlreadyAdded = slefAlreadyAdded;
+    }
+
+    public float getEntryFee() {
+        return EntryFee;
+    }
+
+    public void setEntryFee(float entryFee) {
+        EntryFee = entryFee;
     }
 }

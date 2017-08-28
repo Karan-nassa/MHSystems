@@ -61,6 +61,7 @@ import retrofit.RetrofitError;
 public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePlayers {
 
     private final String LOG_TAG = CompetitionEntryActivity.class.getSimpleName();
+    private final int RESULT_CODE_CONFIRM_BOOKING = 1221;
 
     /**
      * iMemberPosition is used to keep record of which Member position user going to update so that
@@ -70,6 +71,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     //It will describes whether member already entered for this competition then update values.
     int iEntryID = 0;
+    private float mEntryFee = 0;
 
     String strEventId, strEventPrize, strMemberName;
 
@@ -204,10 +206,10 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     private int iZoneNo = 0;
     private boolean isExpandClose = false;
-    private boolean slefAlreadyAdded = false;
+    //private boolean slefAlreadyAdded = false;
 
     // ArrayList<Booking> mBookingList = new ArrayList<>();
-    private ArrayList<Slot> mFilterSlotsList = new ArrayList<>();
+    //private ArrayList<Slot> mFilterSlotsList = new ArrayList<>();
 
     private View.OnClickListener mZoneExpandListener = new View.OnClickListener() {
         @Override
@@ -266,12 +268,12 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
         newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
 
-        filterBookedSlotLists();
-
 //        iSelfMemberID = Integer.parseInt(getMemberId());
 //        strSelfMemberName = getMemberNameFromID(iSelfMemberID);
 
         strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
+
+        mEntryFee = 0;
 
         updateNewCompEntryUI();
 
@@ -331,7 +333,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             , int iTeamPerSlot, int iAddPlayerPosition, boolean isAlertUpdate) {
 
         int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
-        if (iFreeSlotsAvail == 1 && !isSlefAlreadyAdded()) {
+        if (iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
 
             Team mTeamInstance = new Team();
             mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
@@ -344,7 +346,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     .getMemberId();*/
 
             mTeamInstance.setTeamName(getMemberNameFromID(Integer.parseInt(getMemberId())));
-            mTeamInstance.setEntryFee(teams.get(iAddPlayerPosition).getEntryFee());
+            mTeamInstance.setEntryFee((double) newCompEntryData.getEntryFee()
+                    /*teams.get(iAddPlayerPosition).getEntryFee()*/);
 
             List<Player> mPlayerList = new ArrayList<>();
             Player mPlayer = new Player();
@@ -357,6 +360,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             teams.set(iAddPlayerPosition, mTeamInstance);
             // newCompEntryDataCopy.getZones().get(iZoneNo).getSlots().get(slotPosition).getTeams().get()
             // mBookingList.add(mBookingInstance);
+
+            mEntryFee += newCompEntryData.getEntryFee();
 
             if (isAlertUpdate) {
                 updateTimeSlots();
@@ -373,7 +378,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             intent.putExtra("iAddPlayerPosition", iAddPlayerPosition);
             intent.putExtra("iFreeSlotsAvail", newCompEntryData.getZones()
                     .get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail());
-            intent.putExtra("isSlefAlreadyAdded", isSlefAlreadyAdded());
+            intent.putExtra("isSlefAlreadyAdded", newCompEntryData.isSlefAlreadyAdded());
             intent.putExtra("iSelfMemberID", Integer.parseInt(getMemberId()));
             //  intent.putExtra("strSelfMemberName", strSelfMemberName);
             Bundle informacion = new Bundle();
@@ -404,12 +409,14 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         if (teams.get(iAddPlayerPosition).getPlayers().get(0).getMemberId()
                 .equalsIgnoreCase(getMemberId())) {
-            setSelfAlreadyAdded(false);
+            newCompEntryData.setSelfAlreadyAdded(false);
         }
 
         mTeamInstance.setPlayers(mPlayerList);
         //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
         teams.set(iAddPlayerPosition, mTeamInstance);
+
+        mEntryFee -= newCompEntryData.getEntryFee();
 
         updateTimeSlots();
     }
@@ -579,44 +586,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         updatePriceUI();
     }*/
-
-    /**
-     * Filter Array with selected
-     * members list.
-     */
-    private void filterBookedSlotLists() {
-
-        List<Slot> mSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
-        int iTeamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
-
-        boolean isAddedNew;
-
-        for (int iSlotCount = 0; iSlotCount < mSlotsList.size(); iSlotCount++) {
-
-            ArrayList<Team> mFilterTeam = new ArrayList<>();
-            isAddedNew = false;
-
-            for (int jTeamCount = 0; jTeamCount < iTeamSize; jTeamCount++) {
-
-                if (!mSlotsList.get(iSlotCount).getTeams()
-                        .get(jTeamCount).getTeamName().equals("(Free)")) {
-
-                    mFilterTeam.add(mSlotsList.get(iSlotCount).getTeams().get(jTeamCount));
-                    isAddedNew = true;
-                }
-            }
-
-            if (isAddedNew) {
-                Slot mSlotInstance = new Slot();
-                mSlotInstance.setTeams(mFilterTeam);
-                mSlotInstance.setTeeOffTime(mSlotsList.get(iSlotCount).getTeeOffTime());
-                mSlotInstance.setiFreeSlotsAvail(mSlotsList.get(iSlotCount).getiFreeSlotsAvail());
-                mSlotInstance.setStatus(mSlotsList.get(iSlotCount).getStatus());
-                mFilterSlotsList.add(mSlotInstance);
-            }
-        }
-    }
-
     private void updateNewCompEntryUI() {
 
         tvZoneName.setText(newCompEntryData.getZones().get(iZoneNo).getZoneName());
@@ -634,13 +603,14 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CompetitionEntryActivity.this, ConfirmBookingEntryActivity.class);
+                intent.putExtra("mEntryFee", mEntryFee);
                 intent.putExtra("iZoneNo", iZoneNo);
                 intent.putExtra("strZoneName", tvZoneName.getText().toString());
                 intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
-                Bundle informacion = new Bundle();
+              /*  Bundle informacion = new Bundle();
                 informacion.putSerializable("filterSlotList", mFilterSlotsList);
-                intent.putExtras(informacion);
-                startActivity(intent);
+                intent.putExtras(informacion);*/
+                startActivityForResult(intent, RESULT_CODE_CONFIRM_BOOKING);
             }
         });
 
@@ -1002,29 +972,45 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            switch (requestCode) {
 
-            playersArrayList.clear();
-            playersArrayList = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
-            ArrayList<Team> mTeam = (ArrayList<Team>) data.getSerializableExtra("teams");
+                case RESULT_CODE_CONFIRM_BOOKING:
 
-            int iSlotPosition = data.getExtras().getInt("slotPosition");
-            int iTeamPerSlot = data.getExtras().getInt("iTeamPerSlot");
-            int iAddPlayerPosition = data.getExtras().getInt("iAddPlayerPosition");
+                    // mFilterSlotsList =  (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
+                    //String strZoneName = getIntent().getExtras().getString("strZoneName");
+                    mEntryFee = getIntent().getExtras().getInt("mEntryFee");
+                    iZoneNo = getIntent().getExtras().getInt("iZoneNo");
 
-            for (int iCount = iAddPlayerPosition; iCount < playersArrayList.size(); iCount++) {
-                updateMemberDetailInSlots(iCount
-                        , playersArrayList
-                        , mTeam
-                        , iSlotPosition
-                        , iTeamPerSlot
-                        , iCount);
-                //TODO: Update Slots value.
+                    String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
+                    newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
+                    break;
 
-                //So we can add member itself in the last.
-                //iAddPlayerPosition = iCount;
+                default:
+
+                    playersArrayList.clear();
+                    playersArrayList = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
+                    ArrayList<Team> mTeam = (ArrayList<Team>) data.getSerializableExtra("teams");
+
+                    int iSlotPosition = data.getExtras().getInt("slotPosition");
+                    int iTeamPerSlot = data.getExtras().getInt("iTeamPerSlot");
+                    int iAddPlayerPosition = data.getExtras().getInt("iAddPlayerPosition");
+
+                    for (int iCount = iAddPlayerPosition; iCount < playersArrayList.size(); iCount++) {
+                        updateMemberDetailInSlots(iCount
+                                , playersArrayList
+                                , mTeam
+                                , iSlotPosition
+                                , iTeamPerSlot
+                                , iCount);
+                        //TODO: Update Slots value.
+
+                        //So we can add member itself in the last.
+                        //iAddPlayerPosition = iCount;
+                    }
             }
+            updateTimeSlots();
 
-          /*  if (!isSlefAlreadyAdded()) {
+             /*  if (!isSlefAlreadyAdded()) {
                *//* CompetitionEntryActivity.this.addPlayersListener(mTeam
                         , iSlotPosition
                         , iTeamPerSlot
@@ -1036,7 +1022,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                         , iAddPlayerPosition + 1);
             }*/
 
-            updateTimeSlots();
+
 
            /* if (iEntryID == 0) {
                 updateNoEntryIdMemberUI();
@@ -1090,7 +1076,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         //Also check here if member self added in the list then set Flag.
         if (iMemberID == Integer.parseInt(getMemberId())) {
-            setSelfAlreadyAdded(true);
+            newCompEntryData.setSelfAlreadyAdded(true);
         }
 
         List<AllPlayer> mAllPlayersList = newCompEntryData.getAllPlayers();
@@ -1118,42 +1104,39 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     private void updateMemberDetailInSlots(int iMemberPosition, ArrayList<EligibleMember> eligibleMemberArrayList,
                                            ArrayList<Team> mTeam, int iSlotPosition, int iTeamPerSlot, int iAddPlayerPosition) {
 
-        Team mTeamInstance = new Team();
-        mTeamInstance.setZoneId(mTeam.get(iAddPlayerPosition).getZoneId());
-        mTeamInstance.setSlotIdx(mTeam.get(iAddPlayerPosition).getSlotIdx());
-        mTeamInstance.setTeamIdx(mTeam.get(iAddPlayerPosition).getTeamIdx());
+        if (iAddPlayerPosition < iTeamPerSlot) {
+            Team mTeamInstance = new Team();
+            mTeamInstance.setZoneId(mTeam.get(iAddPlayerPosition).getZoneId());
+            mTeamInstance.setSlotIdx(mTeam.get(iAddPlayerPosition).getSlotIdx());
+            mTeamInstance.setTeamIdx(mTeam.get(iAddPlayerPosition).getTeamIdx());
 
             /*String iMemberID = teams.get(slotPosition)
                     .getPlayers()
                     .get(0)
                     .getMemberId();*/
 
-        mTeamInstance.setTeamName(getMemberNameFromID(eligibleMemberArrayList.get(iMemberPosition).getMemberID()));
-        mTeamInstance.setEntryFee(mTeam.get(iAddPlayerPosition).getEntryFee());
+            mTeamInstance.setTeamName(getMemberNameFromID(eligibleMemberArrayList.get(iMemberPosition).getMemberID()));
+            mTeamInstance.setEntryFee((double) newCompEntryData.getEntryFee());
 
-        List<Player> mPlayerList = new ArrayList<>();
-        Player mPlayer = new Player();
-        mPlayer.setMemberId("" + eligibleMemberArrayList.get(iMemberPosition).getMemberID());
-        mPlayer.setIsGuest(false);
-        mPlayerList.add(mPlayer);
+            List<Player> mPlayerList = new ArrayList<>();
+            Player mPlayer = new Player();
+            mPlayer.setMemberId("" + eligibleMemberArrayList.get(iMemberPosition).getMemberID());
+            mPlayer.setIsGuest(false);
+            mPlayerList.add(mPlayer);
 
-        mTeamInstance.setPlayers(mPlayerList);
-        //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
-        mTeam.set(iAddPlayerPosition, mTeamInstance);
-        // newCompEntryDataCopy.getZones().get(iZoneNo).getSlots().get(slotPosition).getTeams().get()
-        // mBookingList.add(mBookingInstance);
+            mTeamInstance.setPlayers(mPlayerList);
+            //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
+            mTeam.set(iAddPlayerPosition, mTeamInstance);
+            // newCompEntryDataCopy.getZones().get(iZoneNo).getSlots().get(slotPosition).getTeams().get()
+            // mBookingList.add(mBookingInstance);
 
-        //updateTimeSlots();
-        newCompEntryData.getZones().get(iZoneNo).getSlots().get(iSlotPosition).setTeams(mTeam);
+            mEntryFee += newCompEntryData.getEntryFee();
+
+            //updateTimeSlots();
+            newCompEntryData.getZones().get(iZoneNo).getSlots().get(iSlotPosition).setTeams(mTeam);
+        }
     }
 
-    public boolean isSlefAlreadyAdded() {
-        return slefAlreadyAdded;
-    }
-
-    public void setSelfAlreadyAdded(boolean slefAlreadyAdded) {
-        this.slefAlreadyAdded = slefAlreadyAdded;
-    }
 
     /****************************************************************************
      *

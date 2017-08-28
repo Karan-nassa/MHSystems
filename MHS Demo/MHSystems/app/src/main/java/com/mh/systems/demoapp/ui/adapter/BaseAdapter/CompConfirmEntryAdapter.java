@@ -13,10 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.ui.activites.ConfirmBookingEntryActivity;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +29,15 @@ import java.util.List;
  */
 public class CompConfirmEntryAdapter extends BaseAdapter {
 
+    private DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
     Context context;
     private static LayoutInflater inflater = null;
     private Typeface tfRobotoRegular, tfRobotoBold;
 
     private ArrayList<Slot> mFilterSlotList;
-    private Button lastSelectedView = null;
 
-    String strZoneName;
+    String strZoneName, strCrnSymbol;
 
     int iSlotNo, iPosition;
     int iTeamsPerSlot;
@@ -44,13 +47,14 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
 
     public CompConfirmEntryAdapter(Activity mActivity, ArrayList<Slot> mFilterSlotList,
                                    int iZoneNo, int teamsPerSlot
-            , String strZoneName,
+            , String strZoneName, String strCrnSymbol,
                                    OnUpdatePlayers mOnUpdatePlayers) {
         context = mActivity;
         this.mFilterSlotList = mFilterSlotList;
         this.strZoneName = strZoneName;
         this.iTeamsPerSlot = teamsPerSlot;
         this.iZoneNo = iZoneNo;
+        this.strCrnSymbol = strCrnSymbol;
         this.mOnUpdatePlayers = mOnUpdatePlayers;
 
         inflater = (LayoutInflater) context.
@@ -104,7 +108,7 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
             LayoutInflater inflater = LayoutInflater.from(context);
             View playerView = inflater.inflate(R.layout.inflate_row_add_player, null);
 
-            TextView tvNameOfPlayer = (TextView) playerView.findViewById(R.id.tvNameOfPlayer);
+            final TextView tvNameOfPlayer = (TextView) playerView.findViewById(R.id.tvNameOfPlayer);
             TextView tvPriceCost = (TextView) playerView.findViewById(R.id.tvPriceCost);
 
             ImageView ivRemovePlayer = (ImageView) playerView.findViewById(R.id.ivRemovePlayer);
@@ -119,7 +123,15 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
             tvNameOfPlayer.setText(mFilterSlotList.get(position)
                     .getTeams().get(iTeamCount).getTeamName());
             tvNameOfPlayer.setTypeface(tfRobotoBold);
+            tvNameOfPlayer.setTag(iTeamCount);
 
+            String strCostFee = "Entry fee: " +(strCrnSymbol +
+                    decimalFormat.format(
+                    mFilterSlotList.get(position)
+                            .getTeams().get(iTeamCount)
+                            .getEntryFee()));
+
+            tvPriceCost.setText(strCostFee);
             tvPriceCost.setVisibility(View.VISIBLE);
             tvPriceCost.setTypeface(tfRobotoRegular);
 
@@ -127,8 +139,15 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     //TODO: when user click on cross icon
+                    mOnUpdatePlayers.removePlayerListener(
+                            mFilterSlotList.get(position).getTeams()
+                            , position
+                            , Integer.parseInt(tvNameOfPlayer.getTag().toString())
+                    );
 
-                    //mOnUpdatePlayers.removePlayerListener(slotArrayList.get(position).getTeams(), position, Integer.parseInt(tvAddPlayer.getTag().toString()));
+                    //Increase Free Slot val when user remove any player.
+                    mFilterSlotList.get(position).setiFreeSlotsAvail(
+                            mFilterSlotList.get(position).getiFreeSlotsAvail() - 1);
                 }
             });
 
