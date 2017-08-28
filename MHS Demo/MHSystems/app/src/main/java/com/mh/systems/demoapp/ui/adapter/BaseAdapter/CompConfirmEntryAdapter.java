@@ -17,6 +17,7 @@ import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private Typeface tfRobotoRegular, tfRobotoBold;
 
-    List<Slot> mSlotsList;
+    private ArrayList<Slot> mFilterSlotList;
     private Button lastSelectedView = null;
 
     String strZoneName;
@@ -41,12 +42,12 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
 
     private OnUpdatePlayers mOnUpdatePlayers;
 
-    public CompConfirmEntryAdapter(Activity mActivity, List<Slot> mSlotsList,
+    public CompConfirmEntryAdapter(Activity mActivity, ArrayList<Slot> mFilterSlotList,
                                    int iZoneNo, int teamsPerSlot
-                                   , String strZoneName,
+            , String strZoneName,
                                    OnUpdatePlayers mOnUpdatePlayers) {
         context = mActivity;
-        this.mSlotsList = mSlotsList;
+        this.mFilterSlotList = mFilterSlotList;
         this.strZoneName = strZoneName;
         this.iTeamsPerSlot = teamsPerSlot;
         this.iZoneNo = iZoneNo;
@@ -60,7 +61,7 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return /*slotArrayList.size();*/1;
+        return mFilterSlotList.size();
     }
 
     @Override
@@ -77,7 +78,7 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
      * Declares a view holder class to create view resources.
      */
     private class ConfirmEntryRow {
-        TextView tvTimeOfComp, tvZoneOfComp;
+        TextView tvTimeOfComp, tvZoneName;
         LinearLayout llAddConfirmPlayers;
     }
 
@@ -88,15 +89,18 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
         View rowView = inflater.inflate(R.layout.list_row_confirm_entry, null);
 
         confirmEntryRow.tvTimeOfComp = (TextView) rowView.findViewById(R.id.tvTimeOfComp);
-        confirmEntryRow.tvZoneOfComp = (TextView) rowView.findViewById(R.id.tvZoneOfComp);
+        confirmEntryRow.tvZoneName = (TextView) rowView.findViewById(R.id.tvZoneName);
 
         confirmEntryRow.llAddConfirmPlayers = (LinearLayout) rowView.findViewById(R.id.llAddConfirmPlayers);
 
 //        confirmEntryRow.tvTimeOfComp.setText(zoneCompEntryList.get(iZoneNo).getSlots().get(position).getTeeOffTime());
-        confirmEntryRow.tvTimeOfComp.setText("07:00 AM");
+        confirmEntryRow.tvTimeOfComp.setText(mFilterSlotList.get(position).getTeeOffTime());
+        confirmEntryRow.tvZoneName.setText(strZoneName);
+
         confirmEntryRow.tvTimeOfComp.setTypeface(tfRobotoBold);
 
-        for (int iCounter = 0; iCounter < iTeamsPerSlot; iCounter++) {
+        for (int iTeamCount = 0; iTeamCount < mFilterSlotList.get(position)
+                .getTeams().size(); iTeamCount++) {
             LayoutInflater inflater = LayoutInflater.from(context);
             View playerView = inflater.inflate(R.layout.inflate_row_add_player, null);
 
@@ -112,7 +116,8 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
                     .get(iCounter)
                     .getTeamName();*/
 
-            tvNameOfPlayer.setText("Greg Hadala (+5)"/*strTeamName*/);
+            tvNameOfPlayer.setText(mFilterSlotList.get(position)
+                    .getTeams().get(iTeamCount).getTeamName());
             tvNameOfPlayer.setTypeface(tfRobotoBold);
 
             tvPriceCost.setVisibility(View.VISIBLE);

@@ -73,8 +73,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     String strEventId, strEventPrize, strMemberName;
 
-  //  String strSelfMemberName = "";
-  //  int iSelfMemberID;
+    //  String strSelfMemberName = "";
+    //  int iSelfMemberID;
 
     int iSlotNo = -1;
     //int iTeamSize;
@@ -182,8 +182,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     @Bind(R.id.ivExpandCompZone)
     ImageView ivExpandCompZone;
 
-    @Bind(R.id.tvTitleOfZone)
-    TextView tvTitleOfZone;
+    @Bind(R.id.tvZoneName)
+    TextView tvZoneName;
 
     @Bind(R.id.tvOccupancy)
     TextView tvOccupancy;
@@ -201,11 +201,13 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     private NewCompEntryData newCompEntryData;
 
     ArrayList<Slot> compSlotsList;
+
     private int iZoneNo = 0;
     private boolean isExpandClose = false;
     private boolean slefAlreadyAdded = false;
 
-    private List<Booking> mBookingList = new ArrayList<>();
+    // ArrayList<Booking> mBookingList = new ArrayList<>();
+    private ArrayList<Slot> mFilterSlotsList = new ArrayList<>();
 
     private View.OnClickListener mZoneExpandListener = new View.OnClickListener() {
         @Override
@@ -263,6 +265,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
         newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
+
+        filterBookedSlotLists();
 
 //        iSelfMemberID = Integer.parseInt(getMemberId());
 //        strSelfMemberName = getMemberNameFromID(iSelfMemberID);
@@ -367,7 +371,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             intent.putExtra("slotPosition", slotPosition);
             intent.putExtra("iTeamPerSlot", iTeamPerSlot);
             intent.putExtra("iAddPlayerPosition", iAddPlayerPosition);
-            intent.putExtra("iFreeSlotsAvail", newCompEntryData.getZones().get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail());
+            intent.putExtra("iFreeSlotsAvail", newCompEntryData.getZones()
+                    .get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail());
             intent.putExtra("isSlefAlreadyAdded", isSlefAlreadyAdded());
             intent.putExtra("iSelfMemberID", Integer.parseInt(getMemberId()));
             //  intent.putExtra("strSelfMemberName", strSelfMemberName);
@@ -574,9 +579,47 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         updatePriceUI();
     }*/
+
+    /**
+     * Filter Array with selected
+     * members list.
+     */
+    private void filterBookedSlotLists() {
+
+        List<Slot> mSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
+        int iTeamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
+
+        boolean isAddedNew;
+
+        for (int iSlotCount = 0; iSlotCount < mSlotsList.size(); iSlotCount++) {
+
+            ArrayList<Team> mFilterTeam = new ArrayList<>();
+            isAddedNew = false;
+
+            for (int jTeamCount = 0; jTeamCount < iTeamSize; jTeamCount++) {
+
+                if (!mSlotsList.get(iSlotCount).getTeams()
+                        .get(jTeamCount).getTeamName().equals("(Free)")) {
+
+                    mFilterTeam.add(mSlotsList.get(iSlotCount).getTeams().get(jTeamCount));
+                    isAddedNew = true;
+                }
+            }
+
+            if (isAddedNew) {
+                Slot mSlotInstance = new Slot();
+                mSlotInstance.setTeams(mFilterTeam);
+                mSlotInstance.setTeeOffTime(mSlotsList.get(iSlotCount).getTeeOffTime());
+                mSlotInstance.setiFreeSlotsAvail(mSlotsList.get(iSlotCount).getiFreeSlotsAvail());
+                mSlotInstance.setStatus(mSlotsList.get(iSlotCount).getStatus());
+                mFilterSlotsList.add(mSlotInstance);
+            }
+        }
+    }
+
     private void updateNewCompEntryUI() {
 
-        tvTitleOfZone.setText(newCompEntryData.getZones().get(iZoneNo).getZoneName());
+        tvZoneName.setText(newCompEntryData.getZones().get(iZoneNo).getZoneName());
         tvOccupancy.setText(("Free Spaces Available :" + newCompEntryData.getZones().get(iZoneNo).getFreePlaces()));
 
         tvTitleOfComp.setText(newCompEntryData.getEventName());
@@ -592,7 +635,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             public void onClick(View view) {
                 Intent intent = new Intent(CompetitionEntryActivity.this, ConfirmBookingEntryActivity.class);
                 intent.putExtra("iZoneNo", iZoneNo);
+                intent.putExtra("strZoneName", tvZoneName.getText().toString());
                 intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
+                Bundle informacion = new Bundle();
+                informacion.putSerializable("filterSlotList", mFilterSlotsList);
+                intent.putExtras(informacion);
                 startActivity(intent);
             }
         });
@@ -605,7 +652,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     private void updateTimeAndTitleOfZone(String strEventName) {
 
         if (strEventName.contains(",")) {
-            tvTitleOfZone.setText(strEventName.substring(0, strEventName.indexOf(",")));
+            tvZoneName.setText(strEventName.substring(0, strEventName.indexOf(",")));
         }
 
         if (strEventName.contains("-")) {
@@ -1070,7 +1117,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
      */
     private void updateMemberDetailInSlots(int iMemberPosition, ArrayList<EligibleMember> eligibleMemberArrayList,
                                            ArrayList<Team> mTeam, int iSlotPosition, int iTeamPerSlot, int iAddPlayerPosition) {
-
 
         Team mTeamInstance = new Team();
         mTeamInstance.setZoneId(mTeam.get(iAddPlayerPosition).getZoneId());

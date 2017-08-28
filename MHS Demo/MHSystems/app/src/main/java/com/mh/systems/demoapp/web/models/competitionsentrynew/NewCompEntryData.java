@@ -16,6 +16,12 @@ public class NewCompEntryData implements Serializable {
     @SerializedName("EventId")
     @Expose
     private int EventId;
+    @SerializedName("UpdateFailed")
+    @Expose
+    private boolean UpdateFailed;
+    @SerializedName("ErrorMessage")
+    @Expose
+    private String ErrorMessage;
     @SerializedName("PayeeId")
     @Expose
     private Integer PayeeId;
@@ -297,4 +303,19 @@ public class NewCompEntryData implements Serializable {
         this.HCapSelector = HCapSelector;
     }
 
+    public boolean isUpdateFailed() {
+        return UpdateFailed;
+    }
+
+    public void setUpdateFailed(boolean updateFailed) {
+        UpdateFailed = updateFailed;
+    }
+
+    public String getErrorMessage() {
+        return ErrorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        ErrorMessage = errorMessage;
+    }
 }

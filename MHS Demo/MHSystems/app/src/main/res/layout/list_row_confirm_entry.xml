@@ -35,7 +35,7 @@
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/tvZoneOfComp"
+                android:id="@+id/tvZoneName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

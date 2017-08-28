@@ -19,6 +19,7 @@ import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryData;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryResponse;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Team;
@@ -27,7 +28,9 @@ import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.AJs
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.Booking;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.NewCompEventEntryItems;
 import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,13 +71,17 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
     private NewCompEventEntryItems mNewCompEventEntryItems;
     AJsonParamsConfirmBooking aJsonParamsConfirmBooking;
-    private List<Booking> mBookingList = new ArrayList<>();
-    private Booking mBookingInstance;
 
+    private NewCompEntryResponse newCompEntryResponse;
+
+    private ArrayList<Slot> mSlotEntryList = new ArrayList<>();
     private List<Slot> mFinalBookingList = new ArrayList<>();
+
     int iZoneNo;
     int iEventID;
     int iPayeeId;
+
+    String strZoneName = "N/A";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +164,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
         newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
 
+        mSlotEntryList = (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
+
+        strZoneName = getIntent().getExtras().getString("strZoneName");
         iZoneNo = getIntent().getExtras().getInt("iZoneNo");
         iEventID = newCompEntryData.getEventID();
         iPayeeId = newCompEntryData.getPayeeId();
@@ -166,7 +176,15 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         gvCompEntry.setExpanded(true);
 
-        filterBookingList();
+        Zone mZoneInstance = newCompEntryData.getZones().get(iZoneNo);
+        mFinalBookingList.addAll(mZoneInstance.getSlots());
+        compConfirmEntryAdapter = new CompConfirmEntryAdapter(ConfirmBookingEntryActivity.this,
+                mSlotEntryList,
+                iZoneNo,
+                mZoneInstance.getTeamsPerSlot(),
+                strZoneName,
+                ConfirmBookingEntryActivity.this);
+        gvCompEntry.setAdapter(compConfirmEntryAdapter);
     }
 
     /**
@@ -176,6 +194,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         showPleaseWait("Loading...");
 
+        List<Booking> mBookingEventsLists = getBookedEventSlotLists();
+
+
         aJsonParamsConfirmBooking = new AJsonParamsConfirmBooking();
         aJsonParamsConfirmBooking.setClientId(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsConfirmBooking.setEventId(iEventID);
@@ -183,8 +204,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         aJsonParamsConfirmBooking.setPayeeId(iPayeeId);
         aJsonParamsConfirmBooking.setRemoveEntry(false/*getMemberId()*/); //TODO: Set as False as default because don't know what we have to send it here.
 
-
-        //TODO: Remove Entry booking.
+        /*//TODO: Remove Entry booking.
         mBookingInstance = new Booking();
         mBookingInstance.setZoneId(1);
         mBookingInstance.setSlotIdx(0);
@@ -200,9 +220,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         mBookingInstance.setPlayers(mPlayerList);
         mBookingInstance.setEntryFee(2.0);
 
-        mBookingList.add(mBookingInstance);
+        mBookingEntryList.add(mBookingInstance);*/
 
-        aJsonParamsConfirmBooking.setBooking(mBookingList);
+        aJsonParamsConfirmBooking.setBooking(mBookingEventsLists);
 
         mNewCompEventEntryItems = new NewCompEventEntryItems(getClientId()
                 , "ApplyEventEntryV2"
@@ -223,7 +243,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
             @Override
             public void success(JsonObject jsonObject, Response response) {
 
-                updateSuccessResponse(jsonObject);
+                updateConfirmBookingSuccess(jsonObject);
             }
 
             @Override
@@ -239,45 +259,38 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
      * Implements a method to update SUCCESS
      * response of web service.
      */
-    private void updateSuccessResponse(JsonObject jsonObject) {
+    private void updateConfirmBookingSuccess(JsonObject jsonObject) {
 
-        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+        Log.e(LOG_TAG, "updateConfirmBookingSuccess : " + jsonObject.toString());
 
-       /* Type type = new TypeToken<ResetPasswordItems>() {
+        Type type = new TypeToken<NewCompEntryResponse>() {
         }.getType();
-        resetPasswordItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        newCompEntryResponse = new Gson().fromJson(jsonObject.toString(), type);
 
         try {
-            *//**
-         *  Check "Result" 1 or 0. If 1, means data received successfully.
-         *//*
-            if (resetPasswordItems.getMessage().equalsIgnoreCase("Success")) {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (newCompEntryResponse.getMessage().equalsIgnoreCase("Success")) {
 
-                btResetPassword.setVisibility(View.GONE);
-                tvCurrPwdError.setVisibility(View.GONE);
-                tvNewPwdError.setVisibility(View.GONE);
+                newCompEntryData = newCompEntryResponse.getData();
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        onBackPressed();
-                    }
-                }, 1000);
-            } else if (resetPasswordItems.getMessage().contains("Incorrect old password!")) {
-                tvCurrPwdError.setVisibility(View.VISIBLE);
+                if(newCompEntryData.isUpdateFailed()){
+                    showAlertMessage(newCompEntryData.getErrorMessage());
+                }else{
+                    showAlertMessage(newCompEntryResponse.getMessage());
+                }
+
             } else {
-                showAlertMessage(resetPasswordItems.getMessage());
+                showAlertMessage(newCompEntryResponse.getMessage());
             }
+
             hideProgress();
         } catch (Exception e) {
-            hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            reportRollBarException(ResetPasswordActivity.class.getSimpleName(), e.toString());
-        }*/
-
-        hideProgress();
-        showAlertMessage(jsonObject.toString()
-        );
+            hideProgress();
+            reportRollBarException(ConfirmBookingEntryActivity.class.getSimpleName(), e.toString());
+        }
     }
 
     /**
@@ -294,26 +307,54 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
-    private void filterBookingList() {
+  /*  private void filterBookingList() {
 
         Zone mZoneInstance = newCompEntryData.getZones().get(iZoneNo);
         List<Slot> mAllSlotsList = mZoneInstance.getSlots();
 
-       /* for (int iSlotCount = 0; iSlotCount < mAllSlotsList.size(); iSlotCount++) {
+       *//* for (int iSlotCount = 0; iSlotCount < mAllSlotsList.size(); iSlotCount++) {
 
             for (int jCount = 0; jCount < mZoneInstance.getTeamsPerSlot(); jCount++) {
 
             }
-        }*/
+        }*//*
+    }*/
 
-        mFinalBookingList.addAll(mZoneInstance.getSlots());
-        compConfirmEntryAdapter = new CompConfirmEntryAdapter(ConfirmBookingEntryActivity.this,
-                mFinalBookingList,
-                iZoneNo,
-                mZoneInstance.getTeamsPerSlot(),
-                mZoneInstance.getZoneName(),
-                ConfirmBookingEntryActivity.this);
-        gvCompEntry.setAdapter(compConfirmEntryAdapter);
+    /**
+     * Filter Array with selected
+     * members list.
+     *
+     * @return List<Booking> : List of Booking members.
+     */
+    private List<Booking> getBookedEventSlotLists() {
+
+        ArrayList<Booking> mBookingEntryList = new ArrayList<>();
+
+        List<Slot> mSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
+        int iTeamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
+
+        for (int iSlotCount = 0; iSlotCount < mSlotsList.size(); iSlotCount++) {
+
+            for (int jTeamCount = 0; jTeamCount < iTeamSize; jTeamCount++) {
+
+                if (!mSlotsList.get(iSlotCount).getTeams()
+                        .get(jTeamCount).getTeamName().equals("(Free)")) {
+
+                    Team teamInstance = mSlotsList.get(iSlotCount).getTeams().get(jTeamCount);
+
+                    Booking mBookingInstance = new Booking();
+                    mBookingInstance.setZoneId(teamInstance.getZoneId());
+                    mBookingInstance.setSlotIdx(teamInstance.getSlotIdx());
+                    mBookingInstance.setTeamIdx(teamInstance.getTeamIdx());
+                    mBookingInstance.setTeamName(teamInstance.getTeamName());
+                    mBookingInstance.setPlayers(teamInstance.getPlayers());
+                    mBookingInstance.setEntryFee(teamInstance.getEntryFee());
+
+                    mBookingEntryList.add(mBookingInstance);
+                }
+            }
+        }
+        return mBookingEntryList;
     }
 
 }
