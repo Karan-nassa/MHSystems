@@ -200,11 +200,11 @@ public class EligibleMemberFragment extends Fragment {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                    if (EligiblePlayersActivity.iTotalAddedMembers > 0 && isChecked) {
+                    if (EligiblePlayersActivity.iFreeSlotsAvail/*iTotalAddedMembers*/ > 0 && isChecked) {
                         buttonView.setEnabled(true);
                         ((EligiblePlayersActivity) getActivity()).addMemberToList(eligibleMemberArrayList.get(position));
                         eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);
-                    } else if (EligiblePlayersActivity.iTotalAddedMembers <= EligiblePlayersActivity.iTeamSize && !isChecked) {
+                    } else if (EligiblePlayersActivity.iFreeSlotsAvail/*iTotalAddedMembers*/ <= EligiblePlayersActivity.iTeamSize && !isChecked) {
                         buttonView.setEnabled(true);
                         ((EligiblePlayersActivity) getActivity()).removeMemberFromList(eligibleMemberArrayList.get(position));
                         eligibleMemberArrayList.get(position).setIsMemberSelected(isChecked);

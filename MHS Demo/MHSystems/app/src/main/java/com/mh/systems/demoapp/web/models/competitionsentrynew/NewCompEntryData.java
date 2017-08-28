@@ -1,12 +1,14 @@
 
 package com.mh.systems.demoapp.web.models.competitionsentrynew;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.Booking;
 
-public class NewCompEntryData {
+import java.io.Serializable;
+import java.util.List;
+
+public class NewCompEntryData implements Serializable {
 
     @SerializedName("ClientId")
     @Expose

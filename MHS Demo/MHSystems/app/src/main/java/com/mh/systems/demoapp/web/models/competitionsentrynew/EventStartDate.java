@@ -4,7 +4,9 @@ package com.mh.systems.demoapp.web.models.competitionsentrynew;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class EventStartDate {
+import java.io.Serializable;
+
+public class EventStartDate implements Serializable {
 
     @SerializedName("Y")
     @Expose

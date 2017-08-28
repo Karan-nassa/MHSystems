@@ -1,11 +1,13 @@
 
 package com.mh.systems.demoapp.web.models.competitionsentrynew;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Team {
+import java.io.Serializable;
+import java.util.List;
+
+public class Team implements Serializable {
 
     @SerializedName("ZoneId")
     @Expose

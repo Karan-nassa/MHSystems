@@ -1,11 +1,9 @@
 package com.mh.systems.demoapp.ui.adapter.BaseAdapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.activites.CompetitionEntryActivity;
-import com.mh.systems.demoapp.ui.activites.NewCompAddPlayersActivity;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
@@ -37,7 +34,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private Typeface tfRobotoMedium, tfRobotoBold;
 
-    private List<Slot> slotArrayList = new ArrayList<>();
+    private ArrayList<Slot> slotArrayList = new ArrayList<>();
     private Button lastSelectedView = null;
 
     int iSlotNo, iPosition;
@@ -45,7 +42,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
 
     private OnUpdatePlayers mOnUpdatePlayers;
 
-    public CompTimeSlotsAdapter(CompetitionEntryActivity mainActivity, List<Slot> slotArrayList
+    public CompTimeSlotsAdapter(CompetitionEntryActivity mainActivity, ArrayList<Slot> slotArrayList
             , int iSlotNo, int iTeamsPerSlot
             , OnUpdatePlayers mOnUpdatePlayers) {
 
@@ -163,7 +160,8 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                     mOnUpdatePlayers.addPlayersListener(slotArrayList.get(position).getTeams()
                             , position
                             , iTeamsPerSlot
-                            , Integer.parseInt(tvAddPlayer.getTag().toString()));
+                            , Integer.parseInt(tvAddPlayer.getTag().toString())
+                            , true);
                 }
             });
 

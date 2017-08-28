@@ -126,11 +126,11 @@ public class EligibleMembersAdapter extends SearchablePinnedHeaderListViewAdapte
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                    if (EligiblePlayersActivity.iTotalAddedMembers > 0 && isChecked) {
+                    if (EligiblePlayersActivity.iFreeSlotsAvail/*iTotalAddedMembers*/ > 0 && isChecked) {
                         buttonView.setEnabled(true);
                         ((EligiblePlayersActivity) mContext).addMemberToList(mContacts.get(position));
                         mContacts.get(position).setIsMemberSelected(isChecked);
-                    } else if (EligiblePlayersActivity.iTotalAddedMembers <= EligiblePlayersActivity.iTeamSize && !isChecked) {
+                    } else if (EligiblePlayersActivity.iFreeSlotsAvail/*iTotalAddedMembers*/ <= EligiblePlayersActivity.iTeamSize && !isChecked) {
                         buttonView.setEnabled(true);
                         ((EligiblePlayersActivity) mContext).removeMemberFromList(mContacts.get(position));
                         mContacts.get(position).setIsMemberSelected(isChecked);

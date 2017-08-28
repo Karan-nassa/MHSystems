@@ -4,7 +4,9 @@ package com.mh.systems.demoapp.web.models.competitionsentrynew;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class NewCompEntryResponse {
+import java.io.Serializable;
+
+public class NewCompEntryResponse implements Serializable {
 
     @SerializedName("Message")
     @Expose

@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.ui.fragments.FriendsFragment;
+import com.mh.systems.demoapp.ui.fragments.MembersFragment;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
 import com.mh.systems.demoapp.ui.fragments.EligibleFriendsFragment;
@@ -29,6 +31,7 @@ import com.mh.systems.demoapp.web.models.competitionsentry.CompEligiblePlayersAP
 import com.mh.systems.demoapp.web.models.competitionsentry.CompEligiblePlayersResponse;
 import com.mh.systems.demoapp.web.models.competitionsentry.EligibleMember;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
+import com.mh.systems.demoapp.web.models.competitionsentry.NameRecord;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -49,12 +52,16 @@ public class EligiblePlayersActivity extends BaseActivity {
     private final String LOG_TAG = EligiblePlayersActivity.class.getSimpleName();
 
     int strEventId;
+    public static int iFreeSlotsAvail;
+    boolean isSlefAlreadyAdded = false;
+
+    int iSelfMemberID;
 
     /**
      * iTeamSize is the size of Members that user can select whereas iTotalAddedMembers is the number
      * of Members that can be selected more.
      */
-    public static int iTeamSize, iTotalAddedMembers;
+    public static int iTeamSize;//iTotalAddedMembers;
 
     private int iEntryID = 0;
 
@@ -128,6 +135,8 @@ public class EligiblePlayersActivity extends BaseActivity {
 
         iTeamSize = getIntent().getExtras().getInt("TeamsPerSlot");
         iEntryID = getIntent().getExtras().getInt("COMPETITIONS_iEntryID");
+        iFreeSlotsAvail = getIntent().getExtras().getInt("iFreeSlotsAvail");
+        isSlefAlreadyAdded = getIntent().getExtras().getBoolean("isSlefAlreadyAdded");
 
         //Get previous Member list if already some member selected.
         selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("AllPlayers");
@@ -137,13 +146,13 @@ public class EligiblePlayersActivity extends BaseActivity {
         }
 
         //iEntryID 0 means first time Entry.
-        if (iEntryID == 0) {
+        /*if (iEntryID == 0) {
             iTotalAddedMembers = Math.abs(selectedMemberList.size() - (iTeamSize - 1));
         } else {
             iTotalAddedMembers = iTeamSize - selectedMemberList.size();
-        }
+        }*/
 
-        tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
+        //iTotalAddedMembers = iTeamSize - selectedMemberList.size();
 
         /**
          *  If user back press on any other tab then app should
@@ -217,8 +226,12 @@ public class EligiblePlayersActivity extends BaseActivity {
 
             case R.id.action_done:
                 intent = new Intent(EligiblePlayersActivity.this, CompetitionEntryActivity.class);
+                intent.putExtra("slotPosition", getIntent().getExtras().getInt("slotPosition"));
+                intent.putExtra("iTeamPerSlot", getIntent().getExtras().getInt("iTeamPerSlot"));
+                intent.putExtra("iAddPlayerPosition", getIntent().getExtras().getInt("iAddPlayerPosition"));
                 Bundle informacion = new Bundle();
                 informacion.putSerializable("MEMBER_LIST", selectedMemberList);
+                informacion.putSerializable("teams", (ArrayList<EligibleMember>) getIntent().getSerializableExtra("teams"));
                 intent.putExtras(informacion);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -341,15 +354,16 @@ public class EligiblePlayersActivity extends BaseActivity {
     /**
      * Implements this method to Add Member to ArrayList.
      *
-     * @param iMemberID
+     * @param eligibleMember
      */
     public void addMemberToList(EligibleMember eligibleMember) {
-        if (iTotalAddedMembers >= 0) {
+        if (/*iTotalAddedMembers*/iFreeSlotsAvail >= 0) {
             selectedMemberList.add(eligibleMember);
             iselectedMemberList.add(eligibleMember.getMemberID());
-            --iTotalAddedMembers;
+            //--iTotalAddedMembers;
+            --iFreeSlotsAvail;
         }
-        tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
+        tvAddPlayerDesc.setText("You can add " + iFreeSlotsAvail/*iTotalAddedMembers*/ + " more players");
     }
 
     /**
@@ -368,11 +382,12 @@ public class EligiblePlayersActivity extends BaseActivity {
             if (selectedMemberId == jCounteMemberID) {
                 selectedMemberList.remove(iCounter);
                 iselectedMemberList.remove(iCounter);
-                ++iTotalAddedMembers;
+                // ++iTotalAddedMembers;
+                ++iFreeSlotsAvail;
                 break;
             }
         }
-        tvAddPlayerDesc.setText("You can add " + iTotalAddedMembers + " more players");
+        tvAddPlayerDesc.setText("You can add " + iFreeSlotsAvail/*iTotalAddedMembers*/ + " more players");
     }
 
 
@@ -406,7 +421,7 @@ public class EligiblePlayersActivity extends BaseActivity {
             @Override
             public void success(JsonObject jsonObject, retrofit.client.Response response) {
 
-                updateSuccessResponse(jsonObject);
+                updateEligiblePlayerListSuccess(jsonObject);
             }
 
             @Override
@@ -436,6 +451,7 @@ public class EligiblePlayersActivity extends BaseActivity {
     public ArrayList<EligibleMember> getEligibleMemberList(int iPos) {
 
         ArrayList<EligibleMember> eligibleMemberArrayList = new ArrayList<>();
+        ArrayList<EligibleMember> filterEligibleMemberList = new ArrayList<>();
         eligibleMemberArrayList.clear();
 
         switch (iPos) {
@@ -447,16 +463,24 @@ public class EligiblePlayersActivity extends BaseActivity {
                 eligibleMemberArrayList.addAll(compEligiblePlayersResponse.getData().getEligibleFriends());
                 break;
         }
-        return eligibleMemberArrayList;
+
+        for (int iCount = 0; iCount < eligibleMemberArrayList.size(); iCount++) {
+
+            if (!iselectedMemberList.contains(eligibleMemberArrayList.get(iCount).getMemberID())) {
+                filterEligibleMemberList.add(eligibleMemberArrayList.get(iCount));
+            }
+        }
+
+        return filterEligibleMemberList;
     }
 
     /**
      * Implements a method to update SUCCESS
      * response of web service.
      */
-    private void updateSuccessResponse(JsonObject jsonObject) {
+    private void updateEligiblePlayerListSuccess(JsonObject jsonObject) {
 
-        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+        Log.e(LOG_TAG, "updateEligiblePlayerListSuccess : " + jsonObject.toString());
 
         Type type = new TypeToken<CompEligiblePlayersResponse>() {
         }.getType();
@@ -475,8 +499,21 @@ public class EligiblePlayersActivity extends BaseActivity {
                 if (eligibleMemberArrayList.size() == 0) {
                     updateNoDataUI(false, 0);
                     // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
+
                 } else {
                     updateNoDataUI(true, 0);
+
+                    if (!isSlefAlreadyAdded) {
+                        iFreeSlotsAvail--;
+                        iSelfMemberID = getIntent().getExtras().getInt("iSelfMemberID");
+                        //strSelfMemberName = getIntent().getExtras().getString("strSelfMemberName");
+                        EligibleMember eligibleMember = new EligibleMember(true,
+                                iSelfMemberID);
+
+                        selectedMemberList.add(eligibleMember);
+                        iselectedMemberList.add(iSelfMemberID);
+                    }
+                    tvAddPlayerDesc.setText("You can add " + iFreeSlotsAvail + " more players");
 
                     updateFragment(eligiblePlayersTabFragment);
                 }
@@ -494,6 +531,42 @@ public class EligiblePlayersActivity extends BaseActivity {
         }
     }
 
+    /**
+     * Returns the Member display name.
+     *
+     * @param iSelfMemberID : Pass Member id.
+     *//*
+    private String getSelfDisplayName(int iSelfMemberID) {
+
+        String strSelfMemberName = "N/A";
+
+        for (int iCount = 0; iCount < eligibleMemberArrayList.size(); iCount++) {
+            if (eligibleMemberArrayList.get(iCount).getMemberID() == iSelfMemberID) {
+                return eligibleMemberArrayList.get(iCount).getNameRecord().getDisplayName();
+            }
+        }
+
+        return strSelfMemberName;
+    }
+
+    *//**
+     * Returns the HCap Value.
+     *
+     * @param iSelfMemberID : Pass Member id.
+     *//*
+    private String getSelfHCapValue(int iSelfMemberID) {
+
+        String strSelfMemberName = "N/A";
+
+        for (int iCount = 0; iCount < eligibleMemberArrayList.size(); iCount++) {
+            if (eligibleMemberArrayList.get(iCount).getMemberID() == iSelfMemberID) {
+                return eligibleMemberArrayList.get(iCount).getHCapTypeStr();
+            }
+        }
+
+        return strSelfMemberName;
+    }
+*/
     /* ++++++++++++++++++++++++ END OF GET ELIGIBLE PLAYER WEB SERVICE ++++++++++++++++++++++++ */
 
 }

@@ -4,7 +4,9 @@ package com.mh.systems.demoapp.web.models.competitionsentrynew;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class EntryCloseDate {
+import java.io.Serializable;
+
+public class EntryCloseDate implements Serializable {
 
     @SerializedName("Y")
     @Expose

@@ -113,12 +113,12 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     }
 
     @Override
-    public void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition) {
+    public void addPlayersListener(ArrayList<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition, boolean isAlertUpdate) {
 
     }
 
     @Override
-    public void removePlayerListener(List<Team> teams, int iSlotPosition, int iAddPlayerPosition) {
+    public void removePlayerListener(ArrayList<Team> teams, int iSlotPosition, int iAddPlayerPosition) {
 
     }
 

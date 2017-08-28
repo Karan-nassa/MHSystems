@@ -2,7 +2,7 @@ package com.mh.systems.demoapp.ui.interfaces;
 
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Team;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by admin on 24-08-2017.
@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface OnUpdatePlayers {
 
-    void addPlayersListener(List<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition);
-    void removePlayerListener(List<Team> teams, int iSlotPosition, int iAddPlayerPosition);
+    void addPlayersListener(ArrayList<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition, boolean isAlertUpdate);
+    void removePlayerListener(ArrayList<Team> teams, int iSlotPosition, int iAddPlayerPosition);
 }

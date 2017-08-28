@@ -1,11 +1,13 @@
 
 package com.mh.systems.demoapp.web.models.competitionsentrynew;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Zone {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Zone implements Serializable {
 
     @SerializedName("ZoneIdx")
     @Expose
@@ -15,7 +17,7 @@ public class Zone {
     private String ZoneName;
     @SerializedName("Slots")
     @Expose
-    private List<Slot> Slots = null;
+    private ArrayList<Slot> Slots = null;
     @SerializedName("FreePlaces")
     @Expose
     private String FreePlaces;
@@ -48,11 +50,11 @@ public class Zone {
         this.ZoneName = ZoneName;
     }
 
-    public List<Slot> getSlots() {
+    public ArrayList<Slot> getSlots() {
         return Slots;
     }
 
-    public void setSlots(List<Slot> Slots) {
+    public void setSlots(ArrayList<Slot> Slots) {
         this.Slots = Slots;
     }
 

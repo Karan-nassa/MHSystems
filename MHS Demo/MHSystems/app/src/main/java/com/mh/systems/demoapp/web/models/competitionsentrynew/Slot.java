@@ -1,12 +1,13 @@
 
 package com.mh.systems.demoapp.web.models.competitionsentrynew;
 
-import java.util.List;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Slot {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Slot implements Serializable {
 
     @SerializedName("Status")
     @Expose
@@ -16,7 +17,7 @@ public class Slot {
     private String TeeOffTime;
     @SerializedName("Teams")
     @Expose
-    private List<Team> Teams = null;
+    private ArrayList<Team> Teams = null;
 
     /**
      * For record to free available team space
@@ -48,11 +49,11 @@ public class Slot {
         this.TeeOffTime = TeeOffTime;
     }
 
-    public List<Team> getTeams() {
+    public ArrayList<Team> getTeams() {
         return Teams;
     }
 
-    public void setTeams(List<Team> Teams) {
+    public void setTeams(ArrayList<Team> Teams) {
         this.Teams = Teams;
     }
 

@@ -33,6 +33,16 @@ public class EligibleMember implements Serializable {
         this.NameRecord = NameRecord;
     }
 
+    public EligibleMember() {
+
+    }
+
+    public EligibleMember(boolean isMemberSelected, int MemberID) {
+
+        this.isMemberSelected = isMemberSelected;
+        this.MemberID = MemberID;
+    }
+
     /**
      * @return The HCapExactStr
      */
