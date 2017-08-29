@@ -7,6 +7,7 @@ import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.Boo
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public class NewCompEntryData implements Serializable {
 
@@ -90,7 +91,7 @@ public class NewCompEntryData implements Serializable {
     private List<Booking> Booking = null;
     @SerializedName("AllPlayers")
     @Expose
-    private List<AllPlayer> AllPlayers = null;
+   private List<AllPlayer> AllPlayers = null;
     @SerializedName("HCapSelector")
     @Expose
     private Object HCapSelector;
@@ -292,7 +293,7 @@ public class NewCompEntryData implements Serializable {
         this.Booking = Booking;
     }
 
-    public List<AllPlayer> getAllPlayers() {
+    public List<AllPlayer>  getAllPlayers() {
         return AllPlayers;
     }
 

@@ -20,6 +20,13 @@ public class AllPlayer implements Serializable {
     @SerializedName("EntryFee")
     @Expose
     private Integer EntryFee;
+
+    /**
+     * EntryStatus equal to
+     * 0, If not booked
+     * 1, if booked by someone else
+     * 2, If booked by itself
+     */
     @SerializedName("EntryStatus")
     @Expose
     private Integer EntryStatus;

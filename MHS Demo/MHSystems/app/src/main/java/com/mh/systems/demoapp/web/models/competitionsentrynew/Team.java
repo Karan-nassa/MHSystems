@@ -28,6 +28,14 @@ public class Team implements Serializable {
     @Expose
     private Double EntryFee;
 
+    /**
+     * EntryStatus equal to
+     * 0, If not booked
+     * 1, if booked by someone else
+     * 2, If booked by itself
+     */
+    private int EntryStatus;
+
     public Integer getZoneId() {
         return ZoneId;
     }
@@ -76,4 +84,11 @@ public class Team implements Serializable {
         this.EntryFee = EntryFee;
     }
 
+    public int getEntryStatus() {
+        return EntryStatus;
+    }
+
+    public void setEntryStatus(int entryStatus) {
+        EntryStatus = entryStatus;
+    }
 }

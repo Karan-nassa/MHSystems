@@ -306,7 +306,9 @@
     <string name="error_title_try_again">Please try again</string>
 
     <!-- FRIENDS INFO ACTIVITY -->
+    <string name="button_confirm_time_players">Confirm Time and Players</string>
     <string name="tb_title_frinds_list">Friends List</string>
     <string name="text_title_added_success">You added for this competition successfully.</string>
+    <string name="text_booking_success">Congratulations! your booking is made successful.</string>
 
 </resources>

@@ -19,6 +19,7 @@ import com.mh.systems.demoapp.ui.activites.CompetitionEntryActivity;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,14 +108,10 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
             ImageView ivRemovePlayer = (ImageView) playerView.findViewById(R.id.ivRemovePlayer);
             final TextView tvAddPlayer = (TextView) playerView.findViewById(R.id.tvAddPlayer);
 
-            String strTeamName = slotArrayList.get(position)
-                    .getTeams()
-                    .get(iCounter).getTeamName();
+            final ArrayList<Team> mTeamArrayList = slotArrayList.get(position).getTeams();
 
-            List<Player> mPlayersArr = slotArrayList.get(position)
-                    .getTeams()
-                    .get(iCounter)
-                    .getPlayers();
+            String strTeamName = mTeamArrayList.get(iCounter).getTeamName();
+            List<Player> mPlayersArr = mTeamArrayList.get(iCounter).getPlayers();
 
             if (mPlayersArr.size() != 0) {
                 tvNameOfPlayer.setText(((CompetitionEntryActivity) context).
@@ -124,16 +121,52 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 iFreeSlotsAvail++;
             }
 
+            /**
+             * EntryStatus equal to
+             * 0, If not booked
+             * 1, if booked by someone else
+             * 2, If booked by itself
+             */
+
+            switch (mTeamArrayList.get(iCounter).getEntryStatus()){
+                case 0:
+                    tvAddPlayer.setVisibility(View.VISIBLE);
+                    ivRemovePlayer.setVisibility(View.GONE);
+                    break;
+
+                case 1:
+                    tvAddPlayer.setVisibility(View.GONE);
+                    ivRemovePlayer.setVisibility(View.GONE);
+                    break;
+
+                case 2:
+                    tvAddPlayer.setVisibility(View.GONE);
+                    ivRemovePlayer.setVisibility(View.VISIBLE);
+                    break;
+
+                default:
+
+            }
+
+            //Store Add Player position as Tag for use later.
+            tvAddPlayer.setTag(iCounter);
+
+          /*  if(mTeamArrayList.get(iCounter).isAlreadyBooked()) {
+                ivRemovePlayer.setVisibility(View.GONE);
+            }else{
+                ivRemovePlayer.setVisibility(View.VISIBLE);
+            }
+
             //Store Add Player position as Tag for use later.
             tvAddPlayer.setTag(iCounter);
 
             if (strTeamName.equalsIgnoreCase("(Free)")) {
                 tvAddPlayer.setVisibility(View.VISIBLE);
-                ivRemovePlayer.setVisibility(View.GONE);
+                //ivRemovePlayer.setVisibility(View.GONE);
             } else {
                 tvAddPlayer.setVisibility(View.GONE);
-                ivRemovePlayer.setVisibility(View.VISIBLE);
-            }
+                //ivRemovePlayer.setVisibility(View.VISIBLE);
+            }*/
 
             ivRemovePlayer.setOnClickListener(new View.OnClickListener() {
                 @Override

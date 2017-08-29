@@ -1,7 +1,9 @@
 package com.mh.systems.demoapp.ui.activites;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -145,6 +147,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         mTeamInstance.setTeamName("(Free)");
         mTeamInstance.setEntryFee((double) 0);
+
+        //So Remove icon should be visible.
+        //mTeamInstance.setAlreadyBooked(false);
 
         List<Player> mPlayerList = new ArrayList<>();
 
@@ -319,7 +324,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                 if (newCompEntryData.isUpdateFailed()) {
                     showAlertMessage(newCompEntryData.getErrorMessage());
                 } else {
-                    showAlertMessage(newCompEntryResponse.getMessage());
+                    showAlertCongrates(getResources().getString(R.string.text_booking_success));
                 }
 
             } else {
@@ -378,8 +383,12 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
             for (int jTeamCount = 0; jTeamCount < iTeamSize; jTeamCount++) {
 
-                if (!mSlotsList.get(iSlotCount).getTeams()
-                        .get(jTeamCount).getTeamName().equals("(Free)")) {
+                ArrayList<Team> teamArrayList = mSlotsList.get(iSlotCount).getTeams();
+
+               /* if (!teamArrayList.get(jTeamCount)
+                        .getTeamName().equals("(Free)")
+                        && !teamArrayList.get(jTeamCount).isAlreadyBooked()) {*/
+                if (teamArrayList.get(jTeamCount).getEntryStatus() == 2) {
 
                     Team teamInstance = mSlotsList.get(iSlotCount).getTeams().get(jTeamCount);
 
@@ -421,8 +430,12 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
             for (int jTeamCount = 0; jTeamCount < iTeamSize; jTeamCount++) {
 
-                if (!mSlotsList.get(iSlotCount).getTeams()
-                        .get(jTeamCount).getTeamName().equals("(Free)")) {
+                ArrayList<Team> teamArrayList = mSlotsList.get(iSlotCount).getTeams();
+
+               /* if (!teamArrayList.get(jTeamCount)
+                        .getTeamName().equals("(Free)")
+                        && !teamArrayList.get(jTeamCount).isAlreadyBooked()) {*/
+                if (teamArrayList.get(jTeamCount).getEntryStatus() == 2) {
 
                     mFilterTeam.add(mSlotsList.get(iSlotCount).getTeams().get(jTeamCount));
                     isAddedNew = true;
@@ -457,6 +470,30 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                 newCompEntryData.getCrnSymbol(),
                 ConfirmBookingEntryActivity.this);
         gvCompEntry.setAdapter(compConfirmEntryAdapter);
+    }
+
+    /**
+     * Implement a method Custom showEnterCompetitionDialog
+     * Alert Dialog for input user First & Last name,
+     * email address and Mobile number.
+     */
+    public void showAlertCongrates(String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = new Intent(ConfirmBookingEntryActivity.this,
+                                    CompetitionsActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
 }

@@ -626,7 +626,7 @@ public class CompetitionDetailActivity extends BaseActivity {
         newAJsonCompEntry.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         newAJsonCompEntry.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         newAJsonCompEntry.setMemberId(getMemberId());
-        newAJsonCompEntry.setEventId("681"/*strEventId*/);
+        newAJsonCompEntry.setEventId(strEventId);
 
         newCompEntryItems = new NewCompEntryItems(getClientId(),
                 "GETCLUBEVENTENTRYDATA",

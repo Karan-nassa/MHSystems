@@ -30,7 +30,7 @@
             android:gravity="center"
             android:background="@drawable/bg_shape_finance_c0995b"
             android:padding="10dp"
-            android:text="Confirm Tme and Players"
+            android:text="@string/button_confirm_time_players"
             android:textAllCaps="true"
             android:textColor="@android:color/white" />
 
@@ -66,6 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Men September Medal"
+                    android:maxLines="1"
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
 

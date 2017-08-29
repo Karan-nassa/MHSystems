@@ -44,7 +44,9 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import butterknife.Bind;
@@ -208,6 +210,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     private boolean isExpandClose = false;
     //private boolean slefAlreadyAdded = false;
 
+    Map<Integer, AllPlayer> mapAllPlayer = new HashMap<>();
+
     // ArrayList<Booking> mBookingList = new ArrayList<>();
     //private ArrayList<Slot> mFilterSlotsList = new ArrayList<>();
 
@@ -267,6 +271,17 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
         newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
+
+        /**
+         * Initially Create dictionary of All Players
+         * so we can filter it later.
+         */
+        for (int iMapValue = 0; iMapValue < newCompEntryData.getAllPlayers().size(); iMapValue++) {
+
+            AllPlayer allPlayerInstance = newCompEntryData.getAllPlayers().get(iMapValue);
+            mapAllPlayer.put(allPlayerInstance.getMemberId(), allPlayerInstance);
+        }
+
 
 //        iSelfMemberID = Integer.parseInt(getMemberId());
 //        strSelfMemberName = getMemberNameFromID(iSelfMemberID);
@@ -349,6 +364,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             mTeamInstance.setEntryFee((double) newCompEntryData.getEntryFee()
                     /*teams.get(iAddPlayerPosition).getEntryFee()*/);
 
+            //So Remove icon should be visible.
+            //mTeamInstance.setAlreadyBooked(false);
+
             List<Player> mPlayerList = new ArrayList<>();
             Player mPlayer = new Player();
             mPlayer.setMemberId(getMemberId());
@@ -404,6 +422,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         mTeamInstance.setTeamName("(Free)");
         mTeamInstance.setEntryFee((double) 0);
+
+        //So Remove icon should be visible.
+       // mTeamInstance.setAlreadyBooked(false);
 
         List<Player> mPlayerList = new ArrayList<>();
 
@@ -937,8 +958,55 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             return;
         }
 
+        compSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
+
+        for (int iSlotCount = 0; iSlotCount < compSlotsList.size(); iSlotCount++) {
+
+            int teamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
+
+            for (int jTeamCount = 0; jTeamCount < teamSize; jTeamCount++) {
+
+                List<Player> mPlayerArr = compSlotsList.get(iSlotCount)
+                        .getTeams().get(jTeamCount).getPlayers();
+
+                if (mPlayerArr.size() > 0) {
+
+                    Integer iMemberID = Integer.parseInt(mPlayerArr.get(0).getMemberId());
+
+                    if (mapAllPlayer.containsKey(iMemberID)) {
+
+                        EligibleMember eligibleMember = new EligibleMember(true,
+                                iMemberID);
+                        playersArrayList.add(eligibleMember);
+
+                        /**
+                         * Also check EntryStatus equal to
+                         * 0, If not booked
+                         * 1, if booked by someone else
+                         * 2, If booked by itself
+                         */
+                        compSlotsList.get(iSlotCount).getTeams().get(jTeamCount).
+                                setEntryStatus(mapAllPlayer.get(iMemberID).getEntryStatus());
+
+                       /*switch (mapAllPlayer.get(iMemberID).getEntryStatus()){
+                           case 0:
+                           case 1:
+                               compSlotsList.get(iSlotCount)
+                                       .getTeams().get(jTeamCount).setAlreadyBooked(true);
+                               break;
+
+                           case 2:
+                               compSlotsList.get(iSlotCount)
+                                       .getTeams().get(jTeamCount).setAlreadyBooked(false);
+                               break;
+                       }*/
+                    }
+                }
+            }
+        }
+
         try {
-            compSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
+
 
             gvTimeSlots.setExpanded(true);
             compTimeSlotsAdapter = new CompTimeSlotsAdapter(CompetitionEntryActivity.this,
@@ -1079,13 +1147,18 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             newCompEntryData.setSelfAlreadyAdded(true);
         }
 
-        List<AllPlayer> mAllPlayersList = newCompEntryData.getAllPlayers();
+        if (mapAllPlayer.containsKey(iMemberID)) {
+
+            return mapAllPlayer.get(iMemberID).getNameAndHandicap();
+        }
+
+        /*List<AllPlayer> mAllPlayersList = newCompEntryData.getAllPlayers();
 
         for (int iCounter = 0; iCounter < mAllPlayersList.size(); iCounter++) {
             if (mAllPlayersList.get(iCounter).getMemberId() == iMemberID) {
                 return mAllPlayersList.get(iCounter).getNameAndHandicap();
             }
-        }
+        }*/
 
         return "N/A";
     }
@@ -1123,6 +1196,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             mPlayer.setMemberId("" + eligibleMemberArrayList.get(iMemberPosition).getMemberID());
             mPlayer.setIsGuest(false);
             mPlayerList.add(mPlayer);
+
+            //So Remove icon should be visible.
+           // mTeamInstance.setAlreadyBooked(false);
 
             mTeamInstance.setPlayers(mPlayerList);
             //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
