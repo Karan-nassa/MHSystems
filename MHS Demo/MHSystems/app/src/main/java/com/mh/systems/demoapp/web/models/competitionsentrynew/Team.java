@@ -36,6 +36,15 @@ public class Team implements Serializable {
      */
     private int EntryStatus;
 
+    /**
+     * If user made any changes/update.
+     * Example: Member remove itself or anyone else which
+     * he booked earlier.
+     */
+    private boolean isAnyUpdated = false;
+
+    private boolean isAlreadyBooked = false;
+
     public Integer getZoneId() {
         return ZoneId;
     }
@@ -90,5 +99,21 @@ public class Team implements Serializable {
 
     public void setEntryStatus(int entryStatus) {
         EntryStatus = entryStatus;
+    }
+
+    public boolean isAnyUpdated() {
+        return isAnyUpdated;
+    }
+
+    public void setAnyUpdated(boolean anyUpdated) {
+        isAnyUpdated = anyUpdated;
+    }
+
+    public boolean isAlreadyBooked() {
+        return isAlreadyBooked;
+    }
+
+    public void setAlreadyBooked(boolean alreadyBooked) {
+        isAlreadyBooked = alreadyBooked;
     }
 }

@@ -64,6 +64,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     private final String LOG_TAG = CompetitionEntryActivity.class.getSimpleName();
     private final int RESULT_CODE_CONFIRM_BOOKING = 1221;
+    private final int RESULT_CODE_ADD_MORE_MEMBERS = 1441;
 
     /**
      * iMemberPosition is used to keep record of which Member position user going to update so that
@@ -156,7 +157,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     CompTimeSlotsAdapter compTimeSlotsAdapter;
 
     //List<Slot> slotArrayList = new ArrayList<>();
-    ArrayList<EligibleMember> playersArrayList = new ArrayList<>();
+    ArrayList<EligibleMember> allEligiblePlayers = new ArrayList<>();
+    ArrayList<EligibleMember> SlotsEligiblePlayers = new ArrayList<>();
+
     ArrayList<Player> nameOfPlayersList = new ArrayList<>();
 
     UpdateCompEntryAPI updateCompEntryAPI;
@@ -282,6 +285,58 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             mapAllPlayer.put(allPlayerInstance.getMemberId(), allPlayerInstance);
         }
 
+        compSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
+
+        for (int iSlotCount = 0; iSlotCount < compSlotsList.size(); iSlotCount++) {
+
+            int teamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
+
+            for (int jTeamCount = 0; jTeamCount < teamSize; jTeamCount++) {
+
+                List<Player> mPlayerArr = compSlotsList.get(iSlotCount)
+                        .getTeams().get(jTeamCount).getPlayers();
+
+                if (mPlayerArr.size() > 0) {
+
+                    Integer iMemberID = Integer.parseInt(mPlayerArr.get(0).getMemberId());
+
+                    if (mapAllPlayer.containsKey(iMemberID)) {
+
+                        EligibleMember eligibleMember = new EligibleMember(true,
+                                iMemberID);
+                        allEligiblePlayers.add(eligibleMember);
+
+                        compSlotsList.get(iSlotCount)
+                                .getTeams().get(jTeamCount).setAlreadyBooked(true);
+
+                        /**
+                         * Also check EntryStatus equal to
+                         * 0, If not booked
+                         * 1, if booked by someone else
+                         * 2, If booked by itself
+                         */
+                        // int iEntryStatus = mapAllPlayer.get(iMemberID).getEntryStatus();
+                        compSlotsList.get(iSlotCount).getTeams()
+                                .get(jTeamCount).setEntryStatus(mapAllPlayer.get(iMemberID)
+                                .getEntryStatus());
+
+                      /* switch (mapAllPlayer.get(iMemberID).getEntryStatus()){
+                           case 0:
+                           case 2:
+                               compSlotsList.get(iSlotCount)
+                                       .getTeams().get(jTeamCount).setAnyUpdated(true);
+                               break;
+
+                           case 1:
+                               compSlotsList.get(iSlotCount)
+                                       .getTeams().get(jTeamCount).setAnyUpdated(false);
+                               break;
+                       }*/
+                    }
+                }
+            }
+        }
+
 
 //        iSelfMemberID = Integer.parseInt(getMemberId());
 //        strSelfMemberName = getMemberNameFromID(iSelfMemberID);
@@ -365,7 +420,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     /*teams.get(iAddPlayerPosition).getEntryFee()*/);
 
             //So Remove icon should be visible.
-            //mTeamInstance.setAlreadyBooked(false);
+            mTeamInstance.setEntryStatus(2);
+            mTeamInstance.setAnyUpdated(true);
 
             List<Player> mPlayerList = new ArrayList<>();
             Player mPlayer = new Player();
@@ -385,8 +441,27 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                 updateTimeSlots();
                 showAlertMessage(getString(R.string.text_title_added_success));
             }
-            return;
         } else {
+
+            SlotsEligiblePlayers.clear();
+            for (int iTeamCount = 0; iTeamCount < teams.size(); iTeamCount++) {
+                List<Player> mPlayerArr = teams.get(iTeamCount).getPlayers();
+
+                if (mPlayerArr.size() > 0) {
+
+                    Integer iMemberID = Integer.parseInt(mPlayerArr.get(0).getMemberId());
+
+                    if (mapAllPlayer.containsKey(iMemberID)) {
+
+                        EligibleMember eligibleMember = new EligibleMember(true,
+                                iMemberID);
+                        SlotsEligiblePlayers.add(eligibleMember);
+                    }
+                }
+            }
+
+            iAddPlayerPosition = SlotsEligiblePlayers.size();
+
             Intent intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
             intent.putExtra("NEW_COMP_EVENT_ID", newCompEntryData.getEventID());
             intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
@@ -400,10 +475,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             intent.putExtra("iSelfMemberID", Integer.parseInt(getMemberId()));
             //  intent.putExtra("strSelfMemberName", strSelfMemberName);
             Bundle informacion = new Bundle();
-            informacion.putSerializable("AllPlayers", playersArrayList);
+            informacion.putSerializable("AllPlayers", allEligiblePlayers);
+            informacion.putSerializable("SlotsEligiblePlayers", SlotsEligiblePlayers);
             informacion.putSerializable("teams", teams);
             intent.putExtras(informacion);
-            startActivityForResult(intent, 1);
+            startActivityForResult(intent, RESULT_CODE_ADD_MORE_MEMBERS);
         }
     }
 
@@ -424,7 +500,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         mTeamInstance.setEntryFee((double) 0);
 
         //So Remove icon should be visible.
-       // mTeamInstance.setAlreadyBooked(false);
+        mTeamInstance.setEntryStatus(0);
+        mTeamInstance.setAnyUpdated(true);
 
         List<Player> mPlayerList = new ArrayList<>();
 
@@ -479,7 +556,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             //intent.putExtra("COMPETITIONS_TeamSize", iTeamSize);
             intent.putExtra("COMPETITIONS_iEntryID", iEntryID);
             Bundle informacion = new Bundle();
-            informacion.putSerializable("MEMBER_LIST", playersArrayList);
+            informacion.putSerializable("MEMBER_LIST", allEligiblePlayers);
             intent.putExtras(informacion);
             startActivityForResult(intent, 1);
         }
@@ -610,7 +687,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     private void updateNewCompEntryUI() {
 
         tvZoneName.setText(newCompEntryData.getZones().get(iZoneNo).getZoneName());
-        tvOccupancy.setText(("Free Spaces Available :" + newCompEntryData.getZones().get(iZoneNo).getFreePlaces()));
+        tvOccupancy.setText(("Free Spaces Available : " + newCompEntryData.getZones().get(iZoneNo).getFreePlaces()));
 
         tvTitleOfComp.setText(newCompEntryData.getEventName());
         tvTimeOfComp.setText(newCompEntryData.getEventStartDate().getFullDateStr());
@@ -657,23 +734,23 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
      * get back from MEMBER/FRIEND tabs with No Entry ID means iEntryID = 0.
      */
     private void updateNoEntryIdMemberUI() {
-        for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
+        for (int iCounter = 0; iCounter < allEligiblePlayers.size(); iCounter++) {
 
             switch (iCounter) {
 
                 case 0:
-                    tvPlayerName2.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    tvPlayerName2.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
                     ivCrossPlayer2.setVisibility(View.VISIBLE);
                     break;
 
                 case 1:
-                    tvPlayerName3.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    tvPlayerName3.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
                     ivCrossPlayer3.setVisibility(View.VISIBLE);
                     break;
 
                 case 2:
                 default:
-                    tvPlayerName4.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    tvPlayerName4.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
                     ivCrossPlayer4.setVisibility(View.VISIBLE);
                     break;
             }
@@ -686,25 +763,25 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
      * iEntryID = [ANY INTEGER VALUE].
      */
     private void updateWithEntryIdMemberUI() {
-        for (int iCounter = 1; iCounter < playersArrayList.size(); iCounter++) {
+        for (int iCounter = 1; iCounter < allEligiblePlayers.size(); iCounter++) {
 
             // Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getNameRecord().getDisplayName());
 
             switch (iCounter) {
 
                 case 1:
-                    tvPlayerName2.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    tvPlayerName2.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
                     ivCrossPlayer2.setVisibility(View.VISIBLE);
                     break;
 
                 case 2:
-                    tvPlayerName3.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    tvPlayerName3.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
                     ivCrossPlayer3.setVisibility(View.VISIBLE);
                     break;
 
                 case 3:
                 default:
-                    tvPlayerName4.setText(playersArrayList.get(iCounter).getNameRecord().getDisplayName());
+                    tvPlayerName4.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
                     ivCrossPlayer4.setVisibility(View.VISIBLE);
                     break;
             }
@@ -720,11 +797,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         if (iEntryID != 0) {
             //Will not increment playerArraylist.size() because its already have 0th member from web service.
-            tvDetailPrice.setText("" + playersArrayList.size() + "x " + strEventPrize);
-            tvTotalPrice.setText("£" + (playersArrayList.size() * iPrizeVal) + ".00");
+            tvDetailPrice.setText("" + allEligiblePlayers.size() + "x " + strEventPrize);
+            tvTotalPrice.setText("£" + (allEligiblePlayers.size() * iPrizeVal) + ".00");
         } else {
-            tvDetailPrice.setText("" + (playersArrayList.size() + 1) + "x " + strEventPrize);
-            tvTotalPrice.setText("£" + ((playersArrayList.size() + 1) * iPrizeVal) + ".00");
+            tvDetailPrice.setText("" + (allEligiblePlayers.size() + 1) + "x " + strEventPrize);
+            tvTotalPrice.setText("£" + ((allEligiblePlayers.size() + 1) * iPrizeVal) + ".00");
         }
     }
 
@@ -757,8 +834,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             selectedMemberIdList.add(Integer.parseInt(getMemberId()));
         }
 
-        for (int iCount = 0; iCount < playersArrayList.size(); iCount++) {
-            selectedMemberIdList.add(playersArrayList.get(iCount).getMemberID()); //Add selected Members IDs
+        for (int iCount = 0; iCount < allEligiblePlayers.size(); iCount++) {
+            selectedMemberIdList.add(allEligiblePlayers.get(iCount).getMemberID()); //Add selected Members IDs
         }
 
         showPleaseWait("Please wait...");
@@ -870,10 +947,10 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     private void removeMemberFromList(String strMemberName) {
 
         int iCounter;
-        for (iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
+        for (iCounter = 0; iCounter < allEligiblePlayers.size(); iCounter++) {
 
-            if (strMemberName.equals(playersArrayList.get(iCounter).getNameRecord().getDisplayName())) {
-                playersArrayList.remove(iCounter);
+            if (strMemberName.equals(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName())) {
+                allEligiblePlayers.remove(iCounter);
                 updatePriceUI();
                 break;
             }
@@ -958,55 +1035,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             return;
         }
 
-        compSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
-
-        for (int iSlotCount = 0; iSlotCount < compSlotsList.size(); iSlotCount++) {
-
-            int teamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
-
-            for (int jTeamCount = 0; jTeamCount < teamSize; jTeamCount++) {
-
-                List<Player> mPlayerArr = compSlotsList.get(iSlotCount)
-                        .getTeams().get(jTeamCount).getPlayers();
-
-                if (mPlayerArr.size() > 0) {
-
-                    Integer iMemberID = Integer.parseInt(mPlayerArr.get(0).getMemberId());
-
-                    if (mapAllPlayer.containsKey(iMemberID)) {
-
-                        EligibleMember eligibleMember = new EligibleMember(true,
-                                iMemberID);
-                        playersArrayList.add(eligibleMember);
-
-                        /**
-                         * Also check EntryStatus equal to
-                         * 0, If not booked
-                         * 1, if booked by someone else
-                         * 2, If booked by itself
-                         */
-                        compSlotsList.get(iSlotCount).getTeams().get(jTeamCount).
-                                setEntryStatus(mapAllPlayer.get(iMemberID).getEntryStatus());
-
-                       /*switch (mapAllPlayer.get(iMemberID).getEntryStatus()){
-                           case 0:
-                           case 1:
-                               compSlotsList.get(iSlotCount)
-                                       .getTeams().get(jTeamCount).setAlreadyBooked(true);
-                               break;
-
-                           case 2:
-                               compSlotsList.get(iSlotCount)
-                                       .getTeams().get(jTeamCount).setAlreadyBooked(false);
-                               break;
-                       }*/
-                    }
-                }
-            }
-        }
-
         try {
-
 
             gvTimeSlots.setExpanded(true);
             compTimeSlotsAdapter = new CompTimeSlotsAdapter(CompetitionEntryActivity.this,
@@ -1055,25 +1084,23 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
                 default:
 
-                    playersArrayList.clear();
-                    playersArrayList = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
+                    allEligiblePlayers.clear();
+                    SlotsEligiblePlayers.clear();
+                    SlotsEligiblePlayers = (ArrayList<EligibleMember>) data.getSerializableExtra("SlotsEligiblePlayers");
+                    allEligiblePlayers = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
                     ArrayList<Team> mTeam = (ArrayList<Team>) data.getSerializableExtra("teams");
 
                     int iSlotPosition = data.getExtras().getInt("slotPosition");
                     int iTeamPerSlot = data.getExtras().getInt("iTeamPerSlot");
                     int iAddPlayerPosition = data.getExtras().getInt("iAddPlayerPosition");
 
-                    for (int iCount = iAddPlayerPosition; iCount < playersArrayList.size(); iCount++) {
+                    for (int iCount = iAddPlayerPosition; iCount < SlotsEligiblePlayers.size(); iCount++) {
                         updateMemberDetailInSlots(iCount
-                                , playersArrayList
+                                , SlotsEligiblePlayers
                                 , mTeam
                                 , iSlotPosition
                                 , iTeamPerSlot
                                 , iCount);
-                        //TODO: Update Slots value.
-
-                        //So we can add member itself in the last.
-                        //iAddPlayerPosition = iCount;
                     }
             }
             updateTimeSlots();
@@ -1198,7 +1225,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             mPlayerList.add(mPlayer);
 
             //So Remove icon should be visible.
-           // mTeamInstance.setAlreadyBooked(false);
+            mTeamInstance.setEntryStatus(2);
+            mTeamInstance.setAnyUpdated(true);
 
             mTeamInstance.setPlayers(mPlayerList);
             //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);

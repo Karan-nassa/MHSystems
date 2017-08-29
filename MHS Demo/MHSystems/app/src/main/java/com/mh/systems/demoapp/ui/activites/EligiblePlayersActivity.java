@@ -28,10 +28,12 @@ import com.mh.systems.demoapp.ui.fragments.EligiblePlayersTabFragment;
 import com.mh.systems.demoapp.ui.fragments.MembersTabFragment;
 import com.mh.systems.demoapp.web.models.competitionsentry.AJsonParamsEligiblePlayers;
 import com.mh.systems.demoapp.web.models.competitionsentry.CompEligiblePlayersAPI;
+import com.mh.systems.demoapp.web.models.competitionsentry.CompEligiblePlayersData;
 import com.mh.systems.demoapp.web.models.competitionsentry.CompEligiblePlayersResponse;
 import com.mh.systems.demoapp.web.models.competitionsentry.EligibleMember;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.competitionsentry.NameRecord;
+import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -66,6 +68,7 @@ public class EligiblePlayersActivity extends BaseActivity {
     private int iEntryID = 0;
 
     ArrayList<EligibleMember> selectedMemberList = new ArrayList<>();
+    ArrayList<EligibleMember> SlotsEligiblePlayers = new ArrayList<>();
     public ArrayList<Integer> iselectedMemberList = new ArrayList<>();
 
     /*********************************
@@ -107,12 +110,11 @@ public class EligiblePlayersActivity extends BaseActivity {
 
     //Create instance of Model class MembersItems.
     CompEligiblePlayersResponse compEligiblePlayersResponse;
+    CompEligiblePlayersData compEligiblePlayersData;
 
     //List of type books this list will store type Book which is our data model
     private CompEligiblePlayersAPI compEligiblePlayersAPI;
     AJsonParamsEligiblePlayers aJsonParamsEligiblePlayers;
-
-    ArrayList<EligibleMember> eligibleMemberArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +142,7 @@ public class EligiblePlayersActivity extends BaseActivity {
 
         //Get previous Member list if already some member selected.
         selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("AllPlayers");
+        SlotsEligiblePlayers = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("SlotsEligiblePlayers");
 
         for (int iCount = 0; iCount < selectedMemberList.size(); iCount++) {
             iselectedMemberList.add(selectedMemberList.get(iCount).getMemberID());
@@ -231,6 +234,7 @@ public class EligiblePlayersActivity extends BaseActivity {
                 intent.putExtra("iAddPlayerPosition", getIntent().getExtras().getInt("iAddPlayerPosition"));
                 Bundle informacion = new Bundle();
                 informacion.putSerializable("MEMBER_LIST", selectedMemberList);
+                informacion.putSerializable("SlotsEligiblePlayers", SlotsEligiblePlayers);
                 informacion.putSerializable("teams", (ArrayList<EligibleMember>) getIntent().getSerializableExtra("teams"));
                 intent.putExtras(informacion);
                 setResult(RESULT_OK, intent);
@@ -359,6 +363,7 @@ public class EligiblePlayersActivity extends BaseActivity {
     public void addMemberToList(EligibleMember eligibleMember) {
         if (/*iTotalAddedMembers*/iFreeSlotsAvail >= 0) {
             selectedMemberList.add(eligibleMember);
+            SlotsEligiblePlayers.add(eligibleMember);
             iselectedMemberList.add(eligibleMember.getMemberID());
             //--iTotalAddedMembers;
             --iFreeSlotsAvail;
@@ -374,13 +379,14 @@ public class EligiblePlayersActivity extends BaseActivity {
     public void removeMemberFromList(EligibleMember eligibleMember) {
 
         int iCounter;
-        for (iCounter = 0; iCounter < selectedMemberList.size(); iCounter++) {
+        for (iCounter = 0; iCounter < SlotsEligiblePlayers.size(); iCounter++) {
 
             int selectedMemberId = eligibleMember.getMemberID();
-            int jCounteMemberID = selectedMemberList.get(iCounter).getMemberID();
+            int jCounteMemberID = SlotsEligiblePlayers.get(iCounter).getMemberID();
 
             if (selectedMemberId == jCounteMemberID) {
                 selectedMemberList.remove(iCounter);
+                SlotsEligiblePlayers.remove(iCounter);
                 iselectedMemberList.remove(iCounter);
                 // ++iTotalAddedMembers;
                 ++iFreeSlotsAvail;
@@ -466,7 +472,8 @@ public class EligiblePlayersActivity extends BaseActivity {
 
         for (int iCount = 0; iCount < eligibleMemberArrayList.size(); iCount++) {
 
-            if (!iselectedMemberList.contains(eligibleMemberArrayList.get(iCount).getMemberID())) {
+            if (!iselectedMemberList.contains(
+                    eligibleMemberArrayList.get(iCount).getMemberID())) {
                 filterEligibleMemberList.add(eligibleMemberArrayList.get(iCount));
             }
         }
@@ -484,19 +491,21 @@ public class EligiblePlayersActivity extends BaseActivity {
 
         Type type = new TypeToken<CompEligiblePlayersResponse>() {
         }.getType();
-        compEligiblePlayersResponse = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        compEligiblePlayersResponse = new Gson().fromJson(jsonObject.toString(), type);
 
         //Clear array list before inserting items.
-        eligibleMemberArrayList.clear();
+        //eligibleMemberArrayList.clear();
 
         try {
             /**
              *  Check "Result" 1 or 0. If 1, means data received successfully.
              */
             if (compEligiblePlayersResponse.getMessage().equalsIgnoreCase("Success")) {
-                eligibleMemberArrayList.addAll(compEligiblePlayersResponse.getData().getEligibleMembers());
 
-                if (eligibleMemberArrayList.size() == 0) {
+                compEligiblePlayersData = compEligiblePlayersResponse.getData();
+               //eligibleMemberArrayList.addAll();
+
+                if (compEligiblePlayersData.getEligibleMembers().size() == 0) {
                     updateNoDataUI(false, 0);
                     // ((BaseActivity) getActivity()).showAlertMessage(getResources().getString(R.string.error_no_data));
 
@@ -511,6 +520,7 @@ public class EligiblePlayersActivity extends BaseActivity {
                                 iSelfMemberID);
 
                         selectedMemberList.add(eligibleMember);
+                        SlotsEligiblePlayers.add(eligibleMember);
                         iselectedMemberList.add(iSelfMemberID);
                     }
                     tvAddPlayerDesc.setText("You can add " + iFreeSlotsAvail + " more players");

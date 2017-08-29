@@ -88,6 +88,8 @@
                     android:layout_height="wrap_content"
                     android:text="Men September Medal"
                     android:maxLines="1"
+                    android:layout_marginRight="10dp"
+                    android:ellipsize="end"
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
 

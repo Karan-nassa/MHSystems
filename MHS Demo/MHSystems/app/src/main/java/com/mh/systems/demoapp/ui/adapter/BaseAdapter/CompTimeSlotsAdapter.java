@@ -127,7 +127,6 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
              * 1, if booked by someone else
              * 2, If booked by itself
              */
-
             switch (mTeamArrayList.get(iCounter).getEntryStatus()){
                 case 0:
                     tvAddPlayer.setVisibility(View.VISIBLE);
@@ -198,10 +197,9 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 }
             });
 
+            slotArrayList.get(position).setiFreeSlotsAvail(iFreeSlotsAvail);
             holder.llViewAddTeams.addView(playerView);
         }
-
-        slotArrayList.get(position).setiFreeSlotsAvail(iFreeSlotsAvail);
 
         /*if (slotArrayList.get(position).getTeeOffTime()) {
             holder.btTimeSlot.setAlpha((float) 0.1);

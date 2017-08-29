@@ -109,6 +109,9 @@ public class CompetitionDetailActivity extends BaseActivity {
     @Bind(R.id.fabJoinCompetition)
     FloatingActionButton fabJoinCompetition;
 
+    @Bind(R.id.tvChangeEntry)
+    TextView tvChangeEntry;
+
     AddRequestResult addRequestResult;
 
     //List of type books this list will store type Book which is our data model
@@ -123,8 +126,8 @@ public class CompetitionDetailActivity extends BaseActivity {
     //Create instance of GetClubEventAPI.
     GetClubEventAPI getClubEventAPI;
     AJsonParamsGetClubEvent aJsonParamsGetClubEvent;
-   // GetClubEventResponse getClubEventResponse;
-   // GetClubEventData getClubEventData;
+    // GetClubEventResponse getClubEventResponse;
+    // GetClubEventData getClubEventData;
 
 
     NewCompEntryItems newCompEntryItems;
@@ -171,6 +174,13 @@ public class CompetitionDetailActivity extends BaseActivity {
         toolbarComp.setTitleTextColor(0xFFFFFFFF);
 
         fabJoinCompetition.setOnClickListener(mJoinOnClickListener);
+
+        tvChangeEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentToCompetitionEntry();
+            }
+        });
 
         //Handle Manage booking view event hanlder here.
         tvManageBooking.setOnClickListener(new View.OnClickListener() {
@@ -298,7 +308,7 @@ public class CompetitionDetailActivity extends BaseActivity {
 
             Intent intent = new Intent(CompetitionDetailActivity.this, CompetitionEntryActivity.class);
             //Pass Time Slots to Book Tee Time.
-           // intent.putExtra("RESPONSE_GET_CLUB_EVENT_DATA", gson.toJson(getClubEventResponse.getGetClubEventData()));
+            // intent.putExtra("RESPONSE_GET_CLUB_EVENT_DATA", gson.toJson(getClubEventResponse.getGetClubEventData()));
             intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryResponse.getData()));
             intent.putExtra("COMPETITIONS_eventId", newCompEntryResponse.getData().getEventID());
             intent.putExtra("COMPETITIONS_EVENT_PRIZE", strEventPrize);
@@ -368,8 +378,8 @@ public class CompetitionDetailActivity extends BaseActivity {
 
         try {
             *//**
-             *  Check "Result" 1 or 0. If 1, means data received successfully.
-             *//*
+     *  Check "Result" 1 or 0. If 1, means data received successfully.
+     *//*
             if (getClubEventResponse.getMessage().equalsIgnoreCase("Success")) {
 
                 tvEventStatusStrDD.setText(strEventStatus);
@@ -388,8 +398,8 @@ public class CompetitionDetailActivity extends BaseActivity {
                 //Log.e(LOG_TAG, "iEntryID : " + iEntryID);
 
                 *//**
-                 * Implements check for display selected member list.
-                 *//*
+     * Implements check for display selected member list.
+     *//*
                 if (iEntryID != 0) {
 
                     llUpdateBookingView.setVisibility(View.VISIBLE);
@@ -689,6 +699,12 @@ public class CompetitionDetailActivity extends BaseActivity {
 
                 tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");
 
+                if(newCompEntryData.getBooking().size() != 0){
+                    tvChangeEntry.setVisibility(View.VISIBLE);
+                }else{
+                    tvChangeEntry.setVisibility(View.GONE);
+                }
+
                 iEntryID = 0/*newCompEntryData.getEventID()*/;
                 //Log.e(LOG_TAG, "iEntryID : " + iEntryID);
 
@@ -719,11 +735,11 @@ public class CompetitionDetailActivity extends BaseActivity {
                 showAlertMessage(newCompEntryResponse.getMessage());
             }
 
-                hideProgress();
+            hideProgress();
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
             hideProgress();
-            reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
+            reportRollBarException(CompetitionDetailActivity.class.getSimpleName(), e.toString());
         }
     }
 
