@@ -149,8 +149,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         mTeamInstance.setEntryFee((double) 0);
 
         //So Remove icon should be visible.
-        mTeamInstance.setEntryStatus(0);
-        mTeamInstance.setAnyUpdated(true);
+       // mTeamInstance.setEntryStatus(0);
+       // mTeamInstance.setAlreadyBooked(true);
+        //mTeamInstance.setAnyUpdated(false);
 
         List<Player> mPlayerList = new ArrayList<>();
 
@@ -378,9 +379,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         ArrayList<Booking> mBookingEntryList = new ArrayList<>();
 
         //Also append the booking data.
-        if (newCompEntryData.getBooking().size() > 0) {
+       /* if (newCompEntryData.getBooking().size() > 0) {
             mBookingEntryList.addAll(newCompEntryData.getBooking());
-        }
+        }*/
 
         List<Slot> mSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
         int iTeamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
@@ -391,16 +392,16 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
                 ArrayList<Team> teamArrayList = mSlotsList.get(iSlotCount).getTeams();
 
-               /* if (!teamArrayList.get(jTeamCount)
+                if (!teamArrayList.get(jTeamCount)
                         .getTeamName().equals("(Free)")
-                        && !teamArrayList.get(jTeamCount).isAlreadyBooked()) {*/
-                if ((teamArrayList.get(jTeamCount).getEntryStatus() == 2
+                        /*&& !teamArrayList.get(jTeamCount).isAlreadyBooked()*/) {
+               /* if ((teamArrayList.get(jTeamCount).getEntryStatus() == 2
                         && teamArrayList.get(jTeamCount)
                         .getTeamName().equals("(Free)"))
                         ||
                         !teamArrayList.get(jTeamCount)
                                 .getTeamName().equals("(Free)")
-                                && !teamArrayList.get(jTeamCount).isAlreadyBooked()) {
+                                && !teamArrayList.get(jTeamCount).isAlreadyBooked()) {*/
 
                     Team teamInstance = mSlotsList.get(iSlotCount).getTeams().get(jTeamCount);
 
@@ -429,7 +430,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         List<Slot> mSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
 
-
         boolean isAddedNew;
 
         for (int iSlotCount = 0; iSlotCount < mSlotsList.size(); iSlotCount++) {
@@ -444,16 +444,16 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
                 ArrayList<Team> teamArrayList = mSlotsList.get(iSlotCount).getTeams();
 
-               /* if (!teamArrayList.get(jTeamCount)
+                if (!teamArrayList.get(jTeamCount)
                         .getTeamName().equals("(Free)")
-                        && !teamArrayList.get(jTeamCount).isAlreadyBooked()) {*/
-                if ((teamArrayList.get(jTeamCount).getEntryStatus() == 2
+                        && teamArrayList.get(jTeamCount).isAnyUpdated()) {
+                /*if ((teamArrayList.get(jTeamCount).getEntryStatus() == 2
                         && teamArrayList.get(jTeamCount)
                         .getTeamName().equals("(Free)"))
                         ||
                         !teamArrayList.get(jTeamCount)
                                 .getTeamName().equals("(Free)")
-                                && !teamArrayList.get(jTeamCount).isAlreadyBooked()) {
+                                && !teamArrayList.get(jTeamCount).isAlreadyBooked()) {*/
 
                     mFilterTeam.add(mSlotsList.get(iSlotCount).getTeams().get(jTeamCount));
                     isAddedNew = true;

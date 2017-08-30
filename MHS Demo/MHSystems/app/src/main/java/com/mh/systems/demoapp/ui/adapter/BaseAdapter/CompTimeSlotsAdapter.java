@@ -127,10 +127,15 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
              * 1, if booked by someone else
              * 2, If booked by itself
              */
-            switch (mTeamArrayList.get(iCounter).getEntryStatus()){
+            switch (mTeamArrayList.get(iCounter).getEntryStatus()) {
                 case 0:
-                    tvAddPlayer.setVisibility(View.VISIBLE);
-                    ivRemovePlayer.setVisibility(View.GONE);
+                    if (mTeamArrayList.get(iCounter).isAnyUpdated()) {
+                        tvAddPlayer.setVisibility(View.GONE);
+                        ivRemovePlayer.setVisibility(View.VISIBLE);
+                    } else {
+                        tvAddPlayer.setVisibility(View.VISIBLE);
+                        ivRemovePlayer.setVisibility(View.GONE);
+                    }
                     break;
 
                 case 1:

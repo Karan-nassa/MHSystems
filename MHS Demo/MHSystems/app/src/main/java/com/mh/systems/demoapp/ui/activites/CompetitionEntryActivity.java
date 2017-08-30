@@ -420,7 +420,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     /*teams.get(iAddPlayerPosition).getEntryFee()*/);
 
             //So Remove icon should be visible.
-            mTeamInstance.setEntryStatus(2);
+            //mTeamInstance.setEntryStatus(2);
             mTeamInstance.setAnyUpdated(true);
 
             List<Player> mPlayerList = new ArrayList<>();
@@ -499,9 +499,13 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         mTeamInstance.setTeamName("(Free)");
         mTeamInstance.setEntryFee((double) 0);
 
+        int iMemberID = Integer.parseInt(teams.get(iAddPlayerPosition)
+                .getPlayers().get(0).getMemberId());
+        removeMemberFromSelectedList(iMemberID);
+
         //So Remove icon should be visible.
-        mTeamInstance.setEntryStatus(0);
-        mTeamInstance.setAnyUpdated(true);
+        //mTeamInstance.setEntryStatus(0);
+        mTeamInstance.setAnyUpdated(false);
 
         List<Player> mPlayerList = new ArrayList<>();
 
@@ -1225,7 +1229,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             mPlayerList.add(mPlayer);
 
             //So Remove icon should be visible.
-            mTeamInstance.setEntryStatus(2);
+            //mTeamInstance.setEntryStatus(2);
             mTeamInstance.setAnyUpdated(true);
 
             mTeamInstance.setPlayers(mPlayerList);
@@ -1238,6 +1242,26 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
             //updateTimeSlots();
             newCompEntryData.getZones().get(iZoneNo).getSlots().get(iSlotPosition).setTeams(mTeam);
+        }
+    }
+
+    /**
+     * Implements this method to Remove Member from ArrayList.
+     *
+     * @param eligibleMember
+     */
+    public void removeMemberFromSelectedList(int  iMemberID) {
+
+        int iCounter;
+        for (iCounter = 0; iCounter < allEligiblePlayers.size(); iCounter++) {
+
+            int jCounteMemberID = allEligiblePlayers.get(iCounter).getMemberID();
+
+            if (iMemberID == jCounteMemberID) {
+                allEligiblePlayers.remove(iCounter);
+               // SlotsEligiblePlayers.remove(iCounter);
+                break;
+            }
         }
     }
 
