@@ -76,6 +76,12 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     int iEntryID = 0;
     private float mEntryFee = 0;
 
+    /**
+     * If TRUE then show Stay/Leave Alert
+     * dialog.
+     */
+    private boolean isAnyChange = false;
+
     String strEventId, strEventPrize, strMemberName;
 
     //  String strSelfMemberName = "";
@@ -375,7 +381,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                //finish();
+                onBackPressed();
                 break;
 
             case R.id.action_save:
@@ -399,8 +406,21 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     }
 
     @Override
+    public void onBackPressed() {
+
+        if (isAnyChange) {
+            checkAnyUpdate();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public void addPlayersListener(ArrayList<Team> teams, int slotPosition
             , int iTeamPerSlot, int iAddPlayerPosition, boolean isAlertUpdate) {
+
+        //For Show Stay/Leave Alert.
+        isAnyChange = true;
 
         int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
         if (iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
@@ -485,6 +505,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     @Override
     public void removePlayerListener(ArrayList<Team> teams, int iSlotPosition, int iAddPlayerPosition) {
+
+        //For Show Stay/Leave Alert.
+        isAnyChange = true;
 
         Team mTeamInstance = new Team();
         mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
@@ -580,21 +603,21 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     strNameOfMember = tvPlayerName2.getText().toString();
                     tvPlayerName2.setText("Add (optionaly)");
                     ivCrossPlayer2.setVisibility(View.INVISIBLE);
-                    showAlertOk();
+                    //showAlertOk();
                     break;
 
                 case R.id.ivCrossPlayer3:
                     strNameOfMember = tvPlayerName3.getText().toString();
                     tvPlayerName3.setText("Add (optionaly)");
                     ivCrossPlayer3.setVisibility(View.INVISIBLE);
-                    showAlertOk();
+                    //showAlertOk();
                     break;
 
                 case R.id.ivCrossPlayer4:
                     strNameOfMember = tvPlayerName4.getText().toString();
                     tvPlayerName4.setText("Add (optionaly)");
                     ivCrossPlayer4.setVisibility(View.INVISIBLE);
-                    showAlertOk();
+                    //showAlertOk();
                     break;
             }
 
@@ -704,15 +727,20 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         btConfirmTimeBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CompetitionEntryActivity.this, ConfirmBookingEntryActivity.class);
-                intent.putExtra("mEntryFee", mEntryFee);
-                intent.putExtra("iZoneNo", iZoneNo);
-                intent.putExtra("strZoneName", tvZoneName.getText().toString());
-                intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
+
+                if(isAnyChange){
+                    Intent intent = new Intent(CompetitionEntryActivity.this, ConfirmBookingEntryActivity.class);
+                    intent.putExtra("mEntryFee", mEntryFee);
+                    intent.putExtra("iZoneNo", iZoneNo);
+                    intent.putExtra("strZoneName", tvZoneName.getText().toString());
+                    intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
               /*  Bundle informacion = new Bundle();
                 informacion.putSerializable("filterSlotList", mFilterSlotsList);
                 intent.putExtras(informacion);*/
-                startActivityForResult(intent, RESULT_CODE_CONFIRM_BOOKING);
+                    startActivityForResult(intent, RESULT_CODE_CONFIRM_BOOKING);
+                }else{
+                    showAlertErrorOk(getString(R.string.error_no_entry_changes));
+                }
             }
         });
 
@@ -982,27 +1010,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     /**
      * Implements this method to display {@link AlertDialog} with
-     * OK button.
-     */
-    private void showAlertOk() {
-        if (builder == null) {
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle("Changes");
-            builder.setMessage("Your account will be adjusted accordingly")
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //do things
-                            builder = null;
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
-    }
-
-    /**
-     * Implements this method to display {@link AlertDialog} with
      * CANCEL and CONFIRM button.
      */
     private void showAlertConfirm() {
@@ -1087,6 +1094,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     break;
 
                 default:
+
+                    //For Show Stay/Leave Alert.
+                    isAnyChange = true;
 
                     allEligiblePlayers.clear();
                     SlotsEligiblePlayers.clear();
@@ -1250,7 +1260,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
      *
      * @param eligibleMember
      */
-    public void removeMemberFromSelectedList(int  iMemberID) {
+    public void removeMemberFromSelectedList(int iMemberID) {
 
         int iCounter;
         for (iCounter = 0; iCounter < allEligiblePlayers.size(); iCounter++) {
@@ -1259,9 +1269,67 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
             if (iMemberID == jCounteMemberID) {
                 allEligiblePlayers.remove(iCounter);
-               // SlotsEligiblePlayers.remove(iCounter);
+                // SlotsEligiblePlayers.remove(iCounter);
                 break;
             }
+        }
+    }
+
+    /**
+     * Handle Alert dialog STAY/LEAVE
+     * here.
+     */
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    isAnyChange = false;
+                    onBackPressed();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //Cancel button clicked
+                    break;
+            }
+        }
+    };
+
+    /**
+     * If @isAnyChange TRUE, show Stay/Cancel Entry
+     * Alert message.
+     */
+    private void checkAnyUpdate() {
+
+        if (isAnyChange) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(CompetitionEntryActivity.this);
+            builder.setTitle("Alert")
+                    .setMessage(getResources().getString(R.string.text_alert_cancel_entry))
+                    .setPositiveButton("Cancel entry", dialogClickListener)
+                    .setNegativeButton("Stay", dialogClickListener)
+                    .setCancelable(false).show();
+        }
+    }
+
+    /**
+     * Alert user if he/she doesn't make any
+     * change and tap on Cofirm Entry.
+     */
+    private void showAlertErrorOk(String strMessage) {
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setTitle("Alert");
+            builder.setCancelable(false);
+            builder.setMessage(strMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
     }
 

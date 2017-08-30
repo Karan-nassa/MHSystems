@@ -485,7 +485,7 @@ public class CompetitionDetailActivity extends BaseActivity {
          *  {@link com.mh.systems.demoapp.fragments.UpcomingFragment} only.
          */
         if (isJoinVisible) {
-            fabJoinCompetition.setVisibility(View.VISIBLE);
+            //fabJoinCompetition.setVisibility(View.VISIBLE);
 
             switch (iPopItemPos) {
                 case 0:
@@ -701,9 +701,12 @@ public class CompetitionDetailActivity extends BaseActivity {
 
                 if(newCompEntryData.getBooking().size() != 0){
                     tvChangeEntry.setVisibility(View.VISIBLE);
+                    updateJoinIcon();
                 }else{
                     tvChangeEntry.setVisibility(View.GONE);
                 }
+
+                fabJoinCompetition.setVisibility(View.VISIBLE);
 
                 iEntryID = 0/*newCompEntryData.getEventID()*/;
                 //Log.e(LOG_TAG, "iEntryID : " + iEntryID);

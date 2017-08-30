@@ -23,6 +23,9 @@
     <string name="error_wrong_date_selection">You can only view data of current date and future dates.</string>
     <string name="error_valid_email">Please enter valid Email address.</string>
     <string name="error_no_transaction">No Transaction Receipt Available.</string>
+    <string name="error_no_entry_changes">No changes has been done. Please make the changes and confirm.</string>
+
+    <string name="text_alert_cancel_entry">Are you sure you want to cancel your entry?</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
     <!-- START OF COMMON MESSAGES THROUGH OUT THE APP -->

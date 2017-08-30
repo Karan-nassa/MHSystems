@@ -231,7 +231,7 @@ public class CompetitionsActivity extends BaseActivity {
                             iPopItemPos = 1;
                             isUpcoming = true;
                             isJoined = true;
-                            isCompleted = true;
+                            isCompleted = false;
                             isCurrent = true;
                             break;
 
