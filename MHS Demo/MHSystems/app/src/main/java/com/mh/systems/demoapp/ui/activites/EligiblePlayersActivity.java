@@ -436,7 +436,7 @@ public class EligiblePlayersActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                showAlertMessage("" + error);
             }
         });
     }

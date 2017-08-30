@@ -229,10 +229,10 @@ public class CompetitionsActivity extends BaseActivity {
 
                         case R.id.item_Joined:
                             iPopItemPos = 1;
-                            isUpcoming = true;
+                            isUpcoming = false;//true;
                             isJoined = true;
                             isCompleted = false;
-                            isCurrent = true;
+                            isCurrent = false;//true;
                             break;
 
                         case R.id.item_Completed:
@@ -333,7 +333,7 @@ public class CompetitionsActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + getResources().getString(R.string.error_server_problem));
+                showAlertMessage("" + error);
             }
         });
     }

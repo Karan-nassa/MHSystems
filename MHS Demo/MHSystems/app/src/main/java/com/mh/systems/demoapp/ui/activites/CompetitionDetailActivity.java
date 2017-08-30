@@ -580,7 +580,7 @@ public class CompetitionDetailActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
+                showAlertMessage("" + error);
             }
         });
 
@@ -596,7 +596,7 @@ public class CompetitionDetailActivity extends BaseActivity {
 
         Type type = new TypeToken<UnjoinItems>() {
         }.getType();
-        unjoinItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        unjoinItems = new Gson().fromJson(jsonObject.toString(), type);
 
         try {
             /**
@@ -662,8 +662,9 @@ public class CompetitionDetailActivity extends BaseActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(LOG_TAG, "RetrofitError : " + error);
+                Log.e(LOG_TAG, "" + error);
                 hideProgress();
+                showAlertMessage("" + error);
             }
         });
     }
