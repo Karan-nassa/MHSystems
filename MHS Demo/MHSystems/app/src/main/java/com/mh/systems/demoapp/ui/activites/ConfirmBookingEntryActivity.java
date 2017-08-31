@@ -132,25 +132,20 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     @Override
     public void removePlayerListener(ArrayList<Team> teams, int iSlotPosition, int iAddPlayerPosition) {
 
-        int iSlotIdx = teams.get(iAddPlayerPosition).getSlotIdx();
-        int iTeamIdx = teams.get(iAddPlayerPosition).getTeamIdx();
+       int iSlotIdx = teams.get(iAddPlayerPosition).getSlotIdx();
+       int iTeamIdx = teams.get(iAddPlayerPosition).getTeamIdx();
 
         Team mTeamInstance = new Team();
         mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
         mTeamInstance.setSlotIdx(iSlotIdx);
         mTeamInstance.setTeamIdx(iTeamIdx);
 
-            /*String iMemberID = teams.get(slotPosition)
-                    .getPlayers()
-                    .get(0)
-                    .getMemberId();*/
-
         mTeamInstance.setTeamName("(Free)");
         mTeamInstance.setEntryFee((double) 0);
 
         //So Remove icon should be visible.
-       // mTeamInstance.setEntryStatus(0);
-       // mTeamInstance.setAlreadyBooked(true);
+        // mTeamInstance.setEntryStatus(0);
+        // mTeamInstance.setAlreadyBooked(true);
         //mTeamInstance.setAnyUpdated(false);
 
         List<Player> mPlayerList = new ArrayList<>();
@@ -166,8 +161,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         mEntryFee -= newCompEntryData.getEntryFee();
 
-        newCompEntryData.getZones().get(iZoneNo).getSlots().get(iSlotIdx)
-                .setTeams(teams);
+        newCompEntryData.getZones().get(iZoneNo).getSlots()
+                .get(iSlotIdx).getTeams().set(iTeamIdx, mTeamInstance);
+
         filterBookedSlotLists();
     }
 
@@ -195,17 +191,18 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
+        intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", newCompEntryData/*new Gson().toJson(newCompEntryData)*/);
         intent.putExtra("mEntryFee", mEntryFee);
         intent.putExtra("iZoneNo", iZoneNo);
         intent.putExtra("strZoneName", strZoneName);
-        intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
-       /* Bundle informacion = new Bundle();
-        informacion.putSerializable("filterSlotList", mSlotEntryList);
-        intent.putExtras(informacion);*/
+//        Bundle informacion = new Bundle();
+//        informacion.putSerializable("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
+        //informacion.putSerializable("filterSlotList", mSlotEntryList);
+//        intent.putExtras(informacion);
         setResult(RESULT_OK, intent);
-        //finish();
+        finish();
 
-        super.onBackPressed();
+        //super.onBackPressed();
     }
 
     public void updateTotalPrice(float iTotalPrice) {
@@ -219,8 +216,10 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
-        newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
+//        String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
+//        newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
+
+        newCompEntryData = (NewCompEntryData) getIntent().getSerializableExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
 
         // mSlotEntryList = (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
 
@@ -251,24 +250,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         aJsonParamsConfirmBooking.setMemberId(getMemberId());
         aJsonParamsConfirmBooking.setPayeeId(iPayeeId);
         aJsonParamsConfirmBooking.setRemoveEntry(false/*getMemberId()*/); //TODO: Set as False as default because don't know what we have to send it here.
-
-        /*//TODO: Remove Entry booking.
-        mBookingInstance = new Booking();
-        mBookingInstance.setZoneId(1);
-        mBookingInstance.setSlotIdx(0);
-        mBookingInstance.setTeamIdx(1);
-        mBookingInstance.setTeamName("Anurag Team");
-
-        List<Player> mPlayerList = new ArrayList<>();
-        Player mPlayer = new Player();
-        mPlayer.setIsGuest(false);
-        mPlayer.setMemberId(getMemberId());
-        mPlayerList.add(mPlayer);
-
-        mBookingInstance.setPlayers(mPlayerList);
-        mBookingInstance.setEntryFee(2.0);
-
-        mBookingEntryList.add(mBookingInstance);*/
 
         aJsonParamsConfirmBooking.setBooking(mBookingEventsLists);
 
@@ -394,14 +375,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
                 if (!teamArrayList.get(jTeamCount)
                         .getTeamName().equals("(Free)")
-                        /*&& !teamArrayList.get(jTeamCount).isAlreadyBooked()*/) {
-               /* if ((teamArrayList.get(jTeamCount).getEntryStatus() == 2
-                        && teamArrayList.get(jTeamCount)
-                        .getTeamName().equals("(Free)"))
-                        ||
-                        !teamArrayList.get(jTeamCount)
-                                .getTeamName().equals("(Free)")
-                                && !teamArrayList.get(jTeamCount).isAlreadyBooked()) {*/
+                        && teamArrayList.get(jTeamCount).getEntryStatus() != 1) {
 
                     Team teamInstance = mSlotsList.get(iSlotCount).getTeams().get(jTeamCount);
 

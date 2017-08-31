@@ -509,10 +509,13 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         //For Show Stay/Leave Alert.
         isAnyChange = true;
 
+        int iSlotIdx = teams.get(iAddPlayerPosition).getSlotIdx();
+        int iTeamIdx = teams.get(iAddPlayerPosition).getTeamIdx();
+
         Team mTeamInstance = new Team();
         mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
-        mTeamInstance.setSlotIdx(teams.get(iAddPlayerPosition).getSlotIdx());
-        mTeamInstance.setTeamIdx(teams.get(iAddPlayerPosition).getTeamIdx());
+        mTeamInstance.setSlotIdx(iSlotIdx);
+        mTeamInstance.setTeamIdx(iTeamIdx);
 
             /*String iMemberID = teams.get(slotPosition)
                     .getPlayers()
@@ -542,6 +545,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         teams.set(iAddPlayerPosition, mTeamInstance);
 
         mEntryFee -= newCompEntryData.getEntryFee();
+
+        newCompEntryData.getZones().get(iZoneNo).getSlots()
+                .get(iSlotIdx).getTeams().set(iTeamIdx, mTeamInstance);
 
         updateTimeSlots();
     }
@@ -733,7 +739,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     intent.putExtra("mEntryFee", mEntryFee);
                     intent.putExtra("iZoneNo", iZoneNo);
                     intent.putExtra("strZoneName", tvZoneName.getText().toString());
-                    intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
+                     intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", newCompEntryData/*new Gson().toJson(newCompEntryData)*/);
               /*  Bundle informacion = new Bundle();
                 informacion.putSerializable("filterSlotList", mFilterSlotsList);
                 intent.putExtras(informacion);*/
@@ -1086,11 +1092,12 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
                     // mFilterSlotsList =  (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
                     //String strZoneName = getIntent().getExtras().getString("strZoneName");
-                    mEntryFee = getIntent().getExtras().getInt("mEntryFee");
-                    iZoneNo = getIntent().getExtras().getInt("iZoneNo");
+                    mEntryFee = data.getExtras().getFloat("mEntryFee");
+                    iZoneNo = data.getExtras().getInt("iZoneNo");
 
-                    String jsonNewCompEntryData = getIntent().getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
-                    newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
+//                    String jsonNewCompEntryData = data.getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
+//                    newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
+                    newCompEntryData = (NewCompEntryData) data.getSerializableExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
                     break;
 
                 case RESULT_CODE_ADD_MORE_MEMBERS:

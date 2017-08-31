@@ -69,7 +69,7 @@
 
     <string name="text_tee_off_times">Select a Tee-Off Time</string>
     <string name="text_your_entry_fee">Your Entry List</string>
-    <string name="text_add_players">Add Player</string>
+    <string name="text_add_players">Add Players</string>
     <!-- END OF COMPETITIONS EVENT ACTIVITY -->
 
     <!-- START OF COMPETITIONS FRAGMENT -->
@@ -312,7 +312,7 @@
     <string name="button_confirm_time_players">Confirm Time and Players</string>
     <string name="tb_title_frinds_list">Friends List</string>
     <string name="text_title_added_success">You added for this competition successfully.</string>
-    <string name="text_booking_success">Congratulations! your booking is made successful.</string>
+    <string name="text_booking_success">Congratulations! your booking is successful.</string>
     <string name="text_change_entry">Change your entry</string>
 
 </resources>

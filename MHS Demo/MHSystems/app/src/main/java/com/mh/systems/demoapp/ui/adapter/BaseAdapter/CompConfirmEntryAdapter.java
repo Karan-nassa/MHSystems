@@ -138,16 +138,17 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
             ivRemovePlayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    //Increase Free Slot val when user remove any player.
+                    mFilterSlotList.get(position).setiFreeSlotsAvail(
+                            mFilterSlotList.get(position).getiFreeSlotsAvail() - 1);
+
                     //TODO: when user click on cross icon
                     mOnUpdatePlayers.removePlayerListener(
                             mFilterSlotList.get(position).getTeams()
                             , position
                             , Integer.parseInt(tvNameOfPlayer.getTag().toString())
                     );
-
-                    //Increase Free Slot val when user remove any player.
-                    mFilterSlotList.get(position).setiFreeSlotsAvail(
-                            mFilterSlotList.get(position).getiFreeSlotsAvail() - 1);
                 }
             });
 
