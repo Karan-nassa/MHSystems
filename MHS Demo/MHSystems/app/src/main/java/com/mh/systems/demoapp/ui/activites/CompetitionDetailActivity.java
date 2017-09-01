@@ -146,6 +146,7 @@ public class CompetitionDetailActivity extends BaseActivity {
 
     int iPopItemPos;
     int iEntryID;
+    int iZoneNo = 0;
 
     Typeface tpRobotoMedium, tfSFUITextSemibold, tfButlerLight;
 
@@ -691,7 +692,7 @@ public class CompetitionDetailActivity extends BaseActivity {
                 tvEventStatusStrDD.setText(strEventStatus);
 
                 tvDateCourseEvent.setText("" + strEventDate/*getClubEventResponse.getGetClubEventData().getEventDateStr()*/);
-                tvTimeCourseEvent.setText("" + newCompEntryData.getEventStartDate().getShortDateStr());
+                tvTimeCourseEvent.setText(getTimeOfEvent(newCompEntryData.getZones().get(iZoneNo).getZoneName()));
                 tvFeeCourseEvent.setText("" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
                 //tvCombaseOfCompEvent.setText("" + getClubEventResponse.getGetClubEventData().getCompBasis());
                 tvDescCourseEvent.setText("" + newCompEntryData.getEventDescription());
@@ -745,6 +746,10 @@ public class CompetitionDetailActivity extends BaseActivity {
             hideProgress();
             reportRollBarException(CompetitionDetailActivity.class.getSimpleName(), e.toString());
         }
+    }
+
+    private String getTimeOfEvent(String strEventName) {
+        return strEventName.substring(strEventName.indexOf(",") + 1, strEventName.length());
     }
 
     /****************************************************************************

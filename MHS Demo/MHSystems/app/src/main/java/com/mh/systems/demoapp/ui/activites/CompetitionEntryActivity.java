@@ -65,6 +65,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     private final int RESULT_CODE_CONFIRM_BOOKING = 1221;
     private final int RESULT_CODE_ADD_MORE_MEMBERS = 1441;
 
+    private final int ACTION_TYPE_CONFIRM_BOOKING = 1;
+    private final int ACTION_TYPE_ADD_SELF_ONLY = 2;
+    private final int ACTION_TYPE_ADD_WITH_MEMBERS = 3; //Add itself along with members.
+    public static final int ACTION_TYPE_DEFAULT = 0;
+
     /**
      * iMemberPosition is used to keep record of which Member position user going to update so that
      * update name of Member when get back from {@link EligiblePlayersActivity}.
@@ -446,7 +451,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
          * check How many he/she already Booked/Added.
          ****************/
         int iCanAddMore = newCompEntryData.getMaxTeamCount() - newCompEntryData.getMaxTeamAdded();
-        if (iCanAddMore >= 1 && iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
+        if (iCanAddMore == 1/*iCanAddMore >= 1 && iFreeSlotsAvail == 1*/ && !newCompEntryData.isSlefAlreadyAdded()) {
 
             Team mTeamInstance = new Team();
             mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
@@ -476,14 +481,16 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             mEntryFee += newCompEntryData.getEntryFee();
             newCompEntryData.setMaxTeamAdded(++iMaxTeamAdded);
             updateTimeSlots();
+            showAlertMessageOk(ACTION_TYPE_ADD_SELF_ONLY
+                    , getString(R.string.text_title_added_success));
+
         } else {
 
             SlotsEligiblePlayers.clear();
-            Intent intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
+            intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
 
-
-           /* intent.putExtra("iFreeSlotsAvail", newCompEntryData.getZones()
-                    .get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail());*/
+                                  /* intent.putExtra("iFreeSlotsAvail", newCompEntryData.getZones()
+                                        .get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail());*/
             intent.putExtra("iFreeSlotsAvail", iCanAddMore);
 
             iAddPlayerPosition = SlotsEligiblePlayers.size();
@@ -502,7 +509,13 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             informacion.putSerializable("SlotsEligiblePlayers", SlotsEligiblePlayers);
             informacion.putSerializable("teams", teams);
             intent.putExtras(informacion);
-            startActivityForResult(intent, RESULT_CODE_ADD_MORE_MEMBERS);
+
+            if (!newCompEntryData.isSlefAlreadyAdded()) {
+                showAlertMessageOk(ACTION_TYPE_ADD_WITH_MEMBERS
+                        , getString(R.string.text_title_added_success));
+            }else{
+                startActivityForResult(intent, RESULT_CODE_ADD_MORE_MEMBERS);
+            }
         }
     }
 
@@ -554,8 +567,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         newCompEntryData.getZones().get(iZoneNo).getSlots()
                 .get(iSlotIdx).getTeams().set(iTeamIdx, mTeamInstance);
 
-        if(newCompEntryData.getMaxTeamAdded() == 0
-                && newCompEntryData.getBooking().size() == 0){
+        if (newCompEntryData.getMaxTeamAdded() == 0
+                && newCompEntryData.getBooking().size() == 0) {
             newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(-1);
         }
 
@@ -756,7 +769,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                 intent.putExtras(informacion);*/
                     startActivityForResult(intent, RESULT_CODE_CONFIRM_BOOKING);
                 } else {
-                    showAlertErrorOk(getString(R.string.error_no_entry_changes));
+                    showAlertMessageOk(ACTION_TYPE_CONFIRM_BOOKING
+                            , getString(R.string.error_no_entry_changes));
                 }
             }
         });
@@ -1326,7 +1340,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
      * Alert user if he/she doesn't make any
      * change and tap on Cofirm Entry.
      */
-    public void showAlertErrorOk(String strMessage) {
+    public void showAlertMessageOk(final int actionType, String strMessage) {
         if (builder == null) {
             builder = new AlertDialog.Builder(this);
             builder.setTitle("Alert");
@@ -1335,7 +1349,19 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            //do things
+
+                            switch (actionType) {
+                                case ACTION_TYPE_CONFIRM_BOOKING:
+                                case ACTION_TYPE_ADD_SELF_ONLY:
+
+                                    break;
+
+                                case ACTION_TYPE_ADD_WITH_MEMBERS:
+
+                                    startActivityForResult(intent, RESULT_CODE_ADD_MORE_MEMBERS);
+                                    break;
+                            }
+
                             builder = null;
                         }
                     });

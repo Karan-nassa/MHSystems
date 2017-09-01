@@ -217,12 +217,14 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                             iAlreadyBookSlotIdx = slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx();
 
                         } else {
-                            ((CompetitionEntryActivity) context).showAlertErrorOk(context.getString(R.string.text_alert_max_limit));
+                            ((CompetitionEntryActivity) context).showAlertMessageOk(CompetitionEntryActivity.ACTION_TYPE_DEFAULT
+                                    , context.getString(R.string.text_alert_max_limit));
                         }
                     } else {
                         ((CompetitionEntryActivity) context).
-                                showAlertErrorOk("Sorry, You can add new member at "+
-                                slotArrayList.get(iAlreadyBookSlotIdx).getTeeOffTime() + " slot only.");
+                                showAlertMessageOk(CompetitionEntryActivity.ACTION_TYPE_DEFAULT,
+                                        "Sorry, You can add new member at " +
+                                                slotArrayList.get(iAlreadyBookSlotIdx).getTeeOffTime() + " slot only.");
                     }
                 }
             });

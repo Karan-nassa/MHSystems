@@ -119,6 +119,8 @@ public class TopUpActivity extends BaseActivity {
     String strMinTopup, strMaxTopup;
     String strClosingBalance;
 
+    String strPassFrom = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +142,8 @@ public class TopUpActivity extends BaseActivity {
             showNoTopUpView(false);
             return;
         }
+
+        strPassFrom = getIntent().getExtras().getString("PASS_FROM");
 
         //Get Closing balance.
         strClosingBalance = getIntent().getExtras().getString("strClosingBalance");

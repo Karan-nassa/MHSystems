@@ -16,11 +16,15 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.adapter.BaseAdapter.CompConfirmEntryAdapter;
+import com.mh.systems.demoapp.ui.fragments.FinanceFragment;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.demoapp.utils.ExpandableHeightGridView;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
+import com.mh.systems.demoapp.web.models.FinanceAJsonParams;
+import com.mh.systems.demoapp.web.models.FinanceAPI;
+import com.mh.systems.demoapp.web.models.FinanceResultItems;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryData;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryResponse;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
@@ -30,6 +34,7 @@ import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.AJsonParamsConfirmBooking;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.Booking;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.NewCompEventEntryItems;
+import com.mh.systems.demoapp.web.models.finance.FinanceFilter;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -52,6 +57,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     private DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     private final int ERROR_INSUFFICIENT_BALANCE = 1001;
+    private final int ERROR_NO_TOPUP__FOUND = 1002;
 
     @Bind(R.id.tbBookingEntry)
     Toolbar tbBookingEntry;
@@ -75,12 +81,12 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     Button btConfirmEntry;
 
     private NewCompEntryData newCompEntryData;
-    private CompConfirmEntryAdapter compConfirmEntryAdapter;
+    CompConfirmEntryAdapter compConfirmEntryAdapter;
 
-    private NewCompEventEntryItems mNewCompEventEntryItems;
+    NewCompEventEntryItems mNewCompEventEntryItems;
     AJsonParamsConfirmBooking aJsonParamsConfirmBooking;
 
-    private NewCompEntryResponse newCompEntryResponse;
+    NewCompEntryResponse newCompEntryResponse;
 
     ///private ArrayList<Slot> mSlotEntryList = new ArrayList<>();
     private ArrayList<Slot> mFinalBookingList = new ArrayList<>();
@@ -89,8 +95,14 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     int iEventID;
     int iPayeeId;
     private float mEntryFee;
+    private float mTopUpBalance = 0;
 
     String strZoneName = "N/A";
+
+    FinanceResultItems financeResultItems;
+
+    FinanceAPI financeApi;
+    FinanceAJsonParams financeAJsonParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +115,20 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         llAddPlayer.setOnClickListener(this);
         btConfirmEntry.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (isOnline(ConfirmBookingEntryActivity.this)) {
+            requestFinanceService();
+        } else {
+            showAlertMessage(getString(R.string.error_no_internet));
+        }
     }
 
     @Override
@@ -181,7 +207,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                 break;
 
             case R.id.btConfirmEntry:
-                if (mEntryFee <= newCompEntryData.getFundsAvailable()) {
+                if (mEntryFee <= mTopUpBalance) {
                     /**
                      *  Check internet connection before hitting server request.
                      */
@@ -522,9 +548,15 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                                     Intent intent = new Intent(ConfirmBookingEntryActivity.this,
                                             TopUpActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.putExtra("PASS_FROM", ConfirmBookingEntryActivity.class.getSimpleName());
+                                    intent.putExtra("strClosingBalance", financeResultItems.getData().getClosingBalance());
                                     startActivity(intent);
-                                    finish();
                                     break;
+
+                                case ERROR_NO_TOPUP__FOUND:
+
+                                    builder = null;
+                                    onBackPressed();
 
                                 default:
                                     builder = null;
@@ -537,4 +569,78 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         }
     }
 
+    /************************************ FINANCE WEB SERVICE [START] ************************************/
+
+    /**
+     * Implement a method to hit MY ACCOUNT
+     * web service to get balance.
+     */
+    private void requestFinanceService() {
+
+        showPleaseWait("Loading...");
+
+        financeAJsonParams = new FinanceAJsonParams();
+        financeAJsonParams.setCallid(ApplicationGlobal.TAG_NEW_GCLUB_CALL_ID);
+        financeAJsonParams.setDateRange(2);//iFilterType
+        financeAJsonParams.setMemberId(getMemberId());
+
+        financeApi = new FinanceAPI(getClientId(), "GetAccStatement"
+                , financeAJsonParams, "TRANSACTION", ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+        api.getFinanceDetail(financeApi, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                showAlertError(ERROR_NO_TOPUP__FOUND,
+                        getString(R.string.error_no_topup_found));
+                hideProgress();
+            }
+        });
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<FinanceResultItems>() {
+        }.getType();
+        financeResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (financeResultItems.getMessage().equalsIgnoreCase("Success")) {
+
+                String strClosingBalance = financeResultItems.getData().getClosingBalance();
+                mTopUpBalance = Float.parseFloat(strClosingBalance.substring(1, strClosingBalance.length()));
+
+            } else {
+               showAlertMessage(financeResultItems.getMessage());
+            }
+        } catch (Exception e) {
+            reportRollBarException(ConfirmBookingEntryActivity.class.getSimpleName()
+                    , e.toString());
+        }
+
+        //Dismiss progress dialog.
+        hideProgress();
+    }
+
+    /************************************ FINANCE WEB SERVICE [END] ************************************/
 }
