@@ -30,15 +30,14 @@ import com.mh.systems.demoapp.web.api.WebAPI;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.competitionsentry.AJsonParamsUpdateEntry;
 import com.mh.systems.demoapp.web.models.competitionsentry.EligibleMember;
-import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryAPI;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryResponse;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.AllPlayer;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryData;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Team;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
-import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.Booking;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -476,11 +475,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
             mEntryFee += newCompEntryData.getEntryFee();
             newCompEntryData.setMaxTeamAdded(++iMaxTeamAdded);
-
-            if (isAlertUpdate) {
-                updateTimeSlots();
-                showAlertMessage(getString(R.string.text_title_added_success));
-            }
+            updateTimeSlots();
         } else {
 
             SlotsEligiblePlayers.clear();
@@ -558,6 +553,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         newCompEntryData.getZones().get(iZoneNo).getSlots()
                 .get(iSlotIdx).getTeams().set(iTeamIdx, mTeamInstance);
+
+        if(newCompEntryData.getMaxTeamAdded() == 0
+                && newCompEntryData.getBooking().size() == 0){
+            newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(-1);
+        }
 
         updateTimeSlots();
     }

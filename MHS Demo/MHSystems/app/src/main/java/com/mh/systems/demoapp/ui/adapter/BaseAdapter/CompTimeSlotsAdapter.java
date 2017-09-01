@@ -221,7 +221,8 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                         }
                     } else {
                         ((CompetitionEntryActivity) context).
-                                showAlertErrorOk(context.getString(R.string.text_alert_book_single_slot));
+                                showAlertErrorOk("Sorry, You can add new member at "+
+                                slotArrayList.get(iAlreadyBookSlotIdx).getTeeOffTime() + " slot only.");
                     }
                 }
             });

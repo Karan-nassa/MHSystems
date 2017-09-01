@@ -192,8 +192,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                     }
                 } else {
                     String strErrorMessage = "Sorry, you do not have sufficient funds to make this entry. The total entry fees are "
-                            + newCompEntryData.getCrnSymbol() + mEntryFee + ". Your Account balance is "
-                            + newCompEntryData.getCrnSymbol() + newCompEntryData.getFundsAvailable() +
+                            + newCompEntryData.getCrnSymbol() + decimalFormat.format(mEntryFee) + ". Your Account balance is "
+                            + newCompEntryData.getCrnSymbol() + decimalFormat.format(newCompEntryData.getFundsAvailable()) +
                             ". Please top-up your account by clicking ok.";
                     showAlertError(ERROR_INSUFFICIENT_BALANCE,
                             strErrorMessage);

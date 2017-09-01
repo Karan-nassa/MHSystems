@@ -67,7 +67,6 @@
 
     <string name="text_tee_off_times">Select a Tee-Off Time</string>
     <string name="text_your_entry_fee">Your Entry List</string>
-    <string name="text_add_players">Add Players</string>
     <!-- END OF COMPETITIONS EVENT ACTIVITY -->
 
     <!-- START OF COMPETITIONS FRAGMENT -->
@@ -312,9 +311,10 @@
     <string name="text_title_added_success">You added for this competition successfully.</string>
     <string name="text_booking_success">Congratulations! your booking is successful.</string>
     <string name="text_change_entry">Change your entry</string>
+    <string name="text_add_player">Add Player</string>
+    <string name="text_add_players">Add Players</string>
 
     <string name="text_alert_max_limit">Sorry, you have added maximum number of players.</string>
     <string name="text_alert_cancel_entry">Are you sure you want to cancel your entry?</string>
-    <string name="text_alert_book_single_slot">You can add members to the single slot.</string>
 
 </resources>
