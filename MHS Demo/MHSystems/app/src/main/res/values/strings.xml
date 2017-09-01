@@ -315,5 +315,6 @@
 
     <string name="text_alert_max_limit">Sorry, you have added maximum number of players.</string>
     <string name="text_alert_cancel_entry">Are you sure you want to cancel your entry?</string>
+    <string name="text_alert_book_single_slot">You can add members to the single slot.</string>
 
 </resources>

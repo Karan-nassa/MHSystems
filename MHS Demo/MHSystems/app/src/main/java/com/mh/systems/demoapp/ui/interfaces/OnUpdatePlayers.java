@@ -10,6 +10,6 @@ import java.util.ArrayList;
 
 public interface OnUpdatePlayers {
 
-    void addPlayersListener(ArrayList<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition, boolean isAlertUpdate);
+    void addPlayersListener(ArrayList<Team> teams, int slotPosition, int iTeamPerSlot, int iAddPlayerPosition, int iAlreadyBookSlotIdx, boolean isAlertUpdate);
     void removePlayerListener(ArrayList<Team> teams, int iSlotPosition, int iAddPlayerPosition);
 }

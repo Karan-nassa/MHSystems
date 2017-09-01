@@ -41,13 +41,14 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
     int iSlotNo, iPosition;
     int iTeamsPerSlot;
     int iMaxTeamAdded, iMaxTeamCount;
+    int iAlreadyBookSlotIdx;
 
     private OnUpdatePlayers mOnUpdatePlayers;
 
     public CompTimeSlotsAdapter(CompetitionEntryActivity mainActivity, ArrayList<Slot> slotArrayList
             , int iSlotNo, int iTeamsPerSlot
             , int MaxTeamAdded, int MaxTeamCount
-            , OnUpdatePlayers mOnUpdatePlayers) {
+            , int iAlreadyBookSlotIdx, OnUpdatePlayers mOnUpdatePlayers) {
 
         context = mainActivity;
         this.slotArrayList = slotArrayList;
@@ -55,8 +56,9 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
         this.iTeamsPerSlot = iTeamsPerSlot;
 
         this.iMaxTeamAdded = MaxTeamAdded;
-        this.iMaxTeamCount  = MaxTeamCount;
+        this.iMaxTeamCount = MaxTeamCount;
 
+        this.iAlreadyBookSlotIdx = iAlreadyBookSlotIdx;
         this.mOnUpdatePlayers = mOnUpdatePlayers;
 
         inflater = (LayoutInflater) context.
@@ -198,16 +200,28 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     //TODO: ADD Players and oepn member screen.
+                    int iTeamPlayerPos = Integer.parseInt(tvAddPlayer.getTag().toString());
 
-                    if(iMaxTeamAdded < iMaxTeamCount) {
+                    if (iAlreadyBookSlotIdx == -1 ||
+                            slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx() == iAlreadyBookSlotIdx) {
 
-                        mOnUpdatePlayers.addPlayersListener(slotArrayList.get(position).getTeams()
-                                , position
-                                , iTeamsPerSlot
-                                , Integer.parseInt(tvAddPlayer.getTag().toString())
-                                , true);
-                    }else{
-                        ((CompetitionEntryActivity)context).showAlertErrorOk(context.getString(R.string.text_alert_max_limit));
+                        if (iMaxTeamAdded < iMaxTeamCount) {
+
+                            mOnUpdatePlayers.addPlayersListener(slotArrayList.get(position).getTeams()
+                                    , position
+                                    , iTeamsPerSlot
+                                    , iTeamPlayerPos
+                                    , slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx()
+                                    , true);
+
+                            iAlreadyBookSlotIdx = slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx();
+
+                        } else {
+                            ((CompetitionEntryActivity) context).showAlertErrorOk(context.getString(R.string.text_alert_max_limit));
+                        }
+                    } else {
+                        ((CompetitionEntryActivity) context).
+                                showAlertErrorOk(context.getString(R.string.text_alert_book_single_slot));
                     }
                 }
             });

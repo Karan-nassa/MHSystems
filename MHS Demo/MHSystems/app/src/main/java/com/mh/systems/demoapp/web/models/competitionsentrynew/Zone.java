@@ -24,6 +24,9 @@ public class Zone implements Serializable {
     @SerializedName("TeamsPerSlot")
     @Expose
     private int TeamsPerSlot;
+
+    private int iAlreadyBookSlotIdx = -1;
+
     private boolean isExpand = true;
 
     public boolean isExpand() {
@@ -72,5 +75,13 @@ public class Zone implements Serializable {
 
     public void setTeamsPerSlot(int teamsPerSlot) {
         TeamsPerSlot = teamsPerSlot;
+    }
+
+    public int getiAlreadyBookSlotIdx() {
+        return iAlreadyBookSlotIdx;
+    }
+
+    public void setiAlreadyBookSlotIdx(int iAlreadyBookSlotIdx) {
+        this.iAlreadyBookSlotIdx = iAlreadyBookSlotIdx;
     }
 }

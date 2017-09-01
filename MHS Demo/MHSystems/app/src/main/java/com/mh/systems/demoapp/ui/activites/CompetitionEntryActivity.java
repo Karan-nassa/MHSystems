@@ -76,6 +76,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     int iEntryID = 0;
     private float mEntryFee = 0;
     int iMaxTeamAdded;
+    int iAlreadyBookSlotIdx = -1;
 
     /**
      * If TRUE then show Stay/Leave Alert
@@ -297,6 +298,16 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         iMaxTeamAdded = newCompEntryData.getBooking().size();
         newCompEntryData.setMaxTeamAdded(iMaxTeamAdded);
 
+        /**
+         * Store SlotIdx if user already made
+         * booking for any slot.
+         */
+        if (newCompEntryData.getBooking().size() > 0) {
+            //Just get SlotIdx of any booking slot because all would be same.
+            iAlreadyBookSlotIdx = newCompEntryData.getBooking().get(0).getSlotIdx();
+            newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(iAlreadyBookSlotIdx);
+        }
+
         for (int iSlotCount = 0; iSlotCount < compSlotsList.size(); iSlotCount++) {
 
             int teamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
@@ -421,10 +432,12 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     @Override
     public void addPlayersListener(ArrayList<Team> teams, int slotPosition
-            , int iTeamPerSlot, int iAddPlayerPosition, boolean isAlertUpdate) {
+            , int iTeamPerSlot, int iAddPlayerPosition
+            , int iAlreadyBookSlotIdx, boolean isAlertUpdate) {
 
         //For Show Stay/Leave Alert.
         isAnyChange = true;
+        newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(iAlreadyBookSlotIdx);
 
         int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
         //   if (iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
@@ -1059,6 +1072,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot(),
                     newCompEntryData.getMaxTeamAdded(),
                     newCompEntryData.getMaxTeamCount(),
+                    newCompEntryData.getZones().get(iZoneNo).getiAlreadyBookSlotIdx(),
                     CompetitionEntryActivity.this);
             gvTimeSlots.setAdapter(compTimeSlotsAdapter);
 
