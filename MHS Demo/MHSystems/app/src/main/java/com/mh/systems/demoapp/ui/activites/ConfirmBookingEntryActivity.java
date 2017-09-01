@@ -51,6 +51,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     private final String LOG_TAG = ConfirmBookingEntryActivity.class.getSimpleName();
     private DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
+    private final int ERROR_INSUFFICIENT_BALANCE = 1001;
+
     @Bind(R.id.tbBookingEntry)
     Toolbar tbBookingEntry;
 
@@ -132,8 +134,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     @Override
     public void removePlayerListener(ArrayList<Team> teams, int iSlotPosition, int iAddPlayerPosition) {
 
-       int iSlotIdx = teams.get(iAddPlayerPosition).getSlotIdx();
-       int iTeamIdx = teams.get(iAddPlayerPosition).getTeamIdx();
+        int iSlotIdx = teams.get(iAddPlayerPosition).getSlotIdx();
+        int iTeamIdx = teams.get(iAddPlayerPosition).getTeamIdx();
 
         Team mTeamInstance = new Team();
         mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
@@ -160,6 +162,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         teams.set(iAddPlayerPosition, mTeamInstance);
 
         mEntryFee -= newCompEntryData.getEntryFee();
+        newCompEntryData.setMaxTeamAdded((newCompEntryData.getMaxTeamAdded() - 1));
 
         newCompEntryData.getZones().get(iZoneNo).getSlots()
                 .get(iSlotIdx).getTeams().set(iTeamIdx, mTeamInstance);
@@ -176,14 +179,24 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                 break;
 
             case R.id.btConfirmEntry:
-                /**
-                 *  Check internet connection before hitting server request.
-                 */
-                if (isOnline(ConfirmBookingEntryActivity.this)) {
-                    sendConfirmEntryV2();
+                if (mEntryFee <= newCompEntryData.getFundsAvailable()) {
+                    /**
+                     *  Check internet connection before hitting server request.
+                     */
+                    if (isOnline(ConfirmBookingEntryActivity.this)) {
+                        sendConfirmEntryV2();
+                    } else {
+                        showAlertMessage(getString(R.string.error_no_connection));
+                    }
                 } else {
-                    showAlertMessage(getString(R.string.error_no_connection));
+                    String strErrorMessage = "Sorry, you do not have sufficient funds to make this entry. The total entry fees are "
+                            + newCompEntryData.getCrnSymbol() + mEntryFee + ". Your Account balance is "
+                            + newCompEntryData.getCrnSymbol() + newCompEntryData.getFundsAvailable() +
+                            ". Please top-up your account by clicking ok.";
+                    showAlertError(ERROR_INSUFFICIENT_BALANCE,
+                            strErrorMessage);
                 }
+
                 break;
         }
     }
@@ -481,6 +494,40 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                                     CompetitionsActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    }
+
+    /**
+     * Implement a method Custom showEnterCompetitionDialog
+     * Alert Dialog for input user First & Last name,
+     * email address and Mobile number.
+     */
+    public void showAlertError(final int errorType, String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            switch (errorType) {
+                                case ERROR_INSUFFICIENT_BALANCE:
+                                    Intent intent = new Intent(ConfirmBookingEntryActivity.this,
+                                            TopUpActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+
+                                default:
+                                    builder = null;
+                                    break;
+                            }
                         }
                     });
             AlertDialog alert = builder.create();

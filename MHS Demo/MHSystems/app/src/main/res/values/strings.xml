@@ -24,8 +24,6 @@
     <string name="error_valid_email">Please enter valid Email address.</string>
     <string name="error_no_transaction">No Transaction Receipt Available.</string>
     <string name="error_no_entry_changes">No changes has been done. Please make the changes and confirm.</string>
-
-    <string name="text_alert_cancel_entry">Are you sure you want to cancel your entry?</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
     <!-- START OF COMMON MESSAGES THROUGH OUT THE APP -->
@@ -308,11 +306,14 @@
     <string name="text_title_new_balance">Your new balance is </string>
     <string name="error_title_try_again">Please try again</string>
 
-    <!-- FRIENDS INFO ACTIVITY -->
+    <!-- NEW COMPETITIONS ENTRY FUNCTIONALITY -->
     <string name="button_confirm_time_players">Confirm Time and Players</string>
     <string name="tb_title_frinds_list">Friends List</string>
     <string name="text_title_added_success">You added for this competition successfully.</string>
     <string name="text_booking_success">Congratulations! your booking is successful.</string>
     <string name="text_change_entry">Change your entry</string>
+
+    <string name="text_alert_max_limit">Sorry, you have added maximum number of players.</string>
+    <string name="text_alert_cancel_entry">Are you sure you want to cancel your entry?</string>
 
 </resources>

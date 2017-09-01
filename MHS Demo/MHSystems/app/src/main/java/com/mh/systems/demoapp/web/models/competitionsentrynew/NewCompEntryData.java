@@ -91,7 +91,7 @@ public class NewCompEntryData implements Serializable {
     private List<Booking> Booking = null;
     @SerializedName("AllPlayers")
     @Expose
-   private List<AllPlayer> AllPlayers = null;
+    private List<AllPlayer> AllPlayers = null;
     @SerializedName("HCapSelector")
     @Expose
     private Object HCapSelector;
@@ -100,6 +100,7 @@ public class NewCompEntryData implements Serializable {
     private float EntryFee;
 
     private boolean slefAlreadyAdded = false;
+    private int MaxTeamAdded;
 
     public Integer getClientId() {
         return ClientId;
@@ -293,7 +294,7 @@ public class NewCompEntryData implements Serializable {
         this.Booking = Booking;
     }
 
-    public List<AllPlayer>  getAllPlayers() {
+    public List<AllPlayer> getAllPlayers() {
         return AllPlayers;
     }
 
@@ -339,5 +340,13 @@ public class NewCompEntryData implements Serializable {
 
     public void setEntryFee(float entryFee) {
         EntryFee = entryFee;
+    }
+
+    public int getMaxTeamAdded() {
+        return MaxTeamAdded;
+    }
+
+    public void setMaxTeamAdded(int maxTeamAdded) {
+        MaxTeamAdded = maxTeamAdded;
     }
 }

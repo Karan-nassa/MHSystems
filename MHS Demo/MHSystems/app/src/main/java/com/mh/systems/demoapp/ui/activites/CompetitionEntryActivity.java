@@ -75,6 +75,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     //It will describes whether member already entered for this competition then update values.
     int iEntryID = 0;
     private float mEntryFee = 0;
+    int iMaxTeamAdded;
 
     /**
      * If TRUE then show Stay/Leave Alert
@@ -293,6 +294,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         compSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
 
+        iMaxTeamAdded = newCompEntryData.getBooking().size();
+        newCompEntryData.setMaxTeamAdded(iMaxTeamAdded);
+
         for (int iSlotCount = 0; iSlotCount < compSlotsList.size(); iSlotCount++) {
 
             int teamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
@@ -423,17 +427,19 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         isAnyChange = true;
 
         int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
-        if (iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
+        //   if (iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
+
+        /****************
+         * Member cannot add more than the max of 'MaxTeamCount'. So
+         * check How many he/she already Booked/Added.
+         ****************/
+        int iCanAddMore = newCompEntryData.getMaxTeamCount() - newCompEntryData.getMaxTeamAdded();
+        if (iCanAddMore >= 1 && iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
 
             Team mTeamInstance = new Team();
             mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
             mTeamInstance.setSlotIdx(teams.get(iAddPlayerPosition).getSlotIdx());
             mTeamInstance.setTeamIdx(teams.get(iAddPlayerPosition).getTeamIdx());
-
-            /*String iMemberID = teams.get(slotPosition)
-                    .getPlayers()
-                    .get(0)
-                    .getMemberId();*/
 
             mTeamInstance.setTeamName(getMemberNameFromID(Integer.parseInt(getMemberId())));
             mTeamInstance.setEntryFee((double) newCompEntryData.getEntryFee()
@@ -456,6 +462,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             // mBookingList.add(mBookingInstance);
 
             mEntryFee += newCompEntryData.getEntryFee();
+            newCompEntryData.setMaxTeamAdded(++iMaxTeamAdded);
 
             if (isAlertUpdate) {
                 updateTimeSlots();
@@ -464,33 +471,21 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         } else {
 
             SlotsEligiblePlayers.clear();
-           /* for (int iTeamCount = 0; iTeamCount < teams.size(); iTeamCount++) {
-                List<Player> mPlayerArr = teams.get(iTeamCount).getPlayers();
+            Intent intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
 
-                if (mPlayerArr.size() > 0) {
 
-                    Integer iMemberID = Integer.parseInt(mPlayerArr.get(0).getMemberId());
-
-                    if (mapAllPlayer.containsKey(iMemberID)) {
-
-                        EligibleMember eligibleMember = new EligibleMember(true,
-                                iMemberID);
-                        SlotsEligiblePlayers.add(eligibleMember);
-                    }
-                }
-            }*/
+           /* intent.putExtra("iFreeSlotsAvail", newCompEntryData.getZones()
+                    .get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail());*/
+            intent.putExtra("iFreeSlotsAvail", iCanAddMore);
 
             iAddPlayerPosition = SlotsEligiblePlayers.size();
 
-            Intent intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
             intent.putExtra("NEW_COMP_EVENT_ID", newCompEntryData.getEventID());
             intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
             intent.putExtra("EventID", newCompEntryData.getEventID());
             intent.putExtra("slotPosition", slotPosition);
             intent.putExtra("iTeamPerSlot", iTeamPerSlot);
             intent.putExtra("iAddPlayerPosition", iAddPlayerPosition);
-            intent.putExtra("iFreeSlotsAvail", newCompEntryData.getZones()
-                    .get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail());
             intent.putExtra("isSlefAlreadyAdded", newCompEntryData.isSlefAlreadyAdded());
             intent.putExtra("iSelfMemberID", Integer.parseInt(getMemberId()));
             //  intent.putExtra("strSelfMemberName", strSelfMemberName);
@@ -504,7 +499,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     }
 
     @Override
-    public void removePlayerListener(ArrayList<Team> teams, int iSlotPosition, int iAddPlayerPosition) {
+    public void removePlayerListener(ArrayList<Team> teams, int iSlotPosition,
+                                     int iAddPlayerPosition) {
 
         //For Show Stay/Leave Alert.
         isAnyChange = true;
@@ -545,12 +541,14 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         teams.set(iAddPlayerPosition, mTeamInstance);
 
         mEntryFee -= newCompEntryData.getEntryFee();
+        newCompEntryData.setMaxTeamAdded(--iMaxTeamAdded);
 
         newCompEntryData.getZones().get(iZoneNo).getSlots()
                 .get(iSlotIdx).getTeams().set(iTeamIdx, mTeamInstance);
 
         updateTimeSlots();
     }
+
 
     /**
      * Implements this method to call when user tap to Add Member.
@@ -739,7 +737,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     intent.putExtra("mEntryFee", mEntryFee);
                     intent.putExtra("iZoneNo", iZoneNo);
                     intent.putExtra("strZoneName", tvZoneName.getText().toString());
-                     intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", newCompEntryData/*new Gson().toJson(newCompEntryData)*/);
+                    intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", newCompEntryData/*new Gson().toJson(newCompEntryData)*/);
               /*  Bundle informacion = new Bundle();
                 informacion.putSerializable("filterSlotList", mFilterSlotsList);
                 intent.putExtras(informacion);*/
@@ -1059,6 +1057,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     compSlotsList,
                     iSlotNo,
                     newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot(),
+                    newCompEntryData.getMaxTeamAdded(),
+                    newCompEntryData.getMaxTeamCount(),
                     CompetitionEntryActivity.this);
             gvTimeSlots.setAdapter(compTimeSlotsAdapter);
 
@@ -1281,6 +1281,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             // mBookingList.add(mBookingInstance);
 
             mEntryFee += newCompEntryData.getEntryFee();
+            newCompEntryData.setMaxTeamAdded(++iMaxTeamAdded);
 
             //updateTimeSlots();
             newCompEntryData.getZones().get(iZoneNo).getSlots().get(iSlotPosition).setTeams(mTeam);
@@ -1304,6 +1305,28 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                 // SlotsEligiblePlayers.remove(iCounter);
                 break;
             }
+        }
+    }
+
+    /**
+     * Alert user if he/she doesn't make any
+     * change and tap on Cofirm Entry.
+     */
+    public void showAlertErrorOk(String strMessage) {
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setTitle("Alert");
+            builder.setCancelable(false);
+            builder.setMessage(strMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                            builder = null;
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
     }
 
@@ -1340,28 +1363,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     .setPositiveButton("Cancel entry", dialogClickListener)
                     .setNegativeButton("Stay", dialogClickListener)
                     .setCancelable(false).show();
-        }
-    }
-
-    /**
-     * Alert user if he/she doesn't make any
-     * change and tap on Cofirm Entry.
-     */
-    private void showAlertErrorOk(String strMessage) {
-        if (builder == null) {
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle("Alert");
-            builder.setCancelable(false);
-            builder.setMessage(strMessage)
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //do things
-                            builder = null;
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
         }
     }
 

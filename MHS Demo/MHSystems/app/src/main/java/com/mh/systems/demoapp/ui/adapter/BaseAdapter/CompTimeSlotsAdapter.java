@@ -40,17 +40,22 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
 
     int iSlotNo, iPosition;
     int iTeamsPerSlot;
+    int iMaxTeamAdded, iMaxTeamCount;
 
     private OnUpdatePlayers mOnUpdatePlayers;
 
     public CompTimeSlotsAdapter(CompetitionEntryActivity mainActivity, ArrayList<Slot> slotArrayList
             , int iSlotNo, int iTeamsPerSlot
+            , int MaxTeamAdded, int MaxTeamCount
             , OnUpdatePlayers mOnUpdatePlayers) {
 
         context = mainActivity;
         this.slotArrayList = slotArrayList;
         this.iSlotNo = iSlotNo;
         this.iTeamsPerSlot = iTeamsPerSlot;
+
+        this.iMaxTeamAdded = MaxTeamAdded;
+        this.iMaxTeamCount  = MaxTeamCount;
 
         this.mOnUpdatePlayers = mOnUpdatePlayers;
 
@@ -194,11 +199,16 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     //TODO: ADD Players and oepn member screen.
 
-                    mOnUpdatePlayers.addPlayersListener(slotArrayList.get(position).getTeams()
-                            , position
-                            , iTeamsPerSlot
-                            , Integer.parseInt(tvAddPlayer.getTag().toString())
-                            , true);
+                    if(iMaxTeamAdded < iMaxTeamCount) {
+
+                        mOnUpdatePlayers.addPlayersListener(slotArrayList.get(position).getTeams()
+                                , position
+                                , iTeamsPerSlot
+                                , Integer.parseInt(tvAddPlayer.getTag().toString())
+                                , true);
+                    }else{
+                        ((CompetitionEntryActivity)context).showAlertErrorOk(context.getString(R.string.text_alert_max_limit));
+                    }
                 }
             });
 
