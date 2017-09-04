@@ -70,121 +70,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     private final int ACTION_TYPE_ADD_WITH_MEMBERS = 3; //Add itself along with members.
     public static final int ACTION_TYPE_DEFAULT = 0;
 
-    /**
-     * iMemberPosition is used to keep record of which Member position user going to update so that
-     * update name of Member when get back from {@link EligiblePlayersActivity}.
-     */
-    int iMemberPosition;
-
-    //It will describes whether member already entered for this competition then update values.
-    int iEntryID = 0;
-    private float mEntryFee = 0;
-    int iMaxTeamAdded;
-    int iAlreadyBookSlotIdx = -1;
-
-    /**
-     * If TRUE then show Stay/Leave Alert
-     * dialog.
-     */
-    private boolean isAnyChange = false;
-
-    String strEventId, strEventPrize, strMemberName;
-
-    //  String strSelfMemberName = "";
-    //  int iSelfMemberID;
-
-    int iSlotNo = -1;
-    //int iTeamSize;
-
-    //  boolean isAllowCompEntryAdHocSelection, IsTeeTimeSlotsAllowed;
-
     @Bind(R.id.tbBookingDetail)
     Toolbar tbBookingDetail;
 
-    @Bind(R.id.tvDetailPrice)
-    TextView tvDetailPrice;
-
-    @Bind(R.id.tvTotalPrice)
-    TextView tvTotalPrice;
-
-    @Bind(R.id.svPlayerContent)
-    ScrollView svPlayerContent;
-
     @Bind(R.id.gvTimeSlots)
     ExpandableHeightGridView gvTimeSlots;
-
-    @Bind(R.id.tvPlayerName1)
-    TextView tvPlayerName1;
-
-    @Bind(R.id.llPlayerGroup2)
-    LinearLayout llPlayerGroup2;
-
-    @Bind(R.id.llPlayerGroup3)
-    LinearLayout llPlayerGroup3;
-
-    @Bind(R.id.llPlayerGroup4)
-    LinearLayout llPlayerGroup4;
-
-    @Bind(R.id.llPlayerRow2)
-    LinearLayout llPlayerRow2;
-
-    @Bind(R.id.llPlayerRow3)
-    LinearLayout llPlayerRow3;
-
-    @Bind(R.id.llPlayerRow4)
-    LinearLayout llPlayerRow4;
-
-    @Bind(R.id.tvPlayerName2)
-    TextView tvPlayerName2;
-
-    @Bind(R.id.tvPlayerName3)
-    TextView tvPlayerName3;
-
-    @Bind(R.id.tvPlayerName4)
-    TextView tvPlayerName4;
-
-    @Bind(R.id.ivCrossPlayer2)
-    ImageView ivCrossPlayer2;
-
-    @Bind(R.id.ivCrossPlayer3)
-    ImageView ivCrossPlayer3;
-
-    @Bind(R.id.ivCrossPlayer4)
-    ImageView ivCrossPlayer4;
-
-    @Bind(R.id.tvTeeTimeValue)
-    TextView tvTeeTimeValue;
-
-    @Bind(R.id.tvSelectHint)
-    TextView tvSelectHint;
-
-    @Bind(R.id.llTimeSlotsGroup)
-    LinearLayout llTimeSlotsGroup;
-
-    @Bind(R.id.llTeeTimeGroup)
-    LinearLayout llTeeTimeGroup;
-
-    Intent intent;
-
-    CompTimeSlotsAdapter compTimeSlotsAdapter;
-
-    //List<Slot> slotArrayList = new ArrayList<>();
-    ArrayList<EligibleMember> allEligiblePlayers = new ArrayList<>();
-    ArrayList<EligibleMember> SlotsEligiblePlayers = new ArrayList<>();
-
-    ArrayList<Player> nameOfPlayersList = new ArrayList<>();
-
-    UpdateCompEntryAPI updateCompEntryAPI;
-    AJsonParamsUpdateEntry aJsonParamsUpdateEntry;
-
-    UpdateCompEntryResponse updateCompEntryResponse;
-
-//    private GetClubEventData getClubEventData;
-//    private Entry entryInstance;
-
-
-   /* @Bind(R.id.rvCompZone)
-    RecyclerView rvCompZone;*/
 
     @Bind(R.id.svTimeSlotsGroup)
     ScrollView svTimeSlotsGroup;
@@ -216,6 +106,31 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     @Bind(R.id.tvEndTimeOfEvent)
     TextView tvEndTimeOfEvent;
 
+   /* @Bind(R.id.rvCompZone)
+    RecyclerView rvCompZone;*/
+
+    /**
+     * iMemberPosition is used to keep record of which Member position user going to update so that
+     * update name of Member when get back from {@link EligiblePlayersActivity}.
+     */
+    int iMemberPosition;
+
+    //It will describes whether member already entered for this competition then update values.
+    int iEntryID = 0;
+    private float mEntryFee = 0;
+    int iMaxTeamAdded;
+    int iAlreadyBookSlotIdx = -1;
+
+    /**
+     * If TRUE then show Stay/Leave Alert
+     * dialog.
+     */
+    private boolean isAnyChange = false;
+
+    String strEventId, strEventPrize, strMemberName;
+
+    int iSlotNo = -1;
+
     private CompZoneExpandAdapter compZoneExpandAdapter;
     private NewCompEntryData newCompEntryData;
 
@@ -223,12 +138,22 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
     private int iZoneNo = 0;
     private boolean isExpandClose = false;
-    //private boolean slefAlreadyAdded = false;
 
     Map<Integer, AllPlayer> mapAllPlayer = new HashMap<>();
 
-    // ArrayList<Booking> mBookingList = new ArrayList<>();
-    //private ArrayList<Slot> mFilterSlotsList = new ArrayList<>();
+    //List<Slot> slotArrayList = new ArrayList<>();
+    ArrayList<EligibleMember> allEligiblePlayers = new ArrayList<>();
+    ArrayList<EligibleMember> SlotsEligiblePlayers = new ArrayList<>();
+
+    ArrayList<Player> nameOfPlayersList = new ArrayList<>();
+
+    UpdateCompEntryAPI updateCompEntryAPI;
+    AJsonParamsUpdateEntry aJsonParamsUpdateEntry;
+
+    UpdateCompEntryResponse updateCompEntryResponse;
+    CompTimeSlotsAdapter compTimeSlotsAdapter;
+
+    Intent intent;
 
     private View.OnClickListener mZoneExpandListener = new View.OnClickListener() {
         @Override
@@ -259,25 +184,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             setSupportActionBar(tbBookingDetail);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-//        String jsonFavorites = getIntent().getExtras().getString("RESPONSE_GET_CLUB_EVENT_DATA");
-//        Gson gson = new Gson();
-//        getClubEventData = gson.fromJson(jsonFavorites, GetClubEventData.class);
-
-//        strEventPrize = getIntent().getExtras().getString("COMPETITIONS_EVENT_PRIZE");
-//        strMemberName = getIntent().getExtras().getString("COMPETITIONS_MEMBER_NAME");
-
-        //     iTeamSize = getClubEventData.getTeamSize();
-
-        //If FALSE then user hasn't ability to add another members.
-//        isAllowCompEntryAdHocSelection = getClubEventData.getAllowCompEntryAdHocSelection();
-//        IsTeeTimeSlotsAllowed = getClubEventData.getIsTeeTimeSlotsAllowed();
-
-        //      tvPlayerName1.setText(strMemberName);
-
-        //updateMemberUI();
-        //updateTimeSlots();
-
 
         /******************************* NEW COMPETITIONS ENTRY DATA *******************************/
         /*rvCompZone.setLayoutManager(new LinearLayoutManager(CompetitionEntryActivity.this));
@@ -344,27 +250,10 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                         compSlotsList.get(iSlotCount).getTeams()
                                 .get(jTeamCount).setEntryStatus(mapAllPlayer.get(iMemberID)
                                 .getEntryStatus());
-
-                      /* switch (mapAllPlayer.get(iMemberID).getEntryStatus()){
-                           case 0:
-                           case 2:
-                               compSlotsList.get(iSlotCount)
-                                       .getTeams().get(jTeamCount).setAnyUpdated(true);
-                               break;
-
-                           case 1:
-                               compSlotsList.get(iSlotCount)
-                                       .getTeams().get(jTeamCount).setAnyUpdated(false);
-                               break;
-                       }*/
                     }
                 }
             }
         }
-
-
-//        iSelfMemberID = Integer.parseInt(getMemberId());
-//        strSelfMemberName = getMemberNameFromID(iSelfMemberID);
 
         strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
 
@@ -372,21 +261,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         updateNewCompEntryUI();
 
-
         /*******************************************************************************************/
-
-       /* llPlayerGroup2.setOnClickListener(mPlayerSelectionListener);
-        tvPlayerName2.setOnClickListener(mPlayerSelectionListener);
-
-        llPlayerGroup3.setOnClickListener(mPlayerSelectionListener);
-        tvPlayerName3.setOnClickListener(mPlayerSelectionListener);
-
-        llPlayerGroup4.setOnClickListener(mPlayerSelectionListener);
-        tvPlayerName4.setOnClickListener(mPlayerSelectionListener);*/
-
-       /* ivCrossPlayer2.setOnClickListener(mCrossListener);
-        ivCrossPlayer3.setOnClickListener(mCrossListener);
-        ivCrossPlayer4.setOnClickListener(mCrossListener);*/
     }
 
     @Override
@@ -406,15 +281,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
             case R.id.action_save:
 
-               /* if (IsTeeTimeSlotsAllowed) {
-                    if (iSlotNo == -1) {
-                        showAlertMessage("Please select any Tee time slot.");
-                    } else {
-                        showAlertConfirm();
-                    }
-                } else {
-                    showAlertConfirm();
-                }*/
                 break;
 
             default:
@@ -577,543 +443,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         updateTimeSlots();
     }
 
-
-    /**
-     * Implements this method to call when user tap to Add Member.
-     */
-    public View.OnClickListener mPlayerSelectionListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.tvPlayerName2:
-                case R.id.llPlayerGroup2:
-                    if (tvPlayerName2.getText().toString().equals("Add (optionaly)")) {
-                        iMemberPosition = 2;
-                    } else
-                        return;
-                    break;
-
-                case R.id.tvPlayerName3:
-                case R.id.llPlayerGroup3:
-                    if (tvPlayerName3.getText().toString().equals("Add (optionaly)")) {
-                        iMemberPosition = 3;
-                    } else
-                        return;
-                    break;
-
-                case R.id.tvPlayerName4:
-                case R.id.llPlayerGroup4:
-                    if (tvPlayerName4.getText().toString().equals("Add (optionaly)")) {
-                        iMemberPosition = 4;
-                    } else
-                        return;
-                    break;
-            }
-
-            intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
-            intent.putExtra("COMPETITIONS_eventId", strEventId);
-            //intent.putExtra("COMPETITIONS_TeamSize", iTeamSize);
-            intent.putExtra("COMPETITIONS_iEntryID", iEntryID);
-            Bundle informacion = new Bundle();
-            informacion.putSerializable("MEMBER_LIST", allEligiblePlayers);
-            intent.putExtras(informacion);
-            startActivityForResult(intent, 1);
-        }
-    };
-
-    /**
-     * Implements this method to call when user tap on Cross button.
-     */
-    public View.OnClickListener mCrossListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-            String strNameOfMember = "";
-
-            switch (view.getId()) {
-                case R.id.ivCrossPlayer2:
-                    strNameOfMember = tvPlayerName2.getText().toString();
-                    tvPlayerName2.setText("Add (optionaly)");
-                    ivCrossPlayer2.setVisibility(View.INVISIBLE);
-                    //showAlertOk();
-                    break;
-
-                case R.id.ivCrossPlayer3:
-                    strNameOfMember = tvPlayerName3.getText().toString();
-                    tvPlayerName3.setText("Add (optionaly)");
-                    ivCrossPlayer3.setVisibility(View.INVISIBLE);
-                    //showAlertOk();
-                    break;
-
-                case R.id.ivCrossPlayer4:
-                    strNameOfMember = tvPlayerName4.getText().toString();
-                    tvPlayerName4.setText("Add (optionaly)");
-                    ivCrossPlayer4.setVisibility(View.INVISIBLE);
-                    //showAlertOk();
-                    break;
-            }
-
-            removeMemberFromList(strNameOfMember);
-        }
-    };
-
-    /**
-     * Implements this method to set visibility status of players
-     * UI according to iTeamSize.
-     * <p>
-     * For Exp: iTeamSize = 2, means set visibility of PLAYER 2 and PLAYER 3 only.
-     * <p>
-     * NOTE: Maximum TeamSize : 4
-     */
-   /* private void updateMemberUI() {
-
-        //Member has ability to add another member if the below AdHocSelection is TRUE.
-        if (isAllowCompEntryAdHocSelection) {
-
-            *//**
-     * Loop will start from 1 because 0th is position of member itself
-     * who is going to select other members.
-     *//*
-            for (int iCounter = 2; iCounter <= iTeamSize; iCounter++) {
-                switch (iCounter) {
-                    case 2:
-                        llPlayerRow2.setVisibility(View.VISIBLE);
-                        break;
-
-                    case 3:
-                        llPlayerRow3.setVisibility(View.VISIBLE);
-                        break;
-
-                    case 4:
-                        llPlayerRow4.setVisibility(View.VISIBLE);
-                        break;
-
-                }
-            }
-
-            //Get instance of Member entry.
-            entryInstance = getClubEventData.getEntry();
-
-            //Not NULL Means member already entered for selected competition and want to 'MANAGE/UPDATE BOOKING'.
-            if (entryInstance != null) {
-
-                iEntryID = getClubEventData.getEntry().getEntryID();
-                nameOfPlayersList.addAll(entryInstance.getPlayers());
-
-                //UPDATE Tee Time.
-                tvTeeTimeValue.setText(getClubEventData.getEntry().getReservedSlotTime());
-                tvSelectHint.setText("");
-
-                iSlotNo = entryInstance.getReservedSlotNo();
-
-                //Pre-selected Member list for 'MANAGE YOUR BOOKING'.
-                List<Player> playersList = entryInstance.getPlayers();
-                for (int iCounter = 0; iCounter < playersList.size(); iCounter++) {
-
-                    */
-
-    /**
-     * After remove Member, RecordID and PlayerName values will be 0 from api. If its
-     * 0 or empty then don't update UI and not need to add in local array.
-     *//*
-                    if (playersList.get(iCounter).getRecordID() != 0) {
-
-                        playersArrayList.add(new EligibleMember(playersList.get(iCounter).getRecordID(), new NameRecord(playersList.get(iCounter).getPlayerName())));
-
-                        switch (iCounter) {
-                            case 1:
-                                tvPlayerName2.setText(playersList.get(iCounter).getPlayerName());
-                                ivCrossPlayer2.setVisibility(View.VISIBLE);
-                                break;
-
-                            case 2:
-                                tvPlayerName3.setText(playersList.get(iCounter).getPlayerName());
-                                ivCrossPlayer3.setVisibility(View.VISIBLE);
-                                break;
-
-                            case 3:
-                                tvPlayerName4.setText(playersList.get(iCounter).getPlayerName());
-                                ivCrossPlayer4.setVisibility(View.VISIBLE);
-                                break;
-                        }
-                    }
-                }
-            }
-        }
-
-        updatePriceUI();
-    }*/
-    private void updateNewCompEntryUI() {
-
-        tvZoneName.setText(newCompEntryData.getZones().get(iZoneNo).getZoneName());
-        tvOccupancy.setText(("Free Spaces Available : " + newCompEntryData.getZones().get(iZoneNo).getFreePlaces()));
-
-        tvTitleOfComp.setText(newCompEntryData.getEventName());
-        tvTimeOfComp.setText(newCompEntryData.getEventStartDate().getFullDateStr());
-
-        flSingleZoneGroup.setOnClickListener(mZoneExpandListener);
-        ivExpandCompZone.setOnClickListener(mZoneExpandListener);
-
-        updateTimeAndTitleOfZone(newCompEntryData.getZones().get(iZoneNo).getZoneName());
-
-        btConfirmTimeBooking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (isAnyChange) {
-                    Intent intent = new Intent(CompetitionEntryActivity.this, ConfirmBookingEntryActivity.class);
-                    intent.putExtra("mEntryFee", mEntryFee);
-                    intent.putExtra("iZoneNo", iZoneNo);
-                    intent.putExtra("strZoneName", tvZoneName.getText().toString());
-                    intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", newCompEntryData/*new Gson().toJson(newCompEntryData)*/);
-              /*  Bundle informacion = new Bundle();
-                informacion.putSerializable("filterSlotList", mFilterSlotsList);
-                intent.putExtras(informacion);*/
-                    startActivityForResult(intent, RESULT_CODE_CONFIRM_BOOKING);
-                } else {
-                    showAlertMessageOk(ACTION_TYPE_CONFIRM_BOOKING
-                            , getString(R.string.error_no_entry_changes)
-                            , getString(R.string.alert_title_alert));
-                }
-            }
-        });
-
-        updateTimeSlots();
-
-        // allPlayerArrayList.addAll(newCompEntryData.getAllPlayers());
-    }
-
-    private void updateTimeAndTitleOfZone(String strEventName) {
-
-        if (strEventName.contains(",")) {
-            tvZoneName.setText(strEventName.substring(0, strEventName.indexOf(",")));
-        }
-
-        if (strEventName.contains("-")) {
-            tvStartTimeOfEvent.setText(strEventName.substring(strEventName.indexOf(",") + 1, strEventName.indexOf("-")));
-            tvEndTimeOfEvent.setText(strEventName.substring(strEventName.indexOf("-") + 1, strEventName.length()));
-        }
-    }
-
-    /**
-     * Implements this method to UPDATE members name UI section when user
-     * get back from MEMBER/FRIEND tabs with No Entry ID means iEntryID = 0.
-     */
-    private void updateNoEntryIdMemberUI() {
-        for (int iCounter = 0; iCounter < allEligiblePlayers.size(); iCounter++) {
-
-            switch (iCounter) {
-
-                case 0:
-                    tvPlayerName2.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
-                    ivCrossPlayer2.setVisibility(View.VISIBLE);
-                    break;
-
-                case 1:
-                    tvPlayerName3.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
-                    ivCrossPlayer3.setVisibility(View.VISIBLE);
-                    break;
-
-                case 2:
-                default:
-                    tvPlayerName4.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
-                    ivCrossPlayer4.setVisibility(View.VISIBLE);
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Implements this method to UPDATE members name UI section when
-     * user get back from MEMBER/FRIEND tabs with Entry ID means
-     * iEntryID = [ANY INTEGER VALUE].
-     */
-    private void updateWithEntryIdMemberUI() {
-        for (int iCounter = 1; iCounter < allEligiblePlayers.size(); iCounter++) {
-
-            // Log.e(LOG_TAG, "Player " + iCounter + " : " + playersArrayList.get(iCounter).getMemberID() + " : " + playersArrayList.get(iCounter).getNameRecord().getDisplayName());
-
-            switch (iCounter) {
-
-                case 1:
-                    tvPlayerName2.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
-                    ivCrossPlayer2.setVisibility(View.VISIBLE);
-                    break;
-
-                case 2:
-                    tvPlayerName3.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
-                    ivCrossPlayer3.setVisibility(View.VISIBLE);
-                    break;
-
-                case 3:
-                default:
-                    tvPlayerName4.setText(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName());
-                    ivCrossPlayer4.setVisibility(View.VISIBLE);
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Implements this method to update Price after select or remove Members.
-     */
-    private void updatePriceUI() {
-        Scanner scannerInput = new Scanner(strEventPrize).useDelimiter("[^0-9]+");
-        int iPrizeVal = scannerInput.nextInt();
-
-        if (iEntryID != 0) {
-            //Will not increment playerArraylist.size() because its already have 0th member from web service.
-            tvDetailPrice.setText("" + allEligiblePlayers.size() + "x " + strEventPrize);
-            tvTotalPrice.setText("£" + (allEligiblePlayers.size() * iPrizeVal) + ".00");
-        } else {
-            tvDetailPrice.setText("" + (allEligiblePlayers.size() + 1) + "x " + strEventPrize);
-            tvTotalPrice.setText("£" + ((allEligiblePlayers.size() + 1) * iPrizeVal) + ".00");
-        }
-    }
-
-    /**
-     * Implements this method to check Internet Connection and hit web service
-     * if connection exists.
-     */
-    private void updateCompEntryService() {
-
-        if (isOnline(this)) {
-            callUpdateEntryService();
-        } else {
-            showAlertMessage(getResources().getString(R.string.error_no_internet));
-            hideProgress();
-        }
-    }
-
-    /**
-     * Implements a method to hit update members detail service.
-     */
-    private void callUpdateEntryService() {
-
-        List<Integer> selectedMemberIdList = new ArrayList<>();
-
-        /**
-         * Add Member itself if First time Entry competition. And during UPDATE, member
-         * ID already added via api.
-         */
-        if (iEntryID == 0) {
-            selectedMemberIdList.add(Integer.parseInt(getMemberId()));
-        }
-
-        for (int iCount = 0; iCount < allEligiblePlayers.size(); iCount++) {
-            selectedMemberIdList.add(allEligiblePlayers.get(iCount).getMemberID()); //Add selected Members IDs
-        }
-
-        showPleaseWait("Please wait...");
-
-        aJsonParamsUpdateEntry = new AJsonParamsUpdateEntry();
-        aJsonParamsUpdateEntry.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsUpdateEntry.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
-        aJsonParamsUpdateEntry.setMemberId(getMemberId());
-        aJsonParamsUpdateEntry.setEventId(strEventId);
-        aJsonParamsUpdateEntry.setPlayers(selectedMemberIdList);
-        aJsonParamsUpdateEntry.setSlotNo(iSlotNo);
-        aJsonParamsUpdateEntry.setZoneId(1);//Always 1 for all competition suggested by @Jaspal Singh
-
-        if (iEntryID != 0) {
-            aJsonParamsUpdateEntry.setEntryId(iEntryID);
-        }
-
-        updateCompEntryAPI = new UpdateCompEntryAPI(getClientId(), getWhichEventEntry(), aJsonParamsUpdateEntry, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
-
-        //Creating a rest adapter
-        RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(WebAPI.API_BASE_URL)
-                .build();
-
-        //Creating an object of our api interface
-        WebServiceMethods api = adapter.create(WebServiceMethods.class);
-
-        //Defining the method
-        api.updateCompEntry(updateCompEntryAPI, new Callback<JsonObject>() {
-            @Override
-            public void success(JsonObject jsonObject, retrofit.client.Response response) {
-
-                updateSuccessResponse(jsonObject);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                //you can handle the errors here
-                Log.e(LOG_TAG, "RetrofitError : " + error);
-                hideProgress();
-                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
-            }
-        });
-    }
-
-    /**
-     * Save Entry method calling from two sides are:
-     * <br>
-     * - ADD Club Event Entry [ADDCLUBEVENTENTRIES]: When user Save or Add any new Event.
-     * - UPDATE Club Event Entry [UPDATECLUBEVENTENTRIES]: When user want to 'UPDATE YOUR BOOKING'
-     */
-    private String getWhichEventEntry() {
-        if (iEntryID == 0) {
-            return "ADDCLUBEVENTENTRIES";
-        } else {
-            return "UPDATECLUBEVENTENTRIES";
-        }
-    }
-
-    /**
-     * Implements a method to update SUCCESS response of web service.
-     */
-    private void updateSuccessResponse(JsonObject jsonObject) {
-
-        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
-
-        Type type = new TypeToken<UpdateCompEntryResponse>() {
-        }.getType();
-        updateCompEntryResponse = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
-
-        try {
-            /**
-             *  Check "Result" 1 or 0. If 1, means data received successfully.
-             */
-            if (updateCompEntryResponse.getResult() == 1) {
-
-                showAlertOk(updateCompEntryResponse.getData());
-            } else {
-                //If web service not respond in any case.
-                showAlertMessage(updateCompEntryResponse.getMessage());
-            }
-
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "" + e.getMessage());
-            reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
-        }
-        hideProgress();
-    }
-
-    /**
-     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
-     */
-    private String getMemberId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
-    }
-
-    /**
-     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
-     */
-    private String getClientId() {
-        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
-    }
-
-    /**
-     * Implements this method to Remove Member from ArrayList.
-     *
-     * @param strMemberName
-     */
-    private void removeMemberFromList(String strMemberName) {
-
-        int iCounter;
-        for (iCounter = 0; iCounter < allEligiblePlayers.size(); iCounter++) {
-
-            if (strMemberName.equals(allEligiblePlayers.get(iCounter).getNameRecord().getDisplayName())) {
-                allEligiblePlayers.remove(iCounter);
-                updatePriceUI();
-                break;
-            }
-        }
-    }
-
-    /**
-     * Implement a method to display Alert Dialog message
-     * after unJoin Competitions.
-     */
-    private void showAlertOk(String strAlertMessage) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(strAlertMessage)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //do things
-                        onBackPressed();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    /**
-     * Implements this method to display {@link AlertDialog} with
-     * CANCEL and CONFIRM button.
-     */
-    private void showAlertConfirm() {
-        if (builder == null) {
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle("Confirmation");
-            builder.setMessage("Your account will be charged for " + tvTotalPrice.getText().toString())
-                    .setCancelable(false)
-                    .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //do things
-                            builder = null;
-                        }
-                    })
-                    .setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            builder = null;
-                            //do things
-                            updateCompEntryService();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
-    }
-
-    /**
-     * Implements this method to get TEE time slots for book
-     * paid Competitions.
-     */
-    public void updateTimeSlots() {
-
-        if (newCompEntryData.getZones().get(iZoneNo).getSlots() == null) {
-            return;
-        }
-
-        try {
-
-            gvTimeSlots.setExpanded(true);
-            compTimeSlotsAdapter = new CompTimeSlotsAdapter(CompetitionEntryActivity.this,
-                    compSlotsList,
-                    iSlotNo,
-                    newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot(),
-                    newCompEntryData.getMaxTeamAdded(),
-                    newCompEntryData.getMaxTeamCount(),
-                    newCompEntryData.getZones().get(iZoneNo).getiAlreadyBookSlotIdx(),
-                    CompetitionEntryActivity.this);
-            gvTimeSlots.setAdapter(compTimeSlotsAdapter);
-
-            //Forcefully scroll UP of screen after loading.
-            svPlayerContent.post(new Runnable() {
-                public void run() {
-                    svPlayerContent.fullScroll(View.FOCUS_UP);
-                }
-            });
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "Exception " + e.toString());
-            reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
-        }
-    }
-
-    /**
-     * Update Tee Time Slot value.
-     */
-    /*public void updateTeeTimeValue(int iPosition) {
-        tvTeeTimeValue.setText(slotArrayList.get(iPosition).getSlotStartTimeStr());
-        tvSelectHint.setText("");
-
-        iSlotNo = slotArrayList.get(iPosition).getSlotNo();
-    }*/
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -1170,71 +499,98 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                             }
                         }
                     }
-
-                    /*for (int iCount = iAddPlayerPosition; iCount < SlotsEligiblePlayers.size(); iCount++) {
-                        updateMemberDetailInSlots(iCount
-                                , SlotsEligiblePlayers
-                                , mTeam
-                                , iSlotPosition
-                                , iTeamPerSlot
-                                , iCount);
-                    }*/
             }
             updateTimeSlots();
-
-             /*  if (!isSlefAlreadyAdded()) {
-               *//* CompetitionEntryActivity.this.addPlayersListener(mTeam
-                        , iSlotPosition
-                        , iTeamPerSlot
-                        , iAddPlayerPosition,
-                        false);*//*
-                addPlayerToList(mTeam
-                        , iSlotPosition
-                        , iTeamPerSlot
-                        , iAddPlayerPosition + 1);
-            }*/
-
-
-
-           /* if (iEntryID == 0) {
-                updateNoEntryIdMemberUI();
-            } else {
-                updateWithEntryIdMemberUI();
-            }*/
-
-//            updatePriceUI();
         }
     }
 
-    /*private void addPlayerToList(ArrayList<Team> teams, int iSlotPosition, int iTeamPerSlot, int iAddPlayerPosition) {
-        Team mTeamInstance = new Team();
-        mTeamInstance.setZoneId(teams.get(iAddPlayerPosition).getZoneId());
-        mTeamInstance.setSlotIdx(teams.get(iAddPlayerPosition).getSlotIdx());
-        mTeamInstance.setTeamIdx(teams.get(iAddPlayerPosition).getTeamIdx());
+    private void updateNewCompEntryUI() {
 
-            *//*String iMemberID = teams.get(slotPosition)
-                    .getPlayers()
-                    .get(0)
-                    .getMemberId();*//*
+        tvZoneName.setText(newCompEntryData.getZones().get(iZoneNo).getZoneName());
+        tvOccupancy.setText(("Free Spaces Available : " + newCompEntryData.getZones().get(iZoneNo).getFreePlaces()));
 
-        mTeamInstance.setTeamName(getMemberNameFromID(Integer.parseInt(getMemberId())));
-        mTeamInstance.setEntryFee(teams.get(iAddPlayerPosition).getEntryFee());
+        tvTitleOfComp.setText(newCompEntryData.getEventName());
+        tvTimeOfComp.setText(newCompEntryData.getEventStartDate().getFullDateStr());
 
-        List<Player> mPlayerList = new ArrayList<>();
-        Player mPlayer = new Player();
-        mPlayer.setMemberId(getMemberId());
-        mPlayer.setIsGuest(false);
-        mPlayerList.add(mPlayer);
+        flSingleZoneGroup.setOnClickListener(mZoneExpandListener);
+        ivExpandCompZone.setOnClickListener(mZoneExpandListener);
 
-        mTeamInstance.setPlayers(mPlayerList);
-        //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
-        teams.set(iAddPlayerPosition, mTeamInstance);
+        updateTimeAndTitleOfZone(newCompEntryData.getZones().get(iZoneNo).getZoneName());
 
-        newCompEntryData.getZones().get(iZoneNo).getSlots().get(iSlotPosition).setTeams(teams);
-        // newCompEntryDataCopy.getZones().get(iZoneNo).getSlots().get(slotPosition).getTeams().get()
-        // mBookingList.add(mBookingInstance);
+        btConfirmTimeBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    }*/
+                if (isAnyChange) {
+                    Intent intent = new Intent(CompetitionEntryActivity.this, ConfirmBookingEntryActivity.class);
+                    intent.putExtra("mEntryFee", mEntryFee);
+                    intent.putExtra("iZoneNo", iZoneNo);
+                    intent.putExtra("strZoneName", tvZoneName.getText().toString());
+                    intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", newCompEntryData/*new Gson().toJson(newCompEntryData)*/);
+              /*  Bundle informacion = new Bundle();
+                informacion.putSerializable("filterSlotList", mFilterSlotsList);
+                intent.putExtras(informacion);*/
+                    startActivityForResult(intent, RESULT_CODE_CONFIRM_BOOKING);
+                } else {
+                    showAlertMessageOk(ACTION_TYPE_CONFIRM_BOOKING
+                            , getString(R.string.error_no_entry_changes)
+                            , getString(R.string.alert_title_alert));
+                }
+            }
+        });
+
+        updateTimeSlots();
+
+        // allPlayerArrayList.addAll(newCompEntryData.getAllPlayers());
+    }
+
+    private void updateTimeAndTitleOfZone(String strEventName) {
+
+        if (strEventName.contains(",")) {
+            tvZoneName.setText(strEventName.substring(0, strEventName.indexOf(",")));
+        }
+
+        if (strEventName.contains("-")) {
+            tvStartTimeOfEvent.setText(strEventName.substring(strEventName.indexOf(",") + 1, strEventName.indexOf("-")));
+            tvEndTimeOfEvent.setText(strEventName.substring(strEventName.indexOf("-") + 1, strEventName.length()));
+        }
+    }
+
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    private String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
+
+    /**
+     * Implements this method to get TEE time slots for book
+     * paid Competitions.
+     */
+    private void updateTimeSlots() {
+
+        if (newCompEntryData.getZones().get(iZoneNo).getSlots() == null) {
+            return;
+        }
+
+        try {
+
+            gvTimeSlots.setExpanded(true);
+            compTimeSlotsAdapter = new CompTimeSlotsAdapter(CompetitionEntryActivity.this,
+                    compSlotsList,
+                    iSlotNo,
+                    newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot(),
+                    newCompEntryData.getMaxTeamAdded(),
+                    newCompEntryData.getMaxTeamCount(),
+                    newCompEntryData.getZones().get(iZoneNo).getiAlreadyBookSlotIdx(),
+                    CompetitionEntryActivity.this);
+            gvTimeSlots.setAdapter(compTimeSlotsAdapter);
+
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Exception " + e.toString());
+            reportRollBarException(CompetitionEntryActivity.class.getSimpleName(), e.toString());
+        }
+    }
 
     /**
      * Get Member name along with HCap value
