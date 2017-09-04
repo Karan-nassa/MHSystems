@@ -218,13 +218,15 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
 
                         } else {
                             ((CompetitionEntryActivity) context).showAlertMessageOk(CompetitionEntryActivity.ACTION_TYPE_DEFAULT
-                                    , context.getString(R.string.text_alert_max_limit));
+                                    , context.getString(R.string.text_alert_max_limit)
+                                    , context.getString(R.string.alert_title_alert));
                         }
                     } else {
                         ((CompetitionEntryActivity) context).
                                 showAlertMessageOk(CompetitionEntryActivity.ACTION_TYPE_DEFAULT,
                                         "Sorry, You can add new member at " +
-                                                slotArrayList.get(iAlreadyBookSlotIdx).getTeeOffTime() + " slot only.");
+                                                slotArrayList.get(iAlreadyBookSlotIdx).getTeeOffTime() + " slot only."
+                                        , context.getString(R.string.alert_title_alert));
                     }
                 }
             });

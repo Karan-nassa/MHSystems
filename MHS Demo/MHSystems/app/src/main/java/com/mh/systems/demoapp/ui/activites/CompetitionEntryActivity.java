@@ -482,7 +482,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             newCompEntryData.setMaxTeamAdded(++iMaxTeamAdded);
             updateTimeSlots();
             showAlertMessageOk(ACTION_TYPE_ADD_SELF_ONLY
-                    , getString(R.string.text_title_added_success));
+                    , getString(R.string.text_title_added_success)
+                    , getString(R.string.alert_title_nice));
 
         } else {
 
@@ -512,8 +513,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
             if (!newCompEntryData.isSlefAlreadyAdded()) {
                 showAlertMessageOk(ACTION_TYPE_ADD_WITH_MEMBERS
-                        , getString(R.string.text_title_added_success));
-            }else{
+                        , getString(R.string.text_title_added_success)
+                        , getString(R.string.alert_title_nice));
+            } else {
                 startActivityForResult(intent, RESULT_CODE_ADD_MORE_MEMBERS);
             }
         }
@@ -770,7 +772,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     startActivityForResult(intent, RESULT_CODE_CONFIRM_BOOKING);
                 } else {
                     showAlertMessageOk(ACTION_TYPE_CONFIRM_BOOKING
-                            , getString(R.string.error_no_entry_changes));
+                            , getString(R.string.error_no_entry_changes)
+                            , getString(R.string.alert_title_alert));
                 }
             }
         });
@@ -1340,10 +1343,10 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
      * Alert user if he/she doesn't make any
      * change and tap on Cofirm Entry.
      */
-    public void showAlertMessageOk(final int actionType, String strMessage) {
+    public void showAlertMessageOk(final int actionType, String strMessage, String strTitle) {
         if (builder == null) {
             builder = new AlertDialog.Builder(this);
-            builder.setTitle("Alert");
+            builder.setTitle(strTitle);
             builder.setCancelable(false);
             builder.setMessage(strMessage)
                     .setCancelable(false)

@@ -309,12 +309,14 @@
     <!-- NEW COMPETITIONS ENTRY FUNCTIONALITY -->
     <string name="button_confirm_time_players">Confirm Time and Players</string>
     <string name="tb_title_frinds_list">Friends List</string>
-    <string name="text_title_added_success">You added for this competition successfully.</string>
+    <string name="text_title_added_success">you have successfully entered this competition.</string>
     <string name="text_booking_success">Congratulations! your booking is successful.</string>
     <string name="text_change_entry">Change your entry</string>
     <string name="text_add_player">Add Player</string>
     <string name="text_add_players">Add Players</string>
 
+    <string name="alert_title_alert">Alert!</string>
+    <string name="alert_title_nice">Nice!</string>
     <string name="text_alert_max_limit">Sorry, you have added maximum number of players.</string>
     <string name="text_alert_cancel_entry">Are you sure you want to cancel your entry?</string>
 
