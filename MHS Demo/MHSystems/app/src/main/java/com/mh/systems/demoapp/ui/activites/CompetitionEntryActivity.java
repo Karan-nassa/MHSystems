@@ -63,9 +63,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     private final int ACTION_TYPE_ADD_PER_TEAMSIZE = 4;
     public static final int ACTION_TYPE_DEFAULT = 0;
 
-    public static final int ACTION_CALL_FROM_REMOVE = 5;
-    public static final int ACTION_CALL_FROM_ADD = 6;
-
     @Bind(R.id.tbBookingDetail)
     Toolbar tbBookingDetail;
 
@@ -469,7 +466,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
         allEligiblePlayers.clear();
 
-        if (actionCallFromRemove == ACTION_CALL_FROM_REMOVE) {
+        if (actionCallFromRemove == ApplicationGlobal.ACTION_CALL_FROM_REMOVE) {
             mPlayersArr.remove(iPlayerCount);
 
             newCompEntryData.getZones().get(iZoneNo)
@@ -655,9 +652,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     intent.putExtra("iZoneNo", iZoneNo);
                     intent.putExtra("strZoneName", tvZoneName.getText().toString());
                     intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", newCompEntryData/*new Gson().toJson(newCompEntryData)*/);
-              /*  Bundle informacion = new Bundle();
-                informacion.putSerializable("filterSlotList", mFilterSlotsList);
-                intent.putExtras(informacion);*/
+                    Bundle informacion = new Bundle();
+                    informacion.putSerializable("mapAllPlayer", (Serializable) mapAllPlayer);
+                    intent.putExtras(informacion);
                     startActivityForResult(intent, RESULT_CODE_CONFIRM_BOOKING);
                 } else {
                     showAlertMessageOk(ACTION_TYPE_CONFIRM_BOOKING

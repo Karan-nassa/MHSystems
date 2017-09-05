@@ -12,11 +12,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.ui.activites.CompetitionEntryActivity;
+import com.mh.systems.demoapp.ui.activites.ConfirmBookingEntryActivity;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
+import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Team;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by karan@ucreate.co.in for Time slots Grid options.
@@ -38,13 +44,14 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
     int iSlotNo, iPosition;
     int iTeamsPerSlot;
     int iZoneNo;
+    int iTeamSize;
 
     private OnUpdatePlayers mOnUpdatePlayers;
 
     public CompConfirmEntryAdapter(Activity mActivity, ArrayList<Slot> mFilterSlotList,
                                    int iZoneNo, int teamsPerSlot
             , String strZoneName, String strCrnSymbol,
-                                   OnUpdatePlayers mOnUpdatePlayers) {
+                                   int iTeamSize, OnUpdatePlayers mOnUpdatePlayers) {
         context = mActivity;
         this.mFilterSlotList = mFilterSlotList;
         this.strZoneName = strZoneName;
@@ -52,6 +59,8 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
         this.iZoneNo = iZoneNo;
         this.strCrnSymbol = strCrnSymbol;
         this.mOnUpdatePlayers = mOnUpdatePlayers;
+
+        this.iTeamSize = iTeamSize;
 
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -93,64 +102,128 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
 
         confirmEntryRow.llAddConfirmPlayers = (LinearLayout) rowView.findViewById(R.id.llAddConfirmPlayers);
 
-//        confirmEntryRow.tvTimeOfComp.setText(zoneCompEntryList.get(iZoneNo).getSlots().get(position).getTeeOffTime());
+        //confirmEntryRow.tvTimeOfComp.setText(zoneCompEntryList.get(iZoneNo).getSlots().get(position).getTeeOffTime());
         confirmEntryRow.tvTimeOfComp.setText(mFilterSlotList.get(position).getTeeOffTime());
         confirmEntryRow.tvZoneName.setText(strZoneName);
 
         confirmEntryRow.tvTimeOfComp.setTypeface(tfRobotoBold);
 
-        for (int iTeamCount = 0; iTeamCount < mFilterSlotList.get(position)
-                .getTeams().size(); iTeamCount++) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            View playerView = inflater.inflate(R.layout.inflate_row_add_teams, null);
+        LinearLayout llAddTeamsRow;
 
-            final TextView tvNameOfPlayer = (TextView) playerView.findViewById(R.id.tvPlayerName);
-            TextView tvPriceCost = (TextView) playerView.findViewById(R.id.tvPriceCost);
+        for (int iTeamCount = 0; iTeamCount < iTeamsPerSlot; iTeamCount++) {
 
-            ImageView ivRemovePlayer = (ImageView) playerView.findViewById(R.id.ivPlayerRemove);
-            ivRemovePlayer.setVisibility(View.VISIBLE);
-            /*String strTeamName = zoneCompEntryList.get(iZoneNo)
-                    .getSlots()
-                    .get(position)
-                    .getTeams()
-                    .get(iCounter)
-                    .getTeamName();*/
+            View addTeamView = LayoutInflater.from(context).inflate(R.layout.inflate_row_add_teams, null);
 
-            tvNameOfPlayer.setText(mFilterSlotList.get(position)
-                    .getTeams().get(iTeamCount).getTeamName());
-            tvNameOfPlayer.setTypeface(tfRobotoBold);
-            tvNameOfPlayer.setTag(iTeamCount);
+            llAddTeamsRow = (LinearLayout) addTeamView.findViewById(R.id.llAddTeamsRow);
 
-            String strCostFee = "Entry fee: " +(strCrnSymbol +
-                    decimalFormat.format(
-                    mFilterSlotList.get(position)
-                            .getTeams().get(iTeamCount)
-                            .getEntryFee()));
+            final ArrayList<Team> mTeamArrayList = mFilterSlotList.get(position).getTeams();
 
-            tvPriceCost.setText(strCostFee);
-            tvPriceCost.setVisibility(View.VISIBLE);
-            tvPriceCost.setTypeface(tfRobotoRegular);
+            String strTeamName = mTeamArrayList.get(iTeamCount).getTeamName();
+            final List<Player> mPlayersArr = mTeamArrayList.get(iTeamCount).getPlayers();
 
-            ivRemovePlayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            if (mPlayersArr.size() == 0) {
+                View viewSinglePlayer = LayoutInflater.from(context).inflate(R.layout.inflate_add_more_players, null);
 
-                    //Increase Free Slot val when user remove any player.
-                    mFilterSlotList.get(position).setiFreeSlotsAvail(
-                            mFilterSlotList.get(position).getiFreeSlotsAvail() - 1);
+                LinearLayout llAddMoreContainer = (LinearLayout) viewSinglePlayer.findViewById(R.id.llAddMoreContainer);
 
-                    //TODO: when user click on cross icon
-                    mOnUpdatePlayers.removePlayerListener(
-                            mFilterSlotList.get(position).getTeams()
-                            , position
-                            , Integer.parseInt(tvNameOfPlayer.getTag().toString())
-                    );
+                TextView tvPlayerName = (TextView) viewSinglePlayer.findViewById(R.id.tvPlayerName);
+                TextView tvPriceCost = (TextView) viewSinglePlayer.findViewById(R.id.tvPriceCost);
+                final TextView tvAddTeam = (TextView) viewSinglePlayer.findViewById(R.id.tvAddPlayer);
+
+                ImageView ivPlayerRemove = (ImageView) viewSinglePlayer.findViewById(R.id.ivPlayerRemove);
+
+                tvPlayerName.setText(strTeamName);
+
+                String strCostFee = "Entry fee: " +(strCrnSymbol +
+                        decimalFormat.format(
+                                mFilterSlotList.get(position)
+                                        .getTeams().get(iTeamCount)
+                                        .getEntryFee()));
+
+                tvPriceCost.setText(strCostFee);
+                tvPriceCost.setVisibility(View.VISIBLE);
+                tvPriceCost.setTypeface(tfRobotoRegular);
+
+                if ((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1) {
+                    tvAddTeam.setText(context.getString(R.string.text_add_players));
+                } else {
+                    tvAddTeam.setText(context.getString(R.string.text_add_player));
                 }
-            });
 
-            confirmEntryRow.llAddConfirmPlayers.addView(playerView);
+                //Store Add Player position as Tag for use later.
+                tvAddTeam.setTag(iTeamCount);
+                ivPlayerRemove.setVisibility(View.VISIBLE);
+
+                ivPlayerRemove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        mOnUpdatePlayers.removePlayerListener(
+                                mFilterSlotList.get(position).getTeams()
+                                , position
+                                , Integer.parseInt(tvAddTeam.getTag().toString())
+                        );
+
+                        //Increase Free Slot val when user remove any player.
+                        mFilterSlotList.get(position).setiFreeSlotsAvail(
+                                mFilterSlotList.get(position).getiFreeSlotsAvail() - 1);
+                    }
+                });
+
+                llAddTeamsRow.addView(llAddMoreContainer);
+                // mFilterSlotList.get(position).setiFreeSlotsAvail(iFreeSlotsAvail);
+            } else {
+                for (int iPlayerCount = 0; iPlayerCount < mPlayersArr.size(); iPlayerCount++) {
+                    LayoutInflater mInflatorAddPlayers = LayoutInflater.from(context);
+                    View viewAddMorePlayer = mInflatorAddPlayers.inflate(R.layout.inflate_add_more_players, null);
+
+                    final TextView tvPlayerName = (TextView) viewAddMorePlayer.findViewById(R.id.tvPlayerName);
+                    final ImageView ivPlayerRemove = (ImageView) viewAddMorePlayer.findViewById(R.id.ivPlayerRemove);
+
+                    tvPlayerName.setText(((ConfirmBookingEntryActivity) context).
+                            getMemberNameFromID(Integer.parseInt(mPlayersArr.get(iPlayerCount).getMemberId())));
+                    tvPlayerName.setTag(iTeamCount);
+
+                    ivPlayerRemove.setVisibility(View.VISIBLE);
+
+                    final int finalITeamCount = iTeamCount;
+                    final int finalIPlayerCount = iPlayerCount;
+                    ivPlayerRemove.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if ((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1) {
+
+                                mOnUpdatePlayers.addorRemoveUpdateMaxTeam(
+                                        mPlayersArr
+                                        , mFilterSlotList.get(position).getTeams()
+                                        , position //Slot Position
+                                        , iTeamsPerSlot
+                                        , Integer.parseInt(tvPlayerName.getTag().toString()) //team pos
+                                        , mFilterSlotList.get(position).getTeams().get(finalITeamCount).getSlotIdx() //SlotIdx
+                                        , finalIPlayerCount
+                                        , ApplicationGlobal.ACTION_CALL_FROM_REMOVE //Call from
+                                );
+                            } else {
+                                //Increase Free Slot val when user remove any player.
+                                mOnUpdatePlayers.removePlayerListener(
+                                        mFilterSlotList.get(position).getTeams()
+                                        , position
+                                        , finalITeamCount
+                                );
+
+                                //Increase Free Slot val when user remove any player.
+                                mFilterSlotList.get(position).setiFreeSlotsAvail(
+                                        mFilterSlotList.get(position).getiFreeSlotsAvail() - 1);
+                            }
+                        }
+                    });
+
+                    llAddTeamsRow.addView(viewAddMorePlayer);
+                }
+            }
+            confirmEntryRow.llAddConfirmPlayers.addView(llAddTeamsRow);
         }
-
         return rowView;
     }
 }

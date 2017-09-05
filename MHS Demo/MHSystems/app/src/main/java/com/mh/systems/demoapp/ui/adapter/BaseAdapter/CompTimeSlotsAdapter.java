@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.activites.CompetitionEntryActivity;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
+import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Team;
@@ -133,9 +134,9 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 iFreeSlotsAvail++;
 
                 if((iTeamSize == 4|| iTeamSize == 3) && iTeamsPerSlot == 1){
-                    tvAddTeam.setText(context.getString(R.string.text_add_player));
-                }else{
                     tvAddTeam.setText(context.getString(R.string.text_add_players));
+                }else{
+                    tvAddTeam.setText(context.getString(R.string.text_add_player));
                 }
 
                 /**
@@ -197,7 +198,8 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                         if (iAlreadyBookSlotIdx == -1 ||
                                 slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx() == iAlreadyBookSlotIdx) {
 
-                            if((iTeamSize == 4|| iTeamSize == 3) && iTeamsPerSlot == 1){
+                            if(((iTeamSize == 4|| iTeamSize == 3) && iTeamsPerSlot == 1)
+                                    || (iTeamSize == 2 && iTeamsPerSlot == 2)){
 
                                 /*mOnUpdatePlayers.addMaxPlayersAsTeamsize(
                                         slotArrayList.get(position).getTeams()
@@ -214,7 +216,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                                         , Integer.parseInt(tvAddTeam.getTag().toString()) //team pos
                                         , slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx() //SlotIdx
                                         , 0
-                                        ,((CompetitionEntryActivity) context).ACTION_CALL_FROM_ADD //Call from
+                                        , ApplicationGlobal.ACTION_CALL_FROM_ADD //Call from
                                        );
 
                                 iAlreadyBookSlotIdx = slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx();
@@ -269,21 +271,17 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                     switch (mTeamArrayList.get(iTeamCount).getEntryStatus()) {
                         case 0:
                             if (mTeamArrayList.get(iTeamCount).isAnyUpdated()) {
-                                //tvAddTeam.setVisibility(View.GONE);
                                 ivPlayerRemove.setVisibility(View.VISIBLE);
                             } else {
-                                //tvAddTeam.setVisibility(View.VISIBLE);
                                 ivPlayerRemove.setVisibility(View.GONE);
                             }
                             break;
 
                         case 1:
-                            //tvAddTeam.setVisibility(View.GONE);
                             ivPlayerRemove.setVisibility(View.GONE);
                             break;
 
                         case 2:
-                            //tvAddTeam.setVisibility(View.GONE);
                             ivPlayerRemove.setVisibility(View.VISIBLE);
                             break;
 
@@ -308,7 +306,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                                         , Integer.parseInt(tvPlayerName.getTag().toString()) //team pos
                                         , slotArrayList.get(position).getTeams().get(finalITeamCount).getSlotIdx() //SlotIdx
                                         , finalIPlayerCount
-                                        , ((CompetitionEntryActivity) context).ACTION_CALL_FROM_REMOVE //Call from
+                                        , ApplicationGlobal.ACTION_CALL_FROM_REMOVE //Call from
                                 );
                             }else{
                                 mOnUpdatePlayers.removePlayerListener(

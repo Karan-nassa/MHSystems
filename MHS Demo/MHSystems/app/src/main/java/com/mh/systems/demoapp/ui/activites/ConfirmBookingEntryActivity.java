@@ -24,6 +24,7 @@ import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.FinanceAJsonParams;
 import com.mh.systems.demoapp.web.models.FinanceAPI;
 import com.mh.systems.demoapp.web.models.FinanceResultItems;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.AllPlayer;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryData;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryResponse;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
@@ -39,7 +40,9 @@ import com.newrelic.com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -101,6 +104,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
     FinanceAPI financeApi;
     FinanceAJsonParams financeAJsonParams;
+
+    Map<Integer, AllPlayer> mapAllPlayer = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -270,6 +275,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         newCompEntryData = (NewCompEntryData) getIntent().getSerializableExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
 
+        mapAllPlayer = (Map<Integer, AllPlayer>)getIntent().getSerializableExtra("mapAllPlayer");
+
         // mSlotEntryList = (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
 
         mEntryFee = getIntent().getExtras().getFloat("mEntryFee");
@@ -357,7 +364,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                     showAlertMessage(newCompEntryData.getErrorMessage());
                 } else {
                     showAlertCongrates(getResources().getString(R.string.text_booking_success)
-                    , getString(R.string.alert_title_congrates));
+                            , getString(R.string.alert_title_congrates));
                 }
 
             } else {
@@ -423,8 +430,11 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
                 ArrayList<Team> teamArrayList = mSlotsList.get(iSlotCount).getTeams();
 
-                if (!teamArrayList.get(jTeamCount)
+                /*if (!teamArrayList.get(jTeamCount)
                         .getTeamName().equals("(Free)")
+                        && teamArrayList.get(jTeamCount).getEntryStatus() != 1) {*/
+                if (teamArrayList.get(jTeamCount)
+                        .getPlayers().size() > 0
                         && teamArrayList.get(jTeamCount).getEntryStatus() != 1) {
 
                     Team teamInstance = mSlotsList.get(iSlotCount).getTeams().get(jTeamCount);
@@ -468,16 +478,13 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
                 ArrayList<Team> teamArrayList = mSlotsList.get(iSlotCount).getTeams();
 
-                if (!teamArrayList.get(jTeamCount)
+              /*  if (!teamArrayList.get(jTeamCount)
                         .getTeamName().equals("(Free)")
+                        && teamArrayList.get(jTeamCount).isAnyUpdated()) {*/
+
+                if (teamArrayList.get(jTeamCount)
+                        .getPlayers().size() > 0
                         && teamArrayList.get(jTeamCount).isAnyUpdated()) {
-                /*if ((teamArrayList.get(jTeamCount).getEntryStatus() == 2
-                        && teamArrayList.get(jTeamCount)
-                        .getTeamName().equals("(Free)"))
-                        ||
-                        !teamArrayList.get(jTeamCount)
-                                .getTeamName().equals("(Free)")
-                                && !teamArrayList.get(jTeamCount).isAlreadyBooked()) {*/
 
                     mFilterTeam.add(mSlotsList.get(iSlotCount).getTeams().get(jTeamCount));
                     isAddedNew = true;
@@ -510,6 +517,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                 mZoneInstance.getTeamsPerSlot(),
                 strZoneName,
                 newCompEntryData.getCrnSymbol(),
+                newCompEntryData.getTeamSize(),
                 ConfirmBookingEntryActivity.this);
         gvCompEntry.setAdapter(compConfirmEntryAdapter);
     }
@@ -579,6 +587,37 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         }
     }
 
+    /**
+     * Get Member name along with HCap value
+     * by passing Member ID.
+     */
+    public String getMemberNameFromID(int iMemberID) {
+
+        if (newCompEntryData.getAllPlayers() == null) {
+            return "N/A";
+        }
+
+        //Also check here if member self added in the list then set Flag.
+        if (iMemberID == Integer.parseInt(getMemberId())) {
+            newCompEntryData.setSelfAlreadyAdded(true);
+        }
+
+        if (mapAllPlayer.containsKey(iMemberID)) {
+
+            return mapAllPlayer.get(iMemberID).getNameAndHandicap();
+        }
+
+        /*List<AllPlayer> mAllPlayersList = newCompEntryData.getAllPlayers();
+
+        for (int iCounter = 0; iCounter < mAllPlayersList.size(); iCounter++) {
+            if (mAllPlayersList.get(iCounter).getMemberId() == iMemberID) {
+                return mAllPlayersList.get(iCounter).getNameAndHandicap();
+            }
+        }*/
+
+        return "N/A";
+    }
+
     /************************************ FINANCE WEB SERVICE [START] ************************************/
 
     /**
@@ -641,7 +680,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                 mTopUpBalance = Float.parseFloat(strClosingBalance.substring(1, strClosingBalance.length()));
 
             } else {
-               showAlertMessage(financeResultItems.getMessage());
+                showAlertMessage(financeResultItems.getMessage());
             }
         } catch (Exception e) {
             reportRollBarException(ConfirmBookingEntryActivity.class.getSimpleName()
