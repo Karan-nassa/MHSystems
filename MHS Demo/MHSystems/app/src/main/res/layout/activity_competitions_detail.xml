@@ -266,7 +266,7 @@
 
             </LinearLayout>
 
-            <!--  CHANGE YOUR ENTRY -->
+            <!--  AMEND/UPDATE YOUR ENTRY -->
             <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
                 android:id="@+id/tvChangeEntry"
                 android:layout_width="wrap_content"
@@ -276,7 +276,7 @@
                 android:padding="10dp"
                 android:visibility="gone"
                 android:background="@drawable/border_shape_8f8e94"
-                android:text="@string/text_change_entry"
+                android:text="@string/text_amend_entry"
                 android:textColor="#FF8F8E94"
                 android:textSize="17sp" />
 

@@ -515,6 +515,15 @@ public class CompetitionDetailActivity extends BaseActivity {
     }
 
     /**
+     * Implements this method to UPDATE the '+' sign with minus means user
+     * can Unjoin the event.
+     */
+    private void updateUnJoinIcon() {
+        fabJoinCompetition.setImageResource(R.mipmap.ic_minus);
+        fabJoinCompetition.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
+    }
+
+    /**
      * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
      */
     private String getMemberId() {
@@ -695,17 +704,21 @@ public class CompetitionDetailActivity extends BaseActivity {
                 tvTimeCourseEvent.setText(getTimeOfEvent(newCompEntryData.getZones().get(iZoneNo).getZoneName()));
                 tvFeeCourseEvent.setText("" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
                 //tvCombaseOfCompEvent.setText("" + getClubEventResponse.getGetClubEventData().getCompBasis());
-                tvDescCourseEvent.setText("" + newCompEntryData.getEventDescription());
+                tvDescCourseEvent.setText(newCompEntryData.getEventDescription());
 
                 strMemberName = newCompEntryData.getPayeeName();
 
                 tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");
 
-                if(newCompEntryData.getBooking().size() != 0){
-                    tvChangeEntry.setVisibility(View.VISIBLE);
-                    updateJoinIcon();
-                }else{
-                    tvChangeEntry.setVisibility(View.GONE);
+                if (iPopItemPos == 0) {
+                    if (newCompEntryData.getBooking().size() != 0) {
+                        tvChangeEntry.setVisibility(View.VISIBLE);
+                        updateJoinIcon();
+                    } else {
+                        tvChangeEntry.setVisibility(View.GONE);
+                    }
+                } else {
+                    updateUnJoinIcon();
                 }
 
                 fabJoinCompetition.setVisibility(View.VISIBLE);

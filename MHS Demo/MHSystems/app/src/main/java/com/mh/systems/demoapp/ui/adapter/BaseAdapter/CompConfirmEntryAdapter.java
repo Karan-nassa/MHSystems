@@ -7,20 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.ui.activites.ConfirmBookingEntryActivity;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
-import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by karan@ucreate.co.in for Time slots Grid options.
@@ -106,12 +102,12 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
         for (int iTeamCount = 0; iTeamCount < mFilterSlotList.get(position)
                 .getTeams().size(); iTeamCount++) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            View playerView = inflater.inflate(R.layout.inflate_row_add_player, null);
+            View playerView = inflater.inflate(R.layout.inflate_row_add_teams, null);
 
-            final TextView tvNameOfPlayer = (TextView) playerView.findViewById(R.id.tvNameOfPlayer);
+            final TextView tvNameOfPlayer = (TextView) playerView.findViewById(R.id.tvPlayerName);
             TextView tvPriceCost = (TextView) playerView.findViewById(R.id.tvPriceCost);
 
-            ImageView ivRemovePlayer = (ImageView) playerView.findViewById(R.id.ivRemovePlayer);
+            ImageView ivRemovePlayer = (ImageView) playerView.findViewById(R.id.ivPlayerRemove);
             ivRemovePlayer.setVisibility(View.VISIBLE);
             /*String strTeamName = zoneCompEntryList.get(iZoneNo)
                     .getSlots()

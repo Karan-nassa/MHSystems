@@ -1,10 +1,7 @@
 package com.mh.systems.demoapp.ui.adapter.BaseAdapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +38,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
     int iSlotNo, iPosition;
     int iTeamsPerSlot;
     int iMaxTeamAdded, iMaxTeamCount;
+    int iTeamSize;
     int iAlreadyBookSlotIdx;
 
     private OnUpdatePlayers mOnUpdatePlayers;
@@ -48,7 +46,8 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
     public CompTimeSlotsAdapter(CompetitionEntryActivity mainActivity, ArrayList<Slot> slotArrayList
             , int iSlotNo, int iTeamsPerSlot
             , int MaxTeamAdded, int MaxTeamCount
-            , int iAlreadyBookSlotIdx, OnUpdatePlayers mOnUpdatePlayers) {
+            , int iAlreadyBookSlotIdx, Integer iTeamSize
+            , OnUpdatePlayers mOnUpdatePlayers) {
 
         context = mainActivity;
         this.slotArrayList = slotArrayList;
@@ -59,6 +58,8 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
         this.iMaxTeamCount = MaxTeamCount;
 
         this.iAlreadyBookSlotIdx = iAlreadyBookSlotIdx;
+        this.iTeamSize = iTeamSize;
+
         this.mOnUpdatePlayers = mOnUpdatePlayers;
 
         inflater = (LayoutInflater) context.
@@ -101,177 +102,234 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
         holder.tvTimeOfSlot = (TextView) rowView.findViewById(R.id.tvTimeOfSlot);
         holder.llViewAddTeams = (LinearLayout) rowView.findViewById(R.id.llViewAddTeams);
 
-
         holder.tvTimeOfSlot.setText(slotArrayList.get(position).getTeeOffTime());
         holder.tvTimeOfSlot.setTypeface(tfRobotoBold);
 
         int iFreeSlotsAvail = 0;
 
-        for (int iCounter = 0; iCounter < iTeamsPerSlot; iCounter++) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            View playerView = inflater.inflate(R.layout.inflate_row_add_player, null);
+        LinearLayout llAddTeamsRow;
 
-            TextView tvNameOfPlayer = (TextView) playerView.findViewById(R.id.tvNameOfPlayer);
-            ImageView ivRemovePlayer = (ImageView) playerView.findViewById(R.id.ivRemovePlayer);
-            final TextView tvAddPlayer = (TextView) playerView.findViewById(R.id.tvAddPlayer);
+        for (int iTeamCount = 0; iTeamCount < iTeamsPerSlot; iTeamCount++) {
+
+            View addTeamView = LayoutInflater.from(context).inflate(R.layout.inflate_row_add_teams, null);
+
+            llAddTeamsRow = (LinearLayout) addTeamView.findViewById(R.id.llAddTeamsRow);
 
             final ArrayList<Team> mTeamArrayList = slotArrayList.get(position).getTeams();
 
-            String strTeamName = mTeamArrayList.get(iCounter).getTeamName();
-            List<Player> mPlayersArr = mTeamArrayList.get(iCounter).getPlayers();
+            String strTeamName = mTeamArrayList.get(iTeamCount).getTeamName();
+            final List<Player> mPlayersArr = mTeamArrayList.get(iTeamCount).getPlayers();
 
-            if (mPlayersArr.size() != 0) {
-                tvNameOfPlayer.setText(((CompetitionEntryActivity) context).
-                        getMemberNameFromID(Integer.parseInt(mPlayersArr.get(0).getMemberId())));
-            } else {
-                tvNameOfPlayer.setText(strTeamName);
+            if (mPlayersArr.size() == 0) {
+                View viewSinglePlayer = LayoutInflater.from(context).inflate(R.layout.inflate_add_more_players, null);
+
+                LinearLayout llAddMoreContainer = (LinearLayout) viewSinglePlayer.findViewById(R.id.llAddMoreContainer);
+
+                TextView tvPlayerName = (TextView) viewSinglePlayer.findViewById(R.id.tvPlayerName);
+                ImageView ivPlayerRemove = (ImageView) viewSinglePlayer.findViewById(R.id.ivPlayerRemove);
+                final TextView tvAddTeam = (TextView) viewSinglePlayer.findViewById(R.id.tvAddPlayer);
+
+                tvPlayerName.setText(strTeamName);
                 iFreeSlotsAvail++;
-            }
 
-            /**
-             * EntryStatus equal to
-             * 0, If not booked
-             * 1, if booked by someone else
-             * 2, If booked by itself
-             */
-            switch (mTeamArrayList.get(iCounter).getEntryStatus()) {
-                case 0:
-                    if (mTeamArrayList.get(iCounter).isAnyUpdated()) {
-                        tvAddPlayer.setVisibility(View.GONE);
-                        ivRemovePlayer.setVisibility(View.VISIBLE);
-                    } else {
-                        tvAddPlayer.setVisibility(View.VISIBLE);
-                        ivRemovePlayer.setVisibility(View.GONE);
-                    }
-                    break;
-
-                case 1:
-                    tvAddPlayer.setVisibility(View.GONE);
-                    ivRemovePlayer.setVisibility(View.GONE);
-                    break;
-
-                case 2:
-                    tvAddPlayer.setVisibility(View.GONE);
-                    ivRemovePlayer.setVisibility(View.VISIBLE);
-                    break;
-
-                default:
-
-            }
-
-            //Store Add Player position as Tag for use later.
-            tvAddPlayer.setTag(iCounter);
-
-          /*  if(mTeamArrayList.get(iCounter).isAlreadyBooked()) {
-                ivRemovePlayer.setVisibility(View.GONE);
-            }else{
-                ivRemovePlayer.setVisibility(View.VISIBLE);
-            }
-
-            //Store Add Player position as Tag for use later.
-            tvAddPlayer.setTag(iCounter);
-
-            if (strTeamName.equalsIgnoreCase("(Free)")) {
-                tvAddPlayer.setVisibility(View.VISIBLE);
-                //ivRemovePlayer.setVisibility(View.GONE);
-            } else {
-                tvAddPlayer.setVisibility(View.GONE);
-                //ivRemovePlayer.setVisibility(View.VISIBLE);
-            }*/
-
-            ivRemovePlayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO: when user click on cross icon
-
-                    mOnUpdatePlayers.removePlayerListener(
-                            slotArrayList.get(position).getTeams()
-                            , position
-                            , Integer.parseInt(tvAddPlayer.getTag().toString())
-                    );
-
-                    //Increase Free Slot val when user remove any player.
-                    slotArrayList.get(position).setiFreeSlotsAvail(
-                            slotArrayList.get(position).getiFreeSlotsAvail() - 1);
+                if((iTeamSize == 4|| iTeamSize == 3) && iTeamsPerSlot == 1){
+                    tvAddTeam.setText(context.getString(R.string.text_add_player));
+                }else{
+                    tvAddTeam.setText(context.getString(R.string.text_add_players));
                 }
-            });
 
-            tvAddPlayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO: ADD Players and oepn member screen.
-                    int iTeamPlayerPos = Integer.parseInt(tvAddPlayer.getTag().toString());
-
-                    if (iAlreadyBookSlotIdx == -1 ||
-                            slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx() == iAlreadyBookSlotIdx) {
-
-                        if (iMaxTeamAdded < iMaxTeamCount) {
-
-                            mOnUpdatePlayers.addPlayersListener(slotArrayList.get(position).getTeams()
-                                    , position
-                                    , iTeamsPerSlot
-                                    , iTeamPlayerPos
-                                    , slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx()
-                                    , true);
-
-                            iAlreadyBookSlotIdx = slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx();
-
+                /**
+                 * EntryStatus equal to
+                 * 0, If not booked
+                 * 1, if booked by someone else
+                 * 2, If booked by itself
+                 */
+                switch (mTeamArrayList.get(iTeamCount).getEntryStatus()) {
+                    case 0:
+                        if (mTeamArrayList.get(iTeamCount).isAnyUpdated()) {
+                            tvAddTeam.setVisibility(View.GONE);
+                            ivPlayerRemove.setVisibility(View.VISIBLE);
                         } else {
-                            ((CompetitionEntryActivity) context).showAlertMessageOk(CompetitionEntryActivity.ACTION_TYPE_DEFAULT
-                                    , context.getString(R.string.text_alert_max_limit)
-                                    , context.getString(R.string.alert_title_alert));
+                            tvAddTeam.setVisibility(View.VISIBLE);
+                            ivPlayerRemove.setVisibility(View.GONE);
                         }
-                    } else {
-                        ((CompetitionEntryActivity) context).
-                                showAlertMessageOk(CompetitionEntryActivity.ACTION_TYPE_DEFAULT,
-                                        "Sorry, You can add new member at " +
-                                                slotArrayList.get(iAlreadyBookSlotIdx).getTeeOffTime() + " slot only."
-                                        , context.getString(R.string.alert_title_alert));
-                    }
+                        break;
+
+                    case 1:
+                        tvAddTeam.setVisibility(View.GONE);
+                        ivPlayerRemove.setVisibility(View.GONE);
+                        break;
+
+                    case 2:
+                        tvAddTeam.setVisibility(View.GONE);
+                        ivPlayerRemove.setVisibility(View.VISIBLE);
+                        break;
+
+                    default:
+
                 }
-            });
 
-            slotArrayList.get(position).setiFreeSlotsAvail(iFreeSlotsAvail);
-            holder.llViewAddTeams.addView(playerView);
-        }
+                //Store Add Player position as Tag for use later.
+                tvAddTeam.setTag(iTeamCount);
 
-        /*if (slotArrayList.get(position).getTeeOffTime()) {
-            holder.btTimeSlot.setAlpha((float) 0.1);
-        }*/
+                ivPlayerRemove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-        /*if (slotArrayList.get(position).getSlotNo() == iSlotNo) {
-            setSlotSelected(holder.btTimeSlot);
-            lastSelectedView = holder.btTimeSlot;
-            iPosition = position;
-        }*/
+                        mOnUpdatePlayers.removePlayerListener(
+                                slotArrayList.get(position).getTeams()
+                                , position
+                                , Integer.parseInt(tvAddTeam.getTag().toString())
+                        );
 
-      /*  holder.btTimeSlot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                        //Increase Free Slot val when user remove any player.
+                        slotArrayList.get(position).setiFreeSlotsAvail(
+                                slotArrayList.get(position).getiFreeSlotsAvail() - 1);
+                    }
+                });
 
-                if (!slotArrayList.get(position).getIsSlotReserved()) {
-                    iSlotNo = (position + 1);
-                    notifyDataSetChanged();
+                tvAddTeam.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                    //Update Tee Time Slot value.
-                    ((CompetitionEntryActivity) context).updateTeeTimeValue(position);
+                        int iTeamPlayerPos = Integer.parseInt(tvAddTeam.getTag().toString());
+
+                        if (iAlreadyBookSlotIdx == -1 ||
+                                slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx() == iAlreadyBookSlotIdx) {
+
+                            if((iTeamSize == 4|| iTeamSize == 3) && iTeamsPerSlot == 1){
+
+                                /*mOnUpdatePlayers.addMaxPlayersAsTeamsize(
+                                        slotArrayList.get(position).getTeams()
+                                        , position
+                                        , iTeamsPerSlot
+                                        , iTeamPlayerPos
+                                        , slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx()
+                                );*/
+                                mOnUpdatePlayers.addorRemoveUpdateMaxTeam(
+                                        mPlayersArr
+                                        , slotArrayList.get(position).getTeams()
+                                        , position //Slot Position
+                                        , iTeamsPerSlot
+                                        , Integer.parseInt(tvAddTeam.getTag().toString()) //team pos
+                                        , slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx() //SlotIdx
+                                        , 0
+                                        ,((CompetitionEntryActivity) context).ACTION_CALL_FROM_ADD //Call from
+                                       );
+
+                                iAlreadyBookSlotIdx = slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx();
+
+                            }else if (iMaxTeamAdded < iMaxTeamCount) {
+
+                                mOnUpdatePlayers.addPlayersListener(slotArrayList.get(position).getTeams()
+                                        , position
+                                        , iTeamsPerSlot
+                                        , iTeamPlayerPos
+                                        , slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx()
+                                        , true);
+
+                                iAlreadyBookSlotIdx = slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx();
+
+                            } else {
+                                ((CompetitionEntryActivity) context).showAlertMessageOk(CompetitionEntryActivity.ACTION_TYPE_DEFAULT
+                                        , context.getString(R.string.text_alert_max_limit)
+                                        , context.getString(R.string.alert_title_alert));
+                            }
+                        } else {
+                            ((CompetitionEntryActivity) context).
+                                    showAlertMessageOk(CompetitionEntryActivity.ACTION_TYPE_DEFAULT,
+                                            "Sorry, You can add new member at " +
+                                                    slotArrayList.get(iAlreadyBookSlotIdx).getTeeOffTime() + " slot only."
+                                            , context.getString(R.string.alert_title_alert));
+                        }
+                    }
+                });
+
+                llAddTeamsRow.addView(llAddMoreContainer);
+                slotArrayList.get(position).setiFreeSlotsAvail(iFreeSlotsAvail);
+            } else {
+                for (int iPlayerCount = 0; iPlayerCount < mPlayersArr.size(); iPlayerCount++) {
+                    LayoutInflater mInflatorAddPlayers = LayoutInflater.from(context);
+                    View viewAddMorePlayer = mInflatorAddPlayers.inflate(R.layout.inflate_add_more_players, null);
+
+                    final TextView tvPlayerName = (TextView) viewAddMorePlayer.findViewById(R.id.tvPlayerName);
+                    final ImageView ivPlayerRemove = (ImageView) viewAddMorePlayer.findViewById(R.id.ivPlayerRemove);
+
+                    tvPlayerName.setText(((CompetitionEntryActivity) context).
+                            getMemberNameFromID(Integer.parseInt(mPlayersArr.get(iPlayerCount).getMemberId())));
+                    tvPlayerName.setTag(iTeamCount);
+
+                    //ivPlayerRemove.setVisibility(View.VISIBLE);
+                    /**
+                     * EntryStatus equal to
+                     * 0, If not booked
+                     * 1, if booked by someone else
+                     * 2, If booked by itself
+                     */
+                    switch (mTeamArrayList.get(iTeamCount).getEntryStatus()) {
+                        case 0:
+                            if (mTeamArrayList.get(iTeamCount).isAnyUpdated()) {
+                                //tvAddTeam.setVisibility(View.GONE);
+                                ivPlayerRemove.setVisibility(View.VISIBLE);
+                            } else {
+                                //tvAddTeam.setVisibility(View.VISIBLE);
+                                ivPlayerRemove.setVisibility(View.GONE);
+                            }
+                            break;
+
+                        case 1:
+                            //tvAddTeam.setVisibility(View.GONE);
+                            ivPlayerRemove.setVisibility(View.GONE);
+                            break;
+
+                        case 2:
+                            //tvAddTeam.setVisibility(View.GONE);
+                            ivPlayerRemove.setVisibility(View.VISIBLE);
+                            break;
+
+                        default:
+
+                    }
+
+
+                    final int finalITeamCount = iTeamCount;
+                    final int finalIPlayerCount = iPlayerCount;
+                    ivPlayerRemove.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if((iTeamSize == 4|| iTeamSize == 3) && iTeamsPerSlot == 1) {
+
+                                mOnUpdatePlayers.addorRemoveUpdateMaxTeam(
+                                        mPlayersArr
+                                        , slotArrayList.get(position).getTeams()
+                                        , position //Slot Position
+                                        , iTeamsPerSlot
+                                        , Integer.parseInt(tvPlayerName.getTag().toString()) //team pos
+                                        , slotArrayList.get(position).getTeams().get(finalITeamCount).getSlotIdx() //SlotIdx
+                                        , finalIPlayerCount
+                                        , ((CompetitionEntryActivity) context).ACTION_CALL_FROM_REMOVE //Call from
+                                );
+                            }else{
+                                mOnUpdatePlayers.removePlayerListener(
+                                        slotArrayList.get(position).getTeams()
+                                        , position
+                                        , finalITeamCount
+                                );
+
+                                //Increase Free Slot val when user remove any player.
+                                slotArrayList.get(position).setiFreeSlotsAvail(
+                                        slotArrayList.get(position).getiFreeSlotsAvail() - 1);
+                            }
+                        }
+                    });
+
+                    llAddTeamsRow.addView(viewAddMorePlayer);
                 }
             }
-        });*/
+            holder.llViewAddTeams.addView(llAddTeamsRow);
+        }
 
         return rowView;
-    }
-
-    /**
-     * Implements this method set Time slot as
-     * selected.
-     */
-    private void setSlotSelected(Button btTimeSlot) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            btTimeSlot.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            btTimeSlot.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_time_buttonc0995b));
-        }
-        btTimeSlot.setTextColor(Color.parseColor("#ffffff"));
     }
 }

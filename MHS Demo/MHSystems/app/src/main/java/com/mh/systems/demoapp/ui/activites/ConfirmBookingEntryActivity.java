@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.adapter.BaseAdapter.CompConfirmEntryAdapter;
-import com.mh.systems.demoapp.ui.fragments.FinanceFragment;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.demoapp.utils.ExpandableHeightGridView;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
@@ -34,7 +33,6 @@ import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.AJsonParamsConfirmBooking;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.Booking;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.NewCompEventEntryItems;
-import com.mh.systems.demoapp.web.models.finance.FinanceFilter;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
@@ -199,6 +197,16 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     }
 
     @Override
+    public void addMaxPlayersAsTeamsize(ArrayList<Team> teams, int position, int iTeamsPerSlot, int iTeamPlayerPos, Integer slotIdx) {
+
+    }
+
+    @Override
+    public void addorRemoveUpdateMaxTeam(List<Player> mPlayersArr, ArrayList<Team> teamArrayList, int iSlotPos, int iTeamsPerSlot, int iTeamPosition, int iSlotIdx, int iPlayerCount, int actionCallFromRemove) {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
@@ -348,7 +356,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                 if (newCompEntryData.isUpdateFailed()) {
                     showAlertMessage(newCompEntryData.getErrorMessage());
                 } else {
-                    showAlertCongrates(getResources().getString(R.string.text_booking_success));
+                    showAlertCongrates(getResources().getString(R.string.text_booking_success)
+                    , getString(R.string.alert_title_congrates));
                 }
 
             } else {
@@ -510,10 +519,11 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
      * Alert Dialog for input user First & Last name,
      * email address and Mobile number.
      */
-    public void showAlertCongrates(String strAlertMessage) {
+    public void showAlertCongrates(String strAlertMessage, String strTitle) {
 
         if (builder == null) {
             builder = new AlertDialog.Builder(this);
+            builder.setTitle(strTitle);
             builder.setMessage(strAlertMessage)
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {

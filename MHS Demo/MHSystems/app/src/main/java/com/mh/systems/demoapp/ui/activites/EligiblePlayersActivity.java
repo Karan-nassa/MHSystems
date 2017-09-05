@@ -33,9 +33,11 @@ import com.mh.systems.demoapp.web.models.competitionsentry.CompEligiblePlayersRe
 import com.mh.systems.demoapp.web.models.competitionsentry.EligibleMember;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.competitionsentry.NameRecord;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.Player;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -58,6 +60,7 @@ public class EligiblePlayersActivity extends BaseActivity {
     boolean isSlefAlreadyAdded = false;
 
     int iSelfMemberID;
+    boolean isMinRequired = false;
 
     /**
      * iTeamSize is the size of Members that user can select whereas iTotalAddedMembers is the number
@@ -70,6 +73,7 @@ public class EligiblePlayersActivity extends BaseActivity {
     ArrayList<EligibleMember> selectedMemberList = new ArrayList<>();
     ArrayList<EligibleMember> SlotsEligiblePlayers = new ArrayList<>();
     public ArrayList<Integer> iselectedMemberList = new ArrayList<>();
+    private ArrayList<Player> playerArrayList = new ArrayList<>();
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -140,9 +144,12 @@ public class EligiblePlayersActivity extends BaseActivity {
         iFreeSlotsAvail = getIntent().getExtras().getInt("iFreeSlotsAvail");
         isSlefAlreadyAdded = getIntent().getExtras().getBoolean("isSlefAlreadyAdded");
 
+        isMinRequired = getIntent().getExtras().getBoolean("isMinRequired");
+
         //Get previous Member list if already some member selected.
         selectedMemberList = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("AllPlayers");
         SlotsEligiblePlayers = (ArrayList<EligibleMember>) getIntent().getSerializableExtra("SlotsEligiblePlayers");
+        playerArrayList = (ArrayList<Player>) getIntent().getSerializableExtra("playerArrayList");
 
         for (int iCount = 0; iCount < selectedMemberList.size(); iCount++) {
             iselectedMemberList.add(selectedMemberList.get(iCount).getMemberID());
@@ -218,27 +225,43 @@ public class EligiblePlayersActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (isMinRequired && iFreeSlotsAvail != 0) {
+
+            showAlertMessage("Please add " + iFreeSlotsAvail + " more player(s) first.");
+        } else {
+
+            intent = new Intent(EligiblePlayersActivity.this, CompetitionEntryActivity.class);
+            intent.putExtra("slotPosition", getIntent().getExtras().getInt("slotPosition"));
+            intent.putExtra("iTeamPerSlot", getIntent().getExtras().getInt("iTeamPerSlot"));
+            intent.putExtra("iAddPlayerPosition", getIntent().getExtras().getInt("iAddPlayerPosition"));
+            Bundle informacion = new Bundle();
+            informacion.putSerializable("MEMBER_LIST", selectedMemberList);
+            informacion.putSerializable("SlotsEligiblePlayers", SlotsEligiblePlayers);
+            informacion.putSerializable("teams",  getIntent().getSerializableExtra("teams"));
+            informacion.putSerializable("playerArrayList", playerArrayList);
+            intent.putExtras(informacion);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+        //super.onBackPressed();
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
 
         switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
+
+              /*  onBackPressed();
+                break;*/
 
             case R.id.action_done:
-                intent = new Intent(EligiblePlayersActivity.this, CompetitionEntryActivity.class);
-                intent.putExtra("slotPosition", getIntent().getExtras().getInt("slotPosition"));
-                intent.putExtra("iTeamPerSlot", getIntent().getExtras().getInt("iTeamPerSlot"));
-                intent.putExtra("iAddPlayerPosition", getIntent().getExtras().getInt("iAddPlayerPosition"));
-                Bundle informacion = new Bundle();
-                informacion.putSerializable("MEMBER_LIST", selectedMemberList);
-                informacion.putSerializable("SlotsEligiblePlayers", SlotsEligiblePlayers);
-                informacion.putSerializable("teams", (ArrayList<EligibleMember>) getIntent().getSerializableExtra("teams"));
-                intent.putExtras(informacion);
-                setResult(RESULT_OK, intent);
-                finish();
+            case android.R.id.home:
+
+                onBackPressed();
                 break;
 
             case R.id.action_search:
@@ -503,7 +526,7 @@ public class EligiblePlayersActivity extends BaseActivity {
             if (compEligiblePlayersResponse.getMessage().equalsIgnoreCase("Success")) {
 
                 compEligiblePlayersData = compEligiblePlayersResponse.getData();
-               //eligibleMemberArrayList.addAll();
+                //eligibleMemberArrayList.addAll();
 
                 if (compEligiblePlayersData.getEligibleMembers().size() == 0) {
                     updateNoDataUI(false, 0);

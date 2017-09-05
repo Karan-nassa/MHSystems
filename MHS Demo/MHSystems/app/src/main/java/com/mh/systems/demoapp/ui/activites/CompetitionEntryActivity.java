@@ -16,18 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.adapter.BaseAdapter.CompTimeSlotsAdapter;
 import com.mh.systems.demoapp.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.demoapp.utils.ExpandableHeightGridView;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
-import com.mh.systems.demoapp.web.api.WebAPI;
-import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.competitionsentry.AJsonParamsUpdateEntry;
 import com.mh.systems.demoapp.web.models.competitionsentry.EligibleMember;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryAPI;
@@ -39,20 +35,15 @@ import com.mh.systems.demoapp.web.models.competitionsentrynew.Slot;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Team;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.Zone;
 import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
 
 /**
  * Create {@link CompetitionEntryActivity} to choose Players/Members and TimeSlots.
@@ -64,11 +55,16 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     private final String LOG_TAG = CompetitionEntryActivity.class.getSimpleName();
     private final int RESULT_CODE_CONFIRM_BOOKING = 1221;
     private final int RESULT_CODE_ADD_MORE_MEMBERS = 1441;
+    private final int RESULT_CODE_ADD_PER_TEAMSIZE_4 = 1442;
 
     private final int ACTION_TYPE_CONFIRM_BOOKING = 1;
     private final int ACTION_TYPE_ADD_SELF_ONLY = 2;
     private final int ACTION_TYPE_ADD_WITH_MEMBERS = 3; //Add itself along with members.
+    private final int ACTION_TYPE_ADD_PER_TEAMSIZE = 4;
     public static final int ACTION_TYPE_DEFAULT = 0;
+
+    public static final int ACTION_CALL_FROM_REMOVE = 5;
+    public static final int ACTION_CALL_FROM_ADD = 6;
 
     @Bind(R.id.tbBookingDetail)
     Toolbar tbBookingDetail;
@@ -203,8 +199,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             mapAllPlayer.put(allPlayerInstance.getMemberId(), allPlayerInstance);
         }
 
-        compSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
-
         iMaxTeamAdded = newCompEntryData.getBooking().size();
         newCompEntryData.setMaxTeamAdded(iMaxTeamAdded);
 
@@ -216,43 +210,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             //Just get SlotIdx of any booking slot because all would be same.
             iAlreadyBookSlotIdx = newCompEntryData.getBooking().get(0).getSlotIdx();
             newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(iAlreadyBookSlotIdx);
-        }
-
-        for (int iSlotCount = 0; iSlotCount < compSlotsList.size(); iSlotCount++) {
-
-            int teamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
-
-            for (int jTeamCount = 0; jTeamCount < teamSize; jTeamCount++) {
-
-                List<Player> mPlayerArr = compSlotsList.get(iSlotCount)
-                        .getTeams().get(jTeamCount).getPlayers();
-
-                if (mPlayerArr.size() > 0) {
-
-                    Integer iMemberID = Integer.parseInt(mPlayerArr.get(0).getMemberId());
-
-                    if (mapAllPlayer.containsKey(iMemberID)) {
-
-                        EligibleMember eligibleMember = new EligibleMember(true,
-                                iMemberID);
-                        allEligiblePlayers.add(eligibleMember);
-
-                        compSlotsList.get(iSlotCount)
-                                .getTeams().get(jTeamCount).setAlreadyBooked(true);
-
-                        /**
-                         * Also check EntryStatus equal to
-                         * 0, If not booked
-                         * 1, if booked by someone else
-                         * 2, If booked by itself
-                         */
-                        // int iEntryStatus = mapAllPlayer.get(iMemberID).getEntryStatus();
-                        compSlotsList.get(iSlotCount).getTeams()
-                                .get(jTeamCount).setEntryStatus(mapAllPlayer.get(iMemberID)
-                                .getEntryStatus());
-                    }
-                }
-            }
         }
 
         strEventId = getIntent().getExtras().getString("COMPETITIONS_eventId");
@@ -349,7 +306,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             updateTimeSlots();
             showAlertMessageOk(ACTION_TYPE_ADD_SELF_ONLY
                     , getString(R.string.text_title_added_success)
-                    , getString(R.string.alert_title_nice));
+                    , getString(R.string.alert_title_congrates));
 
         } else {
 
@@ -359,6 +316,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                                   /* intent.putExtra("iFreeSlotsAvail", newCompEntryData.getZones()
                                         .get(iZoneNo).getSlots().get(slotPosition).getiFreeSlotsAvail());*/
             intent.putExtra("iFreeSlotsAvail", iCanAddMore);
+
+            /** TRUE if
+             *  Team size 1 and Teams per Tee more than 1.
+             */
+            intent.putExtra("isMinRequired", false);
 
             iAddPlayerPosition = SlotsEligiblePlayers.size();
 
@@ -380,7 +342,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             if (!newCompEntryData.isSlefAlreadyAdded()) {
                 showAlertMessageOk(ACTION_TYPE_ADD_WITH_MEMBERS
                         , getString(R.string.text_title_added_success)
-                        , getString(R.string.alert_title_nice));
+                        , getString(R.string.alert_title_congrates));
             } else {
                 startActivityForResult(intent, RESULT_CODE_ADD_MORE_MEMBERS);
             }
@@ -443,12 +405,148 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         updateTimeSlots();
     }
 
+    /**
+     * Team size = 3, max entry 1 team.  _1 team per slot_
+     * <p>
+     * Team size = 4, max entry 1 team.  _1 team per slot_
+     */
+    @Override
+    public void addMaxPlayersAsTeamsize(ArrayList<Team> teams, int slotPosition
+            , int iTeamsPerSlot, int iAddPlayerPosition, Integer slotIdx) {
+
+        isAnyChange = true;
+        newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(slotIdx);
+
+        int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
+        //   if (iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
+
+        /****************
+         * Member cannot add more than the max of 'MaxTeamCount'. So
+         * check How many he/she already Booked/Added.
+         ****************/
+        //int iCanAddMore = newCompEntryData.getMaxTeamCount() - newCompEntryData.getMaxTeamAdded();
+
+        SlotsEligiblePlayers.clear();
+        intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
+
+        /** TRUE if
+         *  Team size 3 and Teams per Tee 1
+         *  Team size 4 and Teams per Tee 1
+         */
+        intent.putExtra("isMinRequired", true);
+
+        intent.putExtra("iFreeSlotsAvail", newCompEntryData.getTeamSize());
+
+        iAddPlayerPosition = SlotsEligiblePlayers.size();
+        intent.putExtra("NEW_COMP_EVENT_ID", newCompEntryData.getEventID());
+        intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
+        intent.putExtra("EventID", newCompEntryData.getEventID());
+        intent.putExtra("slotPosition", slotPosition);
+        intent.putExtra("iTeamPerSlot", newCompEntryData.getTeamSize());
+        intent.putExtra("iAddPlayerPosition", iAddPlayerPosition);
+        intent.putExtra("isSlefAlreadyAdded", newCompEntryData.isSlefAlreadyAdded());
+        intent.putExtra("iSelfMemberID", Integer.parseInt(getMemberId()));
+        //  intent.putExtra("strSelfMemberName", strSelfMemberName);
+        Bundle informacion = new Bundle();
+        informacion.putSerializable("AllPlayers", allEligiblePlayers);
+        informacion.putSerializable("SlotsEligiblePlayers", SlotsEligiblePlayers);
+        informacion.putSerializable("teams", teams);
+        intent.putExtras(informacion);
+
+        if (!newCompEntryData.isSlefAlreadyAdded()) {
+            showAlertMessageOk(ACTION_TYPE_ADD_PER_TEAMSIZE
+                    , getString(R.string.text_title_added_success)
+                    , getString(R.string.alert_title_congrates));
+        } else {
+            startActivityForResult(intent, RESULT_CODE_ADD_PER_TEAMSIZE_4);
+        }
+    }
+
+    @Override
+    public void addorRemoveUpdateMaxTeam(List<Player> mPlayersArr, ArrayList<Team> teamArrayList
+            , int slotPosition, int iTeamsPerSlot, int iTeamPosition,
+                                         int iSlotIdx, int iPlayerCount, int actionCallFromRemove) {
+
+        allEligiblePlayers.clear();
+
+        if (actionCallFromRemove == ACTION_CALL_FROM_REMOVE) {
+            mPlayersArr.remove(iPlayerCount);
+
+            newCompEntryData.getZones().get(iZoneNo)
+                    .getSlots().get(slotPosition)
+                    .getTeams().get(iTeamPosition)
+                    .setPlayers(mPlayersArr);
+        }
+
+        for (int iCount = 0; iCount < mPlayersArr.size(); iCount++) {
+
+            int iMemberID = Integer.parseInt(mPlayersArr.get(iCount).getMemberId());
+            if (mapAllPlayer.containsKey(iMemberID)) {
+
+                EligibleMember eligibleMember = new EligibleMember(true,
+                        iMemberID);
+                allEligiblePlayers.add(eligibleMember);
+            }
+        }
+
+        isAnyChange = true;
+        newCompEntryData.getZones().get(iZoneNo).getSlots()
+                .get(slotPosition).getTeams()
+                .get(iTeamPosition).setAnyUpdated(true);
+        newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(iSlotIdx);
+
+        int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
+        //   if (iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
+
+        /****************
+         * Member cannot add more than the max of 'MaxTeamCount'. So
+         * check How many he/she already Booked/Added.
+         ****************/
+        int iCanAddMore = newCompEntryData.getTeamSize() - mPlayersArr.size();
+
+        SlotsEligiblePlayers.clear();
+        intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
+
+        /** TRUE if
+         *  Team size 3 and Teams per Tee 1
+         *  Team size 4 and Teams per Tee 1
+         */
+        intent.putExtra("isMinRequired", true);
+
+        intent.putExtra("iFreeSlotsAvail", iCanAddMore/*newCompEntryData.getTeamSize()*/);
+
+        iTeamsPerSlot = SlotsEligiblePlayers.size();
+        intent.putExtra("NEW_COMP_EVENT_ID", newCompEntryData.getEventID());
+        intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
+        intent.putExtra("EventID", newCompEntryData.getEventID());
+        intent.putExtra("slotPosition", slotPosition);
+        intent.putExtra("iTeamPerSlot", newCompEntryData.getTeamSize());
+        intent.putExtra("iAddPlayerPosition", iTeamsPerSlot);
+        intent.putExtra("isSlefAlreadyAdded", newCompEntryData.isSlefAlreadyAdded());
+        intent.putExtra("iSelfMemberID", Integer.parseInt(getMemberId()));
+        //  intent.putExtra("strSelfMemberName", strSelfMemberName);
+        Bundle informacion = new Bundle();
+        informacion.putSerializable("AllPlayers", allEligiblePlayers);
+        informacion.putSerializable("SlotsEligiblePlayers", SlotsEligiblePlayers);
+        informacion.putSerializable("teams", teamArrayList);
+        informacion.putSerializable("playerArrayList", (ArrayList<Player>) mPlayersArr);
+        intent.putExtras(informacion);
+
+        if (!newCompEntryData.isSlefAlreadyAdded()) {
+            showAlertMessageOk(ACTION_TYPE_ADD_PER_TEAMSIZE
+                    , getString(R.string.text_title_added_success)
+                    , getString(R.string.alert_title_congrates));
+        } else {
+            startActivityForResult(intent, RESULT_CODE_ADD_PER_TEAMSIZE_4);
+        }
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
 
-                case RESULT_CODE_CONFIRM_BOOKING:
+                case RESULT_CODE_CONFIRM_BOOKING: {
 
                     // mFilterSlotsList =  (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
                     //String strZoneName = getIntent().getExtras().getString("strZoneName");
@@ -458,7 +556,37 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 //                    String jsonNewCompEntryData = data.getExtras().getString("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
 //                    newCompEntryData = new Gson().fromJson(jsonNewCompEntryData, NewCompEntryData.class);
                     newCompEntryData = (NewCompEntryData) data.getSerializableExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
-                    break;
+                }
+                break;
+
+                case RESULT_CODE_ADD_PER_TEAMSIZE_4: {
+                    //For Show Stay/Leave Alert.
+                    isAnyChange = true;
+
+                    allEligiblePlayers.clear();
+                    SlotsEligiblePlayers.clear();
+                    SlotsEligiblePlayers = (ArrayList<EligibleMember>) data.getSerializableExtra("SlotsEligiblePlayers");
+                    allEligiblePlayers = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
+                    ArrayList<Team> mTeam = (ArrayList<Team>) data.getSerializableExtra("teams");
+                    List<Player> playerArrayList = (ArrayList<Player>) data.getSerializableExtra("playerArrayList");
+
+                    int iSlotPosition = data.getExtras().getInt("slotPosition");
+                    int iTeamPerSlot = data.getExtras().getInt("iTeamPerSlot");
+                    int iAddPlayerPosition = data.getExtras().getInt("iAddPlayerPosition");
+                    int iTeamPos = 0;
+
+                    for (int iSelectedEliglble = 0; iSelectedEliglble < SlotsEligiblePlayers.size(); iSelectedEliglble++) {
+
+                        Player mPlayerInstance = new Player();
+                        mPlayerInstance.setMemberId("" + SlotsEligiblePlayers.get(iSelectedEliglble).getMemberID());
+                        mPlayerInstance.setIsGuest(false);
+                        playerArrayList.add(mPlayerInstance);
+                    }
+
+                    mTeam.get(iTeamPos).setPlayers(playerArrayList);
+                    newCompEntryData.getZones().get(iZoneNo).getSlots().get(iSlotPosition).setTeams(mTeam);
+                }
+                break;
 
                 case RESULT_CODE_ADD_MORE_MEMBERS:
 
@@ -573,6 +701,45 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             return;
         }
 
+        compSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
+
+        for (int iSlotCount = 0; iSlotCount < compSlotsList.size(); iSlotCount++) {
+
+            int teamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
+
+            for (int jTeamCount = 0; jTeamCount < teamSize; jTeamCount++) {
+
+                List<Player> mPlayerArr = compSlotsList.get(iSlotCount)
+                        .getTeams().get(jTeamCount).getPlayers();
+
+                if (mPlayerArr.size() > 0) {
+
+                    Integer iMemberID = Integer.parseInt(mPlayerArr.get(0).getMemberId());
+
+                    if (mapAllPlayer.containsKey(iMemberID)) {
+
+                        EligibleMember eligibleMember = new EligibleMember(true,
+                                iMemberID);
+                        allEligiblePlayers.add(eligibleMember);
+
+                        compSlotsList.get(iSlotCount)
+                                .getTeams().get(jTeamCount).setAlreadyBooked(true);
+
+                        /**
+                         * Also check EntryStatus equal to
+                         * 0, If not booked
+                         * 1, if booked by someone else
+                         * 2, If booked by itself
+                         */
+                        // int iEntryStatus = mapAllPlayer.get(iMemberID).getEntryStatus();
+                        compSlotsList.get(iSlotCount).getTeams()
+                                .get(jTeamCount).setEntryStatus(mapAllPlayer.get(iMemberID)
+                                .getEntryStatus());
+                    }
+                }
+            }
+        }
+
         try {
 
             gvTimeSlots.setExpanded(true);
@@ -583,6 +750,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     newCompEntryData.getMaxTeamAdded(),
                     newCompEntryData.getMaxTeamCount(),
                     newCompEntryData.getZones().get(iZoneNo).getiAlreadyBookSlotIdx(),
+                    newCompEntryData.getTeamSize(),
                     CompetitionEntryActivity.this);
             gvTimeSlots.setAdapter(compTimeSlotsAdapter);
 
@@ -719,6 +887,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
                                     startActivityForResult(intent, RESULT_CODE_ADD_MORE_MEMBERS);
                                     break;
+
+                                case ACTION_TYPE_ADD_PER_TEAMSIZE:
+
+                                    startActivityForResult(intent, RESULT_CODE_ADD_PER_TEAMSIZE_4);
+                                    break;
                             }
 
                             builder = null;
@@ -766,11 +939,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     }
 
 
-    /****************************************************************************
-     *
-     *         START OF EXPANDABLE ADAPTER FOR NEW COMPITIONS ENTRY FEATURE
-     *
-     ****************************************************************************/
+/****************************************************************************
+ *
+ *         START OF EXPANDABLE ADAPTER FOR NEW COMPITIONS ENTRY FEATURE
+ *
+ ****************************************************************************/
 
     /**
      * Implements a method to update SUCCESS response of web service.
@@ -887,9 +1060,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         }
     }
 
-    /****************************************************************************
-     *
-     *         END OF EXPANDABLE ADAPTER FOR NEW COMPITIONS ENTRY FEATURE
-     *
-     ****************************************************************************/
+/****************************************************************************
+ *
+ *         END OF EXPANDABLE ADAPTER FOR NEW COMPITIONS ENTRY FEATURE
+ *
+ ****************************************************************************/
 }
