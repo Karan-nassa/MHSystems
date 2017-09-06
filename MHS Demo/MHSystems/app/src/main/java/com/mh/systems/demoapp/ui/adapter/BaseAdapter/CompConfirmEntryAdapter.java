@@ -2,6 +2,7 @@ package com.mh.systems.demoapp.ui.adapter.BaseAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -131,7 +132,8 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
 
                 ImageView ivPlayerRemove = (ImageView) viewSinglePlayer.findViewById(R.id.ivPlayerRemove);
 
-                tvPlayerName.setText(strTeamName);
+                tvPlayerName.setText(((ConfirmBookingEntryActivity) context).
+                        getMemberNameFromID(Integer.parseInt(mPlayersArr.get(0).getMemberId())));
 
                 String strCostFee = "Entry fee: " +(strCrnSymbol +
                         decimalFormat.format(
@@ -221,6 +223,15 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
                     llAddTeamsRow.addView(viewAddMorePlayer);
                 }
             }
+
+            View view = new View(context);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, 2);
+            params.setMargins(0, 10, 0, 0);
+            view.setLayoutParams(params);
+            view.setBackgroundColor(Color.parseColor("#AAAAAA"));
+            llAddTeamsRow.addView(view);
+
             confirmEntryRow.llAddConfirmPlayers.addView(llAddTeamsRow);
         }
         return rowView;

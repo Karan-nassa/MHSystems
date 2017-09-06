@@ -20,12 +20,5 @@ public interface OnUpdatePlayers {
      * <p>
      * Team size = 4, max entry 1 team.  _1 team per slot_
      */
-    void addMaxPlayersAsTeamsize(ArrayList<Team> teams, int position, int iTeamsPerSlot, int iTeamPlayerPos, Integer slotIdx);
-
-    /**
-     * Team size = 3, max entry 1 team.  _1 team per slot_
-     * <p>
-     * Team size = 4, max entry 1 team.  _1 team per slot_
-     */
     void addorRemoveUpdateMaxTeam(List<Player> mPlayersArr, ArrayList<Team> teamArrayList, int iSlotPos, int iTeamsPerSlot, int iTeamPosition, int iSlotIdx, int iPlayerCount, int actionCallFromRemove);
 }

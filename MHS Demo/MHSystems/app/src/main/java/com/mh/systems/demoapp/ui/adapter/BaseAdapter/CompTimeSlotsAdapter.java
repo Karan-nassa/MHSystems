@@ -1,6 +1,7 @@
 package com.mh.systems.demoapp.ui.adapter.BaseAdapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,9 +117,6 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
 
             llAddTeamsRow = (LinearLayout) addTeamView.findViewById(R.id.llAddTeamsRow);
 
-            View viewDivider = (View) addTeamView.findViewById(R.id.viewDivider);
-            viewDivider.setVisibility(View.VISIBLE);
-
             final ArrayList<Team> mTeamArrayList = slotArrayList.get(position).getTeams();
 
             String strTeamName = mTeamArrayList.get(iTeamCount).getTeamName();
@@ -136,9 +134,9 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 tvPlayerName.setText(strTeamName);
                 iFreeSlotsAvail++;
 
-                if((iTeamSize == 4|| iTeamSize == 3) && iTeamsPerSlot == 1){
+                if ((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1) {
                     tvAddTeam.setText(context.getString(R.string.text_add_players));
-                }else{
+                } else {
                     tvAddTeam.setText(context.getString(R.string.text_add_player));
                 }
 
@@ -201,8 +199,8 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                         if (iAlreadyBookSlotIdx == -1 ||
                                 slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx() == iAlreadyBookSlotIdx) {
 
-                            if(((iTeamSize == 4|| iTeamSize == 3) && iTeamsPerSlot == 1)
-                                    || (iTeamSize == 2 && iTeamsPerSlot == 2)){
+                            if (((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1)
+                                    || (iTeamSize == 2 && iTeamsPerSlot == 2)) {
 
                                 /*mOnUpdatePlayers.addMaxPlayersAsTeamsize(
                                         slotArrayList.get(position).getTeams()
@@ -220,11 +218,11 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                                         , slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx() //SlotIdx
                                         , 0
                                         , ApplicationGlobal.ACTION_CALL_FROM_ADD //Call from
-                                       );
+                                );
 
                                 iAlreadyBookSlotIdx = slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx();
 
-                            }else if (iMaxTeamAdded < iMaxTeamCount) {
+                            } else if (iMaxTeamAdded < iMaxTeamCount) {
 
                                 mOnUpdatePlayers.addPlayersListener(slotArrayList.get(position).getTeams()
                                         , position
@@ -299,7 +297,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
 
-                            if((iTeamSize == 4|| iTeamSize == 3) && iTeamsPerSlot == 1) {
+                            if ((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1) {
 
                                 mOnUpdatePlayers.addorRemoveUpdateMaxTeam(
                                         mPlayersArr
@@ -311,7 +309,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                                         , finalIPlayerCount
                                         , ApplicationGlobal.ACTION_CALL_FROM_REMOVE //Call from
                                 );
-                            }else{
+                            } else {
                                 mOnUpdatePlayers.removePlayerListener(
                                         slotArrayList.get(position).getTeams()
                                         , position
@@ -328,6 +326,15 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                     llAddTeamsRow.addView(viewAddMorePlayer);
                 }
             }
+
+            View view = new View(context);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, 2);
+            params.setMargins(0, 10, 0, 0);
+            view.setLayoutParams(params);
+            view.setBackgroundColor(Color.parseColor("#AAAAAA"));
+            llAddTeamsRow.addView(view);
+
             holder.llViewAddTeams.addView(llAddTeamsRow);
         }
 

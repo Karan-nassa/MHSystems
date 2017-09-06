@@ -202,13 +202,30 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     }
 
     @Override
-    public void addMaxPlayersAsTeamsize(ArrayList<Team> teams, int position, int iTeamsPerSlot, int iTeamPlayerPos, Integer slotIdx) {
+    public void addorRemoveUpdateMaxTeam(List<Player> mPlayersArr
+            , ArrayList<Team> teamArrayList, int slotPosition
+            , int iTeamsPerSlot, int iTeamPosition
+            , int iSlotIdx, int iPlayerCount, int actionCallFromRemove) {
 
-    }
+        if (actionCallFromRemove == ApplicationGlobal.ACTION_CALL_FROM_REMOVE) {
+            mPlayersArr.remove(iPlayerCount);
 
-    @Override
-    public void addorRemoveUpdateMaxTeam(List<Player> mPlayersArr, ArrayList<Team> teamArrayList, int iSlotPos, int iTeamsPerSlot, int iTeamPosition, int iSlotIdx, int iPlayerCount, int actionCallFromRemove) {
+            newCompEntryData.getZones().get(iZoneNo)
+                    .getSlots().get(slotPosition)
+                    .getTeams().get(iTeamPosition)
+                    .setPlayers(mPlayersArr);
+        }
 
+        double entryFee = newCompEntryData.getEntryFee();
+        if (mPlayersArr.size() == 0) {
+            entryFee -= mEntryFee;
+        }
+
+        newCompEntryData.getZones().get(iZoneNo).getSlots()
+                .get(slotPosition).getTeams().get(iTeamPosition).
+                setEntryFee(entryFee);
+
+        filterBookedSlotLists();
     }
 
     @Override
@@ -275,7 +292,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         newCompEntryData = (NewCompEntryData) getIntent().getSerializableExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA");
 
-        mapAllPlayer = (Map<Integer, AllPlayer>)getIntent().getSerializableExtra("mapAllPlayer");
+        mapAllPlayer = (Map<Integer, AllPlayer>) getIntent().getSerializableExtra("mapAllPlayer");
 
         // mSlotEntryList = (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
 
