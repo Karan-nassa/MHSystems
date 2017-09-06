@@ -487,10 +487,17 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         }
 
         isAnyChange = true;
+
+        newCompEntryData.getZones().get(iZoneNo).getSlots()
+                .get(slotPosition).getTeams().get(iTeamPosition).
+                setEntryFee((double) newCompEntryData.getEntryFee());
+
         newCompEntryData.getZones().get(iZoneNo).getSlots()
                 .get(slotPosition).getTeams()
                 .get(iTeamPosition).setAnyUpdated(true);
         newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(iSlotIdx);
+
+        mEntryFee += newCompEntryData.getEntryFee();
 
         int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
         //   if (iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {

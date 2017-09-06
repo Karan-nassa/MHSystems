@@ -569,6 +569,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                                     intent.putExtra("PASS_FROM", ConfirmBookingEntryActivity.class.getSimpleName());
                                     intent.putExtra("strClosingBalance", financeResultItems.getData().getClosingBalance());
                                     startActivity(intent);
+                                    builder = null;
                                     break;
 
                                 case ERROR_NO_TOPUP__FOUND:

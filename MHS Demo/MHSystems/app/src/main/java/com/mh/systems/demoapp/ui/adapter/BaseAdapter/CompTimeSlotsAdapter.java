@@ -116,6 +116,9 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
 
             llAddTeamsRow = (LinearLayout) addTeamView.findViewById(R.id.llAddTeamsRow);
 
+            View viewDivider = (View) addTeamView.findViewById(R.id.viewDivider);
+            viewDivider.setVisibility(View.VISIBLE);
+
             final ArrayList<Team> mTeamArrayList = slotArrayList.get(position).getTeams();
 
             String strTeamName = mTeamArrayList.get(iTeamCount).getTeamName();

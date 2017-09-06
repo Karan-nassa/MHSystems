@@ -109,19 +109,18 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
         confirmEntryRow.tvTimeOfComp.setTypeface(tfRobotoBold);
 
         LinearLayout llAddTeamsRow;
+        final ArrayList<Team> mTeamArrayList = mFilterSlotList.get(position).getTeams();
 
-        for (int iTeamCount = 0; iTeamCount < iTeamsPerSlot; iTeamCount++) {
+        for (int iTeamCount = 0; iTeamCount < mTeamArrayList.size(); iTeamCount++) {
 
             View addTeamView = LayoutInflater.from(context).inflate(R.layout.inflate_row_add_teams, null);
 
             llAddTeamsRow = (LinearLayout) addTeamView.findViewById(R.id.llAddTeamsRow);
 
-            final ArrayList<Team> mTeamArrayList = mFilterSlotList.get(position).getTeams();
-
             String strTeamName = mTeamArrayList.get(iTeamCount).getTeamName();
             final List<Player> mPlayersArr = mTeamArrayList.get(iTeamCount).getPlayers();
 
-            if (mPlayersArr.size() == 0) {
+            if (mPlayersArr.size() == 1) {
                 View viewSinglePlayer = LayoutInflater.from(context).inflate(R.layout.inflate_add_more_players, null);
 
                 LinearLayout llAddMoreContainer = (LinearLayout) viewSinglePlayer.findViewById(R.id.llAddMoreContainer);
@@ -158,15 +157,15 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
 
+                        //Increase Free Slot val when user remove any player.
+                        mFilterSlotList.get(position).setiFreeSlotsAvail(
+                                mFilterSlotList.get(position).getiFreeSlotsAvail() - 1);
+
                         mOnUpdatePlayers.removePlayerListener(
                                 mFilterSlotList.get(position).getTeams()
                                 , position
                                 , Integer.parseInt(tvAddTeam.getTag().toString())
                         );
-
-                        //Increase Free Slot val when user remove any player.
-                        mFilterSlotList.get(position).setiFreeSlotsAvail(
-                                mFilterSlotList.get(position).getiFreeSlotsAvail() - 1);
                     }
                 });
 
