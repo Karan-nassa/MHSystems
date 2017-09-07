@@ -421,6 +421,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                 newCompEntryData.setSelfAlreadyAdded(false);
             }
 
+            allEligiblePlayers.remove(mPlayersArr.get(iPlayerCount).getMemberId());
+
             mPlayersArr.remove(iPlayerCount);
 
             newCompEntryData.getZones().get(iZoneNo)
@@ -429,14 +431,17 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     .setPlayers(mPlayersArr);
         }
 
-        for (int iCount = 0; iCount < mPlayersArr.size(); iCount++) {
+        for (int iTeamCount = 0; iTeamCount < teamArrayList.size(); iTeamCount++) {
 
-            int iMemberID = Integer.parseInt(mPlayersArr.get(iCount).getMemberId());
-            if (mapAllPlayer.containsKey(iMemberID)) {
+            for (int iCount = 0; iCount < mPlayersArr.size(); iCount++) {
 
-                EligibleMember eligibleMember = new EligibleMember(true,
-                        iMemberID);
-                allEligiblePlayers.add(eligibleMember);
+                int iMemberID = Integer.parseInt(mPlayersArr.get(iCount).getMemberId());
+                if (mapAllPlayer.containsKey(iMemberID)) {
+
+                    EligibleMember eligibleMember = new EligibleMember(true,
+                            iMemberID);
+                    allEligiblePlayers.add(eligibleMember);
+                }
             }
         }
 
@@ -497,10 +502,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
             intent.putExtra("EventID", newCompEntryData.getEventID());
             intent.putExtra("slotPosition", slotPosition);
-            intent.putExtra("iTeamPerSlot", newCompEntryData.getTeamSize());
+            intent.putExtra("iTeamSize", newCompEntryData.getTeamSize());
             intent.putExtra("iAddPlayerPosition", iTeamsPerSlot);
             intent.putExtra("isSlefAlreadyAdded", newCompEntryData.isSlefAlreadyAdded());
             intent.putExtra("iSelfMemberID", Integer.parseInt(getMemberId()));
+            intent.putExtra("iTeamPosition", iTeamPosition);
             //  intent.putExtra("strSelfMemberName", strSelfMemberName);
             Bundle informacion = new Bundle();
             informacion.putSerializable("AllPlayers", allEligiblePlayers);
@@ -541,17 +547,18 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     //For Show Stay/Leave Alert.
                     isAnyChange = true;
 
-                    allEligiblePlayers.clear();
+                    //allEligiblePlayers.clear();
+                    allEligiblePlayers.addAll((ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST"));
+
                     SlotsEligiblePlayers.clear();
                     SlotsEligiblePlayers = (ArrayList<EligibleMember>) data.getSerializableExtra("SlotsEligiblePlayers");
-                    allEligiblePlayers = (ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST");
                     ArrayList<Team> mTeam = (ArrayList<Team>) data.getSerializableExtra("teams");
                     List<Player> playerArrayList = (ArrayList<Player>) data.getSerializableExtra("playerArrayList");
 
                     int iSlotPosition = data.getExtras().getInt("slotPosition");
                     int iTeamPerSlot = data.getExtras().getInt("iTeamPerSlot");
                     int iAddPlayerPosition = data.getExtras().getInt("iAddPlayerPosition");
-                    int iTeamPos = 0;
+                    int iTeamPos = data.getExtras().getInt("iTeamPosition");
 
                     for (int iSelectedEliglble = 0; iSelectedEliglble < SlotsEligiblePlayers.size(); iSelectedEliglble++) {
 
@@ -598,8 +605,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
 
                             if (mPlayerArr.size() == 0) {
 
-                                updateMemberDetailInSlots(iTeamPos
-                                        , SlotsEligiblePlayers.get(iSelectedEliglble)
+                                updateMemberDetailInSlots(/*iTeamPos*/
+                                        SlotsEligiblePlayers.get(iSelectedEliglble)
                                         , mTeam
                                         , iSlotPosition
                                         , iTeamPerSlot
@@ -788,10 +795,10 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
      * iTeamPerSlot  : Size of Team at per slot.
      * iAddPlayerPosition :
      */
-    private void updateMemberDetailInSlots(int iMemberPosition, EligibleMember eligibleMemberInstance,
+    private void updateMemberDetailInSlots(/*int iMemberPosition, */EligibleMember eligibleMemberInstance,
                                            ArrayList<Team> mTeam, int iSlotPosition, int iTeamPerSlot, int iAddPlayerPosition) {
 
-        if (iAddPlayerPosition < iTeamPerSlot) {
+        if (iAddPlayerPosition <= mTeam.size()) {
             Team mTeamInstance = new Team();
             mTeamInstance.setZoneId(mTeam.get(iAddPlayerPosition).getZoneId());
             mTeamInstance.setSlotIdx(mTeam.get(iAddPlayerPosition).getSlotIdx());

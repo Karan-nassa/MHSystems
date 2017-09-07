@@ -139,9 +139,9 @@ public class EligiblePlayersActivity extends BaseActivity {
         //Set Event Id.
         setStrEventId(getIntent().getExtras().getInt("EventID"));
 
-        iTeamSize = getIntent().getExtras().getInt("TeamsPerSlot");
+        //iTeamSize = getIntent().getExtras().getInt("TeamsPerSlot");
         iEntryID = getIntent().getExtras().getInt("COMPETITIONS_iEntryID");
-        iFreeSlotsAvail = getIntent().getExtras().getInt("iFreeSlotsAvail");
+        iTeamSize = iFreeSlotsAvail = getIntent().getExtras().getInt("iFreeSlotsAvail");
         isSlefAlreadyAdded = getIntent().getExtras().getBoolean("isSlefAlreadyAdded");
 
         isMinRequired = getIntent().getExtras().getBoolean("isMinRequired");
@@ -229,18 +229,21 @@ public class EligiblePlayersActivity extends BaseActivity {
     public void onBackPressed() {
 
         if (isMinRequired && iFreeSlotsAvail != 0) {
-
-            showAlertMessage("Please add " + iFreeSlotsAvail + " more player(s) first.");
+            String strErrorMessage = "Minimum " + getIntent().getExtras().getInt("iTeamSize")
+                    + " players required. Please add " +
+                    iFreeSlotsAvail + " more player(s) first.";
+            showAlertMessage(strErrorMessage);
         } else {
 
             intent = new Intent(EligiblePlayersActivity.this, CompetitionEntryActivity.class);
             intent.putExtra("slotPosition", getIntent().getExtras().getInt("slotPosition"));
-            intent.putExtra("iTeamPerSlot", getIntent().getExtras().getInt("iTeamPerSlot"));
+            intent.putExtra("iTeamSize", getIntent().getExtras().getInt("iTeamSize"));
+            intent.putExtra("iTeamPosition", getIntent().getExtras().getInt("iTeamPosition"));
             intent.putExtra("iAddPlayerPosition", getIntent().getExtras().getInt("iAddPlayerPosition"));
             Bundle informacion = new Bundle();
             informacion.putSerializable("MEMBER_LIST", selectedMemberList);
             informacion.putSerializable("SlotsEligiblePlayers", SlotsEligiblePlayers);
-            informacion.putSerializable("teams",  getIntent().getSerializableExtra("teams"));
+            informacion.putSerializable("teams", getIntent().getSerializableExtra("teams"));
             informacion.putSerializable("playerArrayList", playerArrayList);
             intent.putExtras(informacion);
             setResult(RESULT_OK, intent);

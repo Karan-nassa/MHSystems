@@ -297,7 +297,9 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
 
-                            if ((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1) {
+                           /* if ((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1) {*/
+                            if (((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1)
+                                    || (iTeamSize == 2 && iTeamsPerSlot == 2)) {
 
                                 mOnUpdatePlayers.addorRemoveUpdateMaxTeam(
                                         mPlayersArr

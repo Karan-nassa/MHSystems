@@ -206,16 +206,17 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
                                         , ApplicationGlobal.ACTION_CALL_FROM_REMOVE //Call from
                                 );
                             } else {
+
+                                //Increase Free Slot val when user remove any player.
+                                mFilterSlotList.get(position).setiFreeSlotsAvail(
+                                        mFilterSlotList.get(position).getiFreeSlotsAvail() - 1);
+
                                 //Increase Free Slot val when user remove any player.
                                 mOnUpdatePlayers.removePlayerListener(
                                         mFilterSlotList.get(position).getTeams()
                                         , position
                                         , finalITeamCount
                                 );
-
-                                //Increase Free Slot val when user remove any player.
-                                mFilterSlotList.get(position).setiFreeSlotsAvail(
-                                        mFilterSlotList.get(position).getiFreeSlotsAvail() - 1);
                             }
                         }
                     });

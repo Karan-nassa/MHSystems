@@ -59,6 +59,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
     private final int ERROR_INSUFFICIENT_BALANCE = 1001;
     private final int ERROR_NO_TOPUP__FOUND = 1002;
+    private final int ERROR_PLAYERS_REQUIRED = 1003;
 
     @Bind(R.id.tbBookingEntry)
     Toolbar tbBookingEntry;
@@ -98,6 +99,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     private float mEntryFee;
     private float mTopUpBalance = 0;
 
+    int iPlayersAddedCount = 0;
+
     String strZoneName = "N/A";
 
     FinanceResultItems financeResultItems;
@@ -116,7 +119,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         initalizeUI();
 
-        llAddPlayer.setOnClickListener(this);
         btConfirmEntry.setOnClickListener(this);
     }
 
@@ -237,6 +239,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                 break;
 
             case R.id.btConfirmEntry:
+
                 if (mEntryFee <= mTopUpBalance) {
                     /**
                      *  Check internet connection before hitting server request.
@@ -259,22 +262,18 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         }
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", newCompEntryData/*new Gson().toJson(newCompEntryData)*/);
+        intent.putExtra("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", newCompEntryData*//*new Gson().toJson(newCompEntryData)*//*);
         intent.putExtra("mEntryFee", mEntryFee);
         intent.putExtra("iZoneNo", iZoneNo);
         intent.putExtra("strZoneName", strZoneName);
-//        Bundle informacion = new Bundle();
-//        informacion.putSerializable("RESPONSE_GET_CLUBEVENT_ENTRY_DATA", new Gson().toJson(newCompEntryData));
-        //informacion.putSerializable("filterSlotList", mSlotEntryList);
-//        intent.putExtras(informacion);
         setResult(RESULT_OK, intent);
         finish();
 
         //super.onBackPressed();
-    }
+    }*/
 
     public void updateTotalPrice(float iTotalPrice) {
         tvTotalCost.setText("" + newCompEntryData.getCrnSymbol()
@@ -313,48 +312,60 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
      */
     public void sendConfirmEntryV2() {
 
-        showPleaseWait("Loading...");
-
         List<Booking> mBookingEventsLists = getBookedEventSlotLists();
+        int iPlayerArrCount = 0;
+        if (mBookingEventsLists.size() > 0) {
+            iPlayerArrCount = mBookingEventsLists.get(0).getPlayers().size();
+        }
 
-        aJsonParamsConfirmBooking = new AJsonParamsConfirmBooking();
-        aJsonParamsConfirmBooking.setClientId(ApplicationGlobal.TAG_GCLUB_CALL_ID);
-        aJsonParamsConfirmBooking.setEventId(iEventID);
-        aJsonParamsConfirmBooking.setMemberId(getMemberId());
-        aJsonParamsConfirmBooking.setPayeeId(iPayeeId);
-        aJsonParamsConfirmBooking.setRemoveEntry(false/*getMemberId()*/); //TODO: Set as False as default because don't know what we have to send it here.
+        if (iPlayerArrCount == 0 || iPlayerArrCount == newCompEntryData.getTeamSize()) {
 
-        aJsonParamsConfirmBooking.setBooking(mBookingEventsLists);
+            showPleaseWait("Loading...");
 
-        mNewCompEventEntryItems = new NewCompEventEntryItems(getClientId()
-                , "ApplyEventEntryV2"
-                , aJsonParamsConfirmBooking
-                , ApplicationGlobal.TAG_GCLUB_WEBSERVICES
-                , ApplicationGlobal.TAG_GCLUB_MEMBERS);
+            aJsonParamsConfirmBooking = new AJsonParamsConfirmBooking();
+            aJsonParamsConfirmBooking.setClientId(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+            aJsonParamsConfirmBooking.setEventId(iEventID);
+            aJsonParamsConfirmBooking.setMemberId(getMemberId());
+            aJsonParamsConfirmBooking.setPayeeId(iPayeeId);
+            aJsonParamsConfirmBooking.setRemoveEntry(false/*getMemberId()*/); //TODO: Set as False as default because don't know what we have to send it here.
 
-        //Creating a rest adapter
-        RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(WebAPI.API_BASE_URL)
-                .build();
+            aJsonParamsConfirmBooking.setBooking(mBookingEventsLists);
 
-        //Creating an object of our api interface
-        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+            mNewCompEventEntryItems = new NewCompEventEntryItems(getClientId()
+                    , "ApplyEventEntryV2"
+                    , aJsonParamsConfirmBooking
+                    , ApplicationGlobal.TAG_GCLUB_WEBSERVICES
+                    , ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
-        //Defining the method
-        api.sendClubEventEntryV2(mNewCompEventEntryItems, new Callback<JsonObject>() {
-            @Override
-            public void success(JsonObject jsonObject, Response response) {
+            //Creating a rest adapter
+            RestAdapter adapter = new RestAdapter.Builder()
+                    .setEndpoint(WebAPI.API_BASE_URL)
+                    .build();
 
-                updateConfirmBookingSuccess(jsonObject);
-            }
+            //Creating an object of our api interface
+            WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(LOG_TAG, "RetrofitError : " + error);
-                hideProgress();
-                showAlertMessage(error.toString());
-            }
-        });
+            //Defining the method
+            api.sendClubEventEntryV2(mNewCompEventEntryItems, new Callback<JsonObject>() {
+                @Override
+                public void success(JsonObject jsonObject, Response response) {
+
+                    updateConfirmBookingSuccess(jsonObject);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.e(LOG_TAG, "RetrofitError : " + error);
+                    hideProgress();
+                    showAlertMessage(error.toString());
+                }
+            });
+        } else {
+            String strErrorMessage = "Minimum " + newCompEntryData.getTeamSize() + " players required. Please add " +
+                    (newCompEntryData.getTeamSize() - iPlayerArrCount) + " more player(s) first.";
+            showAlertError(ERROR_PLAYERS_REQUIRED,
+                    strErrorMessage);
+        }
     }
 
     /**
@@ -503,6 +514,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                         .getPlayers().size() > 0
                         && teamArrayList.get(jTeamCount).isAnyUpdated()) {
 
+                  /*  iPlayersAddedCount = teamArrayList.get(jTeamCount)
+                            .getPlayers().size();*/
+
                     mFilterTeam.add(mSlotsList.get(iSlotCount).getTeams().get(jTeamCount));
                     isAddedNew = true;
                 }
@@ -522,6 +536,16 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     }
 
     private void updateBookingListAdapter() {
+
+      /*  int iTeamSize = newCompEntryData.getTeamSize();
+
+        if (iTeamSize == 4 || iTeamSize == 3) {
+            if (iPlayersAddedCount == iTeamSize) {
+                disableAddPlayers();
+            }else{
+                enableAddPlayers();
+            }
+        }*/
 
         updateTotalPrice(mEntryFee);
 
@@ -634,6 +658,16 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         }*/
 
         return "N/A";
+    }
+
+    private void enableAddPlayers() {
+        llAddPlayer.setAlpha((float) 1.0);
+        llAddPlayer.setOnClickListener(this);
+    }
+
+    private void disableAddPlayers() {
+        llAddPlayer.setAlpha((float) 0.1);
+        llAddPlayer.setOnClickListener(null);
     }
 
     /************************************ FINANCE WEB SERVICE [START] ************************************/
