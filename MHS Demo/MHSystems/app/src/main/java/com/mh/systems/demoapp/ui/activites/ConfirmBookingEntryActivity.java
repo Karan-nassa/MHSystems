@@ -219,14 +219,23 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                     .setPlayers(mPlayersArr);
         }
 
-        double entryFee = newCompEntryData.getEntryFee();
-        if (mPlayersArr.size() == 0) {
+        //double entryFee = newCompEntryData.getEntryFee();
+        /*if (mPlayersArr.size() == 0) {
             entryFee -= mEntryFee;
+        }*/
+
+       /* newCompEntryData.getZones().get(iZoneNo).getSlots()
+                .get(slotPosition).getTeams().get(iTeamPosition).
+                setEntryFee(entryFee);*/
+        float iCurrentEntryFee = newCompEntryData.getEntryFee();
+        if (mEntryFee < iCurrentEntryFee) {
+            //   mEntryFee += newCompEntryData.getEntryFee();
+            mEntryFee = iCurrentEntryFee;
         }
 
         newCompEntryData.getZones().get(iZoneNo).getSlots()
                 .get(slotPosition).getTeams().get(iTeamPosition).
-                setEntryFee(entryFee);
+                setEntryFee((double) mEntryFee);
 
         filterBookedSlotLists();
     }

@@ -121,7 +121,8 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
             String strTeamName = mTeamArrayList.get(iTeamCount).getTeamName();
             final List<Player> mPlayersArr = mTeamArrayList.get(iTeamCount).getPlayers();
 
-            if (mPlayersArr.size() == 1) {
+           /* if (mPlayersArr.size() == 1) {*/
+            if (iTeamSize == 1) {
                 View viewSinglePlayer = LayoutInflater.from(context).inflate(R.layout.inflate_add_more_players, null);
 
                 LinearLayout llAddMoreContainer = (LinearLayout) viewSinglePlayer.findViewById(R.id.llAddMoreContainer);
@@ -135,7 +136,7 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
                 tvPlayerName.setText(((ConfirmBookingEntryActivity) context).
                         getMemberNameFromID(Integer.parseInt(mPlayersArr.get(0).getMemberId())));
 
-                String strCostFee = "Entry fee: " +(strCrnSymbol +
+                String strCostFee = "Entry fee: " + (strCrnSymbol +
                         decimalFormat.format(
                                 mFilterSlotList.get(position)
                                         .getTeams().get(iTeamCount)
