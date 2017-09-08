@@ -120,6 +120,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         initalizeUI();
 
         btConfirmEntry.setOnClickListener(this);
+        llAddPlayer.setOnClickListener(this);
     }
 
     @Override
@@ -658,16 +659,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         }*/
 
         return "N/A";
-    }
-
-    private void enableAddPlayers() {
-        llAddPlayer.setAlpha((float) 1.0);
-        llAddPlayer.setOnClickListener(this);
-    }
-
-    private void disableAddPlayers() {
-        llAddPlayer.setAlpha((float) 0.1);
-        llAddPlayer.setOnClickListener(null);
     }
 
     /************************************ FINANCE WEB SERVICE [START] ************************************/

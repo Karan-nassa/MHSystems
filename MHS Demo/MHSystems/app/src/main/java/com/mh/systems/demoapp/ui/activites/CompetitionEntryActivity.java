@@ -263,14 +263,21 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         isAnyChange = true;
         newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(iAlreadyBookSlotIdx);
 
-        int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
-        //   if (iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
-
         /****************
          * Member cannot add more than the max of 'MaxTeamCount'. So
          * check How many he/she already Booked/Added.
          ****************/
         int iCanAddMore = newCompEntryData.getMaxTeamCount() - newCompEntryData.getMaxTeamAdded();
+
+        /**
+         * Exp: There are 3 Teams in 1 slot and already booked
+         * 1 Team by other member.
+         */
+        int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
+        if (iFreeSlotsAvail < iCanAddMore) {
+            iCanAddMore = iFreeSlotsAvail;
+        }
+
         if (iCanAddMore == 1/*iCanAddMore >= 1 && iFreeSlotsAvail == 1*/ && !newCompEntryData.isSlefAlreadyAdded()) {
 
             Team mTeamInstance = new Team();
@@ -691,6 +698,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         }
 
         compSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
+
+        allEligiblePlayers.clear();
 
         for (int iSlotCount = 0; iSlotCount < compSlotsList.size(); iSlotCount++) {
 
