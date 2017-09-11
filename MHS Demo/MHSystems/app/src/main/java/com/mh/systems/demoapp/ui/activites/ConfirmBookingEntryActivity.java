@@ -195,7 +195,11 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
         teams.set(iAddPlayerPosition, mTeamInstance);
 
-        mEntryFee -= newCompEntryData.getEntryFee();
+        if(mEntryFee < 0) {
+            mEntryFee += newCompEntryData.getEntryFee();
+        }else{
+            mEntryFee -= newCompEntryData.getEntryFee();
+        }
         newCompEntryData.setMaxTeamAdded((newCompEntryData.getMaxTeamAdded() - 1));
 
         newCompEntryData.getZones().get(iZoneNo).getSlots()
@@ -219,15 +223,15 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                     .setPlayers(mPlayersArr);
         }
 
-        //double entryFee = newCompEntryData.getEntryFee();
-        /*if (mPlayersArr.size() == 0) {
-            entryFee -= mEntryFee;
-        }*/
+        double entryFee = newCompEntryData.getEntryFee();
+        if (mPlayersArr.size() == 0) {
+            mEntryFee -= entryFee;
+        }
 
-       /* newCompEntryData.getZones().get(iZoneNo).getSlots()
+       newCompEntryData.getZones().get(iZoneNo).getSlots()
                 .get(slotPosition).getTeams().get(iTeamPosition).
-                setEntryFee(entryFee);*/
-        float iCurrentEntryFee = newCompEntryData.getEntryFee();
+                setEntryFee(entryFee);
+       /* float iCurrentEntryFee = newCompEntryData.getEntryFee();
         if (mEntryFee < iCurrentEntryFee) {
             //   mEntryFee += newCompEntryData.getEntryFee();
             mEntryFee = iCurrentEntryFee;
@@ -235,7 +239,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         newCompEntryData.getZones().get(iZoneNo).getSlots()
                 .get(slotPosition).getTeams().get(iTeamPosition).
-                setEntryFee((double) mEntryFee);
+                setEntryFee((double) mEntryFee);*/
 
         filterBookedSlotLists();
     }
@@ -537,6 +541,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                     mFilterTeam.add(mSlotsList.get(iSlotCount).getTeams().get(jTeamCount));
                     isAddedNew = true;
                 }
+
+                //mEntryFee+= teamArrayList.get(jTeamCount).getEntryFee();
             }
 
             if (isAddedNew) {

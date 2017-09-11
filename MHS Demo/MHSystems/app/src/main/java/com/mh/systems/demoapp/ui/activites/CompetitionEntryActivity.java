@@ -108,8 +108,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
      */
     int iMemberPosition;
 
-    //It will describes whether member already entered for this competition then update values.
-    int iEntryID = 0;
     private float mEntryFee = 0;
     int iMaxTeamAdded;
     int iAlreadyBookSlotIdx = -1;
@@ -289,9 +287,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             mTeamInstance.setSlotIdx(teams.get(iAddPlayerPosition).getSlotIdx());
             mTeamInstance.setTeamIdx(teams.get(iAddPlayerPosition).getTeamIdx());
 
-            mTeamInstance.setTeamName(getMemberNameFromID(Integer.parseInt(getMemberId())));
-            mTeamInstance.setEntryFee((double) newCompEntryData.getEntryFee()
-                    /*teams.get(iAddPlayerPosition).getEntryFee()*/);
+            int memberID = Integer.parseInt(getMemberId());
+            mTeamInstance.setTeamName(getMemberNameFromID(memberID));
+            mTeamInstance.setEntryFee((double) mapAllPlayer.get(memberID).getEntryFee());
+            // mTeamInstance.setEntryFee((double) newCompEntryData.getEntryFee()
+                    /*teams.get(iAddPlayerPosition).getEntryFee());*/
 
             //So Remove icon should be visible.
             //mTeamInstance.setEntryStatus(2);
@@ -610,6 +610,16 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                         }
                     }
 
+                    double iMaxPlayerFee = 0;
+                    for (int iPlayer = 0; iPlayer < playerArrayList.size(); iPlayer++) {
+                        double currentPlayerFee = mapAllPlayer.
+                                get(Integer.parseInt(playerArrayList.get(iPlayer).getMemberId())).getEntryFee();
+                        if (iMaxPlayerFee < currentPlayerFee) {
+                            iMaxPlayerFee = currentPlayerFee;
+                            mTeam.get(iTeamPos).setEntryFee(currentPlayerFee);
+                        }
+                    }
+
                     mTeam.get(iTeamPos).setAnyUpdated(true);
                     mTeam.get(iTeamPos).setPlayers(playerArrayList);
                     newCompEntryData.getZones().get(iZoneNo).getSlots().get(iSlotPosition).setTeams(mTeam);
@@ -855,13 +865,13 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
              * if Team size = 4 | 3 | 2
              */
             int teamSize = newCompEntryData.getTeamSize();
-            if (teamSize != 1) {
+           /* if (teamSize != 1) {
                 float iCurrentEntryFee = mapAllPlayer.get(iMemberID).getEntryFee();
                 if (mEntryFee < iCurrentEntryFee) {
                     //   mEntryFee += newCompEntryData.getEntryFee();
                     mEntryFee = iCurrentEntryFee;
                 }
-            }
+            }*/
 
             return mapAllPlayer.get(iMemberID).getNameAndHandicap();
         }
@@ -897,13 +907,10 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             mTeamInstance.setSlotIdx(mTeam.get(iAddPlayerPosition).getSlotIdx());
             mTeamInstance.setTeamIdx(mTeam.get(iAddPlayerPosition).getTeamIdx());
 
-            /*String iMemberID = teams.get(slotPosition)
-                    .getPlayers()
-                    .get(0)
-                    .getMemberId();*/
-
-            mTeamInstance.setTeamName(getMemberNameFromID(eligibleMemberInstance/*.get(iMemberPosition)*/.getMemberID()));
-            mTeamInstance.setEntryFee((double) newCompEntryData.getEntryFee());
+            int memberID = eligibleMemberInstance/*.get(iMemberPosition)*/.getMemberID();
+            mTeamInstance.setTeamName(getMemberNameFromID(memberID));
+            mTeamInstance.setEntryFee((double) mapAllPlayer.get(memberID).getEntryFee());
+            // mTeamInstance.setEntryFee((double) newCompEntryData.getEntryFee());
 
             List<Player> mPlayerList = new ArrayList<>();
             Player mPlayer = new Player();
