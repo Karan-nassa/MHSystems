@@ -146,6 +146,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     UpdateCompEntryResponse updateCompEntryResponse;
     CompTimeSlotsAdapter compTimeSlotsAdapter;
 
+    OnUpdatePlayers mOnUpdatePlayers;
+
     Intent intent;
 
     private View.OnClickListener mZoneExpandListener = new View.OnClickListener() {
@@ -172,6 +174,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         setContentView(R.layout.activity_competition_entry);
 
         ButterKnife.bind(this);
+
+        mOnUpdatePlayers = CompetitionEntryActivity.this;
 
         if (tbBookingDetail != null) {
             setSupportActionBar(tbBookingDetail);
@@ -416,11 +420,11 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
      * Team size = 4, max entry 1, team.  _1 team per slot_
      */
     @Override
-    public void addorRemoveUpdateMaxTeam(List<Player> mPlayersArr, ArrayList<Team> teamArrayList
+    public void addorChangePlayerUpdateMaxTeam(List<Player> mPlayersArr, ArrayList<Team> teamArrayList
             , int slotPosition, int iTeamsPerSlot, int iTeamPosition,
-                                         int iSlotIdx, int iPlayerCount, int actionCallFromRemove) {
+                                               int iSlotIdx, int iPlayerCount, int actionCallFromRemove) {
 
-        allEligiblePlayers.clear();
+        //allEligiblePlayers.clear();
 
         if (actionCallFromRemove == ApplicationGlobal.ACTION_CALL_FROM_REMOVE) {
 
@@ -459,15 +463,6 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                 .get(iTeamPosition).setAnyUpdated(true);
         newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(iSlotIdx);
 
-        float iCurrentEntryFee = newCompEntryData.getEntryFee();
-        if (mEntryFee < iCurrentEntryFee) {
-            //   mEntryFee += newCompEntryData.getEntryFee();
-            mEntryFee = iCurrentEntryFee;
-            newCompEntryData.getZones().get(iZoneNo).getSlots()
-                    .get(slotPosition).getTeams().get(iTeamPosition).
-                    setEntryFee((double) newCompEntryData.getEntryFee());
-        }
-
         int iFreeSlotsAvail = getAvailableSlotsCount(slotPosition);
         //   if (iFreeSlotsAvail == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
 
@@ -477,7 +472,8 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
          ****************/
         int iCanAddMore = newCompEntryData.getTeamSize() - mPlayersArr.size();
 
-        if (iCanAddMore == 1 && !newCompEntryData.isSlefAlreadyAdded()) {
+        /*if (iCanAddMore == 1 &&  !newCompEntryData.isSlefAlreadyAdded()
+                && actionCallFromRemove != ApplicationGlobal.ACTION_CALL_FROM_REMOVE) {
 
             Player mPlayer = new Player();
             mPlayer.setMemberId(getMemberId());
@@ -491,49 +487,78 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     .getTeams().get(iTeamPosition)
                     .setPlayers(mPlayersArr);
 
-            showAlertMessageOk(ACTION_TYPE_ADD_SELF_ONLY
+            showAlertMessageOk(ACTION_TYPE_ADD_PER_TEAMSIZE
+                    , getString(R.string.text_title_added_success)
+                    , getString(R.string.alert_title_congrates));
+        } else {*/
+
+        SlotsEligiblePlayers.clear();
+        intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
+
+        /** TRUE if
+         *  Team size 3 and Teams per Tee 1
+         *  Team size 4 and Teams per Tee 1
+         */
+        intent.putExtra("isMinRequired", true);
+
+        intent.putExtra("iFreeSlotsAvail", iCanAddMore/*newCompEntryData.getTeamSize()*/);
+
+        iTeamsPerSlot = SlotsEligiblePlayers.size();
+        intent.putExtra("NEW_COMP_EVENT_ID", newCompEntryData.getEventID());
+        intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
+        intent.putExtra("EventID", newCompEntryData.getEventID());
+        intent.putExtra("slotPosition", slotPosition);
+        intent.putExtra("iTeamSize", newCompEntryData.getTeamSize());
+        intent.putExtra("iAddPlayerPosition", iTeamsPerSlot);
+        intent.putExtra("iSelfMemberID", Integer.parseInt(getMemberId()));
+        intent.putExtra("iTeamPosition", iTeamPosition);
+        //  intent.putExtra("strSelfMemberName", strSelfMemberName);
+        Bundle informacion = new Bundle();
+        informacion.putSerializable("AllPlayers", allEligiblePlayers);
+        informacion.putSerializable("SlotsEligiblePlayers", SlotsEligiblePlayers);
+        informacion.putSerializable("teams", teamArrayList);
+        informacion.putSerializable("playerArrayList", (ArrayList<Player>) mPlayersArr);
+        intent.putExtras(informacion);
+
+        if (!newCompEntryData.isSlefAlreadyAdded()
+                && actionCallFromRemove != ApplicationGlobal.ACTION_CALL_FROM_REMOVE) {
+            intent.putExtra("isSlefAlreadyAdded", newCompEntryData.isSlefAlreadyAdded());
+            showAlertMessageOk(ACTION_TYPE_ADD_PER_TEAMSIZE
                     , getString(R.string.text_title_added_success)
                     , getString(R.string.alert_title_congrates));
         } else {
-
-            SlotsEligiblePlayers.clear();
-            intent = new Intent(CompetitionEntryActivity.this, EligiblePlayersActivity.class);
-
-            /** TRUE if
-             *  Team size 3 and Teams per Tee 1
-             *  Team size 4 and Teams per Tee 1
-             */
-            intent.putExtra("isMinRequired", true);
-
-            intent.putExtra("iFreeSlotsAvail", iCanAddMore/*newCompEntryData.getTeamSize()*/);
-
-            iTeamsPerSlot = SlotsEligiblePlayers.size();
-            intent.putExtra("NEW_COMP_EVENT_ID", newCompEntryData.getEventID());
-            intent.putExtra("TeamsPerSlot", newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot());
-            intent.putExtra("EventID", newCompEntryData.getEventID());
-            intent.putExtra("slotPosition", slotPosition);
-            intent.putExtra("iTeamSize", newCompEntryData.getTeamSize());
-            intent.putExtra("iAddPlayerPosition", iTeamsPerSlot);
-            intent.putExtra("isSlefAlreadyAdded", newCompEntryData.isSlefAlreadyAdded());
-            intent.putExtra("iSelfMemberID", Integer.parseInt(getMemberId()));
-            intent.putExtra("iTeamPosition", iTeamPosition);
-            //  intent.putExtra("strSelfMemberName", strSelfMemberName);
-            Bundle informacion = new Bundle();
-            informacion.putSerializable("AllPlayers", allEligiblePlayers);
-            informacion.putSerializable("SlotsEligiblePlayers", SlotsEligiblePlayers);
-            informacion.putSerializable("teams", teamArrayList);
-            informacion.putSerializable("playerArrayList", (ArrayList<Player>) mPlayersArr);
-            intent.putExtras(informacion);
-
-            if (!newCompEntryData.isSlefAlreadyAdded()) {
-                showAlertMessageOk(ACTION_TYPE_ADD_PER_TEAMSIZE
-                        , getString(R.string.text_title_added_success)
-                        , getString(R.string.alert_title_congrates));
-            } else {
-                startActivityForResult(intent, RESULT_CODE_ADD_PER_TEAMSIZE_4);
-            }
+            //Currently as per functionality, user will not get prompt next time to add itself forcefully.
+            intent.putExtra("isSlefAlreadyAdded", true);/*newCompEntryData.isSlefAlreadyAdded());*/
+            startActivityForResult(intent, RESULT_CODE_ADD_PER_TEAMSIZE_4);
         }
+       /* }*/
     }
+
+    @Override
+    public void confirmRemoveTeam(final List<Player> mPlayersArr, final ArrayList<Team> teamArrayList
+            , final int iSlotPos, final int iTeamsPerSlot,
+                                  final int iTeamPosition, final int iSlotIdx,
+                                  final int iPlayerCount, final int actionCallFromRemove) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(CompetitionEntryActivity.this);
+        builder.setTitle(getString(R.string.alert_title_alert))
+                .setMessage(getResources().getString(R.string.alert_title_remove_team))
+                .setPositiveButton(getString(R.string.alert_text_change_player), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mOnUpdatePlayers.addorChangePlayerUpdateMaxTeam(mPlayersArr, teamArrayList, iSlotPos, iTeamsPerSlot,
+                                iTeamPosition, iSlotIdx, iPlayerCount, actionCallFromRemove);
+                    }
+                })
+                .setNegativeButton(getString(R.string.alert_text_remove_team), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        removeAllPlayersOfTeam(mPlayersArr, teamArrayList, iSlotPos, iTeamsPerSlot,
+                                iTeamPosition, iSlotIdx, iPlayerCount, actionCallFromRemove);
+                    }
+                }).show();
+    }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -557,7 +582,10 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                     //For Show Stay/Leave Alert.
                     isAnyChange = true;
 
-                    //allEligiblePlayers.clear();
+                    if (newCompEntryData.getTeamSize() == 3 || newCompEntryData.getTeamSize() == 4) {
+                        allEligiblePlayers.clear();
+                    }
+
                     allEligiblePlayers.addAll((ArrayList<EligibleMember>) data.getSerializableExtra("MEMBER_LIST"));
 
                     SlotsEligiblePlayers.clear();
@@ -582,6 +610,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                         }
                     }
 
+                    mTeam.get(iTeamPos).setAnyUpdated(true);
                     mTeam.get(iTeamPos).setPlayers(playerArrayList);
                     newCompEntryData.getZones().get(iZoneNo).getSlots().get(iSlotPosition).setTeams(mTeam);
                 }
@@ -629,6 +658,45 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
             }
             updateTimeSlots();
         }
+    }
+
+    private void removeAllPlayersOfTeam(final List<Player> mPlayersArr, final ArrayList<Team> teamArrayList
+            , final int slotPosition, final int iTeamsPerSlot
+            , final int iTeamPosition, final int iSlotIdx
+            , final int iPlayerCount, final int actionCallFromRemove) {
+
+        // int iSlotIdx = teams.get(iAddPlayerPosition).getSlotIdx();
+        // int iTeamIdx = teams.get(iAddPlayerPosition).getTeamIdx();
+
+        Team mTeamInstance = new Team();
+        mTeamInstance.setZoneId(teamArrayList.get(iTeamPosition).getZoneId());
+        mTeamInstance.setSlotIdx(iSlotIdx);
+        mTeamInstance.setTeamIdx(iTeamPosition);
+
+        mTeamInstance.setTeamName("(Free)");
+        mTeamInstance.setEntryFee((double) 0);
+
+        for (int iPlayer = 0; iPlayer < mPlayersArr.size(); iPlayer++) {
+            if (teamArrayList.get(iTeamPosition).getPlayers().get(iPlayer).getMemberId()
+                    .equalsIgnoreCase(getMemberId())) {
+                newCompEntryData.setSelfAlreadyAdded(false);
+            }
+        }
+
+        List<Player> mPlayerList = new ArrayList<>();
+        mTeamInstance.setPlayers(mPlayerList);
+        //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
+        teamArrayList.set(iTeamPosition, mTeamInstance);
+
+        mEntryFee -= newCompEntryData.getEntryFee();
+        newCompEntryData.setMaxTeamAdded((newCompEntryData.getMaxTeamAdded() - 1));
+
+        newCompEntryData.getZones().get(iZoneNo).getSlots()
+                .get(iSlotIdx).getTeams().set(iTeamPosition, mTeamInstance);
+
+        newCompEntryData.getZones().get(iZoneNo).setiAlreadyBookSlotIdx(-1);
+
+        updateTimeSlots();
     }
 
     private void updateNewCompEntryUI() {
@@ -781,6 +849,19 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         }
 
         if (mapAllPlayer.containsKey(iMemberID)) {
+
+            /**
+             * Always store the Max. Entry fee of Team
+             * if Team size = 4 | 3 | 2
+             */
+            int teamSize = newCompEntryData.getTeamSize();
+            if (teamSize != 1) {
+                float iCurrentEntryFee = mapAllPlayer.get(iMemberID).getEntryFee();
+                if (mEntryFee < iCurrentEntryFee) {
+                    //   mEntryFee += newCompEntryData.getEntryFee();
+                    mEntryFee = iCurrentEntryFee;
+                }
+            }
 
             return mapAllPlayer.get(iMemberID).getNameAndHandicap();
         }

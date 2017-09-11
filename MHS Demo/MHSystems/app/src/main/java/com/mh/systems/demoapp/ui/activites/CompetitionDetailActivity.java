@@ -34,18 +34,24 @@ import com.mh.systems.demoapp.web.models.competitionsentrynew.NewAJsonCompEntry;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryData;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryItems;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryResponse;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.AJsonParamsConfirmBooking;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.Booking;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.NewCompEventEntryItems;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created {@link CompetitionDetailActivity} to display detail screen of
@@ -134,6 +140,9 @@ public class CompetitionDetailActivity extends BaseActivity {
     NewAJsonCompEntry newAJsonCompEntry;
     NewCompEntryResponse newCompEntryResponse;
     NewCompEntryData newCompEntryData;
+
+    NewCompEventEntryItems mNewCompEventEntryItems;
+    AJsonParamsConfirmBooking aJsonParamsConfirmBooking;
 
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
@@ -236,7 +245,8 @@ public class CompetitionDetailActivity extends BaseActivity {
                      *  Check internet connection before hitting server request.
                      */
                     if (isOnline(CompetitionDetailActivity.this)) {
-                        unJoinWebService();
+                       /* unJoinWebService();*/
+                        sendConfirmEntryV2();
                     } else {
                         showAlertMessage(getResources().getString(R.string.error_no_internet));
                     }
@@ -627,6 +637,94 @@ public class CompetitionDetailActivity extends BaseActivity {
         }
         hideProgress();
     }
+
+    /************************************ UNJOIN EVENT [START] ************************************/
+
+    /**
+     * Confirm Booking Event Entry V2.
+     */
+    public void sendConfirmEntryV2() {
+
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsConfirmBooking = new AJsonParamsConfirmBooking();
+        aJsonParamsConfirmBooking.setClientId(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsConfirmBooking.setEventId(newCompEntryResponse.getData().getEventID());
+        aJsonParamsConfirmBooking.setMemberId(getMemberId());
+        aJsonParamsConfirmBooking.setPayeeId(newCompEntryData.getPayeeId());
+        aJsonParamsConfirmBooking.setRemoveEntry(false/*getMemberId()*/); //TODO: Set as False as default because don't know what we have to send it here.
+
+        List<Booking> mBookingArr = new ArrayList<>();
+        aJsonParamsConfirmBooking.setBooking(mBookingArr);
+
+        mNewCompEventEntryItems = new NewCompEventEntryItems(getClientId()
+                , "ApplyEventEntryV2"
+                , aJsonParamsConfirmBooking
+                , ApplicationGlobal.TAG_GCLUB_WEBSERVICES
+                , ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        api.sendClubEventEntryV2(mNewCompEventEntryItems, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, Response response) {
+
+                updateConfirmBookingSuccess(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+                showAlertMessage(error.toString());
+            }
+        });
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateConfirmBookingSuccess(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "updateConfirmBookingSuccess : " + jsonObject.toString());
+
+        Type type = new TypeToken<NewCompEntryResponse>() {
+        }.getType();
+        newCompEntryResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (newCompEntryResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                newCompEntryData = newCompEntryResponse.getData();
+
+                if (newCompEntryData.isUpdateFailed()) {
+                    showAlertMessage(newCompEntryData.getErrorMessage());
+                } else {
+                    showAlertMessage(getString(R.string.alert_title_unjoin_success));
+                }
+
+            } else {
+                showAlertMessage(newCompEntryResponse.getMessage());
+            }
+
+            hideProgress();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            hideProgress();
+            reportRollBarException(ConfirmBookingEntryActivity.class.getSimpleName(), e.toString());
+        }
+    }
+
+    /************************************  UNJOIN EVENT [END]  ************************************/
 
     /****************************************************************************
      *

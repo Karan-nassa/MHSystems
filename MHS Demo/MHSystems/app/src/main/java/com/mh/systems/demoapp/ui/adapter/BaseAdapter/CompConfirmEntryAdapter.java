@@ -196,7 +196,7 @@ public class CompConfirmEntryAdapter extends BaseAdapter {
 
                             if ((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1) {
 
-                                mOnUpdatePlayers.addorRemoveUpdateMaxTeam(
+                                mOnUpdatePlayers.addorChangePlayerUpdateMaxTeam(
                                         mPlayersArr
                                         , mFilterSlotList.get(position).getTeams()
                                         , position //Slot Position

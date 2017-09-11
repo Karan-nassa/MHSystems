@@ -209,7 +209,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                                         , iTeamPlayerPos
                                         , slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx()
                                 );*/
-                                mOnUpdatePlayers.addorRemoveUpdateMaxTeam(
+                                mOnUpdatePlayers.addorChangePlayerUpdateMaxTeam(
                                         mPlayersArr
                                         , slotArrayList.get(position).getTeams()
                                         , position //Slot Position
@@ -269,7 +269,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                      * 1, if booked by someone else
                      * 2, If booked by itself
                      */
-                    switch (mTeamArrayList.get(iTeamCount).getEntryStatus()) {
+                     switch (mTeamArrayList.get(iTeamCount).getEntryStatus()) {
                         case 0:
                             if (mTeamArrayList.get(iTeamCount).isAnyUpdated()) {
                                 ivPlayerRemove.setVisibility(View.VISIBLE);
@@ -301,7 +301,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                             if (((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1)
                                     || (iTeamSize == 2 && iTeamsPerSlot == 2)) {
 
-                                mOnUpdatePlayers.addorRemoveUpdateMaxTeam(
+                                mOnUpdatePlayers.confirmRemoveTeam(
                                         mPlayersArr
                                         , slotArrayList.get(position).getTeams()
                                         , position //Slot Position
@@ -311,6 +311,17 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                                         , finalIPlayerCount
                                         , ApplicationGlobal.ACTION_CALL_FROM_REMOVE //Call from
                                 );
+
+                               /* mOnUpdatePlayers.addorChangePlayerUpdateMaxTeam(
+                                        mPlayersArr
+                                        , slotArrayList.get(position).getTeams()
+                                        , position //Slot Position
+                                        , iTeamsPerSlot
+                                        , Integer.parseInt(tvPlayerName.getTag().toString()) //team pos
+                                        , slotArrayList.get(position).getTeams().get(finalITeamCount).getSlotIdx() //SlotIdx
+                                        , finalIPlayerCount
+                                        , ApplicationGlobal.ACTION_CALL_FROM_REMOVE //Call from
+                                );*/
                             } else {
                                 mOnUpdatePlayers.removePlayerListener(
                                         slotArrayList.get(position).getTeams()

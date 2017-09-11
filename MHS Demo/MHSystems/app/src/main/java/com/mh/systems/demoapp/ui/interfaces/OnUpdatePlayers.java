@@ -20,5 +20,6 @@ public interface OnUpdatePlayers {
      * <p>
      * Team size = 4, max entry 1 team.  _1 team per slot_
      */
-    void addorRemoveUpdateMaxTeam(List<Player> mPlayersArr, ArrayList<Team> teamArrayList, int iSlotPos, int iTeamsPerSlot, int iTeamPosition, int iSlotIdx, int iPlayerCount, int actionCallFromRemove);
+    void addorChangePlayerUpdateMaxTeam(List<Player> mPlayersArr, ArrayList<Team> teamArrayList, int iSlotPos, int iTeamsPerSlot, int iTeamPosition, int iSlotIdx, int iPlayerCount, int actionCallFromRemove);
+    void confirmRemoveTeam(List<Player> mPlayersArr, ArrayList<Team> teamArrayList, int iSlotPos, int iTeamsPerSlot, int iTeamPosition, int iSlotIdx, int iPlayerCount, int actionCallFromRemove);
 }

@@ -19,7 +19,7 @@ public class AllPlayer implements Serializable {
     private Boolean IsFriend;
     @SerializedName("EntryFee")
     @Expose
-    private Double EntryFee;
+    private float EntryFee;
 
     /**
      * EntryStatus equal to
@@ -57,11 +57,11 @@ public class AllPlayer implements Serializable {
         this.IsFriend = IsFriend;
     }
 
-    public Double getEntryFee() {
+    public float getEntryFee() {
         return EntryFee;
     }
 
-    public void setEntryFee(Double EntryFee) {
+    public void setEntryFee(float EntryFee) {
         this.EntryFee = EntryFee;
     }
 

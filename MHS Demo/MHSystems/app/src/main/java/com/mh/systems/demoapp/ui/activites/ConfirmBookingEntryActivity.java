@@ -205,7 +205,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     }
 
     @Override
-    public void addorRemoveUpdateMaxTeam(List<Player> mPlayersArr
+    public void addorChangePlayerUpdateMaxTeam(List<Player> mPlayersArr
             , ArrayList<Team> teamArrayList, int slotPosition
             , int iTeamsPerSlot, int iTeamPosition
             , int iSlotIdx, int iPlayerCount, int actionCallFromRemove) {
@@ -238,6 +238,13 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                 setEntryFee((double) mEntryFee);
 
         filterBookedSlotLists();
+    }
+
+    @Override
+    public void confirmRemoveTeam(List<Player> mPlayersArr, ArrayList<Team> teamArrayList,
+                                  int iSlotPos, int iTeamsPerSlot, int iTeamPosition, int iSlotIdx,
+                                  int iPlayerCount, int actionCallFromRemove) {
+
     }
 
     @Override
