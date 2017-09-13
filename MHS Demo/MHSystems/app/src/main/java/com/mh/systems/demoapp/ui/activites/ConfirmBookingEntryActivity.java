@@ -195,9 +195,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         //teams.get(iAddPlayerPosition).setPlayers(mPlayerList);
         teams.set(iAddPlayerPosition, mTeamInstance);
 
-        if(mEntryFee < 0) {
+        if (mEntryFee < 0) {
             mEntryFee += newCompEntryData.getEntryFee();
-        }else{
+        } else {
             mEntryFee -= newCompEntryData.getEntryFee();
         }
         newCompEntryData.setMaxTeamAdded((newCompEntryData.getMaxTeamAdded() - 1));
@@ -228,7 +228,7 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
             mEntryFee -= entryFee;
         }
 
-       newCompEntryData.getZones().get(iZoneNo).getSlots()
+        newCompEntryData.getZones().get(iZoneNo).getSlots()
                 .get(slotPosition).getTeams().get(iTeamPosition).
                 setEntryFee(entryFee);
        /* float iCurrentEntryFee = newCompEntryData.getEntryFee();
@@ -316,7 +316,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         // mSlotEntryList = (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
 
-        mEntryFee = getIntent().getExtras().getFloat("mEntryFee");
+        //mEntryFee = getIntent().getExtras().getFloat("mEntryFee");
+        mEntryFee = 0;
         strZoneName = getIntent().getExtras().getString("strZoneName");
         iZoneNo = getIntent().getExtras().getInt("iZoneNo");
         iEventID = newCompEntryData.getEventID();
@@ -515,6 +516,8 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         boolean isAddedNew;
 
+        mEntryFee = 0;
+
         for (int iSlotCount = 0; iSlotCount < mSlotsList.size(); iSlotCount++) {
 
             ArrayList<Team> mFilterTeam = new ArrayList<>();
@@ -542,7 +545,12 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                     isAddedNew = true;
                 }
 
-                //mEntryFee+= teamArrayList.get(jTeamCount).getEntryFee();
+
+                //Calculate Fee is Team newly added or updated.
+                if (iSlotCount == newCompEntryData.getZones().get(iZoneNo).getiAlreadyBookSlotIdx()
+                        && teamArrayList.get(jTeamCount).isAnyUpdated()) {
+                    mEntryFee += teamArrayList.get(jTeamCount).getEntryFee();
+                }
             }
 
             if (isAddedNew) {
