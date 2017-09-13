@@ -315,6 +315,9 @@
     <string name="text_add_player">Add Player</string>
     <string name="text_add_players">Add Players</string>
 
+    <string name="text_title_per_pair">fee per pair</string>
+    <string name="text_title_per_team">fee per team</string>
+
     <string name="alert_title_alert">Alert!</string>
     <string name="alert_title_congrates">Congratulations!</string>
     <string name="alert_title_unjoin_success">You have removed from event.</string>

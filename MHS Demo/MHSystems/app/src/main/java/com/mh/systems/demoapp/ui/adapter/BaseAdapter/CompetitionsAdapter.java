@@ -141,7 +141,13 @@ public class CompetitionsAdapter extends BaseAdapter {
 
         if (iPopItemPos < 2) {
            /* EXECUTE ONLY FOR UPCOMING and JOINED */
-            viewHolder.tvNameTitle.setText(/*"£" + */compititionsDatas.get(position).getPricePerGuest() + " " + context.getResources().getString(R.string.title_competitions_prize));
+           if(compititionsDatas.get(position).getTeamSize() == 1 || compititionsDatas.get(position).getTeamSize() == 2){
+               viewHolder.tvNameTitle.setText(/*"£" + */compititionsDatas.get(position).getPricePerGuest()
+                       + " " + context.getResources().getString(R.string.text_title_per_pair));
+           }else { //for TeamSize 3 or 4
+               viewHolder.tvNameTitle.setText(/*"£" + */compititionsDatas.get(position).getPricePerGuest()
+                       + " " + context.getResources().getString(R.string.text_title_per_team));
+           }
             viewHolder.ivStatOfEvent.setVisibility(View.VISIBLE);
         } else {
             /* EXECUTE FOR COMPLETED */

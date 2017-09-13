@@ -616,8 +616,9 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
                                 get(Integer.parseInt(playerArrayList.get(iPlayer).getMemberId())).getEntryFee();
                         if (iMaxPlayerFee < currentPlayerFee) {
                             iMaxPlayerFee = currentPlayerFee;
-                            mTeam.get(iTeamPos).setEntryFee(currentPlayerFee);
                         }
+                        mTeam.get(iTeamPos).setEntryFee(iMaxPlayerFee);
+                        mEntryFee = (float) iMaxPlayerFee;
                     }
 
                     mTeam.get(iTeamPos).setAnyUpdated(true);

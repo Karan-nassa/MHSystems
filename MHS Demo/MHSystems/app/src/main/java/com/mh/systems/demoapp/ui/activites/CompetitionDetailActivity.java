@@ -789,8 +789,8 @@ public class CompetitionDetailActivity extends BaseActivity {
         newCompEntryResponse = new Gson().fromJson(jsonObject.toString(), type);
 
         try {
-            /**
-             *  Check "Result" 1 or 0. If 1, means data received successfully.
+            /*
+               Check "Result" 1 or 0. If 1, means data received successfully.
              */
             if (newCompEntryResponse.getMessage().equalsIgnoreCase("Success")) {
 
@@ -800,7 +800,16 @@ public class CompetitionDetailActivity extends BaseActivity {
 
                 tvDateCourseEvent.setText("" + strEventDate/*getClubEventResponse.getGetClubEventData().getEventDateStr()*/);
                 tvTimeCourseEvent.setText(getTimeOfEvent(newCompEntryData.getZones().get(iZoneNo).getZoneName()));
-                tvFeeCourseEvent.setText("" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
+
+                if (newCompEntryData.getTeamSize() == 1 || newCompEntryData.getTeamSize() == 2) {
+                    tvFeeCourseEvent.setText("" + strEventPrize + " "
+                            + getResources().getString(R.string.text_title_per_pair));
+                } else {
+                    //for Teamsize 3 or 4
+                    tvFeeCourseEvent.setText("" + strEventPrize + " "
+                            + getResources().getString(R.string.text_title_per_team));
+                }
+
                 //tvCombaseOfCompEvent.setText("" + getClubEventResponse.getGetClubEventData().getCompBasis());
                 tvDescCourseEvent.setText(newCompEntryData.getEventDescription());
 

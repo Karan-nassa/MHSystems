@@ -69,6 +69,10 @@ public class CompetitionsData {
     @Expose
     private String PlayerTotal;
 
+    @SerializedName("TeamSize")
+    @Expose
+    private int TeamSize;
+
     /**
      * @return The PlayerPosition
      */
@@ -340,5 +344,17 @@ public class CompetitionsData {
         IsMemberJoined = isMemberJoined;
     }
 
+    /**
+     * @return The TeamSize
+     */
+    public int getTeamSize() {
+        return TeamSize;
+    }
 
+    /**
+     * @param TeamSize The TeamSize
+     */
+    public void setTeamSize(int TeamSize) {
+        this.TeamSize = TeamSize;
+    }
 }
