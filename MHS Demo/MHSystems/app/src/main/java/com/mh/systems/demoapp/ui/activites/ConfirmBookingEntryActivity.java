@@ -90,7 +90,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
     NewCompEntryResponse newCompEntryResponse;
 
-    ///private ArrayList<Slot> mSlotEntryList = new ArrayList<>();
     private ArrayList<Slot> mFinalBookingList = new ArrayList<>();
 
     int iZoneNo;
@@ -139,7 +138,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.menu_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -178,11 +176,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         mTeamInstance.setTeamName("(Free)");
         mTeamInstance.setEntryFee((double) 0);
-
-        //So Remove icon should be visible.
-        // mTeamInstance.setEntryStatus(0);
-        // mTeamInstance.setAlreadyBooked(true);
-        //mTeamInstance.setAnyUpdated(false);
 
         List<Player> mPlayerList = new ArrayList<>();
 
@@ -231,15 +224,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         newCompEntryData.getZones().get(iZoneNo).getSlots()
                 .get(slotPosition).getTeams().get(iTeamPosition).
                 setEntryFee(entryFee);
-       /* float iCurrentEntryFee = newCompEntryData.getEntryFee();
-        if (mEntryFee < iCurrentEntryFee) {
-            //   mEntryFee += newCompEntryData.getEntryFee();
-            mEntryFee = iCurrentEntryFee;
-        }
-
-        newCompEntryData.getZones().get(iZoneNo).getSlots()
-                .get(slotPosition).getTeams().get(iTeamPosition).
-                setEntryFee((double) mEntryFee);*/
 
         filterBookedSlotLists();
     }
@@ -314,8 +298,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
         mapAllPlayer = (Map<Integer, AllPlayer>) getIntent().getSerializableExtra("mapAllPlayer");
 
-        // mSlotEntryList = (ArrayList<Slot>) getIntent().getSerializableExtra("filterSlotList");
-
         //mEntryFee = getIntent().getExtras().getFloat("mEntryFee");
         mEntryFee = 0;
         strZoneName = getIntent().getExtras().getString("strZoneName");
@@ -359,15 +341,11 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                     , ApplicationGlobal.TAG_GCLUB_WEBSERVICES
                     , ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
-            //Creating a rest adapter
             RestAdapter adapter = new RestAdapter.Builder()
                     .setEndpoint(WebAPI.API_BASE_URL)
                     .build();
-
-            //Creating an object of our api interface
             WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
-            //Defining the method
             api.sendClubEventEntryV2(mNewCompEventEntryItems, new Callback<JsonObject>() {
                 @Override
                 public void success(JsonObject jsonObject, Response response) {
@@ -443,19 +421,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
         return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
-  /*  private void filterBookingList() {
-
-        Zone mZoneInstance = newCompEntryData.getZones().get(iZoneNo);
-        List<Slot> mAllSlotsList = mZoneInstance.getSlots();
-
-       *//* for (int iSlotCount = 0; iSlotCount < mAllSlotsList.size(); iSlotCount++) {
-
-            for (int jCount = 0; jCount < mZoneInstance.getTeamsPerSlot(); jCount++) {
-
-            }
-        }*//*
-    }*/
-
     /**
      * Filter Array with selected
      * members list.
@@ -465,12 +430,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
     private List<Booking> getBookedEventSlotLists() {
 
         ArrayList<Booking> mBookingEntryList = new ArrayList<>();
-
-        //Also append the booking data.
-       /* if (newCompEntryData.getBooking().size() > 0) {
-            mBookingEntryList.addAll(newCompEntryData.getBooking());
-        }*/
-
         List<Slot> mSlotsList = newCompEntryData.getZones().get(iZoneNo).getSlots();
         int iTeamSize = newCompEntryData.getZones().get(iZoneNo).getTeamsPerSlot();
 
@@ -480,9 +439,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
                 ArrayList<Team> teamArrayList = mSlotsList.get(iSlotCount).getTeams();
 
-                /*if (!teamArrayList.get(jTeamCount)
-                        .getTeamName().equals("(Free)")
-                        && teamArrayList.get(jTeamCount).getEntryStatus() != 1) {*/
                 if (teamArrayList.get(jTeamCount)
                         .getPlayers().size() > 0
                         && teamArrayList.get(jTeamCount).getEntryStatus() != 1) {
@@ -530,16 +486,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
                 ArrayList<Team> teamArrayList = mSlotsList.get(iSlotCount).getTeams();
 
-              /*  if (!teamArrayList.get(jTeamCount)
-                        .getTeamName().equals("(Free)")
-                        && teamArrayList.get(jTeamCount).isAnyUpdated()) {*/
-
                 if (teamArrayList.get(jTeamCount)
                         .getPlayers().size() > 0
                         && teamArrayList.get(jTeamCount).isAnyUpdated()) {
-
-                  /*  iPlayersAddedCount = teamArrayList.get(jTeamCount)
-                            .getPlayers().size();*/
 
                     mFilterTeam.add(mSlotsList.get(iSlotCount).getTeams().get(jTeamCount));
                     isAddedNew = true;
@@ -568,20 +517,9 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
     private void updateBookingListAdapter() {
 
-      /*  int iTeamSize = newCompEntryData.getTeamSize();
-
-        if (iTeamSize == 4 || iTeamSize == 3) {
-            if (iPlayersAddedCount == iTeamSize) {
-                disableAddPlayers();
-            }else{
-                enableAddPlayers();
-            }
-        }*/
-
         updateTotalPrice(mEntryFee);
 
         Zone mZoneInstance = newCompEntryData.getZones().get(iZoneNo);
-        //   mFinalBookingList.addAll(mZoneInstance.getSlots());
         gvCompEntry.setExpanded(true);
         compConfirmEntryAdapter = new CompConfirmEntryAdapter(ConfirmBookingEntryActivity.this,
                 mFinalBookingList,
@@ -679,14 +617,6 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
 
             return mapAllPlayer.get(iMemberID).getNameAndHandicap();
         }
-
-        /*List<AllPlayer> mAllPlayersList = newCompEntryData.getAllPlayers();
-
-        for (int iCounter = 0; iCounter < mAllPlayersList.size(); iCounter++) {
-            if (mAllPlayersList.get(iCounter).getMemberId() == iMemberID) {
-                return mAllPlayersList.get(iCounter).getNameAndHandicap();
-            }
-        }*/
 
         return "N/A";
     }

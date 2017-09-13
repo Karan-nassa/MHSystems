@@ -692,17 +692,8 @@ public class CompetitionsActivity extends BaseActivity {
      */
     private void initCompetitionsCategory() {
 
-        /**
-         * Step 1: Create a new instance of popup menu
-         */
         popupMenu = new PopupMenu(this, tvCompType);
-        /**
-         * Step 2: Inflate the menu resource. Here the menu resource is
-         * defined in the res/menu project folder
-         */
         popupMenu.inflate(R.menu.competitions_menu);
-
-        //Initially display title at position 0 of R.menu.course_menu.
         tvCompType.setText("" + popupMenu.getMenu().getItem(0));
     }
 

@@ -32,7 +32,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
 
     Context context;
     private static LayoutInflater inflater = null;
-    private Typeface tfRobotoMedium, tfRobotoBold;
+    private Typeface tfRobotoBold;
 
     private ArrayList<Slot> slotArrayList = new ArrayList<>();
     private Button lastSelectedView = null;
@@ -66,7 +66,6 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
 
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        tfRobotoMedium = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
         tfRobotoBold = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Bold.ttf");
     }
 
@@ -202,13 +201,6 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                             if (((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1)
                                     || (iTeamSize == 2 && iTeamsPerSlot == 2)) {
 
-                                /*mOnUpdatePlayers.addMaxPlayersAsTeamsize(
-                                        slotArrayList.get(position).getTeams()
-                                        , position
-                                        , iTeamsPerSlot
-                                        , iTeamPlayerPos
-                                        , slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx()
-                                );*/
                                 mOnUpdatePlayers.addorChangePlayerUpdateMaxTeam(
                                         mPlayersArr
                                         , slotArrayList.get(position).getTeams()
@@ -297,7 +289,6 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
 
-                           /* if ((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1) {*/
                             if (((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1)
                                     || (iTeamSize == 2 && iTeamsPerSlot == 2)) {
 
@@ -312,16 +303,6 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                                         , ApplicationGlobal.ACTION_CALL_FROM_REMOVE //Call from
                                 );
 
-                               /* mOnUpdatePlayers.addorChangePlayerUpdateMaxTeam(
-                                        mPlayersArr
-                                        , slotArrayList.get(position).getTeams()
-                                        , position //Slot Position
-                                        , iTeamsPerSlot
-                                        , Integer.parseInt(tvPlayerName.getTag().toString()) //team pos
-                                        , slotArrayList.get(position).getTeams().get(finalITeamCount).getSlotIdx() //SlotIdx
-                                        , finalIPlayerCount
-                                        , ApplicationGlobal.ACTION_CALL_FROM_REMOVE //Call from
-                                );*/
                             } else {
                                 mOnUpdatePlayers.removePlayerListener(
                                         slotArrayList.get(position).getTeams()
