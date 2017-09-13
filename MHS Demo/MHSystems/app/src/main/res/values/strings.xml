@@ -306,9 +306,11 @@
     <string name="text_title_new_balance">Your new balance is </string>
     <string name="error_title_try_again">Please try again</string>
 
-    <!-- NEW COMPETITIONS ENTRY FUNCTIONALITY -->
-    <string name="button_confirm_time_players">Confirm Time and Players</string>
     <string name="tb_title_frinds_list">Friends List</string>
+
+    <!-- NEW COMPETITIONS ENTRY [START] -->
+
+    <string name="button_confirm_time_players">Confirm Time and Players</string>
     <string name="text_title_added_success">You have successfully entered this competition. Please confirm or add more players.</string>
     <string name="text_booking_success">Your entry has been successful!</string>
     <string name="text_amend_entry">Amend Entry</string>
@@ -327,5 +329,7 @@
     <string name="text_alert_cancel_entry">Are you sure you want to cancel your entry?</string>
     <string name="alert_text_change_player">Change Player</string>
     <string name="alert_text_remove_team">Remove the Player &amp; Partner(s)</string>
+
+    <!-- NEW COMPETITIONS ENTRY [END] -->
 
 </resources>

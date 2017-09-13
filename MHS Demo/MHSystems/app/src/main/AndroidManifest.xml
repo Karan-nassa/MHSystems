@@ -205,6 +205,12 @@
             android:name=".ui.activites.FriendsInfoActivity"
             android:screenOrientation="portrait" />
 
+        <!-- CONFIRM BOOKING -->
+
+        <activity
+            android:name=".ui.activites.ConfirmBookingEntryActivity"
+            android:screenOrientation="portrait" />
+
         <!-- START OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->
 
         <receiver
@@ -242,9 +248,6 @@
         <!-- WEATHER SERVICE -->
 
         <service android:name=".dataaccess.service.DashboardWeatherService" />
-
-        <activity android:name=".ui.activites.ConfirmBookingEntryActivity" />
-        <activity android:name=".ui.activites.NewCompAddPlayersActivity"></activity>
     </application>
 
 </manifest>

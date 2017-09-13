@@ -133,7 +133,8 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 tvPlayerName.setText(strTeamName);
                 iFreeSlotsAvail++;
 
-                if ((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1) {
+                if (((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1)
+                        || iTeamSize == 2 && iTeamsPerSlot == 2) {
                     tvAddTeam.setText(context.getString(R.string.text_add_players));
                 } else {
                     tvAddTeam.setText(context.getString(R.string.text_add_player));
