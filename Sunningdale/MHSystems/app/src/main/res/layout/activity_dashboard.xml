@@ -20,10 +20,10 @@
 
         <!-- FOR SETTINGS ICON ON LEFT SIDE VIEW GROUP -->
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_weight="30"
             android:orientation="horizontal">
 
             <!-- SETTINGS ICON -->
@@ -32,7 +32,7 @@
                 android:id="@+id/llSettings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_gravity="left"
                 android:orientation="vertical">
 
                 <ImageView
@@ -43,22 +43,22 @@
 
             </LinearLayout>
 
-            <!-- SEND FEEDBACK BUTTON -->
+            <!-- VIEW GROUP FOR GOLF CLUB NAME AND TREE ICON -->
 
-            <Button
-                android:id="@+id/btSendFeedback"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/button_shape_feedback"
-                android:elevation="0dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:text="ProAgenda "
-                android:textAllCaps="false"
-                android:textColor="@color/colorBlack000000"
-                android:textSize="17sp"
-                android:visibility="gone" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <!-- GOLF CLUB LOGO -->
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_home_golfclub" />
+
+            </LinearLayout>
 
 
             <!-- LOGOUT BUTTON -->
@@ -67,7 +67,7 @@
                 android:id="@+id/llLogoutBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true">
+                android:layout_gravity="right">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -77,35 +77,7 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
-
-        <!-- VIEW GROUP FOR GOLF CLUB NAME AND TREE ICON -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="35"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <!-- GOLF CLUB LOGO -->
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_home_golfclub" />
-
-            <!-- GOLF CLUB NAME -->
-
-            <!--  <mhstems.customfonts.BaskervilleTextFont
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:alpha="0.5"
-                  android:text="@string/title_golf_club_name"
-                  android:textColor="@color/colorC0995B"
-                  android:textSize="12sp" />-->
-
-        </LinearLayout>
+        </FrameLayout>
 
         <!-- WEATHER STATUS -->
 
@@ -189,7 +161,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="45"
+            android:layout_weight="60"
             android:background="@color/color4B4B49"
             android:orientation="vertical">
 
@@ -210,6 +182,7 @@
                 android:layout_height="match_parent"
                 android:cacheColorHint="@color/colorF9F8F7"
                 android:divider="@color/colorE8E2DD"
+                android:overScrollMode="never"
                 android:dividerHeight="1dp" />
 
         </LinearLayout>

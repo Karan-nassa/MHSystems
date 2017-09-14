@@ -31,7 +31,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
     private ViewHolder mInstanceOfClubNews = null;
 
     private final int POSITION_NORMAL = 0;
-    private final int POSITION_HANDICAP = 1;
+    private final int POSITION_HANDICAP = 3;
 
     String hCapExactStr;
     int iHandicapPosition;

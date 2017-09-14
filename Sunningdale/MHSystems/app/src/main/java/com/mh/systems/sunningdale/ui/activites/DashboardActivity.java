@@ -87,9 +87,6 @@ public class DashboardActivity extends BaseActivity {
     @Bind(R.id.llWeatherGroup)
     LinearLayout llWeatherGroup;
 
-    @Bind(R.id.btSendFeedback)
-    Button btSendFeedback;
-
     @Bind(R.id.tvTodayTemperature)
     TextView tvTodayTemperature;
 
@@ -142,7 +139,7 @@ public class DashboardActivity extends BaseActivity {
      *******************************/
     ArrayList<DashboardItems> dashboardItemsArrayList = new ArrayList<>();
 
-    int iHandicapPosition = 0;
+    int iHandicapPosition = -1;
     String strNameOfWeatherLoc = "";
 
 
@@ -184,15 +181,6 @@ public class DashboardActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(DashboardActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //Send Feedback click event here.
-        btSendFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(DashboardActivity.this, SendFeedbackActivity.class);
                 startActivity(intent);
             }
         });
@@ -375,17 +363,37 @@ public class DashboardActivity extends BaseActivity {
         getUnreadNewsCountService();
 
         dashboardItemsArrayList.clear();
-        iHandicapPosition = 0;
+       // iHandicapPosition = 2;
+
+        //Add Competitions
+        //if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
+        //TODO: Forcefully showing COMPETIITONS for now on dashboard and remvoe later.
+        dashboardItemsArrayList.add(new DashboardItems(
+                R.mipmap.ic_home_competitions,
+                "Competitions",
+                getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
+        // }
+
+        //ProAgenda (Booking Lessions) feature.
+        //if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_PRO_AGENDA_FEATURE, false)) {
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_booking_agenda,
+                    getResources().getString(R.string.title_book_lessons),
+                    getApplicationContext().getPackageName() + ".ui.activites.BookingLessonsWebActivity"));
+        //}
 
         //Add Handicap.
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false)) {
 
-            iHandicapPosition = 0;
+           // iHandicapPosition = 2;
 
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_handicap_chart,
                     "Your Handicap",
                     getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
+
+            iHandicapPosition = (dashboardItemsArrayList.size()-1);
         }
 
         //Add Course Diary.
@@ -395,26 +403,6 @@ public class DashboardActivity extends BaseActivity {
                     R.mipmap.ic_home_diary,
                     "Course Diary",
                     getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryWebviewActivity"));
-        }
-
-        //Add Competitions
-        //if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
-        //TODO: Forcefully showing COMPETIITONS for now on dashboard and remvoe later.
-            dashboardItemsArrayList.add(new DashboardItems(
-                    R.mipmap.ic_home_competitions,
-                    "Competitions",
-                    getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
-       // }
-
-        //ProAgenda (Booking Lessions) feature.
-        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_PRO_AGENDA_FEATURE, false)) {
-
-            iHandicapPosition = 0;
-
-            dashboardItemsArrayList.add(new DashboardItems(
-                    R.mipmap.ic_booking_agenda,
-                    getResources().getString(R.string.title_book_lessons),
-                    getApplicationContext().getPackageName() + ".ui.activites.BookingLessonsWebActivity"));
         }
 
         //Add Members
@@ -441,7 +429,11 @@ public class DashboardActivity extends BaseActivity {
                     getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
         }
 
-        //Set Grid options adapter.
+        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
+                dashboardItemsArrayList,
+                iHandicapPosition,
+                loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
         dashboardRecyclerAdapter.notifyDataSetChanged();
 
         setupGridLayout(dashboardItemsArrayList.size());
@@ -485,11 +477,30 @@ public class DashboardActivity extends BaseActivity {
                 });
                 break;
 
+            case 9:
+            case 7:
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 3 ? 6 : 2;
+                    }
+                });
+                break;
+
+            case 6:
+                  layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 3;
+                    }
+                });
+                break;
+
             default:
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        return 2;
+                        return position == 3 ? 6 : 2;
                     }
                 });
                 break;
