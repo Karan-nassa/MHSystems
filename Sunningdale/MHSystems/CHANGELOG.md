@@ -2,6 +2,10 @@
 
  - FIXED: #23 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0 in Club News at onActivityResult
  
+ ####13th Sep, 2017
+  - NEW: Now different types of <B>UPCOMING COMPEITITONS</B> depends upon the ```teamsize``` i.e. 1,2,3 and 4.
+  - NEW: Update web service for <B>Unjoin</B> members from the <B>Entered COMPEITITONS</B>.
+ 
 ####Version 1.9.0 (7th June, 2017)
    - UPDATE: Display 'Account' and 'Balance' title along with month title on Finance.
    - UPDATE: The balance needs to be complete - not + 101.... Allow for up to £9,999.99.

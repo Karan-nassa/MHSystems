@@ -10,6 +10,9 @@ import com.mh.systems.sunningdale.web.models.CompetitionResultAPI;
 import com.mh.systems.sunningdale.web.models.CompetitionJoinAPI;
 import com.mh.systems.sunningdale.web.models.CompetitionUnjoinAPI;
 import com.mh.systems.sunningdale.web.models.CompetitionsAPI;
+import com.mh.systems.sunningdale.web.models.competitionsentry.CompEligiblePlayersAPI;
+import com.mh.systems.sunningdale.web.models.competitionsentrynew.NewCompEntryItems;
+import com.mh.systems.sunningdale.web.models.competitionsentrynew.confirmbooking.NewCompEventEntryItems;
 import com.mh.systems.sunningdale.web.models.contactus.ContactUsAPI;
 import com.mh.systems.sunningdale.web.models.CourseDiaryAPI;
 import com.mh.systems.sunningdale.web.models.DashboardAPI;
@@ -274,6 +277,18 @@ public interface WebServiceMethods {
     public void updatePrivacySettings(@Body TogglePrivacyAPI togglePrivacyAPI, Callback<JsonObject> response);
 
     /**
+     * Declaration of GETCOMPELIGIBLEPLAYERS web service to get eligible players list
+     * of COMPETITION event by passing 'eventId'.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param compEligiblePlayersAPI
+     * @param response
+     */
+    @POST("/api/ClubsApp")
+    public void getEligiblePlayersList(@Body CompEligiblePlayersAPI compEligiblePlayersAPI, Callback<JsonObject> response);
+
+    /**
      * Declaration of Forgot Password web service method.
      * <p/>
      * TYPE : POST
@@ -426,5 +441,29 @@ public interface WebServiceMethods {
      */
     @GET("/api/apiproagenda/geturl")
     public void proAgendaAPI(@Query("aClientId") String aClientId, @Query("amemberid") String amemberid, Callback<JsonObject> response);
+
+    /**
+     * Call Competitions Event entry web service to get detail of
+     * entry competition.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param newCompEntryItems : Pass model of Competitions Entry.
+     * @param response          : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getClubEventEntryData(@Body NewCompEntryItems newCompEntryItems, Callback<JsonObject> response);
+
+    /**
+     * Send Competitions Event Entry V2 to enter
+     * final booking.
+     * <p/>
+     * TYPE : POST
+     *
+     * @param newCompEventEntryItems : Pass model of Competitions Event Entry V2.
+     * @param response               : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void sendClubEventEntryV2(@Body NewCompEventEntryItems newCompEventEntryItems, Callback<JsonObject> response);
 }
 

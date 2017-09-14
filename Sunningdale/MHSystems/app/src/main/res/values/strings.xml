@@ -23,6 +23,8 @@
     <string name="error_wrong_date_selection">You can only view compResultData of current date and future dates.</string>
     <string name="error_valid_email">Please enter valid Email address.</string>
     <string name="error_no_transaction">No Transaction Receipt Available.</string>
+    <string name="error_no_entry_changes">No changes has been done. Please make the changes and confirm.</string>
+    <string name="error_no_topup_found">Unable to access your Top-up balance.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
     <!-- START OF COMMON MESSAGES THROUGH OUT THE APP -->
@@ -63,6 +65,8 @@
     <!-- START OF COMPETITIONS EVENT ACTIVITY -->
     <string name="title_competitions">COMPETITIONS</string>
     <string name="title_competitions_prize">fee per player</string>
+    <string name="text_tee_off_times">Select a Tee-Off Time</string>
+    <string name="text_your_entry_fee">Your Entry List</string>
     <!-- END OF COMPETITIONS EVENT ACTIVITY -->
 
     <!-- START OF COMPETITIONS FRAGMENT -->
@@ -308,4 +312,26 @@
     <!-- BOOKING LESSONS -->
     <string name="title_book_lessons">Book Lessons</string>
 
+    <!-- NEW COMPETITIONS ENTRY [START] -->
+    <string name="button_confirm_time_players">Confirm Time and Players</string>
+    <string name="text_title_added_success">You have successfully entered this competition. Please confirm or add more players.</string>
+    <string name="text_booking_success">Your entry has been successful!</string>
+    <string name="text_amend_entry">Amend Entry</string>
+    <string name="text_add_player">Add Player</string>
+    <string name="text_add_players">Add Players</string>
+
+    <string name="text_title_per_pair">fee per pair</string>
+    <string name="text_title_per_team">fee per team</string>
+
+    <string name="alert_title_alert">Alert!</string>
+    <string name="alert_title_congrates">Congratulations!</string>
+    <string name="alert_title_unjoin_success">You have removed from event.</string>
+    <string name="text_alert_max_limit">Sorry, you have added maximum number of players.</string>
+    <string name="alert_title_remove_team">Do you wish to change this player or remove the player &amp; partner(s)?</string>
+
+    <string name="text_alert_cancel_entry">Are you sure you want to cancel your entry?</string>
+    <string name="alert_text_change_player">Change Player</string>
+    <string name="alert_text_remove_team">Remove the Player &amp; Partner(s)</string>
+
+    <!-- NEW COMPETITIONS ENTRY [END] -->
 </resources>

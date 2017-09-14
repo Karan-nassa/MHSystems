@@ -56,6 +56,9 @@ public class ApplicationGlobal {
     public static final int ACTION_TODAY = 3;
     public static final int ACTION_CALENDAR = 4;
 
+    public static final int ACTION_CALL_FROM_REMOVE = 5;
+    public static final int ACTION_CALL_FROM_ADD = 6;
+
     /**
      * Declaration of constant used through out the app to pass
      * intent from one Activity to another.

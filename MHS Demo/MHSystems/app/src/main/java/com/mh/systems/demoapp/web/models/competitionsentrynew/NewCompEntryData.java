@@ -7,7 +7,6 @@ import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.Boo
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 public class NewCompEntryData implements Serializable {
 
@@ -53,6 +52,12 @@ public class NewCompEntryData implements Serializable {
     @SerializedName("CanModifyBooking")
     @Expose
     private Boolean CanModifyBooking;
+    @SerializedName("CompetitionEntryClosed")
+    @Expose
+    private boolean CompetitionEntryClosed;
+    @SerializedName("IsNotEligible")
+    @Expose
+    private boolean IsNotEligible;
     @SerializedName("IsPayee")
     @Expose
     private Boolean IsPayee;
@@ -196,6 +201,22 @@ public class NewCompEntryData implements Serializable {
 
     public void setCanModifyBooking(Boolean CanModifyBooking) {
         this.CanModifyBooking = CanModifyBooking;
+    }
+
+    public boolean isCompetitionEntryClosed() {
+        return CompetitionEntryClosed;
+    }
+
+    public void setCompetitionEntryClosed(boolean competitionEntryClosed) {
+        CompetitionEntryClosed = competitionEntryClosed;
+    }
+
+    public boolean isNotEligible() {
+        return IsNotEligible;
+    }
+
+    public void setNotEligible(boolean notEligible) {
+        IsNotEligible = notEligible;
     }
 
     public Boolean getIsPayee() {

@@ -398,13 +398,13 @@ public class DashboardActivity extends BaseActivity {
         }
 
         //Add Competitions
-       /* if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
-
+        //if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
+        //TODO: Forcefully showing COMPETIITONS for now on dashboard and remvoe later.
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_home_competitions,
                     "Competitions",
                     getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
-        }*/
+       // }
 
         //ProAgenda (Booking Lessions) feature.
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_PRO_AGENDA_FEATURE, false)) {

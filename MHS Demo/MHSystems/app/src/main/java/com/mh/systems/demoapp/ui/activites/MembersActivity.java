@@ -319,7 +319,7 @@ public class MembersActivity extends BaseActivity {
 
     /**
      * Implements a method to initialize Members categories in pop-up menu like
-     * <b>All</b> and <b>Ladies</b> for Sunningdales golf club.
+     * <b>All</b> and <b>Ladies</b> for demoapps golf club.
      */
     public void initializeMembersCategory() {
 

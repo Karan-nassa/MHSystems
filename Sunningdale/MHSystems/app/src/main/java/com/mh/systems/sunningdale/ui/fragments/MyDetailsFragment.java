@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.mh.systems.sunningdale.ui.activites.CompetitionsDetailActivity;
 import com.mh.systems.sunningdale.ui.activites.YourAccountActivity;
 import com.newrelic.com.google.gson.Gson;
 import com.newrelic.com.google.gson.reflect.TypeToken;
@@ -31,8 +30,6 @@ import java.lang.reflect.Type;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
-
-import static com.mh.systems.sunningdale.ui.activites.YourAccountActivity.isRefreshEnable;
 
 /**
  * The {@link MyDetailsFragment} used to display the detail of LOGIN

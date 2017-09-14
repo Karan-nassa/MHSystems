@@ -688,7 +688,7 @@ public class CompetitionsActivity extends BaseActivity {
 
     /**
      * Implements a method to initialize Competitions category in pop-up menu like <b>My Events</b>, <b>Upcoming</b>, <b>Past</b>
-     * and <b>Completed</b> for Sunningdales golf club.
+     * and <b>Completed</b> for demoapps golf club.
      */
     private void initCompetitionsCategory() {
 

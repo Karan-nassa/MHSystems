@@ -262,7 +262,7 @@ public class CompetitionDetailActivity extends BaseActivity {
 
     /**
      * Declares the field to JOIN a COMPETITIONS if user come from
-     * {@link com.mh.systems.demoapp.fragments.UpcomingFragment} because
+     * {@link UpcomingFragment} because
      * user can JOIN only for future COMPETITIONS not past.
      */
     public View.OnClickListener mJoinOnClickListener = new View.OnClickListener() {
@@ -329,117 +329,6 @@ public class CompetitionDetailActivity extends BaseActivity {
             showAlertMessage("Entry is not open for this Competition yet.");
         }*/
     }
-
-    /**
-     * Implements this method to get CLUB EVENT web service to get detail
-     * of COMPETITION event by passing 'eventId'.
-     */
-   /* private void getClubEventService() {
-
-        showPleaseWait("Please wait...");
-
-        aJsonParamsGetClubEvent = new AJsonParamsGetClubEvent();
-        aJsonParamsGetClubEvent.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
-        aJsonParamsGetClubEvent.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
-        aJsonParamsGetClubEvent.setEventId(strEventId);
-        aJsonParamsGetClubEvent.setMemberId(getMemberId());
-        aJsonParamsGetClubEvent.setLoginMemberId(getMemberId());
-
-        getClubEventAPI = new GetClubEventAPI(getClientId(), "GETCLUBEVENT", aJsonParamsGetClubEvent, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
-
-        //Creating a rest adapter
-        RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(WebAPI.API_BASE_URL)
-                .build();
-
-        //Creating an object of our api interface
-        WebServiceMethods api = adapter.create(WebServiceMethods.class);
-
-        //Defining the method
-        api.getClubEvent(getClubEventAPI, new Callback<JsonObject>() {
-            @Override
-            public void success(JsonObject jsonObject, retrofit.client.Response response) {
-
-                getClubEventSuccess(jsonObject);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                //you can handle the errors here
-                Log.e(LOG_TAG, "RetrofitError : " + error);
-                hideProgress();
-
-                showAlertMessage("" + getResources().getString(R.string.error_please_retry));
-            }
-        });
-
-    }*/
-
-    /**
-     * Implements this method to handle success response of
-     * GetClubEvent service.
-     */
-    /*private void getClubEventSuccess(JsonObject jsonObject) {
-
-        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
-
-        Type type = new TypeToken<GetClubEventResponse>() {
-        }.getType();
-        getClubEventResponse = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
-
-        try {
-            *//**
-     *  Check "Result" 1 or 0. If 1, means data received successfully.
-     *//*
-            if (getClubEventResponse.getMessage().equalsIgnoreCase("Success")) {
-
-                tvEventStatusStrDD.setText(strEventStatus);
-
-                tvDateCourseEvent.setText("" + strEventDate*//*getClubEventResponse.getGetClubEventData().getEventDateStr()*//*);
-                tvTimeCourseEvent.setText("" + getClubEventResponse.getGetClubEventData().getEventTime());
-                tvFeeCourseEvent.setText("" + strEventPrize + " " + getResources().getString(R.string.title_competitions_prize));
-                tvCombaseOfCompEvent.setText("" + getClubEventResponse.getGetClubEventData().getCompBasis());
-                tvDescCourseEvent.setText("" + getClubEventResponse.getGetClubEventData().getEventDescription());
-
-                strMemberName = getClubEventResponse.getGetClubEventData().getMemberName();
-
-                tvTypeOfCompEvent.setText("CONGU(tm), 18 Holes, 1 Round");
-
-                iEntryID = getClubEventResponse.getGetClubEventData().getEntry().getEntryID();
-                //Log.e(LOG_TAG, "iEntryID : " + iEntryID);
-
-                *//**
-     * Implements check for display selected member list.
-     *//*
-                if (iEntryID != 0) {
-
-                    llUpdateBookingView.setVisibility(View.VISIBLE);
-
-                    if (getClubEventResponse.getGetClubEventData().getEntry().getPlayers() != null && iPopItemPos == 0) {
-                        updateJoinIcon();
-                    }
-
-                    List<Player> playersArrayList = getClubEventResponse.getGetClubEventData().getEntry().getPlayers();
-
-                    String strPlayersNameList = "";
-                    for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
-                        strPlayersNameList = strPlayersNameList + playersArrayList.get(iCounter).getPlayerName() + "\n";
-                        tvPlayingMembers.setText("" + strPlayersNameList);
-                    }
-
-                    String strReservedSlotTime = getClubEventResponse.getGetClubEventData().getEntry().getReservedSlotTime();
-                    tvSelectedTeeTime.setText(strReservedSlotTime != null ? strReservedSlotTime : "N/A");
-                }
-            } else {
-                //If web service not respond in any case.
-                showAlertMessage(getClubEventResponse.getMessage());
-            }
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "" + e.getMessage());
-            reportRollBarException(CompetitionDetailActivity.class.getSimpleName(), e.toString());
-        }
-        hideProgress();
-    }*/
 
     /**
      * Implements a method to Initialize the resources using for
@@ -578,25 +467,22 @@ public class CompetitionDetailActivity extends BaseActivity {
 
         competitionUnjoinAPI = new CompetitionUnjoinAPI(getClientId(), "UNJOINEVENT", aJsonParamsUnjoin, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
-        //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(WebAPI.API_BASE_URL)
                 .build();
 
-        //Creating an object of our api interface
         WebServiceMethods api = adapter.create(WebServiceMethods.class);
 
         //Defining the method
         api.unjoinCompetition(competitionUnjoinAPI, new Callback<JsonObject>() {
             @Override
-            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+            public void success(JsonObject jsonObject, Response response) {
 
                 unJoinCompetitionSuccess(jsonObject);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                //you can handle the errors here
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
@@ -644,7 +530,6 @@ public class CompetitionDetailActivity extends BaseActivity {
      * Confirm Booking Event Entry V2.
      */
     public void sendConfirmEntryV2() {
-
 
         showPleaseWait("Loading...");
 
@@ -757,13 +642,10 @@ public class CompetitionDetailActivity extends BaseActivity {
                 .setEndpoint(WebAPI.API_BASE_URL)
                 .build();
 
-        //Creating an object of our api interface
         WebServiceMethods api = adapter.create(WebServiceMethods.class);
-
-        //Defining the method
         api.getClubEventEntryData(newCompEntryItems, new Callback<JsonObject>() {
             @Override
-            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+            public void success(JsonObject jsonObject, Response response) {
 
                 updateNewCompEntryResponse(jsonObject);
             }
@@ -789,12 +671,14 @@ public class CompetitionDetailActivity extends BaseActivity {
         newCompEntryResponse = new Gson().fromJson(jsonObject.toString(), type);
 
         try {
+            newCompEntryData = newCompEntryResponse.getData();
+
             /*
                Check "Result" 1 or 0. If 1, means data received successfully.
              */
-            if (newCompEntryResponse.getMessage().equalsIgnoreCase("Success")) {
-
-                newCompEntryData = newCompEntryResponse.getData();
+            if (newCompEntryResponse.getMessage().equalsIgnoreCase("Success")
+                    && !newCompEntryData.isCompetitionEntryClosed()
+                    && !newCompEntryData.isNotEligible()) {
 
                 tvEventStatusStrDD.setText(strEventStatus);
 
@@ -829,35 +713,8 @@ public class CompetitionDetailActivity extends BaseActivity {
                 }
 
                 fabJoinCompetition.setVisibility(View.VISIBLE);
-
-                iEntryID = 0/*newCompEntryData.getEventID()*/;
-                //Log.e(LOG_TAG, "iEntryID : " + iEntryID);
-
-                /**
-                 * Implements check for display selected member list.
-                 */
-               /* if (iEntryID != 0) {
-
-                    llUpdateBookingView.setVisibility(View.VISIBLE);
-
-                    if (newCompEntryData.getEntry().getPlayers() != null && iPopItemPos == 0) {
-                        updateJoinIcon();
-                    }
-
-                    List<Player> playersArrayList = newCompEntryData.getEntry().getPlayers();
-
-                    String strPlayersNameList = "";
-                    for (int iCounter = 0; iCounter < playersArrayList.size(); iCounter++) {
-                        strPlayersNameList = strPlayersNameList + playersArrayList.get(iCounter).getPlayerName() + "\n";
-                        tvPlayingMembers.setText("" + strPlayersNameList);
-                    }
-
-                    String strReservedSlotTime = getClubEventResponse.getGetClubEventData().getEntry().getReservedSlotTime();
-                    tvSelectedTeeTime.setText(strReservedSlotTime != null ? strReservedSlotTime : "N/A");
-                }*/
             } else {
-                //If web service not respond in any case.
-                showAlertMessage(newCompEntryResponse.getMessage());
+                showAlertMessage(newCompEntryData.getErrorMessage());
             }
 
             hideProgress();

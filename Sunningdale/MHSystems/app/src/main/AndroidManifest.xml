@@ -71,9 +71,27 @@
             android:name=".ui.activites.CompetitionsActivity"
             android:screenOrientation="portrait" />
 
-        <!-- COMPETITIONS DIARY ACTIVITY -->
+        <!-- COMPETITIONS DETAIL ACTIVITY -->
         <activity
-            android:name=".ui.activites.CompetitionsDetailActivity"
+            android:name=".ui.activites.CompetitionDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- COMPETITIONS ENTRY -->
+
+        <activity
+            android:name=".ui.activites.CompetitionEntryActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- CONFIRM BOOKING -->
+
+        <activity
+            android:name=".ui.activites.ConfirmBookingEntryActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- ELIGIBLE PLAYERS -->
+
+        <activity
+            android:name=".ui.activites.EligiblePlayersActivity"
             android:screenOrientation="portrait" />
 
         <!-- MY ACCOUNT ACTIVITY -->

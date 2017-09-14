@@ -22,7 +22,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.ui.activites.BaseActivity;
-import com.mh.systems.sunningdale.ui.activites.CompetitionsDetailActivity;
 import com.mh.systems.sunningdale.ui.activites.TopUpActivity;
 import com.mh.systems.sunningdale.ui.activites.YourAccountActivity;
 import com.mh.systems.sunningdale.ui.adapter.RecyclerAdapter.FinanceRecycleAdapter;
@@ -42,9 +41,6 @@ import java.util.List;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
-
-import static android.R.id.list;
-import static com.newrelic.agent.android.TaskQueue.size;
 
 /**
  * Created by karan@ucreate.co.in to load and FINANCE

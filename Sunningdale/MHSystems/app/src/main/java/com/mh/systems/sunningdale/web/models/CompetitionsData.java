@@ -69,73 +69,61 @@ public class CompetitionsData {
     @Expose
     private String PlayerTotal;
 
+    @SerializedName("TeamSize")
+    @Expose
+    private int TeamSize;
+
     /**
-     *
-     * @return
-     * The PlayerPosition
+     * @return The PlayerPosition
      */
     public String getPlayerPosition() {
         return PlayerPosition;
     }
 
     /**
-     *
-     * @param PlayerPosition
-     * The PlayerPosition
+     * @param PlayerPosition The PlayerPosition
      */
     public void setPlayerPosition(String PlayerPosition) {
         this.PlayerPosition = PlayerPosition;
     }
 
     /**
-     *
-     * @return
-     * The PlayerName
+     * @return The PlayerName
      */
     public String getPlayerName() {
         return PlayerName;
     }
 
     /**
-     *
-     * @param PlayerName
-     * The PlayerName
+     * @param PlayerName The PlayerName
      */
     public void setPlayerName(String PlayerName) {
         this.PlayerName = PlayerName;
     }
 
     /**
-     *
-     * @return
-     * The PlayerHandicapped
+     * @return The PlayerHandicapped
      */
     public String getPlayerHandicapped() {
         return PlayerHandicapped;
     }
 
     /**
-     *
-     * @param PlayerHandicapped
-     * The PlayerHandicapped
+     * @param PlayerHandicapped The PlayerHandicapped
      */
     public void setPlayerHandicapped(String PlayerHandicapped) {
         this.PlayerHandicapped = PlayerHandicapped;
     }
 
     /**
-     *
-     * @return
-     * The playerTotal
+     * @return The playerTotal
      */
     public String getPlayerTotal() {
         return PlayerTotal;
     }
 
     /**
-     *
-     * @param PlayerTotal
-     * The PlayerTotal
+     * @param PlayerTotal The PlayerTotal
      */
     public void setPlayerTotal(String PlayerTotal) {
         this.PlayerTotal = PlayerTotal;
@@ -356,5 +344,17 @@ public class CompetitionsData {
         IsMemberJoined = isMemberJoined;
     }
 
+    /**
+     * @return The TeamSize
+     */
+    public int getTeamSize() {
+        return TeamSize;
+    }
 
+    /**
+     * @param TeamSize The TeamSize
+     */
+    public void setTeamSize(int TeamSize) {
+        this.TeamSize = TeamSize;
+    }
 }

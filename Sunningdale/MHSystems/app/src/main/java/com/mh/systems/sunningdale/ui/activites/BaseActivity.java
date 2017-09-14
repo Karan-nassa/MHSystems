@@ -49,7 +49,7 @@ public class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgress;
     Dialog pDialog;
 
-    AlertDialog.Builder builder;
+    AlertDialog.Builder builder = null;
 
     static SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;

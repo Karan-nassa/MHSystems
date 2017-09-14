@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7">
+
+    <FrameLayout
+        android:id="@+id/flConfirmBooking"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="top"
+            android:background="@color/colorBDB6AE" />
+
+        <Button
+            android:id="@+id/btConfirmTimeBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/bg_shape_finance_c0995b"
+            android:padding="10dp"
+            android:text="@string/button_confirm_time_players"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/flConfirmBooking"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <!-- TOOL BAR WITH BACK ARROW AND SAVE -->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbBookingDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4B4B49"
+            android:minHeight="?android:attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.mh.systems.sunningdale.ui.customfonts.RobotoTextFontBold
+                    android:id="@+id/tvTitleOfComp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Men September Medal"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <com.mh.systems.sunningdale.ui.customfonts.RobotoTextView
+                    android:id="@+id/tvTimeOfComp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Saturday, 9th September 2017"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorD6D0C9"
+            android:padding="14dp"
+            android:text="@string/text_tee_off_times"
+            android:textAllCaps="true"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <!-- ZONE LIST OF COMPETITIONS ENTRY -->
+
+        <!--   <android.support.v7.widget.RecyclerView
+               android:id="@+id/rvCompZone"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@android:color/white" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/flSingleZoneGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/ivExpandCompZone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/ic_expand_less" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <com.mh.systems.sunningdale.ui.customfonts.SFUI_TextFontBold
+                            android:id="@+id/tvStartTimeOfEvent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="07:00 AM"
+                            android:textColor="@android:color/black"
+                            android:textSize="17sp" />
+
+                        <com.mh.systems.sunningdale.ui.customfonts.SFUI_TextFontMedium
+                            android:id="@+id/tvEndTimeOfEvent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="01:30 PM"
+                            android:layout_marginLeft="2dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical">
+
+                        <com.mh.systems.sunningdale.ui.customfonts.SFUI_TextFontBold
+                            android:id="@+id/tvZoneName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="(Unspecified course!)"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+                        <com.mh.systems.sunningdale.ui.customfonts.RobotoTextView
+                            android:id="@+id/tvOccupancy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.4"
+                            android:text="Occupancy: 8/16 , 8 free"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <ScrollView
+                android:id="@+id/svTimeSlotsGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- TIME SLOTS GRID VIEW -->
+
+                    <com.mh.systems.sunningdale.utils.ExpandableHeightGridView
+                        android:id="@+id/gvTimeSlots"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:isScrollContainer="false"
+                        android:numColumns="1"
+                        android:stretchMode="columnWidth" />
+
+                </LinearLayout>
+            </ScrollView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBDB6AE" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

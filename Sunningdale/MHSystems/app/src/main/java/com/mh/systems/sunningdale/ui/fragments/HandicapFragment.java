@@ -30,7 +30,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.ui.activites.BaseActivity;
-import com.mh.systems.sunningdale.ui.activites.CompetitionsDetailActivity;
 import com.mh.systems.sunningdale.ui.activites.HCapHistoryActivity;
 import com.mh.systems.sunningdale.ui.activites.ShowCertificateWebview;
 import com.mh.systems.sunningdale.ui.activites.YourAccountActivity;

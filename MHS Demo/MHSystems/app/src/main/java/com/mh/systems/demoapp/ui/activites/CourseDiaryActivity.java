@@ -310,7 +310,7 @@ public class CourseDiaryActivity extends BaseActivity {
 
     /**
      * Implements a method to initialize Course Diary categories in pop-up menu like
-     * <b>Old Course</b> and <b>New Course</b> for Sunningdales golf club.
+     * <b>Old Course</b> and <b>New Course</b> for demoapps golf club.
      */
     public void initializeCourseCategory() {
 

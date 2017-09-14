@@ -166,7 +166,13 @@
             android:name=".ui.activites.CompetitionEntryActivity"
             android:screenOrientation="portrait" />
 
-        <!-- COMPETITION ENTRY -->
+        <!-- CONFIRM BOOKING -->
+
+        <activity
+            android:name=".ui.activites.ConfirmBookingEntryActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- ELIGIBLE PLAYERS -->
 
         <activity
             android:name=".ui.activites.EligiblePlayersActivity"
@@ -203,12 +209,6 @@
 
         <activity
             android:name=".ui.activites.FriendsInfoActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- CONFIRM BOOKING -->
-
-        <activity
-            android:name=".ui.activites.ConfirmBookingEntryActivity"
             android:screenOrientation="portrait" />
 
         <!-- START OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->
