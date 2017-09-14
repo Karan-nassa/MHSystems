@@ -26,6 +26,10 @@
    - FIXED: In Members, when click for detailed screen, the fields are reflecting for a moment but no data is showing up.
    - FIXED: Your Account 'Edit Details' and 'Toggle Privacy' settings is not getting saved.
 
+ ####13th Sep, 2017
+   - NEW: Now different types of <B>UPCOMING COMPEITITONS</B> depends upon the ```teamsize``` i.e. 1,2,3 and 4.
+   - NEW: Update web service for <B>Unjoin</B> members from the <B>Entered COMPEITITONS</B>.
+
 ####Version 1.0 (2017-03-17)
 
    Initially release.
