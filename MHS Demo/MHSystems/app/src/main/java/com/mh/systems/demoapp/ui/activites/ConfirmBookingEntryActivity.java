@@ -389,7 +389,12 @@ public class ConfirmBookingEntryActivity extends BaseActivity implements
                 newCompEntryData = newCompEntryResponse.getData();
 
                 if (newCompEntryData.isUpdateFailed()) {
-                    showAlertMessage(newCompEntryData.getErrorMessage());
+                    String strErrorMsg = newCompEntryData.getErrorMessage();
+                    if (strErrorMsg.contains("ApplicationException:")) {
+                        showAlertMessage(strErrorMsg.replace("ApplicationException: ", ""));
+                    } else {
+                        showAlertMessage(strErrorMsg);
+                    }
                 } else {
                     showAlertCongrates(getResources().getString(R.string.text_booking_success)
                             , getString(R.string.alert_title_congrates));

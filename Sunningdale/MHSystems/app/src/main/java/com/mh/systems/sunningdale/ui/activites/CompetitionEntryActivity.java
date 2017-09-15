@@ -24,10 +24,7 @@ import com.mh.systems.sunningdale.ui.adapter.BaseAdapter.CompTimeSlotsAdapter;
 import com.mh.systems.sunningdale.ui.interfaces.OnUpdatePlayers;
 import com.mh.systems.sunningdale.utils.ExpandableHeightGridView;
 import com.mh.systems.sunningdale.utils.constants.ApplicationGlobal;
-import com.mh.systems.sunningdale.web.models.competitionsentry.AJsonParamsUpdateEntry;
 import com.mh.systems.sunningdale.web.models.competitionsentry.EligibleMember;
-import com.mh.systems.sunningdale.web.models.competitionsentry.UpdateCompEntryAPI;
-import com.mh.systems.sunningdale.web.models.competitionsentry.UpdateCompEntryResponse;
 import com.mh.systems.sunningdale.web.models.competitionsentrynew.AllPlayer;
 import com.mh.systems.sunningdale.web.models.competitionsentrynew.NewCompEntryData;
 import com.mh.systems.sunningdale.web.models.competitionsentrynew.Player;
@@ -838,7 +835,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     /**
      * Implements this method to Remove Member from ArrayList.
      *
-     * @param eligibleMember
+     * @param iMemberID
      */
     public void removeMemberFromSelectedList(int iMemberID) {
 
@@ -983,7 +980,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
             View itemLayout = LayoutInflater.from(CompetitionEntryActivity.this).inflate(R.layout.list_item_comp_zone_title, null);
-            return new UserViewHolder(itemLayout);
+            return new CompetitionEntryActivity.UserViewHolder(itemLayout);
         }
 
         @Override

@@ -838,7 +838,7 @@ public class CompetitionEntryActivity extends BaseActivity implements OnUpdatePl
     /**
      * Implements this method to Remove Member from ArrayList.
      *
-     * @param eligibleMember
+     * @param iMemberID
      */
     public void removeMemberFromSelectedList(int iMemberID) {
 
