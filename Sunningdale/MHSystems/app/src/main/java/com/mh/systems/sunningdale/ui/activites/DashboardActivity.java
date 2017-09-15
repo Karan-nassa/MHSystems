@@ -363,25 +363,25 @@ public class DashboardActivity extends BaseActivity {
         getUnreadNewsCountService();
 
         dashboardItemsArrayList.clear();
-       // iHandicapPosition = 2;
+        iHandicapPosition = -1;
 
         //Add Competitions
-        //if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
         //TODO: Forcefully showing COMPETIITONS for now on dashboard and remvoe later.
         dashboardItemsArrayList.add(new DashboardItems(
                 R.mipmap.ic_home_competitions,
                 "Competitions",
                 getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
-        // }
+        }
 
         //ProAgenda (Booking Lessions) feature.
-        //if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_PRO_AGENDA_FEATURE, false)) {
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_PRO_AGENDA_FEATURE, false)) {
 
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_booking_agenda,
                     getResources().getString(R.string.title_book_lessons),
                     getApplicationContext().getPackageName() + ".ui.activites.BookingLessonsWebActivity"));
-        //}
+        }
 
         //Add Handicap.
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false)) {
@@ -454,7 +454,7 @@ public class DashboardActivity extends BaseActivity {
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        return position == 0 ? 6 : 3;
+                        return 6;
                     }
                 });
                 break;
@@ -472,7 +472,16 @@ public class DashboardActivity extends BaseActivity {
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        return position == 0 || position == 1 ? 3 : 2;
+                        return position == 2 ? 6 : 3;
+                    }
+                });
+                break;
+
+            case 6:
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 3;
                     }
                 });
                 break;
@@ -483,15 +492,6 @@ public class DashboardActivity extends BaseActivity {
                     @Override
                     public int getSpanSize(int position) {
                         return position == 3 ? 6 : 2;
-                    }
-                });
-                break;
-
-            case 6:
-                  layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                    @Override
-                    public int getSpanSize(int position) {
-                        return 3;
                     }
                 });
                 break;
