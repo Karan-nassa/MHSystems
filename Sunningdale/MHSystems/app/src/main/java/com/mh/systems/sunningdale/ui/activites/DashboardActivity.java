@@ -7,20 +7,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.utils.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.Gson;
@@ -30,6 +33,7 @@ import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.dataaccess.push.QuickstartPreferences;
 import com.mh.systems.sunningdale.dataaccess.push.RegistrationIntentService;
 import com.mh.systems.sunningdale.ui.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
+import com.mh.systems.sunningdale.utils.ScrollRecycleView;
 import com.mh.systems.sunningdale.utils.SyncMarket;
 import com.mh.systems.sunningdale.utils.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.web.api.WebAPI;
@@ -44,7 +48,6 @@ import com.mh.systems.sunningdale.web.models.unreadnewscount.AJsonParamsGetUnrea
 import com.mh.systems.sunningdale.web.models.unreadnewscount.GetUnreadNewsCountAPI;
 import com.mh.systems.sunningdale.web.models.unreadnewscount.GetUnreadNewsResponse;
 import com.mh.systems.sunningdale.web.models.weather.WeatherApiResponse;
-
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -146,54 +149,9 @@ public class DashboardActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        //setContentView(R.layout.activity_dashboard_nine_items);
 
-        /**
-         * Annotate fields with @Bind and a view ID for Butter Knife to find and
-         * automatically cast the corresponding view in your layout.
-         */
-        ButterKnife.bind(DashboardActivity.this);
-
-        try {
-            checkUpdateVersion();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
-        }
-
-        //Initialize adapter.
-        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
-                dashboardItemsArrayList,
-                iHandicapPosition,
-                loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
-        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
-
-        sendTokenToServer();
-
-        //LogOut listener.
-        llLogoutBtn.setOnClickListener(mLogoutListener);
-
-        //LogOut listener.
-        llLogoutBtn.setOnClickListener(mLogoutListener);
-
-        //Settings click event handle here.
-        llSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(DashboardActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //See the weather of 5 days
-        llWeatherGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(DashboardActivity.this, WeatherDetailActivity.class);
-                intent.putExtra("WEATHER_LOC", strNameOfWeatherLoc);
-                startActivity(intent);
-            }
-        });
+        //Dashboard is dynamic and enable/disable by Feature flag.
     }
 
     @Override
@@ -202,7 +160,7 @@ public class DashboardActivity extends BaseActivity {
 
         if (isOnline(DashboardActivity.this)) {
             callFeaturesFlagService();
-            callWeatherService();
+            //callWeatherService();
         }
     }
 
@@ -295,7 +253,7 @@ public class DashboardActivity extends BaseActivity {
         SyncMarket.Initialize(this);
         final String version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 
-        if(SyncMarket.getMarketVersion() != null && SyncMarket.getMarketVersion().equals(version)){
+        if (SyncMarket.getMarketVersion() != null && SyncMarket.getMarketVersion().equals(version)) {
             savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
         }
 
@@ -367,10 +325,10 @@ public class DashboardActivity extends BaseActivity {
 
         //Add Competitions
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
-        dashboardItemsArrayList.add(new DashboardItems(
-                R.mipmap.ic_home_competitions,
-                "Competitions",
-                getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_competitions,
+                    "Competitions",
+                    getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
         }
 
         //ProAgenda (Booking Lessions) feature.
@@ -385,14 +343,14 @@ public class DashboardActivity extends BaseActivity {
         //Add Handicap.
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false)) {
 
-           // iHandicapPosition = 2;
+            // iHandicapPosition = 2;
 
             dashboardItemsArrayList.add(new DashboardItems(
                     R.mipmap.ic_handicap_chart,
                     "Your Handicap",
                     getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
 
-            iHandicapPosition = (dashboardItemsArrayList.size()-1);
+            iHandicapPosition = (dashboardItemsArrayList.size() - 1);
         }
 
         //Add Course Diary.
@@ -428,16 +386,74 @@ public class DashboardActivity extends BaseActivity {
                     getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
         }
 
+        /*dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
+                dashboardItemsArrayList,
+                iHandicapPosition,
+                loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
+        dashboardRecyclerAdapter.notifyDataSetChanged();*/
+
+        if (dashboardItemsArrayList.size() <= 6) {
+            setContentView(R.layout.activity_dashboard_six_items);
+        } else {
+            setContentView(R.layout.activity_dashboard_nine_items);
+        }
+
+        initViewResources();
+        callWeatherService();
+
+        setupGridLayout(dashboardItemsArrayList.size());
+
+       // ScrollRecycleView.getListViewSize(gvMenuOptions);
+    }
+
+    private void initViewResources() {
+        /**
+         * Annotate fields with @Bind and a view ID for Butter Knife to find and
+         * automatically cast the corresponding view in your layout.
+         */
+        ButterKnife.bind(DashboardActivity.this);
+
+        try {
+            checkUpdateVersion();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
+        }
+
+        //Initialize adapter.
         dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
                 dashboardItemsArrayList,
                 iHandicapPosition,
                 loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
         gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
-        dashboardRecyclerAdapter.notifyDataSetChanged();
 
-        setupGridLayout(dashboardItemsArrayList.size());
+        sendTokenToServer();
 
-        // ScrollRecycleView.getListViewSize(gvMenuOptions);
+        //LogOut listener.
+        llLogoutBtn.setOnClickListener(mLogoutListener);
+
+        //LogOut listener.
+        llLogoutBtn.setOnClickListener(mLogoutListener);
+
+        //Settings click event handle here.
+        llSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(DashboardActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //See the weather of 5 days
+        llWeatherGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(DashboardActivity.this, WeatherDetailActivity.class);
+                intent.putExtra("WEATHER_LOC", strNameOfWeatherLoc);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -453,7 +469,7 @@ public class DashboardActivity extends BaseActivity {
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        return 6;
+                        return position == 0 ? 6 : 3;
                     }
                 });
                 break;
@@ -471,7 +487,7 @@ public class DashboardActivity extends BaseActivity {
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        return position == 2 ? 6 : 3;
+                        return position == 0 || position == 1 ? 3 : 2;
                     }
                 });
                 break;
@@ -480,7 +496,7 @@ public class DashboardActivity extends BaseActivity {
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        return 3;
+                        return 2;
                     }
                 });
                 break;
@@ -505,12 +521,10 @@ public class DashboardActivity extends BaseActivity {
                 break;
         }
 
-
-        // int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
-        // gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
-
         // Layout Managers:
         gvMenuOptions.setLayoutManager(layoutManager);
+//         int spacingInPixels = 2;//getResources().getDimensionPixelSize(R.dimen.spacing);
+//         gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
     }
 
     /**
@@ -518,7 +532,7 @@ public class DashboardActivity extends BaseActivity {
      * Because above two grid items should be in center of below
      * three one.
      */
-   /* public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+   /* private class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private int space;
 
         public SpacesItemDecoration(int space) {

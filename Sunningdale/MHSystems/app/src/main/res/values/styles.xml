@@ -15,7 +15,6 @@
         <item name="colorAccent">@color/colorC0995B</item>
     </style>
 
-
     <style name="App_Theme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowIsTranslucent">true</item>
