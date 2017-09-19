@@ -83,7 +83,8 @@ public class HCapHistoryActivity extends BaseActivity {
         // Layout Managers:
         rvHcapList.setLayoutManager(new LinearLayoutManager(this));
         // Item Decorator:
-        rvHcapList.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(HCapHistoryActivity.this, R.drawable.divider)));
+        rvHcapList.addItemDecoration(new DividerItemDecoration
+                (ContextCompat.getDrawable(HCapHistoryActivity.this, R.drawable.divider)));
         // mRecyclerView.setItemAnimator(new FadeInLeftAnimator());
     }
 

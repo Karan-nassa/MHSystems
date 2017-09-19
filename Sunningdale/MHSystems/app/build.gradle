@@ -14,8 +14,8 @@ android {
         applicationId "com.mh.systems.sunningdale"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 13
-        versionName '1.9'
+        versionCode 15
+        versionName '2.0'
         multiDexEnabled true
     }
     //Used for Draw Graph Library

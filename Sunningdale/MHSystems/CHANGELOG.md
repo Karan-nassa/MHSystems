@@ -1,4 +1,4 @@
-####Version 1.10.0 ()
+####Version 2.0.0 (19th Sep, 2017)
 
  - FIXED: #23 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0 in Club News at onActivityResult
  
