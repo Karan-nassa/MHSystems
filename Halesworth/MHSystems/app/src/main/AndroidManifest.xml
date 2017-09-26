@@ -108,7 +108,7 @@
         <!-- CLUB NEWS DETAIL ACTIVITY -->
         <activity
             android:name="com.mh.systems.halesworth.ui.activites.ClubNewsDetailActivity"
-            android:screenOrientation="portrait" />
+            />
 
         <!-- SETTING SCREEN -->
         <activity

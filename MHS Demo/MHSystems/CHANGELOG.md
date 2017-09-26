@@ -1,3 +1,8 @@
+####Version 1.5 
+  
+  ####26th, Sep, 2017
+  - NEW: Mobile App Item 124: Issue with Club News - Orientation.
+ 
 ####Version 1.4 (19th, Sep, 2017)
 
  Release the following changes:

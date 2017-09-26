@@ -126,7 +126,7 @@
         <!-- CLUB NEWS DETAIL ACTIVITY -->
         <activity
             android:name=".ui.activites.ClubNewsDetailActivity"
-            android:screenOrientation="portrait" />
+            />
 
         <!-- SETTING SCREEN -->
         <activity
