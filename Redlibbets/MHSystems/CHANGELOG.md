@@ -4,6 +4,9 @@
   - FIXED: In Members, when click for detailed screen, the fields are reflecting for a moment but no data is showing up.
   - FIXED: Your Account 'Edit Details' and 'Toggle Privacy' settings is not getting saved.
 
+  ####26th, Sep, 2017
+   - NEW: Mobile App Item 124: Issue with Club News - Orientation.
+    
 ####Version 1.0.0 (29th June, 2017)
 
 Initial release.
