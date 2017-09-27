@@ -134,7 +134,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                 iFreeSlotsAvail++;
 
                 if (((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1)
-                        || iTeamSize == 2 && iTeamsPerSlot == 2) {
+                        || iTeamSize == 2 /*&& iTeamsPerSlot == 2*/) {
                     tvAddTeam.setText(context.getString(R.string.text_add_players));
                 } else {
                     tvAddTeam.setText(context.getString(R.string.text_add_player));
@@ -200,7 +200,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                                 slotArrayList.get(position).getTeams().get(iTeamPlayerPos).getSlotIdx() == iAlreadyBookSlotIdx) {
 
                             if (((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1)
-                                    || (iTeamSize == 2 && iTeamsPerSlot == 2)) {
+                                    || (iTeamSize == 2 /*&& iTeamsPerSlot == 2*/)) {
 
                                 mOnUpdatePlayers.addorChangePlayerUpdateMaxTeam(
                                         mPlayersArr
@@ -291,7 +291,7 @@ public class CompTimeSlotsAdapter extends BaseAdapter {
                         public void onClick(View v) {
 
                             if (((iTeamSize == 4 || iTeamSize == 3) && iTeamsPerSlot == 1)
-                                    || (iTeamSize == 2 && iTeamsPerSlot == 2)) {
+                                    || (iTeamSize == 2 /*&& iTeamsPerSlot == 2*/)) {
 
                                 mOnUpdatePlayers.confirmRemoveTeam(
                                         mPlayersArr
