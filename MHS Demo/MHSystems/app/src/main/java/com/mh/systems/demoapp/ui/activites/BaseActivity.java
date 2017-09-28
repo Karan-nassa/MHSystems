@@ -68,7 +68,8 @@ public class BaseActivity extends AppCompatActivity {
 
         if (ApplicationGlobal.isRollMessageDisplay) {
             //Initialize Roll bar.
-            Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_PRODUCTION, "PRODUCTION");
+            Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_TESTING, "TESTING");
+            //Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_PRODUCTION, "PRODUCTION");
         }
     }
 

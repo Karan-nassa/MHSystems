@@ -1,7 +1,8 @@
-####Version 2.1
+####Version 2.1 (27th Sep, 2017)
 
  ####26th, Sep, 2017
   - NEW: Mobile App Item 124: Issue with Club News - Orientation.
+  - UPDATE: Implements the "IsSimpleMode" feature in Competitions.
 
 ####Version 2.0.0 (19th Sep, 2017)
 

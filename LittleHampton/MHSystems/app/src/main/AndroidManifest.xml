@@ -113,7 +113,7 @@
         <!-- CLUB NEWS DETAIL ACTIVITY -->
         <activity
             android:name="com.mh.systems.littlehampton.ui.activites.ClubNewsDetailActivity"
-            android:screenOrientation="portrait" />
+            />
 
         <!-- SETTING SCREEN -->
         <activity
