@@ -8,12 +8,12 @@ buildscript {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '26.0.1'
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
         applicationId "com.mh.systems.hartsbourne"
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 8
         versionName '1.6'
         multiDexEnabled true
@@ -39,15 +39,14 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile files('libs/rollbar-android-0.1.2-dev.jar')
     //Members list Alphabetical in new style like contacts dependency.
     compile project(':library')
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:support-v4:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile 'com.android.support:cardview-v7:23.4.0'
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
     compile 'com.newrelic.agent.android:android-agent:5.10.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
@@ -58,8 +57,9 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.7'
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.mukesh:countrypicker:1.1.5'
-    compile 'com.google.android.gms:play-services-gcm:9.0.0'
+    compile "com.google.android.gms:play-services-gcm:$rootProject.playServicesVersion"
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'testfairy:testfairy-android-sdk:1.4.3@aar'
-    compile 'org.jsoup:jsoup:1.10.2'
+    compile 'org.jsoup:jsoup:1.8.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 }

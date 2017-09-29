@@ -43,6 +43,9 @@
     - FIXED: In Members, when click for detailed screen, the fields are reflecting for a moment but no data is showing up.
     - FIXED: Your Account 'Edit Details' and 'Toggle Privacy' settings is not getting saved.
 
+    ####29th, Sep, 2017
+    - NEW: Mobile App Item 124: Issue with Club News - Orientation.
+
 ##Version 1.5.0 (17th Feb, 2017)
 
 - Fixed: Handicap graph date format 'MM/dd/yyyy' changed to 'dd/MM/yyyy'.

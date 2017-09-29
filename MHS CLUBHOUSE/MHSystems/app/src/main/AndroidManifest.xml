@@ -112,7 +112,7 @@
         <!-- CLUB NEWS DETAIL ACTIVITY -->
         <activity
             android:name="com.mh.systems.clubhouse.ui.activites.ClubNewsDetailActivity"
-            android:screenOrientation="portrait" />
+            />
 
         <!-- SETTING SCREEN -->
         <activity

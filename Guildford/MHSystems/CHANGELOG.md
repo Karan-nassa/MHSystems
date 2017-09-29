@@ -25,6 +25,9 @@ Changed the following issues:
   ####17th Aug, 2017
    - UPDATE: Display 'GetScoreSummary' instead of 'NettTotal' in Completed Competitions details.
    - FIXED:  Display 'No Club News' when user delete last news from list.
+  
+  ####29th, Sep, 2017
+  - NEW: Mobile App Item 124: Issue with Club News - Orientation.
 
 ##Version1.3.0 (2016-02-16)
 
