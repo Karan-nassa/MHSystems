@@ -100,7 +100,11 @@ public class DashboardActivity extends BaseActivity {
 
     @Bind(R.id.todayIcon)
     ImageView todayIcon;
+    @Bind(R.id.iv_facebook)
+    ImageView iv_facebook;
 
+    @Bind(R.id.iv_twitter)
+    ImageView iv_twitter;
     //Instance of Grid Adapter.
     DashboardRecyclerAdapter dashboardRecyclerAdapter;
     Intent intent = null;
@@ -175,6 +179,28 @@ public class DashboardActivity extends BaseActivity {
 
         //LogOut listener.
         llLogoutBtn.setOnClickListener(mLogoutListener);
+
+
+        iv_twitter.setOnClickListener(mLogoutListener);
+        iv_facebook.setOnClickListener(mLogoutListener);
+
+        iv_facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApplicationGlobal.KEY_DASHBOARD_SOCIAL = 1;
+                intent = new Intent(DashboardActivity.this, DashboardWebviewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        iv_twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApplicationGlobal.KEY_DASHBOARD_SOCIAL = 2;
+                intent = new Intent(DashboardActivity.this, DashboardWebviewActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Settings click event handle here.
         llSettings.setOnClickListener(new View.OnClickListener() {

@@ -12,11 +12,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="100"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:weightSum="100">
 
         <!-- FOR SETTINGS ICON ON LEFT SIDE VIEW GROUP -->
 
@@ -84,7 +84,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="35"
+            android:layout_weight="23"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -104,6 +104,38 @@
                   android:text="@string/title_golf_club_name"
                   android:textColor="@color/colorC0995B"
                   android:textSize="12sp" />-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_margin="10dp"
+                    android:src="@mipmap/ic_facebook_black" />
+
+                <ImageView
+                    android:id="@+id/iv_twitter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_margin="7dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@mipmap/ic_twitter_black" />
+            </FrameLayout>
 
         </LinearLayout>
 
@@ -149,9 +181,9 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:paddingLeft="20dp"
                 android:layout_weight="55"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="20dp">
 
                 <com.mh.systems.redlibbets.ui.customfonts.RobotoMediumTextView
                     android:id="@+id/tvNameOfLocation"
@@ -166,8 +198,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.7"
-                    android:textColor="@android:color/white"
                     android:maxLines="1"
+                    android:textColor="@android:color/white"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -178,7 +210,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
                 android:layout_weight="5"
-                android:src="@mipmap/ic_arrow_right" />
+                android:src="@mipmap/ic_arrow_right_white" />
+
 
         </LinearLayout>
 
@@ -188,7 +221,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="45"
+            android:layout_weight="47"
             android:background="@color/color4B4B49"
             android:orientation="vertical">
 
@@ -209,7 +242,8 @@
                 android:layout_height="match_parent"
                 android:cacheColorHint="@color/colorF9F8F7"
                 android:divider="@color/colorE8E2DD"
-                android:dividerHeight="1dp" />
+                android:dividerHeight="1dp"
+                android:overScrollMode="never" />
 
         </LinearLayout>
 

@@ -1,4 +1,4 @@
-package com.mh.systems.demoapp.ui.activites;
+package com.mh.systems.redlibbets.ui.activites;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,31 +9,40 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
+import com.mh.systems.redlibbets.R;
+import com.mh.systems.redlibbets.utils.constants.ApplicationGlobal;
 
-public class CourseDiaryWebviewActivity extends BaseActivity {
+
+public class DashboardWebviewActivity extends BaseActivity {
 
     /* ++ LOCAL DATA TYPE INSTANCE DECLARATION ++ */
     //String strURL = "http://mhsserver3.com/ClubsDiary/BRS/";
-    String strProAgendaUrl = "http://staging.mhsystems.co.uk/ProAgenda/BookLessons?aclientid=";
+    String strProAgendaUrl = "https://www.facebook.com/MHS-Group-573336842719392/";
 
     /* ++ INSTANCES OF CLASSES ++ */
     WebView wvWebView;
     ProgressBar progressWebView;
-    Toolbar tbCourseDiary;
+    Toolbar tbDashboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_diary_webview);
-
+        setContentView(R.layout.activity_dashboard_webview);
         progressWebView = (ProgressBar) findViewById(R.id.progressWebView);
         wvWebView = (WebView) findViewById(R.id.wvWebView);
 
-        tbCourseDiary = (Toolbar) findViewById(R.id.tbDashboard);
-        tbCourseDiary.setNavigationIcon(R.mipmap.icon_menu);
-        setSupportActionBar(tbCourseDiary);
+        tbDashboard = (Toolbar) findViewById(R.id.tbDashboard);
+        if (ApplicationGlobal.KEY_DASHBOARD_SOCIAL == 1) {
+            tbDashboard.setTitle("Facebook Feeds");
+            strProAgendaUrl = "https://www.facebook.com/redlibbetsgolfclub/";
+        } else if (ApplicationGlobal.KEY_DASHBOARD_SOCIAL == 2) {
+            tbDashboard.setTitle("Twitter Feeds");
+            strProAgendaUrl = "https://twitter.com/redlibbetsgolf";
+        }
+
+
+        /// tbDashboard.setNavigationIcon(R.mipmap.icon_menu);
+        setSupportActionBar(tbDashboard);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (strProAgendaUrl.length() > 0) {
@@ -44,10 +53,7 @@ public class CourseDiaryWebviewActivity extends BaseActivity {
             wvWebView.getSettings().setSupportZoom(true);
             wvWebView.setFocusableInTouchMode(false);
             wvWebView.setFocusable(false);
-            wvWebView.loadUrl(strProAgendaUrl
-                    + ApplicationGlobal.TAG_CLIENT_ID
-                    + "&amemberid="
-                    + loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784"));
+            wvWebView.loadUrl(strProAgendaUrl);
             /*wvWebView.loadUrl(strURL + ApplicationGlobal.TAG_CLIENT_ID);*/
         } else {
             progressWebView.setVisibility(View.GONE);

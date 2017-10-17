@@ -50,7 +50,9 @@
         <activity
             android:name="com.mh.systems.redlibbets.ui.activites.DashboardActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.activites.DashboardWebviewActivity"
+            android:screenOrientation="portrait" />
         <!-- COURSE DIARY ACTIVITY -->
         <activity
             android:name="com.mh.systems.redlibbets.ui.activites.CourseDiaryActivity"

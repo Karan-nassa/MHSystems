@@ -1,16 +1,24 @@
 package com.mh.systems.demoapp.ui.activites;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.dataaccess.push.QuickstartPreferences;
+import com.mh.systems.demoapp.dataaccess.push.RegistrationIntentService;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
 import com.mh.systems.demoapp.web.models.AJsonParamsDashboard;
@@ -45,7 +53,7 @@ public class LoginActivity extends BaseActivity {
     public final String LOG_TAG = LoginActivity.class.getSimpleName();
     String strErrorMessage = "";
     String strUserName, strPassword;
-
+    private final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     /*********************************
      * INSTANCES OF CLASSES
      ********************************/
@@ -78,6 +86,8 @@ public class LoginActivity extends BaseActivity {
 
     Intent intent;
     Typeface typeface;
+
+    BroadcastReceiver mRegistrationBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +148,49 @@ public class LoginActivity extends BaseActivity {
             startActivity(intent);
         }
     };
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i("checkPlayServices", "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
 
+
+    /**
+     * Implements this method to send Token to
+     * server for push notifications.
+     */
+    private void sendTokenToServer() {
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                //  mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(context);
+                boolean sentToken = sharedPreferences
+                        .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+            }
+        };
+
+        if (checkPlayServices()) {
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
+    }
     /**
      * Implements a method to check whether Login and Password
      * field filled or not?

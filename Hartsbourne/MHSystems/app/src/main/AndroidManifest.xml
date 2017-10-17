@@ -11,7 +11,7 @@
 
     <!-- [START gcm_permission] -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <permission
         android:name="com.mh.systems.hartsbourne.permission.C2D_MESSAGE"
@@ -110,9 +110,7 @@
             android:screenOrientation="portrait" />
 
         <!-- CLUB NEWS DETAIL ACTIVITY -->
-        <activity
-            android:name="com.mh.systems.hartsbourne.ui.activites.ClubNewsDetailActivity"
-             />
+        <activity android:name="com.mh.systems.hartsbourne.ui.activites.ClubNewsDetailActivity" />
 
         <!-- SETTING SCREEN -->
         <activity
@@ -219,6 +217,14 @@
         <!-- [END gcm_receiver] -->
 
         <!-- [START gcm_listener] -->
+        <!-- [START gcm_listener] -->
+        <service
+            android:name="com.mh.systems.hartsbourne.dataaccess.push.PushNotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
         <!-- [END gcm_listener] -->
         <!-- [START instanceId_listener] -->
         <service

@@ -65,7 +65,7 @@ public class RegistrationIntentService extends IntentService {
 
             InstanceID instanceID = InstanceID.getInstance(this);
 
-            strToken = instanceID.getToken("366376131314", GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+            strToken = instanceID.getToken("505018842271", GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
 
             Log.e(TAG, "GCM Registration Token: " + strToken);
 
@@ -102,6 +102,7 @@ public class RegistrationIntentService extends IntentService {
         aJsonParamsRegisterToken.setDeviceState(1); // 1 for Active state.
         aJsonParamsRegisterToken.setDeviceType(2); // 1 for iOS and 2 for Android.
         aJsonParamsRegisterToken.setDeviceId(strToken);
+        Log.e("aJsonParamsRegisterToken:", "" + aJsonParamsRegisterToken);
 
         registerTokenAPI = new RegisterTokenAPI(getClientId(), "MemberDevice", aJsonParamsRegisterToken, "PUSHNOTIFICATION", ApplicationGlobal.TAG_GCLUB_MEMBERS);
 

@@ -10,6 +10,12 @@ import com.mh.systems.demoapp.ui.fragments.MembersTabFragment;
 public class ApplicationGlobal {
 
     /**
+     * Declares the KEY_DASHBOARD_SOCIALENVIRONMENT.
+     */
+    public static int  KEY_DASHBOARD_SOCIAL = 0;
+
+
+    /**
      * Declares the ROLL BAR key for PRODUCTION ENVIRONMENT.
      */
     public static final String KEY_ROLLBAR_CLIENT_PRODUCTION = "f4494cf9f54846c6ac690aad1e624598";

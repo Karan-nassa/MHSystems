@@ -8,7 +8,10 @@ import com.mh.systems.halesworth.ui.fragments.MembersTabFragment;
  * the application on 19-02-2016.
  */
 public class ApplicationGlobal {
-
+    /**
+     * Declares the KEY_DASHBOARD_SOCIALENVIRONMENT.
+     */
+    public static int  KEY_DASHBOARD_SOCIAL = 0;
     /**
      * Declares the ROLL BAR key for PRODUCTION ENVIRONMENT.
      */

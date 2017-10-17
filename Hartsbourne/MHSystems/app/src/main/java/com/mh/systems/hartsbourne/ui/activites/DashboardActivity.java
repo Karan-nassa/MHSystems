@@ -241,7 +241,7 @@ public class DashboardActivity extends BaseActivity {
         SyncMarket.Initialize(this);
         final String version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 
-        if(SyncMarket.getMarketVersion() != null && SyncMarket.getMarketVersion().equals(version)){
+        if (SyncMarket.getMarketVersion() != null && SyncMarket.getMarketVersion().equals(version)) {
             savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
         }
 
@@ -370,6 +370,7 @@ public class DashboardActivity extends BaseActivity {
                         PreferenceManager.getDefaultSharedPreferences(context);
                 boolean sentToken = sharedPreferences
                         .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+                Log.e("sentToken", "" + sentToken);
             }
         };
 
@@ -385,7 +386,7 @@ public class DashboardActivity extends BaseActivity {
      */
     private void setGridMenuOptions() {
 
-        //getUnreadNewsCountService();
+        getUnreadNewsCountService();
 
         dashboardItemsArrayList.clear();
         iHandicapPosition = 0;
