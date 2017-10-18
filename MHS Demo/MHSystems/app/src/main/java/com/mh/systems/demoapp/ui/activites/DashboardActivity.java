@@ -440,11 +440,17 @@ public class DashboardActivity extends BaseActivity {
                     getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryActivity"));
         }
 
-        //Pro-Agenda Book Lessons
+        /*//Pro-Agenda Book Lessons
         dashboardItemsArrayList.add(new DashboardItems(
                 R.mipmap.ic_booking_agenda,
                 "Book Lessons",
-                getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryWebviewActivity"));
+                getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryWebviewActivity"));*/
+
+        //Tee Time Booking Integration
+        dashboardItemsArrayList.add(new DashboardItems(
+                R.mipmap.ic_booking_agenda,
+                "Tee Time Booking",
+                getApplicationContext().getPackageName() + ".ui.activites.TeeTimeBookingActivity"));
 
 
         //Add Competitions

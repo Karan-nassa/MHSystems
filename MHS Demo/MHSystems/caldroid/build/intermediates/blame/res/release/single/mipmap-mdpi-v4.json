@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\release\\mipmap-mdpi-v4\\ic_date_nextmonth.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\mipmap-mdpi\\ic_date_nextmonth.png"
+    },
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\release\\mipmap-mdpi-v4\\ic_date_prevmonth.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\mipmap-mdpi\\ic_date_prevmonth.png"
+    }
+]
