@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorF9F8F7"
+    android:fitsSystemWindows="true">
+
+    <!-- COMPETITIONS TITLE WITH CROSS ARROW IN TOOL BAR -->
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/detail_backdrop_height"
+        android:background="@mipmap/bg_competitiondetail"
+        android:fitsSystemWindows="true"
+        app:collapsedTitleTextAppearance="@style/CompetitionsToolCollapse"
+        app:theme="@style/CompetitionsTheme.Toolbar">
+
+        <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedTitleTextAppearance="@style/CompetitionsToolCollapse"
+            app:expandedTitleTextAppearance="@style/CompetitionsToolExpand"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarComp"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/App_Theme"
+                app:theme="@style/CompetitionsTheme.Toolbar" />
+
+
+        </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsvContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <!-- BOTTOM DESCRIPTION OF COURSE EVENT DETAIL -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_today" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:orientation="vertical">
+
+                    <!-- DATE OF COURSE EVENT -->
+
+                    <TextView
+                        android:id="@+id/tvTeeDateOfEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monday, 29th February 2016"
+                        android:textColor="@color/color030303"
+                        android:textSize="16sp" />
+
+
+                    <!-- DATE OF COURSE EVENT -->
+
+                    <TextView
+                        android:id="@+id/tvTeeTimeOfEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10:00 - 14:00"
+                        android:textColor="@color/color030303"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <!-- TYPE OF COMPETITION EVENT -->
+
+            <LinearLayout
+                android:id="@+id/llTypeGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <!-- CALENDER ICON -->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_competition_type" />
+
+                <!-- PRIZE OF COURSE EVENT -->
+
+                <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
+                    android:id="@+id/tvTeeTitleOfEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:text="CONGU(tm), 18 Holes, 1 Round"
+                    android:textColor="@color/color030303"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+            <!-- TYPE OF TEE TIME BOOKING EVENT -->
+
+            <LinearLayout
+                android:id="@+id/llTeeBookingGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <!-- PRICE-->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:src="@mipmap/ic_competition_pound" />
+
+                <!-- PRIZE OF TEE EVENT -->
+
+                <TextView
+                    android:id="@+id/tvTeePriceOfEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:text="5.00 "
+                    android:textColor="@color/color030303"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <!-- JOIN COMPETITIONS FLOATING ACTION BUTTON -->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabJoinCompetition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:src="@mipmap/ic_plus"
+        android:visibility="invisible"
+        app:backgroundTint="@color/colorC0995B"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right|end" />
+
+</android.support.design.widget.CoordinatorLayout>

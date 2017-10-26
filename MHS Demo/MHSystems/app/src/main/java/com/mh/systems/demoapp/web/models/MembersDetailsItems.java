@@ -14,7 +14,7 @@ public class MembersDetailsItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("Data")
+    @SerializedName("GetMonthData")
     @Expose
     private MembersDetailsData Data;
 

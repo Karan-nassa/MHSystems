@@ -6,10 +6,11 @@
         android:left="0dp"
         android:right="0dp"
         android:top="0dp">
+
        <shape android:shape="oval" >
             <!--<solid android:color="@color/caldroidDDDDDD" />-->
            <solid android:color="@color/caldroid_white" />
-        </shape>-
+       </shape>
     </item>
 
 </layer-list>

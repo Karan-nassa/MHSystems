@@ -1,11 +1,13 @@
 package com.roomorama.caldroid;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -25,6 +27,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.antonyt.infiniteviewpager.InfinitePagerAdapter;
@@ -123,7 +127,9 @@ public class CaldroidFragment extends DialogFragment {
      */
     private Button leftArrowButton;
     private Button rightArrowButton;
-    private TextView monthTitleTextView;
+    private LinearLayout llCalendarView;
+    private ImageView ivTeeCalendar;
+    private TextView monthTitleTextView = null;
     private GridView weekdayGridView;
     private InfiniteViewPager dateViewPager;
     private DatePageChangeListener pageChangeListener;
@@ -237,6 +243,26 @@ public class CaldroidFragment extends DialogFragment {
      * Caldroid
      */
     private CaldroidListener caldroidListener;
+
+    private boolean isCalendarEnable = true;
+
+    private OnClickListener mCalendarIconListener = new OnClickListener() {
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+        @Override
+        public void onClick(View v) {
+            // Notify listener
+            if (caldroidListener != null) {
+                caldroidListener.onCalendarClicked(isCalendarEnable);
+               /* if(isCalendarEnable){
+                    isCalendarEnable = false;
+                    ivTeeCalendar.setAlpha((float) 0.5);
+                }else{
+                    isCalendarEnable = true;
+
+                }*/
+            }
+        }
+    };
 
     /**
      * Retrieve current month
@@ -666,7 +692,10 @@ public class CaldroidFragment extends DialogFragment {
 
         // Notify listener
         if (caldroidListener != null) {
-            caldroidListener.onChangeMonth(month, year);
+
+            Date date = CalendarHelper
+                    .convertDateTimeToDate(dateTime);
+            caldroidListener.onChangeMonth(month, year, date);
         }
 
         refreshView();
@@ -1275,6 +1304,9 @@ public class CaldroidFragment extends DialogFragment {
         leftArrowButton = (Button) view.findViewById(R.id.calendar_left_arrow);
         rightArrowButton = (Button) view.findViewById(R.id.calendar_right_arrow);
 
+        llCalendarView = (LinearLayout) view.findViewById(R.id.llCalendarView);
+        ivTeeCalendar = (ImageView) view.findViewById(R.id.ivTeeCalendar);
+
         // Navigate to previous month when user click
         leftArrowButton.setOnClickListener(new OnClickListener() {
 
@@ -1292,6 +1324,9 @@ public class CaldroidFragment extends DialogFragment {
                 nextMonth();
             }
         });
+
+        llCalendarView.setOnClickListener(mCalendarIconListener);
+        ivTeeCalendar.setOnClickListener(mCalendarIconListener);
 
         // Show navigation arrows depend on initial arguments
         setShowNavigationArrows(showNavigationArrows);

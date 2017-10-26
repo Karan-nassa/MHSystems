@@ -11,7 +11,14 @@
                     "endOffset": 110
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 445,
+                        "endColumn": 59,
+                        "endOffset": 500
+                    }
                 }
             },
             {
@@ -23,7 +30,14 @@
                     "endOffset": 171
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 137,
+                        "endColumn": 60,
+                        "endOffset": 193
+                    }
                 }
             },
             {
@@ -35,7 +49,14 @@
                     "endOffset": 232
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 260,
+                        "endColumn": 60,
+                        "endOffset": 316
+                    }
                 }
             },
             {
@@ -47,7 +68,14 @@
                     "endOffset": 294
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 321,
+                        "endColumn": 61,
+                        "endOffset": 378
+                    }
                 }
             },
             {
@@ -59,7 +87,14 @@
                     "endOffset": 356
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 198,
+                        "endColumn": 61,
+                        "endOffset": 255
+                    }
                 }
             },
             {
@@ -71,7 +106,14 @@
                     "endOffset": 418
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 383,
+                        "endColumn": 61,
+                        "endOffset": 440
+                    }
                 }
             },
             {
@@ -83,7 +125,14 @@
                     "endOffset": 480
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 75,
+                        "endColumn": 61,
+                        "endOffset": 132
+                    }
                 }
             },
             {
@@ -95,7 +144,14 @@
                     "endOffset": 543
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\attrs.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 505,
+                        "endColumn": 62,
+                        "endOffset": 563
+                    }
                 }
             },
             {
@@ -107,7 +163,14 @@
                     "endOffset": 592
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 894,
+                        "endColumn": 48,
+                        "endOffset": 938
+                    }
                 }
             },
             {
@@ -119,7 +182,14 @@
                     "endOffset": 636
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 752,
+                        "endColumn": 43,
+                        "endOffset": 791
+                    }
                 }
             },
             {
@@ -131,7 +201,14 @@
                     "endOffset": 680
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 796,
+                        "endColumn": 43,
+                        "endOffset": 835
+                    }
                 }
             },
             {
@@ -143,7 +220,14 @@
                     "endOffset": 729
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 105,
+                        "endColumn": 48,
+                        "endOffset": 149
+                    }
                 }
             },
             {
@@ -155,7 +239,14 @@
                     "endOffset": 781
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 345,
+                        "endColumn": 51,
+                        "endOffset": 392
+                    }
                 }
             },
             {
@@ -167,7 +258,14 @@
                     "endOffset": 826
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 300,
+                        "endColumn": 44,
+                        "endOffset": 340
+                    }
                 }
             },
             {
@@ -179,7 +277,14 @@
                     "endOffset": 886
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 589,
+                        "endColumn": 59,
+                        "endOffset": 644
+                    }
                 }
             },
             {
@@ -191,7 +296,14 @@
                     "endOffset": 947
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 489,
+                        "endColumn": 60,
+                        "endOffset": 545
+                    }
                 }
             },
             {
@@ -203,7 +315,14 @@
                     "endOffset": 1000
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 840,
+                        "endColumn": 52,
+                        "endOffset": 888
+                    }
                 }
             },
             {
@@ -215,7 +334,14 @@
                     "endOffset": 1053
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 247,
+                        "endColumn": 52,
+                        "endOffset": 295
+                    }
                 }
             },
             {
@@ -227,7 +353,14 @@
                     "endOffset": 1105
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 397,
+                        "endColumn": 51,
+                        "endOffset": 444
+                    }
                 }
             },
             {
@@ -239,7 +372,14 @@
                     "endOffset": 1159
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 697,
+                        "endColumn": 53,
+                        "endOffset": 746
+                    }
                 }
             },
             {
@@ -251,7 +391,14 @@
                     "endOffset": 1216
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 154,
+                        "endColumn": 56,
+                        "endOffset": 206
+                    }
                 }
             },
             {
@@ -263,7 +410,14 @@
                     "endOffset": 1265
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 48,
+                        "endOffset": 100
+                    }
                 }
             },
             {
@@ -275,275 +429,466 @@
                     "endOffset": 1314
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 943,
+                        "endColumn": 48,
+                        "endOffset": 987
+                    }
                 }
             },
             {
                 "to": {
-                    "startLine": 27,
+                    "startLine": 25,
                     "startColumn": 4,
-                    "startOffset": 1709,
+                    "startOffset": 1319,
+                    "endColumn": 45,
+                    "endOffset": 1360
+                },
+                "from": {
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1038,
+                        "endColumn": 45,
+                        "endOffset": 1079
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1365,
+                    "endColumn": 45,
+                    "endOffset": 1406
+                },
+                "from": {
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\color.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 992,
+                        "endColumn": 45,
+                        "endOffset": 1033
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 1801,
                     "endColumn": 53,
-                    "endOffset": 1758
+                    "endOffset": 1850
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 28,
-                    "startColumn": 4,
-                    "startOffset": 1763,
-                    "endLine": 37,
-                    "endColumn": 12,
-                    "endOffset": 2486
-                },
-                "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 38,
-                    "startColumn": 4,
-                    "startOffset": 2491,
-                    "endLine": 41,
-                    "endColumn": 12,
-                    "endOffset": 2654
-                },
-                "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 42,
-                    "startColumn": 4,
-                    "startOffset": 2659,
-                    "endLine": 46,
-                    "endColumn": 12,
-                    "endOffset": 2914
-                },
-                "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 47,
-                    "startColumn": 4,
-                    "startOffset": 2919,
-                    "endLine": 54,
-                    "endColumn": 12,
-                    "endOffset": 3327
-                },
-                "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\strings.xml",
                     "position": {
-                        "startLine": 55,
+                        "startLine": 2,
                         "startColumn": 4,
-                        "startOffset": 2679,
-                        "endLine": 62,
-                        "endColumn": 12,
-                        "endOffset": 3087
+                        "startOffset": 17,
+                        "endColumn": 53,
+                        "endOffset": 66
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 55,
+                    "startLine": 30,
                     "startColumn": 4,
-                    "startOffset": 3332,
-                    "endLine": 61,
+                    "startOffset": 1855,
+                    "endLine": 39,
                     "endColumn": 12,
-                    "endOffset": 3851
-                },
-                "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 62,
-                    "startColumn": 4,
-                    "startOffset": 3856,
-                    "endLine": 64,
-                    "endColumn": 12,
-                    "endOffset": 4032
-                },
-                "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 65,
-                    "startColumn": 4,
-                    "startOffset": 4037,
-                    "endLine": 68,
-                    "endColumn": 12,
-                    "endOffset": 4261
-                },
-                "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 69,
-                    "startColumn": 4,
-                    "startOffset": 4266,
-                    "endLine": 71,
-                    "endColumn": 12,
-                    "endOffset": 4423
+                    "endOffset": 2578
                 },
                 "from": {
                     "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
                     "position": {
-                        "startLine": 95,
+                        "startLine": 3,
                         "startColumn": 4,
-                        "startOffset": 4538,
-                        "endLine": 97,
+                        "startOffset": 56,
+                        "endLine": 12,
                         "endColumn": 12,
-                        "endOffset": 4695
+                        "endOffset": 779
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 72,
+                    "startLine": 40,
                     "startColumn": 4,
-                    "startOffset": 4428,
-                    "endLine": 74,
+                    "startOffset": 2583,
+                    "endLine": 43,
                     "endColumn": 12,
-                    "endOffset": 4586
+                    "endOffset": 2746
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1046,
+                        "endLine": 23,
+                        "endColumn": 12,
+                        "endOffset": 1209
+                    }
                 }
             },
             {
                 "to": {
-                    "startLine": 75,
+                    "startLine": 44,
                     "startColumn": 4,
-                    "startOffset": 4591,
-                    "endLine": 77,
+                    "startOffset": 2751,
+                    "endLine": 48,
                     "endColumn": 12,
-                    "endOffset": 4729
+                    "endOffset": 3006
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 785,
+                        "endLine": 18,
+                        "endColumn": 12,
+                        "endOffset": 1040
+                    }
                 }
             },
             {
                 "to": {
-                    "startLine": 78,
+                    "startLine": 49,
                     "startColumn": 4,
-                    "startOffset": 4734,
-                    "endColumn": 82,
-                    "endOffset": 4812
+                    "startOffset": 3011,
+                    "endLine": 56,
+                    "endColumn": 12,
+                    "endOffset": 3420
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 56,
+                        "startColumn": 4,
+                        "startOffset": 2680,
+                        "endLine": 63,
+                        "endColumn": 12,
+                        "endOffset": 3089
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 57,
+                    "startColumn": 4,
+                    "startOffset": 3425,
+                    "endLine": 63,
+                    "endColumn": 12,
+                    "endOffset": 3944
+                },
+                "from": {
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 80,
+                        "startColumn": 4,
+                        "startOffset": 3669,
+                        "endLine": 86,
+                        "endColumn": 12,
+                        "endOffset": 4188
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 64,
+                    "startColumn": 4,
+                    "startOffset": 3949,
+                    "endLine": 66,
+                    "endColumn": 12,
+                    "endOffset": 4125
+                },
+                "from": {
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 88,
+                        "startColumn": 4,
+                        "startOffset": 4194,
+                        "endLine": 90,
+                        "endColumn": 12,
+                        "endOffset": 4370
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 67,
+                    "startColumn": 4,
+                    "startOffset": 4130,
+                    "endLine": 70,
+                    "endColumn": 12,
+                    "endOffset": 4354
+                },
+                "from": {
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 102,
+                        "startColumn": 4,
+                        "startOffset": 4818,
+                        "endLine": 105,
+                        "endColumn": 12,
+                        "endOffset": 5042
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 71,
+                    "startColumn": 4,
+                    "startOffset": 4359,
+                    "endLine": 73,
+                    "endColumn": 12,
+                    "endOffset": 4522
+                },
+                "from": {
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 98,
+                        "startColumn": 4,
+                        "startOffset": 4649,
+                        "endLine": 100,
+                        "endColumn": 12,
+                        "endOffset": 4812
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 74,
+                    "startColumn": 4,
+                    "startOffset": 4527,
+                    "endLine": 78,
+                    "endColumn": 12,
+                    "endOffset": 4794
+                },
+                "from": {
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 92,
+                        "startColumn": 4,
+                        "startOffset": 4376,
+                        "endLine": 96,
+                        "endColumn": 12,
+                        "endOffset": 4643
+                    }
                 }
             },
             {
                 "to": {
                     "startLine": 79,
                     "startColumn": 4,
-                    "startOffset": 4817,
-                    "endLine": 88,
+                    "startOffset": 4799,
+                    "endLine": 81,
                     "endColumn": 12,
-                    "endOffset": 5357
+                    "endOffset": 4937
                 },
                 "from": {
                     "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
                     "position": {
-                        "startLine": 44,
+                        "startLine": 107,
                         "startColumn": 4,
-                        "startOffset": 2133,
-                        "endLine": 53,
+                        "startOffset": 5048,
+                        "endLine": 109,
                         "endColumn": 12,
-                        "endOffset": 2673
+                        "endOffset": 5186
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 89,
+                    "startLine": 82,
                     "startColumn": 4,
-                    "startOffset": 5362,
-                    "endLine": 92,
-                    "endColumn": 12,
-                    "endOffset": 5583
+                    "startOffset": 4942,
+                    "endColumn": 82,
+                    "endOffset": 5020
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 111,
+                        "startColumn": 4,
+                        "startOffset": 5192,
+                        "endColumn": 83,
+                        "endOffset": 5271
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 83,
+                    "startColumn": 4,
+                    "startOffset": 5025,
+                    "endLine": 92,
+                    "endColumn": 12,
+                    "endOffset": 5565
+                },
+                "from": {
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 45,
+                        "startColumn": 4,
+                        "startOffset": 2134,
+                        "endLine": 54,
+                        "endColumn": 12,
+                        "endOffset": 2674
+                    }
                 }
             },
             {
                 "to": {
                     "startLine": 93,
                     "startColumn": 4,
-                    "startOffset": 5588,
-                    "endLine": 101,
+                    "startOffset": 5570,
+                    "endLine": 96,
                     "endColumn": 12,
-                    "endOffset": 6044
+                    "endOffset": 5791
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1215,
+                        "endLine": 28,
+                        "endColumn": 12,
+                        "endOffset": 1436
+                    }
                 }
             },
             {
                 "to": {
-                    "startLine": 102,
+                    "startLine": 97,
                     "startColumn": 4,
-                    "startOffset": 6049,
-                    "endLine": 104,
+                    "startOffset": 5796,
+                    "endLine": 105,
                     "endColumn": 12,
-                    "endOffset": 6179
+                    "endOffset": 6252
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 35,
+                        "startColumn": 4,
+                        "startOffset": 1672,
+                        "endLine": 43,
+                        "endColumn": 12,
+                        "endOffset": 2128
+                    }
                 }
             },
             {
                 "to": {
-                    "startLine": 105,
+                    "startLine": 106,
                     "startColumn": 4,
-                    "startOffset": 6184,
+                    "startOffset": 6257,
                     "endLine": 108,
                     "endColumn": 12,
-                    "endOffset": 6408
+                    "endOffset": 6387
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 65,
+                        "startColumn": 4,
+                        "startOffset": 3095,
+                        "endLine": 67,
+                        "endColumn": 12,
+                        "endOffset": 3225
+                    }
                 }
             },
             {
                 "to": {
                     "startLine": 109,
                     "startColumn": 4,
-                    "startOffset": 6413,
-                    "endColumn": 74,
-                    "endOffset": 6483
+                    "startOffset": 6392,
+                    "endLine": 112,
+                    "endColumn": 12,
+                    "endOffset": 6616
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 1442,
+                        "endLine": 33,
+                        "endColumn": 12,
+                        "endOffset": 1666
+                    }
                 }
             },
             {
                 "to": {
-                    "startLine": 110,
+                    "startLine": 113,
                     "startColumn": 4,
-                    "startOffset": 6488,
-                    "endLine": 116,
-                    "endColumn": 12,
-                    "endOffset": 6818
+                    "startOffset": 6621,
+                    "endColumn": 74,
+                    "endOffset": 6691
                 },
                 "from": {
-                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml"
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 69,
+                        "startColumn": 4,
+                        "startOffset": 3231,
+                        "endColumn": 75,
+                        "endOffset": 3302
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 114,
+                    "startColumn": 4,
+                    "startOffset": 6696,
+                    "endLine": 120,
+                    "endColumn": 12,
+                    "endOffset": 7026
+                },
+                "from": {
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 71,
+                        "startColumn": 4,
+                        "startOffset": 3308,
+                        "endLine": 77,
+                        "endColumn": 12,
+                        "endOffset": 3638
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 121,
+                    "startColumn": 4,
+                    "startOffset": 7031,
+                    "endLine": 128,
+                    "endColumn": 12,
+                    "endOffset": 7439
+                },
+                "from": {
+                    "file": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 115,
+                        "startColumn": 4,
+                        "startOffset": 5384,
+                        "endLine": 122,
+                        "endColumn": 12,
+                        "endOffset": 5792
+                    }
                 }
             }
         ]

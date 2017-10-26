@@ -272,6 +272,25 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
+     * Implements method to return date by format.
+     *
+     * @param strDate : Example => "28/10/2017"
+     * @return strDate  : MMMM dd, yyyy
+     */
+    public static String getFormateDate(String strDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM dd, yyyy");
+
+        try {
+            Date date = inputFormat.parse(strDate);
+            strDate = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+        return strDate;
+    }
+
+    /**
      * Load Preference any string value
      *
      * @paramContext - Context of class

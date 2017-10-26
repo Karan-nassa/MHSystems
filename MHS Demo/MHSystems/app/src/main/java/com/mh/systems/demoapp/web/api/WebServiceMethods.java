@@ -2,37 +2,41 @@ package com.mh.systems.demoapp.web.api;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.web.models.AddMemberAPI;
-import com.mh.systems.demoapp.web.models.clubnews.ClubNewsDetailAPI;
-import com.mh.systems.demoapp.web.models.clubnewsthumbnail.ClubNewsThumbnailAPI;
-import com.mh.systems.demoapp.web.models.clubnewsthumbnail.ClubNewsThumbnailDetailAPI;
 import com.mh.systems.demoapp.web.models.CompetitionJoinAPI;
 import com.mh.systems.demoapp.web.models.CompetitionResultAPI;
 import com.mh.systems.demoapp.web.models.CompetitionUnjoinAPI;
 import com.mh.systems.demoapp.web.models.CompetitionsAPI;
-import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryItems;
-import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.NewCompEventEntryItems;
-import com.mh.systems.demoapp.web.models.contactus.ContactUsAPI;
 import com.mh.systems.demoapp.web.models.CourseDiaryAPI;
 import com.mh.systems.demoapp.web.models.DashboardAPI;
-import com.mh.systems.demoapp.web.models.deletetoken.DeleteTokenAPI;
-import com.mh.systems.demoapp.web.models.editdetailmode.EditDetailModeAPI;
 import com.mh.systems.demoapp.web.models.FinanceAPI;
-import com.mh.systems.demoapp.web.models.forgotpassword.ForgotPasswordAPI;
-import com.mh.systems.demoapp.web.models.friends.RemoveFriendAPI;
 import com.mh.systems.demoapp.web.models.FriendsAPI;
-import com.mh.systems.demoapp.web.models.hcaphistory.HCapHistoryAPI;
 import com.mh.systems.demoapp.web.models.HandicapAPI;
 import com.mh.systems.demoapp.web.models.MembersAPI;
 import com.mh.systems.demoapp.web.models.MembersDetailAPI;
-import com.mh.systems.demoapp.web.models.resetpassword.ResetPasswordAPI;
-import com.mh.systems.demoapp.web.models.toggleprivacy.TogglePrivacyAPI;
-import com.mh.systems.demoapp.web.models.unreadnewscount.GetUnreadNewsCountAPI;
-import com.mh.systems.demoapp.web.models.updatepassword.UpdatePassswordAPI;
+import com.mh.systems.demoapp.web.models.clubnews.ClubNewsDetailAPI;
+import com.mh.systems.demoapp.web.models.clubnewsthumbnail.ClubNewsThumbnailAPI;
+import com.mh.systems.demoapp.web.models.clubnewsthumbnail.ClubNewsThumbnailDetailAPI;
 import com.mh.systems.demoapp.web.models.competitionsentry.CompEligiblePlayersAPI;
 import com.mh.systems.demoapp.web.models.competitionsentry.GetClubEventAPI;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryAPI;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryItems;
+import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.NewCompEventEntryItems;
+import com.mh.systems.demoapp.web.models.contactus.ContactUsAPI;
+import com.mh.systems.demoapp.web.models.deletetoken.DeleteTokenAPI;
+import com.mh.systems.demoapp.web.models.editdetailmode.EditDetailModeAPI;
 import com.mh.systems.demoapp.web.models.featuresflag.FeatureFlagsAPI;
+import com.mh.systems.demoapp.web.models.forgotpassword.ForgotPasswordAPI;
+import com.mh.systems.demoapp.web.models.friends.RemoveFriendAPI;
+import com.mh.systems.demoapp.web.models.hcaphistory.HCapHistoryAPI;
 import com.mh.systems.demoapp.web.models.registertoken.RegisterTokenAPI;
+import com.mh.systems.demoapp.web.models.resetpassword.ResetPasswordAPI;
+import com.mh.systems.demoapp.web.models.teetimebooking.cancelbooking.CancelBookingAPI;
+import com.mh.systems.demoapp.web.models.teetimebooking.getbookingdata.GetBookingDataAPI;
+import com.mh.systems.demoapp.web.models.teetimebooking.getmonthdata.GetMonthDataAPI;
+import com.mh.systems.demoapp.web.models.teetimebooking.makebooking.MakeBookingAPI;
+import com.mh.systems.demoapp.web.models.toggleprivacy.TogglePrivacyAPI;
+import com.mh.systems.demoapp.web.models.unreadnewscount.GetUnreadNewsCountAPI;
+import com.mh.systems.demoapp.web.models.updatepassword.UpdatePassswordAPI;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -498,5 +502,49 @@ public interface WebServiceMethods {
      */
     @POST("/api/ClubsApp")
     public void sendClubEventEntryV2(@Body NewCompEventEntryItems newCompEventEntryItems, Callback<JsonObject> response);
+
+    /**
+     *Get Month Data of MOTT Tee Time Booking
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getMonthDataAPI : Pass model of Competitions Event Entry V2.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/api/ClubsApp")
+    public void GetMonthDataMOTT(@Body GetMonthDataAPI getMonthDataAPI, Callback<JsonObject> response);
+
+    /**
+     *Make Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getMonthDataAPI : Make Booking Entry.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/api/ClubsApp")
+    public void GetMakeBookingMOTT(@Body MakeBookingAPI makeBookingAPI, Callback<JsonObject> response);
+
+    /**
+     *Cancel Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param cancelBookingAPI : Pass model of Cancel Booking Entry.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/api/ClubsApp")
+    public void cancelBookingMOTT(@Body CancelBookingAPI cancelBookingAPI, Callback<JsonObject> response);
+
+    /**
+     *Get detail list of Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getBookingDataAPI : My Booking Tab data.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/api/ClubsApp")
+    public void getBookingDataMOTT(@Body GetBookingDataAPI getBookingDataAPI, Callback<JsonObject> response);
 }
 

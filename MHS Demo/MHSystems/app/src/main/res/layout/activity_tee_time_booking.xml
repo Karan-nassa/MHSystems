@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cdlTeeTimeBooking"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorWhiteffffff">
+    android:layout_height="match_parent">
 
-    <!-- DETAIL NEWS VIEW GROUP -->
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
-
-        <!-- TOOL BAR WITH BACK ARROW AND DELETE -->
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/tbTeeTimeBooking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color4B4B49"
-            android:minHeight="?android:attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/calendar1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
-</RelativeLayout>
+            <!-- TOOL BAR WITH BACK ARROW AND DELETE -->
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tbTeeTimeBooking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color4B4B49"
+                android:minHeight="?android:attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <!-- USE COMMON VIEW TO DISPLAY TAB DATA -->
+
+                <include
+                    android:id="@+id/container"
+                    layout="@layout/include_container_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- NO INTERNET CONNECTION VIEW -->
+
+                <include
+                    android:id="@+id/inc_message_view"
+                    layout="@layout/include_display_message"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

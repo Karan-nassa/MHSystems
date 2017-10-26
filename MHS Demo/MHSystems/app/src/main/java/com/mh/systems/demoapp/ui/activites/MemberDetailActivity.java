@@ -695,7 +695,7 @@ public class MemberDetailActivity extends BaseActivity {
      * @param lastJoiningDate : Example => "2009-11-30T18:30:00Z"
      * @return lastJoiningDate  : MM/DD/YYYY [11/30/2009]
      */
-    private String getFormateDate(String lastJoiningDate) {
+    public static String getFormateDate(String lastJoiningDate) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
 

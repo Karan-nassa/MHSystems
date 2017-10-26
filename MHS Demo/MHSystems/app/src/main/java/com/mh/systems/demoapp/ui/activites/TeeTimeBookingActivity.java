@@ -1,222 +1,117 @@
 package com.mh.systems.demoapp.ui.activites;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.PopupMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import android.support.v7.widget.Toolbar;
 
 import com.mh.systems.demoapp.R;
-import com.roomorama.caldroid.CaldroidFragment;
-import com.roomorama.caldroid.CaldroidListener;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import com.mh.systems.demoapp.ui.fragments.ShowMonthViewFragment;
+import com.mh.systems.demoapp.ui.fragments.TeeTimeBookingTabFragment;
+import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class TeeTimeBookingActivity extends AppCompatActivity {
+import static com.mh.systems.demoapp.R.id.tbMyAccount;
+
+public class TeeTimeBookingActivity extends BaseActivity {
+
+    /*********************************
+     * DECLARATION OF CONSTANTS
+     *******************************/
+    public final String LOG_TAG = TeeTimeBookingActivity.class.getSimpleName();
+
+    private static int iTabPosition;
 
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
-
     @Bind(R.id.tbTeeTimeBooking)
     Toolbar tbTeeTimeBooking;
 
-    private boolean undo = false;
-    private CaldroidFragment caldroidFragment;
-    private CaldroidFragment dialogCaldroidFragment;
+    Fragment fragmentObj;
 
-    private ArrayList<String> mSelectedDates = new ArrayList<>();
+    Typeface tfRobotoMedium;
 
-    private void setCustomResourceForDates() {
-        Calendar cal = Calendar.getInstance();
+     /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
-        // Min date is last 7 days
-        cal.add(Calendar.DATE, -7);
-        Date blueDate = cal.getTime();
+    @Bind(R.id.inc_message_view)
+    RelativeLayout inc_message_view;
 
-        // Max date is next 7 days
-        cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 7);
-        Date greenDate = cal.getTime();
+    @Bind(R.id.ivMessageSymbol)
+    ImageView ivMessageSymbol;
 
-        if (caldroidFragment != null) {
-            ColorDrawable blue = new ColorDrawable(getResources().getColor(R.color.blue));
-            ColorDrawable green = new ColorDrawable(Color.GREEN);
-            caldroidFragment.setBackgroundDrawableForDate(blue, blueDate);
-            caldroidFragment.setBackgroundDrawableForDate(green, greenDate);
-            caldroidFragment.setTextColorForDate(R.color.white, blueDate);
-            caldroidFragment.setTextColorForDate(R.color.white, greenDate);
-        }
-    }
+    @Bind(R.id.tvMessageTitle)
+    TextView tvMessageTitle;
+
+    @Bind(R.id.tvMessageDesc)
+    TextView tvMessageDesc;
+
+    private int iOpenTabPosition;
+
+    Intent intent;
+
+     /* -- INTERNET CONNECTION PARAMETERS -- */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tee_time_booking);
 
-        ButterKnife.bind(TeeTimeBookingActivity.this);
+        //Initialize view resources.
+        ButterKnife.bind(this);
 
         if (tbTeeTimeBooking != null) {
             setSupportActionBar(tbTeeTimeBooking);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            tbTeeTimeBooking.setTitle(getString(R.string.text_title_tee_booking));
+
+            tbTeeTimeBooking.setNavigationIcon(R.mipmap.icon_menu);
+
+            getSupportActionBar().setTitle(getString(R.string.text_title_tee_booking));
         }
 
-        final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+        tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        //tvMyAccountTitle.setTypeface(tfRobotoMedium);
 
-        // Setup caldroid fragment
-        // **** If you want normal CaldroidFragment, use below line ****
-        caldroidFragment = new CaldroidFragment();
+//        iOpenTabPosition = getIntent().getExtras().getInt("iTabPosition");
 
-        // //////////////////////////////////////////////////////////////////////
-        // **** This is to show customized fragment. If you want customized
-        // version, uncomment below line ****
-        //caldroidFragment = new CaldroidSampleCustomFragment();
+       // initFianaceCategory();
 
-        // Setup arguments
+        updateFragment(new TeeTimeBookingTabFragment());
 
-        // If Activity is created after rotation
-        if (savedInstanceState != null) {
-            caldroidFragment.restoreStatesFromKey(savedInstanceState,
-                    "CALDROID_SAVED_STATE");
-        }
-        // If activity is created from fresh
-        else {
-
-            Bundle args = new Bundle();
-            Calendar cal = Calendar.getInstance();
-            args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-            args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-            args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
-
-            // Uncomment this to customize startDayOfWeek
-            args.putInt(CaldroidFragment.START_DAY_OF_WEEK,
-                    CaldroidFragment.MONDAY); // Monday
-
-            // Uncomment this line to use Caldroid in compact mode
-            // args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, false);
-
-            // Uncomment this line to use dark theme
-//            args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
-
-            caldroidFragment.setArguments(args);
-        }
-
-        //setCustomResourceForDates();
-
-        // Attach to the activity
-        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.calendar1, caldroidFragment);
-        t.commit();
-
-        // Setup listener
-        final CaldroidListener listener = new CaldroidListener() {
-
+      /*  ivFilter.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSelectDate(Date date, View view) {
-                Toast.makeText(getApplicationContext(), formatter.format(date),
-                        Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                popupMenu.show();
             }
-
-            @Override
-            public void onChangeMonth(int month, int year) {
-                String text = "month: " + month + " year: " + year;
-              /*  Toast.makeText(getApplicationContext(), text,
-                        Toast.LENGTH_SHORT).show();*/
-            }
-
-            @Override
-            public void onLongClickDate(Date date, View view) {
-                Toast.makeText(getApplicationContext(),
-                        "Long click " + formatter.format(date),
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCaldroidViewCreated() {
-                if (caldroidFragment.getLeftArrowButton() != null) {
-                   /* Toast.makeText(getApplicationContext(),
-                            "Caldroid view is created", Toast.LENGTH_SHORT)
-                            .show();*/
-
-                    initCalendar();
-                }
-            }
-
-        };
-
-        // Setup Caldroid
-        caldroidFragment.setCaldroidListener(listener);
+        });
+        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);*/
     }
 
-    private void initCalendar() {
-        Calendar cal = Calendar.getInstance();
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        // Min date is last 7 days
-        cal.add(Calendar.DATE, 0);
-        Date minDate = cal.getTime();
+        //if(fragmentObj instanceof ShowMonthViewFragment){
+            updateFragment(new TeeTimeBookingTabFragment());
+        //}
+    }
 
-
-        // Max date is next 7 days
-        cal = Calendar.getInstance();
-        int iNumOfDaysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        cal.add(Calendar.DATE, iNumOfDaysInMonth);
-        Date maxDate = cal.getTime();
-
-
-               /* // Set selected dates
-                // From Date
-                cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, 2);
-                Date fromDate = cal.getTime();
-
-                // To Date
-                cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, 3);
-                Date toDate = cal.getTime();*/
-
-        // Set disabled dates
-               /* ArrayList<Date> disabledDates = new ArrayList<Date>();
-                for (int i = 5; i < 8; i++) {
-                    cal = Calendar.getInstance();
-                    cal.add(Calendar.DATE, i);
-                    disabledDates.add(cal.getTime());
-                }*/
-
-        mSelectedDates.add("2017-10-24");
-        mSelectedDates.add("2017-10-26");
-        mSelectedDates.add("2017-10-28");
-        mSelectedDates.add("2017-10-31");
-        mSelectedDates.add("2017-11-01");
-        mSelectedDates.add("2017-11-12");
-
-        // Customize
-        caldroidFragment.setMinDate(minDate);
-        // caldroidFragment.setMaxDate(maxDate);
-        // caldroidFragment.setDisableDates(disabledDates);
-        caldroidFragment.setDisableDatesFromString(mSelectedDates);
-        //  caldroidFragment.setSelectedDates(fromDate, toDate);
-        caldroidFragment.setShowNavigationArrows(true);//false
-        caldroidFragment.setEnableSwipe(true);//false
-
-        caldroidFragment.refreshView();
-
-        // Move to date
-        // cal = Calendar.getInstance();
-        // cal.add(Calendar.MONTH, 12);
-        // caldroidFragment.moveToDate(cal.getTime());
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -226,48 +121,122 @@ public class TeeTimeBookingActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
+
+            default:
+                break;
         }
         return true;
     }
 
     /**
-     * Save current states of the Caldroid here
+     * Implements a method to update UI when 'No Internet connection'
+     * when disconnect internet connection.
+     *
+     * @param isOnline : True means internet working fine.
      */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        // TODO Auto-generated method stub
-        super.onSaveInstanceState(outState);
-
-        if (caldroidFragment != null) {
-            caldroidFragment.saveStatesToKey(outState, "CALDROID_SAVED_STATE");
-        }
-
-        if (dialogCaldroidFragment != null) {
-            dialogCaldroidFragment.saveStatesToKey(outState,
-                    "DIALOG_CALDROID_SAVED_STATE");
+    public void updateHasInternetUI(boolean isOnline) {
+        if (isOnline) {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            //inc_noInternet.setVisibility(View.GONE);
+            //container.setVisibility(View.VISIBLE);
+        } else {
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            //container.setVisibility(View.GONE);
+            //inc_noInternet.setVisibility(View.VISIBLE);
         }
     }
 
-    private void setCustomResourceForDates(int dayNo) {
-        Calendar cal = Calendar.getInstance();
+    /**
+     * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
+     */
+    public String getMemberId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
+    }
 
-       /* // Min date is last 7 days
-        cal.add(Calendar.DATE, -7);
-        Date blueDate = cal.getTime();*/
+    /**
+     * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
+     */
+    public String getClientId() {
+        return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
+    }
 
-        // Max date is next 7 days
-        cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, dayNo);
-        Date greenDate = cal.getTime();
+    /**
+     * {@link Fragment} will be used to display Filter icon for FINANCE
+     * tab content.
+     */
+    public Fragment getFragmentInstance() {
+        return fragmentObj;
+    }
 
-        if (caldroidFragment != null) {
-            ColorDrawable blue = new ColorDrawable(getResources().getColor(R.color.blue));
-            ColorDrawable green = new ColorDrawable(getResources().getColor(android.R.color.holo_green_dark));
-            // caldroidFragment.setBackgroundDrawableForDate(blue, blueDate);
-            // caldroidFragment.setTextColorForDate(R.color.white, blueDate);
-            caldroidFragment.setBackgroundDrawableForDate(green, greenDate);
-            caldroidFragment.setTextColorForDate(R.color.white, greenDate);
+    /**
+     * Set {@link Fragment} instance which will be used to display Filter
+     * icon for FINANCE tab content.
+     */
+    public void setFragmentInstance(Fragment fragmentObj) {
+        this.fragmentObj = fragmentObj;
+    }
+
+   /* public void setWhichTab(int iTabPosition) {
+        this.iTabPosition = iTabPosition;
+
+        if (iTabPosition == 0 || iTabPosition == 2) {
+            updateFilterIcon(View.VISIBLE);
+        } else {
+            updateFilterIcon(View.GONE);
+        }
+    }*/
+
+    public int getWhichTab() {
+        return this.iTabPosition;
+    }
+
+    public int getiOpenTabPosition() {
+        return iOpenTabPosition;
+    }
+
+    public void setiOpenTabPosition(int iOpenTabPosition) {
+        this.iOpenTabPosition = iOpenTabPosition;
+    }
+
+    /**
+     * Implements a method to update UI when 'No Competitions'.
+     *
+     * @param hasData      : True means more than 1 data.
+     * @param iTabPosition : Which tab Members or friends
+     */
+    public void updateNoDataUI(boolean hasData, int iTabPosition) {
+        if (hasData) {
+            showNoBookingView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true, iTabPosition);
+        } else {
+            showNoBookingView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false, iTabPosition);
         }
     }
 
+    /**
+     * Implements a method to show 'NO BOOKING FOUND' view and hide it at least one data.
+     *
+     * @param inc_message_view :  Whole view group for set VISIBILITY of view VISIBLE/INVISIBLE.
+     * @param ivMessageSymbol  :  View to set Image at run time like CUP icon for NO COMPETITION.
+     * @param tvMessageTitle   :  View to set Text title of message.
+     * @param tvMessageDesc    :  View to set detail Text description of message.
+     * @param hasData          :  bool used to describe which decide the functionality should happen [TRUE] or not [FALSE]?
+     * @param iTabPositon      :  if iTabPosition 0 means 'No Member found' otherwise 'No Friend found'
+     */
+    public void showNoBookingView(RelativeLayout inc_message_view, ImageView ivMessageSymbol,
+                                  TextView tvMessageTitle, TextView tvMessageDesc,
+                                  boolean hasData, int iTabPositon) {
+
+        if (hasData) {
+            inc_message_view.setVisibility(View.GONE);
+        } else {
+            inc_message_view.setVisibility(View.VISIBLE);
+            ivMessageSymbol.setImageResource(R.mipmap.ic_home_members);
+            if (iTabPositon == 0) {
+                tvMessageTitle.setText(getResources().getString(R.string.error_no_booking));
+            } else {
+                tvMessageTitle.setText(getResources().getString(R.string.error_no_booking));
+            }
+            tvMessageDesc.setText(getResources().getString(R.string.error_try_again));
+        }
+    }
 }

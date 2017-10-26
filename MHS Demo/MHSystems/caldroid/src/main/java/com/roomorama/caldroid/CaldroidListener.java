@@ -36,11 +36,11 @@ public abstract class CaldroidListener {
 
     /**
      * Inform client that calendar has changed month
-     *
-     * @param month
+     *  @param month
      * @param year
+     * @param date
      */
-    public void onChangeMonth(int month, int year) {
+    public void onChangeMonth(int month, int year, Date date) {
         // Do nothing
     }
 
@@ -53,5 +53,13 @@ public abstract class CaldroidListener {
      */
     public void onCaldroidViewCreated() {
         // Do nothing
+    }
+
+    /**
+     * Inform client that calendar icon clicked
+     * @param visibility
+     */
+    public void onCalendarClicked(boolean visibility){
+
     }
 }

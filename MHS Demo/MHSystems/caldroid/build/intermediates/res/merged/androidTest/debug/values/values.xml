@@ -22,6 +22,9 @@
     <color name="caldroid_sky_blue">#FFA3E8F7</color>
     <color name="caldroid_transparent">#00000000</color>
     <color name="caldroid_white">#FFFFFF</color>
+    <color name="caldroidb6d6a5">#b6d6a5</color>
+    <color name="colorBDB6AE">#BDB6AE</color>
+    <color name="colorD6D0C9">#D6D0C9</color>
     <declare-styleable name="Cell"><attr name="android:textColor"/><attr name="android:background"/></declare-styleable>
     <declare-styleable name="DateState"><attr format="boolean" name="state_date_today"/><attr format="boolean" name="state_date_selected"/><attr format="boolean" name="state_date_disabled"/><attr format="boolean" name="state_date_prev_next_month"/></declare-styleable>
     <string name="app_name">CalendarFragment</string>
@@ -46,6 +49,7 @@
     </style>
     <style name="CaldroidDefaultCell">
         <item name="android:textColor">@color/cell_text_color</item>
+        <!-- <item name="android:textColor">@color/caldroid_white</item>-->
         <item name="android:background">@drawable/cell_bg</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">14sp</item>
@@ -70,6 +74,8 @@
     </style>
     <style name="CaldroidDefaultDarkMonthName" parent="CaldroidDefaultMonthName">
         <item name="android:textColor">@color/caldroid_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
     </style>
     <style name="CaldroidDefaultDarkNormalCell" parent="CaldroidDefaultDarkCell">
         <item name="android:padding">5dp</item>
@@ -79,7 +85,8 @@
         <item name="android:adjustViewBounds">true</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:listSelector">@null</item>
-        <item name="android:background">@color/caldroid_lighter_gray</item>
+        <!--<item name="android:background">@color/caldroid_lighter_gray</item>-->
+        <item name="android:background">@color/caldroid_white</item>
         <item name="android:horizontalSpacing">1dp</item>
         <item name="android:padding">1dp</item>
         <item name="android:verticalSpacing">1dp</item>
@@ -111,5 +118,13 @@
         <item name="android:textSize">12sp</item>
         <item name="android:paddingTop">6dp</item>
         <item name="android:paddingBottom">5dp</item>
+    </style>
+    <style name="CourseNavDividers">
+        <item name="android:layout_width">2dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end|center</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@color/colorBDB6AE</item>
     </style>
 </resources>

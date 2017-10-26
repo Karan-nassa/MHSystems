@@ -1,4 +1,4 @@
-##Version 1.1.0
+##Version 1.0.0 (25th October, 2017)
 
 Initial release
 

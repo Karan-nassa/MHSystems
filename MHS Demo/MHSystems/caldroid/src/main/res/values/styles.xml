@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="CaldroidDefault">
         <item name="styleCaldroidViewLayout">@style/CaldroidDefaultCalendarViewLayout</item>
         <item name="styleCaldroidLeftArrow">@style/CaldroidDefaultLeftButton</item>
@@ -55,7 +56,7 @@
 
     <style name="CaldroidDefaultCell">
         <item name="android:textColor">@color/cell_text_color</item>
-       <!-- <item name="android:textColor">@color/caldroid_white</item>-->
+        <!-- <item name="android:textColor">@color/caldroid_white</item>-->
         <item name="android:background">@drawable/cell_bg</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">14sp</item>
@@ -91,6 +92,8 @@
 
     <style name="CaldroidDefaultDarkMonthName" parent="CaldroidDefaultMonthName">
         <item name="android:textColor">@color/caldroid_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="CaldroidDefaultDarkGridView" parent="CaldroidDefaultGridView">
@@ -107,5 +110,16 @@
     </style>
 
     <style name="CaldroidDefaultDarkSquareCell" parent="CaldroidDefaultDarkCell" />
+
+    <!-- +++++++++++++++ START OF COURSE DIARY REDESIGN DIVIDERS IN EVENTS NAVIGATION +++++++++++++++ -->
+
+    <style name="CourseNavDividers">
+        <item name="android:layout_width">2dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end|center</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@color/colorBDB6AE</item>
+    </style>
 
 </resources>

@@ -1,28 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="?styleCaldroidViewLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="?styleCaldroidViewLayout"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/calendar_title_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#D6D0C9"
-        android:orientation="horizontal">
+        android:layout_height="45dp"
+        android:visibility="gone"
+        android:background="@color/colorD6D0C9"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
-        <Button
-            android:id="@+id/calendar_left_arrow"
-            style="?styleCaldroidLeftArrow" />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="15"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/calendar_month_year_textview"
-            style="?styleCaldroidMonthName"/>
+            <Button
+                android:id="@+id/calendar_left_arrow"
+                style="?styleCaldroidLeftArrow"
+                android:gravity="center" />
 
-        <Button
-            android:id="@+id/calendar_right_arrow"
-            style="?styleCaldroidRightArrow" />
+            <!-- DIVIDER LINE -->
+
+            <View
+                style="@style/CourseNavDividers"
+                android:layout_gravity="right" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="50"
+            android:gravity="center">
+
+            <com.roomorama.caldroid.SFUI_TextFontMedium
+                android:id="@+id/calendar_month_year_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="15"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- DIVIDER LINE -->
+
+            <View
+                style="@style/CourseNavDividers"
+                android:layout_gravity="left" />
+
+            <Button
+                android:id="@+id/calendar_right_arrow"
+                style="?styleCaldroidRightArrow"
+                android:gravity="center" />
+
+            <!-- DIVIDER LINE -->
+
+            <View
+                style="@style/CourseNavDividers"
+                android:layout_gravity="right" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/llCalendarView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivTeeCalendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_date_calendar" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <GridView
@@ -30,12 +101,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="7"
-        android:stretchMode="columnWidth" >
-    </GridView>
+        android:stretchMode="columnWidth" />
 
     <com.antonyt.infiniteviewpager.InfiniteViewPager
         android:id="@+id/months_infinite_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
