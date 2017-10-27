@@ -62,7 +62,8 @@ public class MyBookingRecyclerAdapter extends RecyclerView.Adapter<MyBookingRecy
     public void onBindViewHolder(MyBookingRecyclerAdapter.ViewHolder holder, int position) {
 
         String strStartTime = mBookingList.get(position).getDate();
-        holder.tvMottTime.setText(strStartTime.substring(strStartTime.indexOf('T') + 1,strStartTime.lastIndexOf(':')));
+        //holder.tvMottTime.setText(strStartTime.substring(strStartTime.indexOf('T') + 1,strStartTime.lastIndexOf(':')));
+        holder.tvMottTime.setText(strStartTime.substring(strStartTime.indexOf(' '),strStartTime.length()));
 
         holder.tvMottTitle.setText(mBookingList.get(position).getDescription());
 

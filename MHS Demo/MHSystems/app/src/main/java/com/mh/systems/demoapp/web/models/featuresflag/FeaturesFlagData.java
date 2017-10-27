@@ -42,6 +42,9 @@ public class FeaturesFlagData {
     @SerializedName("TopupFeature")
     @Expose
     private Boolean topupFeature;
+    @SerializedName("MOTTFeature")
+    @Expose
+    private Boolean MOTTFeature;
 
     public Integer getClientId() {
         return clientId;
@@ -139,4 +142,11 @@ public class FeaturesFlagData {
         this.topupFeature = topupFeature;
     }
 
+    public Boolean getMOTTFeature() {
+        return MOTTFeature;
+    }
+
+    public void setMOTTFeature(Boolean MOTTFeature) {
+        this.MOTTFeature = MOTTFeature;
+    }
 }

@@ -204,6 +204,7 @@
         <item>Your Handicap</item>
         <item>Course Diary</item>
         <item>Competitions</item>
+        <item>Tee Time Booking</item>
         <item>Members</item>
         <item>Club News</item>
         <item>Your Account</item>
@@ -217,6 +218,7 @@
         <item>@mipmap/ic_handicap_chart</item>
         <item>@mipmap/ic_home_diary</item>
         <item>@mipmap/ic_home_competitions</item>
+        <item>@mipmap/ic_teetime_booking</item>
         <item>@mipmap/ic_home_members</item>
         <item>@mipmap/ic_home_clubnews</item>
         <item>@mipmap/ic_my_account</item>

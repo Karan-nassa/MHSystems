@@ -18,8 +18,8 @@ android {
         applicationId "com.mh.systems.halesworth"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 7
-        versionName '1.4'
+        versionCode 9
+        versionName '1.5'
         multiDexEnabled true
     }
     //Used for Draw Graph Library

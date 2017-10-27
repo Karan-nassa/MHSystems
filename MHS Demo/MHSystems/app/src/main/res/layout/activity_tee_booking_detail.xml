@@ -129,7 +129,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_competition_type" />
+                    android:src="@mipmap/ic_member_sign" />
 
                 <!-- PRIZE OF COURSE EVENT -->
 
@@ -154,6 +154,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <!-- PRICE-->

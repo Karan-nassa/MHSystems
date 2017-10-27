@@ -131,6 +131,7 @@ public class ApplicationGlobal {
     public static final String KEY_HANDICAP_FEATURE = "HandicapFeature";
     public static final String KEY_MEMBERS_FEATURE = "MembersFeature";
     public static final String KEY_CLUB_NEWS_FEATURE = "ClubNewsFeature";
+    public static final String KEY_MOTT_FEATURE = "MOTTFeature";
     public static final String KEY_YOUR_ACCOUNT_FEATURE = "YourAccountFeature";
 
 

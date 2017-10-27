@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -65,6 +66,9 @@ public class TeeBookingDetailActivity extends BaseActivity {
     @Bind(R.id.tvTeePriceOfEvent)
     TextView tvTeePriceOfEvent;
 
+    @Bind(R.id.llTeeBookingGroup)
+    LinearLayout llTeeBookingGroup;
+
     //Join Competition Button
     @Bind(R.id.fabJoinCompetition)
     FloatingActionButton fabJoinCompetition;
@@ -86,7 +90,11 @@ public class TeeBookingDetailActivity extends BaseActivity {
              */
             if (isOnline(TeeBookingDetailActivity.this)) {
                 if (fromMyBooking) {
-                    requestCancelBookingEntry();
+                    if(isCanCancel) {
+                        requestCancelBookingEntry();
+                    }else{
+                        showAlertMessage("You are not authorized to cancel this entry.");
+                    }
                 } else {
                     requestMakeBookingEntry();
                 }
@@ -112,14 +120,19 @@ public class TeeBookingDetailActivity extends BaseActivity {
         strDateAndTime = getIntent().getExtras().getString("SlotStart");
         strDescription = getIntent().getExtras().getString("Description");
 
+        strTime = strDateAndTime.substring(strDateAndTime.indexOf(' '), strDateAndTime.length());
+        strDate = strDateAndTime.substring(0, strDateAndTime.indexOf(' '));
+        tvTeeDateOfEvent.setText(getFormateDate(strDate));
+        tvTeeTimeOfEvent.setText(strTime.trim());
+
         if (fromMyBooking) {
             iBookingId = getIntent().getExtras().getInt("BookingId");
             isCanCancel = getIntent().getExtras().getBoolean("CanCancel");
 
-            strTime = strDateAndTime.substring(strDateAndTime.indexOf('T') + 1, strDateAndTime.lastIndexOf(':'));
+         /*   strTime = strDateAndTime.substring(strDateAndTime.indexOf('T') + 1, strDateAndTime.lastIndexOf(':'));
             strDate = strDateAndTime.substring(0, strDateAndTime.indexOf('T'));
             tvTeeDateOfEvent.setText(getFormateDateHyphen(strDate));
-            tvTeeTimeOfEvent.setText(strTime.trim());
+            tvTeeTimeOfEvent.setText(strTime.trim());*/
         } else {
             strSlotStartDateTime = getIntent().getExtras().getString("SlotStartDateTime");
 
@@ -130,17 +143,13 @@ public class TeeBookingDetailActivity extends BaseActivity {
             strBuggyPLU = getIntent().getExtras().getString("BuggyPLU");
             strCrnSymbol = getIntent().getExtras().getString("CrnSymbol");
 
-            strTime = strDateAndTime.substring(strDateAndTime.indexOf(' '), strDateAndTime.length());
-            strDate = strDateAndTime.substring(0, strDateAndTime.indexOf(' '));
-            tvTeeDateOfEvent.setText(getFormateDate(strDate));
-            tvTeeTimeOfEvent.setText(strTime.trim());
+            NumberFormat formatter = new DecimalFormat(".00");
+            double price = fPrice / 100.00;
+            llTeeBookingGroup.setVisibility(View.VISIBLE);
+            tvTeePriceOfEvent.setText(formatter.format(price));
         }
 
         tvTeeTitleOfEvent.setText(strDescription);
-
-        NumberFormat formatter = new DecimalFormat(".00");
-        double price = fPrice / 100.00;
-        tvTeePriceOfEvent.setText(formatter.format(price));
 
         updateFloatingButton(fromMyBooking);
 

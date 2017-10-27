@@ -15,7 +15,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,24 +26,25 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.dataaccess.push.QuickstartPreferences;
+import com.mh.systems.demoapp.dataaccess.push.RegistrationIntentService;
 import com.mh.systems.demoapp.ui.adapter.RecyclerAdapter.DashboardRecyclerAdapter;
 import com.mh.systems.demoapp.utils.SyncMarket;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
+import com.mh.systems.demoapp.web.api.WebAPI;
+import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.web.models.deletetoken.AJsonParamsDeleteToken;
 import com.mh.systems.demoapp.web.models.deletetoken.DeleteTokenAPI;
 import com.mh.systems.demoapp.web.models.deletetoken.DeleteTokenResult;
-import com.mh.systems.demoapp.web.models.unreadnewscount.AJsonParamsGetUnreadCount;
-import com.mh.systems.demoapp.web.models.unreadnewscount.GetUnreadNewsCountAPI;
-import com.mh.systems.demoapp.web.models.unreadnewscount.GetUnreadNewsResponse;
 import com.mh.systems.demoapp.web.models.featuresflag.AJsonParamsFeaturesFlag;
 import com.mh.systems.demoapp.web.models.featuresflag.FeatureFlagsAPI;
 import com.mh.systems.demoapp.web.models.featuresflag.FeatureFlagsResponse;
+import com.mh.systems.demoapp.web.models.unreadnewscount.AJsonParamsGetUnreadCount;
+import com.mh.systems.demoapp.web.models.unreadnewscount.GetUnreadNewsCountAPI;
+import com.mh.systems.demoapp.web.models.unreadnewscount.GetUnreadNewsResponse;
 import com.mh.systems.demoapp.web.models.weather.WeatherApiResponse;
-import com.mh.systems.demoapp.dataaccess.push.QuickstartPreferences;
-import com.mh.systems.demoapp.dataaccess.push.RegistrationIntentService;
-import com.mh.systems.demoapp.web.api.WebAPI;
-import com.mh.systems.demoapp.web.api.WebServiceMethods;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -70,9 +71,6 @@ public class DashboardActivity extends BaseActivity {
 
     private final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
-    //Use for version feature on web.
-    private final int TAG_ANDROID = 2;
-
     /*********************************
      * INSTANCES OF CLASSES
      *******************************/
@@ -84,13 +82,10 @@ public class DashboardActivity extends BaseActivity {
     LinearLayout llLogoutBtn;
 
     @Bind(R.id.llSettings)
-    LinearLayout llSettings;
+    FrameLayout llSettings;
 
     @Bind(R.id.llWeatherGroup)
     LinearLayout llWeatherGroup;
-
-    @Bind(R.id.btSendFeedback)
-    Button btSendFeedback;
 
     @Bind(R.id.tvTodayTemperature)
     TextView tvTodayTemperature;
@@ -103,12 +98,6 @@ public class DashboardActivity extends BaseActivity {
 
     @Bind(R.id.todayIcon)
     ImageView todayIcon;
-
-    @Bind(R.id.iv_facebook)
-    ImageView iv_facebook;
-
-    @Bind(R.id.iv_twitter)
-    ImageView iv_twitter;
 
     //Instance of Grid Adapter.
     DashboardRecyclerAdapter dashboardRecyclerAdapter;
@@ -150,107 +139,17 @@ public class DashboardActivity extends BaseActivity {
      *******************************/
     ArrayList<DashboardItems> dashboardItemsArrayList = new ArrayList<>();
 
-    int iHandicapPosition = 0;
+    int iHandicapPosition = -1;
     String strNameOfWeatherLoc = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        //setContentView(R.layout.activity_dashboard_nine_items);
 
-        /**
-         * Annotate fields with @Bind and a view ID for Butter Knife to find and
-         * automatically cast the corresponding view in your layout.
-         */
-        ButterKnife.bind(DashboardActivity.this);
-
-        try {
-            checkUpdateVersion();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        //Initialize adapter.
-        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
-                dashboardItemsArrayList,
-                iHandicapPosition,
-                loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
-        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
-
-        sendTokenToServer();
-
-        //LogOut listener.
-        llLogoutBtn.setOnClickListener(mLogoutListener);
-
-        //LogOut listener.
-        llLogoutBtn.setOnClickListener(mLogoutListener);
-        iv_twitter.setOnClickListener(mLogoutListener);
-        iv_facebook.setOnClickListener(mLogoutListener);
-
-        iv_facebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApplicationGlobal.KEY_DASHBOARD_SOCIAL = 1;
-                intent = new Intent(DashboardActivity.this, DashboardWebviewActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        iv_twitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApplicationGlobal.KEY_DASHBOARD_SOCIAL = 2;
-                intent = new Intent(DashboardActivity.this, DashboardWebviewActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //Settings click event handle here.
-        llSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(DashboardActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //Send Feedback click event here.
-        btSendFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(DashboardActivity.this, SendFeedbackActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //See the weather of 5 days
-        llWeatherGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(DashboardActivity.this, WeatherDetailActivity.class);
-                intent.putExtra("WEATHER_LOC", strNameOfWeatherLoc);
-                startActivity(intent);
-            }
-        });
-//        String temp = loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, "");
-//          if (temp.equals("")){
-//        callWeatherService();
-//          }
-//    else{
-//            llWeatherGroup.setVisibility(View.VISIBLE);
-//            tvTodayTemperature.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ""));
-//            tvWeatherDesc.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ""));
-//            //        tvNameOfLocation.setText(weatherData.getName() + ", " + weatherData.getSys().getCountry());
-//            tvNameOfLocation.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, ""));
-//        //    todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherData.getWeather().get(0).getIcon() + ".png"));
-//            Resources res=getResources();
-//            int resID = res.getIdentifier(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ""), "mipmap", getPackageName());
-//            Drawable drawable = res.getDrawable(resID);
-//            todayIcon.setImageDrawable(drawable);
-//
-//        }
+        //Dashboard is dynamic and enable/disable by Feature flag.
     }
-
 
     @Override
     protected void onResume() {
@@ -258,7 +157,7 @@ public class DashboardActivity extends BaseActivity {
 
         if (isOnline(DashboardActivity.this)) {
             callFeaturesFlagService();
-            callWeatherService();
+            //callWeatherService();
         }
     }
 
@@ -325,6 +224,24 @@ public class DashboardActivity extends BaseActivity {
         }
     }
 
+
+    /**
+     * Logout user from app and navigate back to
+     * Login screen.
+     */
+    public View.OnClickListener mLogoutListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            //Call Weather api functionality.
+            if (isOnline(DashboardActivity.this)) {
+                callLogoutService();
+            } else {
+                showAlertMessage(getString(R.string.error_no_connection));
+            }
+        }
+    };
+
     /**
      * Check if any update version available on
      * Google Store.
@@ -373,6 +290,7 @@ public class DashboardActivity extends BaseActivity {
      * Implements this method to send Token to
      * server for push notifications.
      */
+
     private void sendTokenToServer() {
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -390,24 +308,6 @@ public class DashboardActivity extends BaseActivity {
             startService(intent);
         }
     }
-
-    /**
-     * Logout user from app and navigate back to
-     * Login screen.
-     */
-    private View.OnClickListener mLogoutListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            //Call Weather api functionality.
-            if (isOnline(DashboardActivity.this)) {
-                callLogoutService();
-            } else {
-                showAlertMessage(getString(R.string.error_no_connection));
-            }
-        }
-    };
-
 
     /**
      * Implements a method to set Grid MENU options
@@ -440,17 +340,11 @@ public class DashboardActivity extends BaseActivity {
                     getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryActivity"));
         }
 
-        /*//Pro-Agenda Book Lessons
+        //Pro-Agenda Book Lessons
         dashboardItemsArrayList.add(new DashboardItems(
                 R.mipmap.ic_booking_agenda,
                 "Book Lessons",
-                getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryWebviewActivity"));*/
-
-        //Tee Time Booking Integration
-        dashboardItemsArrayList.add(new DashboardItems(
-                R.mipmap.ic_booking_agenda,
-                "Tee Time Booking",
-                getApplicationContext().getPackageName() + ".ui.activites.TeeTimeBookingActivity"));
+                getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryWebviewActivity"));
 
 
         //Add Competitions
@@ -460,6 +354,14 @@ public class DashboardActivity extends BaseActivity {
                     R.mipmap.ic_home_competitions,
                     "Competitions",
                     getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
+        }
+
+        //Tee Time Booking Integration
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_MOTT_FEATURE, false)) {
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_teetime_booking,
+                    "Tee Time Booking",
+                    getApplicationContext().getPackageName() + ".ui.activites.TeeTimeBookingActivity"));
         }
 
         //Add Members
@@ -486,12 +388,74 @@ public class DashboardActivity extends BaseActivity {
                     getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
         }
 
-        //Set Grid options adapter.
-        dashboardRecyclerAdapter.notifyDataSetChanged();
+        /*dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
+                dashboardItemsArrayList,
+                iHandicapPosition,
+                loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
+        dashboardRecyclerAdapter.notifyDataSetChanged();*/
+
+        if (dashboardItemsArrayList.size() <= 6) {
+            setContentView(R.layout.activity_dashboard_six_items);
+        } else {
+            setContentView(R.layout.activity_dashboard_nine_items);
+        }
+
+        initViewResources();
+        callWeatherService();
 
         setupGridLayout(dashboardItemsArrayList.size());
 
         // ScrollRecycleView.getListViewSize(gvMenuOptions);
+    }
+
+    private void initViewResources() {
+        /**
+         * Annotate fields with @Bind and a view ID for Butter Knife to find and
+         * automatically cast the corresponding view in your layout.
+         */
+        ButterKnife.bind(DashboardActivity.this);
+
+        try {
+            checkUpdateVersion();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
+        }
+
+        //Initialize adapter.
+        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
+                dashboardItemsArrayList,
+                iHandicapPosition,
+                loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
+
+        sendTokenToServer();
+
+        //LogOut listener.
+        llLogoutBtn.setOnClickListener(mLogoutListener);
+
+        //LogOut listener.
+        llLogoutBtn.setOnClickListener(mLogoutListener);
+
+        //Settings click event handle here.
+        llSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(DashboardActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //See the weather of 5 days
+        llWeatherGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(DashboardActivity.this, WeatherDetailActivity.class);
+                intent.putExtra("WEATHER_LOC", strNameOfWeatherLoc);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -530,7 +494,7 @@ public class DashboardActivity extends BaseActivity {
                 });
                 break;
 
-            default:
+            case 6:
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
@@ -538,14 +502,31 @@ public class DashboardActivity extends BaseActivity {
                     }
                 });
                 break;
+
+            case 9:
+            case 7:
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 3 ? 6 : 2;
+                    }
+                });
+                break;
+
+            default:
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 3 ? 6 : 2;
+                    }
+                });
+                break;
         }
-
-
-        // int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
-        // gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
         // Layout Managers:
         gvMenuOptions.setLayoutManager(layoutManager);
+//         int spacingInPixels = 2;//getResources().getDimensionPixelSize(R.dimen.spacing);
+//         gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
     }
 
     /**
@@ -553,7 +534,7 @@ public class DashboardActivity extends BaseActivity {
      * Because above two grid items should be in center of below
      * three one.
      */
-   /* public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+   /* private class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private int space;
 
         public SpacesItemDecoration(int space) {
@@ -637,11 +618,6 @@ public class DashboardActivity extends BaseActivity {
             Drawable drawable = ContextCompat.getDrawable(DashboardActivity.this, resID);
             todayIcon.setImageDrawable(drawable);
 
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, weatherData.getName());
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
-
         } else {
             Log.e(LOG_TAG, weatherApiResponse.getMessage());
         }
@@ -663,7 +639,6 @@ public class DashboardActivity extends BaseActivity {
         aJsonParamsDeleteToken.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsDeleteToken.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsDeleteToken.setDeviceId(loadPreferenceValue(QuickstartPreferences.TAG_DEVICE_ID, "N/A"));
-        Log.e("aJsonParamsDeleteToken:", "" + aJsonParamsDeleteToken);
 
         deleteTokenAPI = new DeleteTokenAPI(getClientId(), "DELETEMEMBERDEVICE", aJsonParamsDeleteToken, "PUSHNOTIFICATION", ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
@@ -849,8 +824,6 @@ public class DashboardActivity extends BaseActivity {
             @Override
             public void failure(RetrofitError error) {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
-                // showAlertMessage(error.getMessage());
-                onBackPressed();
                 hideProgress();
             }
         });
@@ -883,6 +856,7 @@ public class DashboardActivity extends BaseActivity {
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, featureFlagsResponse.getData().getMembersFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, featureFlagsResponse.getData().getClubNewsFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, featureFlagsResponse.getData().getYourAccountFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MOTT_FEATURE, featureFlagsResponse.getData().getMOTTFeature());
 
                 setGridMenuOptions();
 

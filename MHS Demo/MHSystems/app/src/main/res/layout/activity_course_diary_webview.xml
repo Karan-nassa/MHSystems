@@ -20,7 +20,7 @@
             app:layout_collapseMode="pin"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:titleTextColor="@color/colorWhiteffffff"
-            app:title="" />
+            app:title="Book Lessons" />
 
         <!-- WEB VIEW TO LOAD HTML CONTENT / URL-->
 
