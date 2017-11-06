@@ -345,6 +345,9 @@
     <string name="tab_title_show_month">Show Month View</string>
     <string name="tab_title_my_bookings">My Bookings</string>
 
+    <string name="text_title_with_buggy"> With Buggy</string>
+    <string name="text_title_without_buggy"> Without Buggy</string>
+
     <!-- TEE TIME BOOKING INTEGRATION [END] -->
 
 </resources>

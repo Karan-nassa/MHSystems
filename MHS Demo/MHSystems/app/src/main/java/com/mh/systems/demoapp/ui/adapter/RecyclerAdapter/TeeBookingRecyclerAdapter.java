@@ -37,7 +37,7 @@ public class TeeBookingRecyclerAdapter extends RecyclerView.Adapter<TeeBookingRe
 
     Typeface tfRobotoRegular;
 
-    NumberFormat formatter = new DecimalFormat(".00");
+    NumberFormat formatter = new DecimalFormat("0.00");
 
     public TeeBookingRecyclerAdapter(Context context, List<Slot> mSlotsList, boolean isFromMyBooking) {
         this.context = context;
@@ -61,18 +61,33 @@ public class TeeBookingRecyclerAdapter extends RecyclerView.Adapter<TeeBookingRe
      * This method should update the contents of the itemView to reflect the item at the given position.
      * So here , if position!=0 it implies its a list_item_alphabet_row and we set the title and icon of the view.
      */
-
     @Override
     public void onBindViewHolder(TeeBookingRecyclerAdapter.ViewHolder holder, int position) {
 
         String strStartTime = mSlotsList.get(position).getSlotStart();
-        holder.tvMottTime.setText(strStartTime.substring(strStartTime.indexOf(' '),strStartTime.length()));
+        holder.tvMottTime.setText(strStartTime.substring(strStartTime.indexOf(' '), strStartTime.length()));
 
         holder.tvMottTitle.setText(mSlotsList.get(position).getProducts().get(0).getDescription());
 
-        double strPriceOfEvent =  (mSlotsList.get(position).getProducts().get(0).getPrice() / 100.00);
-        holder.tvMottPrice.setText((""+mSlotsList.get(position).getProducts().get(0).getCrnSymbol()
+        double strPriceOfEvent = (mSlotsList.get(position).getProducts().get(0).getPrice() / 100.00);
+        holder.tvMottPrice.setText(("" + mSlotsList.get(position).getProducts().get(0).getCrnSymbol()
                 + formatter.format(strPriceOfEvent)));
+
+        Product mProduct = mSlotsList.get(position).getProducts().get(0);
+        if (mProduct.getBuggyIsValid()) {
+            holder.llBuggyRow.setVisibility(View.VISIBLE);
+            holder.llTeeBookingRow.setPadding(5,5,5,5);
+            holder.tvBuggyPrice.setText(("" + mSlotsList.get(position).getProducts().get(0).getCrnSymbol()
+                    + formatter.format(mProduct.getBuggyPrice())));
+        } else {
+            holder.llBuggyRow.setVisibility(View.GONE);
+
+            ViewGroup.LayoutParams params = holder.llBookingDescRow.getLayoutParams();
+            params.height = 80;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            holder.llBookingDescRow.setLayoutParams(params);
+            holder.llTeeBookingRow.setPadding(10,10,10,10);
+        }
     }
 
     @Override
@@ -91,20 +106,25 @@ public class TeeBookingRecyclerAdapter extends RecyclerView.Adapter<TeeBookingRe
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvMottTime, tvMottTitle, tvMottPrice;
-        LinearLayout llBookingRow;
+        TextView tvBuggyPrice;
+        LinearLayout llTeeBookingRow, llBookingDescRow, llBuggyRow;
 
         public ViewHolder(View drawerItem, int itemType, Context context) {
             super(drawerItem);
 
-            llBookingRow = (LinearLayout) itemView.findViewById(R.id.llBookingRow);
+            llTeeBookingRow = (LinearLayout) itemView.findViewById(R.id.llTeeBookingRow);
+            llBookingDescRow = (LinearLayout) itemView.findViewById(R.id.llBookingDescRow);
+            llBuggyRow = (LinearLayout) itemView.findViewById(R.id.llBuggyRow);
 
-            tvMottTime = (TextView) itemView.findViewById(R.id.tvMottTime);
+            tvMottTime = (TextView) itemView.findViewById(R.id.tvMottDate);
             tvMottTitle = (TextView) itemView.findViewById(R.id.tvMottTitle);
-            tvMottPrice = (TextView) itemView.findViewById(R.id.tvMottPrice);
+            tvMottPrice = (TextView) itemView.findViewById(R.id.tvMottText);
+
+            tvBuggyPrice = (TextView) itemView.findViewById(R.id.tvBuggyPrice);
 
             setFontTypeFace();
 
-            llBookingRow.setOnClickListener(this);
+            llTeeBookingRow.setOnClickListener(this);
         }
 
         @Override
@@ -121,9 +141,10 @@ public class TeeBookingRecyclerAdapter extends RecyclerView.Adapter<TeeBookingRe
             intent.putExtra("Price", productInstance.getPrice());
             intent.putExtra("PLU", productInstance.getPLU());
             intent.putExtra("BuggyIsOptional", productInstance.getBuggyIsOptional());
-            intent.putExtra("BuggyPrice", ""+productInstance.getBuggyPrice());
+            intent.putExtra("BuggyPrice", "" + productInstance.getBuggyPrice());
             intent.putExtra("BuggyPLU", productInstance.getBuggyPLU());
             intent.putExtra("CrnSymbol", productInstance.getCrnSymbol());
+            intent.putExtra("BuggyIsValid", productInstance.getBuggyIsValid());
             context.startActivity(intent);
         }
 

@@ -12,28 +12,18 @@ import android.view.ViewGroup;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
-import com.mh.systems.demoapp.ui.activites.TeeBookingDetailActivity;
 import com.mh.systems.demoapp.ui.activites.TeeTimeBookingActivity;
 import com.mh.systems.demoapp.ui.adapter.RecyclerAdapter.MyBookingRecyclerAdapter;
-import com.mh.systems.demoapp.ui.adapter.RecyclerAdapter.TeeBookingRecyclerAdapter;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
-import com.mh.systems.demoapp.web.models.contactus.AJsonParamsContactUs;
-import com.mh.systems.demoapp.web.models.contactus.ContactUsAPI;
-import com.mh.systems.demoapp.web.models.contactus.ContactUsResponse;
 import com.mh.systems.demoapp.web.models.teetimebooking.booking.Booking;
 import com.mh.systems.demoapp.web.models.teetimebooking.booking.UpdateBookingResponse;
 import com.mh.systems.demoapp.web.models.teetimebooking.getbookingdata.AJsonParamsGetBookingData;
 import com.mh.systems.demoapp.web.models.teetimebooking.getbookingdata.GetBookingDataAPI;
-import com.mh.systems.demoapp.web.models.teetimebooking.getdaydata.Slot;
-import com.mh.systems.demoapp.web.models.teetimebooking.getmonthdata.AJsonParamsGetMonthData;
-import com.mh.systems.demoapp.web.models.teetimebooking.getmonthdata.GetMonthDataAPI;
-import com.mh.systems.demoapp.web.models.teetimebooking.getmonthdata.GetMonthDataResponse;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -51,7 +41,7 @@ public class MyBookingsFragment extends Fragment {
     private final String LOG_TAG = MyBookingsFragment.class.getSimpleName();
 
     @Bind(R.id.rvMyBookingList)
-    RecyclerView rvMyBookingList;
+    RecyclerView rvMyBookingList = null;
 
     GetBookingDataAPI getBookingDataAPI;
     AJsonParamsGetBookingData aJsonParamsGetBookingData;
@@ -175,22 +165,26 @@ public class MyBookingsFragment extends Fragment {
                     && mUpdateBookingResponse.getData().getSuccess()) {
 
                 List<Booking> mBookingList = mUpdateBookingResponse.getData().getBookings();
-                if(mBookingList.size() > 0) {
+                MyBookingRecyclerAdapter myBookingRecyclerAdapter = new MyBookingRecyclerAdapter(
+                        getActivity(),
+                        mBookingList,
+                        true,
+                        mUpdateBookingResponse.getData().getFundsAvail());
+                rvMyBookingList.setAdapter(myBookingRecyclerAdapter);
+                if (mBookingList.size() > 0) {
                     ((TeeTimeBookingActivity) getActivity()).updateNoDataUI(true, 1);
-                    MyBookingRecyclerAdapter myBookingRecyclerAdapter = new MyBookingRecyclerAdapter(getActivity(), mBookingList, true);
-                    rvMyBookingList.setAdapter(myBookingRecyclerAdapter);
-                }else{
+                } else {
                     ((TeeTimeBookingActivity) getActivity()).updateNoDataUI(false, 1);
                 }
 
             } else {
-                ((TeeTimeBookingActivity)getActivity()).showAlertMessage(mUpdateBookingResponse.getData().getMessage());
+                ((TeeTimeBookingActivity) getActivity()).showAlertMessage(mUpdateBookingResponse.getData().getMessage());
             }
-            ((TeeTimeBookingActivity)getActivity()).hideProgress();
+            ((TeeTimeBookingActivity) getActivity()).hideProgress();
         } catch (Exception e) {
-            ((TeeTimeBookingActivity)getActivity()).hideProgress();
+            ((TeeTimeBookingActivity) getActivity()).hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
-            ((TeeTimeBookingActivity)getActivity()).reportRollBarException(MyBookingsFragment.class.getSimpleName(), e.toString());
+            ((TeeTimeBookingActivity) getActivity()).reportRollBarException(MyBookingsFragment.class.getSimpleName(), e.toString());
         }
     }
 }

@@ -19,6 +19,9 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.fragments.ShowMonthViewFragment;
 import com.mh.systems.demoapp.ui.fragments.TeeTimeBookingTabFragment;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
+import com.roomorama.caldroid.CaldroidFragment;
+
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,6 +36,9 @@ public class TeeTimeBookingActivity extends BaseActivity {
     public final String LOG_TAG = TeeTimeBookingActivity.class.getSimpleName();
 
     private static int iTabPosition;
+
+    public static int iSelectedMonth;
+    public static int iSelectedYear;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -89,7 +95,11 @@ public class TeeTimeBookingActivity extends BaseActivity {
 
        // initFianaceCategory();
 
-        updateFragment(new TeeTimeBookingTabFragment());
+        Calendar cal = Calendar.getInstance();
+        iSelectedMonth = cal.get(Calendar.MONTH) + 1;
+        iSelectedYear = cal.get(Calendar.YEAR);
+
+        //updateFragment(new TeeTimeBookingTabFragment());
 
       /*  ivFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,7 +240,7 @@ public class TeeTimeBookingActivity extends BaseActivity {
             inc_message_view.setVisibility(View.GONE);
         } else {
             inc_message_view.setVisibility(View.VISIBLE);
-            ivMessageSymbol.setImageResource(R.mipmap.ic_home_members);
+            ivMessageSymbol.setImageResource(R.mipmap.ic_teetime_booking);
             if (iTabPositon == 0) {
                 tvMessageTitle.setText(getResources().getString(R.string.error_no_booking));
             } else {

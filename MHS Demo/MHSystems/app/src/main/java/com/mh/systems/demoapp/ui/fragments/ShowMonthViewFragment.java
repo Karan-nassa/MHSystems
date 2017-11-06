@@ -49,6 +49,9 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
+import static com.mh.systems.demoapp.ui.activites.TeeTimeBookingActivity.iSelectedMonth;
+import static com.mh.systems.demoapp.ui.activites.TeeTimeBookingActivity.iSelectedYear;
+
 
 public class ShowMonthViewFragment extends Fragment {
 
@@ -58,6 +61,8 @@ public class ShowMonthViewFragment extends Fragment {
     private final String TAG_DAY_DATA = "GETDAYDATA";
 
     boolean isCalendarEnable = true;
+
+    int iLastBookableMonth, iLastBookableYear;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -114,7 +119,8 @@ public class ShowMonthViewFragment extends Fragment {
 
             if (caldroidFragment != null) {
 
-                showCalendarView();
+                //showCalendarView();
+                initCalendar();
                 /*if (isCalendarEnable) {
                     showBookingList();
                 }*/
@@ -174,8 +180,8 @@ public class ShowMonthViewFragment extends Fragment {
 
             Bundle args = new Bundle();
             Calendar cal = Calendar.getInstance();
-            args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-            args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+            args.putInt(CaldroidFragment.MONTH, iSelectedMonth/*cal.get(Calendar.MONTH) + 1*/);
+            args.putInt(CaldroidFragment.YEAR, iSelectedYear/*cal.get(Calendar.YEAR)*/);
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
             args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
 
@@ -191,15 +197,16 @@ public class ShowMonthViewFragment extends Fragment {
 
             caldroidFragment.setArguments(args);
 
-
             ivLeftArrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Calendar cal = Calendar.getInstance();
-                    int iCurrentMonth = (cal.get(Calendar.MONTH) + 1);
-                    int iYear = cal.get(Calendar.YEAR);
+                    int iCurrentMonth  = (cal.get(Calendar.MONTH) + 1);
+                    int iYear  = cal.get(Calendar.YEAR);
                     if (caldroidFragment.getMonth() > iCurrentMonth || caldroidFragment.getYear() > iYear) {
                         caldroidFragment.prevMonth();
+                        iSelectedMonth = caldroidFragment.getMonth();
+                        iSelectedYear = caldroidFragment.getYear();
                     }
 
                     updateNavIcons(iCurrentMonth, iYear);
@@ -209,11 +216,17 @@ public class ShowMonthViewFragment extends Fragment {
             ivRightArrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    caldroidFragment.nextMonth();
 
                     Calendar cal = Calendar.getInstance();
                     int iCurrentMonth = (cal.get(Calendar.MONTH) + 1);
-                    int iYear = cal.get(Calendar.YEAR);
+                    int iYear  = cal.get(Calendar.YEAR);
+
+                    if (caldroidFragment.getMonth() < iLastBookableMonth || caldroidFragment.getYear() < iLastBookableYear) {
+                        caldroidFragment.nextMonth();
+                        iSelectedMonth = caldroidFragment.getMonth();
+                        iSelectedYear = caldroidFragment.getYear();
+                    }
+
                     updateNavIcons(iCurrentMonth, iYear);
                 }
             });
@@ -285,6 +298,7 @@ public class ShowMonthViewFragment extends Fragment {
                             .show();*/
 
                     //initCalendar();
+                    updateNavIcons(iSelectedMonth, iSelectedYear);
                 }
             }
 
@@ -313,10 +327,18 @@ public class ShowMonthViewFragment extends Fragment {
     }
 
     private void updateNavIcons(int iCurrentMonth, int iCurrentYear) {
-        if (caldroidFragment.getMonth() == iCurrentMonth && caldroidFragment.getYear() == iCurrentYear) {
+        if (caldroidFragment.getMonth() == iCurrentMonth
+                && caldroidFragment.getYear() == iCurrentYear) {
             ivLeftArrow.setAlpha((float) 0.5);
         } else {
             ivLeftArrow.setAlpha((float) 1.0);
+        }
+
+        if (caldroidFragment.getMonth() == iLastBookableMonth
+                && caldroidFragment.getYear() == iLastBookableYear) {
+            ivRightArrow.setAlpha((float) 0.5);
+        } else {
+            ivRightArrow.setAlpha((float) 1.0);
         }
     }
 
@@ -420,6 +442,11 @@ public class ShowMonthViewFragment extends Fragment {
              */
             if (mGetMonthDataResponse.getMessage().equalsIgnoreCase("Success")) {
 
+                String LastBookableDate = mGetMonthDataResponse.getData().getLastBookableDate();
+                iLastBookableYear = Integer.parseInt(LastBookableDate.substring(0, LastBookableDate.indexOf('-')));
+                iLastBookableMonth = Integer.parseInt(LastBookableDate.substring(LastBookableDate.indexOf('-') + 1,
+                        LastBookableDate.lastIndexOf('-')));
+
                 mSelectedDates.clear();
                 List<Day> mDaysArr = mGetMonthDataResponse.getData().getDays();
                 for (int iCount = 0; iCount < mDaysArr.size(); iCount++) {
@@ -431,7 +458,8 @@ public class ShowMonthViewFragment extends Fragment {
                     }*/
                 }
 
-                showCalendarView();
+                initCalendar();
+                //showCalendarView();
 
             } else {
                 ((TeeTimeBookingActivity) getActivity()).showAlertMessage(mGetMonthDataResponse.getMessage());
@@ -483,7 +511,6 @@ public class ShowMonthViewFragment extends Fragment {
         cal.add(Calendar.DATE, 0);
         Date minDate = cal.getTime();
 
-
         // Max date is next 7 days
         cal = Calendar.getInstance();
         int iNumOfDaysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -510,13 +537,6 @@ public class ShowMonthViewFragment extends Fragment {
                     disabledDates.add(cal.getTime());
                 }*/
 
-      /*  mSelectedDates.add("2017-10-24");
-        mSelectedDates.add("2017-10-26");
-        mSelectedDates.add("2017-10-28");
-        mSelectedDates.add("2017-10-31");
-        mSelectedDates.add("2017-11-01");
-        mSelectedDates.add("2017-11-12");*/
-
         // Customize
         caldroidFragment.setMinDate(minDate);
         // caldroidFragment.setMaxDate(maxDate);
@@ -532,6 +552,12 @@ public class ShowMonthViewFragment extends Fragment {
         // cal = Calendar.getInstance();
         // cal.add(Calendar.MONTH, 12);
         // caldroidFragment.moveToDate(cal.getTime());
+
+        llDayView.setVisibility(View.GONE);
+        llCalendar.setVisibility(View.VISIBLE);
+
+        ivTeeCalendar.setAlpha((float) 0.5);
+        isCalendarEnable = true;
     }
 
     private void setCustomResourceForDates(int dayNo) {
@@ -571,15 +597,15 @@ public class ShowMonthViewFragment extends Fragment {
         ivTeeCalendar.setAlpha((float) 1.0);
     }
 
-    private void showCalendarView() {
-        llDayView.setVisibility(View.GONE);
+   /* private void showCalendarView() {
+      llDayView.setVisibility(View.GONE);
         llCalendar.setVisibility(View.VISIBLE);
 
         ivTeeCalendar.setAlpha((float) 0.5);
         isCalendarEnable = true;
 
         initCalendar();
-    }
+    }*/
 
 
 }

@@ -33,12 +33,14 @@ public class MyBookingRecyclerAdapter extends RecyclerView.Adapter<MyBookingRecy
 
     Typeface tfRobotoRegular;
 
-    NumberFormat formatter = new DecimalFormat(".00");
+    NumberFormat formatter = new DecimalFormat("0.00");
+    Integer fundsAvail;
 
-    public MyBookingRecyclerAdapter(Context context, List<Booking> mBookingList, boolean isFromMyBooking) {
+    public MyBookingRecyclerAdapter(Context context, List<Booking> mBookingList, boolean isFromMyBooking, Integer fundsAvail) {
         this.context = context;
         this.isFromMyBooking = isFromMyBooking;
         this.mBookingList = mBookingList;
+        this.fundsAvail = fundsAvail;
 
         tfRobotoRegular = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
     }
@@ -63,12 +65,18 @@ public class MyBookingRecyclerAdapter extends RecyclerView.Adapter<MyBookingRecy
 
         String strStartTime = mBookingList.get(position).getDate();
         //holder.tvMottTime.setText(strStartTime.substring(strStartTime.indexOf('T') + 1,strStartTime.lastIndexOf(':')));
-        holder.tvMottTime.setText(strStartTime.substring(strStartTime.indexOf(' '),strStartTime.length()));
+
+        holder.tvMottTime.setText(strStartTime.substring(0, strStartTime.indexOf(' ')));
+        holder.tvMottPrice.setText(strStartTime.substring(strStartTime.indexOf(' '),strStartTime.length()));
 
         holder.tvMottTitle.setText(mBookingList.get(position).getDescription());
 
-        holder.tvMottPrice.setText("");
-        holder.tvMottPrice.setVisibility(View.INVISIBLE);
+        holder.llBuggyRow.setVisibility(View.GONE);
+        ViewGroup.LayoutParams params = holder.llBookingDescRow.getLayoutParams();
+        params.height = 80;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        holder.llBookingDescRow.setLayoutParams(params);
+        holder.llTeeBookingRow.setPadding(10,10,10,10);
     }
 
     @Override
@@ -87,20 +95,25 @@ public class MyBookingRecyclerAdapter extends RecyclerView.Adapter<MyBookingRecy
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvMottTime, tvMottTitle, tvMottPrice;
-        LinearLayout llBookingRow;
+        TextView tvBuggyPrice;
+        LinearLayout llTeeBookingRow, llBookingDescRow, llBuggyRow;
 
         public ViewHolder(View drawerItem, int itemType, Context context) {
             super(drawerItem);
 
-            llBookingRow = (LinearLayout) itemView.findViewById(R.id.llBookingRow);
+            llTeeBookingRow = (LinearLayout) itemView.findViewById(R.id.llTeeBookingRow);
+            llBookingDescRow = (LinearLayout) itemView.findViewById(R.id.llBookingDescRow);
+            llBuggyRow = (LinearLayout) itemView.findViewById(R.id.llBuggyRow);
 
-            tvMottTime = (TextView) itemView.findViewById(R.id.tvMottTime);
+            tvMottTime = (TextView) itemView.findViewById(R.id.tvMottDate);
             tvMottTitle = (TextView) itemView.findViewById(R.id.tvMottTitle);
-            tvMottPrice = (TextView) itemView.findViewById(R.id.tvMottPrice);
+            tvMottPrice = (TextView) itemView.findViewById(R.id.tvMottText);
+
+            tvBuggyPrice = (TextView) itemView.findViewById(R.id.tvBuggyPrice);
 
             setFontTypeFace();
 
-            llBookingRow.setOnClickListener(this);
+            llTeeBookingRow.setOnClickListener(this);
         }
 
         @Override
@@ -109,6 +122,7 @@ public class MyBookingRecyclerAdapter extends RecyclerView.Adapter<MyBookingRecy
             Booking booking =  mBookingList.get(getAdapterPosition());
 
             Intent intent = new Intent(context, TeeBookingDetailActivity.class);
+            intent.putExtra("FundsAvail", fundsAvail);
             intent.putExtra("FROM_MY_BOOKING", isFromMyBooking);
             intent.putExtra("SlotStart", booking.getDate());
             intent.putExtra("BookingId", booking.getBookingId());

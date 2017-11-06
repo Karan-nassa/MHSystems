@@ -1,3 +1,6 @@
+####Version 1.2 (30th Oct, 2017)
+  - UPDATE: Integrate Facebook, Twitter feature.
+
 ####Version 1.1.0 (7th Aug, 2017)
   - FIXED: Friend/Unfriend is not getting updated in one go as need to switch the screen to get the result.
   - FIXED: Member detail screen should display 'FormalName' not 'FullName'

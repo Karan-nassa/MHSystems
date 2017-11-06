@@ -236,7 +236,7 @@ public class DashboardRecyclerAdapter extends RecyclerView.Adapter<DashboardRecy
      */
     public void updateBadgerCount(int iUnreadCount) {
         if (mInstanceOfClubNews != null) {
-            mInstanceOfClubNews.flBadgerGroup.setVisibility(View.VISIBLE);
+            mInstanceOfClubNews.flBadgerGroup.setVisibility(View.INVISIBLE);
             mInstanceOfClubNews.tvBadgerCount.setText(("" + iUnreadCount));
         }
     }

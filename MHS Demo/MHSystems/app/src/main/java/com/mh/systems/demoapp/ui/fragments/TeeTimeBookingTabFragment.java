@@ -37,7 +37,7 @@ public class TeeTimeBookingTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public static int iLastTabPosition;
+    public int iLastTabPosition;
 
     /**
      * Declare three bool instances to call api

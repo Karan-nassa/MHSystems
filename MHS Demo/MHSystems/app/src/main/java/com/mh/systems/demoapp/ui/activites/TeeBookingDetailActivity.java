@@ -1,6 +1,7 @@
 package com.mh.systems.demoapp.ui.activites;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -20,6 +22,9 @@ import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
+import com.mh.systems.demoapp.web.models.FinanceAJsonParams;
+import com.mh.systems.demoapp.web.models.FinanceAPI;
+import com.mh.systems.demoapp.web.models.FinanceResultItems;
 import com.mh.systems.demoapp.web.models.teetimebooking.booking.UpdateBookingResponse;
 import com.mh.systems.demoapp.web.models.teetimebooking.cancelbooking.AJsonParamsCancelBooking;
 import com.mh.systems.demoapp.web.models.teetimebooking.cancelbooking.CancelBookingAPI;
@@ -43,14 +48,22 @@ public class TeeBookingDetailActivity extends BaseActivity {
 
     private final String LOG_TAG = TeeBookingDetailActivity.class.getSimpleName();
 
-    String strDateAndTime, strSlotStartDateTime, strDescription, strPLU, strBuggyPrice, strBuggyPLU, strCrnSymbol;
+    String strDateAndTime, strSlotStartDateTime, strDescription, strPLU, strBuggyPLU, strCrnSymbol;
     String strDate, strTime;
     boolean isBuggyIsOptional;
-    boolean isCanCancel;
+    boolean isCanCancel, isBuggyValid;
     int iBookingId;
-    float fPrice;
+    float fPrice, fBuggyPrice;
+    int fActualPrice;
+    Integer FundsAvail = 0;
 
     boolean fromMyBooking;
+    boolean isBuggySelected;
+
+    private float mTopUpBalance = 0;
+
+    NumberFormat formatter = new DecimalFormat("0.00");
+    double price = 0;
 
     /*********************************
      * INSTANCES OF CLASSES
@@ -69,6 +82,12 @@ public class TeeBookingDetailActivity extends BaseActivity {
     @Bind(R.id.llTeeBookingGroup)
     LinearLayout llTeeBookingGroup;
 
+    @Bind(R.id.llTeeBookingWithBuggy)
+    LinearLayout llTeeBookingWithBuggy;
+
+    @Bind(R.id.tvTeePriceWithBuggy)
+    TextView tvTeePriceWithBuggy;
+
     //Join Competition Button
     @Bind(R.id.fabJoinCompetition)
     FloatingActionButton fabJoinCompetition;
@@ -81,6 +100,11 @@ public class TeeBookingDetailActivity extends BaseActivity {
     private CancelBookingAPI mCancelBookingAPI;
     private AJsonParamsCancelBooking aJsonParamsCancelBooking;
 
+    FinanceResultItems financeResultItems;
+
+    FinanceAPI financeApi;
+    FinanceAJsonParams financeAJsonParams;
+
     private View.OnClickListener mJoinOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -90,19 +114,37 @@ public class TeeBookingDetailActivity extends BaseActivity {
              */
             if (isOnline(TeeBookingDetailActivity.this)) {
                 if (fromMyBooking) {
-                    if(isCanCancel) {
+                    if (isCanCancel) {
                         requestCancelBookingEntry();
-                    }else{
+                    } else {
                         showAlertMessage("You are not authorized to cancel this entry.");
                     }
                 } else {
-                    requestMakeBookingEntry();
+                    checkFundBalance();
                 }
             } else {
                 showAlertMessage(getResources().getString(R.string.error_no_internet));
             }
         }
     };
+
+    private void checkFundBalance() {
+
+        if (mTopUpBalance >= price) {
+            if (isBuggyValid) {
+                showAlertBuggyOption();
+            } else {
+                requestMakeBookingEntry();
+            }
+        } else {
+            String strErrorMessage = "Sorry, you do not have sufficient funds to make this entry. The total entry fees are "
+                    + strCrnSymbol + formatter.format(price) + ". Your Account balance is "
+                    + strCrnSymbol + formatter.format(mTopUpBalance) +
+                    ". Please top-up your account by clicking ok.";
+            showAlertError(strErrorMessage);
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,17 +178,36 @@ public class TeeBookingDetailActivity extends BaseActivity {
         } else {
             strSlotStartDateTime = getIntent().getExtras().getString("SlotStartDateTime");
 
-            fPrice = getIntent().getExtras().getFloat("Price");
+            fPrice = fActualPrice = getIntent().getExtras().getInt("Price");
             strPLU = getIntent().getExtras().getString("PLU");
             isBuggyIsOptional = getIntent().getExtras().getBoolean("BuggyIsOptional");
-            strBuggyPrice = getIntent().getExtras().getString("BuggyPrice");
+            fBuggyPrice = getIntent().getExtras().getInt("BuggyPrice");
             strBuggyPLU = getIntent().getExtras().getString("BuggyPLU");
             strCrnSymbol = getIntent().getExtras().getString("CrnSymbol");
+            isBuggyValid = getIntent().getExtras().getBoolean("BuggyIsValid");
 
-            NumberFormat formatter = new DecimalFormat(".00");
-            double price = fPrice / 100.00;
+            price = fPrice / 100.00;
             llTeeBookingGroup.setVisibility(View.VISIBLE);
             tvTeePriceOfEvent.setText(formatter.format(price));
+
+            isBuggyValid = false;
+            isBuggyIsOptional = false;
+
+            //isBuggySelected = isBuggyIsOptional;
+            if (!isBuggyValid) {
+                llTeeBookingWithBuggy.setVisibility(View.GONE);
+            } else if (isBuggyValid && !isBuggyIsOptional) {
+                tvTeePriceOfEvent.setText((formatter.format(price + fBuggyPrice) +
+                        " " + getString(R.string.text_title_with_buggy)));
+                llTeeBookingWithBuggy.setVisibility(View.GONE);
+                /*tvTeePriceWithBuggy.setText((formatter.format(strBuggyPrice) +
+                        " " + getString(R.string.text_title_with_buggy)));*/
+            } else {
+                //tvTeePriceOfEvent.setText(formatter.format(price));
+                tvTeePriceWithBuggy.setText((formatter.format(price + fBuggyPrice) +
+                        " " + getString(R.string.text_title_with_buggy)));
+                llTeeBookingWithBuggy.setVisibility(View.VISIBLE);
+            }
         }
 
         tvTeeTitleOfEvent.setText(strDescription);
@@ -165,10 +226,27 @@ public class TeeBookingDetailActivity extends BaseActivity {
         fabJoinCompetition.setOnClickListener(mJoinOnClickListener);
     }
 
-    /* Implement a method Custom showEnterCompetitionDialog
-  * Alert Dialog for input user First & Last name,
-  * email address and Mobile number.
-  */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (isOnline(TeeBookingDetailActivity.this)) {
+            if (!fromMyBooking) {
+                getCardBalanceService();
+            }
+        } else {
+            showAlertMessage(getString(R.string.error_no_internet));
+        }
+    }
+
+    /**
+     * Implement a method Custom showEnterCompetitionDialog
+     * Alert Dialog for input user First & Last name,
+     * email address and Mobile number.
+     */
     public void showAlertMessageCallback(String strAlertMessage) {
 
         if (builder == null) {
@@ -280,10 +358,10 @@ public class TeeBookingDetailActivity extends BaseActivity {
         aJsonParamsMakeBookingAPI.setMemberId(getMemberId());
         aJsonParamsMakeBookingAPI.setSlotStart(strSlotStartDateTime);
         aJsonParamsMakeBookingAPI.setPLU(strPLU);
-        aJsonParamsMakeBookingAPI.setPrice("" + fPrice);
-        aJsonParamsMakeBookingAPI.setIncludesBuggy(isBuggyIsOptional);
+        aJsonParamsMakeBookingAPI.setPrice("" + fActualPrice);
+        aJsonParamsMakeBookingAPI.setIncludesBuggy(isBuggySelected/*isBuggyIsOptional*/);
         aJsonParamsMakeBookingAPI.setBuggyPLU(strBuggyPLU);
-        aJsonParamsMakeBookingAPI.setBuggyPrice(strBuggyPrice);
+        aJsonParamsMakeBookingAPI.setBuggyPrice("" + fBuggyPrice);
 
         mMakeBookingAPI = new MakeBookingAPI(getClientId(),
                 "MAKEBOOKING",
@@ -356,7 +434,13 @@ public class TeeBookingDetailActivity extends BaseActivity {
                     fromMyBooking = true;
                     updateFloatingButton(fromMyBooking);
                 } */
-                showAlertMessageCallback(mUpdateBookingResponse.getData().getMessage());
+                if (fromMyBooking) {
+                    showAlertMessageCallback(mUpdateBookingResponse.getData().getMessage()
+                            + " This has been removed to your ‘My Bookings’ items’.");
+                } else {
+                    showAlertMessageCallback(mUpdateBookingResponse.getData().getMessage()
+                            + " This has been added to your ‘My Bookings’ items’.");
+                }
 
             } else {
                 showAlertMessage(mUpdateBookingResponse.getData().getMessage());
@@ -367,5 +451,138 @@ public class TeeBookingDetailActivity extends BaseActivity {
             Log.e(LOG_TAG, "" + e.getMessage());
             reportRollBarException(TeeBookingDetailActivity.class.getSimpleName(), e.toString());
         }
+    }
+
+    /************************************ FINANCE WEB SERVICE [START] ************************************/
+
+    private void getCardBalanceService() {
+
+        showPleaseWait("Loading...");
+
+        financeAJsonParams = new FinanceAJsonParams();
+        financeAJsonParams.setCallid(ApplicationGlobal.TAG_NEW_GCLUB_CALL_ID);
+        financeAJsonParams.setDateRange(2);//iFilterType
+        financeAJsonParams.setMemberId(getMemberId());
+
+        financeApi = new FinanceAPI(getClientId(), "GetAccStatement"
+                , financeAJsonParams, "TRANSACTION", ApplicationGlobal.TAG_GCLUB_MEMBERS);
+
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+        api.getFinanceDetail(financeApi, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+                updateSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                showAlertError(getString(R.string.error_no_topup_found));
+                hideProgress();
+            }
+        });
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new com.newrelic.com.google.gson.reflect.TypeToken<FinanceResultItems>() {
+        }.getType();
+        financeResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (financeResultItems.getMessage().equalsIgnoreCase("Success")) {
+
+                String strClosingBalance = financeResultItems.getData().getClosingBalance();
+                mTopUpBalance = Float.parseFloat(strClosingBalance.substring(1, strClosingBalance.length()));
+
+            } else {
+                showAlertMessage(financeResultItems.getMessage());
+            }
+        } catch (Exception e) {
+            reportRollBarException(ConfirmBookingEntryActivity.class.getSimpleName()
+                    , e.toString());
+        }
+
+        //Dismiss progress dialog.
+        hideProgress();
+    }
+
+    /**
+     * Implement a method Custom showEnterCompetitionDialog
+     * Alert Dialog for input user First & Last name,
+     * email address and Mobile number.
+     */
+    public void showAlertError(String strAlertMessage) {
+
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage(strAlertMessage)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = new Intent(TeeBookingDetailActivity.this,
+                                    TopUpActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("PASS_FROM", TeeBookingDetailActivity.class.getSimpleName());
+                            intent.putExtra("strClosingBalance", financeResultItems.getData().getClosingBalance());
+                            startActivity(intent);
+                            builder = null;
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    }
+
+    /************************************ FINANCE WEB SERVICE [END] ************************************/
+
+    public void showAlertBuggyOption() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(TeeBookingDetailActivity.this);
+        // builder.setTitle("");
+        builder.setTitle("Book the event on " + getFormateDate(strDate) + " at " + strTime.trim());
+
+        builder.setPositiveButton("Book with Buggy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                isBuggySelected = true;
+                requestMakeBookingEntry();
+                //  Toast.makeText(TeeBookingDetailActivity.this, "Book without Buggy", Toast.LENGTH_LONG).show();
+                dialog.cancel();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        if (isBuggyIsOptional) {
+            builder.setNeutralButton("Book without Buggy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    isBuggySelected = false;
+                    requestMakeBookingEntry();
+                    dialog.cancel();
+                }
+            });
+        }
+
+        AlertDialog diag = builder.create();
+        diag.show();
     }
 }

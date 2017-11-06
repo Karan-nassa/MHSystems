@@ -16,7 +16,7 @@ public class Product {
     private String Description;
     @SerializedName("Price")
     @Expose
-    private float Price;
+    private int Price;
     @SerializedName("BuggyIsValid")
     @Expose
     private Boolean BuggyIsValid;
@@ -52,11 +52,11 @@ public class Product {
         this.Description = Description;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return Price;
     }
 
-    public void setPrice(float Price) {
+    public void setPrice(int Price) {
         this.Price = Price;
     }
 

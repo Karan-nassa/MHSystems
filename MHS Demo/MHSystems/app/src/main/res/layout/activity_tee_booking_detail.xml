@@ -113,7 +113,7 @@
 
             </LinearLayout>
 
-            <!-- TYPE OF COMPETITION EVENT -->
+            <!-- TYPE OF EVENT -->
 
             <LinearLayout
                 android:id="@+id/llTypeGroup"
@@ -154,14 +154,15 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
-                android:visibility="gone"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <!-- PRICE-->
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="2dp"
                     android:src="@mipmap/ic_competition_pound" />
 
@@ -171,7 +172,40 @@
                     android:id="@+id/tvTeePriceOfEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:text="5.00 "
+                    android:textColor="@color/color030303"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+            <!-- TYPE OF TEE TIME BOOKING EVENT -->
+
+            <LinearLayout
+                android:id="@+id/llTeeBookingWithBuggy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <!-- PRICE-->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:src="@mipmap/ic_competition_pound" />
+
+                <!-- PRIZE OF TEE EVENT -->
+
+                <TextView
+                    android:id="@+id/tvTeePriceWithBuggy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:text="5.00 "
                     android:textColor="@color/color030303"
@@ -196,5 +230,4 @@
         app:backgroundTint="@color/colorC0995B"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
-
 </android.support.design.widget.CoordinatorLayout>
