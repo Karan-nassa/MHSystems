@@ -49,7 +49,6 @@
         <activity
             android:name=".ui.activites.DashboardActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.activites.DashboardWebviewActivity"
             android:screenOrientation="portrait" />
@@ -259,6 +258,7 @@
         <!-- WEATHER SERVICE -->
 
         <service android:name=".dataaccess.service.DashboardWeatherService" />
+
     </application>
 
 </manifest>

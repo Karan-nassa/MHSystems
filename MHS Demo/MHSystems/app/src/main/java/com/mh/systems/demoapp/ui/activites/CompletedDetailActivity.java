@@ -1,6 +1,7 @@
 package com.mh.systems.demoapp.ui.activites;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -10,18 +11,21 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.adapter.BaseAdapter.CompetitionDetailAdapter;
+import com.mh.systems.demoapp.ui.adapter.expandableAdapter.CompResultsExpandListAdapter;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
 import com.mh.systems.demoapp.web.api.WebAPI;
 import com.mh.systems.demoapp.web.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.demoapp.web.models.CompetitionDetailItems;
 import com.mh.systems.demoapp.web.models.CompetitionResultAPI;
+import com.mh.systems.demoapp.web.models.Result;
 import com.mh.systems.demoapp.web.models.ResultEntries;
 import com.mh.systems.demoapp.web.api.WebServiceMethods;
 import com.mh.systems.demoapp.utils.ScrollRecycleView;
@@ -31,6 +35,12 @@ import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,8 +71,6 @@ public class CompletedDetailActivity extends BaseActivity {
     TextView tvEventStatusStrDD;
     @Bind(R.id.nsvContent)
     NestedScrollView nsvContent;
-    @Bind(R.id.tvResultDesc)
-    TextView tvResultDesc;
     @Bind(R.id.tvNoDataView)
     TextView tvNoDataView;
 
@@ -84,8 +92,8 @@ public class CompletedDetailActivity extends BaseActivity {
 
     CompetitionDetailAdapter competitionDetailAdapter;
 
-    @Bind(R.id.lvListOfMembers)
-    ListView lvListOfMembers;
+   /* @Bind(R.id.lvListOfMembers)
+    ListView lvListOfMembers;*/
 
     @Bind(R.id.llRankOfMembers)
     LinearLayout llRankOfMembers;
@@ -98,6 +106,13 @@ public class CompletedDetailActivity extends BaseActivity {
     int iPopItemPos;
 
     Typeface tpRobotoMedium, tfSFUITextSemibold, tfButlerLight;
+
+    @Bind(R.id.elvListOfMembers)
+    ExpandableListView elvListOfMembers;
+    CompResultsExpandListAdapter expListAdapter;
+    List<String> expandableListTitle;
+    Map<String, List<ResultEntries>> listHashMapOfResults = new TreeMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -323,11 +338,19 @@ public class CompletedDetailActivity extends BaseActivity {
 
                     tvNoDataView.setVisibility(View.INVISIBLE);
 
-                    tvResultDesc.setText(competitionDetailItems.getCompResultData().getResults().get(0).getDescription());
+                    List<Result> mResultDataList = competitionDetailItems.getCompResultData().getResults();
 
-                    competitionDetailAdapter = new CompetitionDetailAdapter(CompletedDetailActivity.this, resultEntryArrayList);
-                    lvListOfMembers.setAdapter(competitionDetailAdapter);
-                    ScrollRecycleView.getListViewSize(lvListOfMembers);
+                    for (int iCount = mResultDataList.size() - 1; iCount >= 0; iCount--) {
+                        String strKey = mResultDataList.get(iCount).getResultID() + mResultDataList.get(iCount).getDescription();
+                        //Log.e("icount", ""+mResultDataList.get(iCount).getDescription());
+                        listHashMapOfResults.put(strKey, mResultDataList.get(iCount).getResultEntries());
+                    }
+
+                    setupExpandableList();
+
+                    //competitionDetailAdapter = new CompetitionDetailAdapter(CompletedDetailActivity.this, resultEntryArrayList);
+                    //  lvListOfMembers.setAdapter(competitionDetailAdapter);
+                    //  ScrollRecycleView.getListViewSize(lvListOfMembers);
 
                     //Forcefully scroll UP of screen after loading.
                     nsvContent.post(new Runnable() {
@@ -349,6 +372,81 @@ public class CompletedDetailActivity extends BaseActivity {
             reportRollBarException(CompletedDetailActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
+    }
+
+    private void setupExpandableList() {
+        // expandableListDetail = ExpandableListDataPump.getData();
+        expandableListTitle = new ArrayList<String>(listHashMapOfResults.keySet());
+        expListAdapter = new CompResultsExpandListAdapter(this, expandableListTitle, listHashMapOfResults);
+        elvListOfMembers.setAdapter(expListAdapter);
+        ScrollRecycleView.getListViewSize(elvListOfMembers);
+        elvListOfMembers.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+              /*  Toast.makeText(getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Expanded.",
+                        Toast.LENGTH_SHORT).show();*/
+
+                int height = 0;
+                for (int i = 0; i < elvListOfMembers.getChildCount(); i++) {
+                    height += elvListOfMembers.getChildAt(i).getMeasuredHeight();
+                    height += elvListOfMembers.getDividerHeight();
+                }
+                elvListOfMembers.getLayoutParams().height = (height + 6) * 10;
+            }
+        });
+
+        elvListOfMembers.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+               /* int height = 0;
+                for (int i = 0; i < elvListOfMembers.getChildCount(); i++) {
+                    height -= elvListOfMembers.getChildAt(i).getMeasuredHeight();
+                    height -= elvListOfMembers.getDividerHeight();
+                }
+                elvListOfMembers.getLayoutParams().height = height;*/
+
+               /* Toast.makeText(getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Collapsed.",
+                        Toast.LENGTH_SHORT).show();*/
+
+            }
+        });
+
+        elvListOfMembers.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+              /*  Toast.makeText(
+                        getApplicationContext(),
+                        expandableListTitle.get(groupPosition)
+                                + " -> "
+                                + listHashMapOfResults.get(
+                                expandableListTitle.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT
+                ).show();*/
+                return false;
+            }
+        });
+
+        elvListOfMembers.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int previousGroup = -1;
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if(groupPosition != previousGroup)
+                    elvListOfMembers.collapseGroup(previousGroup);
+                previousGroup = groupPosition;
+
+                int height = 0;
+                for (int i = 0; i < elvListOfMembers.getChildCount(); i++) {
+                    height += elvListOfMembers.getChildAt(i).getMeasuredHeight();
+                    height += elvListOfMembers.getDividerHeight();
+                }
+                elvListOfMembers.getLayoutParams().height = (height + 6) * 5;
+            }
+        });
     }
 
 }
