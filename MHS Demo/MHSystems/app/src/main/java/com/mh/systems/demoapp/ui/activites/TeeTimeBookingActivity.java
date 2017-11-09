@@ -89,25 +89,10 @@ public class TeeTimeBookingActivity extends BaseActivity {
         }
 
         tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
-        //tvMyAccountTitle.setTypeface(tfRobotoMedium);
-
-//        iOpenTabPosition = getIntent().getExtras().getInt("iTabPosition");
-
-       // initFianaceCategory();
 
         Calendar cal = Calendar.getInstance();
         iSelectedMonth = cal.get(Calendar.MONTH) + 1;
         iSelectedYear = cal.get(Calendar.YEAR);
-
-        //updateFragment(new TeeTimeBookingTabFragment());
-
-      /*  ivFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupMenu.show();
-            }
-        });
-        popupMenu.setOnMenuItemClickListener(mCourseTypeListener);*/
     }
 
     @Override
@@ -147,12 +132,8 @@ public class TeeTimeBookingActivity extends BaseActivity {
     public void updateHasInternetUI(boolean isOnline) {
         if (isOnline) {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
-            //inc_noInternet.setVisibility(View.GONE);
-            //container.setVisibility(View.VISIBLE);
         } else {
             showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
-            //container.setVisibility(View.GONE);
-            //inc_noInternet.setVisibility(View.VISIBLE);
         }
     }
 
@@ -184,28 +165,6 @@ public class TeeTimeBookingActivity extends BaseActivity {
      */
     public void setFragmentInstance(Fragment fragmentObj) {
         this.fragmentObj = fragmentObj;
-    }
-
-   /* public void setWhichTab(int iTabPosition) {
-        this.iTabPosition = iTabPosition;
-
-        if (iTabPosition == 0 || iTabPosition == 2) {
-            updateFilterIcon(View.VISIBLE);
-        } else {
-            updateFilterIcon(View.GONE);
-        }
-    }*/
-
-    public int getWhichTab() {
-        return this.iTabPosition;
-    }
-
-    public int getiOpenTabPosition() {
-        return iOpenTabPosition;
-    }
-
-    public void setiOpenTabPosition(int iOpenTabPosition) {
-        this.iOpenTabPosition = iOpenTabPosition;
     }
 
     /**

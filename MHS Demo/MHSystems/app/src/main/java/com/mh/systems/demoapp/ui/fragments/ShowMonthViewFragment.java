@@ -118,8 +118,6 @@ public class ShowMonthViewFragment extends Fragment {
         public void onClick(View v) {
 
             if (caldroidFragment != null) {
-
-                //showCalendarView();
                 initCalendar();
                 /*if (isCalendarEnable) {
                     showBookingList();
@@ -189,12 +187,6 @@ public class ShowMonthViewFragment extends Fragment {
             args.putInt(CaldroidFragment.START_DAY_OF_WEEK,
                     CaldroidFragment.MONDAY); // Monday
 
-            // Uncomment this line to use Caldroid in compact mode
-            // args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, false);
-
-            // Uncomment this line to use dark theme
-//            args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
-
             caldroidFragment.setArguments(args);
 
             ivLeftArrow.setOnClickListener(new View.OnClickListener() {
@@ -235,8 +227,6 @@ public class ShowMonthViewFragment extends Fragment {
             ivTeeCalendar.setOnClickListener(mCalendarIconListener);
         }
 
-        //setCustomResourceForDates();
-
         // Attach to the activity
         FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
         t.replace(R.id.llCalendar, caldroidFragment);
@@ -247,18 +237,12 @@ public class ShowMonthViewFragment extends Fragment {
 
             @Override
             public void onSelectDate(Date date, View view) {
-               /* Toast.makeText(getActivity(), formatter.format(date),
-                        Toast.LENGTH_SHORT).show();*/
 
                 /**
                  *  Check internet connection before hitting server request.
                  */
                 if (((TeeTimeBookingActivity) getActivity()).isOnline(getActivity())) {
                     requestTeeBookingDataService(formatterDate.format(date), TAG_DAY_DATA);
-
-                    //To Hide 'No FRIEND FOUND' message
-                    //((TeeTimeBookingActivity) getActivity()).updateNoDataUI(true, 1);
-
                 } else {
                     ((TeeTimeBookingActivity) getActivity()).showAlertMessage(getString(R.string.error_no_connection));
                 }
@@ -274,10 +258,6 @@ public class ShowMonthViewFragment extends Fragment {
                  */
                 if (((TeeTimeBookingActivity) getActivity()).isOnline(getActivity())) {
                     requestTeeBookingDataService(formatterDate.format(date), TAG_MONTH_DATA);
-
-                    //To Hide 'No FRIEND FOUND' message
-                    //((TeeTimeBookingActivity) getActivity()).updateNoDataUI(true, 1);
-
                 } else {
                     ((TeeTimeBookingActivity) getActivity()).showAlertMessage(getString(R.string.error_no_connection));
                 }
@@ -285,18 +265,11 @@ public class ShowMonthViewFragment extends Fragment {
 
             @Override
             public void onLongClickDate(Date date, View view) {
-               /* Toast.makeText(getActivity(),
-                        "Long click " + formatterDate.format(date),
-                        Toast.LENGTH_SHORT).show();*/
             }
 
             @Override
             public void onCaldroidViewCreated() {
                 if (caldroidFragment.getLeftArrowButton() != null) {
-                   /* Toast.makeText(getApplicationContext(),
-                            "Caldroid view is created", Toast.LENGTH_SHORT)
-                            .show();*/
-
                     //initCalendar();
                     updateNavIcons(iSelectedMonth, iSelectedYear);
                 }
@@ -307,13 +280,6 @@ public class ShowMonthViewFragment extends Fragment {
                 super.onCalendarClicked(visibility);
 
                 if (!visibility) {
-                   /* llDayView.setVisibility(View.VISIBLE);
-                    llCalendar.setVisibility(View.GONE);
-                    rvMyBookingList.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-                    TeeBookingRecyclerAdapter teeBookingRecyclerAdapter = new TeeBookingRecyclerAdapter(getActivity(), mSlotsList, false);
-                    rvMyBookingList.setAdapter(teeBookingRecyclerAdapter);
-                } else {*/
                     llDayView.setVisibility(View.GONE);
                     llCalendar.setVisibility(View.VISIBLE);
                 }
@@ -348,20 +314,6 @@ public class ShowMonthViewFragment extends Fragment {
 
         if (isVisibleToUser) {
             ((TeeTimeBookingActivity) getActivity()).updateNoDataUI(true, 0);
-            /**
-             *  Check internet connection before hitting server request.
-             */
-           /* if (((TeeTimeBookingActivity) getActivity()).isOnline(getActivity())) {
-                String currentDateTimeString = formatterDate.format(new Date());*//**//*DateFormat.getDateTimeInstance().format(new Date());*//**//*
-                requestGetMonthDataService(currentDateTimeString);
-
-                //To Hide 'No FRIEND FOUND' message
-                //((TeeTimeBookingActivity) getActivity()).updateNoDataUI(true, 1);
-
-            } else {
-                ((TeeTimeBookingActivity) getActivity()).showAlertMessage(getString(R.string.error_no_connection));
-            }*/
-
         }
     }
 
@@ -596,16 +548,4 @@ public class ShowMonthViewFragment extends Fragment {
 
         ivTeeCalendar.setAlpha((float) 1.0);
     }
-
-   /* private void showCalendarView() {
-      llDayView.setVisibility(View.GONE);
-        llCalendar.setVisibility(View.VISIBLE);
-
-        ivTeeCalendar.setAlpha((float) 0.5);
-        isCalendarEnable = true;
-
-        initCalendar();
-    }*/
-
-
 }
