@@ -1,4 +1,4 @@
-####Version 1.5 
+####Version 1.5 (10th Nov, 2017)
   
   ####26th, Sep, 2017
   - NEW: Mobile App Item 124: Issue with Club News - Orientation.
@@ -35,6 +35,11 @@
    - NEW: Now different types of <B>UPCOMING COMPEITITONS</B> depends upon the ```teamsize``` i.e. 1,2,3 and 4.
    - NEW: Update web service for <B>Unjoin</B> members from the <B>Entered COMPEITITONS</B>.
    - NEW: Expand Dashboard size and decrease logo size if more than 6 items available otherwise remain same.
+
+  ####14th Sep, 2017
+  - NEW: ADD MOTT (Tee Time Booking) functionality.
+  - UPDATE: Display multiple competitions results with expandable view.
+  - UPDATE: Change ic_home_golfclub logo on Splash, Login, Dashboard and Contacts tab.
 
 ####Version 1.0 (2017-03-17)
 

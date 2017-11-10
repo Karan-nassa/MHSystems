@@ -20,16 +20,16 @@ public class AJsonParamsMakeBookingAPI {
     private String PLU;
     @SerializedName("Price")
     @Expose
-    private String Price;
-    @SerializedName("IncludesBuggy")
+    private int Price;
+    @SerializedName("BuggyQty")
     @Expose
-    private Boolean IncludesBuggy;
+    private int BuggyQty;
     @SerializedName("BuggyPLU")
     @Expose
     private String BuggyPLU;
     @SerializedName("BuggyPrice")
     @Expose
-    private String BuggyPrice;
+    private int BuggyPrice;
 
     /**
      * No args constructor for use in serialization
@@ -50,15 +50,15 @@ public class AJsonParamsMakeBookingAPI {
      * @param version
      */
     public AJsonParamsMakeBookingAPI(int Version, String MemberId, String SlotStart,
-                                     String PLU, String Price, Boolean IncludesBuggy,
-                                     String BuggyPLU, String BuggyPrice) {
+                                     String PLU, int Price, int BuggyQty,
+                                     String BuggyPLU, int BuggyPrice) {
         super();
         this.Version = Version;
         this.MemberId = MemberId;
         this.SlotStart = SlotStart;
         this.PLU = PLU;
         this.Price = Price;
-        this.IncludesBuggy = IncludesBuggy;
+        this.BuggyQty = BuggyQty;
         this.BuggyPLU = BuggyPLU;
         this.BuggyPrice = BuggyPrice;
     }
@@ -95,20 +95,20 @@ public class AJsonParamsMakeBookingAPI {
         this.PLU = PLU;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return Price;
     }
 
-    public void setPrice(String Price) {
+    public void setPrice(int Price) {
         this.Price = Price;
     }
 
-    public Boolean getIncludesBuggy() {
-        return IncludesBuggy;
+    public int getIncludesBuggy() {
+        return BuggyQty;
     }
 
-    public void setIncludesBuggy(Boolean IncludesBuggy) {
-        this.IncludesBuggy = IncludesBuggy;
+    public void setIncludesBuggy(int BuggyQty) {
+        this.BuggyQty = BuggyQty;
     }
 
     public String getBuggyPLU() {
@@ -119,11 +119,11 @@ public class AJsonParamsMakeBookingAPI {
         this.BuggyPLU = BuggyPLU;
     }
 
-    public String getBuggyPrice() {
+    public int getBuggyPrice() {
         return BuggyPrice;
     }
 
-    public void setBuggyPrice(String BuggyPrice) {
+    public void setBuggyPrice(int BuggyPrice) {
         this.BuggyPrice = BuggyPrice;
     }
 

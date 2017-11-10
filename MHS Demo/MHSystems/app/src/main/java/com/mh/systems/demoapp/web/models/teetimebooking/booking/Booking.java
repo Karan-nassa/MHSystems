@@ -16,12 +16,15 @@ public class Booking {
     @SerializedName("Description")
     @Expose
     private String Description;
+    @SerializedName("Price")
+    @Expose
+    private int Price;
     @SerializedName("CanCancel")
     @Expose
     private Boolean CanCancel;
     @SerializedName("Options")
     @Expose
-    private List<Object> Options = null;
+    private List<Option> Options = null;
 
     public Integer getBookingId() {
         return BookingId;
@@ -55,12 +58,19 @@ public class Booking {
         this.CanCancel = CanCancel;
     }
 
-    public List<Object> getOptions() {
+    public List<Option> getOptions() {
         return Options;
     }
 
-    public void setOptions(List<Object> Options) {
+    public void setOptions(List<Option> Options) {
         this.Options = Options;
     }
 
+    public int getPrice() {
+        return Price;
+    }
+
+    public void setPrice(int price) {
+        Price = price;
+    }
 }

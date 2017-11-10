@@ -68,7 +68,7 @@ public class BaseActivity extends AppCompatActivity {
 
         if (ApplicationGlobal.isRollMessageDisplay) {
             //Initialize Roll bar.
-            Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_TESTING, "TESTING");
+            Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_PRODUCTION, "PRODUCTION");
             //Rollbar.init(this, ApplicationGlobal.KEY_ROLLBAR_CLIENT_PRODUCTION, "PRODUCTION");
         }
     }
@@ -280,6 +280,25 @@ public class BaseActivity extends AppCompatActivity {
     public static String getFormateDate(String strDate) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM dd, yyyy");
+
+        try {
+            Date date = inputFormat.parse(strDate);
+            strDate = outputFormat.format(date);
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+        return strDate;
+    }
+
+    /**
+     * Implements method to return date by format.
+     *
+     * @param strDate : Example => "28/10/2017"
+     * @return strDate  : MMMM dd, yyyy
+     */
+    public static String getSimpleDateFormat(String strDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
 
         try {
             Date date = inputFormat.parse(strDate);

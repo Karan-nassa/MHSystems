@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:layout_marginBottom="7dp"
         card_view:cardCornerRadius="4dp">
 
@@ -17,7 +19,7 @@
             android:id="@+id/llTeeBookingRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -64,14 +66,13 @@
 
             </LinearLayout>
 
-            <!-- BUGGY ROW -->
+            <!-- BUGGY ROW  1 -->
 
             <LinearLayout
-                android:id="@+id/llBuggyRow"
+                android:id="@+id/llBuggyRow1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
                 android:visibility="gone"
                 android:weightSum="100">
@@ -79,7 +80,6 @@
                 <!-- TIME OF EVENT -->
 
                 <TextView
-                    android:id="@+id/tvBuggySpace"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="28"
@@ -91,7 +91,7 @@
                 <!-- TITLE OF EVENT -->
 
                 <TextView
-                    android:id="@+id/tvBuggyTitle"
+                    android:id="@+id/tvBuggyTitle1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="52"
@@ -103,7 +103,56 @@
                 <!-- PRICE OF EVENT ENTRY -->
 
                 <TextView
-                    android:id="@+id/tvBuggyPrice"
+                    android:id="@+id/tvBuggyPrice1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:text="£10.00"
+                    android:gravity="right"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- BUGGY ROW  2 -->
+
+            <LinearLayout
+                android:id="@+id/llBuggyRow2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="100">
+
+                <!-- TIME OF EVENT -->
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="28"
+                    android:text="30/10/2017"
+                    android:visibility="invisible"
+                    android:textColor="@color/colorBlack000000"
+                    android:textSize="14sp" />
+
+                <!-- TITLE OF EVENT -->
+
+                <TextView
+                    android:id="@+id/tvBuggyTitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="52"
+                    android:text="Buggy"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <!-- PRICE OF EVENT ENTRY -->
+
+                <TextView
+                    android:id="@+id/tvBuggyPrice2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="20"

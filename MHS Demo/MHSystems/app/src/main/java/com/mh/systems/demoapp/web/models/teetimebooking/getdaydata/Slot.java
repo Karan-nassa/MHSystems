@@ -22,6 +22,9 @@ public class Slot {
     @SerializedName("Products")
     @Expose
     private List<Product> Products = null;
+    @SerializedName("MaxBuggies")
+    @Expose
+    private int MaxBuggies;
 
     public String getSlotStart() {
         return SlotStart;
@@ -63,4 +66,11 @@ public class Slot {
         this.Products = Products;
     }
 
+    public int getMaxBuggies() {
+        return MaxBuggies;
+    }
+
+    public void setMaxBuggies(int maxBuggies) {
+        MaxBuggies = maxBuggies;
+    }
 }

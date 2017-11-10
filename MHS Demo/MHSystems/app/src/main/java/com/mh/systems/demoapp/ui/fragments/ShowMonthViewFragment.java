@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
+import com.mh.systems.demoapp.ui.activites.TeeBookingDetailActivity;
 import com.mh.systems.demoapp.ui.activites.TeeTimeBookingActivity;
 import com.mh.systems.demoapp.ui.adapter.RecyclerAdapter.TeeBookingRecyclerAdapter;
 import com.mh.systems.demoapp.utils.constants.ApplicationGlobal;
@@ -313,7 +314,15 @@ public class ShowMonthViewFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser) {
+
+            ((TeeTimeBookingActivity) getActivity()).setWhichTab(0);
+
+            TeeTimeBookingActivity.shouldRefresh = true;
             ((TeeTimeBookingActivity) getActivity()).updateNoDataUI(true, 0);
+
+            if(caldroidFragment != null) {
+                initCalendar();
+            }
         }
     }
 

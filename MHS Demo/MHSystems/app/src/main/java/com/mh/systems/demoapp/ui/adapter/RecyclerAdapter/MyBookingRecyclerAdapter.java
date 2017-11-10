@@ -71,12 +71,18 @@ public class MyBookingRecyclerAdapter extends RecyclerView.Adapter<MyBookingRecy
 
         holder.tvMottTitle.setText(mBookingList.get(position).getDescription());
 
-        holder.llBuggyRow.setVisibility(View.GONE);
-        ViewGroup.LayoutParams params = holder.llBookingDescRow.getLayoutParams();
-        params.height = 80;
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        holder.llBookingDescRow.setLayoutParams(params);
-        holder.llTeeBookingRow.setPadding(10,10,10,10);
+        /*if(mBookingList.get(position).getOptions().size() > 0){
+            holder.llBuggyRow1.setVisibility(View.VISIBLE);
+            holder.tvBuggyTitle1.setText(mBookingList.get(position).getOptions().get(0).getDescription());
+        }else {*/
+            holder.llBuggyRow1.setVisibility(View.GONE);
+            holder.llBuggyRow2.setVisibility(View.GONE);
+            ViewGroup.LayoutParams params = holder.llBookingDescRow.getLayoutParams();
+            params.height = 80;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            holder.llBookingDescRow.setLayoutParams(params);
+            holder.llTeeBookingRow.setPadding(5, 5, 5, 5);
+      /*  }*/
     }
 
     @Override
@@ -93,23 +99,29 @@ public class MyBookingRecyclerAdapter extends RecyclerView.Adapter<MyBookingRecy
      * Create custom view and initialize the font style.
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         TextView tvMottTime, tvMottTitle, tvMottPrice;
-        TextView tvBuggyPrice;
-        LinearLayout llTeeBookingRow, llBookingDescRow, llBuggyRow;
+        TextView tvBuggyPrice1, tvBuggyPrice2;
+        TextView tvBuggyTitle1, tvBuggyTitle2;
+        LinearLayout llBookingDescRow;
+        LinearLayout llTeeBookingRow, llBuggyRow1, llBuggyRow2;
 
         public ViewHolder(View drawerItem, int itemType, Context context) {
             super(drawerItem);
 
             llTeeBookingRow = (LinearLayout) itemView.findViewById(R.id.llTeeBookingRow);
+
             llBookingDescRow = (LinearLayout) itemView.findViewById(R.id.llBookingDescRow);
-            llBuggyRow = (LinearLayout) itemView.findViewById(R.id.llBuggyRow);
+            llBuggyRow1 = (LinearLayout) itemView.findViewById(R.id.llBuggyRow1);
+            llBuggyRow2 = (LinearLayout) itemView.findViewById(R.id.llBuggyRow2);
 
             tvMottTime = (TextView) itemView.findViewById(R.id.tvMottDate);
             tvMottTitle = (TextView) itemView.findViewById(R.id.tvMottTitle);
             tvMottPrice = (TextView) itemView.findViewById(R.id.tvMottText);
 
-            tvBuggyPrice = (TextView) itemView.findViewById(R.id.tvBuggyPrice);
+            tvBuggyTitle1 = (TextView) itemView.findViewById(R.id.tvBuggyTitle1);
+            tvBuggyTitle2 = (TextView) itemView.findViewById(R.id.tvBuggyTitle2);
+            tvBuggyPrice1 = (TextView) itemView.findViewById(R.id.tvBuggyPrice1);
+            tvBuggyPrice2 = (TextView) itemView.findViewById(R.id.tvBuggyPrice2);
 
             setFontTypeFace();
 
@@ -125,6 +137,7 @@ public class MyBookingRecyclerAdapter extends RecyclerView.Adapter<MyBookingRecy
             intent.putExtra("FundsAvail", fundsAvail);
             intent.putExtra("FROM_MY_BOOKING", isFromMyBooking);
             intent.putExtra("SlotStart", booking.getDate());
+            intent.putExtra("Price", booking.getPrice());
             intent.putExtra("BookingId", booking.getBookingId());
             intent.putExtra("Description", booking.getDescription());
             intent.putExtra("CanCancel", booking.getCanCancel());

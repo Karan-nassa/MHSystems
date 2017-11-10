@@ -179,10 +179,10 @@
 
             </LinearLayout>
 
-            <!-- TYPE OF TEE TIME BOOKING EVENT -->
+            <!-- WITH 1 BUGGY -->
 
             <LinearLayout
-                android:id="@+id/llTeeBookingWithBuggy"
+                android:id="@+id/llTeeBookingWithBuggy1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -203,7 +203,41 @@
                 <!-- PRIZE OF TEE EVENT -->
 
                 <TextView
-                    android:id="@+id/tvTeePriceWithBuggy"
+                    android:id="@+id/tvTeePriceWithBuggy1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:text="5.00 "
+                    android:textColor="@color/color030303"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+            <!-- WITH 2 BUGGIES -->
+
+            <LinearLayout
+                android:id="@+id/llTeeBookingWithBuggy2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <!-- PRICE-->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:src="@mipmap/ic_competition_pound" />
+
+                <!-- PRIZE OF TEE EVENT -->
+
+                <TextView
+                    android:id="@+id/tvTeePriceWithBuggy2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"

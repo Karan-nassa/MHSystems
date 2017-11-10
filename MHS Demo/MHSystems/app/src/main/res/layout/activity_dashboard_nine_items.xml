@@ -23,26 +23,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="33"
+            android:layout_weight="30"
             android:orientation="vertical">
 
-            <!-- SETTINGS ICON -->
-
             <FrameLayout
-                android:id="@+id/llSettings"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="left"
-                android:layout_weight="10"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
+
+                <!-- SETTINGS ICON -->
+
+                <FrameLayout
+                    android:id="@+id/llSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
                     android:layout_margin="10dp"
                     android:src="@mipmap/ic_home_settings" />
 
+                </FrameLayout>
                 <!-- LOGOUT BUTTON -->
 
                 <LinearLayout
@@ -59,17 +62,6 @@
 
                 </LinearLayout>
 
-            </FrameLayout>
-
-            <!-- VIEW GROUP FOR GOLF CLUB NAME AND TREE ICON -->
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_weight="18"
-                android:orientation="vertical">
-
                 <!-- GOLF CLUB LOGO -->
 
                 <ImageView
@@ -78,40 +70,44 @@
                     android:layout_gravity="center"
                     android:src="@mipmap/ic_home_golfclub" />
 
-                <LinearLayout
+            <!-- VIEW GROUP FOR GOLF CLUB NAME AND TREE ICON -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="7dp"
+                android:orientation="vertical">
+
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="7dp"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:visibility="visible">
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="visible">
+                    <ImageView
+                        android:id="@+id/iv_facebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/ic_facebook_black" />
 
-                        <ImageView
-                            android:id="@+id/iv_facebook"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left|center_vertical"
-                            android:layout_marginLeft="10dp"
-                            android:src="@mipmap/ic_facebook_black" />
+                    <ImageView
+                        android:id="@+id/iv_twitter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="7dp"
+                        android:src="@mipmap/ic_twitter_black" />
+                </FrameLayout>
 
-                        <ImageView
-                            android:id="@+id/iv_twitter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right|center_vertical"
-                            android:layout_marginRight="7dp"
-                            android:src="@mipmap/ic_twitter_black" />
-                    </FrameLayout>
+            </LinearLayout>
 
-                </LinearLayout>
-            </FrameLayout>
+
+    </FrameLayout>
+
 
         </LinearLayout>
-
         <!-- WEATHER STATUS -->
 
         <LinearLayout
@@ -194,7 +190,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="62"
+            android:layout_weight="60"
             android:background="@color/color4B4B49"
             android:orientation="vertical">
 

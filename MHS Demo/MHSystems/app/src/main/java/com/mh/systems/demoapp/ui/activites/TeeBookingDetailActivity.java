@@ -1,5 +1,6 @@
 package com.mh.systems.demoapp.ui.activites;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -11,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,12 +56,14 @@ public class TeeBookingDetailActivity extends BaseActivity {
     boolean isBuggyIsOptional;
     boolean isCanCancel, isBuggyValid;
     int iBookingId;
-    float fPrice, fBuggyPrice;
-    int fActualPrice;
+    float fPrice;
+    float fBuggyPrice = 0;
+    float fActualPrice;
     Integer FundsAvail = 0;
+    int iMaxBuggies = 0;
 
     boolean fromMyBooking;
-    boolean isBuggySelected;
+    int iBuggyQty = 0;
 
     private float mTopUpBalance = 0;
 
@@ -82,11 +87,17 @@ public class TeeBookingDetailActivity extends BaseActivity {
     @Bind(R.id.llTeeBookingGroup)
     LinearLayout llTeeBookingGroup;
 
-    @Bind(R.id.llTeeBookingWithBuggy)
-    LinearLayout llTeeBookingWithBuggy;
+    @Bind(R.id.llTeeBookingWithBuggy1)
+    LinearLayout llTeeBookingWithBuggy1;
 
-    @Bind(R.id.tvTeePriceWithBuggy)
-    TextView tvTeePriceWithBuggy;
+    @Bind(R.id.tvTeePriceWithBuggy1)
+    TextView tvTeePriceWithBuggy1;
+
+    @Bind(R.id.llTeeBookingWithBuggy2)
+    LinearLayout llTeeBookingWithBuggy2;
+
+    @Bind(R.id.tvTeePriceWithBuggy2)
+    TextView tvTeePriceWithBuggy2;
 
     //Join Competition Button
     @Bind(R.id.fabJoinCompetition)
@@ -131,7 +142,7 @@ public class TeeBookingDetailActivity extends BaseActivity {
     private void checkFundBalance() {
 
         if (mTopUpBalance >= price) {
-            if (isBuggyValid) {
+            if (isBuggyValid && iMaxBuggies != 0) {
                 showAlertBuggyOption();
             } else {
                 requestMakeBookingEntry();
@@ -164,12 +175,17 @@ public class TeeBookingDetailActivity extends BaseActivity {
 
         strTime = strDateAndTime.substring(strDateAndTime.indexOf(' '), strDateAndTime.length());
         strDate = strDateAndTime.substring(0, strDateAndTime.indexOf(' '));
-        tvTeeDateOfEvent.setText(getFormateDate(strDate));
+        tvTeeDateOfEvent.setText(getSimpleDateFormat(strDate));
         tvTeeTimeOfEvent.setText(strTime.trim());
 
         if (fromMyBooking) {
             iBookingId = getIntent().getExtras().getInt("BookingId");
             isCanCancel = getIntent().getExtras().getBoolean("CanCancel");
+            fPrice = getIntent().getExtras().getInt("Price");
+
+            price = fPrice / 100.00;
+            llTeeBookingGroup.setVisibility(View.VISIBLE);
+            tvTeePriceOfEvent.setText(formatter.format(price));
 
          /*   strTime = strDateAndTime.substring(strDateAndTime.indexOf('T') + 1, strDateAndTime.lastIndexOf(':'));
             strDate = strDateAndTime.substring(0, strDateAndTime.indexOf('T'));
@@ -181,32 +197,71 @@ public class TeeBookingDetailActivity extends BaseActivity {
             fPrice = fActualPrice = getIntent().getExtras().getInt("Price");
             strPLU = getIntent().getExtras().getString("PLU");
             isBuggyIsOptional = getIntent().getExtras().getBoolean("BuggyIsOptional");
-            fBuggyPrice = getIntent().getExtras().getInt("BuggyPrice");
+            fBuggyPrice = (float) getIntent().getExtras().getInt("BuggyPrice");
             strBuggyPLU = getIntent().getExtras().getString("BuggyPLU");
             strCrnSymbol = getIntent().getExtras().getString("CrnSymbol");
             isBuggyValid = getIntent().getExtras().getBoolean("BuggyIsValid");
 
+            iMaxBuggies = getIntent().getExtras().getInt("MaxBuggies");
+
+            fPrice =  (float) fActualPrice;
+
             price = fPrice / 100.00;
+            fBuggyPrice = fBuggyPrice / 100;
+
             llTeeBookingGroup.setVisibility(View.VISIBLE);
             tvTeePriceOfEvent.setText(formatter.format(price));
 
-            isBuggyValid = false;
-            isBuggyIsOptional = false;
+            //isBuggyValid = false;
+            // isBuggyIsOptional = false;
 
             //isBuggySelected = isBuggyIsOptional;
-            if (!isBuggyValid) {
-                llTeeBookingWithBuggy.setVisibility(View.GONE);
+           /* if (!isBuggyValid) {
+                llTeeBookingWithBuggy1.setVisibility(View.GONE);
+                llTeeBookingWithBuggy2.setVisibility(View.GONE);
             } else if (isBuggyValid && !isBuggyIsOptional) {
                 tvTeePriceOfEvent.setText((formatter.format(price + fBuggyPrice) +
                         " " + getString(R.string.text_title_with_buggy)));
-                llTeeBookingWithBuggy.setVisibility(View.GONE);
-                /*tvTeePriceWithBuggy.setText((formatter.format(strBuggyPrice) +
-                        " " + getString(R.string.text_title_with_buggy)));*/
+                llTeeBookingWithBuggy1.setVisibility(View.GONE);
+                llTeeBookingWithBuggy2.setVisibility(View.GONE);
+                *//*tvTeePriceWithBuggy.setText((formatter.format(strBuggyPrice) +
+                        " " + getString(R.string.text_title_with_buggy)));*//*
             } else {
                 //tvTeePriceOfEvent.setText(formatter.format(price));
-                tvTeePriceWithBuggy.setText((formatter.format(price + fBuggyPrice) +
+                tvTeePriceWithBuggy1.setText((formatter.format(price + fBuggyPrice) +
                         " " + getString(R.string.text_title_with_buggy)));
-                llTeeBookingWithBuggy.setVisibility(View.VISIBLE);
+                llTeeBookingWithBuggy1.setVisibility(View.VISIBLE);
+            }*/
+
+            if (!isBuggyValid) {
+                llTeeBookingWithBuggy1.setVisibility(View.GONE);
+                llTeeBookingWithBuggy2.setVisibility(View.GONE);
+            }
+            switch (iMaxBuggies) {
+                case 0:
+                    if (!isBuggyIsOptional) {
+                        tvTeePriceOfEvent.setText((formatter.format(price + fBuggyPrice) +
+                                " " + getString(R.string.text_with_buggy)));
+                        llTeeBookingWithBuggy1.setVisibility(View.GONE);
+                        llTeeBookingWithBuggy2.setVisibility(View.GONE);
+                    }
+                    break;
+
+                case 1:
+                    tvTeePriceWithBuggy1.setText((formatter.format(price + fBuggyPrice) +
+                            " " + getString(R.string.text_with_buggy)));
+                    llTeeBookingWithBuggy1.setVisibility(View.VISIBLE);
+                    break;
+
+                case 2:
+                    tvTeePriceWithBuggy1.setText((formatter.format(price + fBuggyPrice) +
+                            " " + getString(R.string.text_with_buggy)));
+                    llTeeBookingWithBuggy1.setVisibility(View.VISIBLE);
+
+                    tvTeePriceWithBuggy2.setText((formatter.format(price + (fBuggyPrice * 2)) +
+                            " " + getString(R.string.text_with_buggies)));
+                    llTeeBookingWithBuggy2.setVisibility(View.VISIBLE);
+                    break;
             }
         }
 
@@ -215,11 +270,20 @@ public class TeeBookingDetailActivity extends BaseActivity {
         updateFloatingButton(fromMyBooking);
 
         setSupportActionBar(toolbarComp);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        getSupportActionBar().
+
+                setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().
+
+                setDisplayShowTitleEnabled(false);
         toolbarComp.setTitle("");
         toolbarComp.setSubtitle("");
-        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_white);
+
+        getSupportActionBar().
+
+                setHomeAsUpIndicator(R.mipmap.ic_close_white);
 
         toolbarComp.setTitleTextColor(0xFFFFFFFF);
 
@@ -273,7 +337,7 @@ public class TeeBookingDetailActivity extends BaseActivity {
      */
     public static String getFormateDateHyphen(String strDate) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM dd, yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
 
         try {
             Date date = inputFormat.parse(strDate);
@@ -353,15 +417,17 @@ public class TeeBookingDetailActivity extends BaseActivity {
 
         showPleaseWait("Loading...");
 
+        fActualPrice = fActualPrice + (fBuggyPrice * iBuggyQty);
+
         aJsonParamsMakeBookingAPI = new AJsonParamsMakeBookingAPI();
         aJsonParamsMakeBookingAPI.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
         aJsonParamsMakeBookingAPI.setMemberId(getMemberId());
         aJsonParamsMakeBookingAPI.setSlotStart(strSlotStartDateTime);
         aJsonParamsMakeBookingAPI.setPLU(strPLU);
-        aJsonParamsMakeBookingAPI.setPrice("" + fActualPrice);
-        aJsonParamsMakeBookingAPI.setIncludesBuggy(isBuggySelected/*isBuggyIsOptional*/);
+        aJsonParamsMakeBookingAPI.setPrice(getIntent().getExtras().getInt("Price"));
+        aJsonParamsMakeBookingAPI.setIncludesBuggy(iBuggyQty);
         aJsonParamsMakeBookingAPI.setBuggyPLU(strBuggyPLU);
-        aJsonParamsMakeBookingAPI.setBuggyPrice("" + fBuggyPrice);
+        aJsonParamsMakeBookingAPI.setBuggyPrice(getIntent().getExtras().getInt("BuggyPrice"));
 
         mMakeBookingAPI = new MakeBookingAPI(getClientId(),
                 "MAKEBOOKING",
@@ -550,39 +616,87 @@ public class TeeBookingDetailActivity extends BaseActivity {
     /************************************ FINANCE WEB SERVICE [END] ************************************/
 
     public void showAlertBuggyOption() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(TeeBookingDetailActivity.this);
-        // builder.setTitle("");
-        builder.setTitle("Book the event on " + getFormateDate(strDate) + " at " + strTime.trim());
 
-        builder.setPositiveButton("Book with Buggy", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                isBuggySelected = true;
-                requestMakeBookingEntry();
-                //  Toast.makeText(TeeBookingDetailActivity.this, "Book without Buggy", Toast.LENGTH_LONG).show();
-                dialog.cancel();
-            }
-        });
+        final Dialog openDialog = new Dialog(TeeBookingDetailActivity.this);
+        openDialog.setContentView(R.layout.alert_buggy_confirmation);
+        openDialog.setTitle("");
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        TextView tvAlertTitle = (TextView) openDialog.findViewById(R.id.tvAlertTitle);
+
+        LinearLayout llOnlyTeeTime = (LinearLayout) openDialog.findViewById(R.id.llOnlyTeeTime);
+        TextView tvBuggyPrice1 = (TextView) openDialog.findViewById(R.id.tvBuggyPrice1);
+
+        LinearLayout llWithBuggy1 = (LinearLayout) openDialog.findViewById(R.id.llWithBuggy1);
+        TextView tvBuggyPrice2 = (TextView) openDialog.findViewById(R.id.tvBuggyPrice2);
+
+        LinearLayout llWithBuggy2 = (LinearLayout) openDialog.findViewById(R.id.llWithBuggy2);
+        TextView tvBuggyPrice3 = (TextView) openDialog.findViewById(R.id.tvBuggyPrice3);
+
+        TextView tvCancel = (TextView) openDialog.findViewById(R.id.tvCancel);
+
+        tvAlertTitle.setText(("Book Tee Time on " + getSimpleDateFormat(strDate) + " at " + strTime.trim()));
 
         if (isBuggyIsOptional) {
-            builder.setNeutralButton("Book without Buggy", new DialogInterface.OnClickListener() {
+            llOnlyTeeTime.setVisibility(View.VISIBLE);
+            tvBuggyPrice1.setText((strCrnSymbol + (formatter.format(price))));
+            llOnlyTeeTime.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    isBuggySelected = false;
+                public void onClick(View v) {
+                    iBuggyQty = 0;
                     requestMakeBookingEntry();
-                    dialog.cancel();
+                    openDialog.dismiss();
                 }
             });
         }
 
-        AlertDialog diag = builder.create();
-        diag.show();
+        if (iMaxBuggies == 1) {
+            tvBuggyPrice2.setText((strCrnSymbol + (formatter.format(price + fBuggyPrice))));
+            llWithBuggy1.setVisibility(View.VISIBLE);
+            llWithBuggy1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iBuggyQty = 1;
+                    requestMakeBookingEntry();
+                    openDialog.dismiss();
+                }
+            });
+        }
+
+        if (iMaxBuggies == 2) {
+
+            tvBuggyPrice2.setText((strCrnSymbol + (formatter.format(price + fBuggyPrice))));
+            llWithBuggy1.setVisibility(View.VISIBLE);
+            llWithBuggy1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iBuggyQty = 1;
+                    requestMakeBookingEntry();
+                    openDialog.dismiss();
+                }
+            });
+
+            double TotalPrice = price + (fBuggyPrice * 2);
+            tvBuggyPrice3.setText((strCrnSymbol + (formatter.format(TotalPrice))));
+            llWithBuggy2.setVisibility(View.VISIBLE);
+            llWithBuggy2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iBuggyQty = 2;
+                    requestMakeBookingEntry();
+                    openDialog.dismiss();
+                }
+            });
+        }
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog.dismiss();
+            }
+        });
+
+        openDialog.show();
     }
+
+
 }

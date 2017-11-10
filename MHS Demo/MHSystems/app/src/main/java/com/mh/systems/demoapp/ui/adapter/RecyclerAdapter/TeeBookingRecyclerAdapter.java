@@ -19,6 +19,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 
+import static com.mh.systems.demoapp.R.id.swipe;
 import static com.mh.systems.demoapp.R.id.tvCompetitionOrReason;
 import static com.mh.systems.demoapp.R.id.tvDatePlayedStr;
 import static com.mh.systems.demoapp.R.id.tvRoundNo;
@@ -74,13 +75,42 @@ public class TeeBookingRecyclerAdapter extends RecyclerView.Adapter<TeeBookingRe
                 + formatter.format(strPriceOfEvent)));
 
         Product mProduct = mSlotsList.get(position).getProducts().get(0);
+        float buggyPrice = mProduct.getBuggyPrice();
+        buggyPrice = (buggyPrice/100);
         if (mProduct.getBuggyIsValid()) {
-            holder.llBuggyRow.setVisibility(View.VISIBLE);
-            holder.llTeeBookingRow.setPadding(5,5,5,5);
-            holder.tvBuggyPrice.setText(("" + mSlotsList.get(position).getProducts().get(0).getCrnSymbol()
-                    + formatter.format(mProduct.getBuggyPrice())));
+
+            switch (mSlotsList.get(position).getMaxBuggies()){
+                case 0:
+
+                    break;
+
+                case 1:
+                    holder.llBuggyRow1.setVisibility(View.VISIBLE);
+                    holder.llTeeBookingRow.setPadding(10,10,10,10);
+                    holder.tvBuggyTitle1.setText(context.getString(R.string.text_with_buggy));
+                    holder.tvBuggyPrice1.setText(("" + mSlotsList.get(position).getProducts().get(0).getCrnSymbol()
+                            + formatter.format(buggyPrice)));
+                    break;
+
+                case 2:
+                    holder.llBuggyRow1.setVisibility(View.VISIBLE);
+                    holder.llTeeBookingRow.setPadding(10,10,10,10);
+                    holder.tvBuggyTitle1.setText(context.getString(R.string.text_with_buggy));
+                    holder.tvBuggyPrice1.setText(("" + mSlotsList.get(position).getProducts().get(0).getCrnSymbol()
+                            + formatter.format(buggyPrice)));
+
+                    holder.llBuggyRow2.setVisibility(View.VISIBLE);
+                    holder.tvBuggyTitle2.setText(context.getString(R.string.text_with_buggies));
+                    holder.llTeeBookingRow.setPadding(10,10,10,10);
+                    holder.tvBuggyPrice2.setText(("" + mSlotsList.get(position).getProducts().get(0).getCrnSymbol()
+                            + formatter.format(buggyPrice*2)));
+                    break;
+            }
+
+
         } else {
-            holder.llBuggyRow.setVisibility(View.GONE);
+            holder.llBuggyRow1.setVisibility(View.GONE);
+            holder.llBuggyRow2.setVisibility(View.GONE);
 
             ViewGroup.LayoutParams params = holder.llBookingDescRow.getLayoutParams();
             params.height = 80;
@@ -106,21 +136,28 @@ public class TeeBookingRecyclerAdapter extends RecyclerView.Adapter<TeeBookingRe
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvMottTime, tvMottTitle, tvMottPrice;
-        TextView tvBuggyPrice;
-        LinearLayout llTeeBookingRow, llBookingDescRow, llBuggyRow;
+        TextView tvBuggyPrice1, tvBuggyPrice2;
+        TextView tvBuggyTitle1, tvBuggyTitle2;
+        LinearLayout llBookingDescRow;
+        LinearLayout llTeeBookingRow, llBuggyRow1, llBuggyRow2;
 
         public ViewHolder(View drawerItem, int itemType, Context context) {
             super(drawerItem);
 
             llTeeBookingRow = (LinearLayout) itemView.findViewById(R.id.llTeeBookingRow);
+
             llBookingDescRow = (LinearLayout) itemView.findViewById(R.id.llBookingDescRow);
-            llBuggyRow = (LinearLayout) itemView.findViewById(R.id.llBuggyRow);
+            llBuggyRow1 = (LinearLayout) itemView.findViewById(R.id.llBuggyRow1);
+            llBuggyRow2 = (LinearLayout) itemView.findViewById(R.id.llBuggyRow2);
 
             tvMottTime = (TextView) itemView.findViewById(R.id.tvMottDate);
             tvMottTitle = (TextView) itemView.findViewById(R.id.tvMottTitle);
             tvMottPrice = (TextView) itemView.findViewById(R.id.tvMottText);
 
-            tvBuggyPrice = (TextView) itemView.findViewById(R.id.tvBuggyPrice);
+            tvBuggyTitle1 = (TextView) itemView.findViewById(R.id.tvBuggyTitle1);
+            tvBuggyTitle2 = (TextView) itemView.findViewById(R.id.tvBuggyTitle2);
+            tvBuggyPrice1 = (TextView) itemView.findViewById(R.id.tvBuggyPrice1);
+            tvBuggyPrice2 = (TextView) itemView.findViewById(R.id.tvBuggyPrice2);
 
             setFontTypeFace();
 
@@ -141,10 +178,11 @@ public class TeeBookingRecyclerAdapter extends RecyclerView.Adapter<TeeBookingRe
             intent.putExtra("Price", productInstance.getPrice());
             intent.putExtra("PLU", productInstance.getPLU());
             intent.putExtra("BuggyIsOptional", productInstance.getBuggyIsOptional());
-            intent.putExtra("BuggyPrice", "" + productInstance.getBuggyPrice());
+            intent.putExtra("BuggyPrice",  productInstance.getBuggyPrice());
             intent.putExtra("BuggyPLU", productInstance.getBuggyPLU());
             intent.putExtra("CrnSymbol", productInstance.getCrnSymbol());
             intent.putExtra("BuggyIsValid", productInstance.getBuggyIsValid());
+            intent.putExtra("MaxBuggies", slotInstance.getMaxBuggies());
             context.startActivity(intent);
         }
 

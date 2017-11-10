@@ -72,7 +72,7 @@ public class MyBookingsFragment extends Fragment {
 
         if (isVisibleToUser) {
 
-            // ((TeeTimeBookingActivity) getActivity()).setiTabPosition(2);
+             ((TeeTimeBookingActivity) getActivity()).setWhichTab(1);
 
             ((TeeTimeBookingActivity) getActivity()).setFragmentInstance(new MyBookingsFragment());
 

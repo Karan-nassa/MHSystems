@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
+           android:id="@+id/tvAlertTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Book the event on November 15, 2017 at 08:50 PM"/>
+
+
+        <LinearLayout
+            android:id="@+id/llOnlyTeeTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="right"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:textColor="@color/colorBlack000000"
+                android:text="BOOK TEE TIME ONLY -"/>
+
+            <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
+                android:id="@+id/tvBuggyPrice1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack000000"
+                android:text="£0"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llWithBuggy1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack000000"
+                android:layout_marginRight="3dp"
+                android:text="BOOK WITH 1 BUGGY - "/>
+
+            <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
+                android:id="@+id/tvBuggyPrice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack000000"
+                android:text="£10"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llWithBuggy2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
+
+            <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:textColor="@color/colorBlack000000"
+                android:text="BOOK WITH 2 BUGGIES - "/>
+
+            <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
+                android:id="@+id/tvBuggyPrice3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack000000"
+                android:text="£20"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
+
+            <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
+                android:id="@+id/tvCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack000000"
+                android:padding="4dp"
+                android:text="CANCEL"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

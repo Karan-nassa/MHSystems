@@ -37,7 +37,7 @@ public class TeeTimeBookingTabFragment extends Fragment {
     /*********************************
      * INSTANCES OF LOCAL DATA TYPE
      *******************************/
-    public int iLastTabPosition;
+    public static int iLastTabPosition;
 
     /**
      * Declare three bool instances to call api
@@ -73,8 +73,8 @@ public class TeeTimeBookingTabFragment extends Fragment {
                         ApplicationGlobal.POSITION_TEE_TIME_BOOKING);
         viewPager.setAdapter(pageAdapter);
 
-        // iLastTabPosition = ((YourAccountActivity) getActivity()).getIntent().getExtras().getInt("iTabPosition");
-       // ((TeeTimeBookingActivity) getActivity()).setWhichTab(iLastTabPosition);
+         iLastTabPosition = ((TeeTimeBookingActivity) getActivity()).getiTabPosition();
+        //((TeeTimeBookingActivity) getActivity()).setWhichTab(iLastTabPosition);
         viewPager.setCurrentItem(iLastTabPosition);
         //iLastTabPosition = 0;
 
@@ -109,7 +109,7 @@ public class TeeTimeBookingTabFragment extends Fragment {
              */
             viewPager.setCurrentItem(tab.getPosition());
             pageAdapter.notifyDataSetChanged();
-          //  ((TeeTimeBookingActivity) getActivity()).setWhichTab(tab.getPosition());
+           //((TeeTimeBookingActivity) getActivity()).setWhichTab(tab.getPosition());
         }
     };
 

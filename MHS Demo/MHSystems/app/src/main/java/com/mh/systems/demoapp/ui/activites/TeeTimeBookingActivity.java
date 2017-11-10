@@ -35,8 +35,6 @@ public class TeeTimeBookingActivity extends BaseActivity {
      *******************************/
     public final String LOG_TAG = TeeTimeBookingActivity.class.getSimpleName();
 
-    private static int iTabPosition;
-
     public static int iSelectedMonth;
     public static int iSelectedYear;
 
@@ -68,6 +66,10 @@ public class TeeTimeBookingActivity extends BaseActivity {
 
     Intent intent;
 
+    public static boolean shouldRefresh;
+
+    private static int iTabPosition;
+
      /* -- INTERNET CONNECTION PARAMETERS -- */
 
     @Override
@@ -88,6 +90,9 @@ public class TeeTimeBookingActivity extends BaseActivity {
             getSupportActionBar().setTitle(getString(R.string.text_title_tee_booking));
         }
 
+        shouldRefresh = true;
+        iTabPosition = 0;
+
         tfRobotoMedium = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
 
         Calendar cal = Calendar.getInstance();
@@ -99,9 +104,9 @@ public class TeeTimeBookingActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        //if(fragmentObj instanceof ShowMonthViewFragment){
+        if(shouldRefresh/*fragmentObj instanceof ShowMonthViewFragment*/){
             updateFragment(new TeeTimeBookingTabFragment());
-        //}
+        }
     }
 
     @Override
@@ -207,5 +212,13 @@ public class TeeTimeBookingActivity extends BaseActivity {
             }
             tvMessageDesc.setText(getResources().getString(R.string.error_try_again));
         }
+    }
+
+    public static int getiTabPosition() {
+        return iTabPosition;
+    }
+
+    public static void setWhichTab(int iTabPosition) {
+        TeeTimeBookingActivity.iTabPosition = iTabPosition;
     }
 }

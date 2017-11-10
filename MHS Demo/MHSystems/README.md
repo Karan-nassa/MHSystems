@@ -20,4 +20,5 @@
 | 9.   | TOP UP            | Yes            |
 | 10.  | Contact Us        | Yes            |
 | 11.  | Date and Time on Club News | Yes   |
+| 10.  | Tee Time Booking  | Yes            |
 
