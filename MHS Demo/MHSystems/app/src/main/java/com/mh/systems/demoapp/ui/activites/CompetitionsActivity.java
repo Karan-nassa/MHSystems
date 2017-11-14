@@ -1,20 +1,31 @@
 package com.mh.systems.demoapp.ui.activites;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.demoapp.ui.adapter.RecyclerAdapter.CustomPopMenuAdapter;
+import com.mh.systems.demoapp.web.models.CompFilterOptions;
 import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.ui.adapter.BaseAdapter.CompetitionsAdapter;
@@ -101,8 +112,12 @@ public class CompetitionsActivity extends BaseActivity {
     @Bind(R.id.tvTodayComp)
     TextView tvTodayComp;
 
+    @Bind(R.id.ivFilterMenu)
+    ImageView ivFilterMenu;
+
     //Pop Menu to show Categories of Course Diary.
     PopupMenu popupMenu;
+    PopupMenu popupMenuFilterComp;
 
      /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
@@ -141,6 +156,8 @@ public class CompetitionsActivity extends BaseActivity {
     CompetitionsResultItems competitionsResultItems;
     CompetitionsJsonParams competitionsJsonParams;
 
+    PopupWindow popupWindow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,6 +187,7 @@ public class CompetitionsActivity extends BaseActivity {
         //callCompetitionsWebService();
 
         initCompetitionsCategory();
+       // initFilterCompetitions();
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
@@ -181,7 +199,68 @@ public class CompetitionsActivity extends BaseActivity {
             }
         });
         popupMenu.setOnMenuItemClickListener(mCompetitionsTypeLitener);
+
+        ivFilterMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //popupMenuFilterComp.show();
+                showPopup(ivFilterMenu);
+            }
+        });
+        //popupMenuFilterComp.setOnMenuItemClickListener(mCompetitionsFilterLitener);
     }
+
+    public void showPopup(View v) {
+
+        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.inflate_custom_pop_menu, null);
+        RecyclerView rvData = (RecyclerView) popupView.findViewById(R.id.rvData);
+
+        CustomPopMenuAdapter
+                mAdapter = new CustomPopMenuAdapter(CompetitionsActivity.this, getFilterOptions());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(CompetitionsActivity.this);
+        rvData.setLayoutManager(mLayoutManager);
+        rvData.setItemAnimator(new DefaultItemAnimator());
+        rvData.setAdapter(mAdapter);
+        popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                //TODO do sth here on dismiss
+
+            }
+        });
+
+        popupWindow.showAsDropDown(v);
+    }
+
+    public void dismissPopMenu(){
+        popupWindow.dismiss();
+    }
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_filter_competitions, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+                // Do whatever you want to do on logout click.
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }*/
 
     @Override
     protected void onResume() {
@@ -283,6 +362,45 @@ public class CompetitionsActivity extends BaseActivity {
             updateNoInternetUI(false);
         }
     }
+
+    /**
+     * Declares the click event handling FIELD to set categories
+     * of COURSE DIARY.
+     */
+    public PopupMenu.OnMenuItemClickListener mCompetitionsFilterLitener =
+            new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    //item.setChecked(true);
+                    MenuItem menuItem;
+                    switch (item.getItemId()) {
+                        case R.id.action_my_comp:
+                            menuItem = popupMenu.getMenu().findItem(R.id.action_my_comp);
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "My Competition", Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case R.id.action_all_comp:
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "All Competition", Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case R.id.action_all_ladies_comp:
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "All Ladies Competition", Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case R.id.action_all_mens_comp:
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "All Mens Competitions", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+
+
+                    return true;
+                }
+            };
+
 
     /**
      * Implement a method to hit Competitions
@@ -697,6 +815,12 @@ public class CompetitionsActivity extends BaseActivity {
         tvCompType.setText("" + popupMenu.getMenu().getItem(0));
     }
 
+    private void initFilterCompetitions() {
+        popupMenuFilterComp = new PopupMenu(this, ivFilterMenu);
+        popupMenuFilterComp.inflate(R.menu.menu_filter_comps);
+        //tvCompType.setText("" + popupMenu.getMenu().getItem(0));
+    }
+
     /**
      * Implements a method to create date to display for
      * selected month, year and date.
@@ -926,5 +1050,15 @@ public class CompetitionsActivity extends BaseActivity {
 
         //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
         //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+    }
+
+    public ArrayList<CompFilterOptions> getFilterOptions() {
+        ArrayList<CompFilterOptions> compFilterOptList = new ArrayList<>();
+        compFilterOptList.add(new CompFilterOptions("My Competitions", true));
+        compFilterOptList.add(new CompFilterOptions("All Competitions", false));
+        compFilterOptList.add(new CompFilterOptions("All Ladies Competitions", false));
+        compFilterOptList.add(new CompFilterOptions("All Mens Competitions", false));
+
+        return compFilterOptList;
     }
 }

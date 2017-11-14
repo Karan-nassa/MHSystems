@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="arr_choose_comp">
+        <item>My Competitions</item>
+        <item>All Competitions</item>
+        <item>All Ladies Competitions</item>
+        <item>All Mens Competitions</item>
+    </array>
+
+</resources>
