@@ -12,15 +12,17 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mh.systems.sunningdale.ui.activites.BaseActivity;
 import com.mh.systems.sunningdale.ui.activites.YourAccountActivity;
+import com.mh.systems.sunningdale.ui.fragments.MyBookingsFragment;
+import com.mh.systems.sunningdale.ui.fragments.ShowMonthViewFragment;
 import com.mh.systems.sunningdale.utils.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.ui.fragments.ContactUsFragment;
+import com.mh.systems.sunningdale.ui.fragments.EligibleFriendsFragment;
+import com.mh.systems.sunningdale.ui.fragments.EligibleMemberFragment;
 import com.mh.systems.sunningdale.ui.fragments.FinanceFragment;
 import com.mh.systems.sunningdale.ui.fragments.FriendsFragment;
 import com.mh.systems.sunningdale.ui.fragments.HandicapFragment;
 import com.mh.systems.sunningdale.ui.fragments.MembersFragment;
 import com.mh.systems.sunningdale.ui.fragments.MyDetailsFragment;
-import com.mh.systems.sunningdale.ui.fragments.NewsWebCamFragment1;
-import com.mh.systems.sunningdale.ui.fragments.NewsWebCamFragment2;
 import com.mh.systems.sunningdale.ui.fragments.NoInternetFragment;
 
 
@@ -44,6 +46,19 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
     Context context;
 
+    /**
+     * Tab Page Adapter initialization.
+     * <p/>
+     *
+     * @param fm
+     * @param NumOfTabs
+     * @param iFromWhat
+     */
+   /* public TabsPageAdapter(FragmentManager fm, int NumOfTabs, int iFromWhat) {
+        super(fm);
+        this.mNumOfTabs = NumOfTabs;
+        this.iFromWhat = iFromWhat;
+    }*/
     public TabsPageAdapter(Context context, FragmentManager supportFragmentManager, int NumOfTabs, int iFromWhat) {
         super(supportFragmentManager);
         this.mNumOfTabs = NumOfTabs;
@@ -85,8 +100,11 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 case ApplicationGlobal.POSITION_MEMBERS:
                     return loadMembersTab(position);
 
-                case ApplicationGlobal.POSITION_NEWS_WEBCAM:
-                    return loadWebCamTabs(position);
+                case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
+                    return loadMembersBookingTab(position);
+
+                case ApplicationGlobal.POSITION_TEE_TIME_BOOKING:
+                    return loadTeeTimeBookingsTab(position);
             }
         }
         return new NoInternetFragment();
@@ -154,7 +172,6 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 return null;
         }
     }
-
 
     /**
      * Load My Account tabs i.e
@@ -249,28 +266,53 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
     }
 
     /**
-     * Load News Webcam Tabs i.e
-     * <br> 1. WebCam1
-     * <br> 2. WebCam2
+     * Load MEMBERS BOOKING for Competitions Entry Tabs i.e
+     * <br> 1. {@link EligibleMemberFragment}
+     * <br> 2. {@link EligibleFriendsFragment}
      * <p/>
      *
      * @param iPosition
      * @return Fragment
      */
-    private Fragment loadWebCamTabs(int iPosition) {
+    private Fragment loadMembersBookingTab(int iPosition) {
 
         switch (iPosition) {
             case 0:
-                NewsWebCamFragment1 newsWebCamFragment1 = new NewsWebCamFragment1();
-                return newsWebCamFragment1;
+                EligibleMemberFragment eligibleMemberFragment = new EligibleMemberFragment();
+                return eligibleMemberFragment;
 
             case 1:
-                NewsWebCamFragment2 newsWebCamFragment2 = new NewsWebCamFragment2();
-                return newsWebCamFragment2;
+                EligibleFriendsFragment eligibleFriendsFragment = new EligibleFriendsFragment();
+                return eligibleFriendsFragment;
 
             default:
                 return null;
         }
     }
+
+    /**
+     * Load TEE TIME BOOKINGS Tabs i.e
+     * <br> 1. {@link ShowMonthViewFragment}
+     * <br> 2. {@link MyBookingsFragment}
+     * <p/>
+     *
+     * @param iPosition
+     * @return Fragment
+     */
+    private Fragment loadTeeTimeBookingsTab(int iPosition) {
+
+        switch (iPosition) {
+            case 0:
+                ShowMonthViewFragment showMonthViewFragment = new ShowMonthViewFragment();
+                return showMonthViewFragment;
+            case 1:
+                MyBookingsFragment yourBookingsFragment = new MyBookingsFragment();
+                return yourBookingsFragment;
+
+            default:
+                return null;
+        }
+    }
+
 
 }

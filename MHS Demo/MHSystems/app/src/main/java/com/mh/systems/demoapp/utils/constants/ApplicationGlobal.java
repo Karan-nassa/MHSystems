@@ -133,6 +133,9 @@ public class ApplicationGlobal {
     public static final String KEY_CLUB_NEWS_FEATURE = "ClubNewsFeature";
     public static final String KEY_MOTT_FEATURE = "MOTTFeature";
     public static final String KEY_YOUR_ACCOUNT_FEATURE = "YourAccountFeature";
+    public static final String KEY_MY_EVENT_FEATURE = "MyEventFeature";
+    public static final String KEY_MY_EVENT_ONLY = "MyEventOnly";
+    public static final String KEY_GENDER_FILTER = "GenderFilter";
 
 
     /**

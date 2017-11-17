@@ -18,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -85,7 +86,7 @@ public class DashboardActivity extends BaseActivity {
     LinearLayout llLogoutBtn;
 
     @Bind(R.id.llSettings)
-    LinearLayout llSettings;
+    FrameLayout llSettings;
 
     @Bind(R.id.llWeatherGroup)
     LinearLayout llWeatherGroup;
@@ -362,6 +363,14 @@ public class DashboardActivity extends BaseActivity {
                     getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryWebviewActivity"));
         }
 
+        //Tee Time Booking Integration
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_MOTT_FEATURE, false)) {
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_teetime_booking,
+                    "Tee Time Booking",
+                    getApplicationContext().getPackageName() + ".ui.activites.TeeTimeBookingActivity"));
+        }
+
         //Add Members
         if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, false)) {
             dashboardItemsArrayList.add(new DashboardItems(
@@ -501,6 +510,15 @@ public class DashboardActivity extends BaseActivity {
                 });
                 break;
 
+            case 8:
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 3 || position == 4 ? 3 : 2;
+                    }
+                });
+                break;
+
             case 9:
             case 7:
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -617,6 +635,7 @@ public class DashboardActivity extends BaseActivity {
             todayIcon.setImageDrawable(drawable);
 
         } else {
+            llWeatherGroup.setVisibility(View.GONE);
             Log.e(LOG_TAG, weatherApiResponse.getMessage());
         }
     }
@@ -801,6 +820,8 @@ public class DashboardActivity extends BaseActivity {
         aJsonParamsFeaturesFlag = new AJsonParamsFeaturesFlag();
         aJsonParamsFeaturesFlag.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsFeaturesFlag.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsFeaturesFlag.setMemberid(getMemberId());
+        aJsonParamsFeaturesFlag.setLoginMemberId(getMemberId());
 
         featureFlagsAPI = new FeatureFlagsAPI(getClientId(), "GETCLUBFEATURES", aJsonParamsFeaturesFlag, "CLUBINFO", ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
@@ -855,6 +876,13 @@ public class DashboardActivity extends BaseActivity {
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, featureFlagsResponse.getData().getClubNewsFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, featureFlagsResponse.getData().getYourAccountFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_PRO_AGENDA_FEATURE, featureFlagsResponse.getData().getProAgendaFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MOTT_FEATURE, featureFlagsResponse.getData().getMOTTFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_FEATURE, featureFlagsResponse.getData().isMyEventFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_ONLY, featureFlagsResponse.getData().isMyEventOnly());
+
+                savePreferenceValue(ApplicationGlobal.KEY_GENDER_FILTER, featureFlagsResponse.getData().getGenderFilter());
+                savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, featureFlagsResponse.getData().getHCapExactStr());
+
 
                 ApplicationGlobal.TAG_NEWS_WEBCAM1 = featureFlagsResponse.getData().getWebCamera1();
                 ApplicationGlobal.TAG_NEWS_WEBCAM2 = featureFlagsResponse.getData().getWebCamera2();
@@ -869,6 +897,7 @@ public class DashboardActivity extends BaseActivity {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
             reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
+            onBackPressed();
         }
     }
 

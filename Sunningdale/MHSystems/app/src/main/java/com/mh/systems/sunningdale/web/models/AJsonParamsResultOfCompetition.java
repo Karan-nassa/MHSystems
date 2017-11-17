@@ -22,72 +22,56 @@ public class AJsonParamsResultOfCompetition {
     private String memberId;
 
     /**
-     * 
-     * @return
-     *     The version
+     * @return The version
      */
     public int getVersion() {
         return version;
     }
 
     /**
-     * 
-     * @param version
-     *     The version
+     * @param version The version
      */
     public void setVersion(int version) {
         this.version = version;
     }
 
     /**
-     * 
-     * @return
-     *     The callid
+     * @return The callid
      */
     public String getCallid() {
         return callid;
     }
 
     /**
-     * 
-     * @param callid
-     *     The callid
+     * @param callid The callid
      */
     public void setCallid(String callid) {
         this.callid = callid;
     }
 
     /**
-     * 
-     * @return
-     *     The eventId
+     * @return The eventId
      */
     public String getEventId() {
         return eventId;
     }
 
     /**
-     * 
-     * @param eventId
-     *     The EventId
+     * @param eventId The EventId
      */
     public void setEventId(String eventId) {
         this.eventId = eventId;
     }
 
     /**
-     * 
-     * @return
-     *     The memberId
+     * @return The memberId
      */
     public String getMemberId() {
         return memberId;
     }
 
     /**
-     * 
-     * @param memberId
-     *     The MemberId
+     * @param memberId The MemberId
      */
     public void setMemberId(String memberId) {
         this.memberId = memberId;

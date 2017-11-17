@@ -8,12 +8,12 @@
         "source": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\drawable\\left_arrow.xml"
     },
     {
-        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\release\\drawable\\right_arrow.xml",
-        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\drawable\\right_arrow.xml"
-    },
-    {
         "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\release\\drawable\\cell_bg.xml",
         "source": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\drawable\\cell_bg.xml"
+    },
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\release\\drawable\\right_arrow.xml",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\src\\main\\res\\drawable\\right_arrow.xml"
     },
     {
         "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\MHS Demo\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\release\\drawable\\enable_cell.xml",

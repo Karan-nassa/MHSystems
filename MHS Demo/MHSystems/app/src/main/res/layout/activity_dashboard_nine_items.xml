@@ -23,165 +23,167 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="30"
+            android:layout_weight="40"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <!-- SETTINGS ICON -->
 
                 <FrameLayout
-                    android:id="@+id/llSettings"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:orientation="vertical">
+                    android:layout_height="0dp"
+                    android:layout_weight="30">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:src="@mipmap/ic_home_settings" />
+                    <!-- SETTINGS ICON -->
+
+                    <FrameLayout
+                        android:id="@+id/llSettings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:src="@mipmap/ic_home_settings" />
+
+                    </FrameLayout>
+                    <!-- LOGOUT BUTTON -->
+
+                    <LinearLayout
+                        android:id="@+id/llLogoutBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:src="@mipmap/ic_home_logout" />
+
+                    </LinearLayout>
+
+                    <!-- GOLF CLUB LOGO -->
+
+                    <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_home_golfclub" />
+
+                    <!-- VIEW GROUP FOR GOLF CLUB NAME AND TREE ICON -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="7dp"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="visible">
+
+                            <ImageView
+                                android:id="@+id/iv_facebook"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/ic_facebook_black" />
+
+                            <ImageView
+                                android:id="@+id/iv_twitter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right|center_vertical"
+                                android:layout_marginRight="7dp"
+                                android:src="@mipmap/ic_twitter_black" />
+                        </FrameLayout>
+
+                    </LinearLayout>
+
 
                 </FrameLayout>
-                <!-- LOGOUT BUTTON -->
+
+
+                <!-- WEATHER STATUS -->
 
                 <LinearLayout
-                    android:id="@+id/llLogoutBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right">
+                    android:id="@+id/llWeatherGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
+                    android:background="@color/color313130"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="100">
+
+                    <!-- TEMPERATURE -->
+
+                    <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
+                        android:id="@+id/tvTodayTemperature"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhiteffffff"
+                        android:textSize="25sp" />
+
+                    <!-- WEATHER ICON -->
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="15"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/todayIcon"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="55"
+                        android:orientation="vertical"
+                        android:paddingLeft="20dp">
+
+                        <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
+                            android:id="@+id/tvNameOfLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@android:color/white"
+                            android:textSize="17sp" />
+
+                        <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
+                            android:id="@+id/tvWeatherDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.7"
+                            android:maxLines="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/ivRightArrow"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:src="@mipmap/ic_home_logout" />
+                        android:layout_gravity="end|center"
+                        android:layout_weight="5"
+                        android:src="@mipmap/ic_arrow_right_white" />
+
 
                 </LinearLayout>
-
-                <!-- GOLF CLUB LOGO -->
-
-                <ImageView
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/ic_home_golfclub" />
-
-            <!-- VIEW GROUP FOR GOLF CLUB NAME AND TREE ICON -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="7dp"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="visible">
-
-                    <ImageView
-                        android:id="@+id/iv_facebook"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left|center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_facebook_black" />
-
-                    <ImageView
-                        android:id="@+id/iv_twitter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right|center_vertical"
-                        android:layout_marginRight="7dp"
-                        android:src="@mipmap/ic_twitter_black" />
-                </FrameLayout>
-
-            </LinearLayout>
-
-
-    </FrameLayout>
-
-
-        </LinearLayout>
-        <!-- WEATHER STATUS -->
-
-        <LinearLayout
-            android:id="@+id/llWeatherGroup"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:background="@color/color313130"
-            android:orientation="horizontal"
-            android:visibility="invisible"
-            android:weightSum="100">
-
-            <!-- TEMPERATURE -->
-
-            <com.mh.systems.demoapp.ui.customfonts.RobotoTextView
-                android:id="@+id/tvTodayTemperature"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="20"
-                android:gravity="center"
-                android:textColor="@color/colorWhiteffffff"
-                android:textSize="25sp" />
-
-            <!-- WEATHER ICON -->
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="15"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/todayIcon"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="55"
-                android:orientation="vertical"
-                android:paddingLeft="20dp">
-
-                <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvNameOfLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="17sp" />
-
-                <com.mh.systems.demoapp.ui.customfonts.RobotoMediumTextView
-                    android:id="@+id/tvWeatherDesc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.7"
-                    android:maxLines="1"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/ivRightArrow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
-                android:layout_weight="5"
-                android:src="@mipmap/ic_arrow_right_white" />
-
-
         </LinearLayout>
 
 

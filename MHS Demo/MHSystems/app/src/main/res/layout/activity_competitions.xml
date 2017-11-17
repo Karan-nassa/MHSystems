@@ -70,7 +70,8 @@
                 android:layout_weight="10"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center"
-                android:src="@drawable/ic_action_filter"/>
+                android:visibility="gone"
+                android:src="@mipmap/ic_menu_overflow"/>
 
         </LinearLayout>
 

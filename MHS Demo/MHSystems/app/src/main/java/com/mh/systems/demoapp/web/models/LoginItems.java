@@ -14,7 +14,7 @@ public class LoginItems {
     @SerializedName("Result")
     @Expose
     private Integer Result;
-    @SerializedName("CompResultData")
+    @SerializedName("Data")
     @Expose
     private LoginData Data;
 

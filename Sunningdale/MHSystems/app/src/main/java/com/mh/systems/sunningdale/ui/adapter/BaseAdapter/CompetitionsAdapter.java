@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.ui.activites.CompetitionDetailActivity;
+import com.mh.systems.sunningdale.ui.activites.CompletedDetailActivity;
 import com.mh.systems.sunningdale.web.models.CompetitionsData;
 
 import java.util.ArrayList;
@@ -163,7 +164,14 @@ public class CompetitionsAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context, CompetitionDetailActivity.class);
+                Intent intent = null;
+
+                if (iPopItemPos <= 1) {
+                    intent = new Intent(context, CompetitionDetailActivity.class);
+                } else {
+                    intent = new Intent(context, CompletedDetailActivity.class);
+                }
+
                 intent.putExtra("COMPETITIONS_TITLE", compititionsDatas.get(position).getTitle());
                 intent.putExtra("COMPETITIONS_EVENT_IMAGE", compititionsDatas.get(position).getLogo());
                 intent.putExtra("COMPETITIONS_EVENT_JOIN", compititionsDatas.get(position).getJoinStatus());

@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.mh.systems.demoapp.R;
 import com.mh.systems.demoapp.web.models.ResultEntries;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +73,7 @@ public class CompResultsExpandListAdapter extends BaseExpandableListAdapter {
         tvPosOfMember.setText(resultEntries.getPlaceStr());
         tvNameOfMember.setText(resultEntries.getEntryName());
         tvScoreOfMember.setText(resultEntries.getExactHCap());
-        tvTotalScoreOfMember.setText(resultEntries.getNettTotal());
+        tvTotalScoreOfMember.setText(resultEntries.getScoreSummary());
 
        /* TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
@@ -110,7 +109,7 @@ public class CompResultsExpandListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_expandable_group, null);
+            convertView = layoutInflater.inflate(R.layout.list_comp_expandable_group, null);
         }
         TextView listTitleTextView = (TextView) convertView.findViewById(R.id.listTitle);
         ImageView ivExpandArrow = (ImageView) convertView.findViewById(R.id.ivExpandArrow);

@@ -44,6 +44,9 @@ public class CompetitionsJsonParams {
     @SerializedName("pageSize")
     @Expose
     private String pageSize;
+    @SerializedName("GenderFilter")
+    @Expose
+    private int GenderFilter;
 
     /**
      * @return The IncludeFutureEvents
@@ -241,4 +244,11 @@ public class CompetitionsJsonParams {
         this.MyEventsOnly = MyEventsOnly;
     }
 
+    public int getGenderFilter() {
+        return GenderFilter;
+    }
+
+    public void setGenderFilter(int genderFilter) {
+        GenderFilter = genderFilter;
+    }
 }

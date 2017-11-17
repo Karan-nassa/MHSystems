@@ -225,6 +225,7 @@ public class LoginActivity extends BaseActivity {
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(WebAPI.API_BASE_URL)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
         //Creating an object of our api interface

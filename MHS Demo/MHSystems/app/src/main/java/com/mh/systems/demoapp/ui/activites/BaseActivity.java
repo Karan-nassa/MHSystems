@@ -323,6 +323,19 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
+     * Load Preference any string value
+     *
+     * @paramContext - Context of class
+     * @paramKey - To get value corresponding to KEY_VALUE
+     */
+    public int loadPreferenceValue(
+            String key, int defValue) {
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        return sharedpreferences.getInt(key, defValue);
+    }
+
+    /**
      * Load Preference any Boolean value
      *
      * @paramContext - Context of class
@@ -359,6 +372,19 @@ public class BaseActivity extends AppCompatActivity {
                 ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(key, value);
+        editor.commit();
+    }
+
+    /**
+     * Save Preference for future use.
+     */
+    @SuppressWarnings("static-access")
+    public void savePreferenceValue(String key,
+                                    int value) {
+        sharedpreferences = getSharedPreferences(
+                ApplicationGlobal.SHARED_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt(key, value);
         editor.commit();
     }
 

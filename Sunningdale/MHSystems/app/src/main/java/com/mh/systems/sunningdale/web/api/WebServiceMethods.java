@@ -13,6 +13,7 @@ import com.mh.systems.sunningdale.web.models.CompetitionsAPI;
 import com.mh.systems.sunningdale.web.models.competitionsentry.CompEligiblePlayersAPI;
 import com.mh.systems.sunningdale.web.models.competitionsentrynew.NewCompEntryItems;
 import com.mh.systems.sunningdale.web.models.competitionsentrynew.confirmbooking.NewCompEventEntryItems;
+import com.mh.systems.sunningdale.web.models.compfiltersettings.CompFilterSettingsItems;
 import com.mh.systems.sunningdale.web.models.contactus.ContactUsAPI;
 import com.mh.systems.sunningdale.web.models.CourseDiaryAPI;
 import com.mh.systems.sunningdale.web.models.DashboardAPI;
@@ -27,6 +28,10 @@ import com.mh.systems.sunningdale.web.models.MembersAPI;
 import com.mh.systems.sunningdale.web.models.MembersDetailAPI;
 import com.mh.systems.sunningdale.web.models.FinanceAPI;
 import com.mh.systems.sunningdale.web.models.resetpassword.ResetPasswordAPI;
+import com.mh.systems.sunningdale.web.models.teetimebooking.cancelbooking.CancelBookingAPI;
+import com.mh.systems.sunningdale.web.models.teetimebooking.getbookingdata.GetBookingDataAPI;
+import com.mh.systems.sunningdale.web.models.teetimebooking.getmonthdata.GetMonthDataAPI;
+import com.mh.systems.sunningdale.web.models.teetimebooking.makebooking.MakeBookingAPI;
 import com.mh.systems.sunningdale.web.models.toggleprivacy.TogglePrivacyAPI;
 import com.mh.systems.sunningdale.web.models.unreadnewscount.GetUnreadNewsCountAPI;
 import com.mh.systems.sunningdale.web.models.updatepassword.UpdatePassswordAPI;
@@ -465,5 +470,60 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp")
     public void sendClubEventEntryV2(@Body NewCompEventEntryItems newCompEventEntryItems, Callback<JsonObject> response);
+
+    /**
+     *Get Month Data of MOTT Tee Time Booking
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getMonthDataAPI : Pass model of Competitions Event Entry V2.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void GetMonthDataMOTT(@Body GetMonthDataAPI getMonthDataAPI, Callback<JsonObject> response);
+
+    /**
+     *Make Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getMonthDataAPI : Make Booking Entry.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void GetMakeBookingMOTT(@Body MakeBookingAPI makeBookingAPI, Callback<JsonObject> response);
+
+    /**
+     *Cancel Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param cancelBookingAPI : Pass model of Cancel Booking Entry.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void cancelBookingMOTT(@Body CancelBookingAPI cancelBookingAPI, Callback<JsonObject> response);
+
+    /**
+     *Get detail list of Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getBookingDataAPI : My Booking Tab data.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getBookingDataMOTT(@Body GetBookingDataAPI getBookingDataAPI, Callback<JsonObject> response);
+
+    /**
+     * Get detail list of Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param compFilterSettingsItems : Get Competitions Filter settings.
+     * @param response                : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getCompFilterSettings(@Body CompFilterSettingsItems compFilterSettingsItems, Callback<JsonObject> response);
 }
 

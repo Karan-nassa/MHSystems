@@ -12,6 +12,12 @@ public class AJsonParamsFeaturesFlag {
     @SerializedName("callid")
     @Expose
     private String callid;
+    @SerializedName("memberid")
+    @Expose
+    private String memberid;
+    @SerializedName("LoginMemberId")
+    @Expose
+    private String LoginMemberId;
 
     public Integer getVersion() {
         return version;
@@ -29,4 +35,19 @@ public class AJsonParamsFeaturesFlag {
         this.callid = callid;
     }
 
+    public String getMemberid() {
+        return memberid;
+    }
+
+    public void setMemberid(String memberid) {
+        this.memberid = memberid;
+    }
+
+    public String getLoginMemberId() {
+        return LoginMemberId;
+    }
+
+    public void setLoginMemberId(String LoginMemberId) {
+        this.LoginMemberId = LoginMemberId;
+    }
 }

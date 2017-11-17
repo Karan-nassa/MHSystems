@@ -52,6 +52,27 @@ public class FeaturesFlagData {
     @Expose
     private boolean ProAgendaFeature;
 
+    @SerializedName("MOTTFeature")
+    @Expose
+    private Boolean MOTTFeature;
+
+    /**
+     * Choose Completed Competitions Type if <MyEventFeature>
+     * TRUE
+     */
+    @SerializedName("MyEventFeature")
+    @Expose
+    private boolean MyEventFeature;
+    @SerializedName("MyEventOnly")
+    @Expose
+    private boolean MyEventOnly;
+    @SerializedName("GenderFilter")
+    @Expose
+    private int GenderFilter;
+    @SerializedName("HCapExactStr")
+    @Expose
+    private String HCapExactStr;
+
     public Integer getClientId() {
         return clientId;
     }
@@ -172,4 +193,49 @@ public class FeaturesFlagData {
         ProAgendaFeature = proAgendaFeature;
     }
 
+    public Boolean getMOTTFeature() {
+        return MOTTFeature;
+    }
+
+    public void setMOTTFeature(Boolean MOTTFeature) {
+        this.MOTTFeature = MOTTFeature;
+    }
+
+    public boolean isMyEventFeature() {
+        return MyEventFeature;
+    }
+
+    public void setMyEventFeature(boolean myEventFeature) {
+        MyEventFeature = myEventFeature;
+    }
+
+    public boolean isMyEventOnly() {
+        return MyEventOnly;
+    }
+
+    public void setMyEventOnly(boolean myEventOnly) {
+        MyEventOnly = myEventOnly;
+    }
+
+    public int getGenderFilter() {
+        return GenderFilter;
+    }
+
+    public void setGenderFilter(int genderFilter) {
+        GenderFilter = genderFilter;
+    }
+
+    /**
+     * @return The HCapExactStr
+     */
+    public String getHCapExactStr() {
+        return HCapExactStr;
+    }
+
+    /**
+     * @param HCapExactStr The HCapExactStr
+     */
+    public void setHCapExactStr(String HCapExactStr) {
+        this.HCapExactStr = HCapExactStr;
+    }
 }

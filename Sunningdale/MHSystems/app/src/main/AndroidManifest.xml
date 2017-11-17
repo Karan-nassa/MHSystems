@@ -76,6 +76,11 @@
             android:name=".ui.activites.CompetitionDetailActivity"
             android:screenOrientation="portrait" />
 
+        <!-- COMPLETED COMPETITIONS ACTIVITY -->
+        <activity
+            android:name=".ui.activites.CompletedDetailActivity"
+            android:screenOrientation="portrait" />
+
         <!-- COMPETITIONS ENTRY -->
 
         <activity
@@ -215,6 +220,16 @@
         <!-- BOOKING LESSONS -->
         <activity android:name=".ui.activites.BookingLessonsWebActivity"
             android:screenOrientation="portrait"/>
+
+        <!-- TEE TIME BOOKING ACTIVITY -->
+        <activity
+            android:name=".ui.activites.TeeTimeBookingActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- TEE TIME BOOKING DETAIL -->
+        <activity
+            android:name=".ui.activites.TeeBookingDetailActivity"
+            android:screenOrientation="portrait" />
 
         <!-- START OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->
 

@@ -619,6 +619,7 @@ public class DashboardActivity extends BaseActivity {
             todayIcon.setImageDrawable(drawable);
 
         } else {
+            llWeatherGroup.setVisibility(View.GONE);
             Log.e(LOG_TAG, weatherApiResponse.getMessage());
         }
     }
@@ -803,6 +804,8 @@ public class DashboardActivity extends BaseActivity {
         aJsonParamsFeaturesFlag = new AJsonParamsFeaturesFlag();
         aJsonParamsFeaturesFlag.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
         aJsonParamsFeaturesFlag.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsFeaturesFlag.setMemberid(getMemberId());
+        aJsonParamsFeaturesFlag.setLoginMemberId(getMemberId());
 
         featureFlagsAPI = new FeatureFlagsAPI(getClientId(), "GETCLUBFEATURES", aJsonParamsFeaturesFlag, "CLUBINFO", ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
@@ -857,6 +860,11 @@ public class DashboardActivity extends BaseActivity {
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, featureFlagsResponse.getData().getClubNewsFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, featureFlagsResponse.getData().getYourAccountFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_MOTT_FEATURE, featureFlagsResponse.getData().getMOTTFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_FEATURE, featureFlagsResponse.getData().isMyEventFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_ONLY, featureFlagsResponse.getData().isMyEventOnly());
+
+                savePreferenceValue(ApplicationGlobal.KEY_GENDER_FILTER, featureFlagsResponse.getData().getGenderFilter());
+                savePreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, featureFlagsResponse.getData().getHCapExactStr());
 
                 setGridMenuOptions();
 
@@ -868,6 +876,7 @@ public class DashboardActivity extends BaseActivity {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
             reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
+            onBackPressed();
         }
     }
 

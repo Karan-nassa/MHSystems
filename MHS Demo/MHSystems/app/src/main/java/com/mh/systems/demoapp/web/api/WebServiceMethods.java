@@ -21,6 +21,7 @@ import com.mh.systems.demoapp.web.models.competitionsentry.GetClubEventAPI;
 import com.mh.systems.demoapp.web.models.competitionsentry.UpdateCompEntryAPI;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.NewCompEntryItems;
 import com.mh.systems.demoapp.web.models.competitionsentrynew.confirmbooking.NewCompEventEntryItems;
+import com.mh.systems.demoapp.web.models.compfiltersettings.CompFilterSettingsItems;
 import com.mh.systems.demoapp.web.models.contactus.ContactUsAPI;
 import com.mh.systems.demoapp.web.models.deletetoken.DeleteTokenAPI;
 import com.mh.systems.demoapp.web.models.editdetailmode.EditDetailModeAPI;
@@ -504,7 +505,7 @@ public interface WebServiceMethods {
     public void sendClubEventEntryV2(@Body NewCompEventEntryItems newCompEventEntryItems, Callback<JsonObject> response);
 
     /**
-     *Get Month Data of MOTT Tee Time Booking
+     * Get Month Data of MOTT Tee Time Booking
      * <p/>
      * TYPE : POST
      *
@@ -515,7 +516,7 @@ public interface WebServiceMethods {
     public void GetMonthDataMOTT(@Body GetMonthDataAPI getMonthDataAPI, Callback<JsonObject> response);
 
     /**
-     *Make Tee Time Booking of MOTT
+     * Make Tee Time Booking of MOTT
      * <p/>
      * TYPE : POST
      *
@@ -526,25 +527,36 @@ public interface WebServiceMethods {
     public void GetMakeBookingMOTT(@Body MakeBookingAPI makeBookingAPI, Callback<JsonObject> response);
 
     /**
-     *Cancel Tee Time Booking of MOTT
+     * Cancel Tee Time Booking of MOTT
      * <p/>
      * TYPE : POST
      *
      * @param cancelBookingAPI : Pass model of Cancel Booking Entry.
-     * @param response        : Response in JSON format.
+     * @param response         : Response in JSON format.
      */
     @POST("/api/ClubsApp")
     public void cancelBookingMOTT(@Body CancelBookingAPI cancelBookingAPI, Callback<JsonObject> response);
 
     /**
-     *Get detail list of Tee Time Booking of MOTT
+     * Get detail list of Tee Time Booking of MOTT
      * <p/>
      * TYPE : POST
      *
      * @param getBookingDataAPI : My Booking Tab data.
-     * @param response        : Response in JSON format.
+     * @param response          : Response in JSON format.
      */
     @POST("/api/ClubsApp")
     public void getBookingDataMOTT(@Body GetBookingDataAPI getBookingDataAPI, Callback<JsonObject> response);
+
+    /**
+     * Get detail list of Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param compFilterSettingsItems : Get Competitions Filter settings.
+     * @param response                : Response in JSON format.
+     */
+    @POST("/api/ClubsApp")
+    public void getCompFilterSettings(@Body CompFilterSettingsItems compFilterSettingsItems, Callback<JsonObject> response);
 }
 

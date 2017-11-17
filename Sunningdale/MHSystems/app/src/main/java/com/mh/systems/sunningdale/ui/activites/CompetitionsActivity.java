@@ -11,21 +11,26 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.newrelic.com.google.gson.Gson;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.sunningdale.R;
 import com.mh.systems.sunningdale.ui.adapter.BaseAdapter.CompetitionsAdapter;
 import com.mh.systems.sunningdale.utils.constants.ApplicationGlobal;
 import com.mh.systems.sunningdale.web.api.WebAPI;
+import com.mh.systems.sunningdale.web.api.WebServiceMethods;
 import com.mh.systems.sunningdale.web.models.CompetitionsAPI;
 import com.mh.systems.sunningdale.web.models.CompetitionsData;
 import com.mh.systems.sunningdale.web.models.CompetitionsJsonParams;
 import com.mh.systems.sunningdale.web.models.CompetitionsResultItems;
-import com.mh.systems.sunningdale.web.api.WebServiceMethods;
+import com.mh.systems.sunningdale.web.models.compfiltersettings.AJsonParamsCompFilterSettings;
+import com.mh.systems.sunningdale.web.models.compfiltersettings.CompFilterSettingsItems;
+import com.mh.systems.sunningdale.web.models.compfiltersettings.CompfiltersettingsResponse;
+import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
@@ -53,6 +58,8 @@ public class CompetitionsActivity extends BaseActivity {
     boolean isJoined = true;
     boolean isCompleted = false;
     boolean isCurrent = false;
+
+    int iGenderFilter = 2;
 
     /**
      * iPopItemPos describes the position of POP MENU selected item.
@@ -102,8 +109,12 @@ public class CompetitionsActivity extends BaseActivity {
     @Bind(R.id.tvTodayComp)
     TextView tvTodayComp;
 
+    @Bind(R.id.ivFilterMenu)
+    ImageView ivFilterMenu;
+
     //Pop Menu to show Categories of Course Diary.
     PopupMenu popupMenu;
+    PopupMenu popupMenuFilterComp;
 
      /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
@@ -142,6 +153,12 @@ public class CompetitionsActivity extends BaseActivity {
     CompetitionsResultItems competitionsResultItems;
     CompetitionsJsonParams competitionsJsonParams;
 
+    CompFilterSettingsItems compFilterSettingsItems;
+    AJsonParamsCompFilterSettings aJsonParamsCompFilterSettings;
+    CompfiltersettingsResponse compfiltersettingsResponse;
+
+    PopupWindow popupWindow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +188,7 @@ public class CompetitionsActivity extends BaseActivity {
         //callCompetitionsWebService();
 
         initCompetitionsCategory();
+        initFilterCompetitions();
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
@@ -182,6 +200,19 @@ public class CompetitionsActivity extends BaseActivity {
             }
         });
         popupMenu.setOnMenuItemClickListener(mCompetitionsTypeLitener);
+
+        ivFilterMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMenuFilterComp.show();
+                // showPopup(ivFilterMenu);
+            }
+        });
+        popupMenuFilterComp.setOnMenuItemClickListener(mCompetitionsFilterLitener);
+    }
+
+    public void dismissPopMenu() {
+        popupWindow.dismiss();
     }
 
     @Override
@@ -226,6 +257,9 @@ public class CompetitionsActivity extends BaseActivity {
                             isJoined = true;
                             isCompleted = false;
                             isCurrent = false;
+
+                            ivFilterMenu.setVisibility(View.GONE);
+
                             break;
 
                         case R.id.item_Joined:
@@ -234,6 +268,8 @@ public class CompetitionsActivity extends BaseActivity {
                             isJoined = true;
                             isCompleted = true;
                             isCurrent = true;
+
+                            ivFilterMenu.setVisibility(View.GONE);
                             break;
 
                         case R.id.item_Completed:
@@ -242,6 +278,15 @@ public class CompetitionsActivity extends BaseActivity {
                             isJoined = true;
                             isCompleted = true;
                             isCurrent = false;
+
+                            if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_FEATURE, true)) {
+                                ivFilterMenu.setVisibility(View.VISIBLE);
+                                //By Default My Events will be displayed.
+                                iGenderFilter = loadPreferenceValue(ApplicationGlobal.KEY_GENDER_FILTER, 2);
+                                isJoined = loadPreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_ONLY, true);
+
+                                updateFilterUI();
+                            }
                             break;
                     }
 
@@ -268,6 +313,113 @@ public class CompetitionsActivity extends BaseActivity {
                     return true;
                 }
             };
+
+    /**
+     * Declares the COMPETITION filter settings like
+     * 1.) My Competitions When [MyEventsOnly] or [isJoined] = true & Gender Filter = 2
+     * 2.) All Competitions When [MyEventsOnly] or [isJoined] = false & Gender Filter = 2
+     * 3.) All Ladies When [MyEventsOnly] or [isJoined] = false & Gender Filter = 1
+     * 4.) All Gents  When [MyEventsOnly] or [isJoined] = false & Gender Filter = 0
+     */
+    public PopupMenu.OnMenuItemClickListener mCompetitionsFilterLitener =
+            new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    //item.setChecked(true);
+                    MenuItem menuItem;
+                    switch (item.getItemId()) {
+                        case R.id.action_my_comp:
+
+                            isJoined = true;
+                            iGenderFilter = 2;
+
+                            updateFilterUI();
+
+                            menuItem = popupMenu.getMenu().findItem(R.id.action_my_comp);
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "My Competition", Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case R.id.action_all_comp:
+
+                            isJoined = false;
+                            iGenderFilter = 2;
+
+                            updateFilterUI();
+
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "All Competition", Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case R.id.action_all_ladies_comp:
+
+                            isJoined = false;
+                            iGenderFilter = 1;
+
+                            updateFilterUI();
+
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "All Ladies Competition", Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case R.id.action_all_mens_comp:
+                            isJoined = false;
+                            iGenderFilter = 0;
+
+                            updateFilterUI();
+
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "All Mens Competitions", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+
+                    /**
+                     *  Check internet connection before hitting server request.
+                     */
+                    if (isOnline(CompetitionsActivity.this)) {
+                        requestCompFilterSettings();
+                    } else {
+                        showAlertMessage(getResources().getString(R.string.error_no_connection));
+                    }
+
+                    return true;
+                }
+            };
+
+    public void updateFilterUI() {
+        switch (iGenderFilter) {
+            case 0:
+                popupMenuFilterComp.getMenu().getItem(0).setChecked(false);
+                popupMenuFilterComp.getMenu().getItem(1).setChecked(false);
+                popupMenuFilterComp.getMenu().getItem(2).setChecked(false);
+                popupMenuFilterComp.getMenu().getItem(3).setChecked(true);
+                break;
+
+            case 1:
+                popupMenuFilterComp.getMenu().getItem(0).setChecked(false);
+                popupMenuFilterComp.getMenu().getItem(1).setChecked(false);
+                popupMenuFilterComp.getMenu().getItem(2).setChecked(true);
+                popupMenuFilterComp.getMenu().getItem(3).setChecked(false);
+                break;
+
+            case 2:
+
+                if (isJoined) {
+                    //My Events
+                    popupMenuFilterComp.getMenu().getItem(0).setChecked(true);
+                    popupMenuFilterComp.getMenu().getItem(1).setChecked(false);
+                    popupMenuFilterComp.getMenu().getItem(2).setChecked(false);
+                    popupMenuFilterComp.getMenu().getItem(3).setChecked(false);
+                } else {
+                    popupMenuFilterComp.getMenu().getItem(0).setChecked(false);
+                    popupMenuFilterComp.getMenu().getItem(1).setChecked(true);
+                    popupMenuFilterComp.getMenu().getItem(2).setChecked(false);
+                    popupMenuFilterComp.getMenu().getItem(3).setChecked(false);
+                }
+                break;
+        }
+    }
 
     /**
      * Implements a method to call News web service either call
@@ -309,8 +461,13 @@ public class CompetitionsActivity extends BaseActivity {
         competitionsJsonParams.setPageNo("0");
         competitionsJsonParams.setPageSize("10");
         competitionsJsonParams.setAscendingDateOrder(true);
+        competitionsJsonParams.setGenderFilter(iGenderFilter);
 
-        competitionsAPI = new CompetitionsAPI(getClientId(), "GETCLUBEVENTLIST", competitionsJsonParams, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        competitionsAPI = new CompetitionsAPI(getClientId(),
+                "GETCLUBEVENTLIST",
+                competitionsJsonParams,
+                ApplicationGlobal.TAG_GCLUB_WEBSERVICES,
+                ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -643,6 +800,8 @@ public class CompetitionsActivity extends BaseActivity {
                     competitionsAdapter = new CompetitionsAdapter(CompetitionsActivity.this, competitionsDatas, true, iPopItemPos);
                     lvCompetitions.setAdapter(competitionsAdapter);
                     competitionsAdapter.notifyDataSetChanged();
+
+                    Log.e(LOG_TAG, "arrayListCourseData : " + competitionsDatas.size());
                 }
             } else {
                 updateNoCompetitionsUI(false);
@@ -687,13 +846,25 @@ public class CompetitionsActivity extends BaseActivity {
 
     /**
      * Implements a method to initialize Competitions category in pop-up menu like <b>My Events</b>, <b>Upcoming</b>, <b>Past</b>
-     * and <b>Completed</b> for Sunningdales golf club.
+     * and <b>Completed</b> for sunningdales golf club.
      */
     private void initCompetitionsCategory() {
 
         popupMenu = new PopupMenu(this, tvCompType);
         popupMenu.inflate(R.menu.competitions_menu);
         tvCompType.setText("" + popupMenu.getMenu().getItem(0));
+    }
+
+    private void initFilterCompetitions() {
+        popupMenuFilterComp = new PopupMenu(this, ivFilterMenu);
+        popupMenuFilterComp.inflate(R.menu.menu_filter_comps);
+
+        if (iPopItemPos == 2) {
+            //By Default My Events will be displayed.
+            iGenderFilter = loadPreferenceValue(ApplicationGlobal.KEY_GENDER_FILTER, 2);
+            isJoined = loadPreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_ONLY, true);
+        }
+        //tvCompType.setText("" + popupMenu.getMenu().getItem(0));
     }
 
     /**
@@ -925,5 +1096,88 @@ public class CompetitionsActivity extends BaseActivity {
 
         //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
         //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+    }
+
+    /**
+     * Implement a method to hit Competitions
+     * Filter web service.
+     */
+    public void requestCompFilterSettings() {
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsCompFilterSettings = new AJsonParamsCompFilterSettings();
+        aJsonParamsCompFilterSettings.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsCompFilterSettings.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsCompFilterSettings.setMemberId(getMemberId());
+        aJsonParamsCompFilterSettings.setMyEventsOnly(isJoined);
+        aJsonParamsCompFilterSettings.setGenderFilter(iGenderFilter);
+
+        compFilterSettingsItems = new CompFilterSettingsItems("CLUBINFO",
+                getClientId(),
+                "MEMBERSETTING",
+                aJsonParamsCompFilterSettings);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getCompFilterSettings(compFilterSettingsItems, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateFilterSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                showAlertMessage("" + error);
+            }
+        });
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateFilterSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<CompfiltersettingsResponse>() {
+        }.getType();
+        compfiltersettingsResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (compfiltersettingsResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_ONLY,
+                        compfiltersettingsResponse.getData().getMyEventsOnly());
+                savePreferenceValue(ApplicationGlobal.KEY_GENDER_FILTER,
+                        compfiltersettingsResponse.getData().getGenderFilter());
+
+                callCompetitionsWebService();
+
+            } else {
+                updateNoCompetitionsUI(false);
+                //If web service not respond in any case.
+                showAlertMessage(compfiltersettingsResponse.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(CompetitionsActivity.class.getSimpleName(), e.toString());
+        }
     }
 }
