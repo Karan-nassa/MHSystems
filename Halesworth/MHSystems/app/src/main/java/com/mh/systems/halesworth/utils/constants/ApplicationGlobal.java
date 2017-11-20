@@ -39,6 +39,7 @@ public class ApplicationGlobal {
     public static final int POSITION_MEMBERS = 4;
     public static final int POSITION_ABOUT_CLUB = 5;
     public static final int POSITION_MY_ACCOUNT = 6;
+    public static final int POSITION_TEE_TIME_BOOKING = 8;
 
     /**
      * Use this for COMPETITIONS ENTRY.
@@ -118,6 +119,10 @@ public class ApplicationGlobal {
     public static final String KEY_COURSES = "Courses";
     public static final String KEY_FIRST_TIME_LOGIN = "FirstTimeLogin";
     public static final String KEY_MARKET_VERSION = "maketVersion";
+    public static final String KEY_MOTT_FEATURE = "MOTTFeature";
+    public static final String KEY_MY_EVENT_FEATURE = "MyEventFeature";
+    public static final String KEY_MY_EVENT_ONLY = "MyEventOnly";
+    public static final String KEY_GENDER_FILTER = "GenderFilter";
 
     public static final String KEY_COURSE_DIARY_FEATURE = "CourseDiaryFeatures";
     public static final String KEY_COMPETITIONS_FEATURE = "CompetitionsFeature";

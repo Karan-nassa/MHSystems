@@ -11,6 +11,7 @@
     <string name="error_no_competitions">No competitions</string>
     <string name="error_no_course">No Course</string>
     <string name="error_no_data_found">No Data Found</string>
+    <string name="error_no_booking">No Booking found</string>
     <string name="error_no_member">No Members found</string>
     <string name="error_no_friend">No Friends found</string>
     <string name="error_no_top_up">No Top Up range found</string>
@@ -23,6 +24,7 @@
     <string name="error_wrong_date_selection">You can only view data of current date and future dates.</string>
     <string name="error_valid_email">Please enter valid Email address.</string>
     <string name="error_no_transaction">No Transaction Receipt Available.</string>
+    <string name="error_no_topup_found">Unable to access your Top-up balance.</string>
     <!-- END OF SNACK BAR ERROR MESSAGES -->
 
     <!-- START OF COMMON MESSAGES THROUGH OUT THE APP -->
@@ -303,5 +305,20 @@
     <string name="alert_title_payment_failure">Payment Failure</string>
     <string name="text_title_new_balance">Your new balance is </string>
     <string name="error_title_try_again">Please try again</string>
+
+    <!-- TEE TIME BOOKING INTEGRATION [START] -->
+
+    <string name="text_title_tee_booking">Tee Time Booking</string>
+    <string name="customize">Customize</string>
+    <string name="show_dialog">Show Dialog</string>
+    <string name="undo">Undo</string>
+
+    <string name="tab_title_show_month">Show Month View</string>
+    <string name="tab_title_my_bookings">My Bookings</string>
+
+    <string name="text_with_buggy">with buggy</string>
+    <string name="text_with_buggies">with 2 buggies</string>
+
+    <!-- TEE TIME BOOKING INTEGRATION [END] -->
 
 </resources>

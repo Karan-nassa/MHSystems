@@ -46,6 +46,7 @@ dependencies {
     compile files('libs/rollbar-android-0.1.2-dev.jar')
     //Members list Alphabetical in new style like contacts dependency.
     compile project(':library')
+    compile project(':caldroid')
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"

@@ -195,6 +195,16 @@
             android:name=".ui.activites.TopUpActivity"
             android:screenOrientation="portrait" />
 
+        <!-- TEE TIME BOOKING ACTIVITY -->
+        <activity
+            android:name=".ui.activites.TeeTimeBookingActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- TEE TIME BOOKING DETAIL -->
+        <activity
+            android:name=".ui.activites.TeeBookingDetailActivity"
+            android:screenOrientation="portrait" />
+
         <!-- FRIENDS INFO -->
 
         <activity
