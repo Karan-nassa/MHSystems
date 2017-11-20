@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mh.systems.york.ui.activites.BaseActivity;
 import com.mh.systems.york.ui.activites.YourAccountActivity;
+import com.mh.systems.york.ui.fragments.MyBookingsFragment;
+import com.mh.systems.york.ui.fragments.ShowMonthViewFragment;
 import com.mh.systems.york.utils.constants.ApplicationGlobal;
 import com.mh.systems.york.ui.fragments.ContactUsFragment;
 import com.mh.systems.york.ui.fragments.EligibleFriendsFragment;
@@ -100,6 +102,9 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
 
                 case ApplicationGlobal.POSITION_MEMBERS_BOOKING:
                     return loadMembersBookingTab(position);
+
+                case ApplicationGlobal.POSITION_TEE_TIME_BOOKING:
+                    return loadTeeTimeBookingsTab(position);
             }
         }
         return new NoInternetFragment();
@@ -284,5 +289,30 @@ public class TabsPageAdapter extends FragmentStatePagerAdapter {
                 return null;
         }
     }
+
+    /**
+     * Load TEE TIME BOOKINGS Tabs i.e
+     * <br> 1. {@link ShowMonthViewFragment}
+     * <br> 2. {@link MyBookingsFragment}
+     * <p/>
+     *
+     * @param iPosition
+     * @return Fragment
+     */
+    private Fragment loadTeeTimeBookingsTab(int iPosition) {
+
+        switch (iPosition) {
+            case 0:
+                ShowMonthViewFragment showMonthViewFragment = new ShowMonthViewFragment();
+                return showMonthViewFragment;
+            case 1:
+                MyBookingsFragment yourBookingsFragment = new MyBookingsFragment();
+                return yourBookingsFragment;
+
+            default:
+                return null;
+        }
+    }
+
 
 }

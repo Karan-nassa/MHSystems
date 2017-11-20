@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\York GC Members App\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xxhdpi-v4\\ic_date_prevmonth.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\York GC Members App\\MHSystems\\caldroid\\build\\intermediates\\bundles\\debug\\res\\mipmap-xxhdpi-v4\\ic_date_prevmonth.png"
+    },
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\York GC Members App\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xxhdpi-v4\\ic_date_nextmonth.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\York GC Members App\\MHSystems\\caldroid\\build\\intermediates\\bundles\\debug\\res\\mipmap-xxhdpi-v4\\ic_date_nextmonth.png"
+    },
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\York GC Members App\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xxhdpi-v4\\ic_date_calendar.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\York GC Members App\\MHSystems\\caldroid\\build\\intermediates\\bundles\\debug\\res\\mipmap-xxhdpi-v4\\ic_date_calendar.png"
+    }
+]

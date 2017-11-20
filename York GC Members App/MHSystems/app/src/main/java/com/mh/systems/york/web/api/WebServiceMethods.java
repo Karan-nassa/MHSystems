@@ -10,6 +10,7 @@ import com.mh.systems.york.web.models.CompetitionResultAPI;
 import com.mh.systems.york.web.models.CompetitionJoinAPI;
 import com.mh.systems.york.web.models.CompetitionUnjoinAPI;
 import com.mh.systems.york.web.models.CompetitionsAPI;
+import com.mh.systems.york.web.models.compfiltersettings.CompFilterSettingsItems;
 import com.mh.systems.york.web.models.contactus.ContactUsAPI;
 import com.mh.systems.york.web.models.CourseDiaryAPI;
 import com.mh.systems.york.web.models.coursenames.CourseNamesAPI;
@@ -26,6 +27,10 @@ import com.mh.systems.york.web.models.MembersDetailAPI;
 import com.mh.systems.york.web.models.FinanceAPI;
 import com.mh.systems.york.web.models.pursebalance.PurseBalanceApi;
 import com.mh.systems.york.web.models.resetpassword.ResetPasswordAPI;
+import com.mh.systems.york.web.models.teetimebooking.cancelbooking.CancelBookingAPI;
+import com.mh.systems.york.web.models.teetimebooking.getbookingdata.GetBookingDataAPI;
+import com.mh.systems.york.web.models.teetimebooking.getmonthdata.GetMonthDataAPI;
+import com.mh.systems.york.web.models.teetimebooking.makebooking.MakeBookingAPI;
 import com.mh.systems.york.web.models.toggleprivacy.TogglePrivacyAPI;
 import com.mh.systems.york.web.models.unreadnewscount.GetUnreadNewsCountAPI;
 import com.mh.systems.york.web.models.updatepassword.UpdatePassswordAPI;
@@ -470,5 +475,60 @@ public interface WebServiceMethods {
      */
     @POST("/webapi/api/ClubsApp/RpcRequest")
     public void getFinancePurseBalance(@Body PurseBalanceApi purseBalanceApi, Callback<JsonObject> response);
+
+    /**
+     *Get Month Data of MOTT Tee Time Booking
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getMonthDataAPI : Pass model of Competitions Event Entry V2.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void GetMonthDataMOTT(@Body GetMonthDataAPI getMonthDataAPI, Callback<JsonObject> response);
+
+    /**
+     *Make Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getMonthDataAPI : Make Booking Entry.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void GetMakeBookingMOTT(@Body MakeBookingAPI makeBookingAPI, Callback<JsonObject> response);
+
+    /**
+     *Cancel Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param cancelBookingAPI : Pass model of Cancel Booking Entry.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void cancelBookingMOTT(@Body CancelBookingAPI cancelBookingAPI, Callback<JsonObject> response);
+
+    /**
+     *Get detail list of Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param getBookingDataAPI : My Booking Tab data.
+     * @param response        : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getBookingDataMOTT(@Body GetBookingDataAPI getBookingDataAPI, Callback<JsonObject> response);
+
+    /**
+     * Get detail list of Tee Time Booking of MOTT
+     * <p/>
+     * TYPE : POST
+     *
+     * @param compFilterSettingsItems : Get Competitions Filter settings.
+     * @param response                : Response in JSON format.
+     */
+    @POST("/webapi/api/ClubsApp")
+    public void getCompFilterSettings(@Body CompFilterSettingsItems compFilterSettingsItems, Callback<JsonObject> response);
 }
 
