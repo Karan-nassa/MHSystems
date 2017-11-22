@@ -111,4 +111,9 @@
     <color name="pinned_header_text">#FF3c3c3c</color>
     <!-- +++++++++++++++++++++++ END OF MEMBERS ALPHABETICAL LIST +++++++++++++++++++++++  -->
 
+    <color name="green">#8FCC85</color>
+    <color name="blue">#ff33b5e5</color>
+    <color name="white">#ffffff</color>
+
+    <color name="color039683">#039683</color>
 </resources>

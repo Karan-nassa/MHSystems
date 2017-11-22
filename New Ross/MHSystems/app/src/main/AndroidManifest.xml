@@ -204,6 +204,16 @@
             android:name=".ui.activites.FriendsInfoActivity"
             android:screenOrientation="portrait" />
 
+        <!-- TEE TIME BOOKING ACTIVITY -->
+        <activity
+            android:name=".ui.activites.TeeTimeBookingActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- TEE TIME BOOKING DETAIL -->
+        <activity
+            android:name=".ui.activites.TeeBookingDetailActivity"
+            android:screenOrientation="portrait" />
+
         <!-- See the Weather-->
 
         <!-- [START gcm_receiver] -->

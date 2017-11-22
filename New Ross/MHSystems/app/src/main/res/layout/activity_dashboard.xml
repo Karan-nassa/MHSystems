@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
                 android:layout_weight="5"
-                android:src="@mipmap/ic_arrowright" />
+                android:src="@mipmap/ic_arrow_right_white" />
 
 
         </LinearLayout>
