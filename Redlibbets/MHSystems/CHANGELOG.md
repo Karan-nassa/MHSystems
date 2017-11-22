@@ -1,3 +1,10 @@
+####Version 1.3 ()
+
+   ####22nd Nov, 2017
+   - Competitions : Add Option to choose which competitions to display
+   - Competition Results : Display All results in collapsible way 
+   - Mobile App Item 131: URGENT BUG. Handicap Info not Correct
+
 ####Version 1.2 (30th Oct, 2017)
   - UPDATE: Integrate Facebook, Twitter feature.
 
