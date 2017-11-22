@@ -3,6 +3,11 @@
  ####26th, Sep, 2017
   - NEW: Mobile App Item 124: Issue with Club News - Orientation.
   - UPDATE: Implements the "IsSimpleMode" feature in Competitions.
+  
+ ####17th Nov, 2017
+  - Competitions : Add Option to choose which competitions to display
+  - Competition Results : Display All results in collapsible way 
+  - Mobile App Item 131: URGENT BUG. Handicap Info not Correct
 
 ####Version 2.0.0 (19th Sep, 2017)
 
