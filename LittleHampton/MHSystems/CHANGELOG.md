@@ -1,3 +1,10 @@
+###Version 1.2 ()
+ 
+  ####23rd Nov, 2017
+  - Competitions : Add Option to choose which competitions to display
+  - Competition Results : Display All results in collapsible way 
+  - Mobile App Item 131: URGENT BUG. Handicap Info not Correct
+
 ##Version 1.1.0 (05th July, 2017)
 
  - UPDATE: Change the 'Course diary' to 'Club Diary'.

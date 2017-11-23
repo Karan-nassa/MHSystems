@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\LittleHampton\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi-v4\\ic_date_prevmonth.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\LittleHampton\\MHSystems\\caldroid\\src\\main\\res\\mipmap-xxxhdpi\\ic_date_prevmonth.png"
+    },
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\LittleHampton\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi-v4\\ic_date_nextmonth.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\LittleHampton\\MHSystems\\caldroid\\src\\main\\res\\mipmap-xxxhdpi\\ic_date_nextmonth.png"
+    },
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\LittleHampton\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi-v4\\ic_date_calendar.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\LittleHampton\\MHSystems\\caldroid\\src\\main\\res\\mipmap-xxxhdpi\\ic_date_calendar.png"
+    }
+]

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorC59A5C"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/listTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:paddingLeft="20dp"
+            android:text="Stableford"
+            android:layout_marginTop="3dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/ivExpandArrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:src="@mipmap/ic_expand_down_new" />
+    </FrameLayout>
+
+    <!-- VIEW GROUP FOR RESULT TITLE -->
+
+    <LinearLayout
+        android:id="@+id/llTopHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="100">
+
+        <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:layout_weight="15"
+            android:paddingLeft="4dp"
+            android:text="Pos"
+            android:textColor="@color/color1E1E1C"
+            android:textSize="15sp" />
+
+        <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="50"
+            android:gravity="center|left"
+            android:text="Player"
+            android:textColor="@color/color1E1E1C"
+            android:textSize="15sp" />
+
+        <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:gravity="center|left"
+            android:text="Handicap"
+            android:textColor="@color/color1E1E1C"
+            android:textSize="15sp" />
+
+        <com.mh.systems.corrstown.ui.customfonts.RobotoMediumTextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="15"
+            android:gravity="center|right"
+            android:text="Total"
+            android:textColor="@color/color1E1E1C"
+            android:textSize="15sp" />
+    </LinearLayout>
+</LinearLayout>
