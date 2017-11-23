@@ -10,7 +10,7 @@ notify:
 
 general:
     artifacts:
-        - /home/ubuntu/CircleCiAndroid/app/build/outputs/apk/
+        - /home/ubuntu/mhsystems_android/app/build/outputs/apk/
 
 machine:
     environment:
