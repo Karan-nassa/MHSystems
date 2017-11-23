@@ -1,28 +1,19 @@
-#
-# Build configuration for Circle CI
-#
-
+version: 2
+			
 notify:
   webhooks:
     # A list of hashes representing hooks. Only the url field is supported.
     - url: https://production-review-tool.herokuapp.com/api/buildNotification
-
-general:
-    artifacts:
-        - /home/ubuntu/mhsystems_android/MHS Demo/MHSystems/app/build/outputs/apk/
-
-machine:
-    environment:
-        ANDROID_HOME: /usr/local/android-sdk-linux
-
-dependencies:
-    override:
-        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-26.0.2,android-26,extra-google-m2repository,extra-google-google_play_services,extra-android-support
-        - chmod +x gradlew
-        - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
-
-test:
-    override:
-        - (./gradlew assemble):
-            timeout: 360
-			
+jobs:
+  build:
+    docker:
+     - image: circleci/android:api-25-alpha
+    working_directory: ~/MHS Demo/MHSystems
+    steps:
+      - checkout
+      - run:
+            name: chmod permissions
+            command: chmod +x ./gradlew
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
