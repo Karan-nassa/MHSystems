@@ -11,10 +11,17 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.mh.systems.brokenhurst.web.models.compfiltersettings.AJsonParamsCompFilterSettings;
+import com.mh.systems.brokenhurst.web.models.compfiltersettings.CompFilterSettingsItems;
+import com.mh.systems.brokenhurst.web.models.compfiltersettings.CompfiltersettingsResponse;
+import com.newrelic.com.google.gson.Gson;
+import com.newrelic.com.google.gson.reflect.TypeToken;
 import com.mh.systems.brokenhurst.R;
 import com.mh.systems.brokenhurst.ui.adapter.BaseAdapter.CompetitionsAdapter;
 import com.mh.systems.brokenhurst.utils.constants.ApplicationGlobal;
@@ -24,7 +31,6 @@ import com.mh.systems.brokenhurst.web.models.CompetitionsData;
 import com.mh.systems.brokenhurst.web.models.CompetitionsJsonParams;
 import com.mh.systems.brokenhurst.web.models.CompetitionsResultItems;
 import com.mh.systems.brokenhurst.web.api.WebServiceMethods;
-import com.newrelic.com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
@@ -49,9 +55,11 @@ public class CompetitionsActivity extends BaseActivity {
      * iCourseType for categorised of Competitions. By default 'My Events' is selected.
      */
     boolean isUpcoming = true;
-    boolean isJoined = false;
+    boolean isJoined = true;
     boolean isCompleted = false;
     boolean isCurrent = false;
+
+    int iGenderFilter = 2;
 
     /**
      * iPopItemPos describes the position of POP MENU selected item.
@@ -101,8 +109,12 @@ public class CompetitionsActivity extends BaseActivity {
     @Bind(R.id.tvTodayComp)
     TextView tvTodayComp;
 
+    @Bind(R.id.ivFilterMenu)
+    ImageView ivFilterMenu;
+
     //Pop Menu to show Categories of Course Diary.
     PopupMenu popupMenu;
+    PopupMenu popupMenuFilterComp;
 
      /* ++ INTERNET CONNECTION PARAMETERS ++ */
 
@@ -141,6 +153,11 @@ public class CompetitionsActivity extends BaseActivity {
     CompetitionsResultItems competitionsResultItems;
     CompetitionsJsonParams competitionsJsonParams;
 
+    CompFilterSettingsItems compFilterSettingsItems;
+    AJsonParamsCompFilterSettings aJsonParamsCompFilterSettings;
+    CompfiltersettingsResponse compfiltersettingsResponse;
+
+    PopupWindow popupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +188,7 @@ public class CompetitionsActivity extends BaseActivity {
         //callCompetitionsWebService();
 
         initCompetitionsCategory();
+        initFilterCompetitions();
 
         //Set click listener events declaration.
         llHomeIcon.setOnClickListener(mHomePressListener);
@@ -182,6 +200,19 @@ public class CompetitionsActivity extends BaseActivity {
             }
         });
         popupMenu.setOnMenuItemClickListener(mCompetitionsTypeLitener);
+
+        ivFilterMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMenuFilterComp.show();
+                // showPopup(ivFilterMenu);
+            }
+        });
+        popupMenuFilterComp.setOnMenuItemClickListener(mCompetitionsFilterLitener);
+    }
+
+    public void dismissPopMenu() {
+        popupWindow.dismiss();
     }
 
     @Override
@@ -191,111 +222,218 @@ public class CompetitionsActivity extends BaseActivity {
     }
 
     /**
-     * Declares the quick navigation of top bar icons like Previous/Next Month, Today or
-     * Calendar navigation to month randomly.
+     * Implements HOME icons press listener.
      */
-    public void onClick(View view) {
+    public View.OnClickListener mHomePressListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onBackPressed();
+        }
+    };
 
-        if (isOnline(CompetitionsActivity.this)) {
-            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
-            switch (view.getId()) {
+    /**
+     * Declares the click event handling FIELD to set categories
+     * of COURSE DIARY.
+     */
+    public PopupMenu.OnMenuItemClickListener mCompetitionsTypeLitener =
+            new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
 
-                case ApplicationGlobal.ACTION_NOTHING:
+                    tvCompType.setText(item.getTitle());
 
-                    break;
+                    switch (item.getItemId()) {
+                       /* case R.id.item_My_Events:
+                            iPopItemPos = 0;
+                            isMyEvent = true;
+                            isUpcoming = true;
+                            isPast = true;
+                            isCompleted = true;
+                            break;*/
 
-                case R.id.ivPrevMonthComp:
-                    /**
-                     *  User can navigate back till current MONTH but can back to JANUARY MONTH for
-                     *  COMPLETED tab.
-                     */
-                    if (iPopItemPos == 2) {
+                        case R.id.item_Upcoming:
+                            iPopItemPos = 0;
+                            isUpcoming = true;
+                            isJoined = true;
+                            isCompleted = false;
+                            isCurrent = false;
 
-                        if (iMonth >= 1) {
-                            actionPreviousMonth();
-                            createDateForData();
-                            //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
-                        } else {
-                            setPreviousButton(false);
-                            setNextButton(true);
-                        }
-                    } else {
-                        Log.e("yaer", "" + Calendar.YEAR);
-                        if (iMonth > iCurrentMonth) {
-                            actionPreviousMonth();
-                            setNextButton(true);
-                            createDateForData();
-                            // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
-                        } else {
-                            if (iMonth == 1) {
-                                iMonth = 12;
-                                iYear = (iYear - 1);
-                                Log.e("iYear", "" + iYear);
-                                strDate = "01";
-                                createDateForData();
-                            } else if (iMonth < iCurrentMonth && iCurrentYear < iYear) {
-                                Log.e("iYear", "" + iYear);
-                                iMonth--;
-                                strDate = "01";
-                                createDateForData();
+                            ivFilterMenu.setVisibility(View.GONE);
+
+                            break;
+
+                        case R.id.item_Joined:
+                            iPopItemPos = 1;
+                            isUpcoming = true;
+                            isJoined = true;
+                            isCompleted = true;
+                            isCurrent = true;
+
+                            ivFilterMenu.setVisibility(View.GONE);
+                            break;
+
+                        case R.id.item_Completed:
+                            iPopItemPos = 2;
+                            isUpcoming = false;
+                            isJoined = true;
+                            isCompleted = true;
+                            isCurrent = false;
+
+                            if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_FEATURE, true)) {
+                                ivFilterMenu.setVisibility(View.VISIBLE);
+                                //By Default My Events will be displayed.
+                                iGenderFilter = loadPreferenceValue(ApplicationGlobal.KEY_GENDER_FILTER, 2);
+                                isJoined = loadPreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_ONLY, true);
+
+                                updateFilterUI();
                             }
-
-
-                        }
+                            break;
                     }
-                    break;
 
-                case R.id.ivNextMonthComp:
-                    if (iMonth == 12) {
-                        iMonth = 1;
-                        iYear = (iYear + 1);
-                        Log.e("iYear", "" + iYear);
-                        strDate = "01";
+                    resetArrayData();
 
-                        getNumberofDays();
-                        setPreviousButton(true);
-                        createDateForData();
+                    if (iPopItemPos < 2) {
+                        resetCalendar();
+                        //createDateForData();
                     } else {
-                        iMonth++;
-
-                        if (iMonth > iCurrentMonth) {
-                            setPreviousButton(true);
-                        } else if (iMonth == 12) {
-                            setNextButton(false);
-                        }
-
-                        //Do nothing. Just load data according current date.
                         strDate = "01";
+                        iMonth = iCurrentMonth;
+                        iYear = iCurrentYear;
+                        //createDateForData();
 
-                        getNumberofDays();
-
-                        createDateForData();
+                        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
+                        //resetMonthsNavigationIcons();
+                        //callCompetitionsWebService();
                     }
-                    break;
 
-                case R.id.tvTodayComp:
-                    resetCalendar();
 
-//                    mCalendarInstance.set(Calendar.YEAR, iCurrentYear);
-//                    mCalendarInstance.set(Calendar.MONTH, (iCurrentMonth - 1));
-//                    mCalendarInstance.set(Calendar.DATE, Integer.parseInt(strCurrentDate));
-//
-//                    //Initialize the dates of CALENDER to display data according dates.
-//                    strDate = "" + mCalendarInstance.get(Calendar.DATE);
-//                    iNumOfDays = mCalendarInstance.get(Calendar.DATE);
-//
-//                    //Get MONTH and YEAR.
-//                    iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
-
+                    mCalendarInstance = new GregorianCalendar(iYear, (iMonth - 1), Integer.parseInt(strDate));
+                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
                     createDateForData();
-                    break;
+                    return true;
+                }
+            };
 
-                case R.id.ivCalendarComp:
-                    showCalendar();
-                    break;
-            }
+    /**
+     * Declares the COMPETITION filter settings like
+     * 1.) My Competitions When [MyEventsOnly] or [isJoined] = true & Gender Filter = 2
+     * 2.) All Competitions When [MyEventsOnly] or [isJoined] = false & Gender Filter = 2
+     * 3.) All Ladies When [MyEventsOnly] or [isJoined] = false & Gender Filter = 1
+     * 4.) All Gents  When [MyEventsOnly] or [isJoined] = false & Gender Filter = 0
+     */
+    public PopupMenu.OnMenuItemClickListener mCompetitionsFilterLitener =
+            new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    //item.setChecked(true);
+                    MenuItem menuItem;
+                    switch (item.getItemId()) {
+                        case R.id.action_my_comp:
+
+                            isJoined = true;
+                            iGenderFilter = 2;
+
+                            updateFilterUI();
+
+                            menuItem = popupMenu.getMenu().findItem(R.id.action_my_comp);
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "My Competition", Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case R.id.action_all_comp:
+
+                            isJoined = false;
+                            iGenderFilter = 2;
+
+                            updateFilterUI();
+
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "All Competition", Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case R.id.action_all_ladies_comp:
+
+                            isJoined = false;
+                            iGenderFilter = 1;
+
+                            updateFilterUI();
+
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "All Ladies Competition", Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case R.id.action_all_mens_comp:
+                            isJoined = false;
+                            iGenderFilter = 0;
+
+                            updateFilterUI();
+
+                            Toast.makeText(CompetitionsActivity.this,
+                                    "All Mens Competitions", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+
+                    /**
+                     *  Check internet connection before hitting server request.
+                     */
+                    if (isOnline(CompetitionsActivity.this)) {
+                        requestCompFilterSettings();
+                    } else {
+                        showAlertMessage(getResources().getString(R.string.error_no_connection));
+                    }
+
+                    return true;
+                }
+            };
+
+    public void updateFilterUI() {
+        switch (iGenderFilter) {
+            case 0:
+                popupMenuFilterComp.getMenu().getItem(0).setChecked(false);
+                popupMenuFilterComp.getMenu().getItem(1).setChecked(false);
+                popupMenuFilterComp.getMenu().getItem(2).setChecked(false);
+                popupMenuFilterComp.getMenu().getItem(3).setChecked(true);
+                break;
+
+            case 1:
+                popupMenuFilterComp.getMenu().getItem(0).setChecked(false);
+                popupMenuFilterComp.getMenu().getItem(1).setChecked(false);
+                popupMenuFilterComp.getMenu().getItem(2).setChecked(true);
+                popupMenuFilterComp.getMenu().getItem(3).setChecked(false);
+                break;
+
+            case 2:
+
+                if (isJoined) {
+                    //My Events
+                    popupMenuFilterComp.getMenu().getItem(0).setChecked(true);
+                    popupMenuFilterComp.getMenu().getItem(1).setChecked(false);
+                    popupMenuFilterComp.getMenu().getItem(2).setChecked(false);
+                    popupMenuFilterComp.getMenu().getItem(3).setChecked(false);
+                } else {
+                    popupMenuFilterComp.getMenu().getItem(0).setChecked(false);
+                    popupMenuFilterComp.getMenu().getItem(1).setChecked(true);
+                    popupMenuFilterComp.getMenu().getItem(2).setChecked(false);
+                    popupMenuFilterComp.getMenu().getItem(3).setChecked(false);
+                }
+                break;
+        }
+    }
+
+    /**
+     * Implements a method to call News web service either call
+     * initially or call from onSwipeRefresh.
+     */
+    public void callCompetitionsWebService() {
+        /**
+         *  Check internet connection before hitting server request.
+         */
+        if (isOnline(CompetitionsActivity.this)) {
+            updateNoInternetUI(true);
+            requestCompetitionsEvents();
         } else {
-            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
+            updateNoInternetUI(false);
         }
     }
 
@@ -323,8 +461,13 @@ public class CompetitionsActivity extends BaseActivity {
         competitionsJsonParams.setPageNo("0");
         competitionsJsonParams.setPageSize("10");
         competitionsJsonParams.setAscendingDateOrder(true);
+        competitionsJsonParams.setGenderFilter(iGenderFilter);
 
-        competitionsAPI = new CompetitionsAPI(getClientId(), "GETCLUBEVENTLIST", competitionsJsonParams, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        competitionsAPI = new CompetitionsAPI(getClientId(),
+                "GETCLUBEVENTLIST",
+                competitionsJsonParams,
+                ApplicationGlobal.TAG_GCLUB_WEBSERVICES,
+                ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()
@@ -348,7 +491,7 @@ public class CompetitionsActivity extends BaseActivity {
                 Log.e(LOG_TAG, "RetrofitError : " + error);
                 hideProgress();
 
-                showAlertMessage("" + getResources().getString(R.string.error_server_problem));
+                showAlertMessage("" + error);
             }
         });
     }
@@ -514,98 +657,112 @@ public class CompetitionsActivity extends BaseActivity {
     }
 
     /**
-     * Implements HOME icons press listener.
+     * Declares the quick navigation of top bar icons like Previous/Next Month, Today or
+     * Calendar navigation to month randomly.
      */
-    private View.OnClickListener mHomePressListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onBackPressed();
-        }
-    };
+    public void onClick(View view) {
 
-    /**
-     * Declares the click event handling FIELD to set categories
-     * of COURSE DIARY.
-     */
-    private PopupMenu.OnMenuItemClickListener mCompetitionsTypeLitener =
-            new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-
-                    tvCompType.setText(item.getTitle());
-
-                    switch (item.getItemId()) {
-                       /* case R.id.item_My_Events:
-                            iPopItemPos = 0;
-                            isMyEvent = true;
-                            isUpcoming = true;
-                            isPast = true;
-                            isCompleted = true;
-                            break;*/
-
-                        case R.id.item_Upcoming:
-                            iPopItemPos = 0;
-                            isUpcoming = true;
-                            isJoined = false;
-                            isCompleted = false;
-                            isCurrent = false;
-                            break;
-
-                        case R.id.item_Joined:
-                            iPopItemPos = 1;
-                            isUpcoming = true;
-                            isJoined = true;
-                            isCompleted = true;
-                            isCurrent = true;
-                            break;
-
-                        case R.id.item_Completed:
-                            iPopItemPos = 2;
-                            isUpcoming = false;
-                            isJoined = true;
-                            isCompleted = true;
-                            isCurrent = false;
-                            break;
-                    }
-
-                    resetArrayData();
-
-                    if (iPopItemPos < 2) {
-                        resetCalendar();
-                        //createDateForData();
-                    } else {
-                        strDate = "01";
-                        iMonth = iCurrentMonth;
-                        iYear = iCurrentYear;
-                        //createDateForData();
-
-                        //Set ENABLE/DISABLE state of ICONS on change tab or pressed.
-                        //resetMonthsNavigationIcons();
-                        //callCompetitionsWebService();
-                    }
-
-
-                    mCalendarInstance = new GregorianCalendar(iYear, (iMonth - 1), Integer.parseInt(strDate));
-                    iNumOfDays = mCalendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
-                    createDateForData();
-                    return true;
-                }
-            };
-
-
-    /**
-     * Implements a method to call News web service either call
-     * initially or call from onSwipeRefresh.
-     */
-    private void callCompetitionsWebService() {
-        /**
-         *  Check internet connection before hitting server request.
-         */
         if (isOnline(CompetitionsActivity.this)) {
-            updateNoInternetUI(true);
-            requestCompetitionsEvents();
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, true);
+            switch (view.getId()) {
+
+                case ApplicationGlobal.ACTION_NOTHING:
+
+                    break;
+
+                case R.id.ivPrevMonthComp:
+                    /**
+                     *  User can navigate back till current MONTH but can back to JANUARY MONTH for
+                     *  COMPLETED tab.
+                     */
+                    if (iPopItemPos == 2) {
+
+                        if (iMonth >= 1) {
+                            actionPreviousMonth();
+                            createDateForData();
+                            //updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
+                        } else {
+                            setPreviousButton(false);
+                            setNextButton(true);
+                        }
+                    } else {
+                        Log.e("yaer", "" + Calendar.YEAR);
+                        if (iMonth > iCurrentMonth) {
+                            actionPreviousMonth();
+                            setNextButton(true);
+                            createDateForData();
+                            // updateFragment(new CompetitionsTabFragment(ApplicationGlobal.ACTION_PREVIOUS_MONTH));
+                        } else {
+                            if (iMonth == 1) {
+                                iMonth = 12;
+                                iYear = (iYear - 1);
+                                Log.e("iYear", "" + iYear);
+                                strDate = "01";
+                                createDateForData();
+                            } else if (iMonth < iCurrentMonth && iCurrentYear < iYear) {
+                                Log.e("iYear", "" + iYear);
+                                iMonth--;
+                                strDate = "01";
+                                createDateForData();
+                            }
+
+
+                        }
+                    }
+                    break;
+
+                case R.id.ivNextMonthComp:
+                    if (iMonth == 12) {
+                        iMonth = 1;
+                        iYear = (iYear + 1);
+                        Log.e("iYear", "" + iYear);
+                        strDate = "01";
+
+                        getNumberofDays();
+                        setPreviousButton(true);
+                        createDateForData();
+                    } else {
+                        iMonth++;
+
+                        if (iMonth > iCurrentMonth) {
+                            setPreviousButton(true);
+                        } else if (iMonth == 12) {
+                            setNextButton(false);
+                        }
+
+                        //Do nothing. Just load data according current date.
+                        strDate = "01";
+
+                        getNumberofDays();
+
+                        createDateForData();
+                    }
+                    break;
+
+                case R.id.tvTodayComp:
+
+                    resetCalendar();
+
+//                    mCalendarInstance.set(Calendar.YEAR, iCurrentYear);
+//                    mCalendarInstance.set(Calendar.MONTH, (iCurrentMonth - 1));
+//                    mCalendarInstance.set(Calendar.DATE, Integer.parseInt(strCurrentDate));
+
+                    //Initialize the dates of CALENDER to display data according dates.
+                    //strDate = "" + mCalendarInstance.get(Calendar.DATE);
+                    // iNumOfDays = mCalendarInstance.get(Calendar.DATE);
+
+                    //Get MONTH and YEAR.
+                    // iMonth = (mCalendarInstance.get(Calendar.MONTH) + 1);
+
+                    createDateForData();
+                    break;
+
+                case R.id.ivCalendarComp:
+                    showCalendar();
+                    break;
+            }
         } else {
-            updateNoInternetUI(false);
+            showNoInternetView(inc_message_view, ivMessageSymbol, tvMessageTitle, tvMessageDesc, false);
         }
     }
 
@@ -619,7 +776,7 @@ public class CompetitionsActivity extends BaseActivity {
 
         Type type = new TypeToken<CompetitionsResultItems>() {
         }.getType();
-        competitionsResultItems = new com.newrelic.com.google.gson.Gson().fromJson(jsonObject.toString(), type);
+        competitionsResultItems = new Gson().fromJson(jsonObject.toString(), type);
 
         //Clear array list before inserting items.
         competitionsDatas.clear();
@@ -689,22 +846,25 @@ public class CompetitionsActivity extends BaseActivity {
 
     /**
      * Implements a method to initialize Competitions category in pop-up menu like <b>My Events</b>, <b>Upcoming</b>, <b>Past</b>
-     * and <b>Completed</b> for Sunningdales golf club.
+     * and <b>Completed</b> for brokenhursts golf club.
      */
     private void initCompetitionsCategory() {
 
-        /**
-         * Step 1: Create a new instance of popup menu
-         */
         popupMenu = new PopupMenu(this, tvCompType);
-        /**
-         * Step 2: Inflate the menu resource. Here the menu resource is
-         * defined in the res/menu project folder
-         */
         popupMenu.inflate(R.menu.competitions_menu);
-
-        //Initially display title at position 0 of R.menu.course_menu.
         tvCompType.setText("" + popupMenu.getMenu().getItem(0));
+    }
+
+    private void initFilterCompetitions() {
+        popupMenuFilterComp = new PopupMenu(this, ivFilterMenu);
+        popupMenuFilterComp.inflate(R.menu.menu_filter_comps);
+
+        if (iPopItemPos == 2) {
+            //By Default My Events will be displayed.
+            iGenderFilter = loadPreferenceValue(ApplicationGlobal.KEY_GENDER_FILTER, 2);
+            isJoined = loadPreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_ONLY, true);
+        }
+        //tvCompType.setText("" + popupMenu.getMenu().getItem(0));
     }
 
     /**
@@ -936,5 +1096,88 @@ public class CompetitionsActivity extends BaseActivity {
 
         //Set Minimum or hide dates of PREVIOUS dates of CALENDAR.
         //    dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+    }
+
+    /**
+     * Implement a method to hit Competitions
+     * Filter web service.
+     */
+    public void requestCompFilterSettings() {
+
+        showPleaseWait("Loading...");
+
+        aJsonParamsCompFilterSettings = new AJsonParamsCompFilterSettings();
+        aJsonParamsCompFilterSettings.setCallid(ApplicationGlobal.TAG_GCLUB_CALL_ID);
+        aJsonParamsCompFilterSettings.setVersion(ApplicationGlobal.TAG_GCLUB_VERSION);
+        aJsonParamsCompFilterSettings.setMemberId(getMemberId());
+        aJsonParamsCompFilterSettings.setMyEventsOnly(isJoined);
+        aJsonParamsCompFilterSettings.setGenderFilter(iGenderFilter);
+
+        compFilterSettingsItems = new CompFilterSettingsItems("CLUBINFO",
+                getClientId(),
+                "MEMBERSETTING",
+                aJsonParamsCompFilterSettings);
+
+        //Creating a rest adapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(WebAPI.API_BASE_URL)
+                .build();
+
+        //Creating an object of our api interface
+        WebServiceMethods api = adapter.create(WebServiceMethods.class);
+
+        //Defining the method
+        api.getCompFilterSettings(compFilterSettingsItems, new Callback<JsonObject>() {
+            @Override
+            public void success(JsonObject jsonObject, retrofit.client.Response response) {
+
+                updateFilterSuccessResponse(jsonObject);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //you can handle the errors here
+                Log.e(LOG_TAG, "RetrofitError : " + error);
+                hideProgress();
+
+                showAlertMessage("" + error);
+            }
+        });
+    }
+
+    /**
+     * Implements a method to update SUCCESS
+     * response of web service.
+     */
+    private void updateFilterSuccessResponse(JsonObject jsonObject) {
+
+        Log.e(LOG_TAG, "SUCCESS RESULT : " + jsonObject.toString());
+
+        Type type = new TypeToken<CompfiltersettingsResponse>() {
+        }.getType();
+        compfiltersettingsResponse = new Gson().fromJson(jsonObject.toString(), type);
+
+        try {
+            /**
+             *  Check "Result" 1 or 0. If 1, means data received successfully.
+             */
+            if (compfiltersettingsResponse.getMessage().equalsIgnoreCase("Success")) {
+
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_ONLY,
+                        compfiltersettingsResponse.getData().getMyEventsOnly());
+                savePreferenceValue(ApplicationGlobal.KEY_GENDER_FILTER,
+                        compfiltersettingsResponse.getData().getGenderFilter());
+
+                callCompetitionsWebService();
+
+            } else {
+                updateNoCompetitionsUI(false);
+                //If web service not respond in any case.
+                showAlertMessage(compfiltersettingsResponse.getMessage());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(CompetitionsActivity.class.getSimpleName(), e.toString());
+        }
     }
 }

@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -375,18 +377,14 @@ public class CompletedDetailActivity extends BaseActivity {
     }
 
     private void setupExpandableList() {
-        // expandableListDetail = ExpandableListDataPump.getData();
         expandableListTitle = new ArrayList<String>(listHashMapOfResults.keySet());
         expListAdapter = new CompResultsExpandListAdapter(this, expandableListTitle, listHashMapOfResults);
         elvListOfMembers.setAdapter(expListAdapter);
         ScrollRecycleView.getListViewSize(elvListOfMembers);
-        elvListOfMembers.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+        /*elvListOfMembers.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-              /*  Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();*/
 
                 int height = 0;
                 for (int i = 0; i < elvListOfMembers.getChildCount(); i++) {
@@ -395,23 +393,22 @@ public class CompletedDetailActivity extends BaseActivity {
                 }
                 elvListOfMembers.getLayoutParams().height = (height + 6) * 10;
             }
+        });*/
+
+        elvListOfMembers.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                setListViewHeight(parent, groupPosition);
+                return false;
+            }
         });
 
         elvListOfMembers.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-               /* int height = 0;
-                for (int i = 0; i < elvListOfMembers.getChildCount(); i++) {
-                    height -= elvListOfMembers.getChildAt(i).getMeasuredHeight();
-                    height -= elvListOfMembers.getDividerHeight();
-                }
-                elvListOfMembers.getLayoutParams().height = height;*/
-
-               /* Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();*/
-
             }
         });
 
@@ -419,34 +416,67 @@ public class CompletedDetailActivity extends BaseActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-              /*  Toast.makeText(
-                        getApplicationContext(),
-                        expandableListTitle.get(groupPosition)
-                                + " -> "
-                                + listHashMapOfResults.get(
-                                expandableListTitle.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT
-                ).show();*/
                 return false;
             }
         });
 
         elvListOfMembers.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousGroup = -1;
+
             @Override
             public void onGroupExpand(int groupPosition) {
-                if(groupPosition != previousGroup)
+                if (groupPosition != previousGroup)
                     elvListOfMembers.collapseGroup(previousGroup);
                 previousGroup = groupPosition;
+
+             /*   FrameLayout.LayoutParams param = (FrameLayout.LayoutParams) elvListOfMembers.getLayoutParams();
+                param.height = elvListOfMembers.getHeight();
+                elvListOfMembers.setLayoutParams(param);
+                elvListOfMembers.refreshDrawableState();
 
                 int height = 0;
                 for (int i = 0; i < elvListOfMembers.getChildCount(); i++) {
                     height += elvListOfMembers.getChildAt(i).getMeasuredHeight();
                     height += elvListOfMembers.getDividerHeight();
                 }
-                elvListOfMembers.getLayoutParams().height = (height + 6) * 5;
+                elvListOfMembers.getLayoutParams().height = (height + 6) * 5;*/
             }
         });
+    }
+
+    private void setListViewHeight(ExpandableListView listView,
+                                   int group) {
+        ExpandableListAdapter listAdapter = (ExpandableListAdapter) listView.getExpandableListAdapter();
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
+                View.MeasureSpec.EXACTLY);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            View groupItem = listAdapter.getGroupView(i, false, null, listView);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((listView.isGroupExpanded(i)) && (i != group))
+                    || ((!listView.isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                    View listItem = listAdapter.getChildView(i, j, false, null,
+                            listView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+                    totalHeight += listItem.getMeasuredHeight();
+
+                }
+            }
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+        params.height = height + 200;
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
 }
