@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Menu
+        A menu resource defines an application menu (Options Menu, Context Menu, or submenu) that
+        can be inflated with MenuInflater.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--
+        android:checkable
+            Boolean. "true" if the item is checkable.
+
+        android:checked
+            Boolean. "true" if the item is checked by default.
+    -->
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/action_my_comp"
+            android:checkable="true"
+            android:orderInCategory="4"
+            android:title="My Competition"
+            app:showAsAction="withText" />
+
+        <item
+            android:id="@+id/action_all_comp"
+            android:checkable="true"
+            android:orderInCategory="4"
+            android:title="All Competition"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_all_ladies_comp"
+            android:checkable="true"
+            android:orderInCategory="4"
+            android:title="All Ladies Competition"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/action_all_mens_comp"
+            android:checkable="true"
+            android:orderInCategory="4"
+            android:title="All Mens Competitions"
+            app:showAsAction="withText" />
+    </group>
+</menu>
