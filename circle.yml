@@ -8,7 +8,7 @@ jobs:
   build:
     docker:
      - image: circleci/android:api-25-alpha
-    working_directory: ~/MHS Demo/MHSystems
+    working_directory: ~/mhsystems_android/MHS Demo/MHSystems/
     steps:
       - checkout
       - run:
