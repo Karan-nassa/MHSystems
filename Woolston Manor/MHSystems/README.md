@@ -7,7 +7,7 @@
 
 | Sno. | Name              | Available      |
 | ---- |:----------------  | :------------: |
-| 1.   | Club News Badger  | No             |
+| 1.   | Club News Badger  | Yes            |
 | 2.   | Weather           | Yes            |
 | 3.   | Your Handicap     | Yes            |
 | 4.   | Course Diary      | No             |

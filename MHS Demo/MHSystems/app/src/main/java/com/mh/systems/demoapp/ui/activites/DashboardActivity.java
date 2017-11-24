@@ -321,8 +321,6 @@ public class DashboardActivity extends BaseActivity {
      */
     private void setGridMenuOptions() {
 
-        getUnreadNewsCountService();
-
         dashboardItemsArrayList.clear();
         iHandicapPosition = -1;
 
@@ -411,6 +409,8 @@ public class DashboardActivity extends BaseActivity {
         callWeatherService();
 
         setupGridLayout(dashboardItemsArrayList.size());
+
+        getUnreadNewsCountService();
 
         // ScrollRecycleView.getListViewSize(gvMenuOptions);
     }

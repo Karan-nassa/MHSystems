@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\Woolston Manor\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_date_calendar.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\Woolston Manor\\MHSystems\\caldroid\\src\\main\\res\\mipmap-mdpi\\ic_date_calendar.png"
+    },
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\Woolston Manor\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_date_prevmonth.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\Woolston Manor\\MHSystems\\caldroid\\src\\main\\res\\mipmap-mdpi\\ic_date_prevmonth.png"
+    },
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\Woolston Manor\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_date_nextmonth.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\Woolston Manor\\MHSystems\\caldroid\\src\\main\\res\\mipmap-mdpi\\ic_date_nextmonth.png"
+    }
+]

@@ -89,7 +89,7 @@
 
                     <!-- TEMPERATURE -->
 
-                    <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoTextView
+                    <com.mh.systems.guildford.ui.customfonts.RobotoTextView
                         android:id="@+id/tvTodayTemperature"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -121,7 +121,7 @@
                         android:orientation="vertical"
                         android:paddingLeft="20dp">
 
-                        <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoMediumTextView
+                        <com.mh.systems.guildford.ui.customfonts.RobotoMediumTextView
                             android:id="@+id/tvNameOfLocation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                             android:textColor="@android:color/white"
                             android:textSize="17sp" />
 
-                        <com.mh.systems.chesterLeStreet.ui.customfonts.RobotoMediumTextView
+                        <com.mh.systems.guildford.ui.customfonts.RobotoMediumTextView
                             android:id="@+id/tvWeatherDesc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
