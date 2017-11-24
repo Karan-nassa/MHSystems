@@ -1,6 +1,7 @@
 package com.mh.systems.guildford.ui.activites;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -10,18 +11,23 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.ui.adapter.BaseAdapter.CompetitionDetailAdapter;
+import com.mh.systems.guildford.ui.adapter.expandableAdapter.CompResultsExpandListAdapter;
 import com.mh.systems.guildford.utils.constants.ApplicationGlobal;
 import com.mh.systems.guildford.web.api.WebAPI;
 import com.mh.systems.guildford.web.models.AJsonParamsResultOfCompetition;
 import com.mh.systems.guildford.web.models.CompetitionDetailItems;
 import com.mh.systems.guildford.web.models.CompetitionResultAPI;
+import com.mh.systems.guildford.web.models.Result;
 import com.mh.systems.guildford.web.models.ResultEntries;
 import com.mh.systems.guildford.web.api.WebServiceMethods;
 import com.mh.systems.guildford.utils.ScrollRecycleView;
@@ -31,6 +37,12 @@ import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,8 +73,6 @@ public class CompletedDetailActivity extends BaseActivity {
     TextView tvEventStatusStrDD;
     @Bind(R.id.nsvContent)
     NestedScrollView nsvContent;
-    @Bind(R.id.tvResultDesc)
-    TextView tvResultDesc;
     @Bind(R.id.tvNoDataView)
     TextView tvNoDataView;
 
@@ -74,7 +84,7 @@ public class CompletedDetailActivity extends BaseActivity {
     @Bind(R.id.tvTitleTableResult)
     TextView tvTitleTableResult;
 
-    //Create instance of Competitions detail API to display ROUND result.
+    //Create instance of Competitions detail api to display ROUND result.
     CompetitionResultAPI competitionResultAPI;
     AJsonParamsResultOfCompetition aJsonParamsResultOfCompetition;
 
@@ -84,8 +94,8 @@ public class CompletedDetailActivity extends BaseActivity {
 
     CompetitionDetailAdapter competitionDetailAdapter;
 
-    @Bind(R.id.lvListOfMembers)
-    ListView lvListOfMembers;
+   /* @Bind(R.id.lvListOfMembers)
+    ListView lvListOfMembers;*/
 
     @Bind(R.id.llRankOfMembers)
     LinearLayout llRankOfMembers;
@@ -98,6 +108,13 @@ public class CompletedDetailActivity extends BaseActivity {
     int iPopItemPos;
 
     Typeface tpRobotoMedium, tfSFUITextSemibold, tfButlerLight;
+
+    @Bind(R.id.elvListOfMembers)
+    ExpandableListView elvListOfMembers;
+    CompResultsExpandListAdapter expListAdapter;
+    List<String> expandableListTitle;
+    Map<String, List<ResultEntries>> listHashMapOfResults = new TreeMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +158,25 @@ public class CompletedDetailActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Implement a method to display Alert Dialog message
+     * after unJoin Competitions.
+     */
+    public void showAlertMessage(String strAlertMessage) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(strAlertMessage)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                        onBackPressed();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -207,14 +243,14 @@ public class CompletedDetailActivity extends BaseActivity {
     /**
      * Implements a method to get MEMBER-ID from {@link android.content.SharedPreferences}
      */
-    public String getMemberId() {
+    private String getMemberId() {
         return loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784");
     }
 
     /**
      * Implements a method to get CLIENT-ID from {@link android.content.SharedPreferences}
      */
-    public String getClientId() {
+    private String getClientId() {
         return loadPreferenceValue(ApplicationGlobal.KEY_CLUB_ID, ApplicationGlobal.TAG_CLIENT_ID);
     }
 
@@ -304,11 +340,19 @@ public class CompletedDetailActivity extends BaseActivity {
 
                     tvNoDataView.setVisibility(View.INVISIBLE);
 
-                    tvResultDesc.setText(competitionDetailItems.getCompResultData().getResults().get(0).getDescription());
+                    List<Result> mResultDataList = competitionDetailItems.getCompResultData().getResults();
 
-                    competitionDetailAdapter = new CompetitionDetailAdapter(CompletedDetailActivity.this, resultEntryArrayList);
-                    lvListOfMembers.setAdapter(competitionDetailAdapter);
-                    ScrollRecycleView.getListViewSize(lvListOfMembers);
+                    for (int iCount = mResultDataList.size() - 1; iCount >= 0; iCount--) {
+                        String strKey = mResultDataList.get(iCount).getResultID() + mResultDataList.get(iCount).getDescription();
+                        //Log.e("icount", ""+mResultDataList.get(iCount).getDescription());
+                        listHashMapOfResults.put(strKey, mResultDataList.get(iCount).getResultEntries());
+                    }
+
+                    setupExpandableList();
+
+                    //competitionDetailAdapter = new CompetitionDetailAdapter(CompletedDetailActivity.this, resultEntryArrayList);
+                    //  lvListOfMembers.setAdapter(competitionDetailAdapter);
+                    //  ScrollRecycleView.getListViewSize(lvListOfMembers);
 
                     //Forcefully scroll UP of screen after loading.
                     nsvContent.post(new Runnable() {
@@ -327,27 +371,113 @@ public class CompletedDetailActivity extends BaseActivity {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
-            e.printStackTrace();
+            reportRollBarException(CompletedDetailActivity.class.getSimpleName(), e.toString());
         }
         hideProgress();
     }
 
-    /**
-     * Implement a method to display Alert Dialog message
-     * after unJoin Competitions.
-     */
-    public void showAlertMessage(String strAlertMessage) {
+      private void setupExpandableList() {
+        expandableListTitle = new ArrayList<String>(listHashMapOfResults.keySet());
+        expListAdapter = new CompResultsExpandListAdapter(this, expandableListTitle, listHashMapOfResults);
+        elvListOfMembers.setAdapter(expListAdapter);
+        ScrollRecycleView.getListViewSize(elvListOfMembers);
+        /*elvListOfMembers.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(strAlertMessage)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //do things
-                        onBackPressed();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+            @Override
+            public void onGroupExpand(int groupPosition) {
+
+                int height = 0;
+                for (int i = 0; i < elvListOfMembers.getChildCount(); i++) {
+                    height += elvListOfMembers.getChildAt(i).getMeasuredHeight();
+                    height += elvListOfMembers.getDividerHeight();
+                }
+                elvListOfMembers.getLayoutParams().height = (height + 6) * 10;
+            }
+        });*/
+
+        elvListOfMembers.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                setListViewHeight(parent, groupPosition);
+                return false;
+            }
+        });
+
+        elvListOfMembers.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+            }
+        });
+
+        elvListOfMembers.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                return false;
+            }
+        });
+
+        elvListOfMembers.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int previousGroup = -1;
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (groupPosition != previousGroup)
+                    elvListOfMembers.collapseGroup(previousGroup);
+                previousGroup = groupPosition;
+
+             /*   FrameLayout.LayoutParams param = (FrameLayout.LayoutParams) elvListOfMembers.getLayoutParams();
+                param.height = elvListOfMembers.getHeight();
+                elvListOfMembers.setLayoutParams(param);
+                elvListOfMembers.refreshDrawableState();
+
+                int height = 0;
+                for (int i = 0; i < elvListOfMembers.getChildCount(); i++) {
+                    height += elvListOfMembers.getChildAt(i).getMeasuredHeight();
+                    height += elvListOfMembers.getDividerHeight();
+                }
+                elvListOfMembers.getLayoutParams().height = (height + 6) * 5;*/
+            }
+        });
     }
+
+    private void setListViewHeight(ExpandableListView listView,
+                                   int group) {
+        ExpandableListAdapter listAdapter = (ExpandableListAdapter) listView.getExpandableListAdapter();
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
+                View.MeasureSpec.EXACTLY);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            View groupItem = listAdapter.getGroupView(i, false, null, listView);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((listView.isGroupExpanded(i)) && (i != group))
+                    || ((!listView.isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                    View listItem = listAdapter.getChildView(i, j, false, null,
+                            listView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+                    totalHeight += listItem.getMeasuredHeight();
+
+                }
+            }
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+        params.height = height + 200;
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
+    }
+
 }

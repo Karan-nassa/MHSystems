@@ -207,6 +207,16 @@
             android:name="com.mh.systems.guildford.ui.activites.FriendsInfoActivity"
             android:screenOrientation="portrait" />
 
+        <!-- TEE TIME BOOKING ACTIVITY -->
+        <activity
+            android:name=".ui.activites.TeeTimeBookingActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- TEE TIME BOOKING DETAIL -->
+        <activity
+            android:name=".ui.activites.TeeBookingDetailActivity"
+            android:screenOrientation="portrait" />
+
         <!-- START OF PUSH NOTIFICATION SERVICES AND RECEIVERS -->
 
         <receiver

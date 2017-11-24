@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\Guildford\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\calendar_prev_arrow.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\Guildford\\MHSystems\\caldroid\\src\\main\\res\\drawable-hdpi\\calendar_prev_arrow.png"
+    },
+    {
+        "merged": "E:\\Projects\\MHSystems\\mhsystems_android\\Guildford\\MHSystems\\caldroid\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\calendar_next_arrow.png",
+        "source": "E:\\Projects\\MHSystems\\mhsystems_android\\Guildford\\MHSystems\\caldroid\\src\\main\\res\\drawable-hdpi\\calendar_next_arrow.png"
+    }
+]

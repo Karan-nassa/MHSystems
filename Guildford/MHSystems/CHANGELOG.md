@@ -28,6 +28,11 @@ Changed the following issues:
   
   ####29th, Sep, 2017
   - NEW: Mobile App Item 124: Issue with Club News - Orientation.
+  
+  ####23rd Nov, 2017
+  - Competitions : Add Option to choose which competitions to display
+  - Competition Results : Display All results in collapsible way 
+  - Mobile App Item 131: URGENT BUG. Handicap Info not Correct
 
 ##Version1.3.0 (2016-02-16)
 

@@ -163,11 +163,12 @@ public class CompetitionsAdapter extends BaseAdapter {
         viewHolder.llCompetitionGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = null;
 
                 if (iPopItemPos <= 1) {
                     intent = new Intent(context, CompetitionDetailActivity.class);
-                }else{
+                } else {
                     intent = new Intent(context, CompletedDetailActivity.class);
                 }
 

@@ -109,7 +109,7 @@ public class ApplicationGlobal {
     public static int TAG_GCLUB_VERSION = 1;
     public static String TAG_GCLUB_CALL_ID = "1456315336575";
     public static String TAG_NEW_GCLUB_CALL_ID = "1467204496474";
-    public static String TAG_CLIENT_ID = "44071043";
+    public static String TAG_CLIENT_ID = "44008009";
 
     /**
      * SHARED PREFERENCE KEY COLLECTION.

@@ -220,7 +220,7 @@ public class LoginActivity extends BaseActivity {
         aJsonParamsDashboard.setUserID(strUserName);
         aJsonParamsDashboard.setPassword(strPassword);
 
-        dashboardAPI = new DashboardAPI(44071043, "AUTHENTICATEMEMBER", aJsonParamsDashboard, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
+        dashboardAPI = new DashboardAPI(44008009, "AUTHENTICATEMEMBER", aJsonParamsDashboard, ApplicationGlobal.TAG_GCLUB_WEBSERVICES, ApplicationGlobal.TAG_GCLUB_MEMBERS);
 
         //Creating a rest adapter
         RestAdapter adapter = new RestAdapter.Builder()

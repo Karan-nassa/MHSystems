@@ -1,5 +1,6 @@
 package com.mh.systems.guildford.ui.activites;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,12 +11,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +26,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+
 import com.mh.systems.guildford.R;
 import com.mh.systems.guildford.dataaccess.push.QuickstartPreferences;
 import com.mh.systems.guildford.dataaccess.push.RegistrationIntentService;
@@ -81,13 +82,10 @@ public class DashboardActivity extends BaseActivity {
     LinearLayout llLogoutBtn;
 
     @Bind(R.id.llSettings)
-    LinearLayout llSettings;
+    FrameLayout llSettings;
 
     @Bind(R.id.llWeatherGroup)
     LinearLayout llWeatherGroup;
-
-    @Bind(R.id.btSendFeedback)
-    Button btSendFeedback;
 
     @Bind(R.id.tvTodayTemperature)
     TextView tvTodayTemperature;
@@ -141,87 +139,17 @@ public class DashboardActivity extends BaseActivity {
      *******************************/
     ArrayList<DashboardItems> dashboardItemsArrayList = new ArrayList<>();
 
-    int iHandicapPosition = 0;
+    int iHandicapPosition = -1;
     String strNameOfWeatherLoc = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        //setContentView(R.layout.activity_dashboard_nine_items);
 
-        /**
-         * Annotate fields with @Bind and a view ID for Butter Knife to find and
-         * automatically cast the corresponding view in your layout.
-         */
-        ButterKnife.bind(DashboardActivity.this);
-
-        try {
-            checkUpdateVersion();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        //Initialize adapter.
-        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
-                dashboardItemsArrayList,
-                iHandicapPosition,
-                loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
-        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
-
-        sendTokenToServer();
-
-        //LogOut listener.
-        llLogoutBtn.setOnClickListener(mLogoutListener);
-
-        //LogOut listener.
-        llLogoutBtn.setOnClickListener(mLogoutListener);
-
-        //Settings click event handle here.
-        llSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(DashboardActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //Send Feedback click event here.
-        btSendFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(DashboardActivity.this, SendFeedbackActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //See the weather of 5 days
-        llWeatherGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(DashboardActivity.this, WeatherDetailActivity.class);
-                intent.putExtra("WEATHER_LOC", strNameOfWeatherLoc);
-                startActivity(intent);
-            }
-        });
-//        String temp = loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, "");
-//          if (temp.equals("")){
-//        callWeatherService();
-//          }
-//    else{
-//            llWeatherGroup.setVisibility(View.VISIBLE);
-//            tvTodayTemperature.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ""));
-//            tvWeatherDesc.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ""));
-//            //        tvNameOfLocation.setText(weatherData.getName() + ", " + weatherData.getSys().getCountry());
-//            tvNameOfLocation.setText(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, ""));
-//        //    todayIcon.setImageURI(Uri.parse("http://openweathermap.org/img/w/" + weatherData.getWeather().get(0).getIcon() + ".png"));
-//            Resources res=getResources();
-//            int resID = res.getIdentifier(loadPreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ""), "mipmap", getPackageName());
-//            Drawable drawable = res.getDrawable(resID);
-//            todayIcon.setImageDrawable(drawable);
-//
-//        }
+        //Dashboard is dynamic and enable/disable by Feature flag.
     }
-
 
     @Override
     protected void onResume() {
@@ -229,80 +157,8 @@ public class DashboardActivity extends BaseActivity {
 
         if (isOnline(DashboardActivity.this)) {
             callFeaturesFlagService();
-            callWeatherService();
+            //callWeatherService();
         }
-    }
-
-    /**
-     * Implements a method to set Grid MENU options
-     * dynamically.
-     */
-    public void setGridMenuOptions() {
-
-        getUnreadNewsCountService();
-
-        dashboardItemsArrayList.clear();
-        iHandicapPosition = 0;
-
-        //Add Handicap.
-        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false)) {
-
-            iHandicapPosition = 0;
-
-            dashboardItemsArrayList.add(new DashboardItems(
-                    R.mipmap.ic_handicap_chart,
-                    "Your Handicap",
-                    getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
-        }
-
-        //Add Course Diary.
-        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, false)) {
-
-            dashboardItemsArrayList.add(new DashboardItems(
-                    R.mipmap.ic_home_diary,
-                    "Course Diary",
-                    getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryWebviewActivity"));
-        }
-
-        //Add Competitions
-        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
-
-            dashboardItemsArrayList.add(new DashboardItems(
-                    R.mipmap.ic_home_competitions,
-                    "Competitions",
-                    getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
-        }
-
-        //Add Members
-        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, false)) {
-            dashboardItemsArrayList.add(new DashboardItems(
-                    R.mipmap.ic_home_members,
-                    "Members",
-                    getApplicationContext().getPackageName() + ".ui.activites.MembersActivity"));
-        }
-
-        //Add Club News
-        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, false)) {
-            dashboardItemsArrayList.add(new DashboardItems(
-                    R.mipmap.ic_home_clubnews,
-                    "Club News",
-                    getApplicationContext().getPackageName() + ".ui.activites.ClubNewsActivity"));
-        }
-
-        //Add Finance/Your Details
-        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, false)) {
-            dashboardItemsArrayList.add(new DashboardItems(
-                    R.mipmap.ic_my_account,
-                    "Your Account",
-                    getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
-        }
-
-        //Set Grid options adapter.
-        dashboardRecyclerAdapter.notifyDataSetChanged();
-
-        setupGridLayout(dashboardItemsArrayList.size());
-
-        // ScrollRecycleView.getListViewSize(gvMenuOptions);
     }
 
     /**
@@ -368,11 +224,12 @@ public class DashboardActivity extends BaseActivity {
         }
     }
 
+
     /**
      * Logout user from app and navigate back to
      * Login screen.
      */
-    private View.OnClickListener mLogoutListener = new View.OnClickListener() {
+    public View.OnClickListener mLogoutListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -393,7 +250,7 @@ public class DashboardActivity extends BaseActivity {
         SyncMarket.Initialize(this);
         final String version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 
-        if(SyncMarket.getMarketVersion() != null && SyncMarket.getMarketVersion().equals(version)){
+        if (SyncMarket.getMarketVersion() != null && SyncMarket.getMarketVersion().equals(version)) {
             savePreferenceValue(ApplicationGlobal.KEY_MARKET_VERSION, version);
         }
 
@@ -429,11 +286,11 @@ public class DashboardActivity extends BaseActivity {
         }
     }
 
-
     /**
      * Implements this method to send Token to
      * server for push notifications.
      */
+
     private void sendTokenToServer() {
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -450,6 +307,145 @@ public class DashboardActivity extends BaseActivity {
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
         }
+    }
+
+    /**
+     * Implements a method to set Grid MENU options
+     * dynamically.
+     */
+    private void setGridMenuOptions() {
+
+        getUnreadNewsCountService();
+
+        dashboardItemsArrayList.clear();
+        iHandicapPosition = -1;
+
+        //Add Handicap.
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, false)) {
+
+            iHandicapPosition = 0;
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_handicap_chart,
+                    "Your Handicap",
+                    getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
+        }
+
+        //Add Course Diary.
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, false)) {
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_diary,
+                    "Course Diary",
+                    getApplicationContext().getPackageName() + ".ui.activites.CourseDiaryWebviewActivity"));
+        }
+
+        //Add Competitions
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, false)) {
+
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_competitions,
+                    "Competitions",
+                    getApplicationContext().getPackageName() + ".ui.activites.CompetitionsActivity"));
+        }
+
+        //Tee Time Booking Integration
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_MOTT_FEATURE, false)) {
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_teetime_booking,
+                    "Tee Time Booking",
+                    getApplicationContext().getPackageName() + ".ui.activites.TeeTimeBookingActivity"));
+        }
+
+        //Add Members
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, false)) {
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_members,
+                    "Members",
+                    getApplicationContext().getPackageName() + ".ui.activites.MembersActivity"));
+        }
+
+        //Add Club News
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, false)) {
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_home_clubnews,
+                    "Club News",
+                    getApplicationContext().getPackageName() + ".ui.activites.ClubNewsActivity"));
+        }
+
+        //Add Finance/Your Details
+        if (loadPreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, false)) {
+            dashboardItemsArrayList.add(new DashboardItems(
+                    R.mipmap.ic_my_account,
+                    "Your Account",
+                    getApplicationContext().getPackageName() + ".ui.activites.YourAccountActivity"));
+        }
+
+        /*dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
+                dashboardItemsArrayList,
+                iHandicapPosition,
+                loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
+        dashboardRecyclerAdapter.notifyDataSetChanged();*/
+
+        if (dashboardItemsArrayList.size() <= 6) {
+            setContentView(R.layout.activity_dashboard_six_items);
+        } else {
+            setContentView(R.layout.activity_dashboard_nine_items);
+        }
+
+        initViewResources();
+        callWeatherService();
+
+        setupGridLayout(dashboardItemsArrayList.size());
+
+        // ScrollRecycleView.getListViewSize(gvMenuOptions);
+    }
+
+    private void initViewResources() {
+        /**
+         * Annotate fields with @Bind and a view ID for Butter Knife to find and
+         * automatically cast the corresponding view in your layout.
+         */
+        ButterKnife.bind(DashboardActivity.this);
+
+        try {
+            checkUpdateVersion();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
+        }
+
+        //Initialize adapter.
+        dashboardRecyclerAdapter = new DashboardRecyclerAdapter(this,
+                dashboardItemsArrayList,
+                iHandicapPosition,
+                loadPreferenceValue(ApplicationGlobal.KEY_HCAP_EXACT_STR, "N/A"));
+        gvMenuOptions.setAdapter(dashboardRecyclerAdapter);
+
+        sendTokenToServer();
+
+        //LogOut listener.
+        llLogoutBtn.setOnClickListener(mLogoutListener);
+
+        //Settings click event handle here.
+        llSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(DashboardActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //See the weather of 5 days
+        llWeatherGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(DashboardActivity.this, WeatherDetailActivity.class);
+                intent.putExtra("WEATHER_LOC", strNameOfWeatherLoc);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -488,7 +484,7 @@ public class DashboardActivity extends BaseActivity {
                 });
                 break;
 
-            default:
+            case 6:
                 layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
@@ -496,14 +492,31 @@ public class DashboardActivity extends BaseActivity {
                     }
                 });
                 break;
+
+            case 9:
+            case 7:
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 3 ? 6 : 2;
+                    }
+                });
+                break;
+
+            default:
+                layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return position == 3 ? 6 : 2;
+                    }
+                });
+                break;
         }
-
-
-        // int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
-        // gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
         // Layout Managers:
         gvMenuOptions.setLayoutManager(layoutManager);
+//         int spacingInPixels = 2;//getResources().getDimensionPixelSize(R.dimen.spacing);
+//         gvMenuOptions.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
     }
 
     /**
@@ -511,7 +524,7 @@ public class DashboardActivity extends BaseActivity {
      * Because above two grid items should be in center of below
      * three one.
      */
-   /* public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+   /* private class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private int space;
 
         public SpacesItemDecoration(int space) {
@@ -533,7 +546,6 @@ public class DashboardActivity extends BaseActivity {
             }
         }
     }*/
-
 
     /****************** ++ WEATHER api FEATURE ++ ******************/
 
@@ -596,12 +608,8 @@ public class DashboardActivity extends BaseActivity {
             Drawable drawable = ContextCompat.getDrawable(DashboardActivity.this, resID);
             todayIcon.setImageDrawable(drawable);
 
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_TEMPERATURE, ("" + ((int) (weatherData.getMain().getTemp() - 273.15f)) + "°C"));
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_WEATHER, ("Today, "+(desc.substring(0, 1).toUpperCase() + desc.substring(1))));
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_LOCATION, weatherData.getName());
-//            savePreferenceValue(ApplicationGlobal.KEY_TEMPKEY_IMAGE, ("e"+weatherData.getWeather().get(0).getIcon()));
-
         } else {
+			llWeatherGroup.setVisibility(View.GONE);
             Log.e(LOG_TAG, weatherApiResponse.getMessage());
         }
     }
@@ -681,6 +689,7 @@ public class DashboardActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
         }
     }
 
@@ -767,6 +776,7 @@ public class DashboardActivity extends BaseActivity {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
         }
     }
 
@@ -830,14 +840,19 @@ public class DashboardActivity extends BaseActivity {
              */
             if (featureFlagsResponse.getMessage().equalsIgnoreCase("Success")) {
 
-                //Make Dashboard dynamic according these bool values.
+                 //Make Dashboard dynamic according these bool values.
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_COURSE_DIARY_FEATURE, featureFlagsResponse.getData().getCourseDiaryFeatures());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_COMPETITIONS_FEATURE, featureFlagsResponse.getData().getCompetitionsFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_HANDICAP_FEATURE, featureFlagsResponse.getData().getHandicapFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_MEMBERS_FEATURE, featureFlagsResponse.getData().getMembersFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_CLUB_NEWS_FEATURE, featureFlagsResponse.getData().getClubNewsFeature());
                 savePreferenceBooleanValue(ApplicationGlobal.KEY_YOUR_ACCOUNT_FEATURE, featureFlagsResponse.getData().getYourAccountFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MOTT_FEATURE, featureFlagsResponse.getData().getMOTTFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_FEATURE, featureFlagsResponse.getData().isMyEventFeature());
+                savePreferenceBooleanValue(ApplicationGlobal.KEY_MY_EVENT_ONLY, featureFlagsResponse.getData().isMyEventOnly());
 
+                savePreferenceValue(ApplicationGlobal.KEY_GENDER_FILTER, featureFlagsResponse.getData().getGenderFilter());
+				
                 setGridMenuOptions();
 
             } else {
@@ -847,6 +862,7 @@ public class DashboardActivity extends BaseActivity {
         } catch (Exception e) {
             hideProgress();
             Log.e(LOG_TAG, "" + e.getMessage());
+            reportRollBarException(DashboardActivity.class.getSimpleName(), e.toString());
         }
     }
 
