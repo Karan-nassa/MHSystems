@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/llAddMoreContainer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/tvPlayerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="45dp"
+                android:ellipsize="end"
+                android:text="Chris Ward (+5)"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvPriceCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entry fee: £5.00"
+                android:textColor="@color/colorFF8F8E94"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:layout_marginRight="8dp">
+
+            <ImageView
+                android:id="@+id/ivPlayerRemove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_cancel"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvAddPlayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="@string/text_add_player"
+                android:textColor="@color/colorAA7D4C"
+                android:textSize="16sp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <!-- - Team size 3 and Teams per Tee 1-->
+    <!-- Team size 4 and Teams per Tee 1 -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        android:background="@color/colorE0E0E0" />
+
+</LinearLayout>
