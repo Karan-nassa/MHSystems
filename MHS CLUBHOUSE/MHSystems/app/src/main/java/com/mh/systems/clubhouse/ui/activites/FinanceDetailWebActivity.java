@@ -49,7 +49,7 @@ public class FinanceDetailWebActivity extends BaseActivity {
                 + iTransactionId
                 + ",%22IsTopup%22:"
                 + IsTopup
-                + ",IsDemoApp:true}&aModuleId="
+                + ",Isclubhouse:true}&aModuleId="
                 + ApplicationGlobal.TAG_GCLUB_WEBSERVICES;
 
         tbFinanceDetail = (Toolbar) findViewById(R.id.tbFinanceDetail);

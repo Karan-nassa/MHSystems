@@ -17,7 +17,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="com.mh.systems.demoapp.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.mh.systems.clubhouse.permission.C2D_MESSAGE" />
 
     <!-- [END gcm_permission] -->
     <application
@@ -203,6 +203,16 @@
 
         <activity
             android:name="com.mh.systems.clubhouse.ui.activites.FriendsInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- TEE TIME BOOKING ACTIVITY -->
+        <activity
+            android:name=".ui.activites.TeeTimeBookingActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- TEE TIME BOOKING DETAIL -->
+        <activity
+            android:name=".ui.activites.TeeBookingDetailActivity"
             android:screenOrientation="portrait" />
 
 

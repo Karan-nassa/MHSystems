@@ -45,7 +45,7 @@
                 <com.mh.systems.clubhouse.ui.customfonts.RobotoMediumTextView
 
                     android:id="@+id/tvLoginTitle"
-                    android:name="com.mh.systems.demoapp.customfonts.RobotoMediumTextView"
+                    android:name="com.mh.systems.clubhouse.customfonts.RobotoMediumTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

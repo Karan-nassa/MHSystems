@@ -42,7 +42,7 @@ public class ShowCertificateWebview extends BaseActivity {
                 + ApplicationGlobal.TAG_GCLUB_CALL_ID
                 + ",memberid:"
                 + loadPreferenceValue(ApplicationGlobal.KEY_MEMBERID, "10784")
-                + ",IsDemoApp:true}&aModuleId="
+                + ",Isclubhouse:true}&aModuleId="
                 + ApplicationGlobal.TAG_GCLUB_WEBSERVICES
                 + "&aUserClass="
                 + ApplicationGlobal.TAG_GCLUB_MEMBERS;
