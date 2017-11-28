@@ -1,5 +1,4 @@
 version: 2
-			
 notify:
   webhooks:
     # A list of hashes representing hooks. Only the url field is supported.
@@ -8,12 +7,17 @@ jobs:
   build:
     docker:
      - image: circleci/android:api-25-alpha
-    working_directory: ~/mhsystems_android/MHS Demo/MHSystems/
+    working_directory: ~/mhsystems_android
     steps:
       - checkout
       - run:
             name: chmod permissions
             command: chmod +x ./gradlew
       - run:
+            name: Check Rejected Commits
+            command: ./deploy
+      - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
+
+
