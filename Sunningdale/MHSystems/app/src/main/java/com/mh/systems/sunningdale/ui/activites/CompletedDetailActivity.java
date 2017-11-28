@@ -415,18 +415,6 @@ public class CompletedDetailActivity extends BaseActivity {
                 if (groupPosition != previousGroup)
                     elvListOfMembers.collapseGroup(previousGroup);
                 previousGroup = groupPosition;
-
-             /*   FrameLayout.LayoutParams param = (FrameLayout.LayoutParams) elvListOfMembers.getLayoutParams();
-                param.height = elvListOfMembers.getHeight();
-                elvListOfMembers.setLayoutParams(param);
-                elvListOfMembers.refreshDrawableState();
-
-                int height = 0;
-                for (int i = 0; i < elvListOfMembers.getChildCount(); i++) {
-                    height += elvListOfMembers.getChildAt(i).getMeasuredHeight();
-                    height += elvListOfMembers.getDividerHeight();
-                }
-                elvListOfMembers.getLayoutParams().height = (height + 6) * 5;*/
             }
         });
     }
@@ -464,7 +452,5 @@ public class CompletedDetailActivity extends BaseActivity {
         params.height = height + 200;
         listView.setLayoutParams(params);
         listView.requestLayout();
-
     }
-
 }
